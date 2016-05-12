@@ -28,6 +28,29 @@ class Product
 
     private $errors = null;
 
+    public function logTHIS($message) {
+        return;
+        \Log::info('---'.strtoupper($message).'---');
+
+        $data = [
+            'product' => $this->product,
+            'unitRate' => $this->unitRate,
+            'productTypeEntityId' => $this->productTypeEntityId,
+            'productType' => $this->productType,
+            'productEntityId' => $this->productEntityId,
+            'facilityID' => $this->facilityID,
+            'activeRow' => $this->activeRow,
+            'screenID' => $this->screenID,
+            'debugSproc' => $this->debugSproc,
+            'auditScreenVisit' => $this->auditScreenVisit,
+            'sessionID' => $this->sessionID,
+            'userID' => $this->userID,
+            'errors' => $this->errors,
+        ];
+
+        \Log::info($data);
+    }
+
     public function __construct(array $config = null)
     {
         if ($config !== null) {
@@ -168,6 +191,8 @@ class Product
         $insertCall->bindValue(':iparam_debug_sproc', $this->debugSproc);
         $insertCall->bindValue(':iparam_audit_screen_visit', $this->auditScreenVisit);
 
+        $this->logTHIS('insert');
+
         $insertCall->execute();
 
         $response = $dbConnection
@@ -191,29 +216,57 @@ class Product
      */
     private function update()
     {
-        return;
         $dbConnection = DB::connection('secondDB')->getPdo();
 
-        $updateCall = $dbConnection->prepare(
-            'CALL sproc_sch_class_dml_upd(:iparam_class_entity_id ,:iparam_class_name, :iparam_class_group_entity_id,
-                :iparam_class_category_entity_id,:iparam_reporting_order,:iparam_facility_id, :iparam_active,:iparam_session_id, :iparam_user_id,
-                :iparam_screen_id,:iparam_debug_sproc, :iparam_audit_screen_visit, @oparam_err_flag, @oparam_err_step, @oparam_err_msg);'
-        );
+        $updateCall = $dbConnection->prepare('
+            call sproc_prd_product_dml_upd (
+                :iparam_product_entity_id,
+                :iparam_product_name,
+                :iparam_product_type_entity_id,
+                :iparam_unit_rate,
+                :iparam_active,
+                :iparam_facility_ids,
+                :iparam_session_id,
+                :iparam_user_id,
+                :iparam_screen_id,
+                :iparam_debug_sproc,
+                :iparam_audit_screen_visit,
+                @oparam_err_flag,
+                @oparam_err_step,
+                @oparam_err_msg
+            );
+        ');
 
-        $updateCall->execute([
-            ':iparam_class_entity_id' => $this->classEntityID,
-            ':iparam_class_name' => $this->SchoolClassName,
-            ':iparam_class_group_entity_id' => $this->getClassGroupAsString(),
-            ':iparam_class_category_entity_id' => $this->getClassCategoryAsString(),
-            ':iparam_reporting_order' => $this->ReportingOrder,
-            ':iparam_active' => $this->activeRow,
-            ':iparam_facility_id' => $this->getFacilityAsString(),
-            ':iparam_session_id' => $this->sessionID,
-            ':iparam_user_id' => $this->userID,
-            ':iparam_screen_id' => $this->screenID,
-            ':iparam_debug_sproc' => $this->debugSproc,
-            ':iparam_audit_screen_visit' => $this->auditScreenVisit,
-        ]);
+        // $data = [
+        //     ':iparam_product_entity_id' => $this->productEntityId,
+        //     ':iparam_product_name' => $this->product,
+        //     ':iparam_product_type_entity_id' => $this->productTypeEntityId,
+        //     ':iparam_unit_rate' => floatval($this->unitRate),
+        //     ':iparam_active' => intval($this->activeRow),
+        //     ':iparam_facility_ids' => $this->facilityID,
+        //     ':iparam_session_id' => $this->sessionID,
+        //     ':iparam_user_id' => $this->userID,
+        //     ':iparam_screen_id' => $this->screenID,
+        //     ':iparam_debug_sproc' => $this->debugSproc,
+        //     ':iparam_audit_screen_visit' => $this->auditScreenVisit,
+        // ];
+
+        $updateCall->bindValue(':iparam_product_entity_id', $this->productEntityId);
+        $updateCall->bindValue(':iparam_product_name', $this->product);
+        $updateCall->bindValue(':iparam_product_type_entity_id', $this->productTypeEntityId);
+        $updateCall->bindValue(':iparam_unit_rate', floatval($this->unitRate));
+        $updateCall->bindValue(':iparam_active', intval($this->activeRow));
+        $updateCall->bindValue(':iparam_facility_ids', $this->facilityID);
+        $updateCall->bindValue(':iparam_session_id', $this->sessionID);
+        $updateCall->bindValue(':iparam_user_id', $this->userID);
+        $updateCall->bindValue(':iparam_screen_id', $this->screenID);
+        $updateCall->bindValue(':iparam_debug_sproc', $this->debugSproc);
+        $updateCall->bindValue(':iparam_audit_screen_visit', $this->auditScreenVisit);
+
+       $this->logTHIS('update');
+
+        // $updateCall->execute($data);
+        $updateCall->execute();
 
         $response = $dbConnection->query('SELECT @oparam_err_flag, @oparam_err_step, @oparam_err_msg')->fetch(\PDO::FETCH_ASSOC);
 
@@ -246,14 +299,18 @@ class Product
             );
         ');
 
-        $deleteCall->execute([
+        $data = [
             ':iparam_product_entity_id' => $this->productEntityId,
             ':iparam_session_id' => $this->sessionID,
             ':iparam_user_id' => $this->userID,
             ':iparam_screen_id' => $this->screenID,
             ':iparam_debug_sproc' => $this->debugSproc,
             ':iparam_audit_screen_visit' => $this->auditScreenVisit,
-        ]);
+        ];
+
+        $this->logTHIS('delete');
+
+        $deleteCall->execute($data);
 
         $response = $dbConnection->query('SELECT @oparam_err_flag, @oparam_err_step, @oparam_err_msg')->fetch(\PDO::FETCH_ASSOC);
 

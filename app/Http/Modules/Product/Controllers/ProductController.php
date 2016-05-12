@@ -37,9 +37,9 @@ class ProductController extends Controller
     {
         $model = new Product();
         $productTypes = $this->getProductTypes();
-        $facility = $this->getFacility();
+        $facilities = $this->getFacilities();
 
-        return view('modules.product.Product.form', compact('model', 'productTypes', 'facility'));
+        return view('modules.product.Product.form', compact('model', 'productTypes', 'facilities'));
     }
 
     /**
@@ -107,8 +107,9 @@ class ProductController extends Controller
     public function edit($id)
     {
         $model = $this->getModel($id);
+        dd($model);
         $productTypes = $this->getProductTypes();
-        $facilities = $this->getFacility();
+        $facilities = $this->getFacilities();
 
         return view('modules.product.Product.form', compact('model', 'productTypes', 'facilities'));
     }
@@ -137,7 +138,7 @@ class ProductController extends Controller
         );
     }
 
-    private function getFacility()
+    private function getFacilities()
     {
         return DB::connection('secondDB')->select(
             'SELECT  facility_entity_id, facility_name

@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', '\App\Http\Controllers\User@index');
+Route::get('/login', '\App\Http\Controllers\User@index'); //->middleware('guest');
 Route::post('/login', '\App\Http\Controllers\User@login');
 
 Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], function() {

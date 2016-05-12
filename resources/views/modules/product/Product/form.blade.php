@@ -51,7 +51,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="facility">Product Type</label>
+                            <label class="col-md-4 control-label" for="productType">Product Type</label>
                             <div class="col-md-8">
                                 <select id="productType" class="form-control" name="productType">
                                     @foreach($productTypes as $type)
