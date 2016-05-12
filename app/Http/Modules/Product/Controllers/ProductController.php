@@ -107,7 +107,6 @@ class ProductController extends Controller
     public function edit($id)
     {
         $model = $this->getModel($id);
-        dd($model);
         $productTypes = $this->getProductTypes();
         $facilities = $this->getFacilities();
 
