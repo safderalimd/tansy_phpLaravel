@@ -68,8 +68,8 @@ class User extends Controller
 
         $mysql->query("set @iparm_ipaddress = '{$mysql->escape_string($this->request->ip())}';");
 
-        $sql  = 'call sproc_sec_login(@iparam_login_name,@iparam_password ,@iparm_ipaddress ,@oparam_session_id ,@oparam_user_id,@oparam_login_success, @oparam_login_err,@oparam_err_flag, @oparam_err_step, @oparam_err_msg);';
-        $sql .= 'select @oparam_session_id, @oparam_user_id, @oparam_login_success, @oparam_login_err, @op_err_flag, @oparam_err_step, @oparam_err_msg;';
+        $sql  = 'call sproc_sec_login(@iparam_login_name,@iparam_password ,@iparm_ipaddress ,@oparam_session_id ,@oparam_user_id,@oparam_login_success, @oparam_login_err,@oparam_company_name,@oparam_err_flag, @oparam_err_step, @oparam_err_msg);';
+        $sql .= 'select @oparam_session_id ,@oparam_user_id, @oparam_login_success, @oparam_login_err,@oparam_company_name, @op_err_flag, @oparam_err_step, @oparam_err_msg;';
 
         if ($mysql->multi_query($sql)) {
             if ($result = $mysql->store_result()) {
@@ -92,7 +92,9 @@ class User extends Controller
             if ($loginInfo['@oparam_login_success'] == true && !empty($menuInfo)) {
                 $this->request->session()->put('user.sessionID', $loginInfo['@oparam_session_id']);
                 $this->request->session()->put('user.userID', $loginInfo['@oparam_user_id']);
+                $this->request->session()->put('user.oparamCompanyName', $loginInfo['@oparam_company_name']);
                 $this->request->session()->put('dbMenuInfo', $menuInfo);
+               // dd($this->request->session());
 
                 return true;
             }

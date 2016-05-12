@@ -58,18 +58,6 @@ Route::group(['middleware' => ['web']], function () {
         		Route::get('delete/{id}', '\App\Http\Modules\School\Controllers\SchoolClassController@destroy');
         	});
         	
-        	Route::group(['prefix' => 'product'], function () {
-
-                    Route::get('/', '\App\Http\Modules\Product\Controllers\ProductClassController@index');
-
-                    Route::get('create', '\App\Http\Modules\Product\Controllers\ProductClassController@viewInsertForm');
-                    Route::post('create', '\App\Http\Modules\Product\Controllers\ProductClassController@store');
-
-                    Route::get('edit/{id}', '\App\Http\Modules\Product\Controllers\ProductClassController@edit');
-                    Route::post('edit', '\App\Http\Modules\Product\Controllers\ProductClassController@update');
-
-                    Route::get('delete/{id}', '\App\Http\Modules\Product\Controllers\ProductClassController@destroy');
-            });
         
         
         Route::get('/logout', 'User@logout');

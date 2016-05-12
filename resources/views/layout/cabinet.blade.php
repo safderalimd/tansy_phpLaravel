@@ -59,6 +59,13 @@
 //        var id = $(this).attr('data-form');
 //        $(id).submit();
 //    });
+$('#redbtn').click (function (e) {
+
+   setTimeout(function () {
+       window.location.href = "http://162.243.199.159/cabinet/class"; //will redirect to your blog page (an ex: blog.html)
+    }, 8000); //will call the function after 8 secs.
+
+});
 </script>
 
 </body>

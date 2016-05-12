@@ -2,11 +2,23 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-6 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-body">
+        <div class="col-md-8 sch_class panel-group panel-bdr">
+            <div class="panel panel-primary">
+			    <div class="panel-heading">
+                	<i class="glyphicon glyphicon-th"></i>
+                	<h3>School Class</h3>
+					@if(Request::segment(3) == "edit")
+						<label>- Update</label>
+					@else
+						<label>- Add New Record</label>
+					{{--<label>- Add New Record</label> --}}
+					@endif
+                </div>
+            	
+                
+                <div class="panel-body edit_form_wrapper">
                     @if (count($errors) > 0)
-                        <div class="alert alert-danger">
+						<div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -19,20 +31,22 @@
                           method="POST">
                         {{ csrf_field() }}
          
-
+                        <section class="form_panel">
                         <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
+                            <div class="col-sm-offset-4 col-sm-8">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="activeRow" @if($model->activeRow) checked @endif> Active ?
+									
+									{!! Form::checkbox('activeRow', old('activeRow'), $model->activeRow) !!} Active
+										{{--  <input type="checkbox" name="activeRow" @if($model->activeRow==1) && 'on' != old('activeRow')) checked @endif>--}} Active ?
                                     </label>
                                 </div>
                             </div>
                         </div>
 
                			<div class="form-group">
-                            <label class="col-md-2 control-label" for="name">SchoolClass Name</label>
-                            <div class="col-md-10">
+                            <label class="col-md-4 control-label" for="name">SchoolClass Name</label>
+                            <div class="col-md-8">
                                 <input id="SchoolClassName" class="form-control" type="text" name="SchoolClassName"
                                        value="@if(!empty($model->SchoolClassName)){!!$model->SchoolClassName!!}@else{{ old('SchoolClassName') }}@endif"
                                        placeholder="SchoolClassName">
@@ -40,8 +54,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="facility">Class Group</label>
-                            <div class="col-md-10">
+                            <label class="col-md-4 control-label" for="facility">Class Group</label>
+                            <div class="col-md-8">
                                 <select id="ClassGroup" class="form-control" name="ClassGroup[]">
                                     @foreach($ClassGroup as $item)
                                         @if(!empty(old('ClassGroup')))
@@ -55,8 +69,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="facility">Class Category</label>
-                            <div class="col-md-10">
+                            <label class="col-md-4 control-label" for="facility">Class Category</label>
+                            <div class="col-md-8">
                                 <select id="ClassCategory" class="form-control" name="ClassCategory[]">
                                     @foreach($ClassCategory as $item)
                                         @if(!empty(old('ClassCategory')))
@@ -69,17 +83,17 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="name">Reporting Order</label>
-                            <div class="col-md-10">
-                                <input id="ReportingOrder" class="form-control" type="text" name="ReportingOrder"
-                                       value="@if(!empty($model->SchoolClassName)){!!$model->ReportingOrder!!}@else{{ old('ReportingOrder') }}@endif"
-                                       placeholder="ReportingOrder">
+                            <label class="col-md-4 control-label" for="name">Reporting Order</label>
+                            <div class="col-md-8">
+                                <input id="ReportingOrder" maxlength="3" class="form-control" type="text" name="ReportingOrder"
+                                       value="@if(!empty($model->SchoolClassName) && null == old('ReportingOrder')){!!$model->ReportingOrder!!}@else{{ old('ReportingOrder') }}@endif"
+                                       placeholder="ReportingOrder"><span id="errmsg"></span>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="facility">Facility</label>
-                            <div class="col-md-10">
+                            <label class="col-md-4 control-label" for="facility">Facility</label>
+                            <div class="col-md-4">
                                 <select id="facility" class="form-control" name="facilityID">
                                     @foreach($facility as $item)
                                         @if(!empty(old('facilityID')))
@@ -91,13 +105,31 @@
                                 </select>
                             </div>
                         </div>
-
-
-                        <button class="btn btn-block btn-primary" type="submit">Submit</button>
-                        <a href="{{ url("/cabinet/class")}}" class="btn btn-default btn-block">Back to list</a>
+                        </section>
+						<div class="row_footer">
+                           <div class="col-md-12 text-center grid_footer">
+                                <button class="btn btn-primary grid_btn" type="submit">Save</button>
+                                <a href="{{ url("/cabinet/class")}}" class="btn btn-default cancle_btn">Cancel</a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+        $("#ReportingOrder").keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            //if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) 
+            if ((e.which != 46 || $(this).val().indexOf('.') != -1) && (e.which < 48 || e.which > 57)) {
+                //display error message
+                $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+    });
+</script>

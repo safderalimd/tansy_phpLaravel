@@ -2336,6 +2336,14 @@ textarea.form-control {
 
 input[type="search"] {
   -webkit-appearance: none; }
+ .sch_class .grid_btn{ background:#337ab7; padding:6px 25px; color:#fff; border-color:#337ab7;}
+ .sch_class .grid_btn:hover, .sch_class .cancle_btn{ background:#f9f9f9!important; color:#333; border-color:#ccc}
+ .panel-heading > label {
+  font-size: 22px;
+  padding-left: 20px; font-weight:300; padding-top:2px;
+}
+.grid_footer{ background:#f9f9f9; padding-top:5px; padding-bottom:5px;}
+.sch_class .cancle_btn{background:#c7c7c7;border-color:#9d9d9d;padding:6px 25px;color:#333;} 
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   input[type="date"].form-control,
@@ -3554,6 +3562,7 @@ tbody.collapse.in {
       margin-right: 2px;
       line-height: 1.428571429;
       border: 1px solid transparent;
+
       border-radius: 4px 4px 0 0; }
       .nav-tabs > li > a:hover {
         border-color: #eeeeee #eeeeee #ddd; }

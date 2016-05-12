@@ -72,7 +72,8 @@ class SchoolClassController extends Controller
 
         $model = new SchoolClass($params);
         if ($model->save()) {
-            return redirect(url('/cabinet/class/edit', ['id' => $model->getID()]));
+			 return redirect(url('/cabinet/class'));
+           // return redirect(url('/cabinet/class/edit', ['id' => $model->getID()]));
         }
 
         return redirect('/cabinet/class/create')->withErrors($model->getErrors());
@@ -122,12 +123,15 @@ class SchoolClassController extends Controller
     public function update(SchoolClassFormRequest $request, $id)
     {
         $params = $request->input();
+		
+		//dd($params);
         $params['ClassEntityID'] = $id;
 
         $model = new SchoolClass($params);
 
         if ($model->save()) {
-            return redirect(url('/cabinet/class/edit', ['id' => $model->getID()]));
+           // return redirect(url('/cabinet/class/edit', ['id' => $model->getID()]));
+            return redirect(url('/cabinet/class'));
         }
 
         return redirect(url('/cabinet/class/edit', ['id' => $model->getID()]))->withErrors($model->getErrors());
