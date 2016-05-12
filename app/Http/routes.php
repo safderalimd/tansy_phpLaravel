@@ -48,30 +48,30 @@ Route::group(['middleware' => ['web']], function () {
 
         	Route::group(['prefix' => 'class'], function () {
         		Route::get('/', '\App\Http\Modules\School\Controllers\SchoolClassController@index');
-        	
+
         		Route::get('create', '\App\Http\Modules\School\Controllers\SchoolClassController@create');
         		Route::post('create', '\App\Http\Modules\School\Controllers\SchoolClassController@store');
-        	
+
         		Route::get('edit/{id}', '\App\Http\Modules\School\Controllers\SchoolClassController@edit');
         		Route::post('edit/{id}', '\App\Http\Modules\School\Controllers\SchoolClassController@update');
-        	
+
         		Route::get('delete/{id}', '\App\Http\Modules\School\Controllers\SchoolClassController@destroy');
         	});
-        	
+
         	Route::group(['prefix' => 'product'], function () {
 
-                    Route::get('/', '\App\Http\Modules\Product\Controllers\ProductClassController@index');
+                    Route::get('/', '\App\Http\Modules\Product\Controllers\ProductController@index');
 
-                    Route::get('create', '\App\Http\Modules\Product\Controllers\ProductClassController@viewInsertForm');
-                    Route::post('create', '\App\Http\Modules\Product\Controllers\ProductClassController@store');
+                    Route::get('create', '\App\Http\Modules\Product\Controllers\ProductController@create');
+                    Route::post('create', '\App\Http\Modules\Product\Controllers\ProductController@store');
 
-                    Route::get('edit/{id}', '\App\Http\Modules\Product\Controllers\ProductClassController@edit');
-                    Route::post('edit', '\App\Http\Modules\Product\Controllers\ProductClassController@update');
+                    Route::get('edit/{id}', '\App\Http\Modules\Product\Controllers\ProductController@edit');
+                    Route::post('edit', '\App\Http\Modules\Product\Controllers\ProductController@update');
 
-                    Route::get('delete/{id}', '\App\Http\Modules\Product\Controllers\ProductClassController@destroy');
+                    Route::get('delete/{id}', '\App\Http\Modules\Product\Controllers\ProductController@destroy');
             });
-        
-        
+
+
         Route::get('/logout', 'User@logout');
 
         Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {

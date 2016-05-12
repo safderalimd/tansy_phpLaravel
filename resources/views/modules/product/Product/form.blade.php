@@ -6,15 +6,13 @@
             <div class="panel panel-primary">
 			    <div class="panel-heading">
                 	<i class="glyphicon glyphicon-th"></i>
-                	<h3>School Class</h3>
+                	<h3>Product</h3>
 					@if(Request::segment(3) == "edit")
 						<label>- Update</label>
 					@else
 						<label>- Add New Record</label>
-					{{--<label>- Add New Record</label> --}}
 					@endif
                 </div>
-
 
                 <div class="panel-body edit_form_wrapper">
                     @if (count($errors) > 0)
@@ -26,8 +24,9 @@
                             </ul>
                         </div>
                     @endif
+
                     <form class="form-horizontal"
-                          action="@if($model->isNewRecord()){{ url("/cabinet/class/create")}} @else {{url("/cabinet/class/edit/{$model->getID()}")}} @endif"
+                          action="@if($model->isNewRecord()){{ url("/cabinet/product/create")}} @else {{url("/cabinet/product/edit/{$model->getID()}")}} @endif"
                           method="POST">
                         {{ csrf_field() }}
 
@@ -36,7 +35,6 @@
                             <div class="col-sm-offset-4 col-sm-8">
                                 <div class="checkbox">
                                     <label>
-
 									{!! Form::checkbox('activeRow', old('activeRow'), $model->activeRow) !!} Active
                                     </label>
                                 </div>
@@ -44,23 +42,23 @@
                         </div>
 
                			<div class="form-group">
-                            <label class="col-md-4 control-label" for="name">SchoolClass Name</label>
+                            <label class="col-md-4 control-label" for="name">Product Name</label>
                             <div class="col-md-8">
-                                <input id="SchoolClassName" class="form-control" type="text" name="SchoolClassName"
-                                       value="@if(!empty($model->SchoolClassName)){!!$model->SchoolClassName!!}@else{{ old('SchoolClassName') }}@endif"
-                                       placeholder="SchoolClassName">
+                                <input id="product" class="form-control" type="text" name="product"
+                                       value="@if(!empty($model->product)){!!$model->product!!}@else{{ old('product') }}@endif"
+                                       placeholder="Product Name">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="facility">Class Group</label>
+                            <label class="col-md-4 control-label" for="facility">Product Type</label>
                             <div class="col-md-8">
-                                <select id="ClassGroup" class="form-control" name="ClassGroup[]">
-                                    @foreach($ClassGroup as $item)
-                                        @if(!empty(old('ClassGroup')))
-                                            <option @if ($item['class_group_entity_id'] == old('ClassGroup')[0]) selected @endif value="{!!$item['class_group_entity_id']!!}">{!!$item['class_group']!!}</option>
+                                <select id="productType" class="form-control" name="productType">
+                                    @foreach($productTypes as $item)
+                                        @if(!empty(old('productTypes')))
+                                            <option @if ($item['product_type_entity_id'] == old('productTypes')[0]) selected @endif value="{!!$item['product_type_entity_id']!!}">{!!$item['product_type']!!}</option>
                                         @else
-                                            <option @if (!$model->isNewRecord() && in_array($item['class_group_entity_id'], $model->getClassGroups())) selected @endif value="{!!$item['class_group_entity_id']!!}">{!!$item['class_group']!!}</option>
+                                            <option @if (!$model->isNewRecord() && in_array($item['product_type_entity_id'], $model->getProductTypes())) selected @endif value="{!!$item['product_type_entity_id']!!}">{!!$item['product_type']!!}</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -68,30 +66,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="facility">Class Category</label>
-                            <div class="col-md-8">
-                                <select id="ClassCategory" class="form-control" name="ClassCategory[]">
-                                    @foreach($ClassCategory as $item)
-                                        @if(!empty(old('ClassCategory')))
-                                            <option @if ($item['class_category_entity_id'] == old('ClassCategory')[0]) selected @endif value="{!!$item['class_category_entity_id']!!}">{!!$item['class_category']!!}</option>
-                                        @else
-                                            <option @if (!$model->isNewRecord() && in_array($item['class_category_entity_id'], $model->getClassCategorys())) selected @endif value="{!!$item['class_category_entity_id']!!}">{!!$item['class_category']!!}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="name">Reporting Order</label>
-                            <div class="col-md-8">
-                                <input id="ReportingOrder" maxlength="3" class="form-control" type="text" name="ReportingOrder"
-                                       value="@if(!empty($model->SchoolClassName) && null == old('ReportingOrder')){!!$model->ReportingOrder!!}@else{{ old('ReportingOrder') }}@endif"
-                                       placeholder="ReportingOrder"><span id="errmsg"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="facility">Facility</label>
+                            <label class="col-md-4 control-label" for="facility">Facility Type</label>
                             <div class="col-md-4">
                                 <select id="facility" class="form-control" name="facilityID">
                                     @foreach($facility as $item)
@@ -104,11 +79,19 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="unit-rate">Unit Rate</label>
+                            <div class="col-md-8">
+                                <input id="unit-rate" class="form-control" type="text" name="unitRate" value="@if(!empty($model->unitRate)){!!$model->unitRate!!}@else{{ old('unitRate') }}@endif" placeholder="Unit Rate">
+                            </div>
+                         </div>
+
                         </section>
 						<div class="row_footer">
                            <div class="col-md-12 text-center grid_footer">
                                 <button class="btn btn-primary grid_btn" type="submit">Save</button>
-                                <a href="{{ url("/cabinet/class")}}" class="btn btn-default cancle_btn">Cancel</a>
+                                <a href="{{ url("/cabinet/product")}}" class="btn btn-default cancle_btn">Cancel</a>
                             </div>
                         </div>
                     </form>
