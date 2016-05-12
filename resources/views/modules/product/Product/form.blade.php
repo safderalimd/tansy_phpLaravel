@@ -54,11 +54,11 @@
                             <label class="col-md-4 control-label" for="facility">Product Type</label>
                             <div class="col-md-8">
                                 <select id="productType" class="form-control" name="productType">
-                                    @foreach($productTypes as $item)
+                                    @foreach($productTypes as $type)
                                         @if(!empty(old('productTypes')))
-                                            <option @if ($item['product_type_entity_id'] == old('productTypes')[0]) selected @endif value="{!!$item['product_type_entity_id']!!}">{!!$item['product_type']!!}</option>
+                                            <option @if ($type['product_type_entity_id'] == old('productTypes')[0]) selected @endif value="{!!$type['product_type_entity_id']!!}">{!!$type['product_type']!!}</option>
                                         @else
-                                            <option @if (!$model->isNewRecord() && in_array($item['product_type_entity_id'], $model->getProductTypes())) selected @endif value="{!!$item['product_type_entity_id']!!}">{!!$item['product_type']!!}</option>
+                                            <option @if ($model->hasType($type)) selected @endif value="{!!$type['product_type_entity_id']!!}">{!!$type['product_type']!!}</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -69,11 +69,11 @@
                             <label class="col-md-4 control-label" for="facility">Facility Type</label>
                             <div class="col-md-4">
                                 <select id="facility" class="form-control" name="facilityID">
-                                    @foreach($facility as $item)
+                                    @foreach($facilities as $facility)
                                         @if(!empty(old('facilityID')))
-                                            <option @if ($item['facility_entity_id'] == old('facilityID')) selected @endif value="{!!$item['facility_entity_id']!!}">{!!$item['facility_name']!!}</option>
+                                            <option @if ($facility['facility_entity_id'] == old('facilityID')) selected @endif value="{!!$facility['facility_entity_id']!!}">{!!$facility['facility_name']!!}</option>
                                         @else
-                                            <option @if (!$model->isNewRecord() && in_array($item['facility_entity_id'], $model->getFacilitates())) selected @endif value="{!!$item['facility_entity_id']!!}">{!!$item['facility_name']!!}</option>
+                                            <option @if ($model->hasFacility($facility)) selected @endif value="{!!$facility['facility_entity_id']!!}">{!!$facility['facility_name']!!}</option>
                                         @endif
                                     @endforeach
                                 </select>

@@ -9,9 +9,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class Product
 {
 
-    private $product;
-    private $unitRate;
+    public $product;
+    public $unitRate;
     private $productTypeEntityId;
+    private $productType;
     private $productEntityId;
     private $facilityID;
 
@@ -52,12 +53,24 @@ class Product
             $this->product = $config['product'];
         }
 
+        if (isset($config['product_entity_id'])) {
+            $this->productEntityId = $config['product_entity_id'];
+        }
+
         if (isset($config['productType'])) {
             $this->productTypeEntityId = $config['productType'];
+        } elseif (isset($config['product_type_entity_id'])) {
+            $this->productTypeEntityId = $config['product_type_entity_id'];
+        }
+
+        if (isset($config['product_type'])) {
+            $this->productType = $config['product_type'];
         }
 
         if (isset($config['unitRate'])) {
             $this->unitRate = $config['unitRate'];
+        } elseif (isset($config['unit_rate'])) {
+            $this->unitRate = $config['unit_rate'];
         }
 
         if (isset($config['facilityID'])) {
@@ -83,14 +96,31 @@ class Product
         return $this->productEntityId;
     }
 
-    public function getProductTypes()
+    public function hasType($type)
     {
-        return [];
+        if ($this->isNewRecord()) {
+            return false;
+        }
+
+        if ($type['product_type_entity_id'] == $this->productTypeEntityId) {
+            return true;
+        }
+
+        return false;
     }
 
-    public function getFacilitates()
+
+    public function hasFacility($facility)
     {
-        return [];
+        if ($this->isNewRecord()) {
+            return false;
+        }
+
+        if ($facility['facility_entity_id'] == $this->facilityID) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -124,7 +154,8 @@ class Product
                 @oparam_product_entity_id,
                 @oparam_err_flag,
                 @oparam_err_step,
-                @oparam_err_msg);
+                @oparam_err_msg
+            );
         ');
 
         $insertCall->bindValue(':iparam_product_name', $this->product);
@@ -199,17 +230,24 @@ class Product
      */
     public function delete()
     {
-        return;
         $dbConnection = DB::connection('secondDB')->getPdo();
 
         $deleteCall = $dbConnection->prepare(
-            'CALL sproc_sch_class_dml_del(:iparam_class_entity_id, :iparam_session_id,
-            :iparam_user_id, :iparam_screen_id, :iparam_debug_sproc, :iparam_audit_screen_visit,
-            @oparam_err_flag, @oparam_err_step, @oparam_err_msg);'
-        );
+            'call sproc_prd_product_dml_del(
+                :iparam_product_entity_id,
+                :iparam_session_id,
+                :iparam_user_id,
+                :iparam_screen_id,
+                :iparam_debug_sproc,
+                :iparam_audit_screen_visit,
+                @oparam_err_flag,
+                @oparam_err_step,
+                @oparam_err_msg
+            );
+        ');
 
         $deleteCall->execute([
-            ':iparam_class_entity_id' => $this->classEntityID,
+            ':iparam_product_entity_id' => $this->productEntityId,
             ':iparam_session_id' => $this->sessionID,
             ':iparam_user_id' => $this->userID,
             ':iparam_screen_id' => $this->screenID,
@@ -230,6 +268,28 @@ class Product
     public function getErrors()
     {
         return $this->errors;
+    }
+
+    /**
+     * @param int $id
+     * @return SchoolClass
+     */
+    public static function getByID($id)
+    {
+        $configArray = DB::connection('secondDB')
+            ->select('SELECT product, product_type, unit_rate, product_type_entity_id, product_entity_id
+             FROM view_prd_lkp_product
+             WHERE product_entity_id = :productEntityId
+             LIMIT 1;', ['productEntityId' => $id]
+        );
+
+        $model = new Product((array)$configArray[0]);
+
+        if ($model->getID() === null) {
+            throw new NotFoundHttpException('Not found entity object');
+        }
+
+        return $model;
     }
 
 }

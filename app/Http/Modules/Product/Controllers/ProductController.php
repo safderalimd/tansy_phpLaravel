@@ -60,6 +60,74 @@ class ProductController extends Controller
         return redirect('/cabinet/product/create')->withErrors($model->getErrors());
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param ProductFormRequest|Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(ProductFormRequest $request, $id)
+    {
+        $params = $request->input();
+        $params['product_entity_id'] = $id;
+
+        $model = new Product($params);
+        if ($model->save()) {
+            return redirect(url('/cabinet/product'));
+        }
+
+        return redirect(url('/cabinet/product/edit', ['id' => $model->getID()]))
+            ->withErrors($model->getErrors());
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $model = $this->getModel($id);
+
+        if ($model->delete()) {
+            return redirect('/cabinet/product');
+        }
+
+        return redirect('/cabinet/product')->withErrors($model->getErrors());
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $model = $this->getModel($id);
+        $productTypes = $this->getProductTypes();
+        $facilities = $this->getFacility();
+
+        return view('modules.product.Product.form', compact('model', 'productTypes', 'facilities'));
+    }
+
+    /**
+     * @param int $id
+     * @return Product
+     */
+    private function getModel($id)
+    {
+        $model = Product::getByID($id);
+
+        if ($model === null) {
+            throw new NotFoundHttpException('Not found entity object');
+        }
+
+        return $model;
+    }
+
     private function getProductTypes()
     {
         return DB::connection('secondDB')->select(

@@ -22,6 +22,16 @@ class User extends Controller
     private $dbConnection;
 
     /**
+     * Show login screen.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('login');
+    }
+
+    /**
      * @param Requests\Login $request
      * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */

@@ -19,7 +19,7 @@ class SchoolClass
     /** @var array int */
     private $ClassCategoryIDs;
     /** @var integer */
-    public $ReportingOrder;   
+    public $ReportingOrder;
     /** @var array int */
     private $facilityIDs;
 
@@ -79,8 +79,8 @@ class SchoolClass
         }
         if (isset($config['class_group_entity_id'])) {
         	$this->setClassGroup($config['class_group_entity_id']);
-        }        
- 
+        }
+
         if (!$this->isNewRecord()) {
 //        	$this->loadClassCategory();
         }
@@ -93,8 +93,8 @@ class SchoolClass
         elseif(isset($config['class_name'])) {
             $this->setClassCategory($config['class_category_entity_id']);
         }
-        
-        
+
+
         if (isset($config['ReportingOrder'])) {
             $this->ReportingOrder = $config['ReportingOrder'];
         } elseif(isset($config['reporting_order'])) {
@@ -186,7 +186,7 @@ class SchoolClass
         return false;
     }
 
-    
+
 
     /**
      * @return array
@@ -195,7 +195,7 @@ class SchoolClass
     {
     	return $this->ClassGroupIDs;
     }
-    
+
     /**
      * @param $ClassGroupes array|string
      */
@@ -217,7 +217,7 @@ class SchoolClass
             $this->ClassGroupIDs[] = $ClassGroupes;
         }
     }
-    
+
     /**
      * @return string
      */
@@ -226,16 +226,16 @@ class SchoolClass
     	if (is_array($this->ClassGroupIDs)) {
     		return implode(',', $this->ClassGroupIDs);
     	}
-    
+
     	return false;
     }
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
     /**
      * @return array
      */
@@ -243,7 +243,7 @@ class SchoolClass
     {
     	return $this->ClassCategoryIDs;
     }
-    
+
     /**
      * @param $ClassCategoryes array|string
      */
@@ -265,7 +265,7 @@ class SchoolClass
             $this->ClassCategoryIDs[] = $ClassCategoryes;
         }
     }
-    
+
     /**
      * @return string
      */
@@ -274,16 +274,16 @@ class SchoolClass
     	if (is_array($this->ClassCategoryIDs)) {
     		return implode(',', $this->ClassCategoryIDs);
     	}
-    
+
     	return false;
     }
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
     /**
      * Check if this new record
      *
@@ -436,7 +436,7 @@ class SchoolClass
 
         return $response;
     }
-    
+
     private function loadClassGroup()
     {
     	$response = DB::connection('secondDB')->select(
@@ -448,12 +448,12 @@ class SchoolClass
              ORDER BY class_group;',
     			['class_group_entity_id' => $this->classEntityID]
     			);
-    
+
     	$this->setClassGroup(array_column($response, 'class_group_entity_id'));
-    
+
     	return $response;
     }
-    
+
     private function loadClassCategory()
     {
     	$response = DB::connection('secondDB')->select(
@@ -465,10 +465,10 @@ class SchoolClass
              ORDER BY class_category;',
     			['class_category_entity_id' => $this->classEntityID]
     			);
-    
+
     	$this->setClassGroup(array_column($response, 'class_category_entity_id'));
-    
+
     	return $response;
-    }    
-    
+    }
+
 }
