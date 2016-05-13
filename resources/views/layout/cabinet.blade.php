@@ -27,8 +27,11 @@
     </footer>
 
 </div>
+
 <script src="/js/app.js"></script>
+
 <script>
+    // for tables
     $( document ).ready(function() {
         $('.date').datepicker({
             format: 'yyyy-mm-dd',
@@ -40,6 +43,7 @@
 </script>
 
 <script type="text/javascript">
+    // for bootstrap modal
     $('.formConfirm').on('click', function(e) {
         e.preventDefault();
         var el = $(this);
@@ -54,19 +58,9 @@
 
         $('#formConfirm').find('#frm_submit').attr('href', dataForm);
     });
-//
-//    $('#formConfirm').on('click', '#frm_submit', function(e) {
-//        var id = $(this).attr('data-form');
-//        $(id).submit();
-//    });
-$('#redbtn').click (function (e) {
-
-   setTimeout(function () {
-       window.location.href = "http://162.243.199.159/cabinet/class"; //will redirect to your blog page (an ex: blog.html)
-    }, 8000); //will call the function after 8 secs.
-
-});
 </script>
+
+@yield('scripts')
 
 </body>
 </html>
