@@ -11,21 +11,13 @@
 						<label>- Update</label>
 					@else
 						<label>- Add New Record</label>
-					{{--<label>- Add New Record</label> --}}
 					@endif
                 </div>
 
-
                 <div class="panel-body edit_form_wrapper">
-                    @if (count($errors) > 0)
-						<div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+
+                    @include('commons.errors')
+
                     <form class="form-horizontal"
                           action="@if($model->isNewRecord()){{ url("/cabinet/class/create")}} @else {{url("/cabinet/class/edit/{$model->getID()}")}} @endif"
                           method="POST">
