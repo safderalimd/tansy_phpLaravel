@@ -15,6 +15,37 @@ class MenuMiddleware
     private function init()
     {
         $this->menuInfo = session('dbMenuInfo');
+
+        $this->setCurrentModule();
+    }
+
+    public function setCurrentModule()
+    {
+        $currentPath = \Request::path();
+        $currentModule = '';
+
+        $modules = $this->getModules();
+        foreach ($modules as $module) {
+            if ('cabinet/'.$this->link($module) == $currentPath) {
+                $currentModule = $module;
+                break;
+            }
+        }
+
+        if (empty($currentModule)) {
+            foreach ($this->menuInfo as $item) {
+                if ('cabinet/'.$this->link($item['screen_name']) == $currentPath) {
+                    $currentModule = $this->link($item['module_name']);
+                    break;
+                }
+            }
+        }
+
+        if (empty($currentModule)) {
+            $currentModule = 'admin';
+        }
+
+        \View::share('currentModule', $currentModule);
     }
 
     /**
@@ -26,8 +57,8 @@ class MenuMiddleware
     {
         $this->init();
 
-        $this->generateTopBar($this->getModules());
-        $this->generaSideBar();
+        $this->generateTopMenubar($this->getModules());
+        $this->generateSideBar();
 
         return $next($request);
     }
@@ -44,24 +75,23 @@ class MenuMiddleware
      * @param array $modules
      * @return \Lavary\Menu\Builder
      */
-    private function generateTopBar(array $modules)
+    private function generateTopMenubar(array $modules)
     {
         $topMenu = Menu::make('topbar', function ($menu) use ($modules) {
             foreach ($modules as $module) {
-                $menu->add($module, ['route' => ['cabinet', 'module' => $module]]);
+                $menu->add(ucwords($module), ['route' => ['cabinet', 'module' => $module]]);
             }
 
-            $menu->add('logout', 'cabinet/logout');
+            $menu->add('Logout', 'cabinet/logout');
         });
 
         return $topMenu;
     }
 
-
     /**
      * @return \Lavary\Menu\Builder
      */
-    private function generaSideBar()
+    private function generateSideBar()
     {
         $menuInfoCollection = collect($this->menuInfo);
 
@@ -81,9 +111,15 @@ class MenuMiddleware
         foreach ($this->menuInfo as $item) {
             $module = camel_case($item['module_name']);
             $group = camel_case($item['link_group']);
-            $sideMenu->$group->add($item['link_name'], "cabinet/" . camel_case($item['screen_name']));
+            $url = "cabinet/" . $this->link($item['screen_name']);
+            $sideMenu->$group->add($item['link_name'], $url);
         }
 
         return $sideMenu;
+    }
+
+    public function link($name) {
+        $name = strtolower($name);
+        return str_replace(' ', '-', $name);
     }
 }

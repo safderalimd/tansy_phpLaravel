@@ -44,7 +44,6 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
     Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {
-        session(['cabinet.tab' => $module]);
         return view('cabinet.main');
     }]);
 
