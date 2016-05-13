@@ -3,12 +3,9 @@
 namespace App\Http\Modules\Product\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Modules\Product\Models\Product;
 use App\Http\Modules\Product\Requests\ProductFormRequest;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
 use App\Http\Modules\Product\ProductRepository;
 
 class ProductController extends Controller
@@ -41,7 +38,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param ProductFormRequest|Request $request
+     * @param ProductFormRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(ProductFormRequest $request)

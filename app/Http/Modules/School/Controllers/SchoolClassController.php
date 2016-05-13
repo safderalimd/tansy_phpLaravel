@@ -2,13 +2,10 @@
 
 namespace App\Http\Modules\School\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\School\Models\SchoolClass;
 use App\Http\Modules\School\Requests\SchoolClassFormRequest;
-use DB;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
 use App\Http\Modules\School\SchoolClassRepository;
 
 class SchoolClassController extends Controller
@@ -68,7 +65,7 @@ class SchoolClassController extends Controller
      */
     public function edit(SchoolClassRepository $repo, $id)
     {
-        $model = $this->getModel($id);
+        $model = SchoolClass::findOrFail($id);
         $facility = $repo->getFacilities();
         $ClassGroup = $repo->getClassGroups();
         $ClassCategory = $repo->getClassCategories();
@@ -108,7 +105,7 @@ class SchoolClassController extends Controller
      */
     public function destroy($id)
     {
-        $model = $this->getModel($id);
+        $model = SchoolClass::findOrFail($id);
 
         if ($model->delete()) {
             return redirect('/cabinet/class');
@@ -116,20 +113,4 @@ class SchoolClassController extends Controller
 
         return redirect('/cabinet/class')->withErrors($model->getErrors());
     }
-
-    /**
-     * @param int $id
-     * @return SchoolClass
-     */
-    private function getModel($id)
-    {
-        $model = SchoolClass::getByID($id);
-
-        if ($model === null) {
-            throw new NotFoundHttpException('Not found entity object');
-        }
-
-        return $model;
-    }
-
 }

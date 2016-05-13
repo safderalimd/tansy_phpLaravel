@@ -133,9 +133,13 @@ class SchoolClass
              LIMIT 1;', ['classEntityID' => $id]
             );
 
-        $model = new SchoolClass((array)$configArray[0]);
+        return new SchoolClass((array)$configArray[0]);
+    }
 
-        if ($model->getID() === null) {
+    public static function findOrFail($id) {
+        $model = SchoolClass::getByID($id);
+
+        if ($model === null || $model->getID() === null) {
             throw new NotFoundHttpException('Not found entity object');
         }
 
@@ -186,8 +190,6 @@ class SchoolClass
         return false;
     }
 
-
-
     /**
      * @return array
      */
@@ -230,12 +232,6 @@ class SchoolClass
     	return false;
     }
 
-
-
-
-
-
-
     /**
      * @return array
      */
@@ -277,12 +273,6 @@ class SchoolClass
 
     	return false;
     }
-
-
-
-
-
-
 
     /**
      * Check if this new record
