@@ -21,12 +21,11 @@ class MenuMiddleware
 
     public function setCurrentModule()
     {
-        $currentPath = \Request::path();
         $currentModule = '';
 
         $modules = $this->getModules();
         foreach ($modules as $module) {
-            if ('cabinet/'.$this->link($module) == $currentPath) {
+            if ($this->isSamePath($module)) {
                 $currentModule = $module;
                 break;
             }
@@ -34,7 +33,7 @@ class MenuMiddleware
 
         if (empty($currentModule)) {
             foreach ($this->menuInfo as $item) {
-                if ('cabinet/'.$this->link($item['screen_name']) == $currentPath) {
+                if ($this->isSamePath($item['screen_name'])) {
                     $currentModule = $this->link($item['module_name']);
                     break;
                 }
@@ -46,6 +45,17 @@ class MenuMiddleware
         }
 
         \View::share('currentModule', $currentModule);
+    }
+
+    public function isSamePath($path)
+    {
+        $path = 'cabinet/'.$this->link($path);
+
+        if (\Request::path() == $path || \Request::is($path.'/*')) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
