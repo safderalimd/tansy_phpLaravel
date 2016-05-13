@@ -1,5 +1,7 @@
 @extends('layout.cabinet')
 
+@section('title', 'School Class')
+
 @section('content')
     <div class="row">
         <div class="col-md-8 sch_class panel-group panel-bdr">
