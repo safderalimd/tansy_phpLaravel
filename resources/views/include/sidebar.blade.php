@@ -1,4 +1,3 @@
-{{--{!! $sidebar->asUl(['class' => 'nav nav-pills nav-stacked']) !!}--}}
 <?php
     $tab = session('cabinet.tab');
     try {
