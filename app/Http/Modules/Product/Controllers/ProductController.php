@@ -17,8 +17,8 @@ class ProductController extends Controller
      */
     public function index(ProductRepository $repo)
     {
-        $rows = $repo->getAllProducts();
-        return view('modules.product.product.list', ['data' => $rows]);
+        $products = $repo->getAllProducts();
+        return view('modules.product.product.list', compact('products'));
     }
 
     /**

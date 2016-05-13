@@ -20,22 +20,22 @@
                         </tr>
                     </thead>
                     <tbody>
-            @foreach($data as $row)
+            @foreach($products as $product)
             <tr>
-                <td>{{$row['product']}}</td>
-                <td>{{$row['product_type']}}</td>
+                <td>{{$product['product']}}</td>
+                <td>{{$product['product_type']}}</td>
                 <td>
-                    @if ($row['active'])
+                    @if ($product['active'])
                         <strong>Active</strong>
                     @else
                         Inactive
                     @endif
                 </td>
                 <td>
-                    <a class="btn btn-default" href="{{url("/cabinet/product/edit/{$row['product_entity_id']}")}}" title="Edit">
+                    <a class="btn btn-default" href="{{url("/cabinet/product/edit/{$product['product_entity_id']}")}}" title="Edit">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
-                    <a class="btn btn-default formConfirm" href="{{url("/cabinet/product/delete/{$row['product_entity_id']}")}}"
+                    <a class="btn btn-default formConfirm" href="{{url("/cabinet/product/delete/{$product['product_entity_id']}")}}"
                        title="Delete"
                        data-title="Delete Class"
                        data-message="Are you sure to delete the selected record?"
