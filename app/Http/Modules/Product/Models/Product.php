@@ -68,6 +68,8 @@ class Product
     {
         if (isset($config['activeRow'])) {
             $this->activeRow = true;
+        } elseif (isset($config['active'])) {
+            $this->activeRow = true;
         } else {
             $this->activeRow = false;
         }
@@ -334,7 +336,7 @@ class Product
     public static function getByID($id)
     {
         $configArray = DB::connection('secondDB')
-            ->select('SELECT product, product_type, unit_rate, product_type_entity_id, product_entity_id
+            ->select('SELECT product, product_type, unit_rate, product_type_entity_id, product_entity_id, active
              FROM view_prd_lkp_product
              WHERE product_entity_id = :productEntityId
              LIMIT 1;', ['productEntityId' => $id]

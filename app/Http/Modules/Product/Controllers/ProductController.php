@@ -20,7 +20,7 @@ class ProductController extends Controller
     public function index()
     {
         $rows = DB::connection('secondDB')->select(
-            'SELECT  product, product_type, unit_rate, product_type_entity_id, product_entity_id
+            'SELECT  product, product_type, unit_rate, product_type_entity_id, product_entity_id, active
              FROM view_prd_lkp_product
              ORDER BY product DESC;'
         );

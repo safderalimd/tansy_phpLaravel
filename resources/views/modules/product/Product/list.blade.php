@@ -15,6 +15,7 @@
                         <tr>
                             <th>Product Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                             <th>Product Type <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                            <th>Active</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -23,6 +24,13 @@
             <tr>
                 <td>{{$row['product']}}</td>
                 <td>{{$row['product_type']}}</td>
+                <td>
+                    @if ($row['active'])
+                        <strong>Active</strong>
+                    @else
+                        Inactive
+                    @endif
+                </td>
                 <td>
                     <a class="btn btn-default" href="{{url("/cabinet/product/edit/{$row['product_entity_id']}")}}" title="Edit">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
