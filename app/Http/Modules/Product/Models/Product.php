@@ -345,7 +345,8 @@ class Product
         return new Product((array)$configArray[0]);
     }
 
-    public static function findOrFail($id) {
+    public static function findOrFail($id)
+    {
         $model = Product::getByID($id);
 
         if ($model === null || $model->getID() === null) {

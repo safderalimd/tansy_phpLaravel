@@ -20,12 +20,12 @@ Route::post('/login', '\App\Http\Controllers\User@login');
 
 Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], function() {
 
-    Route::get('fiscalYear/', 'Organizations\Controllers\FiscalYearController@index');
-    Route::get('fiscalYear/create', 'Organizations\Controllers\FiscalYearController@create');
-    Route::post('fiscalYear/create', 'Organizations\Controllers\FiscalYearController@store');
-    Route::get('fiscalYear/edit/{id}', 'Organizations\Controllers\FiscalYearController@edit');
-    Route::post('fiscalYear/edit/{id}', 'Organizations\Controllers\FiscalYearController@update');
-    Route::get('fiscalYear/delete/{id}', 'Organizations\Controllers\FiscalYearController@destroy');
+    Route::get('fiscal-year/', 'Organizations\Controllers\FiscalYearController@index');
+    Route::get('fiscal-year/create', 'Organizations\Controllers\FiscalYearController@create');
+    Route::post('fiscal-year/create', 'Organizations\Controllers\FiscalYearController@store');
+    Route::get('fiscal-year/edit/{id}', 'Organizations\Controllers\FiscalYearController@edit');
+    Route::post('fiscal-year/edit/{id}', 'Organizations\Controllers\FiscalYearController@update');
+    Route::get('fiscal-year/delete/{id}', 'Organizations\Controllers\FiscalYearController@destroy');
 
     Route::get('class/', 'School\Controllers\SchoolClassController@index');
     Route::get('class/create', 'School\Controllers\SchoolClassController@create');

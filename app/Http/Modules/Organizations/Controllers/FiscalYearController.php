@@ -2,48 +2,44 @@
 
 namespace App\Http\Modules\Organizations\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Organizations\Models\FiscalYear;
 use App\Http\Modules\Organizations\Requests\FiscalYearFormRequest;
-use DB;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Http\Modules\Organizations\FiscalYearRepository;
 
 class FiscalYearController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param  FiscalYearRepository $repo
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FiscalYearRepository $repo)
     {
-        $rows = DB::connection('secondDB')->select(
-            'SELECT  fiscal_year_entity_id, fiscal_year, start_date, end_date, current_fiscal_year
-             FROM view_org_fiscal_year_detail
-             ORDER BY start_date DESC;'
-        );
-
-        return view('modules.organizations.fiscalYear.list', ['data' => $rows]);
+        $rows = $repo->getAllFiscalYears();
+        return view('modules.organizations.fiscal-year.list', ['data' => $rows]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param  FiscalYearRepository $repo
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(FiscalYearRepository $repo)
     {
         $model = new FiscalYear();
-        $facility = $this->getFacility();
+        $facility = $repo->getFacilities();
 
-        return view('modules.organizations.fiscalYear.form', ['model' => $model, 'facility' => $facility]);
+        return view('modules.organizations.fiscal-year.form', ['model' => $model, 'facility' => $facility]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param FiscalYearFormRequest|Request $request
+     * @param FiscalYearFormRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(FiscalYearFormRequest $request)
@@ -52,24 +48,25 @@ class FiscalYearController extends Controller
 
         $model = new FiscalYear($params);
         if ($model->save()) {
-            return redirect(url('/cabinet/fiscalYear/edit', ['id' => $model->getID()]));
+            return redirect('/cabinet/fiscal-year');
         }
 
-        return redirect('/cabinet/fiscalYear/create')->withErrors($model->getErrors());
+        return redirect('/cabinet/fiscal-year/create')->withErrors($model->getErrors());
     }
 
     /**
      * Show the form for editing the specified resource.
      *
+     * @param  FiscalYearRepository $repo
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(FiscalYearRepository $repo, $id)
     {
-        $model = $this->getModel($id);
-        $facility = $this->getFacility();
+        $model = FiscalYear::findOrFail($id);
+        $facility = $repo->getFacilities();
 
-        return view('modules.organizations.fiscalYear.form', ['model' => $model, 'facility' => $facility]);
+        return view('modules.organizations.fiscal-year.form', ['model' => $model, 'facility' => $facility]);
     }
 
     /**
@@ -87,10 +84,10 @@ class FiscalYearController extends Controller
         $model = new FiscalYear($params);
 
         if ($model->save()) {
-            return redirect(url('/cabinet/fiscalYear/edit', ['id' => $model->getID()]));
+            return redirect('/cabinet/fiscal-year');
         }
 
-        return redirect('/cabinet/fiscalYear/edit')->withErrors($model->getErrors());
+        return redirect(url('/cabinet/fiscal-year/edit', ['id' => $model->getID()]))->withErrors($model->getErrors());
     }
 
     /**
@@ -101,38 +98,12 @@ class FiscalYearController extends Controller
      */
     public function destroy($id)
     {
-        $model = $this->getModel($id);
+        $model = FiscalYear::findOrFail($id);
 
         if ($model->delete()) {
-            return redirect('/cabinet/fiscalYear');
+            return redirect('/cabinet/fiscal-year');
         }
 
-        return redirect('/cabinet/fiscalYear')->withErrors($model->getErrors());
-    }
-
-    /**
-     * @param int $id
-     * @return FiscalYear
-     */
-    private function getModel(int $id)
-    {
-        $model = FiscalYear::getByID($id);
-
-        if ($model === null) {
-            throw new NotFoundHttpException('Not found entity object');
-        }
-
-        return $model;
-    }
-
-    private function getFacility()
-    {
-        $facility = DB::connection('secondDB')->select(
-            'SELECT  facility_entity_id, facility_name
-             FROM view_org_facility_lkp
-             ORDER BY facility_name;'
-        );
-
-        return $facility;
+        return redirect('/cabinet/fiscal-year')->withErrors($model->getErrors());
     }
 }

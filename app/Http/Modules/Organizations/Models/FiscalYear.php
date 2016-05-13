@@ -97,28 +97,6 @@ class FiscalYear
     }
 
     /**
-     * @param int $id
-     * @return FiscalYear
-     */
-    public static function getByID(int $id)
-    {
-        $configArray = DB::connection('secondDB')
-            ->select('SELECT fiscal_year_entity_id, fiscal_year, start_date, end_date, current_fiscal_year
-             FROM view_org_fiscal_year_detail
-             WHERE fiscal_year_entity_id = :entityID
-             LIMIT 1;', ['entityID' => $id]
-            );
-
-        $model = new FiscalYear((array)$configArray[0]);
-
-        if ($model->getID() === null) {
-            throw new NotFoundHttpException('Not found entity object');
-        }
-
-        return $model;
-    }
-
-    /**
      * @return array
      */
     public function getFacilitates()
@@ -307,5 +285,36 @@ class FiscalYear
         $this->setFacility(array_column($response, 'facility_entity_id'));
 
         return $response;
+    }
+
+    /**
+     * @param int $id
+     * @return FiscalYear
+     */
+    public static function getByID(int $id)
+    {
+        $configArray = DB::connection('secondDB')
+            ->select('SELECT fiscal_year_entity_id, fiscal_year, start_date, end_date, current_fiscal_year
+             FROM view_org_fiscal_year_detail
+             WHERE fiscal_year_entity_id = :entityID
+             LIMIT 1;', ['entityID' => $id]
+            );
+
+        return new FiscalYear((array)$configArray[0]);
+    }
+
+    /**
+     * @param int $id
+     * @return FiscalYear
+     */
+    public static function findOrFail($id)
+    {
+        $model = FiscalYear::getByID($id);
+
+        if ($model === null || $model->getID() === null) {
+            throw new NotFoundHttpException('Not found entity object');
+        }
+
+        return $model;
     }
 }
