@@ -9,37 +9,36 @@ use DB;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+use App\Http\Modules\School\SchoolClassRepository;
+
 class SchoolClassController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param  SchoolClassRepository $repo
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(SchoolClassRepository $repo)
     {
-        $rows = DB::connection('secondDB')->select(
-            'SELECT  class_entity_id, class_name, class_group, class_category
-             FROM view_sch_class_grid
-             ORDER BY class_name DESC;'
-        );
-
-        return view('modules.school.schoolClass.list', ['data' => $rows]);
+        $rows = $repo->getAllSchoolCalsses();
+        return view('modules.school.school-class.list', ['data' => $rows]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param  SchoolClassRepository $repo
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(SchoolClassRepository $repo)
     {
         $model = new SchoolClass();
-        $facility = $this->getFacility();
-        $ClassGroup = $this->getClassGroup();
-        $ClassCategory = $this->getClassCategory();
+        $facility = $repo->getFacilities();
+        $ClassGroup = $repo->getClassGroups();
+        $ClassCategory = $repo->getClassCategories();
 
-        return view('modules.school.schoolClass.form', ['model' => $model, 'facility' => $facility, 'ClassGroup' => $ClassGroup, 'ClassCategory' => $ClassCategory]);
+        return view('modules.school.school-class.form', ['model' => $model, 'facility' => $facility, 'ClassGroup' => $ClassGroup, 'ClassCategory' => $ClassCategory]);
     }
 
     /**
@@ -63,19 +62,21 @@ class SchoolClassController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param  SchoolClassRepository $repo
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(SchoolClassRepository $repo, $id)
     {
         $model = $this->getModel($id);
-        $facility = $this->getFacility();
-        $ClassGroup = $this->getClassGroup();
-        $ClassCategory = $this->getClassCategory();
+        $facility = $repo->getFacilities();
+        $ClassGroup = $repo->getClassGroups();
+        $ClassCategory = $repo->getClassCategories();
 
+        // TODO: Fix this next line
         $t = $model->getClassGroups();
 
-        return view('modules.school.schoolClass.form', ['model' => $model, 'facility' => $facility, 'ClassGroup' => $ClassGroup, 'ClassCategory' => $ClassCategory]);
+        return view('modules.school.school-class.form', ['model' => $model, 'facility' => $facility, 'ClassGroup' => $ClassGroup, 'ClassCategory' => $ClassCategory]);
     }
 
     /**
@@ -88,7 +89,6 @@ class SchoolClassController extends Controller
     public function update(SchoolClassFormRequest $request, $id)
     {
         $params = $request->input();
-
         $params['ClassEntityID'] = $id;
 
         $model = new SchoolClass($params);
@@ -130,39 +130,6 @@ class SchoolClassController extends Controller
         }
 
         return $model;
-    }
-
-    private function getFacility()
-    {
-        $facility = DB::connection('secondDB')->select(
-            'SELECT  facility_entity_id, facility_name
-             FROM view_org_facility_lkp
-             ORDER BY facility_name;'
-        );
-
-        return $facility;
-    }
-
-    private function getClassGroup()
-    {
-    	$ClassGroup = DB::connection('secondDB')->select(
-    			'SELECT  class_group_entity_id, class_group
-             FROM view_sch_lkp_class_group
-             ORDER BY class_group;'
-    			);
-
-    	return $ClassGroup;
-    }
-
-    private function getClassCategory()
-    {
-    	$ClassCategory = DB::connection('secondDB')->select(
-    			'SELECT  class_category_entity_id, class_category
-             FROM view_sch_lkp_class_category
-             ORDER BY class_category;'
-    			);
-
-    	return $ClassCategory;
     }
 
 }

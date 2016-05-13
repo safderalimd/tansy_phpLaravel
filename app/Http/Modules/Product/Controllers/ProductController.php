@@ -21,7 +21,7 @@ class ProductController extends Controller
     public function index(ProductRepository $repo)
     {
         $rows = $repo->getAllProducts();
-        return view('modules.product.Product.list', ['data' => $rows]);
+        return view('modules.product.product.list', ['data' => $rows]);
     }
 
     /**
@@ -35,7 +35,7 @@ class ProductController extends Controller
         $productTypes = $repo->getProductTypes();
         $facilities = $repo->getFacilities();
 
-        return view('modules.product.Product.form', compact('model', 'productTypes', 'facilities'));
+        return view('modules.product.product.form', compact('model', 'productTypes', 'facilities'));
     }
 
     /**
@@ -69,7 +69,7 @@ class ProductController extends Controller
         $productTypes = $repo->getProductTypes();
         $facilities = $repo->getFacilities();
 
-        return view('modules.product.Product.form', compact('model', 'productTypes', 'facilities'));
+        return view('modules.product.product.form', compact('model', 'productTypes', 'facilities'));
     }
 
     /**
