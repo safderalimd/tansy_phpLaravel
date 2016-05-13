@@ -57,9 +57,25 @@ class ProductController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  ProductRepository $repo
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(ProductRepository $repo, $id)
+    {
+        $model = Product::findOrFail($id);
+        $productTypes = $repo->getProductTypes();
+        $facilities = $repo->getFacilities();
+
+        return view('modules.product.Product.form', compact('model', 'productTypes', 'facilities'));
+    }
+
+    /**
      * Update the specified resource in storage.
      *
-     * @param ProductFormRequest|Request $request
+     * @param ProductFormRequest $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
@@ -93,21 +109,4 @@ class ProductController extends Controller
 
         return redirect('/cabinet/product')->withErrors($model->getErrors());
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  ProductRepository $repo
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProductRepository $repo, $id)
-    {
-        $model = Product::findOrFail($id);
-        $productTypes = $repo->getProductTypes();
-        $facilities = $repo->getFacilities();
-
-        return view('modules.product.Product.form', compact('model', 'productTypes', 'facilities'));
-    }
-
 }

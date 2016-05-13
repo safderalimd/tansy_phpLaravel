@@ -26,7 +26,7 @@
                     @endif
 
                     <form class="form-horizontal"
-                          action="@if($model->isNewRecord()){{ url("/cabinet/product/create")}} @else {{url("/cabinet/product/edit/{$model->getID()}")}} @endif"
+                          action="@if($model->isNewRecord()){{ url("/cabinet/product/create")}} @else {{url("/cabinet/product/update/{$model->getID()}")}} @endif"
                           method="POST">
                         {{ csrf_field() }}
 

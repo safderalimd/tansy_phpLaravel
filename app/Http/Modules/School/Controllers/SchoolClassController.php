@@ -38,32 +38,14 @@ class SchoolClassController extends Controller
         $facility = $this->getFacility();
         $ClassGroup = $this->getClassGroup();
         $ClassCategory = $this->getClassCategory();
-        
+
         return view('modules.school.schoolClass.form', ['model' => $model, 'facility' => $facility, 'ClassGroup' => $ClassGroup, 'ClassCategory' => $ClassCategory]);
     }
-
-//    public function create()
-//    {
-//    	$model = new SchoolClass();
-//    	$ClassGroup = $this->getClassGroup();
-//
-//    	return view('modules.school.schoolClass.form', ['model' => $model, 'ClassGroup' => $ClassGroup]);
-//    }
-//
-//    public function create()
-//    {
-//    	$model = new SchoolClass();
-//    	$ClassCategory = $this->getClassCategory();
-//
-//    	return view('modules.school.schoolClass.form', ['model' => $model, 'ClassCategory' => $ClassCategory]);
-//    }
-
-
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param FiscalYearFormRequest|Request $request
+     * @param SchoolClassFormRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(SchoolClassFormRequest $request)
@@ -72,8 +54,7 @@ class SchoolClassController extends Controller
 
         $model = new SchoolClass($params);
         if ($model->save()) {
-			 return redirect(url('/cabinet/class'));
-           // return redirect(url('/cabinet/class/edit', ['id' => $model->getID()]));
+			return redirect(url('/cabinet/class'));
         }
 
         return redirect('/cabinet/class/create')->withErrors($model->getErrors());
@@ -97,40 +78,22 @@ class SchoolClassController extends Controller
         return view('modules.school.schoolClass.form', ['model' => $model, 'facility' => $facility, 'ClassGroup' => $ClassGroup, 'ClassCategory' => $ClassCategory]);
     }
 
-//    public function edit($id)
-//    {
-//    	$model = $this->getModel($id);
-//    	$ClassGroup = $this->getClassGroup();
-//
-//    	return view('modules.school.schoolClass.form', ['model' => $model, 'ClassGroup' => $ClassGroup]);
-//    }
-//
-//    public function edit($id)
-//    {
-//    	$model = $this->getModel($id);
-//    	$ClassCategory = $this->getClassCategory();
-//
-//    	return view('modules.school.schoolClass.form', ['model' => $model, 'ClassCategory' => $ClassCategory]);
-//    }
-
     /**
      * Update the specified resource in storage.
      *
-     * @param FiscalYearFormRequest|Request $request
+     * @param SchoolClassFormRequest $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(SchoolClassFormRequest $request, $id)
     {
         $params = $request->input();
-		
-		//dd($params);
+
         $params['ClassEntityID'] = $id;
 
         $model = new SchoolClass($params);
 
         if ($model->save()) {
-           // return redirect(url('/cabinet/class/edit', ['id' => $model->getID()]));
             return redirect(url('/cabinet/class'));
         }
 
@@ -179,7 +142,7 @@ class SchoolClassController extends Controller
 
         return $facility;
     }
-    
+
     private function getClassGroup()
     {
     	$ClassGroup = DB::connection('secondDB')->select(
@@ -187,7 +150,7 @@ class SchoolClassController extends Controller
              FROM view_sch_lkp_class_group
              ORDER BY class_group;'
     			);
-    
+
     	return $ClassGroup;
     }
 
@@ -198,8 +161,8 @@ class SchoolClassController extends Controller
              FROM view_sch_lkp_class_category
              ORDER BY class_category;'
     			);
-    
+
     	return $ClassCategory;
     }
-    
+
 }

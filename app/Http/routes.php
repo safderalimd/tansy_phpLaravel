@@ -38,7 +38,7 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('product/create', 'Product\Controllers\ProductController@create');
     Route::post('product/create', 'Product\Controllers\ProductController@store');
     Route::get('product/edit/{id}', 'Product\Controllers\ProductController@edit');
-    Route::post('product/edit/{id}', 'Product\Controllers\ProductController@update');
+    Route::post('product/update/{id}', 'Product\Controllers\ProductController@update');
     Route::get('product/delete/{id}', 'Product\Controllers\ProductController@destroy');
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
