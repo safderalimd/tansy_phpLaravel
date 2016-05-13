@@ -35,8 +35,11 @@
                             <div class="col-sm-offset-4 col-sm-8">
                                 <div class="checkbox">
                                     <label>
-                                        <!-- <input checked="checked" name="activeRow" type="checkbox"> Active -->
-									{!! Form::checkbox('activeRow', old('activeRow'), $model->activeRow) !!} Active
+                                        @if($model->isNewRecord())
+                                            <input checked="checked" name="activeRow" type="checkbox" disabled readonly> Active
+                                        @else
+									       {!! Form::checkbox('activeRow', old('activeRow'), $model->activeRow) !!} Active
+                                        @endif
                                     </label>
                                 </div>
                             </div>

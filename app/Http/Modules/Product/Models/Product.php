@@ -342,9 +342,13 @@ class Product
              LIMIT 1;', ['productEntityId' => $id]
         );
 
-        $model = new Product((array)$configArray[0]);
+        return new Product((array)$configArray[0]);
+    }
 
-        if ($model->getID() === null) {
+    public static function findOrFail($id) {
+        $model = Product::getByID($id);
+
+        if ($model === null || $model->getID() === null) {
             throw new NotFoundHttpException('Not found entity object');
         }
 

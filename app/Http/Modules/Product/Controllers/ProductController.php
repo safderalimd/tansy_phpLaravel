@@ -8,7 +8,8 @@ use App\Http\Modules\Product\Requests\ProductFormRequest;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use DB;
+
+use App\Http\Modules\Product\ProductRepository;
 
 class ProductController extends Controller
 {
@@ -17,14 +18,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ProductRepository $repo)
     {
-        $rows = DB::connection('secondDB')->select(
-            'SELECT  product, product_type, unit_rate, product_type_entity_id, product_entity_id, active
-             FROM view_prd_lkp_product
-             ORDER BY product DESC;'
-        );
-
+        $rows = $repo->getAllProducts();
         return view('modules.product.Product.list', ['data' => $rows]);
     }
 
@@ -33,11 +29,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(ProductRepository $repo)
     {
         $model = new Product();
-        $productTypes = $this->getProductTypes();
-        $facilities = $this->getFacilities();
+        $productTypes = $repo->getProductTypes();
+        $facilities = $repo->getFacilities();
 
         return view('modules.product.Product.form', compact('model', 'productTypes', 'facilities'));
     }
@@ -89,7 +85,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $model = $this->getModel($id);
+        $model = Product::findOrFail($id);
 
         if ($model->delete()) {
             return redirect('/cabinet/product');
@@ -101,49 +97,17 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param  ProductRepository $repo
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ProductRepository $repo, $id)
     {
-        $model = $this->getModel($id);
-        $productTypes = $this->getProductTypes();
-        $facilities = $this->getFacilities();
+        $model = Product::findOrFail($id);
+        $productTypes = $repo->getProductTypes();
+        $facilities = $repo->getFacilities();
 
         return view('modules.product.Product.form', compact('model', 'productTypes', 'facilities'));
-    }
-
-    /**
-     * @param int $id
-     * @return Product
-     */
-    private function getModel($id)
-    {
-        $model = Product::getByID($id);
-
-        if ($model === null) {
-            throw new NotFoundHttpException('Not found entity object');
-        }
-
-        return $model;
-    }
-
-    private function getProductTypes()
-    {
-        return DB::connection('secondDB')->select(
-            'SELECT product_type_entity_id, product_type
-             FROM view_prd_lkp_product_type
-             ORDER BY product_type;'
-        );
-    }
-
-    private function getFacilities()
-    {
-        return DB::connection('secondDB')->select(
-            'SELECT  facility_entity_id, facility_name
-             FROM view_org_lkp_facility
-             ORDER BY facility_name;'
-        );
     }
 
 }
