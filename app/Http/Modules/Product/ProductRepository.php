@@ -7,7 +7,6 @@ use DB;
 
 class ProductRepository
 {
-
     public function getAllProducts() {
         return DB::connection('secondDB')->select(
             'SELECT  product, product_type, unit_rate, product_type_entity_id, product_entity_id, active
@@ -34,4 +33,13 @@ class ProductRepository
         );
     }
 
+    public function getProductById($id)
+    {
+        return DB::connection('secondDB')->select(
+            'SELECT product, product_type, unit_rate, product_type_entity_id, product_entity_id, active
+             FROM view_prd_lkp_product
+             WHERE product_entity_id = :productEntityId
+             LIMIT 1;', ['productEntityId' => $id]
+        );
+    }
 }

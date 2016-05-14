@@ -290,25 +290,12 @@ class Product
         return $this->errors;
     }
 
-    /**
-     * @param int $id
-     * @return SchoolClass
-     */
-    public static function getByID($id)
-    {
-        $configArray = DB::connection('secondDB')
-            ->select('SELECT product, product_type, unit_rate, product_type_entity_id, product_entity_id, active
-             FROM view_prd_lkp_product
-             WHERE product_entity_id = :productEntityId
-             LIMIT 1;', ['productEntityId' => $id]
-        );
-
-        return new Product((array)$configArray[0]);
-    }
-
     public static function findOrFail($id)
     {
-        $model = Product::getByID($id);
+        $instance = new static;
+
+        $data = $instance->repository->getProductById($id);
+        $model = new Product((array)$data[0]);
 
         if ($model === null || $model->getID() === null) {
             throw new NotFoundHttpException('Not found entity object');
