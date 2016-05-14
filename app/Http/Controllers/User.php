@@ -133,7 +133,7 @@ class User extends Controller
                 Session::put('user.debugSproc', $loginInfo['@oparam_debug_sproc']);
                 Session::put('user.auditScreenVisit', $loginInfo['@oparam_audit_screen_visit']);
 
-                Session::put('user.oparamCompanyName', $loginInfo['@oparam_company_name']);
+                Session::put('user.companyName', $loginInfo['@oparam_company_name']);
                 Session::put('dbMenuInfo', $menuInfo);
 
                 return true;

@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">{{ Session::get('user.oparamCompanyName')}}</a>
+            <a class="navbar-brand" href="#">{{ Session::get('user.companyName')}}</a>
         </div>
         <div id="navs-tab" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
