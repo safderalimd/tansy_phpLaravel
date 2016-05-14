@@ -6,7 +6,7 @@ use DB;
 use Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Database\Eloquent\MassAssignmentException;
-use App\Http\Modules\Product\ProductRepository;
+use App\Http\Modules\Product\Repositories\ProductRepository;
 use App\Http\Models\Model;
 
 class Product extends Model

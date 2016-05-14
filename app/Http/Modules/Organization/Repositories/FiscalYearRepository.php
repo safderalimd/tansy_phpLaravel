@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Modules\Organization;
+namespace App\Http\Modules\Organization\Repositories;
 
 use App\Http\Modules\Organization\Models\FiscalYear;
 use DB;

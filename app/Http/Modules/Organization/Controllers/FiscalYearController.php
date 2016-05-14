@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Organization\Models\FiscalYear;
 use App\Http\Modules\Organization\Requests\FiscalYearFormRequest;
-use App\Http\Modules\Organization\FiscalYearRepository;
+use App\Http\Modules\Organization\Repositories\FiscalYearRepository;
 
 class FiscalYearController extends Controller
 {
@@ -19,7 +19,7 @@ class FiscalYearController extends Controller
     public function index(FiscalYearRepository $repo)
     {
         $rows = $repo->getAllFiscalYears();
-        return view('modules.organizations.fiscal-year.list', ['data' => $rows]);
+        return view('modules.organization.FiscalYear.list', ['data' => $rows]);
     }
 
     /**
@@ -33,7 +33,7 @@ class FiscalYearController extends Controller
         $model = new FiscalYear();
         $facility = $repo->getFacilities();
 
-        return view('modules.organizations.fiscal-year.form', ['model' => $model, 'facility' => $facility]);
+        return view('modules.organization.FiscalYear.form', ['model' => $model, 'facility' => $facility]);
     }
 
     /**
@@ -66,7 +66,7 @@ class FiscalYearController extends Controller
         $model = FiscalYear::findOrFail($id);
         $facility = $repo->getFacilities();
 
-        return view('modules.organizations.fiscal-year.form', ['model' => $model, 'facility' => $facility]);
+        return view('modules.organization.FiscalYear.form', ['model' => $model, 'facility' => $facility]);
     }
 
     /**

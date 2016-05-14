@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\School\Models\SchoolClass;
 use App\Http\Modules\School\Requests\SchoolClassFormRequest;
-use App\Http\Modules\School\SchoolClassRepository;
+use App\Http\Modules\School\Repositories\SchoolClassRepository;
 
 class SchoolClassController extends Controller
 {
@@ -19,7 +19,7 @@ class SchoolClassController extends Controller
     public function index(SchoolClassRepository $repo)
     {
         $rows = $repo->getAllSchoolCalsses();
-        return view('modules.school.school-class.list', ['data' => $rows]);
+        return view('modules.school.SchoolClass.list', ['data' => $rows]);
     }
 
     /**
@@ -35,7 +35,7 @@ class SchoolClassController extends Controller
         $ClassGroup = $repo->getClassGroups();
         $ClassCategory = $repo->getClassCategories();
 
-        return view('modules.school.school-class.form', ['model' => $model, 'facility' => $facility, 'ClassGroup' => $ClassGroup, 'ClassCategory' => $ClassCategory]);
+        return view('modules.school.SchoolClass.form', ['model' => $model, 'facility' => $facility, 'ClassGroup' => $ClassGroup, 'ClassCategory' => $ClassCategory]);
     }
 
     /**
@@ -73,7 +73,7 @@ class SchoolClassController extends Controller
         // TODO: Fix this next line
         $t = $model->getClassGroups();
 
-        return view('modules.school.school-class.form', ['model' => $model, 'facility' => $facility, 'ClassGroup' => $ClassGroup, 'ClassCategory' => $ClassCategory]);
+        return view('modules.school.SchoolClass.form', ['model' => $model, 'facility' => $facility, 'ClassGroup' => $ClassGroup, 'ClassCategory' => $ClassCategory]);
     }
 
     /**

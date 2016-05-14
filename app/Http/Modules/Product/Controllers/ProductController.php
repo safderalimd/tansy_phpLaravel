@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('modules.product.list', compact('products'));
+        return view('modules.product.Product.list', compact('products'));
     }
 
     /**
@@ -27,7 +27,7 @@ class ProductController extends Controller
     public function create()
     {
         $product = new Product();
-        return view('modules.product.form', compact('product'));
+        return view('modules.product.Product.form', compact('product'));
     }
 
     /**
@@ -57,7 +57,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        return view('modules.product.form', compact('product'));
+        return view('modules.product.Product.form', compact('product'));
     }
 
     /**

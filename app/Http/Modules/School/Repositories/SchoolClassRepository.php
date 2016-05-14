@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Modules\School;
+namespace App\Http\Modules\School\Repositories;
 
 use App\Http\Modules\School\Models\SchoolClass;
 use DB;
