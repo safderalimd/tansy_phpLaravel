@@ -42,4 +42,135 @@ class ProductRepository
              LIMIT 1;', ['productEntityId' => $id]
         );
     }
+
+    public function insert($model)
+    {
+        $db = DB::connection('secondDB')->getPdo();
+
+        $insertCall = $db->prepare('
+            call sproc_prd_product_dml_ins (
+                :iparam_product_name,
+                :iparam_product_type_entity_id,
+                :iparam_unit_rate,
+                :iparam_facility_ids,
+                :iparam_session_id,
+                :iparam_user_id,
+                :iparam_screen_id,
+                :iparam_debug_sproc,
+                :iparam_audit_screen_visit,
+                @oparam_product_entity_id,
+                @oparam_err_flag,
+                @oparam_err_step,
+                @oparam_err_msg
+            );
+        ');
+
+        $insertCall->bindValue(':iparam_product_name', $model->product);
+        $insertCall->bindValue(':iparam_product_type_entity_id', $model->productTypeEntityId);
+        $insertCall->bindValue(':iparam_unit_rate', $model->unitRate);
+        $insertCall->bindValue(':iparam_facility_ids', $model->facilityID);
+        $insertCall->bindValue(':iparam_session_id', $model->sessionID);
+        $insertCall->bindValue(':iparam_user_id', $model->userID);
+        $insertCall->bindValue(':iparam_screen_id', $model->screenID);
+        $insertCall->bindValue(':iparam_debug_sproc', $model->debugSproc);
+        $insertCall->bindValue(':iparam_audit_screen_visit', $model->auditScreenVisit);
+
+        $insertCall->execute();
+
+        $response = $db
+            ->query('SELECT @oparam_product_entity_id, @oparam_err_flag, @oparam_err_step, @oparam_err_msg')
+            ->fetch(\PDO::FETCH_ASSOC);
+
+        if ($response['@oparam_err_flag'] == null) {
+            $model->productEntityId = $response['@oparam_product_entity_id'];
+            return true;
+        }
+
+        $model->errors = $response['@oparam_err_msg'];
+        return false;
+    }
+
+    public function update($model)
+    {
+        $db = DB::connection('secondDB')->getPdo();
+
+        $updateCall = $db->prepare('
+            call sproc_prd_product_dml_upd (
+                :iparam_product_entity_id,
+                :iparam_product_name,
+                :iparam_product_type_entity_id,
+                :iparam_unit_rate,
+                :iparam_active,
+                :iparam_facility_ids,
+                :iparam_session_id,
+                :iparam_user_id,
+                :iparam_screen_id,
+                :iparam_debug_sproc,
+                :iparam_audit_screen_visit,
+                @oparam_err_flag,
+                @oparam_err_step,
+                @oparam_err_msg
+            );
+        ');
+
+        $updateCall->bindValue(':iparam_product_entity_id', $model->productEntityId);
+        $updateCall->bindValue(':iparam_product_name', $model->product);
+        $updateCall->bindValue(':iparam_product_type_entity_id', $model->productTypeEntityId);
+        $updateCall->bindValue(':iparam_unit_rate', floatval($model->unitRate));
+        $updateCall->bindValue(':iparam_active', intval($model->activeRow));
+        $updateCall->bindValue(':iparam_facility_ids', $model->facilityID);
+        $updateCall->bindValue(':iparam_session_id', $model->sessionID);
+        $updateCall->bindValue(':iparam_user_id', $model->userID);
+        $updateCall->bindValue(':iparam_screen_id', $model->screenID);
+        $updateCall->bindValue(':iparam_debug_sproc', $model->debugSproc);
+        $updateCall->bindValue(':iparam_audit_screen_visit', $model->auditScreenVisit);
+
+        $updateCall->execute();
+
+        $response = $db->query('SELECT @oparam_err_flag, @oparam_err_step, @oparam_err_msg')->fetch(\PDO::FETCH_ASSOC);
+
+        if ($response['@oparam_err_flag'] == null) {
+            return true;
+        }
+
+        $model->errors = $response['@oparam_err_msg'];
+        return false;
+    }
+
+    public function delete($model)
+    {
+        $db = DB::connection('secondDB')->getPdo();
+
+        $deleteCall = $db->prepare(
+            'call sproc_prd_product_dml_del(
+                :iparam_product_entity_id,
+                :iparam_session_id,
+                :iparam_user_id,
+                :iparam_screen_id,
+                :iparam_debug_sproc,
+                :iparam_audit_screen_visit,
+                @oparam_err_flag,
+                @oparam_err_step,
+                @oparam_err_msg
+            );
+        ');
+
+        $deleteCall->execute([
+            ':iparam_product_entity_id' => $model->productEntityId,
+            ':iparam_session_id' => $model->sessionID,
+            ':iparam_user_id' => $model->userID,
+            ':iparam_screen_id' => $model->screenID,
+            ':iparam_debug_sproc' => $model->debugSproc,
+            ':iparam_audit_screen_visit' => $model->auditScreenVisit,
+        ]);
+
+        $response = $db->query('SELECT @oparam_err_flag, @oparam_err_step, @oparam_err_msg')->fetch(\PDO::FETCH_ASSOC);
+
+        if ($response['@oparam_err_flag'] == null) {
+            return true;
+        }
+
+        $model->errors = $response['@oparam_err_msg'];
+        return false;
+    }
 }
