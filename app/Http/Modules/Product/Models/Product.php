@@ -2,10 +2,7 @@
 
 namespace App\Http\Modules\Product\Models;
 
-use DB;
-use Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Illuminate\Database\Eloquent\MassAssignmentException;
 use App\Http\Modules\Product\Repositories\ProductRepository;
 use App\Http\Models\Model;
 
@@ -25,7 +22,7 @@ class Product extends Model
         'active',
     ];
 
-    public $screen_id = 3007;
+    public $screen_id = 2003;
 
     private $repository;
 

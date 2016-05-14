@@ -41,6 +41,11 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::post('product/update/{id}', 'Product\Controllers\ProductController@update');
     Route::get('product/delete/{id}', 'Product\Controllers\ProductController@destroy');
 
+    Route::get('class-subject-map', 'School\Controllers\ClassSubjectMapController@index');
+    Route::get('class-subject-map/map/{id}', 'School\Controllers\ClassSubjectMapController@map');
+    Route::get('class-subject-map/delete/{id}', 'School\Controllers\ClassSubjectMapController@destroy');
+
+
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
     Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {
