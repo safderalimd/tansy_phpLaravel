@@ -3,6 +3,7 @@
 namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\MassAssignmentException;
+use Session;
 
 class Model
 {
@@ -19,6 +20,31 @@ class Model
      * @var bool
      */
     protected static $unguarded = false;
+
+    /**
+     * Contains the errors.
+     *
+     * @var string
+     */
+    public $errors;
+
+    public $user_id;
+
+    public $session_id;
+
+    public $debug_sproc;
+
+    public $audit_screen_visit;
+
+    public function __construct(array $attributes = [])
+    {
+        $this->fill($attributes);
+
+        $this->user_id = Session::get('user.userID');
+        $this->session_id = Session::get('user.sessionID');
+        $this->debug_sproc = Session::get('user.debugSproc');
+        $this->audit_screen_visit = Session::get('user.auditScreenVisit');
+    }
 
     /**
      * Fill the model with an array of attributes.
@@ -149,5 +175,15 @@ class Model
     public function __set($key, $value)
     {
         $this->setAttribute($key, $value);
+    }
+
+    /**
+     * Return the errors.
+     *
+     * @return string
+     */
+    public function getErrors()
+    {
+        return $this->errors;
     }
 }

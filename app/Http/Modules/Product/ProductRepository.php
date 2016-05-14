@@ -69,11 +69,11 @@ class ProductRepository
         $insertCall->bindValue(':iparam_product_type_entity_id', $model->product_type_entity_id);
         $insertCall->bindValue(':iparam_unit_rate', $model->unit_rate);
         $insertCall->bindValue(':iparam_facility_ids', $model->facility_ids);
-        $insertCall->bindValue(':iparam_session_id', $model->sessionID);
-        $insertCall->bindValue(':iparam_user_id', $model->userID);
-        $insertCall->bindValue(':iparam_screen_id', $model->screenID);
-        $insertCall->bindValue(':iparam_debug_sproc', $model->debugSproc);
-        $insertCall->bindValue(':iparam_audit_screen_visit', $model->auditScreenVisit);
+        $insertCall->bindValue(':iparam_session_id', $model->session_id);
+        $insertCall->bindValue(':iparam_user_id', $model->user_id);
+        $insertCall->bindValue(':iparam_screen_id', $model->screen_id);
+        $insertCall->bindValue(':iparam_debug_sproc', $model->debug_sproc);
+        $insertCall->bindValue(':iparam_audit_screen_visit', $model->audit_screen_visit);
 
         $insertCall->execute();
 
@@ -119,11 +119,11 @@ class ProductRepository
         $updateCall->bindValue(':iparam_unit_rate', floatval($model->unit_rate));
         $updateCall->bindValue(':iparam_active', intval($model->active));
         $updateCall->bindValue(':iparam_facility_ids', $model->facility_ids);
-        $updateCall->bindValue(':iparam_session_id', $model->sessionID);
-        $updateCall->bindValue(':iparam_user_id', $model->userID);
-        $updateCall->bindValue(':iparam_screen_id', $model->screenID);
-        $updateCall->bindValue(':iparam_debug_sproc', $model->debugSproc);
-        $updateCall->bindValue(':iparam_audit_screen_visit', $model->auditScreenVisit);
+        $updateCall->bindValue(':iparam_session_id', $model->session_id);
+        $updateCall->bindValue(':iparam_user_id', $model->user_id);
+        $updateCall->bindValue(':iparam_screen_id', $model->screen_id);
+        $updateCall->bindValue(':iparam_debug_sproc', $model->debug_sproc);
+        $updateCall->bindValue(':iparam_audit_screen_visit', $model->audit_screen_visit);
 
         $updateCall->execute();
 
@@ -157,11 +157,11 @@ class ProductRepository
 
         $deleteCall->execute([
             ':iparam_product_entity_id' => $model->product_entity_id,
-            ':iparam_session_id' => $model->sessionID,
-            ':iparam_user_id' => $model->userID,
-            ':iparam_screen_id' => $model->screenID,
-            ':iparam_debug_sproc' => $model->debugSproc,
-            ':iparam_audit_screen_visit' => $model->auditScreenVisit,
+            ':iparam_session_id' => $model->session_id,
+            ':iparam_user_id' => $model->user_id,
+            ':iparam_screen_id' => $model->screen_id,
+            ':iparam_debug_sproc' => $model->debug_sproc,
+            ':iparam_audit_screen_visit' => $model->audit_screen_visit,
         ]);
 
         $response = $db->query('SELECT @oparam_err_flag, @oparam_err_step, @oparam_err_msg')->fetch(\PDO::FETCH_ASSOC);
