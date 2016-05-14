@@ -9,7 +9,7 @@ class ProductRepository
 {
     public function getAllProducts() {
         return DB::connection('secondDB')->select(
-            'SELECT  product, product_type, unit_rate, product_type_entity_id, product_entity_id, active
+            'SELECT product, product_type, unit_rate, product_type_entity_id, product_entity_id, active
              FROM view_prd_lkp_product
              ORDER BY product DESC;'
         );
@@ -27,7 +27,7 @@ class ProductRepository
     public function getProductFacilities()
     {
         return DB::connection('secondDB')->select(
-            'SELECT  facility_entity_id, facility_name
+            'SELECT facility_entity_id, facility_name
              FROM view_org_lkp_facility
              ORDER BY facility_name;'
         );
@@ -36,7 +36,7 @@ class ProductRepository
     public function getProductById($id)
     {
         return DB::connection('secondDB')->select(
-            'SELECT product, product_type, unit_rate, product_type_entity_id, product_entity_id, active
+            'SELECT product AS product_name, product_type, unit_rate, product_type_entity_id, product_entity_id, active
              FROM view_prd_lkp_product
              WHERE product_entity_id = :productEntityId
              LIMIT 1;', ['productEntityId' => $id]
@@ -65,10 +65,10 @@ class ProductRepository
             );
         ');
 
-        $insertCall->bindValue(':iparam_product_name', $model->product);
-        $insertCall->bindValue(':iparam_product_type_entity_id', $model->productTypeEntityId);
-        $insertCall->bindValue(':iparam_unit_rate', $model->unitRate);
-        $insertCall->bindValue(':iparam_facility_ids', $model->facilityID);
+        $insertCall->bindValue(':iparam_product_name', $model->product_name);
+        $insertCall->bindValue(':iparam_product_type_entity_id', $model->product_type_entity_id);
+        $insertCall->bindValue(':iparam_unit_rate', $model->unit_rate);
+        $insertCall->bindValue(':iparam_facility_ids', $model->facility_ids);
         $insertCall->bindValue(':iparam_session_id', $model->sessionID);
         $insertCall->bindValue(':iparam_user_id', $model->userID);
         $insertCall->bindValue(':iparam_screen_id', $model->screenID);
@@ -113,12 +113,12 @@ class ProductRepository
             );
         ');
 
-        $updateCall->bindValue(':iparam_product_entity_id', $model->productEntityId);
-        $updateCall->bindValue(':iparam_product_name', $model->product);
-        $updateCall->bindValue(':iparam_product_type_entity_id', $model->productTypeEntityId);
-        $updateCall->bindValue(':iparam_unit_rate', floatval($model->unitRate));
-        $updateCall->bindValue(':iparam_active', intval($model->activeRow));
-        $updateCall->bindValue(':iparam_facility_ids', $model->facilityID);
+        $updateCall->bindValue(':iparam_product_entity_id', $model->product_entity_id);
+        $updateCall->bindValue(':iparam_product_name', $model->product_name);
+        $updateCall->bindValue(':iparam_product_type_entity_id', $model->product_type_entity_id);
+        $updateCall->bindValue(':iparam_unit_rate', floatval($model->unit_rate));
+        $updateCall->bindValue(':iparam_active', intval($model->active));
+        $updateCall->bindValue(':iparam_facility_ids', $model->facility_ids);
         $updateCall->bindValue(':iparam_session_id', $model->sessionID);
         $updateCall->bindValue(':iparam_user_id', $model->userID);
         $updateCall->bindValue(':iparam_screen_id', $model->screenID);
@@ -156,7 +156,7 @@ class ProductRepository
         ');
 
         $deleteCall->execute([
-            ':iparam_product_entity_id' => $model->productEntityId,
+            ':iparam_product_entity_id' => $model->product_entity_id,
             ':iparam_session_id' => $model->sessionID,
             ':iparam_user_id' => $model->userID,
             ':iparam_screen_id' => $model->screenID,

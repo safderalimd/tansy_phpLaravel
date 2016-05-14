@@ -25,11 +25,11 @@ class ProductFormRequest extends Request
     public function rules()
     {
         return [
-            // 'activeRow'    => 'boolean',
-            'product'     => 'required|string',
-            'productType' => 'required|integer',
-            'facilityID'  => 'required|integer',
-            'unitRate'    => 'required|string',
+            // 'active'    => 'boolean',
+            'product_name'           => 'required|string',
+            'product_type_entity_id' => 'required|integer',
+            'facility_ids'           => 'required|integer',
+            'unit_rate'              => 'required|string',
         ];
     }
 

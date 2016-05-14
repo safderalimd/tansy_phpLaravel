@@ -52,7 +52,7 @@ class User extends Controller
             return redirect('/login')->withInput()->withErrors([['login' => 'Something wrong. Try again later.']]);
         }
 
-        return redirect('/login')->withInput()->withErrors(['login' => 'You are not logged in master DB.']);
+        return redirect('/login')->withInput()->withErrors(['login' => 'Error: You are not logged in.']);
     }
 
     public function logout() {
@@ -75,11 +75,35 @@ class User extends Controller
 
         $mysql->query("set @iparam_login_name = '{$mysql->escape_string($login)}';");
         $mysql->query("set @iparam_password = '{$mysql->escape_string($password)}';");
-
         $mysql->query("set @iparm_ipaddress = '{$mysql->escape_string($this->request->ip())}';");
 
-        $sql  = 'call sproc_sec_login(@iparam_login_name,@iparam_password ,@iparm_ipaddress ,@oparam_session_id ,@oparam_user_id,@oparam_login_success, @oparam_login_err,@oparam_company_name,@oparam_err_flag, @oparam_err_step, @oparam_err_msg);';
-        $sql .= 'select @oparam_session_id ,@oparam_user_id, @oparam_login_success, @oparam_login_err,@oparam_company_name, @op_err_flag, @oparam_err_step, @oparam_err_msg;';
+        $sql = 'call sproc_sec_login(
+            @iparam_login_name,
+            @iparam_password,
+            @iparm_ipaddress,
+            @oparam_session_id,
+            @oparam_user_id,
+            @oparam_login_success,
+            @oparam_login_err,
+            @oparam_company_name,
+            @oparam_debug_sproc,
+            @oparam_audit_screen_visit,
+            @oparam_err_flag,
+            @oparam_err_step,
+            @oparam_err_msg
+        );';
+
+        $sql .= 'select
+            @oparam_session_id ,
+            @oparam_user_id,
+            @oparam_login_success,
+            @oparam_login_err,
+            @oparam_company_name,
+            @oparam_debug_sproc ,
+            @oparam_audit_screen_visit,
+            @oparam_err_flag,
+            @oparam_err_step,
+            @oparam_err_msg;';
 
         if ($mysql->multi_query($sql)) {
             if ($result = $mysql->store_result()) {
@@ -97,14 +121,20 @@ class User extends Controller
                 $loginInfo = $result->fetch_array(MYSQLI_ASSOC);
             }
 
-//            $mysql->close();
+            // todo: check if needed $mysql->close();
+
+            if ($loginInfo['@oparam_err_flag'] == 1) {
+                return false;
+            }
 
             if ($loginInfo['@oparam_login_success'] == true && !empty($menuInfo)) {
-                $this->request->session()->put('user.sessionID', $loginInfo['@oparam_session_id']);
-                $this->request->session()->put('user.userID', $loginInfo['@oparam_user_id']);
-                $this->request->session()->put('user.oparamCompanyName', $loginInfo['@oparam_company_name']);
-                $this->request->session()->put('dbMenuInfo', $menuInfo);
-               // dd($this->request->session());
+                Session::put('user.sessionID', $loginInfo['@oparam_session_id']);
+                Session::put('user.userID', $loginInfo['@oparam_user_id']);
+                Session::put('user.debugSproc', $loginInfo['@oparam_debug_sproc']);
+                Session::put('user.auditScreenVisit', $loginInfo['@oparam_audit_screen_visit']);
+
+                Session::put('user.oparamCompanyName', $loginInfo['@oparam_company_name']);
+                Session::put('dbMenuInfo', $menuInfo);
 
                 return true;
             }
