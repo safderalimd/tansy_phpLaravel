@@ -5,9 +5,15 @@ namespace App\Http\Modules\Product\Models;
 use DB;
 use Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Http\Modules\Product\ProductRepository;
 
 class Product
 {
+    // has all fields as the same as in db views; same type;
+    // name is like in db views but camel case
+    // properties are hydrated automatically (either from db or from form inputs)
+    // use this as a substitution for eloquent models
+    // maybe create a fillable property with all the available fields
 
     public $product;
     public $unitRate;
@@ -28,6 +34,8 @@ class Product
 
     private $errors = null;
 
+    private $repository;
+
     public function __construct(array $config = null)
     {
         if ($config !== null) {
@@ -36,6 +44,7 @@ class Product
 
         $this->userID = Session::get('user.userID');
         $this->sessionID = Session::get('user.sessionID');
+        $this->repository = new ProductRepository;
     }
 
     /**
@@ -306,6 +315,23 @@ class Product
         }
 
         return $model;
+    }
+
+    public static function all()
+    {
+        $instance = new static;
+
+        return $instance->repository->getAllProducts();
+    }
+
+    public function types()
+    {
+        return $this->repository->getProductTypes();
+    }
+
+    public function facilities()
+    {
+        return $this->repository->getProductFacilities();
     }
 
 }

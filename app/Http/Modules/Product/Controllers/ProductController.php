@@ -2,11 +2,9 @@
 
 namespace App\Http\Modules\Product\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Product\Models\Product;
 use App\Http\Modules\Product\Requests\ProductFormRequest;
-use App\Http\Modules\Product\ProductRepository;
 
 class ProductController extends Controller
 {
@@ -15,10 +13,10 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ProductRepository $repo)
+    public function index()
     {
-        $products = $repo->getAllProducts();
-        return view('modules.product.product.list', compact('products'));
+        $products = Product::all();
+        return view('modules.product.list', compact('products'));
     }
 
     /**
@@ -26,13 +24,10 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(ProductRepository $repo)
+    public function create()
     {
-        $model = new Product();
-        $productTypes = $repo->getProductTypes();
-        $facilities = $repo->getFacilities();
-
-        return view('modules.product.product.form', compact('model', 'productTypes', 'facilities'));
+        $product = new Product();
+        return view('modules.product.form', compact('product'));
     }
 
     /**
@@ -44,29 +39,25 @@ class ProductController extends Controller
     public function store(ProductFormRequest $request)
     {
         $params = $request->input();
-        $model = new Product($params);
+        $product = new Product($params);
 
-        if ($model->save()) {
-            return redirect(url('/cabinet/product'));
+        if ($product->save()) {
+            return redirect('/cabinet/product');
         }
 
-        return redirect('/cabinet/product/create')->withErrors($model->getErrors());
+        return redirect('/cabinet/product/create')->withErrors($product->getErrors());
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  ProductRepository $repo
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductRepository $repo, $id)
+    public function edit($id)
     {
-        $model = Product::findOrFail($id);
-        $productTypes = $repo->getProductTypes();
-        $facilities = $repo->getFacilities();
-
-        return view('modules.product.product.form', compact('model', 'productTypes', 'facilities'));
+        $product = Product::findOrFail($id);
+        return view('modules.product.form', compact('product'));
     }
 
     /**
@@ -81,13 +72,13 @@ class ProductController extends Controller
         $params = $request->input();
         $params['product_entity_id'] = $id;
 
-        $model = new Product($params);
-        if ($model->save()) {
-            return redirect(url('/cabinet/product'));
+        $product = new Product($params);
+        if ($product->save()) {
+            return redirect('/cabinet/product');
         }
 
-        return redirect(url('/cabinet/product/edit', ['id' => $model->getID()]))
-            ->withErrors($model->getErrors());
+        return redirect(url('/cabinet/product/edit', ['id' => $product->getID()]))
+            ->withErrors($product->getErrors());
     }
 
     /**
@@ -98,12 +89,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $model = Product::findOrFail($id);
+        $product = Product::findOrFail($id);
 
-        if ($model->delete()) {
+        if ($product->delete()) {
             return redirect('/cabinet/product');
         }
 
-        return redirect('/cabinet/product')->withErrors($model->getErrors());
+        return redirect('/cabinet/product')->withErrors($product->getErrors());
     }
 }

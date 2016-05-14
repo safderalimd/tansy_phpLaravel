@@ -21,7 +21,7 @@
                     @include('commons.errors')
 
                     <form class="form-horizontal"
-                          action="@if($model->isNewRecord()){{ url("/cabinet/product/create")}} @else {{url("/cabinet/product/update/{$model->getID()}")}} @endif"
+                          action="@if($product->isNewRecord()){{ url("/cabinet/product/create")}} @else {{url("/cabinet/product/update/{$product->getID()}")}} @endif"
                           method="POST">
                         {{ csrf_field() }}
 
@@ -30,10 +30,10 @@
                             <div class="col-sm-offset-4 col-sm-8">
                                 <div class="checkbox">
                                     <label>
-                                        @if($model->isNewRecord())
+                                        @if($product->isNewRecord())
                                             <input checked="checked" name="activeRow" type="checkbox" disabled readonly> Active
                                         @else
-									       {!! Form::checkbox('activeRow', old('activeRow'), $model->activeRow) !!} Active
+									       {!! Form::checkbox('activeRow', old('activeRow'), $product->activeRow) !!} Active
                                         @endif
                                     </label>
                                 </div>
@@ -44,7 +44,7 @@
                             <label class="col-md-4 control-label" for="name">Product Name</label>
                             <div class="col-md-8">
                                 <input id="product" class="form-control" type="text" name="product"
-                                       value="@if(!empty($model->product)){!!$model->product!!}@else{{ old('product') }}@endif"
+                                       value="@if(!empty($product->product)){!!$product->product!!}@else{{ old('product') }}@endif"
                                        placeholder="Product Name">
                             </div>
                         </div>
@@ -53,11 +53,11 @@
                             <label class="col-md-4 control-label" for="productType">Product Type</label>
                             <div class="col-md-8">
                                 <select id="productType" class="form-control" name="productType">
-                                    @foreach($productTypes as $type)
+                                    @foreach($product->types() as $type)
                                         @if(!empty(old('productTypes')))
                                             <option @if ($type['product_type_entity_id'] == old('productTypes')[0]) selected @endif value="{!!$type['product_type_entity_id']!!}">{!!$type['product_type']!!}</option>
                                         @else
-                                            <option @if ($model->hasType($type)) selected @endif value="{!!$type['product_type_entity_id']!!}">{!!$type['product_type']!!}</option>
+                                            <option @if ($product->hasType($type)) selected @endif value="{!!$type['product_type_entity_id']!!}">{!!$type['product_type']!!}</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -68,11 +68,11 @@
                             <label class="col-md-4 control-label" for="facility">Facility Type</label>
                             <div class="col-md-4">
                                 <select id="facility" class="form-control" name="facilityID">
-                                    @foreach($facilities as $facility)
+                                    @foreach($product->facilities() as $facility)
                                         @if(!empty(old('facilityID')))
                                             <option @if ($facility['facility_entity_id'] == old('facilityID')) selected @endif value="{!!$facility['facility_entity_id']!!}">{!!$facility['facility_name']!!}</option>
                                         @else
-                                            <option @if ($model->hasFacility($facility)) selected @endif value="{!!$facility['facility_entity_id']!!}">{!!$facility['facility_name']!!}</option>
+                                            <option @if ($product->hasFacility($facility)) selected @endif value="{!!$facility['facility_entity_id']!!}">{!!$facility['facility_name']!!}</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -82,7 +82,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="unit-rate">Unit Rate</label>
                             <div class="col-md-8">
-                                <input id="unit-rate" class="form-control" type="text" name="unitRate" value="@if(!empty($model->unitRate)){!!$model->unitRate!!}@else{{ old('unitRate') }}@endif" placeholder="Unit Rate">
+                                <input id="unit-rate" class="form-control" type="text" name="unitRate" value="@if(!empty($product->unitRate)){!!$product->unitRate!!}@else{{ old('unitRate') }}@endif" placeholder="Unit Rate">
                             </div>
                          </div>
 

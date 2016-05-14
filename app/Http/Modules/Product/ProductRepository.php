@@ -25,7 +25,7 @@ class ProductRepository
         );
     }
 
-    public function getFacilities()
+    public function getProductFacilities()
     {
         return DB::connection('secondDB')->select(
             'SELECT  facility_entity_id, facility_name
