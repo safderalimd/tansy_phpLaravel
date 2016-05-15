@@ -45,6 +45,10 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('class-subject-map/map/{id}', 'School\Controllers\ClassSubjectMapController@map');
     Route::get('class-subject-map/delete/{id}', 'School\Controllers\ClassSubjectMapController@destroy');
 
+    Route::get('admission', 'School\Controllers\AdmissionController@index');
+    Route::get('admission/create', 'School\Controllers\AdmissionController@create');
+    Route::post('admission/create', 'School\Controllers\AdmissionController@store');
+
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 

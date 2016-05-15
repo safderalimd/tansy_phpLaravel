@@ -8,7 +8,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <i class="glyphicon glyphicon-th-list"></i>
-                    <h3>School Classes</h3>
+                    <h3>Class Subject Mapping</h3>
                 </div>
                 <div class="panel-body">
 
