@@ -28,8 +28,9 @@
                         <hr/>
                         <div class="row"><div class="col-md-3 pull-left"><h3>Header</h3></div></div>
 
-                        @include('modules.school.Admission.select', [
+                        @include('commons.select', [
                             'label'   => 'Facility' ,
+                            'name'    => 'facility_entity_id',
                             'options' => $admission->facilities(),
                             'keyId'   => 'facility_entity_id',
                             'keyName' => 'facility_name',
@@ -40,31 +41,31 @@
                         <div class="row"><div class="col-md-3 pull-left"><h3>Student</h3></div></div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="first_name">First Name</label>
+                            <label class="col-md-4 control-label" for="student_first_name">First Name</label>
                             <div class="col-md-8">
-                                <input id="first_name" class="form-control" type="text" name="first_name" value="{{ v('first_name') }}" placeholder="First Name">
+                                <input id="student_first_name" class="form-control" type="text" name="student_first_name" value="{{ v('student_first_name') }}" placeholder="First Name">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="middle_name">Middle Name</label>
+                            <label class="col-md-4 control-label" for="student_middle_name">Middle Name</label>
                             <div class="col-md-8">
-                                <input id="middle_name" class="form-control" type="text" name="middle_name" value="{{ v('middle_name') }}" placeholder="Middle Name">
+                                <input id="student_middle_name" class="form-control" type="text" name="student_middle_name" value="{{ v('student_middle_name') }}" placeholder="Middle Name">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="last_name">Last Name</label>
+                            <label class="col-md-4 control-label" for="student_last_name">Last Name</label>
                             <div class="col-md-8">
-                                <input id="last_name" class="form-control" type="text" name="last_name" value="{{ v('last_name') }}" placeholder="Last Name">
+                                <input id="student_last_name" class="form-control" type="text" name="student_last_name" value="{{ v('student_last_name') }}" placeholder="Last Name">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="date_of_birth">Date of Birth</label>
+                            <label class="col-md-4 control-label" for="student_date_of_birth">Date of Birth</label>
                             <div class="col-md-8">
                                 <div class="input-group date">
-                                    <input id="date_of_birth" class="form-control" type="text" name="date_of_birth" value="{{ v('date_of_birth') }}" placeholder="Date of Birth">
+                                    <input id="student_date_of_birth" class="form-control" type="text" name="student_date_of_birth" value="{{ v('student_date_of_birth') }}" placeholder="Date of Birth">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button"><span
                                                     class="glyphicon glyphicon-calendar"></span></button>
@@ -74,14 +75,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="gender">Gender</label>
+                            <label class="col-md-4 control-label" for="student_gender">Gender</label>
                             <div class="col-md-8">
                                 <label class="radio-inline">
-                                    <input type="radio" name="gender" {{ r('gender', 'male') }} id="gender1" value="male">
+                                    <input type="radio" name="student_gender" {{ r('student_gender', 'M') }} id="gender1" value="M">
                                     Male
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="gender" {{ r('gender', 'female') }} id="gender2" value="female">
+                                    <input type="radio" name="student_gender" {{ r('student_gender', 'F') }} id="gender2" value="F">
                                     Female
                                 </label>
                             </div>
@@ -115,28 +116,30 @@
                         <div class="row"><div class="col-md-3 pull-left"><h3>Adress</h3></div></div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="adress1">Adress 1</label>
+                            <label class="col-md-4 control-label" for="address1">Adress 1</label>
                             <div class="col-md-8">
-                                <input id="adress1" class="form-control" type="text" name="adress1" value="{{ v('adress1') }}" placeholder="Adress 1">
+                                <input id="address1" class="form-control" type="text" name="address1" value="{{ v('address1') }}" placeholder="Adress 1">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="adress2">Adress 2</label>
+                            <label class="col-md-4 control-label" for="address2">Adress 2</label>
                             <div class="col-md-8">
-                                <input id="adress2" class="form-control" type="text" name="adress2" value="{{ v('adress2') }}" placeholder="Adress 2">
+                                <input id="address2" class="form-control" type="text" name="address2" value="{{ v('address2') }}" placeholder="Adress 2">
                             </div>
                         </div>
 
-                        @include('modules.school.Admission.select', [
+                        @include('commons.select', [
                             'label'   => 'City',
+                            'name'    => 'city_name',
                             'options' => $admission->cities(),
-                            'keyId'   => 'city_id',
+                            'keyId'   => 'city_name',
                             'keyName' => 'city_name',
                         ])
 
-                        @include('modules.school.Admission.select', [
+                        @include('commons.select', [
                             'label'    => 'City Area',
+                            'name'     => 'city_area',
                             'options'  => $admission->cityAreas(),
                             'keyId'    => 'city_area',
                             'keyName'  => 'city_area',
@@ -172,24 +175,26 @@
                             </div>
                         </div>
 
-                        @include('modules.school.Admission.select', [
+                        @include('commons.select', [
                             'label'   => 'Admitted To' ,
+                            'name'    => 'admitted_to_class_group_entity_id',
                             'options' => $admission->classes(),
                             'keyId'   => 'class_entity_id',
                             'keyName' => 'class_name',
                         ])
 
-                        @include('modules.school.Admission.select', [
+                        @include('commons.select', [
                             'label'   => 'Admitted To Class' ,
+                            'name'    => 'admitted_to_class_entity_id',
                             'options' => $admission->classGroups(),
                             'keyId'   => 'class_group_entity_id',
                             'keyName' => 'class_group',
                         ])
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="roll_number">Roll Number</label>
+                            <label class="col-md-4 control-label" for="student_roll_number">Roll Number</label>
                             <div class="col-md-8">
-                                <input id="roll_number" class="form-control" type="text" name="roll_number" value="{{ v('roll_number') }}" placeholder="Roll Number">
+                                <input id="student_roll_number" class="form-control" type="text" name="student_roll_number" value="{{ v('student_roll_number') }}" placeholder="Roll Number">
                             </div>
                         </div>
 
@@ -207,32 +212,36 @@
                             </div>
                         </div>
 
-                        @include('modules.school.Admission.select', [
+                        @include('commons.select', [
                             'label'    => 'Caste',
+                            'name'     => 'caste_name',
                             'options'  => $admission->castes(),
-                            'keyId'    => 'caste_id',
+                            'keyId'    => 'caste_name',
                             'keyName'  => 'caste_name',
                         ])
 
-                        @include('modules.school.Admission.select', [
+                        @include('commons.select', [
                             'label'    => 'Religion',
+                            'name'     => 'religion_name',
                             'options'  => $admission->religions(),
-                            'keyId'    => 'religion_id',
+                            'keyId'    => 'religion_name',
                             'keyName'  => 'religion_name',
                         ])
 
-                        @include('modules.school.Admission.select', [
+                        @include('commons.select', [
                             'label'    => 'Communication Language',
+                            'name'     => 'mother_language_name',
                             'options'  => $admission->languages(),
-                            'keyId'    => 'language_id',
+                            'keyId'    => 'language_name',
                             'keyName'  => 'language_name',
                         ])
 
                         <hr/>
                         <div class="row"><div class="col-md-3 pull-left"><h3>Parent</h3></div></div>
 
-                        @include('modules.school.Admission.select', [
+                        @include('commons.select', [
                             'label'   => 'Relationship',
+                            'name'    => 'parent_relationship_type_id',
                             'options' => $admission->relationships(),
                             'keyId'   => 'relationship_type_id',
                             'keyName' => 'relationship_name',
@@ -242,11 +251,11 @@
                             <label class="col-md-4 control-label" for="parent_gender">Gender</label>
                             <div class="col-md-8">
                                 <label class="radio-inline">
-                                    <input type="radio" name="parent_gender" {{ r('parent_gender', 'male') }} id="parent_gender1" value="male">
+                                    <input type="radio" name="parent_gender" {{ r('parent_gender', 'M') }} id="parent_gender1" value="M">
                                     Male
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="parent_gender" {{ r('parent_gender', 'male') }} id="parent_gender2" value="female">
+                                    <input type="radio" name="parent_gender" {{ r('parent_gender', 'F') }} id="parent_gender2" value="F">
                                     Female
                                 </label>
                             </div>
@@ -273,10 +282,11 @@
                             </div>
                         </div>
 
-                        @include('modules.school.Admission.select', [
+                        @include('commons.select', [
                             'label'    => 'Designation',
+                            'name'     => 'parent_designation_name',
                             'options'  => $admission->designations(),
-                            'keyId'    => 'designation_id',
+                            'keyId'    => 'designation_name',
                             'keyName'  => 'designation_name',
                         ])
 

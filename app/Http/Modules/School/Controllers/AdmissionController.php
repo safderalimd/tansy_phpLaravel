@@ -41,9 +41,6 @@ class AdmissionController extends Controller
     {
         $params = $request->input();
         $admission = new Admission($params);
-        dd($admission);
-
-        // TOOD: make sure text is inserted for some selectboxes (not the ids)
 
         if ($admission->save()) {
             return redirect('/cabinet/admission');
