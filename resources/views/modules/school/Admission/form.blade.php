@@ -8,12 +8,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <i class="glyphicon glyphicon-th"></i>
-                    <h3>Admission</h3>
-                    @if(Request::segment(3) == "edit")
-                        <label>- Update</label>
-                    @else
-                        <label>- Add New Record</label>
-                    @endif
+                    <h3>Admission{!! form_label() !!}</h3>
                 </div>
 
                 <div class="panel-body edit_form_wrapper">
@@ -21,9 +16,8 @@
 
                     @include('commons.errors')
 
-                    <form class="form-horizontal" action="{{ url("/cabinet/admission/create")}}" method="POST">
+                    <form class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
-
 
                         <hr/>
                         <div class="row"><div class="col-md-3 pull-left"><h3>Header</h3></div></div>

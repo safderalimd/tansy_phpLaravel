@@ -6,9 +6,7 @@ use App\Http\Models\Model;
 
 class Admission extends Model
 {
+    protected $screenId = 3004;
 
-    public $screen_id = 3004;
-
-    protected $repositoryNamespace = '\App\Http\Modules\School\Repositories\AdmissionRepository';
-
+    protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\AdmissionRepository';
 }

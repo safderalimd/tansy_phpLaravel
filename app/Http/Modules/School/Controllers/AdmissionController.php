@@ -38,14 +38,12 @@ class AdmissionController extends Controller
      */
     public function store(AdmissionFormRequest $request)
     {
-        $params = $request->input();
-        $admission = new Admission($params);
+        $admission = new Admission($request->input());
 
         if ($admission->save()) {
             return redirect('/cabinet/admission');
         }
 
-        $request->flash();
         return redirect('/cabinet/admission/create')->withErrors($admission->getErrors());
     }
 
@@ -70,16 +68,13 @@ class AdmissionController extends Controller
      */
     public function update(AdmissionFormRequest $request, $id)
     {
-        $params = $request->input();
-        $params['product_entity_id'] = $id;
+        $admission = Admission::findOrFail($id);
 
-        $admission = new Admission($params);
-        if ($admission->update()) {
+        if ($admission->update($request->input())) {
             return redirect('/cabinet/admission');
         }
 
-        $request->flash();
-        return redirect(url('/cabinet/admission/edit', ['id' => $admission->getID()]))
+        return redirect(url('/cabinet/admission/edit', compact('id')))
             ->withErrors($admission->getErrors());
     }
 
