@@ -114,7 +114,6 @@ class AdmissionRepository extends Repository
         );
     }
 
-
     public function insert($model)
     {
         $procedure = 'sproc_sch_admission_dml_ins';

@@ -46,6 +46,7 @@ class AdmissionController extends Controller
             return redirect('/cabinet/admission');
         }
 
+        $request->flash();
         return redirect('/cabinet/admission/create')->withErrors($admission->getErrors());
     }
 
