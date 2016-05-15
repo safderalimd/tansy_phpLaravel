@@ -1,6 +1,6 @@
 @extends('layout.cabinet')
 
-@section('title', 'Admission')
+@section('title', 'Student Account')
 
 @section('content')
     <div class="row">
@@ -8,7 +8,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <i class="glyphicon glyphicon-th"></i>
-                    <h3>Admission{!! form_label() !!}</h3>
+                    <h3>Student Account{!! form_label() !!}</h3>
                 </div>
 
                 <div class="panel-body edit_form_wrapper">
@@ -25,10 +25,18 @@
                         @include('commons.select', [
                             'label'   => 'Facility' ,
                             'name'    => 'facility_entity_id',
-                            'options' => $admission->facilities(),
+                            'options' => $account->facilities(),
                             'keyId'   => 'facility_entity_id',
                             'keyName' => 'facility_name',
                         ])
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-8">
+                                <div class="checkbox">
+                                    <label><input {{ c('active') }} name="active" type="checkbox"> Active</label>
+                                </div>
+                            </div>
+                        </div>
 
                         <hr/>
                         <div class="row"><div class="col-md-3 pull-left"><h3>Student</h3></div></div>
@@ -124,16 +132,16 @@
 
                         @include('commons.select', [
                             'label'   => 'City',
-                            'name'    => 'city_name',
-                            'options' => $admission->cities(),
-                            'keyId'   => 'city_name',
+                            'name'    => 'city_id',
+                            'options' => $account->cities(),
+                            'keyId'   => 'city_id',
                             'keyName' => 'city_name',
                         ])
 
                         @include('commons.select', [
                             'label'    => 'City Area',
                             'name'     => 'city_area',
-                            'options'  => $admission->cityAreas(),
+                            'options'  => $account->cityAreas(),
                             'keyId'    => 'city_area',
                             'keyName'  => 'city_area',
                         ])
@@ -170,16 +178,16 @@
 
                         @include('commons.select', [
                             'label'   => 'Admitted To' ,
-                            'name'    => 'admitted_to_class_group_entity_id',
-                            'options' => $admission->classes(),
+                            'name'    => 'admitted_class_entity_id',
+                            'options' => $account->classes(),
                             'keyId'   => 'class_entity_id',
                             'keyName' => 'class_name',
                         ])
 
                         @include('commons.select', [
-                            'label'   => 'Admitted To Class' ,
+                            'label'   => 'Current Class' ,
                             'name'    => 'admitted_to_class_entity_id',
-                            'options' => $admission->classGroups(),
+                            'options' => $account->classGroups(),
                             'keyId'   => 'class_group_entity_id',
                             'keyName' => 'class_group',
                         ])
@@ -207,25 +215,25 @@
 
                         @include('commons.select', [
                             'label'    => 'Caste',
-                            'name'     => 'caste_name',
-                            'options'  => $admission->castes(),
-                            'keyId'    => 'caste_name',
+                            'name'     => 'caste_id',
+                            'options'  => $account->castes(),
+                            'keyId'    => 'caste_id',
                             'keyName'  => 'caste_name',
                         ])
 
                         @include('commons.select', [
                             'label'    => 'Religion',
-                            'name'     => 'religion_name',
-                            'options'  => $admission->religions(),
-                            'keyId'    => 'religion_name',
+                            'name'     => 'religion_id',
+                            'options'  => $account->religions(),
+                            'keyId'    => 'religion_id',
                             'keyName'  => 'religion_name',
                         ])
 
                         @include('commons.select', [
-                            'label'    => 'Communication Language',
-                            'name'     => 'mother_language_name',
-                            'options'  => $admission->languages(),
-                            'keyId'    => 'language_name',
+                            'label'    => 'Language',
+                            'name'     => 'mother_language_id',
+                            'options'  => $account->languages(),
+                            'keyId'    => 'language_id',
                             'keyName'  => 'language_name',
                         ])
 
@@ -235,7 +243,7 @@
                         @include('commons.select', [
                             'label'   => 'Relationship',
                             'name'    => 'parent_relationship_type_id',
-                            'options' => $admission->relationships(),
+                            'options' => $account->relationships(),
                             'keyId'   => 'relationship_type_id',
                             'keyName' => 'relationship_name',
                         ])
@@ -277,9 +285,9 @@
 
                         @include('commons.select', [
                             'label'    => 'Designation',
-                            'name'     => 'parent_designation_name',
-                            'options'  => $admission->designations(),
-                            'keyId'    => 'designation_name',
+                            'name'     => 'parent_designation_id',
+                            'options'  => $account->designations(),
+                            'keyId'    => 'designation_id',
                             'keyName'  => 'designation_name',
                         ])
 
@@ -288,7 +296,7 @@
                         <div class="row_footer">
                            <div class="col-md-12 text-center grid_footer">
                                 <button class="btn btn-primary grid_btn" type="submit">Save</button>
-                                <a href="{{ url("/cabinet/admission")}}" class="btn btn-default cancle_btn">Cancel</a>
+                                <a href="{{ url("/cabinet/student-account")}}" class="btn btn-default cancle_btn">Cancel</a>
                             </div>
                         </div>
                         <br/><br/>

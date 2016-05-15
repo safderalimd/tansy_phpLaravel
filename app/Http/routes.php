@@ -49,6 +49,10 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('admission/create', 'School\Controllers\AdmissionController@create');
     Route::post('admission/create', 'School\Controllers\AdmissionController@store');
 
+    Route::get('student-account/', 'Organization\Controllers\AccountStudentController@index');
+    Route::get('student-account/edit/{id}', 'Organization\Controllers\AccountStudentController@edit');
+    Route::post('student-account/edit/{id}', 'Organization\Controllers\AccountStudentController@update');
+    Route::get('student-account/delete/{id}', 'Organization\Controllers\AccountStudentController@destroy');
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
