@@ -2,8 +2,10 @@
 
 namespace App\Http\Models;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Session;
+use Illuminate\Support\Str;
 
 class Model
 {
@@ -15,11 +17,30 @@ class Model
     protected $attributes = [];
 
     /**
-     * Indicates if all mass assignment is enabled.
+     * The attributes that are not mass assignable.
      *
-     * @var bool
+     * @var array
      */
-    protected static $unguarded = false;
+    protected $guarded = [
+        'user_id',
+        'session_id',
+        'debug_sproc',
+        'audit_screen_visit',
+    ];
+
+    /**
+     * Is this a new model record.
+     *
+     * @var boolean
+     */
+    protected $isNewRecord = true;
+
+    /**
+     * The model's repository.
+     *
+     * @var namespace App\Http\Repositories\Repository
+     */
+    protected $repository;
 
     /**
      * Contains the errors.
@@ -28,22 +49,18 @@ class Model
      */
     public $errors;
 
-    public $user_id;
-
-    public $session_id;
-
-    public $debug_sproc;
-
-    public $audit_screen_visit;
-
     public function __construct(array $attributes = [])
     {
         $this->fill($attributes);
 
-        $this->user_id = Session::get('user.userID');
-        $this->session_id = Session::get('user.sessionID');
-        $this->debug_sproc = Session::get('user.debugSproc');
-        $this->audit_screen_visit = Session::get('user.auditScreenVisit');
+        $this->setAttribute('user_id', Session::get('user.userID'));
+        $this->setAttribute('session_id', Session::get('user.sessionID'));
+        $this->setAttribute('debug_sproc', Session::get('user.debugSproc'));
+        $this->setAttribute('audit_screen_visit', Session::get('user.auditScreenVisit'));
+        $this->setAttribute('screen_id', $this->screenId);
+
+        $class = $this->repositoryNamespace;
+        $this->repository = new $class();
     }
 
     /**
@@ -56,55 +73,25 @@ class Model
     public function fill($attributes)
     {
         foreach ($attributes as $key => $value) {
-
-            // don't fill keys that start with an underscore
-            if (substr($key, 0, 1) === '_') {
-                continue;
-            }
-
-            if ($this->isFillable($key)) {
+            if (! $this->isGuarded($key)) {
                 $this->setAttribute($key, $value);
             } else {
                 throw new MassAssignmentException($key);
             }
-
         }
+
+        return $this;
     }
 
     /**
-     * Determine if the given attribute may be mass assigned.
+     * Determine if the given attribute may not be mass assigned.
      *
      * @param  string  $key
      * @return bool
      */
-    public function isFillable($key)
+    public function isGuarded($key)
     {
-        if (static::$unguarded) {
-            return true;
-        }
-
-        return in_array($key, $this->fillable);
-    }
-
-    /**
-     * Disable all mass assignable restrictions.
-     *
-     * @param  bool  $state
-     * @return void
-     */
-    public static function unguard($state = true)
-    {
-        static::$unguarded = $state;
-    }
-
-    /**
-     * Enable the mass assignment restrictions.
-     *
-     * @return void
-     */
-    public static function reguard()
-    {
-        static::$unguarded = false;
+        return in_array($key, $this->guarded);
     }
 
     /**
@@ -116,6 +103,11 @@ class Model
      */
     public function setAttribute($key, $value)
     {
+        if ($this->hasSetMutator($key)) {
+            $method = 'set'.Str::studly($key).'Attribute';
+            $value = $this->{$method}($value);
+        }
+
         $this->attributes[$key] = $value;
     }
 
@@ -130,6 +122,17 @@ class Model
         if (array_key_exists($key, $this->attributes)) {
             return $this->attributes[$key];
         }
+    }
+
+    /**
+     * Determine if a set mutator exists for an attribute.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    public function hasSetMutator($key)
+    {
+        return method_exists($this, 'set'.Str::studly($key).'Attribute');
     }
 
     /**
@@ -178,12 +181,77 @@ class Model
     }
 
     /**
+     * Call a method on the repository
+     */
+    public function __call($method, $parameters)
+    {
+        $method = 'get' . ucfirst($method);
+        return call_user_func_array([$this->repository, $method], $parameters);
+    }
+
+    /**
      * Return the errors.
      *
      * @return string
      */
     public function getErrors()
     {
+        // flash data to the session to populate forms
+        Session::flashInput($this->attributes);
         return $this->errors;
+    }
+
+    public function save()
+    {
+        return $this->insert();
+    }
+
+    public function insert()
+    {
+        return $this->repository->insert($this);
+    }
+
+    public function update($attributes = null)
+    {
+        if (!is_null($attributes)) {
+            $this->fill($attributes);
+        }
+
+        return $this->repository->update($this);
+    }
+
+    public function delete()
+    {
+        return $this->repository->delete($this);
+    }
+
+    public function isNewRecord()
+    {
+        return $this->isNewRecord;
+    }
+
+    public static function findOrFail($id)
+    {
+        $instance = new static;
+
+        // select the data from the database
+        $data = $instance->repository->getModelById($id);
+
+        // throw exception if the model is not found
+        if (empty($data)) {
+            throw new NotFoundHttpException('Not found model with this id.');
+        }
+
+        // set attributes to the model instance
+        $attributes = (array)$data[0];
+        $instance->fill($attributes);
+
+        // flash data to the session to populate edit forms
+        Session::flashInput($attributes);
+
+        // mark this model as not a new record
+        $instance->isNewRecord = false;
+
+        return $instance;
     }
 }

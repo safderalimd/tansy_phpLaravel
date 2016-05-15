@@ -36,7 +36,6 @@
                             'keyName' => 'facility_name',
                         ])
 
-                        <!-- data error - label -->
                         <hr/>
                         <div class="row"><div class="col-md-3 pull-left"><h3>Student</h3></div></div>
 

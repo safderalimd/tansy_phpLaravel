@@ -16,7 +16,7 @@ class ClassSubjectMapController extends Controller
      */
     public function index()
     {
-        $subjects = ClassSubjectMap::all();
+        $subjects = new ClassSubjectMap;
         return view('modules.school.ClassSubjectMap.list', compact('subjects'));
     }
 

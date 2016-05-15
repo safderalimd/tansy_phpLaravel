@@ -15,9 +15,8 @@ class AdmissionController extends Controller
      */
     public function index()
     {
-        $students = Admission::all();
         $admission = new Admission;
-        return view('modules.school.Admission.list', compact('students', 'admission'));
+        return view('modules.school.Admission.list', compact('admission'));
     }
 
     /**
@@ -27,7 +26,7 @@ class AdmissionController extends Controller
      */
     public function create()
     {
-        $admission = new Admission();
+        $admission = new Admission;
         return view('modules.school.Admission.form', compact('admission'));
     }
 
@@ -79,6 +78,7 @@ class AdmissionController extends Controller
             return redirect('/cabinet/admission');
         }
 
+        $request->flash();
         return redirect(url('/cabinet/admission/edit', ['id' => $admission->getID()]))
             ->withErrors($admission->getErrors());
     }

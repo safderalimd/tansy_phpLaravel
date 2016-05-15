@@ -24,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody>
-            @foreach($subjects as $subject)
+            @foreach($subjects->classSubjectsGrid() as $subject)
             <tr>
                 <td>{{$subject['class_name']}}</td>
                 <td>{{$subject['subject']}}</td>

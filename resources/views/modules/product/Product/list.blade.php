@@ -12,6 +12,9 @@
                 	<a href="{!!url('/cabinet/product/create/')!!}" class="btn pull-right btn-default">Add new record</a>
                 </div>
                 <div class="panel-body">
+
+                    @include('commons.errors')
+
                    <table class="table table-striped table-bordered table-hover" data-datatable>
                     <thead>
                         <tr>
@@ -22,22 +25,22 @@
                         </tr>
                     </thead>
                     <tbody>
-            @foreach($products as $product)
+            @foreach($product->products() as $item)
             <tr>
-                <td>{{$product['product']}}</td>
-                <td>{{$product['product_type']}}</td>
+                <td>{{$item['product']}}</td>
+                <td>{{$item['product_type']}}</td>
                 <td>
-                    @if ($product['active'])
+                    @if ($item['active'])
                         <strong>Active</strong>
                     @else
                         Inactive
                     @endif
                 </td>
                 <td>
-                    <a class="btn btn-default" href="{{url("/cabinet/product/edit/{$product['product_entity_id']}")}}" title="Edit">
+                    <a class="btn btn-default" href="{{url("/cabinet/product/edit/{$item['product_entity_id']}")}}" title="Edit">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
-                    <a class="btn btn-default formConfirm" href="{{url("/cabinet/product/delete/{$product['product_entity_id']}")}}"
+                    <a class="btn btn-default formConfirm" href="{{url("/cabinet/product/delete/{$item['product_entity_id']}")}}"
                        title="Delete"
                        data-title="Delete Product"
                        data-message="Are you sure to delete the selected record?"

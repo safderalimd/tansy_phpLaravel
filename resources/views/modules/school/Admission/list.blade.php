@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-    @foreach($students as $student)
+    @foreach($admission->admissionGrid() as $student)
     <tr>
         <td><input type="checkbox" name="" value=""></td>
 

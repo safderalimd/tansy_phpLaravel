@@ -26,10 +26,10 @@ class ProductFormRequest extends Request
     {
         return [
             // 'active'    => 'boolean',
-            'product_name'           => 'required|string',
+            'product_name'           => 'required|string|max:120',
             'product_type_entity_id' => 'required|integer',
             'facility_ids'           => 'required|integer',
-            'unit_rate'              => 'required|string',
+            'unit_rate'              => 'required|numeric|min:0',
         ];
     }
 

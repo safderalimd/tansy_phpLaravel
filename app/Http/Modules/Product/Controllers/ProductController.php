@@ -15,8 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return view('modules.product.Product.list', compact('products'));
+        $product = new Product;
+        return view('modules.product.Product.list', compact('product'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $product = new Product();
+        $product = new Product;
         return view('modules.product.Product.form', compact('product'));
     }
 
@@ -38,8 +38,7 @@ class ProductController extends Controller
      */
     public function store(ProductFormRequest $request)
     {
-        $params = $request->input();
-        $product = new Product($params);
+        $product = new Product($request->input());
 
         if ($product->save()) {
             return redirect('/cabinet/product');
@@ -69,15 +68,13 @@ class ProductController extends Controller
      */
     public function update(ProductFormRequest $request, $id)
     {
-        $params = $request->input();
-        $params['product_entity_id'] = $id;
+        $product = Product::findOrFail($id);
 
-        $product = new Product($params);
-        if ($product->save()) {
+        if ($product->update($request->input())) {
             return redirect('/cabinet/product');
         }
 
-        return redirect(url('/cabinet/product/edit', ['id' => $product->getID()]))
+        return redirect(url('/cabinet/product/edit', compact('id')))
             ->withErrors($product->getErrors());
     }
 

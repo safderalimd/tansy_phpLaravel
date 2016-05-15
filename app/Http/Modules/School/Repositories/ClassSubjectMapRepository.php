@@ -2,26 +2,17 @@
 
 namespace App\Http\Modules\School\Repositories;
 
-use DB;
+use App\Http\Repositories\Repository;
 
-class ClassSubjectMapRepository
+class ClassSubjectMapRepository extends Repository
 {
-    public function getAll()
+    public function getModelById($id)
     {
-        return DB::connection('secondDB')->select(
+        return $this->db()->select(
             'SELECT class_name, subject, mapped, class_entity_id, subject_entity_id
              FROM view_sch_class2subject_grid
-             ORDER BY class_name DESC;'
-        );
-    }
-
-    public function getById($id)
-    {
-        return DB::connection('secondDB')->select(
-            'SELECT class_name, subject, mapped, class_entity_id, subject_entity_id
-             FROM view_sch_class2subject_grid
-             WHERE subject_entity_id = :subjectEntityId
-             LIMIT 1;', ['subjectEntityId' => $id]
+             WHERE subject_entity_id = :id
+             LIMIT 1;', ['id' => $id]
         );
     }
 
@@ -37,7 +28,7 @@ class ClassSubjectMapRepository
 
     public function mapOrDelete($model, $mappingFlag)
     {
-        $db = DB::connection('secondDB')->getPdo();
+        $db = $this->db()->getPdo();
 
         $call = $db->prepare('
             call sproc_sch_class2subject_dml (
