@@ -14,13 +14,47 @@ class Admission extends Model
      * @var array
      */
     protected $fillable = [
-        'student_full_name',
+        // header
+        'facility_entity_id',
+
+        // student
+        'first_name',
+        'middle_name',
+        'last_name',
+        'date_of_birth',
+        'gender',
+
+        // contact
+        'email',
+        'home_phone',
+        'mobile_phone',
+
+        // adress
+        'adress1',
+        'adress2',
+        'city_id',
+        'city_area',
+        'postal_code',
+
+        // student inf,
         'admission_number',
         'admission_date',
-        'admitted_to',
-        'admission_status',
-        'admission_id',
-        'admission_status_id',
+        'class_entity_id',
+        'class_group_entity_id',
+        'roll_number',
+        'identification1',
+        'identification2',
+        'caste_id',
+        'religion_id',
+        'language_id',
+
+        // parent
+        'relationship_type_id',
+        'parent_gender',
+        'parent_first_name',
+        'parent_middle_name',
+        'parent_last_name',
+        'designation_id',
     ];
 
     public $screen_id = 3004;
@@ -34,22 +68,7 @@ class Admission extends Model
         $this->repository = new AdmissionRepository;
     }
 
-    public function getId()
-    {
-        // return $this->product_entity_id;
-    }
-
-    public function isNewRecord()
-    {
-        // return $this->product_entity_id === null;
-    }
-
     public function save()
-    {
-        return $this->isNewRecord() ? $this->insert() : $this->update();
-    }
-
-    public function insert()
     {
         return $this->repository->insert($this);
     }
@@ -66,19 +85,19 @@ class Admission extends Model
 
     public static function findOrFail($id)
     {
-        static::unguard();
-        $instance = new static;
+        // static::unguard();
+        // $instance = new static;
 
-        $data = $instance->repository->getById($id);
-        $model = new static((array)$data[0]);
+        // $data = $instance->repository->getById($id);
+        // $model = new static((array)$data[0]);
 
-        static::reguard();
+        // static::reguard();
 
-        if ($model === null || $model->getId() === null) {
+        // if ($model === null || $model->getId() === null) {
             throw new NotFoundHttpException('Not found entity object');
-        }
+        // }
 
-        return $model;
+        // return $model;
     }
 
     public static function all()

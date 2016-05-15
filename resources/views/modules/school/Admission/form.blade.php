@@ -8,7 +8,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <i class="glyphicon glyphicon-th"></i>
-                    <h3>Product</h3>
+                    <h3>Admission</h3>
                     @if(Request::segment(3) == "edit")
                         <label>- Update</label>
                     @else
@@ -42,21 +42,21 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="first_name">First Name</label>
                             <div class="col-md-8">
-                                <input id="first_name" class="form-control" type="text" name="first_name" value="{{ old('first_name') }}" placeholder="First Name">
+                                <input id="first_name" class="form-control" type="text" name="first_name" value="{{ v('first_name') }}" placeholder="First Name">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="middle_name">Middle Name</label>
                             <div class="col-md-8">
-                                <input id="middle_name" class="form-control" type="text" name="middle_name" value="{{ old('middle_name') }}" placeholder="Middle Name">
+                                <input id="middle_name" class="form-control" type="text" name="middle_name" value="{{ v('middle_name') }}" placeholder="Middle Name">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="last_name">Last Name</label>
                             <div class="col-md-8">
-                                <input id="last_name" class="form-control" type="text" name="last_name" value="{{ old('last_name') }}" placeholder="Last Name">
+                                <input id="last_name" class="form-control" type="text" name="last_name" value="{{ v('last_name') }}" placeholder="Last Name">
                             </div>
                         </div>
 
@@ -64,7 +64,7 @@
                             <label class="col-md-4 control-label" for="date_of_birth">Date of Birth</label>
                             <div class="col-md-8">
                                 <div class="input-group date">
-                                    <input id="date_of_birth" class="form-control" type="text" name="date_of_birth" value="{{ old('date_of_birth') }}" placeholder="Date of Birth">
+                                    <input id="date_of_birth" class="form-control" type="text" name="date_of_birth" value="{{ v('date_of_birth') }}" placeholder="Date of Birth">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button"><span
                                                     class="glyphicon glyphicon-calendar"></span></button>
@@ -77,11 +77,11 @@
                             <label class="col-md-4 control-label" for="gender">Gender</label>
                             <div class="col-md-8">
                                 <label class="radio-inline">
-                                    <input type="radio" name="gender" id="gender1" value="male">
+                                    <input type="radio" name="gender" {{ r('gender', 'male') }} id="gender1" value="male">
                                     Male
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="gender" id="gender2" value="female">
+                                    <input type="radio" name="gender" {{ r('gender', 'female') }} id="gender2" value="female">
                                     Female
                                 </label>
                             </div>
@@ -93,21 +93,21 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="email">Email</label>
                             <div class="col-md-8">
-                                <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" placeholder="Email">
+                                <input id="email" class="form-control" type="email" name="email" value="{{ v('email') }}" placeholder="Email">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="home_phone">Home Phone</label>
                             <div class="col-md-8">
-                                <input id="home_phone" class="form-control" type="text" name="home_phone" value="{{ old('home_phone') }}" placeholder="Home Phone">
+                                <input id="home_phone" class="form-control" type="text" name="home_phone" value="{{ v('home_phone') }}" placeholder="Home Phone">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="mobile_phone">Mobile Phone</label>
                             <div class="col-md-8">
-                                <input id="mobile_phone" class="form-control" type="text" name="mobile_phone" value="{{ old('mobile_phone') }}" placeholder="Mobile Phone">
+                                <input id="mobile_phone" class="form-control" type="text" name="mobile_phone" value="{{ v('mobile_phone') }}" placeholder="Mobile Phone">
                             </div>
                         </div>
 
@@ -117,14 +117,14 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="adress1">Adress 1</label>
                             <div class="col-md-8">
-                                <input id="adress1" class="form-control" type="text" name="adress1" value="{{ old('adress1') }}" placeholder="Adress 1">
+                                <input id="adress1" class="form-control" type="text" name="adress1" value="{{ v('adress1') }}" placeholder="Adress 1">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="adress2">Adress 2</label>
                             <div class="col-md-8">
-                                <input id="adress2" class="form-control" type="text" name="adress2" value="{{ old('adress2') }}" placeholder="Adress 2">
+                                <input id="adress2" class="form-control" type="text" name="adress2" value="{{ v('adress2') }}" placeholder="Adress 2">
                             </div>
                         </div>
 
@@ -145,7 +145,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="postal_code">Postal Code</label>
                             <div class="col-md-8">
-                                <input id="postal_code" class="form-control" type="text" name="postal_code" value="{{ old('postal_code') }}" placeholder="Postal Code">
+                                <input id="postal_code" class="form-control" type="text" name="postal_code" value="{{ v('postal_code') }}" placeholder="Postal Code">
                             </div>
                         </div>
 
@@ -155,7 +155,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="admission_number">Admission #</label>
                             <div class="col-md-8">
-                                <input id="admission_number" class="form-control" type="text" name="admission_number" value="{{ old('admission_number') }}" placeholder="Admission #">
+                                <input id="admission_number" class="form-control" type="text" name="admission_number" value="{{ v('admission_number') }}" placeholder="Admission #">
                             </div>
                         </div>
 
@@ -163,7 +163,7 @@
                             <label class="col-md-4 control-label" for="admission_date">Admission Date</label>
                             <div class="col-md-8">
                                 <div class="input-group date">
-                                    <input id="admission_date" class="form-control" type="text" name="admission_date" value="{{ old('admission_date') }}" placeholder="Admission Date">
+                                    <input id="admission_date" class="form-control" type="text" name="admission_date" value="{{ v('admission_date') }}" placeholder="Admission Date">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button"><span
                                                     class="glyphicon glyphicon-calendar"></span></button>
@@ -189,21 +189,21 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="roll_number">Roll Number</label>
                             <div class="col-md-8">
-                                <input id="roll_number" class="form-control" type="text" name="roll_number" value="{{ old('roll_number') }}" placeholder="Roll Number">
+                                <input id="roll_number" class="form-control" type="text" name="roll_number" value="{{ v('roll_number') }}" placeholder="Roll Number">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="identification1">Identification 1</label>
                             <div class="col-md-8">
-                                <input id="identification1" class="form-control" type="text" name="identification1" value="{{ old('identification1') }}" placeholder="Identification 1">
+                                <input id="identification1" class="form-control" type="text" name="identification1" value="{{ v('identification1') }}" placeholder="Identification 1">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="identification2">Identification 2</label>
                             <div class="col-md-8">
-                                <input id="identification2" class="form-control" type="text" name="identification2" value="{{ old('identification2') }}" placeholder="Identification 2">
+                                <input id="identification2" class="form-control" type="text" name="identification2" value="{{ v('identification2') }}" placeholder="Identification 2">
                             </div>
                         </div>
 
@@ -242,11 +242,11 @@
                             <label class="col-md-4 control-label" for="parent_gender">Gender</label>
                             <div class="col-md-8">
                                 <label class="radio-inline">
-                                    <input type="radio" name="parent_gender" id="parent_gender1" value="male">
+                                    <input type="radio" name="parent_gender" {{ r('parent_gender', 'male') }} id="parent_gender1" value="male">
                                     Male
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="parent_gender" id="parent_gender2" value="female">
+                                    <input type="radio" name="parent_gender" {{ r('parent_gender', 'male') }} id="parent_gender2" value="female">
                                     Female
                                 </label>
                             </div>
@@ -255,21 +255,21 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="parent_first_name">First Name</label>
                             <div class="col-md-8">
-                                <input id="parent_first_name" class="form-control" type="text" name="parent_first_name" value="{{ old('parent_first_name') }}" placeholder="First Name">
+                                <input id="parent_first_name" class="form-control" type="text" name="parent_first_name" value="{{ v('parent_first_name') }}" placeholder="First Name">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="parent_middle_name">Middle Name</label>
                             <div class="col-md-8">
-                                <input id="parent_middle_name" class="form-control" type="text" name="parent_middle_name" value="{{ old('parent_middle_name') }}" placeholder="Middle Name">
+                                <input id="parent_middle_name" class="form-control" type="text" name="parent_middle_name" value="{{ v('parent_middle_name') }}" placeholder="Middle Name">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="parent_last_name">Last Name</label>
                             <div class="col-md-8">
-                                <input id="parent_last_name" class="form-control" type="text" name="parent_last_name" value="{{ old('parent_last_name') }}" placeholder="Last Name">
+                                <input id="parent_last_name" class="form-control" type="text" name="parent_last_name" value="{{ v('parent_last_name') }}" placeholder="Last Name">
                             </div>
                         </div>
 
@@ -288,6 +288,8 @@
                                 <a href="{{ url("/cabinet/admission")}}" class="btn btn-default cancle_btn">Cancel</a>
                             </div>
                         </div>
+                        <br/><br/>
+
                     </form>
                     </section>
                 </div>

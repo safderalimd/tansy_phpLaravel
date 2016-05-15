@@ -40,9 +40,10 @@ class AdmissionController extends Controller
     public function store(AdmissionFormRequest $request)
     {
         $params = $request->input();
-        dd($params);
-
         $admission = new Admission($params);
+        dd($admission);
+
+        // TOOD: make sure text is inserted for some selectboxes (not the ids)
 
         if ($admission->save()) {
             return redirect('/cabinet/admission');
@@ -76,7 +77,7 @@ class AdmissionController extends Controller
         $params['product_entity_id'] = $id;
 
         $admission = new Admission($params);
-        if ($admission->save()) {
+        if ($admission->update()) {
             return redirect('/cabinet/admission');
         }
 
