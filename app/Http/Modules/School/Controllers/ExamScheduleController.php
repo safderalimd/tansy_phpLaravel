@@ -4,7 +4,9 @@ namespace App\Http\Modules\School\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Modules\School\Models\ExamSchedule;
-use App\Http\Modules\School\Requests\ProductFormRequest;
+use App\Http\Modules\School\Requests\ExamScheduleMapSubjectsFormRequest;
+use App\Http\Modules\School\Requests\ExamScheduleRowsFormRequest;
+use App\Http\Modules\School\Requests\ExamScheduleDeleteFormRequest;
 
 class ExamScheduleController extends Controller
 {
@@ -20,73 +22,49 @@ class ExamScheduleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Map subjects.
      *
+     * @param ExamScheduleMapSubjectsFormRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $schedule = new ExamSchedule;
-        return view('modules.school.ExamSchedule.form', compact('schedule'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param ProductFormRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(ProductFormRequest $request)
+    public function mapSubjects(ExamScheduleMapSubjectsFormRequest $request)
     {
         $schedule = new ExamSchedule($request->input());
 
-        if ($schedule->save()) {
+        if ($schedule->mapSubjects()) {
             return redirect('/cabinet/exam-schedule');
         }
 
-        return redirect('/cabinet/exam-schedule/create')->withErrors($schedule->getErrors());
+        return redirect('/cabinet/exam-schedule')->withErrors($schedule->getErrors());
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Schedule selected rows.
      *
-     * @param  int $id
+     * @param ExamScheduleRowsFormRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function scheduleRows(ExamScheduleRowsFormRequest $request)
     {
-        $schedule = ExamSchedule::findOrFail($id);
-        return view('modules.school.ExamSchedule.form', compact('schedule'));
-    }
+        $schedule = new ExamSchedule($request->input());
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param ProductFormRequest $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(ProductFormRequest $request, $id)
-    {
-        $schedule = ExamSchedule::findOrFail($id);
-
-        if ($schedule->update($request->input())) {
+        if ($schedule->scheduleRows()) {
             return redirect('/cabinet/exam-schedule');
         }
 
-        return redirect(url('/cabinet/exam-schedule/edit', compact('id')))
-            ->withErrors($schedule->getErrors());
+        return redirect('/cabinet/exam-schedule')->withErrors($schedule->getErrors());
     }
 
     /**
      * Remove the specified resource from storage.
+     * Ids will be in the query string.
      *
-     * @param  int $id
+     * @param ExamScheduleDeleteFormRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ExamScheduleDeleteFormRequest $request)
     {
-        $schedule = ExamSchedule::findOrFail($id);
+        $schedule = new ExamSchedule($request->input());
 
         if ($schedule->delete()) {
             return redirect('/cabinet/exam-schedule');

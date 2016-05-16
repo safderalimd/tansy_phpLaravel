@@ -79,11 +79,9 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     // Route::get('payment-adjustment/delete/{id}', 'Accounting\Controllers\PaymentAdjustmentController@destroy');
 
     Route::get('exam-schedule', 'School\Controllers\ExamScheduleController@index');
-    Route::get('exam-schedule/create', 'School\Controllers\ExamScheduleController@create');
-    Route::post('exam-schedule/create', 'School\Controllers\ExamScheduleController@store');
-    Route::get('exam-schedule/edit/{id}', 'School\Controllers\ExamScheduleController@edit');
-    Route::post('exam-schedule/edit/{id}', 'School\Controllers\ExamScheduleController@update');
-    Route::get('exam-schedule/delete/{id}', 'School\Controllers\ExamScheduleController@destroy');
+    Route::post('exam-schedule/map-subjects', 'School\Controllers\ExamScheduleController@mapSubjects');
+    Route::post('exam-schedule/schedule-rows', 'School\Controllers\ExamScheduleController@scheduleRows');
+    Route::get('exam-schedule/delete', 'School\Controllers\ExamScheduleController@destroy');
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 

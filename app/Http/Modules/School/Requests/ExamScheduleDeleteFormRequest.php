@@ -5,7 +5,7 @@ namespace App\Http\Modules\School\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Contracts\Validation\Validator;
 
-class ExamScheduleFormRequest extends Request
+class ExamScheduleDeleteFormRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,9 @@ class ExamScheduleFormRequest extends Request
     public function rules()
     {
         return [
-            // 'product_name'           => 'required|string|max:120',
-            // 'product_type_entity_id' => 'required|integer',
-            // 'facility_ids'           => 'required|integer',
-            // 'unit_rate'              => 'required|numeric|min:0',
+            'class_entity_id' => 'required|string',
+            'subject_entity_id' => 'required|integer',
+            'exam_entity_id' => 'required|integer',
         ];
     }
 

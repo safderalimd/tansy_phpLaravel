@@ -23,7 +23,11 @@ class Repository
 
         // bind the input parameters
         foreach ($iparams as $parameter) {
-            $property = substr($parameter, 8);
+            if (strpos($parameter, 'iparm_') !== false) {
+                $property = substr($parameter, 7);
+            } else {
+                $property = substr($parameter, 8);
+            }
             $dbCall->bindValue($parameter, $model->{$property});
         }
 
@@ -557,7 +561,7 @@ class Repository
     public function getScheduleExamGrid()
     {
         return $this->db()->select(
-            'SELECT class_name, subject, exam_date, exam_time, max_marks, class_subject_id, exam_entity_id
+            'SELECT class_name, class_entity_id, subject_entity_id, subject, exam_date, exam_time, max_marks, class_subject_id, exam_entity_id
             FROM view_sch_schedule_exam_grid
             ORDER BY class_name DESC;'
         );

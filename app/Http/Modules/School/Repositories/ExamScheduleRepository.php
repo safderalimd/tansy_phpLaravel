@@ -6,94 +6,76 @@ use App\Http\Repositories\Repository;
 
 class ExamScheduleRepository extends Repository
 {
-    // public function getModelById($id)
-    // {
-    //     return $this->db()->select(
-    //         'SELECT
-    //             product AS product_name,
-    //             product_type,
-    //             unit_rate,
-    //             product_type_entity_id,
-    //             product_entity_id,
-    //             active
-    //          FROM view_prd_lkp_product
-    //          WHERE product_entity_id = :id
-    //          LIMIT 1;', ['id' => $id]
-    //     );
-    // }
+    public function scheduleRows($model)
+    {
+        $procedure = 'sproc_sch_schedule_exam_dml_ins';
 
-    // public function insert($model)
-    // {
-    //     $procedure = 'sproc_prd_product_dml_ins';
+        $iparams = [
+            ':iparam_class_subject_ids',
+            ':iparam_exam_entity_id',
+            ':iparam_exam_date',
+            ':iparam_exam_start_time',
+            ':iparam_exam_end_time',
+            ':iparam_max_marks',
+            ':iparam_session_id',
+            ':iparam_user_id',
+            ':iparam_screen_id',
+            ':iparam_debug_sproc',
+            ':iparam_audit_screen_visit',
+        ];
 
-    //     $iparams = [
-    //         ':iparam_product_name',
-    //         ':iparam_product_type_entity_id',
-    //         ':iparam_unit_rate',
-    //         ':iparam_facility_ids',
-    //         ':iparam_session_id',
-    //         ':iparam_user_id',
-    //         ':iparam_screen_id',
-    //         ':iparam_debug_sproc',
-    //         ':iparam_audit_screen_visit',
-    //     ];
+        $oparams = [
+            '@oparam_err_flag',
+            '@oparam_err_step',
+            '@oparam_err_msg'
+        ];
 
-    //     $oparams = [
-    //         '@oparam_product_entity_id',
-    //         '@oparam_err_flag',
-    //         '@oparam_err_step',
-    //         '@oparam_err_msg'
-    //     ];
+        return $this->runProcedure($model, $procedure, $iparams, $oparams);
+    }
 
-    //     return $this->runProcedure($model, $procedure, $iparams, $oparams);
-    // }
+    public function mapSubjects($model)
+    {
+        $procedure = 'sproc_sch_schedule_exam_map_subject_dml';
 
-    // public function update($model)
-    // {
-    //     $procedure = 'sproc_prd_product_dml_upd';
+        $iparams = [
+            ':iparam_exam_entity_id',
+            ':iparam_session_id',
+            ':iparam_user_id',
+            ':iparam_screen_id',
+            ':iparam_debug_sproc',
+            ':iparam_audit_screen_visit',
+        ];
 
-    //     $iparams = [
-    //         ':iparam_product_entity_id',
-    //         ':iparam_product_name',
-    //         ':iparam_product_type_entity_id',
-    //         ':iparam_unit_rate',
-    //         ':iparam_active',
-    //         ':iparam_facility_ids',
-    //         ':iparam_session_id',
-    //         ':iparam_user_id',
-    //         ':iparam_screen_id',
-    //         ':iparam_debug_sproc',
-    //         ':iparam_audit_screen_visit',
-    //     ];
+        $oparams = [
+            '@oparam_err_flag',
+            '@oparam_err_step',
+            '@oparam_err_msg'
+        ];
 
-    //     $oparams = [
-    //         '@oparam_err_flag',
-    //         '@oparam_err_step',
-    //         '@oparam_err_msg'
-    //     ];
+        return $this->runProcedure($model, $procedure, $iparams, $oparams);
+    }
 
-    //     return $this->runProcedure($model, $procedure, $iparams, $oparams);
-    // }
+    public function delete($model)
+    {
+        $procedure = 'sproc_sch_schedule_exam_dml_del';
 
-    // public function delete($model)
-    // {
-    //     $procedure = 'sproc_prd_product_dml_del';
+        $iparams = [
+            ':iparam_class_entity_id',
+            ':iparam_subject_entity_id',
+            ':iparam_exam_entity_id',
+            ':iparam_session_id',
+            ':iparam_user_id',
+            ':iparam_screen_id',
+            ':iparam_debug_sproc',
+            ':iparam_audit_screen_visit',
+        ];
 
-    //     $iparams = [
-    //         ':iparam_product_entity_id',
-    //         ':iparam_session_id',
-    //         ':iparam_user_id',
-    //         ':iparam_screen_id',
-    //         ':iparam_debug_sproc',
-    //         ':iparam_audit_screen_visit',
-    //     ];
+        $oparams = [
+            '@oparam_err_flag',
+            '@oparam_err_step',
+            '@oparam_err_msg'
+        ];
 
-    //     $oparams = [
-    //         '@oparam_err_flag',
-    //         '@oparam_err_step',
-    //         '@oparam_err_msg'
-    //     ];
-
-    //     return $this->runProcedure($model, $procedure, $iparams, $oparams);
-    // }
+        return $this->runProcedure($model, $procedure, $iparams, $oparams);
+    }
 }
