@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     @include('include.head')
+    @yield('styles')
 </head>
 <body>
 <div class="container-fluid">
