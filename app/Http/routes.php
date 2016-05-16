@@ -90,6 +90,8 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     // Route::post('mark-sheet/create', 'School\Controllers\MarkSheetController@store');
     // Route::get('mark-sheet/delete/{id}', 'School\Controllers\MarkSheetController@destroy');
 
+    Route::get('mark-sheet---load', 'thirdparty\omr\Controllers\MarkSheetLoadController@index');
+
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
     Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {
