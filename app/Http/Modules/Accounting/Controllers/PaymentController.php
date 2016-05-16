@@ -33,10 +33,10 @@ class PaymentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param ProductFormRequest $request
+     * @param PaymentFormRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductFormRequest $request)
+    public function store(PaymentFormRequest $request)
     {
         $payment = new Payment($request->input());
 
@@ -62,11 +62,11 @@ class PaymentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param ProductFormRequest $request
+     * @param PaymentFormRequest $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductFormRequest $request, $id)
+    public function update(PaymentFormRequest $request, $id)
     {
         $payment = Payment::findOrFail($id);
 
