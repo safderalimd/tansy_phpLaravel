@@ -12,6 +12,13 @@ class ClassSubjectMap extends Model
 
     public function map()
     {
-        return $this->repository->map($this);
+        $this->setAttribute('mapping_flag', 1);
+        return $this->repository->mapOrDelete($this);
+    }
+
+    public function delete()
+    {
+        $this->setAttribute('mapping_flag', 0);
+        return $this->repository->mapOrDelete($this);
     }
 }
