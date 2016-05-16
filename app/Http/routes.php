@@ -20,21 +20,21 @@ Route::post('/login', '\App\Http\Controllers\User@login');
 
 Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], function() {
 
-    Route::get('fiscal-year/', 'Organization\Controllers\FiscalYearController@index');
+    Route::get('fiscal-year', 'Organization\Controllers\FiscalYearController@index');
     Route::get('fiscal-year/create', 'Organization\Controllers\FiscalYearController@create');
     Route::post('fiscal-year/create', 'Organization\Controllers\FiscalYearController@store');
     Route::get('fiscal-year/edit/{id}', 'Organization\Controllers\FiscalYearController@edit');
     Route::post('fiscal-year/edit/{id}', 'Organization\Controllers\FiscalYearController@update');
     Route::get('fiscal-year/delete/{id}', 'Organization\Controllers\FiscalYearController@destroy');
 
-    Route::get('class/', 'School\Controllers\SchoolClassController@index');
+    Route::get('class', 'School\Controllers\SchoolClassController@index');
     Route::get('class/create', 'School\Controllers\SchoolClassController@create');
     Route::post('class/create', 'School\Controllers\SchoolClassController@store');
     Route::get('class/edit/{id}', 'School\Controllers\SchoolClassController@edit');
     Route::post('class/edit/{id}', 'School\Controllers\SchoolClassController@update');
     Route::get('class/delete/{id}', 'School\Controllers\SchoolClassController@destroy');
 
-    Route::get('product/', 'Product\Controllers\ProductController@index');
+    Route::get('product', 'Product\Controllers\ProductController@index');
     Route::get('product/create', 'Product\Controllers\ProductController@create');
     Route::post('product/create', 'Product\Controllers\ProductController@store');
     Route::get('product/edit/{id}', 'Product\Controllers\ProductController@edit');
@@ -56,6 +56,13 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
 
     Route::get('move-student', 'School\Controllers\MoveStudentController@index');
     Route::post('move-student/move', 'School\Controllers\MoveStudentController@move');
+
+    Route::get('schedule-payment', 'Accounting\Controllers\SchedulePaymentController@index');
+    Route::get('schedule-payment/create', 'Accounting\Controllers\SchedulePaymentController@create');
+    Route::post('schedule-payment/create', 'Accounting\Controllers\SchedulePaymentController@store');
+    Route::get('schedule-payment/edit/{id}', 'Accounting\Controllers\SchedulePaymentController@edit');
+    Route::post('schedule-payment/edit/{id}', 'Accounting\Controllers\SchedulePaymentController@update');
+    Route::get('schedule-payment/delete/{id}', 'Accounting\Controllers\SchedulePaymentController@destroy');
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
