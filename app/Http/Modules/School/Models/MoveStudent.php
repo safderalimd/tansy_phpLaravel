@@ -12,6 +12,6 @@ class MoveStudent extends Model
 
     public function move()
     {
-        $this->repository->move($this);
+        return $this->repository->move($this);
     }
 }

@@ -91,6 +91,20 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     // Route::get('mark-sheet/delete/{id}', 'School\Controllers\MarkSheetController@destroy');
 
     Route::get('mark-sheet---load', 'thirdparty\omr\Controllers\MarkSheetLoadController@index');
+    // Route::post('mark-sheet---load', 'thirdparty\omr\Controllers\MarkSheetLoadController@index');
+
+    Route::get('generate-progress', 'School\Controllers\GenerateProgressController@index');
+    Route::post('generate-progress/generate-progress-for-all-classes', 'School\Controllers\GenerateProgressController@generateAll');
+    Route::get('generate-progress/generate', 'School\Controllers\GenerateProgressController@generate');
+    Route::get('generate-progress/re-generate', 'School\Controllers\GenerateProgressController@regenerate');
+
+
+
+    // Route::get('generate-progress/create', 'School\Controllers\GenerateProgressController@create');
+    // Route::post('generate-progress/create', 'School\Controllers\GenerateProgressController@store');
+    // Route::get('generate-progress/edit/{id}', 'School\Controllers\GenerateProgressController@edit');
+    // Route::post('generate-progress/edit/{id}', 'School\Controllers\GenerateProgressController@update');
+    // Route::get('generate-progress/delete/{id}', 'School\Controllers\GenerateProgressController@destroy');
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 

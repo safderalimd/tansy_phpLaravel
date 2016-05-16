@@ -53,11 +53,11 @@
                           <div class="col-lg-12">
                               <button type="submit" class="btn btn-primary start">
                                   <i class="glyphicon glyphicon-upload"></i>
-                                  <span>Start upload</span>
+                                  <span>Import</span>
                               </button>
                               <button type="reset" class="btn btn-warning cancel">
                                   <i class="glyphicon glyphicon-ban-circle"></i>
-                                  <span>Cancel upload</span>
+                                  <span>Cancel</span>
                               </button>
 
                              <!--
