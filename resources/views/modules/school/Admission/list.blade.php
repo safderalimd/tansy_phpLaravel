@@ -28,20 +28,21 @@
                 </tr>
             </thead>
             <tbody>
+
+    <!-- student_full_name, admission_number, admission_date, admitted_to, admission_status, admission_id, admission_status_id -->
     @foreach($admission->admissionGrid() as $student)
     <tr>
         <td><input type="checkbox" name="" value=""></td>
-
         <td>{{$student['student_full_name']}}</td>
         <td>{{$student['admission_number']}}</td>
         <td>{{$student['admission_date']}}</td>
         <td>{{$student['admitted_to']}}</td>
         <td>{{$student['admission_status']}}</td>
         <td>
-            <a class="btn btn-default" href="{{url("/cabinet/admission/edit/{$student['product_entity_id']}")}}" title="Edit">
+            <a class="btn btn-default" href="{{url("/cabinet/admission/edit/{$student['admission_id']}")}}" title="Edit">
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
             </a>
-            <a class="btn btn-default formConfirm" href="{{url("/cabinet/admission/delete/{$student['product_entity_id']}")}}"
+            <a class="btn btn-default formConfirm" href="{{url("/cabinet/admission/delete/{$student['admission_id']}")}}"
                title="Delete"
                data-title="Delete Admission"
                data-message="Are you sure to delete the selected record?"
