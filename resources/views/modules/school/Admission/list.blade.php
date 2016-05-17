@@ -94,8 +94,6 @@
 
         <div class="form-group">
            <div class="col-md-4 col-md-offset-2">
-                <!-- uncheck all checkboxes -->
-
                 <button type="button" id="uncheck-all-checkboxes" class="btn btn-default">Cancel</button>
                 <button type="submit" id="move-admissions-submit" disabled="disabled" class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>

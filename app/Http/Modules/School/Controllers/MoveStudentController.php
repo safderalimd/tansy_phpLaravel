@@ -25,7 +25,7 @@ class MoveStudentController extends Controller
      * @param MoveStudentFormRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MoveStudentFormRequest $request)
+    public function move(MoveStudentFormRequest $request)
     {
         $move = new MoveStudent($request->input());
 

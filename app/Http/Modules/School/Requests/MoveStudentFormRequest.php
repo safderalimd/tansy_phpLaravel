@@ -26,7 +26,7 @@ class MoveStudentFormRequest extends Request
     {
         return [
             'move_to_class_entity_id' => 'required|integer',
-            'move_to_fiscal_year_entity_id' => 'required|string',
+            'move_to_fiscal_year_entity_id' => 'required|integer',
             'class_student_ids' => 'required|string',
         ];
     }
