@@ -22,7 +22,7 @@ class PaymentController extends Controller
         $primaryKey = $request->input('pk');
 
         if (!empty($rowType) && !empty($primaryKey)) {
-            $payment->setAttribute('return_type', 'Detail'); // 'Summary' or 'Detail'
+            $payment->setAttribute('return_type', 'Summary'); // 'Summary' or 'Detail'
             $payment->setAttribute('filter_type', $rowType);
             $payment->setAttribute('subject_entity_id', $primaryKey);
             $rows = $payment->getAllPayments();
@@ -30,6 +30,7 @@ class PaymentController extends Controller
             $rows = null;
         }
 
+        // dd($rows);
         // Todo: treat sql errors in this case (redirect with errors)
 
         return view('modules.accounting.Payment.list', compact('payment', 'primaryKey', 'rowType', 'rows'));
@@ -44,13 +45,13 @@ class PaymentController extends Controller
     public function create(Request $request)
     {
         $payment = new Payment;
-        $rowType = $request->input('rt');
+        // $rowType = $request->input('rt');
         $primaryKey = $request->input('pk');
 
         // iparam_filter_type = 'entity'
         // iparam_subject_entity_id = account_entity_id
         // iparam_return_type = Detail
-        if (!empty($rowType) && !empty($primaryKey)) {
+        if (!empty($primaryKey)) {
             $payment->setAttribute('filter_type', 'entity');
             $payment->setAttribute('subject_entity_id', $primaryKey);
             $payment->setAttribute('return_type', 'Detail'); // 'Summary' or 'Detail'
