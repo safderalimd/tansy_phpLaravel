@@ -19,7 +19,8 @@ class SchedulePaymentRepository extends Repository
                 start_date,
                 end_date,
                 due_date_days_value,
-                entity_type_id
+                entity_type_id,
+                active
              FROM view_act_rcv_schedule_detail
              WHERE schedule_entity_id = :id
              LIMIT 1;', ['id' => $id]
@@ -72,6 +73,7 @@ class SchedulePaymentRepository extends Repository
             ':iparam_end_date',
             ':iparam_due_date_days_value',
             ':iparam_facility_ids',
+            ':iparam_active',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
