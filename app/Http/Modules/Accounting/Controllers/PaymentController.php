@@ -2,6 +2,7 @@
 
 namespace App\Http\Modules\Accounting\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Accounting\Models\Payment;
 use App\Http\Modules\Accounting\Requests\PaymentFormRequest;
@@ -11,12 +12,27 @@ class PaymentController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $payment = new Payment;
-        return view('modules.accounting.Payment.list', compact('payment'));
+        $rowType = $request->input('rt');
+        $primaryKey = $request->input('pk');
+
+        if (!empty($rowType) && !empty($primaryKey)) {
+            $payment->setAttribute('return_type', 'Detail'); // 'Summary' or 'Detail'
+            $payment->setAttribute('filter_type', $rowType);
+            $payment->setAttribute('subject_entity_id', $primaryKey);
+            $rows = $payment->getAllPayments();
+        } else {
+            $rows = null;
+        }
+
+        // Todo: treat sql errors in this case (redirect with errors)
+
+        return view('modules.accounting.Payment.list', compact('payment', 'primaryKey', 'rowType', 'rows'));
     }
 
     /**

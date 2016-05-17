@@ -243,6 +243,15 @@ class Repository
         );
     }
 
+    public function getAccountType4ReceivablePayment()
+    {
+        return $this->db()->select(
+            'SELECT row_type, primary_key_id, drop_down_list_name, sequence_id
+            FROM view_org_lkp_account_type_4_receivable_payment
+            ORDER BY drop_down_list_name DESC;'
+        );
+    }
+
     public function getScheduleGrid()
     {
         return $this->db()->select(

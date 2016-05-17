@@ -14,6 +14,32 @@
 
                     @include('commons.errors')
 
+                    <form class="form-horizontal" action="" method="POST">
+                        <div class="row">
+                            <div class="col-md-4 col-md-offset-8">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="exam_account_type_4_receivable_id">Account Type</label>
+                                    <div class="col-md-8">
+                                        <select id="exam_account_type_4_receivable_id" class="form-control" name="exam_account_type_4_receivable_id">
+                                            <option data-rowtype="none" value="none">Select an account</option>
+                                            <?php $accountType = 'Account Type'; ?>
+                                            @foreach($payment->accountType4ReceivablePayment() as $option)
+                                                <?php
+                                                    if ($primaryKey == $option['primary_key_id']) {
+                                                        $accountType = $option['drop_down_list_name'];
+                                                    }
+                                                ?>
+                                                <option data-rowtype="{{$option['row_type']}}" {{ ($primaryKey == $option['primary_key_id']) ? 'selected' : ''}} value="{!! $option['primary_key_id'] !!}">
+                                                    {!! $option['drop_down_list_name'] !!}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
                    <table class="table table-striped table-bordered table-hover" data-datatable>
                     <thead>
                         <tr>
@@ -24,27 +50,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <!--
-            @foreach($payment->products() as $item)
-            <tr>
-                <td>{{$item['product']}}</td>
-                <td>{{$item['product_type']}}</td>
-                <td></td>
-                <td>
-                    <a class="btn btn-default" href="{{url("/cabinet/payment/edit/{$item['product_entity_id']}")}}" title="Edit">
-                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                    </a>
-                    <a class="btn btn-default formConfirm" href="{{url("/cabinet/payment/delete/{$item['product_entity_id']}")}}"
-                       title="Delete"
-                       data-title="Delete Product"
-                       data-message="Are you sure to delete the selected record?"
-                    >
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                    </a>
-                </td>
-            </tr>
-            @endforeach
--->
+
+@if (count($rows))
+    @foreach($rows as $row)
+    <tr>
+        <td>{{$accountType}}</td>
+        <td>{{$row['account_name']}}</td>
+        <td>{{$row['due_amount']}}</td>
+        <td>
+        <a class="btn btn-default" href="{{url("/cabinet/payment/edit/")}}" title="Payment">Payment</a>
+        <a class="btn btn-default" href="{{url("/cabinet/payment/edit/")}}" title="Adjustment">Adjustment</a>
+        <a class="btn btn-default" href="{{url("/cabinet/payment/edit/")}}" title="Schedule">Schedule</a>
+        <a class="btn btn-default" href="{{url("/cabinet/payment/edit/")}}" title="Receipt">Receipt</a>
+
+        </td>
+    </tr>
+    @endforeach
+@endif
 
                         </tbody>
                     </table>
@@ -53,4 +75,23 @@
             </div>
         </div>
 
+@endsection
+
+
+
+
+@section('scripts')
+<script type="text/javascript">
+
+    $('#exam_account_type_4_receivable_id').change(function() {
+        if (this.value == 'none') {
+            window.location.href = "/cabinet/payment";
+        } else {
+            var rowType = $(this).find(':selected').attr('data-rowtype');
+            rowType = encodeURIComponent(rowType);
+            window.location.href = "/cabinet/payment?pk=" + this.value + "&rt=" + rowType;
+        }
+    });
+
+</script>
 @endsection
