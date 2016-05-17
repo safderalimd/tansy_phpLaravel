@@ -18,7 +18,7 @@
            <table class="table table-striped table-bordered table-hover" data-datatable>
             <thead>
                 <tr>
-                    <th><input type="checkbox" name="" value=""></th>
+                    <th class="text-center"><input type="checkbox" name="" value=""></th>
                     <th>Student Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                     <th>Admission # <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                     <th>Admission Date</th>
@@ -32,7 +32,7 @@
     <!-- student_full_name, admission_number, admission_date, admitted_to, admission_status, admission_id, admission_status_id -->
     @foreach($admission->admissionGrid() as $student)
     <tr>
-        <td><input type="checkbox" name="" value=""></td>
+        <td class="text-center"><input type="checkbox" name="" value=""></td>
         <td>{{$student['student_full_name']}}</td>
         <td>{{$student['admission_number']}}</td>
         <td>{{$student['admission_date']}}</td>

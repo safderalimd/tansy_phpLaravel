@@ -171,17 +171,17 @@
                         @include('commons.select', [
                             'label'   => 'Admitted To' ,
                             'name'    => 'admitted_to_class_group_entity_id',
-                            'options' => $admission->classes(),
-                            'keyId'   => 'class_entity_id',
-                            'keyName' => 'class_name',
+                            'options' => $admission->classGroups(),
+                            'keyId'   => 'class_group_entity_id',
+                            'keyName' => 'class_group',
                         ])
 
                         @include('commons.select', [
                             'label'   => 'Admitted To Class' ,
                             'name'    => 'admitted_to_class_entity_id',
-                            'options' => $admission->classGroups(),
-                            'keyId'   => 'class_group_entity_id',
-                            'keyName' => 'class_group',
+                            'options' => $admission->classes(),
+                            'keyId'   => 'class_entity_id',
+                            'keyName' => 'class_name',
                         ])
 
                         <div class="form-group">

@@ -9,4 +9,9 @@ class Admission extends Model
     protected $screenId = 3004;
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\AdmissionRepository';
+
+    public function moveStudent()
+    {
+        return $this->repository->moveStudent($this);
+    }
 }

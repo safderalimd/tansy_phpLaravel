@@ -186,4 +186,31 @@ class AdmissionRepository extends Repository
 
         return $this->runProcedure($model, $procedure, $iparams, $oparams);
     }
+
+    // set @iparam_move_to_class_entity_id = 31;
+    // set @iparam_move_to_fiscal_year_entity_id = 56;
+    // set @iparam_admission_ids = '81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100';
+    public function moveStudent($model)
+    {
+        $procedure = 'sproc_sch_admission_move_student_dml';
+
+        $iparams = [
+            ':iparam_move_to_class_entity_id',
+            ':iparam_move_to_fiscal_year_entity_id',
+            ':iparam_admission_ids',
+            ':iparam_session_id',
+            ':iparam_user_id',
+            ':iparam_screen_id',
+            ':iparam_debug_sproc',
+            ':iparam_audit_screen_visit',
+        ];
+
+        $oparams = [
+            '@oparam_err_flag',
+            '@oparam_err_step',
+            '@oparam_err_msg',
+        ];
+
+        return $this->runProcedure($model, $procedure, $iparams, $oparams);
+    }
 }
