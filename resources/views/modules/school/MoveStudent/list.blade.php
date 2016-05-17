@@ -48,7 +48,7 @@
     @foreach($move->students() as $student)
     <tr style="display:none;" class="student-tr">
         <td class="text-center">
-            <input type="checkbox" data-classid="{{$student['class_entity_id']}}" class="student-entity-id" name="student_entity_id" value="{{$student['student_entity_id']}}">
+            <input type="checkbox" data-classid="{{$student['class_entity_id']}}" class="student-entity-id" name="class_student_id" value="{{$student['class_student_id']}}">
         </td>
         <td>{{$student['student_full_name']}}</td>
         <td>{{$student['student_roll_number']}}</td>
