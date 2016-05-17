@@ -187,10 +187,7 @@ class AdmissionRepository extends Repository
         return $this->runProcedure($model, $procedure, $iparams, $oparams);
     }
 
-    // set @iparam_move_to_class_entity_id = 31;
-    // set @iparam_move_to_fiscal_year_entity_id = 56;
-    // set @iparam_admission_ids = '81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100';
-    public function moveStudent($model)
+    public function moveStudents($model)
     {
         $procedure = 'sproc_sch_admission_move_student_dml';
 

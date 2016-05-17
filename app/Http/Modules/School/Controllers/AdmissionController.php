@@ -5,6 +5,7 @@ namespace App\Http\Modules\School\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\School\Models\Admission;
 use App\Http\Modules\School\Requests\AdmissionFormRequest;
+use App\Http\Modules\School\Requests\AdmissionMoveStudentsFormRequest;
 
 class AdmissionController extends Controller
 {
@@ -89,6 +90,23 @@ class AdmissionController extends Controller
         $admission = Admission::findOrFail($id);
 
         if ($admission->delete()) {
+            return redirect('/cabinet/admission');
+        }
+
+        return redirect('/cabinet/admission')->withErrors($admission->getErrors());
+    }
+
+    /**
+     * Schedule selected rows.
+     *
+     * @param AdmissionMoveStudentsFormRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function moveStudents(AdmissionMoveStudentsFormRequest $request)
+    {
+        $admission = new Admission($request->input());
+
+        if ($admission->moveStudents()) {
             return redirect('/cabinet/admission');
         }
 

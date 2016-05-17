@@ -10,8 +10,8 @@ class Admission extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\AdmissionRepository';
 
-    public function moveStudent()
+    public function moveStudents()
     {
-        return $this->repository->moveStudent($this);
+        return $this->repository->moveStudents($this);
     }
 }

@@ -18,7 +18,7 @@
            <table class="table table-striped table-bordered table-hover" data-datatable>
             <thead>
                 <tr>
-                    <th class="text-center"><input type="checkbox" name="" value=""></th>
+                    <th class="text-center"><input type="checkbox" id="toggle-subjects" name="toggle-checkbox" value=""></th>
                     <th>Student Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                     <th>Admission # <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                     <th>Admission Date</th>
@@ -29,10 +29,11 @@
             </thead>
             <tbody>
 
-    <!-- student_full_name, admission_number, admission_date, admitted_to, admission_status, admission_id, admission_status_id -->
     @foreach($admission->admissionGrid() as $student)
     <tr>
-        <td class="text-center"><input type="checkbox" name="" value=""></td>
+        <td class="text-center">
+            <input type="checkbox" class="admission-id" name="admission_id" value="{{$student['admission_id']}}">
+        </td>
         <td>{{$student['student_full_name']}}</td>
         <td>{{$student['admission_number']}}</td>
         <td>{{$student['admission_date']}}</td>
@@ -63,12 +64,16 @@
 
 <div class="row">
 <div class="col-md-12">
-    <form class="form-horizontal">
+
+    <form class="form-horizontal" id="move-students-form" action="{{url("/cabinet/admission/move-students/")}}" method="POST">
+        {{ csrf_field() }}
+
+        <input type="hidden" name="admission_ids" id="admission_ids" value="">
 
         <div class="form-group">
             <label class="col-md-2 control-label" for="fiscal_years">Move to Fiscal Year</label>
             <div class="col-md-4">
-                <select id="fiscal_years" class="form-control" name="fiscal_year_entity_id">
+                <select id="fiscal_years" class="form-control" name="move_to_fiscal_year_entity_id">
                     @foreach($admission->fiscalYears() as $year)
                         <option value="{!!$year['fiscal_year_entity_id']!!}">{!!$year['fiscal_year']!!}</option>
                     @endforeach
@@ -79,7 +84,7 @@
         <div class="form-group">
             <label class="col-md-2 control-label" for="move_to_class">Move to class</label>
             <div class="col-md-4">
-                <select id="move_to_class" class="form-control" name="class_entity_id">
+                <select id="move_to_class" class="form-control" name="move_to_class_entity_id">
                     @foreach($admission->classes() as $class)
                         <option value="{!!$class['class_entity_id']!!}">{!!$class['class_name']!!}</option>
                     @endforeach
@@ -90,11 +95,9 @@
         <div class="form-group">
            <div class="col-md-4 col-md-offset-2">
                 <!-- uncheck all checkboxes -->
-                <button type="button" class="btn btn-default">Cancel</button>
 
-                <!-- disabled if no checkboses are set -->
-                <!-- when clicked disable the button and show a preloader and say 'moving...' -->
-                <button type="button" disabled="disabled" class="btn btn-primary">
+                <button type="button" id="uncheck-all-checkboxes" class="btn btn-default">Cancel</button>
+                <button type="submit" id="move-admissions-submit" disabled="disabled" class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     Move Selected Students
                 </button>
@@ -105,4 +108,50 @@
 </div>
 </div>
 
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+
+    // Checkbox table header - toggle all checkboxes
+    // Todo: only for the ones on the first page
+    $('#toggle-subjects').change(function() {
+        if($(this).is(":checked")) {
+            $('.admission-id').prop('checked', true);
+        } else {
+            $('.admission-id').prop('checked', false);
+        }
+    });
+
+    // Cancel Button - deselect all checkboxes
+    $('#uncheck-all-checkboxes').on('click', function() {
+        $('.admission-id').prop('checked', false);
+        $('#toggle-subjects').prop('checked', false);
+    });
+
+    // Disable/Enable Move Button depending if checkboxes are selected
+    $('.admission-id, #toggle-subjects').change(function() {
+        if ($('.admission-id:checked').length > 0) {
+            $('#move-admissions-submit').prop('disabled', false);
+        } else {
+            $('#move-admissions-submit').prop('disabled', true);
+        }
+    });
+
+    // When submitting the form, prepend all selected checkboxes
+    $('#move-students-form').submit(function() {
+        var admissionIds = $('.admission-id:checked').map(function() {
+            return this.value;
+        }).get();
+
+        if (admissionIds.length == 0) {
+            alert("No admissions are selected.");
+            return false;
+        }
+
+        $('#admission_ids').val(admissionIds.join(','));
+
+        return true;
+    });
+</script>
 @endsection
