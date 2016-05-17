@@ -39,7 +39,15 @@ class AccountStudentRepository extends Repository
                 fiscal_year,
                 parent_relationship,
                 class_student_id,
-                fiscal_year_entity_id
+                fiscal_year_entity_id,
+                facility_entity_id,
+                active,
+                city_id,
+                caste_id,
+                religion_id,
+                mother_language_id,
+                parent_relationship_type_id,
+                parent_designation_id
             FROM view_sch_student_detail
             WHERE student_entity_id = :id
             LIMIT 1;', ['id' => $id]
