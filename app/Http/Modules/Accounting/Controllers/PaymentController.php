@@ -38,11 +38,29 @@ class PaymentController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $payment = new Payment;
+        $rowType = $request->input('rt');
+        $primaryKey = $request->input('pk');
+
+        // iparam_filter_type = 'entity'
+        // iparam_subject_entity_id = account_entity_id
+        // iparam_return_type = Detail
+        if (!empty($rowType) && !empty($primaryKey)) {
+            $payment->setAttribute('filter_type', 'entity');
+            $payment->setAttribute('subject_entity_id', $primaryKey);
+            $payment->setAttribute('return_type', 'Detail'); // 'Summary' or 'Detail'
+            $rows = $payment->getAllPayments();
+        } else {
+            $rows = null;
+        }
+
+        dd($rows);
+
         return view('modules.accounting.Payment.form', compact('payment'));
     }
 
