@@ -42,8 +42,8 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('product/delete/{id}', 'Product\Controllers\ProductController@destroy');
 
     Route::get('class-subject-map', 'School\Controllers\ClassSubjectMapController@index');
-    Route::get('class-subject-map/map/{id}', 'School\Controllers\ClassSubjectMapController@map');
-    Route::get('class-subject-map/delete/{id}', 'School\Controllers\ClassSubjectMapController@destroy');
+    Route::get('class-subject-map/map/{classId}/{subjectId}', 'School\Controllers\ClassSubjectMapController@map');
+    Route::get('class-subject-map/delete/{classId}/{subjectId}', 'School\Controllers\ClassSubjectMapController@destroy');
 
     Route::get('admission', 'School\Controllers\AdmissionController@index');
     Route::get('admission/create', 'School\Controllers\AdmissionController@create');

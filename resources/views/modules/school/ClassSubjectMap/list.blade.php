@@ -31,7 +31,7 @@
                 <td>{{$subject['mapped']}}</td>
                 <td>
                     @if (strtolower($subject['mapped']) == 'yes')
-                        <a class="btn btn-warning formConfirm" href="{{url("/cabinet/class-subject-map/delete/{$subject['subject_entity_id']}")}}"
+                        <a class="btn btn-warning formConfirm" href="{{url("/cabinet/class-subject-map/delete/{$subject['class_entity_id']}/{$subject['subject_entity_id']}")}}"
                            title="Delete"
                            data-title="Delete School Class"
                            data-message="Are you sure to delete the selected record?"
@@ -39,7 +39,7 @@
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
                         </a>
                     @else
-                        <a class="btn btn-success formConfirm" href="{{url("/cabinet/class-subject-map/map/{$subject['subject_entity_id']}")}}"
+                        <a class="btn btn-success formConfirm" href="{{url("/cabinet/class-subject-map/map/{$subject['class_entity_id']}/{$subject['subject_entity_id']}")}}"
                            title="Map"
                            data-title="Map School Class"
                            data-message="Are you sure to map the selected record?"

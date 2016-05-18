@@ -23,12 +23,15 @@ class ClassSubjectMapController extends Controller
     /**
      * Map school class subject.
      *
-     * @param  int $id
+     * @param  int $classId
+     * @param  int $subjectId
      * @return \Illuminate\Http\Response
      */
-    public function map($id)
+    public function map($classId, $subjectId)
     {
-        $subject = ClassSubjectMap::findOrFail($id);
+        $subject = new ClassSubjectMap;
+        $subject->setAttribute('class_entity_id', $classId);
+        $subject->setAttribute('subject_entity_id', $subjectId);
 
         if ($subject->map()) {
             return redirect('/cabinet/class-subject-map');
@@ -40,12 +43,16 @@ class ClassSubjectMapController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int $classId
+     * @param  int $subjectId
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($classId, $subjectId)
     {
-        $subject = ClassSubjectMap::findOrFail($id);
+        // $subject = ClassSubjectMap::findOrFail($id);
+        $subject = new ClassSubjectMap;
+        $subject->setAttribute('class_entity_id', $classId);
+        $subject->setAttribute('subject_entity_id', $subjectId);
 
         if ($subject->delete()) {
             return redirect('/cabinet/class-subject-map');

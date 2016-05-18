@@ -13,7 +13,8 @@ class ClassSubjectMapRepository extends Repository
                 class_name,
                 subject,
                 mapped,
-                class_entity_id, subject_entity_id
+                class_entity_id,
+                subject_entity_id
              FROM view_sch_class2subject_grid
              WHERE subject_entity_id = :id
              LIMIT 1;', ['id' => $id]

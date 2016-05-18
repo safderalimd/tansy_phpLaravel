@@ -213,9 +213,9 @@ class Repository
     public function getClassSubjectsGrid()
     {
         return $this->db()->select(
-            'SELECT class_name, subject, mapped, class_entity_id, subject_entity_id
-             FROM view_sch_class2subject_grid
-             ORDER BY class_name DESC;'
+            'SELECT class_name, subject, mapped, class_entity_id, subject_entity_id, class_reporting_order, subject_reporting_order
+            FROM view_sch_class2subject_grid
+            ORDER BY class_reporting_order, subject_reporting_order DESC;'
         );
     }
 
