@@ -47,7 +47,16 @@ class Payment extends Model
             $rows = $payment->repository->getAllPayments($payment);
 
             usort($rows, function($a, $b) {
-                return strtotime($a['due_end_date']) > strtotime($b['due_end_date']);
+                if ($a['product_name'] == $b['product_name']) {
+                    if ($a['schedule_name'] == $b['schedule_name']) {
+                        return strtotime($a['due_start_date']) > strtotime($b['due_start_date']);
+                    }
+                    return strcmp($a['schedule_name'], $b['schedule_name']);
+                }
+                return strcmp($a['product_name'], $b['product_name']);
+
+                // original sort
+                // return strtotime($a['due_end_date']) > strtotime($b['due_end_date']);
             });
 
             // calculate total due
