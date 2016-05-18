@@ -26,9 +26,4 @@ class Admission extends Model
         $this->setAttribute('parent_relationship_type', $value);
         return $value;
     }
-
-    public function getModelById($id)
-    {
-        return $this->repository->getModelById($id);
-    }
 }
