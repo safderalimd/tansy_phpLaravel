@@ -51,17 +51,17 @@
                     </thead>
                     <tbody>
 
-@if (count($rows))
-    @foreach($rows as $row)
+@if (count($payment->rows()))
+    @foreach($payment->rows() as $row)
     <tr>
-        <td>{{$accountType}}</td>
+        <td style="width:160px;">{{$accountType}}</td>
         <td>{{$row['account_name']}}</td>
         <td>{{$row['sum(ifnull(due_amount,0))']}}</td>
         <td>
-        <a class="" href="{{url("/cabinet/payment/create/?pk={$row['account_entity_id']}")}}" title="Payment">Payment</a>
-        <a class="" href="{{url("/cabinet/payment/edit/")}}" title="Adjustment">Adjustment</a>
-        <a class="" href="{{url("/cabinet/payment/edit/")}}" title="Schedule">Schedule</a>
-        <a class="" href="{{url("/cabinet/payment/edit/")}}" title="Receipt">Receipt</a>
+            <a class="" href="{{url("/cabinet/payment/create/?pk={$row['account_entity_id']}")}}" title="Payment">Payment</a>
+            <a class="" href="{{url("/cabinet/payment/edit/")}}" title="Adjustment">Adjustment</a>
+            <a class="" href="{{url("/cabinet/payment/edit/")}}" title="Schedule">Schedule</a>
+            <a class="" href="{{url("/cabinet/payment/edit/")}}" title="Receipt">Receipt</a>
 
         </td>
     </tr>
@@ -76,7 +76,6 @@
         </div>
 
 @endsection
-
 
 
 

@@ -81,30 +81,31 @@ class PaymentRepository extends Repository
         // );
     }
 
-    public function insert($model)
+
+    public function payNow($model)
     {
-        // $procedure = 'sproc_prd_product_dml_ins';
+        $procedure = 'sproc_act_rcv_generate_receipt_dml';
 
-        // $iparams = [
-        //     ':iparam_product_name',
-        //     ':iparam_product_type_entity_id',
-        //     ':iparam_unit_rate',
-        //     ':iparam_facility_ids',
-        //     ':iparam_session_id',
-        //     ':iparam_user_id',
-        //     ':iparam_screen_id',
-        //     ':iparam_debug_sproc',
-        //     ':iparam_audit_screen_visit',
-        // ];
+        $iparams = [
+            ':iparam_schEntID_dateID_schAmnt_PaidAmnt_list',
+            ':iparam_credited_to_entity_id',
+            ':iparam_total_paid_amount',
+            ':iparam_new_balance',
+            ':iparam_session_id',
+            ':iparam_user_id',
+            ':iparam_screen_id',
+            ':iparam_debug_sproc',
+            ':iparam_audit_screen_visit',
+        ];
 
-        // $oparams = [
-        //     '@oparam_product_entity_id',
-        //     '@oparam_err_flag',
-        //     '@oparam_err_step',
-        //     '@oparam_err_msg'
-        // ];
+        $oparams = [
+            '@oparam_receipt_id',
+            '@oparam_err_flag',
+            '@oparam_err_step',
+            '@oparam_err_msg'
+        ];
 
-        // return $this->runProcedure($model, $procedure, $iparams, $oparams);
+        return $this->runProcedure($model, $procedure, $iparams, $oparams);
     }
 
     public function update($model)

@@ -70,6 +70,7 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
 
     Route::get('payment', 'Accounting\Controllers\PaymentController@index');
     Route::get('payment/create', 'Accounting\Controllers\PaymentController@create');
+    Route::post('payment/pay-now', 'Accounting\Controllers\PaymentController@payNow');
 
     // Route::post('payment/create', 'Accounting\Controllers\PaymentController@store');
     // Route::get('payment/edit/{id}', 'Accounting\Controllers\PaymentController@edit');

@@ -19,6 +19,8 @@ class Repository
 
         // prepare the procedure
         $pdo = $this->db()->getPdo();
+        $pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, true);
+
         $dbCall = $pdo->prepare($procedureSql);
 
         // bind the input parameters
@@ -33,6 +35,7 @@ class Repository
 
         // execute procedure
         $dbCall->execute();
+        $dbCall->closeCursor();
 
         // generate sql for output params and execute it
         $outputSql = $this->generateOutputSql($oparams);

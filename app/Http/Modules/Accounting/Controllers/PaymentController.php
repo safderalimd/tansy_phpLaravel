@@ -17,23 +17,10 @@ class PaymentController extends Controller
      */
     public function index(Request $request)
     {
-        $payment = new Payment;
         $rowType = $request->input('rt');
         $primaryKey = $request->input('pk');
-
-        if (!empty($rowType) && !empty($primaryKey)) {
-            $payment->setAttribute('return_type', 'Summary'); // 'Summary' or 'Detail'
-            $payment->setAttribute('filter_type', $rowType);
-            $payment->setAttribute('subject_entity_id', $primaryKey);
-            $rows = $payment->getAllPayments();
-        } else {
-            $rows = null;
-        }
-
-        // dd($rows);
-        // Todo: treat sql errors in this case (redirect with errors)
-
-        return view('modules.accounting.Payment.list', compact('payment', 'primaryKey', 'rowType', 'rows'));
+        $payment = Payment::summary($rowType, $primaryKey);
+        return view('modules.accounting.Payment.list', compact('payment', 'primaryKey', 'rowType'));
     }
 
     /**
@@ -44,42 +31,29 @@ class PaymentController extends Controller
      */
     public function create(Request $request)
     {
-        $payment = new Payment;
-        // $rowType = $request->input('rt');
         $primaryKey = $request->input('pk');
+        $payment = Payment::details($primaryKey);
 
-        // iparam_filter_type = 'entity'
-        // iparam_subject_entity_id = account_entity_id
-        // iparam_return_type = Detail
-        if (!empty($primaryKey)) {
-            $payment->setAttribute('filter_type', 'entity');
-            $payment->setAttribute('subject_entity_id', $primaryKey);
-            $payment->setAttribute('return_type', 'Detail'); // 'Summary' or 'Detail'
-            $rows = $payment->getAllPayments();
-        } else {
-            $rows = null;
-        }
-
-        dd($rows);
-
-        return view('modules.accounting.Payment.form', compact('payment'));
+        return view('modules.accounting.Payment.form', compact('payment', 'primaryKey'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Pay now.
      *
      * @param PaymentFormRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PaymentFormRequest $request)
+    public function payNow(PaymentFormRequest $request)
     {
         $payment = new Payment($request->input());
 
-        if ($payment->save()) {
+        // TODO: make sure the payment calculations are validated in php again here
+
+        if ($payment->payNow()) {
             return redirect('/cabinet/payment');
         }
 
-        return redirect('/cabinet/payment/create')->withErrors($payment->getErrors());
+        return \Redirect::back()->withErrors($payment->getErrors());
     }
 
     /**

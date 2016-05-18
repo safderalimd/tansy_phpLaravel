@@ -40,7 +40,7 @@ class Model
      *
      * @var namespace App\Http\Repositories\Repository
      */
-    protected $repository;
+    public $repository;
 
     /**
      * Contains the errors.
