@@ -65,7 +65,7 @@
                     @foreach($payment->rows() as $row)
                         <tr>
                             <td><input type="checkbox" data-scheduleentityid="{{ $row['schedule_entity_id'] }}" data-dateid="{{ $row['date_id'] }}" data-totalamount="{{ $row['total_amount'] }}" data-dueamount="{{ $row['due_amount'] }}" class="detail-row" name="paid-amount-checkbox" value=""></td>
-                            <td>{{ $row['product_name'] }} - {{ $row['schedule_name'] }}</td>
+                            <td>{{ $row['product_name'] }} - {{ $row['schedule_name'] }} ({{$row['current_schedule_name']}})</td>
                             <td>{{ $row['due_amount'] }}</td>
                         </tr>
                     @endforeach
