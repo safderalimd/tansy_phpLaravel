@@ -64,12 +64,12 @@
                 <td>{{$item['exam_date']}}</td>
                 <td>{{$item['exam_time']}}</td>
                 <td>
-                    <a class="btn btn-default formConfirm" href="{{url("/cabinet/exam-schedule/delete?class_entity_id={$item['class_entity_id']}&subject_entity_id={$item['subject_entity_id']}&exam_entity_id={$item['exam_entity_id']}")}}"
+                    <a class="btn btn-default formConfirm" href="{{url("/cabinet/exam-schedule/delete?cid={$item['class_entity_id']}&sid={$item['subject_entity_id']}&eid={$item['exam_entity_id']}")}}"
                        title="Delete"
                        data-title="Delete Exam Schedule"
                        data-message="Are you sure to delete the selected record?"
                     >
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
                     </a>
                 </td>
             </tr>

@@ -31,4 +31,22 @@ class ExamSchedule extends Model
         $this->setAttribute('exam_entity_id', $value);
         return $value;
     }
+
+    public function setCid($value)
+    {
+        $this->setAttribute('class_entity_id', $value);
+        return $value;
+    }
+
+    public function setSid($value)
+    {
+        $this->setAttribute('subject_entity_id', $value);
+        return $value;
+    }
+
+    public function setEid($value)
+    {
+        $this->setAttribute('exam_entity_id', $value);
+        return $value;
+    }
 }

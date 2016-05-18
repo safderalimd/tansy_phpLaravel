@@ -25,9 +25,9 @@ class ExamScheduleDeleteFormRequest extends Request
     public function rules()
     {
         return [
-            'class_entity_id' => 'required|string',
-            'subject_entity_id' => 'required|integer',
-            'exam_entity_id' => 'required|integer',
+            'cid' => 'required|string',
+            'sid' => 'required|integer',
+            'eid' => 'required|integer',
         ];
     }
 
