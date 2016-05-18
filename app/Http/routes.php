@@ -73,11 +73,9 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::post('payment/pay-now', 'Accounting\Controllers\PaymentController@payNow');
 
     Route::get('payment-adjustment/{id}', 'Accounting\Controllers\PaymentAdjustmentController@index');
-    // Route::get('payment-adjustment/create', 'Accounting\Controllers\PaymentAdjustmentController@create');
-    // Route::post('payment-adjustment/create', 'Accounting\Controllers\PaymentAdjustmentController@store');
-    // Route::get('payment-adjustment/edit/{id}', 'Accounting\Controllers\PaymentAdjustmentController@edit');
-    // Route::post('payment-adjustment/edit/{id}', 'Accounting\Controllers\PaymentAdjustmentController@update');
-    // Route::get('payment-adjustment/delete/{id}', 'Accounting\Controllers\PaymentAdjustmentController@destroy');
+    Route::post('payment-adjustment/add', 'Accounting\Controllers\PaymentAdjustmentController@add');
+    Route::post('payment-adjustment/edit', 'Accounting\Controllers\PaymentAdjustmentController@edit');
+    Route::post('payment-adjustment/delete', 'Accounting\Controllers\PaymentAdjustmentController@destroy');
 
     Route::get('exam-schedule', 'School\Controllers\ExamScheduleController@index');
     Route::post('exam-schedule/map-subjects', 'School\Controllers\ExamScheduleController@mapSubjects');

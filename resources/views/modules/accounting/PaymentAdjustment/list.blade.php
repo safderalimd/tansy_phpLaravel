@@ -28,28 +28,83 @@
                     </thead>
                     <tbody>
 
-            @foreach($rows as $row)
-            <tr>
-                <td>{{$row['account_name']}}</td>
-                <td>{{$row['product_name']}}</td>
-                <td>{{$row['schedule_name']}}</td>
-                <td>-</td>
-                <td>{{$row['due_amount']}}</td>
-                <td>{{$row['adjustment_amount']}}</td>
-                <td>
-                    <a class="btn btn-default" href="{{url("/cabinet/payment-adjustment/edit/{$row['product_entity_id']}")}}" title="Edit">
-                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                    </a>
-                    <a class="btn btn-default formConfirm" href="{{url("/cabinet/payment-adjustment/delete/{$row['product_entity_id']}")}}"
-                       title="Delete"
-                       data-title="Delete Product"
-                       data-message="Are you sure to delete the selected record?"
-                    >
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                    </a>
-                </td>
-            </tr>
-            @endforeach
+@foreach($rows as $row)
+<tr>
+    <td>{{$row['account_name']}}</td>
+    <td>{{$row['product_name']}}</td>
+    <td>{{$row['schedule_name']}}</td>
+    <td>{{$row['current_schedule_name']}}</td>
+    <td>{{$row['due_amount']}}</td>
+    <td>{{$row['adjustment_amount']}}</td>
+    <td>
+        @if ($row['adjustment_amount'] == 0)
+            <form action="{{url("/cabinet/payment-adjustment/add")}}" method="POST">
+                {{ csrf_field() }}
+
+                <input type="hidden" name="subject_entity_id" value="{{$row['subject_entity_id']}}"/>
+                <input type="hidden" name="schedule_entity_id" value="{{$row['schedule_entity_id']}}"/>
+                <input type="hidden" name="account_entity_id" value="{{$row['account_entity_id']}}"/>
+                <input type="hidden" name="date_id" value="{{$row['date_id']}}"/>
+                <input type="hidden" name="schedule_detail_id" value="{{$row['schedule_detail_id']}}"/>
+                <input type="hidden" name="product_entity_id" value="{{$row['product_entity_id']}}"/>
+                <input type="hidden" name="product_name" value="{{$row['product_name']}}"/>
+                <input type="hidden" name="account_name" value="{{$row['account_name']}}"/>
+                <input type="hidden" name="schedule_name" value="{{$row['schedule_name']}}"/>
+                <input type="hidden" name="current_schedule_name" value="{{$row['current_schedule_name']}}"/>
+                <input type="hidden" name="due_start_date" value="{{$row['due_start_date']}}"/>
+                <input type="hidden" name="due_end_date" value="{{$row['due_end_date']}}"/>
+                <input type="hidden" name="total_amount" value="{{$row['total_amount']}}"/>
+                <input type="hidden" name="total_credit_amount" value="{{$row['total_credit_amount']}}"/>
+                <input type="hidden" name="paid_amount" value="{{$row['paid_amount']}}"/>
+                <input type="hidden" name="adjustment_amount" value="{{$row['adjustment_amount']}}"/>
+                <input type="hidden" name="due_amount" value="{{$row['due_amount']}}"/>
+
+                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add</button>
+            </form>
+        @else
+            <div>
+                <div>
+                    <form action="{{url("/cabinet/payment-adjustment/edit")}}" method="POST">
+                        {{ csrf_field() }}
+
+                        <input type="hidden" name="subject_entity_id" value="{{$row['subject_entity_id']}}"/>
+                        <input type="hidden" name="schedule_entity_id" value="{{$row['schedule_entity_id']}}"/>
+                        <input type="hidden" name="account_entity_id" value="{{$row['account_entity_id']}}"/>
+                        <input type="hidden" name="date_id" value="{{$row['date_id']}}"/>
+                        <input type="hidden" name="schedule_detail_id" value="{{$row['schedule_detail_id']}}"/>
+                        <input type="hidden" name="product_entity_id" value="{{$row['product_entity_id']}}"/>
+                        <input type="hidden" name="product_name" value="{{$row['product_name']}}"/>
+                        <input type="hidden" name="account_name" value="{{$row['account_name']}}"/>
+                        <input type="hidden" name="schedule_name" value="{{$row['schedule_name']}}"/>
+                        <input type="hidden" name="current_schedule_name" value="{{$row['current_schedule_name']}}"/>
+                        <input type="hidden" name="due_start_date" value="{{$row['due_start_date']}}"/>
+                        <input type="hidden" name="due_end_date" value="{{$row['due_end_date']}}"/>
+                        <input type="hidden" name="total_amount" value="{{$row['total_amount']}}"/>
+                        <input type="hidden" name="total_credit_amount" value="{{$row['total_credit_amount']}}"/>
+                        <input type="hidden" name="paid_amount" value="{{$row['paid_amount']}}"/>
+                        <input type="hidden" name="adjustment_amount" value="{{$row['adjustment_amount']}}"/>
+                        <input type="hidden" name="due_amount" value="{{$row['due_amount']}}"/>
+
+                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</button>
+                    </form>
+                </div>
+                <div style="margin-top:5px;">
+                    <form action="/cabinet/payment-adjustment/delete" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="schedule_detail_id" value="{{$row['schedule_detail_id']}}">
+                        <input type="hidden" name="schedule_entity_id" value="{{$row['schedule_entity_id']}}">
+                        <input type="hidden" name="date_id" value="{{$row['date_id']}}">
+                        <input type="hidden" name="credited_to_entity_id" value="{{$row['account_entity_id']}}">
+                        <input type="hidden" name="total_scheduled_amount" value="{{$row['total_amount']}}">
+                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</button>
+                    </form>
+                </div>
+            </div>
+        @endif
+
+    </td>
+</tr>
+@endforeach
 
                         </tbody>
                     </table>

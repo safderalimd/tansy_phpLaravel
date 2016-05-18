@@ -5,6 +5,7 @@ namespace App\Http\Modules\Accounting\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Accounting\Models\PaymentAdjustment;
 use App\Http\Modules\Accounting\Requests\PaymentAdjustmentFormRequest;
+use Illuminate\Http\Request;
 
 class PaymentAdjustmentController extends Controller
 {
@@ -26,78 +27,50 @@ class PaymentAdjustmentController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Load add form.
      *
+     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $adjustment = new PaymentAdjustment;
-        return view('modules.accounting.PaymentAdjustment.form', compact('adjustment'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param PaymentAdjustmentFormRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(PaymentAdjustmentFormRequest $request)
+    public function add(Request $request)
     {
         $adjustment = new PaymentAdjustment($request->input());
+        $processForm = $request->input('process_form');
 
-        if ($adjustment->save()) {
-            return redirect('/cabinet/payment-adjustment');
+        if ($processForm) {
+            // process the edit form submit and update the database
+            $adjustment->setAttribute('total_scheduled_amount', $adjustment->total_amount);
+            $adjustment->setAttribute('credited_to_entity_id', $adjustment->account_entity_id);
+
+            if (!is_numeric($adjustment->adjustment_amount)) {
+                $errors = ['Adjustment amount must be a number.'];
+                return view('modules.accounting.PaymentAdjustment.form', compact('adjustment', 'errors'));
+            }
+            if (empty($adjustment->adjustment_amount)) {
+                $errors = ['Adjustment amount is required.'];
+                return view('modules.accounting.PaymentAdjustment.form', compact('adjustment', 'errors'));
+            }
+
+            if ($adjustment->save()) {
+                return redirect('/cabinet/payment-adjustment/'.$adjustment->account_entity_id);
+            }
+            $errors = $adjustment->getErrors();
+            return view('modules.accounting.PaymentAdjustment.form', compact('adjustment', 'errors'));
+
+        } else {
+            // just display the edit form with populated data
+            return view('modules.accounting.PaymentAdjustment.form', compact('adjustment'));
         }
-
-        return redirect('/cabinet/payment-adjustment/create')->withErrors($adjustment->getErrors());
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Edit form.
      *
-     * @param  int $id
+     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        $adjustment = PaymentAdjustment::findOrFail($id);
-        return view('modules.accounting.PaymentAdjustment.form', compact('adjustment'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param PaymentAdjustmentFormRequest $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(PaymentAdjustmentFormRequest $request, $id)
-    {
-        $adjustment = PaymentAdjustment::findOrFail($id);
-
-        if ($adjustment->update($request->input())) {
-            return redirect('/cabinet/payment-adjustment');
-        }
-
-        return redirect(url('/cabinet/payment-adjustment/edit', compact('id')))
-            ->withErrors($adjustment->getErrors());
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $adjustment = PaymentAdjustment::findOrFail($id);
-
-        if ($adjustment->delete()) {
-            return redirect('/cabinet/payment-adjustment');
-        }
-
-        return redirect('/cabinet/payment-adjustment')->withErrors($adjustment->getErrors());
+        return $this->add($request);
     }
 }
