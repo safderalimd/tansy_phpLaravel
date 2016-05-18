@@ -60,13 +60,18 @@
                             'keyName' => 'entity_type',
                         ])
 
-                        @include('commons.select', [
-                            'label'   => 'Subject Account' ,
-                            'name'    => 'subject_entity_id',
-                            'options' => $payment->entityName(),
-                            'keyId'   => 'entity_id',
-                            'keyName' => 'entity_name',
-                        ])
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="subject_entity_id">Subject Account</label>
+                            <div class="col-md-8">
+                                <select id="subject_entity_id" class="form-control" name="subject_entity_id">
+                                    @foreach($payment->entityName() as $option)
+                                        <option data-entityTypeId="{{$option['entity_type_id']}}" {{ s('subject_entity_id', $option['entity_id']) }} value="{!! $option['entity_id'] !!}">
+                                            {!! $option['entity_name'] !!}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
                         @include('commons.select', [
                             'label'   => 'Frequency' ,
@@ -139,4 +144,62 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+
+    var allAccountOptions;
+
+    function initAccountOptions() {
+        allAccountOptions = $('#subject_entity_id option');
+
+        var selectedAccountTypeId =  $('#subject_entity_id option:selected').attr('data-entityTypeId');
+
+        $('#account_type_id option').each(function() {
+            if (this.value == selectedAccountTypeId) {
+                $(this).prop('selected',true);
+            }
+        });
+
+        updateAccounts();
+    }
+
+    function getAccountTypeId() {
+        return $('#account_type_id option:selected').val();
+    }
+
+    function removeAllAccountOptions() {
+        $('#subject_entity_id option').remove();
+    }
+
+    function populateAccountsSelectbox(accounts) {
+        $(accounts).each(function() {
+            $('#subject_entity_id').append($(this));
+        });
+    }
+
+    function updateAccounts() {
+        removeAllAccountOptions();
+
+        var accountTypeId = getAccountTypeId();
+        var filteredAccounts = $(allAccountOptions).filter(function() {
+            if ($(this).attr('data-entityTypeId') == accountTypeId) {
+                return true;
+            }
+            return false;
+        }).get();
+
+        populateAccountsSelectbox(filteredAccounts);
+    }
+
+    $('#account_type_id').change(function() {
+        updateAccounts();
+    });
+
+    $( document ).ready(function() {
+        initAccountOptions();
+    });
+</script>
 @endsection
