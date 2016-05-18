@@ -27,16 +27,20 @@
                         </tr>
                     </thead>
                     <tbody>
-<!--
-            @foreach($adjustment->products() as $item)
+
+            @foreach($rows as $row)
             <tr>
-                <td>{{$item['product']}}</td>
-                <td>{{$item['product_type']}}</td>
+                <td>{{$row['account_name']}}</td>
+                <td>{{$row['product_name']}}</td>
+                <td>{{$row['schedule_name']}}</td>
+                <td>-</td>
+                <td>{{$row['due_amount']}}</td>
+                <td>{{$row['adjustment_amount']}}</td>
                 <td>
-                    <a class="btn btn-default" href="{{url("/cabinet/payment-adjustment/edit/{$item['product_entity_id']}")}}" title="Edit">
+                    <a class="btn btn-default" href="{{url("/cabinet/payment-adjustment/edit/{$row['product_entity_id']}")}}" title="Edit">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
-                    <a class="btn btn-default formConfirm" href="{{url("/cabinet/payment-adjustment/delete/{$item['product_entity_id']}")}}"
+                    <a class="btn btn-default formConfirm" href="{{url("/cabinet/payment-adjustment/delete/{$row['product_entity_id']}")}}"
                        title="Delete"
                        data-title="Delete Product"
                        data-message="Are you sure to delete the selected record?"
@@ -46,7 +50,7 @@
                 </td>
             </tr>
             @endforeach
- -->
+
                         </tbody>
                     </table>
 

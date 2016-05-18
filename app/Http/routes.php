@@ -72,12 +72,7 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('payment/create', 'Accounting\Controllers\PaymentController@create');
     Route::post('payment/pay-now', 'Accounting\Controllers\PaymentController@payNow');
 
-    // Route::post('payment/create', 'Accounting\Controllers\PaymentController@store');
-    // Route::get('payment/edit/{id}', 'Accounting\Controllers\PaymentController@edit');
-    // Route::post('payment/edit/{id}', 'Accounting\Controllers\PaymentController@update');
-    // Route::get('payment/delete/{id}', 'Accounting\Controllers\PaymentController@destroy');
-
-    Route::get('payment-adjustment', 'Accounting\Controllers\PaymentAdjustmentController@index');
+    Route::get('payment-adjustment/{id}', 'Accounting\Controllers\PaymentAdjustmentController@index');
     // Route::get('payment-adjustment/create', 'Accounting\Controllers\PaymentAdjustmentController@create');
     // Route::post('payment-adjustment/create', 'Accounting\Controllers\PaymentAdjustmentController@store');
     // Route::get('payment-adjustment/edit/{id}', 'Accounting\Controllers\PaymentAdjustmentController@edit');

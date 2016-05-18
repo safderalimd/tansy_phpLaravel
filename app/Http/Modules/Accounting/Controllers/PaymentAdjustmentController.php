@@ -13,10 +13,16 @@ class PaymentAdjustmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         $adjustment = new PaymentAdjustment;
-        return view('modules.accounting.PaymentAdjustment.list', compact('adjustment'));
+        $adjustment->setAttribute('filter_type', 'entity');
+        $adjustment->setAttribute('return_type', 'Detail'); // or Summary
+        $adjustment->setAttribute('subject_entity_id', $id);
+
+        $rows = $adjustment->getAll();
+
+        return view('modules.accounting.PaymentAdjustment.list', compact('adjustment', 'rows'));
     }
 
     /**

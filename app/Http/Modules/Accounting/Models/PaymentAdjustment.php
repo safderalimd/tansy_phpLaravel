@@ -9,4 +9,9 @@ class PaymentAdjustment extends Model
     protected $screenId = 2009;
 
     protected $repositoryNamespace = 'App\Http\Modules\Accounting\Repositories\PaymentAdjustmentRepository';
+
+    public function getAll()
+    {
+        return $this->repository->getAll($this);
+    }
 }
