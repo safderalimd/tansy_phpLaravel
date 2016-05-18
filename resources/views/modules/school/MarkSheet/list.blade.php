@@ -14,15 +14,19 @@
 
                     @include('commons.errors')
 
-                    <div class="row">
-                        <div class="col-md-2 text-center">
-                            @include('commons.select', [
-                                'label'   => 'Exam' ,
-                                'name'    => 'exam_entity_id',
-                                'options' => $markSheet->exam(),
-                                'keyId'   => 'exam_entity_id',
-                                'keyName' => 'exam',
-                            ])
+                    <div class="row" style="margin-bottom:-20px;">
+                        <div class="cold-md-4">
+                            <div class="form-horizontal">
+                                <div class="col-md-2 text-center">
+                                    @include('commons.select', [
+                                        'label'   => 'Exam' ,
+                                        'name'    => 'exam_entity_id',
+                                        'options' => $markSheet->exam(),
+                                        'keyId'   => 'exam_entity_id',
+                                        'keyName' => 'exam',
+                                    ])
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <hr/>
