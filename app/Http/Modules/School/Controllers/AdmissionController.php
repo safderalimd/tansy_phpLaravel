@@ -70,6 +70,7 @@ class AdmissionController extends Controller
     public function update(AdmissionFormRequest $request, $id)
     {
         $admission = Admission::findOrFail($id);
+        $admission->fill($request->input());
 
         if ($admission->update($request->input())) {
             return redirect('/cabinet/admission');

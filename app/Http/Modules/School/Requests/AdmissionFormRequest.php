@@ -37,8 +37,8 @@ class AdmissionFormRequest extends Request
 
             // contact'
             'email' => 'string|max:100|email',
-            'home_phone' => 'string|max:100',
-            'mobile_phone' => 'string|max:100',
+            'home_phone' => 'regex:/^\d{3,12}$/',
+            'mobile_phone' => 'regex:/^\d{3,12}$/',
 
             // adress'
             'address1' => 'required|string|max:128',
@@ -66,6 +66,7 @@ class AdmissionFormRequest extends Request
             'parent_middle_name' => 'string|max:100',
             'parent_last_name' => 'required|string|max:100',
             'parent_designation_name' => 'string|max:100',
+            'designation_name' => 'string|max:100',
         ];
     }
 

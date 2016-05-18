@@ -30,6 +30,17 @@
                             'keyName' => 'facility_name',
                         ])
 
+                        @if (!$admission->isNewRecord())
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="move_error">Data Error</label>
+                                <div class="col-md-8">
+                                    <div style="padding: 0px 10px 0px 10px; margin-top:7px;" class="{{ !empty($admission->move_error) ? 'alert-danger'  : '' }}">
+                                        {{ !empty($admission->move_error) ?: '-' }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
                         <hr/>
                         <div class="row"><div class="col-md-3 pull-left"><h3>Student</h3></div></div>
 

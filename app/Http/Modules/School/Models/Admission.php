@@ -14,4 +14,21 @@ class Admission extends Model
     {
         return $this->repository->moveStudents($this);
     }
+
+    public function setParentDesignationNameAttribute($value)
+    {
+        $this->setAttribute('designation_name', $value);
+        return $value;
+    }
+
+    public function setParentRelationshipTypeId($value)
+    {
+        $this->setAttribute('parent_relationship_type', $value);
+        return $value;
+    }
+
+    public function getModelById($id)
+    {
+        return $this->repository->getModelById($id);
+    }
 }
