@@ -73,4 +73,21 @@ class PaymentAdjustmentController extends Controller
     {
         return $this->add($request);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request)
+    {
+        $adjustment = new PaymentAdjustment($request->input());
+
+        if ($adjustment->delete()) {
+            return \Redirect::back();
+        }
+
+        return \Redirect::back()->withErrors($adjustment->getErrors());
+    }
 }
