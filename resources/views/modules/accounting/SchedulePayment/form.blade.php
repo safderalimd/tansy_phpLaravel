@@ -29,6 +29,14 @@
                             </div>
                         </div>
 
+                        @include('commons.select', [
+                            'label'   => 'Facility Type' ,
+                            'name'    => 'facility_ids',
+                            'options' => $payment->facilities(),
+                            'keyId'   => 'facility_entity_id',
+                            'keyName' => 'facility_name',
+                        ])
+
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="product">Name</label>
                             <div class="col-md-8">
@@ -118,14 +126,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        @include('commons.select', [
-                            'label'   => 'Facility Type' ,
-                            'name'    => 'facility_ids',
-                            'options' => $payment->facilities(),
-                            'keyId'   => 'facility_entity_id',
-                            'keyName' => 'facility_name',
-                        ])
 
                         <div class="row">
                            <div class="col-md-12 text-center grid_footer">
