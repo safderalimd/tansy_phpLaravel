@@ -20,8 +20,7 @@ class ExamScheduleRepository extends Repository
                 class_subject_id,
                 exam_entity_id
              FROM view_sch_schedule_exam_grid
-             WHERE exam_entity_id = :id
-             LIMIT 1;', ['id' => $id]
+             WHERE exam_entity_id = :id;', ['id' => $id]
         );
     }
 
