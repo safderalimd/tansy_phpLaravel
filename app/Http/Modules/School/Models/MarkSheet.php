@@ -12,9 +12,21 @@ class MarkSheet extends Model
 
     protected $examId;
 
+    protected $markSheetId;
+
     public function setExamId($examId)
     {
         $this->examId = $examId;
+    }
+
+    public function setMarkSheetId($markSheetId)
+    {
+        $this->markSheetId = $markSheetId;
+    }
+
+    public function getMarkSheetRows()
+    {
+        return $this->repository->getMarkSheetRows($this->markSheetId);
     }
 
     public function markSheetGrid()

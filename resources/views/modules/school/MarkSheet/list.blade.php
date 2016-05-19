@@ -64,10 +64,10 @@
                         >Unlock
                         </a>
                     @else
-                        <a class="btn btn-default" href="{{url("/cabinet/mark-sheet/edit/{$item['subject_entity_id']}")}}" title="Edit">
+                        <a class="btn btn-default" href="{{url("/cabinet/mark-sheet/edit/{$item['marksheet_id']}")}}" title="Edit">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
                         </a>
-                        <a class="btn btn-default formConfirm" href="{{url("/cabinet/mark-sheet/lock?eid={$item['exam_entity_id']}&cid={$item['class_entity_id']}&sid={$item['subject_entity_id']}")}}"
+                        <a class="btn btn-default formConfirm" href="{{url("/cabinet/mark-sheet/lock?eid={$item['exam_entity_id']}&cid={$item['class_entity_id']}&sid={$item['marksheet_id']}")}}"
                            title="Lock"
                            data-title="Lock Mark Sheet"
                            data-message="Are you sure to lock the selected record?"

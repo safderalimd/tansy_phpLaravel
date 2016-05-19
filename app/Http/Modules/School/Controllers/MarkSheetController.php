@@ -31,8 +31,10 @@ class MarkSheetController extends Controller
      */
     public function edit($id)
     {
-        $markSheet = MarkSheet::findOrFail($id);
-        dd($markSheet);
+        $markSheet = new MarkSheet;
+        $markSheet->setMarkSheetId($id);
+
+        // dd($markSheet->getMarkSheetRows());
         return view('modules.school.MarkSheet.form', compact('markSheet'));
     }
 

@@ -17,14 +17,15 @@ class MarkSheetRepository extends Repository
                 last_upload_modified_date,
                 exam_entity_id,
                 class_entity_id,
-                subject_entity_id
+                subject_entity_id,
+                marksheet_id
                 FROM view_sch_mark_sheet_grid
                 WHERE exam_entity_id = :id
                 ORDER BY class_name DESC;', ['id' => $id]
         );
     }
 
-    public function getModelById($id)
+    public function getMarkSheetRows($id)
     {
         return $this->db()->select(
             'SELECT
@@ -37,8 +38,7 @@ class MarkSheetRepository extends Repository
                 class_student_id,
                 marksheet_id
             FROM view_sch_mark_sheet_detail
-            WHERE marksheet_id = :id
-            LIMIT 1;', ['id' => $id]
+            WHERE marksheet_id = :id', ['id' => $id]
         );
     }
 
