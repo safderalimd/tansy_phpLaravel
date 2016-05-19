@@ -14,28 +14,27 @@
 
                     @include('commons.errors')
 
-                    <div class="row" style="margin-bottom:-20px;">
-                        <div class="cold-md-4">
-                            <div class="form-horizontal">
-                                <div class="col-md-2 text-center">
-                                    <?php
-                                        $exams = $markSheet->exam();
-                                        array_unshift($exams, [
-                                            "exam_entity_id" => "none",
-                                            "exam" => "Select an exam",
-                                        ]);
-                                    ?>
-                                    @include('commons.select', [
-                                        'label'   => 'Exam' ,
-                                        'name'    => 'exam_entity_id',
-                                        'options' => $exams,
-                                        'keyId'   => 'exam_entity_id',
-                                        'keyName' => 'exam',
-                                    ])
+                    <!-- filter the exams -->
+                    <form class="form-horizontal" style="margin-bottom:-15px;" action="" method="POST">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="exam_entity_id">Exam</label>
+                                    <div class="col-md-4">
+                                        <select id="exam_entity_id" class="form-control" name="exam_entity_id">
+                                            <option value="none">Select an exam</option>
+                                            @foreach($markSheet->exam() as $option)
+                                                <option {{ ($examId == $option['exam_entity_id']) ? 'selected' : ''}} value="{!! $option['exam_entity_id'] !!}">
+                                                    {!! $option['exam'] !!}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
+
                     <hr/>
 
                    <table class="table table-striped table-bordered table-hover" data-datatable>
@@ -50,7 +49,7 @@
                     <tbody>
 
             @foreach($markSheet->markSheetGrid() as $item)
-            <tr style="display:none;" class="mark-sheet-tr">
+            <tr class="mark-sheet-tr">
                 <td class="mark-sheet-td" data-examid="{{$item['exam_entity_id']}}" >
                     {{$item['class_name']}}
                 </td>
@@ -95,16 +94,12 @@
 @section('scripts')
 <script type="text/javascript">
 
-    // When selecting an exam, display rows only for that exam
+    // reload the page when selecting an exam
     $('#exam_entity_id').change(function() {
-        $('.mark-sheet-td').parents('tr.mark-sheet-tr').hide();
-        var examId = this.value;
-        if (examId != "none") {
-            $('.mark-sheet-td').each(function() {
-                if ($(this).attr('data-examid') == examId) {
-                    $(this).parents('tr.mark-sheet-tr').show();
-                }
-            });
+        if (this.value == 'none') {
+            window.location.href = "/cabinet/mark-sheet";
+        } else {
+            window.location.href = "/cabinet/mark-sheet?eid=" + this.value;
         }
     });
 

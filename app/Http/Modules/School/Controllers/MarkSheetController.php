@@ -2,6 +2,7 @@
 
 namespace App\Http\Modules\School\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\School\Models\MarkSheet;
 use App\Http\Modules\School\Requests\MarkSheetFormRequest;
@@ -11,12 +12,15 @@ class MarkSheetController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $examId = $request->input('eid');
         $markSheet = new MarkSheet;
-        return view('modules.school.MarkSheet.list', compact('markSheet'));
+        $markSheet->setExamId($examId);
+        return view('modules.school.MarkSheet.list', compact('markSheet', 'examId'));
     }
 
     /**
