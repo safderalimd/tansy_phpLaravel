@@ -97,6 +97,13 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
+    Route::get('/debug', function() {
+        $procedure = session('debug-info-procedure');
+        $iparams = session('debug-info-iparams');
+        $oparams = session('debug-info-oparams');
+        dd($procedure, $iparams, $oparams);
+    });
+
     Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {
         return view('cabinet.main');
     }]);

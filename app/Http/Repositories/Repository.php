@@ -23,6 +23,9 @@ class Repository
 
         $dbCall = $pdo->prepare($procedureSql);
 
+        // debug code
+        $debugIParams = [];
+
         // bind the input parameters
         foreach ($iparams as $parameter) {
             if (strpos($parameter, 'iparm_') !== false) {
@@ -31,7 +34,14 @@ class Repository
                 $property = substr($parameter, 8);
             }
             $dbCall->bindValue($parameter, $model->{$property});
+
+            // debug code
+            $debugIParams[$parameter] = $model->{$property};
         }
+
+        // debug code
+        session()->put('debug-info-procedure', $procedure);
+        session()->put('debug-info-iparams', $debugIParams);
 
         // execute procedure
         $dbCall->execute();
@@ -41,13 +51,24 @@ class Repository
         $outputSql = $this->generateOutputSql($oparams);
         $response = $pdo->query($outputSql)->fetch(\PDO::FETCH_ASSOC);
 
+
+        // debug code
+        $debugOParams = [];
+
         // set output params on the model
         foreach ($oparams as $oparam) {
             if (isset($response[$oparam])) {
                 $property = substr($oparam, 8);
                 $model->setAttribute($property, $response[$oparam]);
+
+                // debug code
+                $debugOParams[$property] = $response[$oparam];
             }
         }
+
+        // debug code
+        session()->put('debug-info-oparams', $debugOParams);
+
 
         if ($response['@oparam_err_flag'] == null) {
             return true;
