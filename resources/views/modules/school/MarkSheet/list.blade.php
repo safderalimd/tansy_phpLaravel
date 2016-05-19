@@ -18,10 +18,17 @@
                         <div class="cold-md-4">
                             <div class="form-horizontal">
                                 <div class="col-md-2 text-center">
+                                    <?php
+                                        $exams = $markSheet->exam();
+                                        array_unshift($exams, [
+                                            "exam_entity_id" => "none",
+                                            "exam" => "Select an exam",
+                                        ]);
+                                    ?>
                                     @include('commons.select', [
                                         'label'   => 'Exam' ,
                                         'name'    => 'exam_entity_id',
-                                        'options' => $markSheet->exam(),
+                                        'options' => $exams,
                                         'keyId'   => 'exam_entity_id',
                                         'keyName' => 'exam',
                                     ])
@@ -43,8 +50,10 @@
                     <tbody>
 
             @foreach($markSheet->markSheetGrid() as $item)
-            <tr>
-                <td>{{$item['class_name']}}</td>
+            <tr style="display:none;" class="mark-sheet-tr">
+                <td class="mark-sheet-td" data-examid="{{$item['exam_entity_id']}}" >
+                    {{$item['class_name']}}
+                </td>
                 <td>{{$item['subject']}}</td>
                 <td>{{$item['locked']}}</td>
                 <td>
@@ -80,4 +89,24 @@
             </div>
         </div>
 
+@endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+
+    // When selecting an exam, display rows only for that exam
+    $('#exam_entity_id').change(function() {
+        $('.mark-sheet-td').parents('tr.mark-sheet-tr').hide();
+        var examId = this.value;
+        if (examId != "none") {
+            $('.mark-sheet-td').each(function() {
+                if ($(this).attr('data-examid') == examId) {
+                    $(this).parents('tr.mark-sheet-tr').show();
+                }
+            });
+        }
+    });
+
+</script>
 @endsection
