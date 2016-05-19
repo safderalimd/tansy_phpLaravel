@@ -18,4 +18,5 @@ class AccountStudent extends Model
 
         return 0;
     }
+
 }
