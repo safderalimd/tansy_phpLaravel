@@ -39,31 +39,6 @@
                         </div>
                     </form>
 
-
-
-                    <!-- separate post form to map subjects -->
-<!--                     <div class="row">
-                        <div class="col-md-12">
-                            <form class="form-horizontal" action="{{url("/cabinet/exam-schedule/map-subjects/")}}" method="POST">
-                                {{ csrf_field() }}
-                                <div class="row">
-                                    <div class="col-md-2 text-center">
-                                        include('commons.select', [
-                                            'label'   => 'Exam' ,
-                                            'name'    => 'exam_entity_id',
-                                            'options' => $schedule->exam(),
-                                            'keyId'   => 'exam_entity_id',
-                                            'keyName' => 'exam',
-                                        ])
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button class="btn btn-primary grid_btn" type="submit">MAP ALL SUBJECTS TO EXAM</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div> -->
-
                     <hr/>
 
                    <table class="table table-striped table-bordered table-hover" data-datatable>
