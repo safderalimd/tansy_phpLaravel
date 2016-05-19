@@ -20,10 +20,4 @@ class Admission extends Model
         $this->setAttribute('designation_name', $value);
         return $value;
     }
-
-    public function setParentRelationshipTypeId($value)
-    {
-        $this->setAttribute('parent_relationship_type', $value);
-        return $value;
-    }
 }

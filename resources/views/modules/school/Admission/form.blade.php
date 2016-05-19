@@ -245,9 +245,9 @@
 
                         @include('commons.select', [
                             'label'   => 'Relationship',
-                            'name'    => 'parent_relationship_type_id',
+                            'name'    => 'parent_relationship_type',
                             'options' => $admission->relationships(),
-                            'keyId'   => 'relationship_type_id',
+                            'keyId'   => 'relationship_name',
                             'keyName' => 'relationship_name',
                         ])
 

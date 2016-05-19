@@ -60,7 +60,7 @@ class AdmissionFormRequest extends Request
             'mother_language_name' => 'string|max:100',
 
             // parent'
-            'parent_relationship_type_id' => 'required|integer',
+            'parent_relationship_type' => 'required|string',
             'parent_gender' => 'required|string|in:M,F',
             'parent_first_name' => 'required|string|max:100',
             'parent_middle_name' => 'string|max:100',
