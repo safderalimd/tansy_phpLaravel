@@ -32,67 +32,37 @@ class MarkSheetController extends Controller
         return view('modules.school.MarkSheet.form', compact('markSheet'));
     }
 
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param MarkSheetFormRequest $request
-    //  * @param  int $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(MarkSheetFormRequest $request, $id)
-    // {
-    //     $markSheet = MarkSheet::findOrFail($id);
+    /**
+     * Lock.
+     *
+     * @param MarkSheetFormRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function lock(MarkSheetFormRequest $request)
+    {
+        $markSheet = new MarkSheet($request->input());
 
-    //     if ($markSheet->update($request->input())) {
-    //         return redirect('/cabinet/mark-sheet');
-    //     }
+        if ($markSheet->lock()) {
+            return redirect('/cabinet/mark-sheet');
+        }
 
-    //     return redirect(url('/cabinet/mark-sheet/edit', compact('id')))
-    //         ->withErrors($markSheet->getErrors());
-    // }
+        return redirect(url('/cabinet/mark-sheet'))->withErrors($markSheet->getErrors());
+    }
 
-    // /**
-    //  * Show the form for creating a new resource.
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function create()
-    // {
-    //     $markSheet = new MarkSheet;
-    //     return view('modules.school.MarkSheet.form', compact('markSheet'));
-    // }
+    /**
+     * Unlock.
+     *
+     * @param MarkSheetFormRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function unlock(MarkSheetFormRequest $request)
+    {
+        $markSheet = new MarkSheet($request->input());
 
-    // /**
-    //  * Store a newly created resource in storage.
-    //  *
-    //  * @param MarkSheetFormRequest $request
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function store(MarkSheetFormRequest $request)
-    // {
-    //     $markSheet = new MarkSheet($request->input());
+        if ($markSheet->unlock()) {
+            return redirect('/cabinet/mark-sheet');
+        }
 
-    //     if ($markSheet->save()) {
-    //         return redirect('/cabinet/mark-sheet');
-    //     }
-
-    //     return redirect('/cabinet/mark-sheet/create')->withErrors($markSheet->getErrors());
-    // }
-
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  int $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy($id)
-    // {
-    //     $markSheet = MarkSheet::findOrFail($id);
-
-    //     if ($markSheet->delete()) {
-    //         return redirect('/cabinet/mark-sheet');
-    //     }
-
-    //     return redirect('/cabinet/mark-sheet')->withErrors($markSheet->getErrors());
-    // }
+        return redirect(url('/cabinet/mark-sheet'))->withErrors($markSheet->getErrors());
+    }
 }

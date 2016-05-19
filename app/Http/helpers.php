@@ -56,3 +56,14 @@ function form_label() {
 function form_action() {
     return '/' . Request::path();
 }
+
+function is_locked($value) {
+    $value = strtolower($value);
+    $value = str_replace(['', '-'], '', $value);
+
+    if ($value == 'yes' || $value == 'locked') {
+        return true;
+    }
+
+    return false;
+}

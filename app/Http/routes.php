@@ -84,10 +84,8 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
 
     Route::get('mark-sheet', 'School\Controllers\MarkSheetController@index');
     Route::get('mark-sheet/edit/{id}', 'School\Controllers\MarkSheetController@edit');
-    // Route::post('mark-sheet/edit/{id}', 'School\Controllers\MarkSheetController@update');
-    // Route::get('mark-sheet/create', 'School\Controllers\MarkSheetController@create');
-    // Route::post('mark-sheet/create', 'School\Controllers\MarkSheetController@store');
-    // Route::get('mark-sheet/delete/{id}', 'School\Controllers\MarkSheetController@destroy');
+    Route::get('mark-sheet/lock', 'School\Controllers\MarkSheetController@lock');
+    Route::get('mark-sheet/unlock', 'School\Controllers\MarkSheetController@unlock');
 
     Route::get('mark-sheet---load', 'thirdparty\omr\Controllers\MarkSheetLoadController@index');
     // Route::post('mark-sheet---load', 'thirdparty\omr\Controllers\MarkSheetLoadController@index');

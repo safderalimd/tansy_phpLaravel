@@ -42,28 +42,14 @@
                     </thead>
                     <tbody>
 
-                    <!--
-                             'SELECT class_name, subject, locked, progress_status, last_upload_modified_date, exam_entity_id, class_entity_id, subject_entity_id
-                            FROM view_sch_mark_sheet_grid
-                     -->
             @foreach($markSheet->markSheetGrid() as $item)
             <tr>
                 <td>{{$item['class_name']}}</td>
                 <td>{{$item['subject']}}</td>
                 <td>{{$item['locked']}}</td>
                 <td>
-                    <?php
-                        $locked = $item['locked'];
-                        $locked = strtolower($locked);
-                        $locked = str_replace(['', '-'], '', $locked);
-                        if ($locked == 'yes' || $locked == 'locked') {
-                            $locked = true;
-                        } else {
-                            $locked = false;
-                        }
-                    ?>
-                    @if ($locked)
-                        <a class="btn btn-default formConfirm" href="{{url("/cabinet/mark-sheet/unlock/{$item['exam_entity_id']}")}}"
+                    @if (is_locked($item['locked']))
+                        <a class="btn btn-default formConfirm" href="{{url("/cabinet/mark-sheet/unlock?eid={$item['exam_entity_id']}&cid={$item['class_entity_id']}&sid={$item['subject_entity_id']}")}}"
                            title="Unclock"
                            data-title="Unclock Mark Sheet"
                            data-message="Are you sure to unlock the selected record?"
@@ -73,7 +59,7 @@
                         <a class="btn btn-default" href="{{url("/cabinet/mark-sheet/edit/{$item['subject_entity_id']}")}}" title="Edit">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
                         </a>
-                        <a class="btn btn-default formConfirm" href="{{url("/cabinet/mark-sheet/lock/{$item['subject_entity_id']}")}}"
+                        <a class="btn btn-default formConfirm" href="{{url("/cabinet/mark-sheet/lock?eid={$item['exam_entity_id']}&cid={$item['class_entity_id']}&sid={$item['subject_entity_id']}")}}"
                            title="Lock"
                            data-title="Lock Mark Sheet"
                            data-message="Are you sure to lock the selected record?"
