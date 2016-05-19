@@ -41,7 +41,7 @@
 
                     <hr/>
 
-                   <table class="table table-striped table-bordered table-hover" data-datatable>
+                   <table id="exam-schedule-table" class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                             <th class="text-center"><input type="checkbox" id="toggle-subjects" name="toggle-checkbox" value=""></th>
@@ -160,22 +160,37 @@
 @section('scripts')
 <script type="text/javascript">
 
+    // create datatale with checkbox column unsortable
+    $('#exam-schedule-table').DataTable( {
+          "aoColumnDefs": [
+              { 'bSortable': false, 'aTargets': [ 0 ] }
+           ]
+    });
+
+    // check/uncheck all checkboxes
+    $('#toggle-subjects').change(function() {
+        $('.subject-entity-id').prop('checked', false);
+        if($(this).is(":checked")) {
+            var table = $('.table').DataTable();
+            var rows = table.rows({ page: 'current' }).nodes();
+            rows.each(function() {
+                $('.subject-entity-id', this).prop('checked',true)
+            });
+        }
+    });
+
+    // reset all checkboxes after you change the page
+    $('#exam-schedule-table').on('page.dt', function () {
+        $('.subject-entity-id').prop('checked', false);
+        $('#toggle-subjects').prop('checked', false);
+    });
+
     // reload the page when selecting an exam
     $('#exam_entity_id').change(function() {
         if (this.value == 'none') {
             window.location.href = "/cabinet/exam-schedule";
         } else {
             window.location.href = "/cabinet/exam-schedule?eid=" + this.value;
-        }
-    });
-
-    // check/uncheck all checkboxes
-    $('#toggle-subjects').change(function() {
-        if($(this).is(":checked")) {
-            // only for the ones on the first page
-            $('.subject-entity-id').prop('checked', true);
-        } else {
-            $('.subject-entity-id').prop('checked', false);
         }
     });
 
