@@ -27,13 +27,10 @@
 
                         <div class="row">
                             <label class="col-md-5 control-label" for="product">Max Marks - </label>
-                            <div class="col-md-7 text-left">
-                                <button class="btn btn-primary grid_btn" type="button">Save</button>
-                            </div>
                         </div>
                         <hr/>
 
-                        <table class="table table-striped table-bordered table-hover" data-datatable>
+                        <table class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th>Roll Number <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
@@ -46,7 +43,16 @@
                                     <tr class="">
                                         <td>{{$item['student_roll_number']}}</td>
                                         <td>{{$item['student_full_name']}}</td>
-                                        <td>{{$item['student_marks']}}</td>
+                                        <td>
+                                            {{$item['student_marks']}}
+                                            <div class="form-group">
+                                                 <label class="col-md-4 control-label" for="product">Product Name</label>
+                                                 <div class="col-md-8">
+                                                     <input id="product" class="form-control" type="text" name="product_name" value="{{ v('product_name') }}" placeholder="Product Name">
+                                                 </div>
+                                             </div>
+
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
