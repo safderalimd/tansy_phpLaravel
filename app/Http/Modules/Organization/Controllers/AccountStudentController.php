@@ -41,6 +41,7 @@ class AccountStudentController extends Controller
     public function update(AccountStudentFormRequest $request, $id)
     {
         $account = AccountStudent::findOrFail($id);
+        $account->active = 0;
 
         if ($account->update($request->input())) {
             return redirect('/cabinet/student-account');
