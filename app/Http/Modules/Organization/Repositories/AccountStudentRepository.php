@@ -47,7 +47,8 @@ class AccountStudentRepository extends Repository
                 religion_id,
                 mother_language_id,
                 parent_relationship_type_id,
-                parent_designation_id
+                parent_designation_id,
+                parent_gender
             FROM view_sch_student_detail
             WHERE student_entity_id = :id
             LIMIT 1;', ['id' => $id]

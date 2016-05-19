@@ -184,13 +184,18 @@
                             'keyName' => 'class_name',
                         ])
 
-                        @include('commons.select', [
-                            'label'   => 'Current Class' ,
-                            'name'    => 'admitted_to_class_entity_id',
-                            'options' => $account->classGroups(),
-                            'keyId'   => 'class_group_entity_id',
-                            'keyName' => 'class_group',
-                        ])
+                        <div class="form-group">
+                            <label class="col-md-4 control-label"">Current Class</label>
+                            <div class="col-md-8">
+                                <label class="col-md-4 control-label">
+                                @foreach($account->classGroups() as $option)
+                                    @if ($option['class_group_entity_id'] == $account->class_student_id)
+                                        {{$option['class_group']}}
+                                    @endif
+                                @endforeach
+                                </label>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="student_roll_number">Roll Number</label>
