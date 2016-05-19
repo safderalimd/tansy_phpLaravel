@@ -40,10 +40,13 @@ class AccountStudentController extends Controller
      */
     public function update(AccountStudentFormRequest $request, $id)
     {
-        $account = AccountStudent::findOrFail($id);
-        $account->active = 0;
+        $account = new AccountStudent($request->input());
+        $account->setAttribute('student_entity_id', $id);
+        if (empty($request->input('active'))) {
+            $account->setActiveToFalse();
+        }
 
-        if ($account->update($request->input())) {
+        if ($account->update()) {
             return redirect('/cabinet/student-account');
         }
 

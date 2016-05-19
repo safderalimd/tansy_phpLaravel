@@ -10,6 +10,11 @@ class AccountStudent extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\Organization\Repositories\AccountStudentRepository';
 
+    public function setActiveToFalse()
+    {
+        $this->attributes['active'] = 0;
+    }
+
     public function setActiveAttribute($value)
     {
         if (!empty($value) || $value == 'on') {
