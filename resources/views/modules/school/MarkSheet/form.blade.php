@@ -26,7 +26,8 @@
                         <hr/>
 
                         <div class="row">
-                           <div class="col-md-12 text-center">
+                            <label class="col-md-5 control-label" for="product">Max Marks - </label>
+                            <div class="col-md-7 text-left">
                                 <button class="btn btn-primary grid_btn" type="button">Save</button>
                             </div>
                         </div>
@@ -53,7 +54,7 @@
 
                         <hr/>
                         <div class="row">
-                           <div class="col-md-12 text-center">
+                           <div class="col-md-7 text-left col-md-offset-5">
                                 <button class="btn btn-primary grid_btn" type="button">Save</button>
                             </div>
                         </div>
