@@ -118,19 +118,12 @@
                            <div class="form-group">
                               <label class="col-md-4 control-label" for="exam_start_time">Start Time</label>
                               <div class="col-md-8">
-
-                                <!-- <div class="input-group time-picker"> -->
-                                    <input id="exam_start_time" class="form-control" type="text" name="exam_start_time" value="{{ v('exam_start_time') }}" placeholder="Start Time">
-<!--                                     <span class="input-group-addon">
+                                <div class="input-group datetimepicker">
+                                    <input id="exam_start_time" class="form-control datetimepicker" type="text" name="exam_start_time" value="{{ v('exam_start_time') }}" placeholder="Start Time">
+                                    <span class="input-group-addon" style="cursor:pointer;">
                                         <span class="glyphicon glyphicon-time"></span>
                                     </span>
- -->
-<!--                                         <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><span
-                                                    class="glyphicon glyphicon-time"></span></button>
-                                    </span>
- -->                               <!--  </div> -->
-
+                                </div>
                               </div>
                            </div>
                         </div>
@@ -138,7 +131,12 @@
                            <div class="form-group">
                               <label class="col-md-4 control-label" for="exam_end_time">End Time</label>
                               <div class="col-md-8">
-                                  <input id="exam_end_time" class="form-control" type="text" name="exam_end_time" value="{{ v('exam_end_time') }}" placeholder="End Time">
+                                <div class="input-group datetimepicker">
+                                    <input id="exam_end_time" class="form-control datetimepicker" type="text" name="exam_end_time" value="{{ v('exam_end_time') }}" placeholder="End Time">
+                                    <span class="input-group-addon" style="cursor:pointer;">
+                                        <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                </div>
                               </div>
                            </div>
                         </div>
