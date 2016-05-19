@@ -56,7 +56,7 @@
             @foreach($schedule->scheduleExamGrid() as $item)
             <tr>
                 <td class="text-center">
-                    <input type="checkbox" class="subject-entity-id" name="subject_id" value="{{$item['subject_entity_id']}}">
+                    <input type="checkbox" data-classEntityId="{{$item['class_entity_id']}}" data-subjectEntityId="{{$item['subject_entity_id']}}" class="subject-entity-id" name="subject_id" value="{{$item['subject_entity_id']}}">
                 </td>
                 <td>{{$item['class_name']}}</td>
                 <td>{{$item['subject']}}</td>
@@ -116,7 +116,19 @@
                            <div class="form-group">
                               <label class="col-md-4 control-label" for="exam_start_time">Start Time</label>
                               <div class="col-md-8">
-                                  <input id="exam_start_time" class="form-control" type="text" name="exam_start_time" value="{{ v('exam_start_time') }}" placeholder="Start Time">
+
+                                <div class="input-group time-picker">
+                                    <input id="exam_start_time" class="form-control" type="text" name="exam_start_time" value="{{ v('exam_start_time') }}" placeholder="Start Time">
+<!--                                     <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+ -->
+<!--                                         <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button"><span
+                                                    class="glyphicon glyphicon-time"></span></button>
+                                    </span>
+ -->                                </div>
+
                               </div>
                            </div>
                         </div>
@@ -163,7 +175,8 @@
 
         // set the subjec ids
         var subjectIds = $('.subject-entity-id:checked').map(function() {
-            return this.value;
+            // return this.value;
+            return $(this).attr('data-classEntityId') + "-" + $(this).attr('data-subjectEntityId');
         }).get();
 
         if (subjectIds.length == 0) {

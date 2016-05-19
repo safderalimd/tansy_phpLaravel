@@ -3,6 +3,8 @@
 <head>
     @include('include.head')
     @yield('styles')
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 </head>
 <body>
 <div class="container-fluid">
@@ -31,12 +33,22 @@
 
 <script src="/js/app.js"></script>
 
+
+ <!-- <script type="text/javascript" src="/bower_components/jquery/jquery.min.js"></script> -->
+ <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
+ <!-- <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
+ <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
 <script>
     // for tables
     $( document ).ready(function() {
         $('.date').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true
+        });
+
+        $('.time-picker').datetimepicker({
+            format: 'LT'
         });
 
         $('table[data-datatable]').DataTable();
