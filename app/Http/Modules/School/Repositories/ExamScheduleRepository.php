@@ -6,6 +6,34 @@ use App\Http\Repositories\Repository;
 
 class ExamScheduleRepository extends Repository
 {
+    public function getExamGrid($id)
+    {
+        return $this->db()->select(
+            'SELECT
+                class_name,
+                class_entity_id,
+                subject_entity_id,
+                subject,
+                exam_date,
+                exam_time,
+                max_marks,
+                class_subject_id,
+                exam_entity_id
+             FROM view_sch_schedule_exam_grid
+             WHERE exam_entity_id = :id
+             LIMIT 1;', ['id' => $id]
+        );
+    }
+
+    public function getScheduleExamGrid()
+    {
+        return $this->db()->select(
+            'SELECT class_name, class_entity_id, subject_entity_id, subject, exam_date, exam_time, max_marks, class_subject_id, exam_entity_id
+            FROM view_sch_schedule_exam_grid
+            ORDER BY class_name DESC;'
+        );
+    }
+
     public function scheduleRows($model)
     {
         $procedure = 'sproc_sch_schedule_exam_dml_ins';

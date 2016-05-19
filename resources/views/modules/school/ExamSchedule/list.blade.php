@@ -14,14 +14,41 @@
 
                     @include('commons.errors')
 
+                    <!-- filter the exams -->
+                    <form class="form-horizontal" style="margin-bottom:-15px;" action="{{url("/cabinet/exam-schedule/map-subjects/")}}" method="POST">
+                        {{ csrf_field() }}
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="exam_entity_id">Exam</label>
+                                    <div class="col-md-4">
+                                        <select id="exam_entity_id" class="form-control" name="exam_entity_id">
+                                            <option value="none">Select an exam</option>
+                                            @foreach($schedule->exam() as $option)
+                                                <option {{ ($examId == $option['exam_entity_id']) ? 'selected' : ''}} value="{!! $option['exam_entity_id'] !!}">
+                                                    {!! $option['exam'] !!}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-primary grid_btn" type="submit">MAP ALL SUBJECTS TO EXAM</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+
                     <!-- separate post form to map subjects -->
-                    <div class="row">
+<!--                     <div class="row">
                         <div class="col-md-12">
                             <form class="form-horizontal" action="{{url("/cabinet/exam-schedule/map-subjects/")}}" method="POST">
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-md-2 text-center">
-                                        @include('commons.select', [
+                                        include('commons.select', [
                                             'label'   => 'Exam' ,
                                             'name'    => 'exam_entity_id',
                                             'options' => $schedule->exam(),
@@ -30,12 +57,12 @@
                                         ])
                                     </div>
                                     <div class="col-md-4">
-                                        <button class="btn btn-primary grid_btn" type="submit">Map Subjects</button>
+                                        <button class="btn btn-primary grid_btn" type="submit">MAP ALL SUBJECTS TO EXAM</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </div> -->
 
                     <hr/>
 
@@ -53,7 +80,7 @@
                     </thead>
                     <tbody>
 
-            @foreach($schedule->scheduleExamGrid() as $item)
+            @foreach($schedule->getExamGrid() as $item)
             <tr>
                 <td class="text-center">
                     <input type="checkbox" data-classEntityId="{{$item['class_entity_id']}}" data-subjectEntityId="{{$item['subject_entity_id']}}" class="subject-entity-id" name="subject_id" value="{{$item['subject_entity_id']}}">
@@ -117,7 +144,7 @@
                               <label class="col-md-4 control-label" for="exam_start_time">Start Time</label>
                               <div class="col-md-8">
 
-                                <div class="input-group time-picker">
+                                <!-- <div class="input-group time-picker"> -->
                                     <input id="exam_start_time" class="form-control" type="text" name="exam_start_time" value="{{ v('exam_start_time') }}" placeholder="Start Time">
 <!--                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-time"></span>
@@ -127,7 +154,7 @@
                                         <button class="btn btn-default" type="button"><span
                                                     class="glyphicon glyphicon-time"></span></button>
                                     </span>
- -->                                </div>
+ -->                               <!--  </div> -->
 
                               </div>
                            </div>
@@ -160,6 +187,16 @@
 @section('scripts')
 <script type="text/javascript">
 
+    // reload the page when selecting an exam
+    $('#exam_entity_id').change(function() {
+        if (this.value == 'none') {
+            window.location.href = "/cabinet/exam-schedule";
+        } else {
+            window.location.href = "/cabinet/exam-schedule?eid=" + this.value;
+        }
+    });
+
+    // check/uncheck all checkboxes
     $('#toggle-subjects').change(function() {
         if($(this).is(":checked")) {
             // only for the ones on the first page

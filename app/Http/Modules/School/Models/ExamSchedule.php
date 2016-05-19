@@ -10,6 +10,22 @@ class ExamSchedule extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\ExamScheduleRepository';
 
+    protected $examId;
+
+    public function setExamId($examId)
+    {
+        $this->examId = $examId;
+    }
+
+    public function getExamGrid()
+    {
+        if (empty($this->examId)) {
+            return [];
+        }
+
+        return $this->repository->getExamGrid($this->examId);
+    }
+
     public function scheduleRows()
     {
         return $this->repository->scheduleRows($this);
@@ -32,19 +48,19 @@ class ExamSchedule extends Model
         return $value;
     }
 
-    public function setCid($value)
+    public function setCidAttribute($value)
     {
         $this->setAttribute('class_entity_id', $value);
         return $value;
     }
 
-    public function setSid($value)
+    public function setSidAttribute($value)
     {
         $this->setAttribute('subject_entity_id', $value);
         return $value;
     }
 
-    public function setEid($value)
+    public function setEidAttribute($value)
     {
         $this->setAttribute('exam_entity_id', $value);
         return $value;

@@ -47,9 +47,9 @@
             autoclose: true
         });
 
-        $('.time-picker').datetimepicker({
-            format: 'LT'
-        });
+        // $('.time-picker').datetimepicker({
+        //     format: 'LT'
+        // });
 
         $('table[data-datatable]').DataTable();
     });

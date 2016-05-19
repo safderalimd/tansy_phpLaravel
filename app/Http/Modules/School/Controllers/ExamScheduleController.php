@@ -2,6 +2,7 @@
 
 namespace App\Http\Modules\School\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\School\Models\ExamSchedule;
 use App\Http\Modules\School\Requests\ExamScheduleMapSubjectsFormRequest;
@@ -13,12 +14,16 @@ class ExamScheduleController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $examId = $request->input('eid');
         $schedule = new ExamSchedule;
-        return view('modules.school.ExamSchedule.list', compact('schedule'));
+        $schedule->setExamId($examId);
+
+        return view('modules.school.ExamSchedule.list', compact('schedule', 'examId'));
     }
 
     /**
