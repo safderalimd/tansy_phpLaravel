@@ -126,9 +126,9 @@ class Repository
     public function getClasses()
     {
         return $this->db()->select(
-            'SELECT class_entity_id, class_name, class_group, class_category, class_group_entity_id, class_category_entity_id
+            'SELECT class_entity_id, class_name, class_group, class_category, class_group_entity_id, class_category_entity_id, class_reporting_order
              FROM view_sch_lkp_class
-             ORDER BY class_name DESC;'
+             ORDER BY class_reporting_order DESC;'
         );
     }
 
