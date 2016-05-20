@@ -533,7 +533,7 @@ class Repository
         return $this->db()->select(
             'SELECT exam, exam_type, exam_entity_id
             FROM view_sch_lkp_exam
-            ORDER BY exam_type ASC;'
+            ORDER BY exam ASC;'
         );
     }
 

@@ -18,9 +18,13 @@ class GenerateProgressRepository extends Repository
                 last_upload_modified_date,
                 exam_entity_id,
                 class_entity_id,
-                subject_entity_id
+                subject_entity_id,
+                class_reporting_order,
+                subject_reporting_order
             FROM view_sch_generate_progress_grid
-            WHERE exam_entity_id = :id;', ['id' => $id]
+            WHERE exam_entity_id = :id
+            ORDER BY class_reporting_order, subject_reporting_order ASC',
+            ['id' => $id]
         );
     }
 
