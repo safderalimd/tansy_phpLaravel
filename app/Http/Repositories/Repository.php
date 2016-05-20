@@ -281,7 +281,7 @@ class Repository
         return $this->db()->select(
             'SELECT schedule_name, subject_name, product_name, frequency, start_date, end_date, amount, schedule_entity_id, active
             FROM view_act_rcv_schedule_grid
-            ORDER BY schedule_name ASC;'
+            ORDER BY end_date, product_name ASC;'
         );
     }
 

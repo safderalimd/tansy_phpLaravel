@@ -46,7 +46,9 @@
            format: 'HH:mm:ss'
         });
 
-        $('table[data-datatable]').DataTable();
+        $('table[data-datatable]').DataTable({
+            "aaSorting": []
+        });
     });
 </script>
 
