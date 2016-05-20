@@ -18,9 +18,12 @@ class ExamScheduleRepository extends Repository
                 exam_time,
                 max_marks,
                 class_subject_id,
-                exam_entity_id
-             FROM view_sch_schedule_exam_grid
-             WHERE exam_entity_id = :id;', ['id' => $id]
+                exam_entity_id,
+                class_reporting_order,
+                subject_reporting_order
+            FROM view_sch_schedule_exam_grid
+            ORDER BY class_reporting_order, subject_reporting_order
+            WHERE exam_entity_id = :id;', ['id' => $id]
         );
     }
 
