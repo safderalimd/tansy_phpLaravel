@@ -108,7 +108,6 @@ class MarkSheetRepository extends Repository
             ':iparam_class_entity_id',
             ':iparam_subject_entity_id',
             ':iparam_clsStudIDs_marks',
-            ':iparam_markids_marks',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
