@@ -18,6 +18,7 @@
 
                     <?php $allItems = $markSheet->getMarkSheetDetail(); ?>
 
+                    @if (count($allItems))
                     <div class="form-group">
                         <label class="col-md-4 control-label">Exam - <strong>{{$allItems[0]['exam_name']}}</strong></label>
                         <label class="col-md-4 control-label">Subject - <strong>{{$allItems[0]['subject_name']}}</strong></label>
@@ -29,6 +30,9 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">Max Marks - <strong>{{$allItems[0]['max_marks']}}</strong></label>
                     </div>
+                    @else
+                        There is not data for this form.
+                    @endif
 
                     <br/>
                     <hr/>
@@ -44,7 +48,7 @@
                         <tbody>
                             @foreach($allItems as $item)
                                 <tr>
-                                    <td>{{$item['student_roll_number']}}</td>
+                                    <td>{{isset($item['student_roll_number']) ?: '-'}}</td>
                                     <td>{{$item['student_full_name']}}</td>
                                     <td style="max-width:250px;width:250px;">
                                         <input data-studentId="{{$item['class_student_id']}}" class="input-mark-value form-control" type="text" name="product_name" value="{{$item['student_marks']}}">
