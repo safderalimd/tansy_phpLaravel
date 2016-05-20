@@ -19,29 +19,31 @@
                     <?php $allItems = $markSheet->getMarkSheetDetail(); ?>
 
                     @if (count($allItems))
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Exam - <strong>{{$allItems[0]['exam_name']}}</strong></label>
-                            <label class="col-md-4 control-label">Subject - <strong>{{$allItems[0]['subject_name']}}</strong></label>
-                            <label class="col-md-4 control-label">Class - <strong>{{$allItems[0]['class_name']}}</strong></label>
-                        </div>
-                        <br/>
-                        <hr/>
-
                         <?php
                             $examEntityId = $allItems[0]['exam_entity_id'];
                             $classEntityId = $allItems[0]['class_entity_id'];
                             $subjectEntityId = $allItems[0]['subject_entity_id'];
                         ?>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Max Marks - <strong>{{$allItems[0]['max_marks']}}</strong></label>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="pull-left"><strong>{{$allItems[0]['exam_name']}}</strong></h3>
+                            </div>
+                        </div>
+                        <hr style="margin:0px; padding:0px;" />
+                        <div class="row">
+                            <div class="col-md-6"><h4 class="pull-left">Class - {{$allItems[0]['class_name']}}</h4></div>
+                            <div class="col-md-6"><h4 class="pull-right">Subject - {{$allItems[0]['subject_name']}}</h4></div>
+                        </div>
+                        <hr style="margin:0px; padding:0px;" />
+                        <div class="row" style="">
+                            <div class="col-md-12">
+                                <h4 class="pull-right">Max Marks - {{$allItems[0]['max_marks']}}</h4>
+                            </div>
                         </div>
                     @else
                         There is not data for this form.
                     @endif
-
-                    <br/>
-                    <hr/>
+                    <hr style="margin-top:0px;" />
 
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
