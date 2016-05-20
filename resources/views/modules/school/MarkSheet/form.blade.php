@@ -58,7 +58,7 @@
                                 <tr>
                                     <td>{{$item['student_roll_number']}}</td>
                                     <td>{{$item['student_full_name']}}</td>
-                                    <td style="max-width:250px;width:250px;">
+                                    <td style="max-width:150px;width:150px;">
                                         <input data-studentId="{{$item['class_student_id']}}" class="input-mark-value form-control" type="text" name="product_name" value="{{$item['student_marks']}}">
                                     </td>
                                 </tr>
