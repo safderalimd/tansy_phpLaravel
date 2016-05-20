@@ -12,8 +12,6 @@ class MarkSheet extends Model
 
     protected $examId;
 
-    protected $markSheetId;
-
     public function setExamId($examId)
     {
         $this->examId = $examId;
@@ -24,14 +22,9 @@ class MarkSheet extends Model
         return $this->repository->save($this);
     }
 
-    public function setMarkSheetId($markSheetId)
+    public function getMarkSheetDetail()
     {
-        $this->markSheetId = $markSheetId;
-    }
-
-    public function getMarkSheetRows()
-    {
-        return $this->repository->getMarkSheetRows($this->markSheetId);
+        return $this->repository->getMarkSheetEditForm($this);
     }
 
     public function markSheetGrid()

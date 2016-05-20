@@ -17,28 +17,37 @@ class MarkSheetRepository extends Repository
                 last_upload_modified_date,
                 exam_entity_id,
                 class_entity_id,
-                subject_entity_id,
-                marksheet_id
+                subject_entity_id
                 FROM view_sch_mark_sheet_grid
                 WHERE exam_entity_id = :id
                 ORDER BY class_name DESC;', ['id' => $id]
         );
     }
 
-    public function getMarkSheetRows($id)
+    public function getMarkSheetEditForm($model)
     {
         return $this->db()->select(
             'SELECT
                 student_roll_number,
-                student_full_name,
-                student_marks,
                 class_entity_id,
                 subject_entity_id,
                 exam_entity_id,
                 class_student_id,
-                marksheet_id
+                class_name,
+                subject_name,
+                exam_name,
+                student_full_name,
+                student_marks,
+                max_marks,
+                mark_sheet_code
             FROM view_sch_mark_sheet_detail
-            WHERE marksheet_id = :id', ['id' => $id]
+            WHERE class_entity_id = :class_entity_id
+            AND subject_entity_id = :subject_entity_id
+            AND exam_entity_id = :exam_entity_id', [
+                'class_entity_id' => $model->class_entity_id,
+                'subject_entity_id' => $model->subject_entity_id,
+                'exam_entity_id' => $model->exam_entity_id,
+            ]
         );
     }
 

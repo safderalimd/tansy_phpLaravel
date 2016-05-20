@@ -16,16 +16,21 @@
 
                     @include('commons.errors')
 
+                    <?php $allItems = $markSheet->getMarkSheetDetail(); ?>
+
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="product">Exam - </label>
-                        <label class="col-md-4 control-label" for="product">Subject - </label>
-                        <label class="col-md-4 control-label" for="product">Class - </label>
+                        <label class="col-md-4 control-label">Exam - <strong>{{$allItems[0]['exam_name']}}</strong></label>
+                        <label class="col-md-4 control-label">Subject - <strong>{{$allItems[0]['subject_name']}}</strong></label>
+                        <label class="col-md-4 control-label">Class - <strong>{{$allItems[0]['class_name']}}</strong></label>
                     </div>
+                    <br/>
                     <hr/>
 
-                    <div class="row">
-                        <label class="col-md-5 control-label" for="product">Max Marks - </label>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Max Marks - <strong>{{$allItems[0]['max_marks']}}</strong></label>
                     </div>
+
+                    <br/>
                     <hr/>
 
                     <table class="table table-striped table-bordered table-hover">
@@ -37,12 +42,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($markSheet->getMarkSheetRows() as $item)
+                            @foreach($allItems as $item)
                                 <tr>
                                     <td>{{$item['student_roll_number']}}</td>
                                     <td>{{$item['student_full_name']}}</td>
                                     <td style="max-width:250px;width:250px;">
-                                        <input data-marksheetId="{{$item['marksheet_id']}}" class="input-mark-value form-control" type="text" name="product_name" value="{{$item['student_marks']}}">
+                                        <input data-studentId="{{$item['class_student_id']}}" class="input-mark-value form-control" type="text" name="product_name" value="{{$item['student_marks']}}">
                                     </td>
                                 </tr>
                             @endforeach
@@ -78,7 +83,7 @@
     // When submitting the form, prepend all selected checkboxes
     $('#save-marks-form').submit(function() {
         var marksIds = $('.input-mark-value').map(function() {
-            return $(this).attr('data-marksheetId') + '-' + this.value;
+            return $(this).attr('data-studentId') + '-' + this.value;
         }).get();
 
         if (marksIds.length == 0) {
