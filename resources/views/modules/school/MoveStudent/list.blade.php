@@ -45,7 +45,7 @@
             </thead>
             <tbody>
 
-    @foreach($move->students() as $student)
+    @foreach($move->studentsGrid() as $student)
     <tr style="display:none;" class="student-tr">
         <td class="text-center">
             <input type="checkbox" data-classid="{{$student['class_entity_id']}}" class="student-entity-id" name="class_student_id" value="{{$student['class_student_id']}}">
