@@ -5,7 +5,7 @@
     @yield('styles')
     <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 </head>
-<body>
+<body style="padding:0px;">
 <div class="container-fluid">
 
     <header class="row">

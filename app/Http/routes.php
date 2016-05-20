@@ -83,7 +83,7 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('exam-schedule/delete', 'School\Controllers\ExamScheduleController@destroy');
 
     Route::get('mark-sheet', 'School\Controllers\MarkSheetController@index');
-    Route::get('mark-sheet/edit/{id}', 'School\Controllers\MarkSheetController@edit');
+    Route::get('mark-sheet/edit', 'School\Controllers\MarkSheetController@edit');
     Route::get('mark-sheet/lock', 'School\Controllers\MarkSheetController@lock');
     Route::get('mark-sheet/unlock', 'School\Controllers\MarkSheetController@unlock');
     Route::post('mark-sheet/save', 'School\Controllers\MarkSheetController@save');

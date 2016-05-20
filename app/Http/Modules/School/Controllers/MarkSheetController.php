@@ -26,13 +26,20 @@ class MarkSheetController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
         $markSheet = new MarkSheet;
-        $markSheet->setMarkSheetId($id);
+        $markSheetId = $request->input('mid');
+        // $classEntityId = $request->input('cid');
+        // $subjectEntityId = $request->input('sid');
+        $markSheet->setMarkSheetId($markSheetId);
+
+        // $className = $markSheet->repository->getClassName($classEntityId);
+        // dd($className);
+
         return view('modules.school.MarkSheet.form', compact('markSheet'));
     }
 
