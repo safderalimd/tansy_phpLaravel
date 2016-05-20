@@ -22,8 +22,10 @@ class ExamScheduleRepository extends Repository
                 class_reporting_order,
                 subject_reporting_order
             FROM view_sch_schedule_exam_grid
-            ORDER BY class_reporting_order, subject_reporting_order
-            WHERE exam_entity_id = :id;', ['id' => $id]
+            WHERE exam_entity_id = :id
+            ORDER BY class_reporting_order,
+                subject_reporting_order;',
+            ['id' => $id]
         );
     }
 
