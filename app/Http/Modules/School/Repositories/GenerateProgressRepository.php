@@ -6,6 +6,24 @@ use App\Http\Repositories\Repository;
 
 class GenerateProgressRepository extends Repository
 {
+
+    public function generateFilteredProgressGrid($id)
+    {
+        return $this->db()->select(
+            'SELECT
+                class_name,
+                subject,
+                locked,
+                progress_status,
+                last_upload_modified_date,
+                exam_entity_id,
+                class_entity_id,
+                subject_entity_id
+            FROM view_sch_generate_progress_grid
+            WHERE exam_entity_id = :id;', ['id' => $id]
+        );
+    }
+
     public function generateProgress($model)
     {
         $procedure = 'sproc_sch_generate_progress_dml';

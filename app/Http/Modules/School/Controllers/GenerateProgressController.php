@@ -2,6 +2,7 @@
 
 namespace App\Http\Modules\School\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\School\Models\GenerateProgress;
 use App\Http\Modules\School\Requests\GenerateProgressFormRequest;
@@ -11,12 +12,16 @@ class GenerateProgressController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $examId = $request->input('eid');
         $progress = new GenerateProgress;
-        return view('modules.school.GenerateProgress.list', compact('progress'));
+        $progress->setExamId($examId);
+
+        return view('modules.school.GenerateProgress.list', compact('progress', 'examId'));
     }
 
     /**

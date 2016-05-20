@@ -14,22 +14,27 @@
 
                 @include('commons.errors')
 
-
-                <form class="form-horizontal" action="{{url("/cabinet/generate-progress/generate-progress-for-all-classes")}}" method="POST">
+                <!-- filter the rows -->
+                <form class="form-horizontal" style="margin-bottom:-15px;" action="{{url("/cabinet/generate-progress/generate-progress-for-all-classes")}}" method="POST">
                     {{ csrf_field() }}
-
                     <div class="row">
-                        <div class="col-md-2">
-                            @include('commons.select', [
-                                'label'   => 'Exam' ,
-                                'name'    => 'exam_entity_id',
-                                'options' => $progress->exam(),
-                                'keyId'   => 'exam_entity_id',
-                                'keyName' => 'exam',
-                            ])
-                        </div>
-                        <div class="col-md-10">
-                            <button class="btn btn-primary pull-right" type="submit">Generate Progress for all Classes</button>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="exam_entity_id">Exam</label>
+                                <div class="col-md-4">
+                                    <select id="exam_entity_id" class="form-control" name="exam_entity_id">
+                                        <option value="none">Select an exam</option>
+                                        @foreach($progress->exam() as $option)
+                                            <option {{ ($examId == $option['exam_entity_id']) ? 'selected' : ''}} value="{!! $option['exam_entity_id'] !!}">
+                                                {!! $option['exam'] !!}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                   <button class="btn btn-primary grid_btn" type="submit">Generate Progress for all Classes</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -47,9 +52,8 @@
                     </tr>
                 </thead>
                 <tbody>
-        @foreach($progress->generateProgressGrid() as $item)
+        @foreach($progress->generateFilteredProgressGrid() as $item)
         <tr>
-            <!-- class_name, subject, locked, progress_status, last_upload_modified_date, exam_entity_id, class_entity_id, subject_entity_id -->
             <?php
                 if (strtolower($item['progress_status']) == 'generate successfully') {
                     $generated = true;
@@ -61,19 +65,19 @@
             <td>{{$item['progress_status']}}</td>
             <td>
                 @if ($generated)
-                    <a class="btn btn-default" href="{{url("/cabinet/generate-progress/print?exam_entity_id={$item['exam_entity_id']}&subject_entity_id={$item['subject_entity_id']}")}}" title="Print">Print</a>
+                    <a class="btn btn-default" href="{{url("/cabinet/generate-progress/print?eid={$item['exam_entity_id']}&cid={$item['class_entity_id']}")}}" title="Print">Print</a>
                 @endif
             </td>
             <td>
                 @if ($generated)
-                    <a class="btn btn-default" href="{{url("/cabinet/generate-progress/print?exam_entity_id={$item['exam_entity_id']}&subject_entity_id={$item['subject_entity_id']}")}}" title="Print">Print</a>
+                    <a class="btn btn-default" href="{{url("/cabinet/generate-progress/print?eid={$item['exam_entity_id']}&cid={$item['class_entity_id']}")}}" title="Print">Print</a>
                 @endif
             </td>
             <td>
                 @if ($generated)
-                    <a class="btn btn-default" href="{{url("/cabinet/generate-progress/re-generate?exam_entity_id={$item['exam_entity_id']}&subject_entity_id={$item['subject_entity_id']}")}}" title="Re - generate">Re - generate</a>
+                    <a class="btn btn-default" href="{{url("/cabinet/generate-progress/re-generate?eid={$item['exam_entity_id']}&cid={$item['class_entity_id']}")}}" title="Re - generate">Re - generate</a>
                 @else
-                    <a class="btn btn-default" href="{{url("/cabinet/generate-progress/generate?exam_entity_id={$item['exam_entity_id']}&subject_entity_id={$item['subject_entity_id']}")}}" title="Generate">Generate</a>
+                    <a class="btn btn-default" href="{{url("/cabinet/generate-progress/generate?eid={$item['exam_entity_id']}&cid={$item['class_entity_id']}")}}" title="Generate">Generate</a>
                 @endif
             </td>
         </tr>
@@ -87,4 +91,19 @@
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+
+    // reload the page when selecting an exam
+    $('#exam_entity_id').change(function() {
+        if (this.value == 'none') {
+            window.location.href = "/cabinet/generate-progress";
+        } else {
+            window.location.href = "/cabinet/generate-progress?eid=" + this.value;
+        }
+    });
+
+</script>
 @endsection
