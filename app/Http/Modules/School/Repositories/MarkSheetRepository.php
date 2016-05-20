@@ -20,7 +20,7 @@ class MarkSheetRepository extends Repository
                 subject_entity_id
                 FROM view_sch_mark_sheet_grid
                 WHERE exam_entity_id = :id
-                ORDER BY class_name DESC;', ['id' => $id]
+                ORDER BY class_name ASC;', ['id' => $id]
         );
     }
 
