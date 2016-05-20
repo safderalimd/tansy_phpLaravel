@@ -425,7 +425,7 @@ class Repository
         return $this->db()->select(
             'SELECT frequency_id, description
             FROM view_org_lkp_frequency
-            ORDER BY frequency_id ASC;'
+            ORDER BY description ASC;'
         );
     }
 
