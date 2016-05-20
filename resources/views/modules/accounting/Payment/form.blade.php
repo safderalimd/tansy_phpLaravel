@@ -52,7 +52,7 @@
 
     <div class="row">
        <div class="col-md-6 col-md-offset-3 text-center grid_footer">
-            <button class="btn btn-success btn-block btn-lg grid_btn" type="submit">Pay Now</button>
+            <button class="btn btn-success btn-block btn-lg grid_btn" id="pay-now-btn" type="submit">Pay Now</button>
         </div>
     </div>
 
@@ -92,6 +92,7 @@
 <script type="text/javascript">
 
     $('#pay-now-form').submit(function() {
+        $('#pay-now-btn').prop('disabled',true);
         $('#id_new_balance').val(getNewBalance());
 
         var ids = $('.detail-row:checked').map(function() {
