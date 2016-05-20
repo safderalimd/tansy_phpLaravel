@@ -64,11 +64,19 @@
                             <label class="col-md-4 control-label" for="subject_entity_id">Subject Account</label>
                             <div class="col-md-8">
                                 <select id="subject_entity_id" class="form-control" name="subject_entity_id">
-                                    @foreach($payment->entityName() as $option)
-                                        <option data-entityTypeId="{{$option['entity_type_id']}}" {{ s('subject_entity_id', $option['entity_id']) }} value="{!! $option['entity_id'] !!}">
-                                            {!! $option['entity_name'] !!}
-                                        </option>
-                                    @endforeach
+                                    @if (!$payment->isNewRecord())
+                                        @foreach($payment->entityName() as $option)
+                                            <option data-entityTypeId="{{$option['entity_type_id']}}" {{ s('subject_entity_id', $option['entity_id']) }} value="{!! $option['entity_id'] !!}">
+                                                {!! $option['entity_name'] !!}
+                                            </option>
+                                        @endforeach
+                                    @else
+                                        @foreach($payment->entityName() as $option)
+                                            <option data-entityTypeId="{{$option['entity_type_id']}}" @if ($accountEntityId == $option['entity_id']) {{'selected'}} @endif value="{!! $option['entity_id'] !!}">
+                                                {!! $option['entity_name'] !!}
+                                            </option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -155,7 +163,7 @@
     function initAccountOptions() {
         allAccountOptions = $('#subject_entity_id option');
 
-        var selectedAccountTypeId =  $('#subject_entity_id option:selected').attr('data-entityTypeId');
+        var selectedAccountTypeId = $('#subject_entity_id option:selected').attr('data-entityTypeId');
 
         $('#account_type_id option').each(function() {
             if (this.value == selectedAccountTypeId) {
@@ -198,7 +206,7 @@
         updateAccounts();
     });
 
-    $( document ).ready(function() {
+    $(document).ready(function() {
         initAccountOptions();
     });
 </script>

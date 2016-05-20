@@ -60,7 +60,7 @@
         <td>
             <a class="" href="{{url("/cabinet/payment/create/?pk={$row['account_entity_id']}")}}" title="Payment">Payment</a>
             <a class="" href="{{url("/cabinet/payment-adjustment/{$row['account_entity_id']}")}}" title="Adjustment">Adjustment</a>
-            <a class="" href="{{url("/cabinet/schedule-payment/edit/{$row['account_entity_id']}")}}" title="Schedule">Schedule</a>
+            <a class="" href="{{url("/cabinet/schedule-payment/create?aei={$row['account_entity_id']}")}}" title="Schedule">Schedule</a>
             <a class="" href="{{url("/cabinet/payment/edit/")}}" title="Receipt">Receipt</a>
 
         </td>

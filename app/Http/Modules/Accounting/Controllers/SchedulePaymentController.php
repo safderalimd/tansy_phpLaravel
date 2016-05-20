@@ -2,6 +2,7 @@
 
 namespace App\Http\Modules\Accounting\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Accounting\Models\SchedulePayment;
 use App\Http\Modules\Accounting\Requests\SchedulePaymentFormRequest;
@@ -22,12 +23,18 @@ class SchedulePaymentController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        // this is a link request from payment grid
+        $accountEntityId = null;
+        if (!empty($request->input('aei'))) {
+            $accountEntityId = $request->input('aei');
+        }
         $payment = new SchedulePayment;
-        return view('modules.accounting.SchedulePayment.form', compact('payment'));
+        return view('modules.accounting.SchedulePayment.form', compact('payment', 'accountEntityId'));
     }
 
     /**
