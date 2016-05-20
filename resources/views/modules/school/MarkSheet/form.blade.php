@@ -16,59 +16,79 @@
 
                     @include('commons.errors')
 
-                    <form class="form-horizontal" action="" method="POST">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="product">Exam - </label>
+                        <label class="col-md-4 control-label" for="product">Subject - </label>
+                        <label class="col-md-4 control-label" for="product">Class - </label>
+                    </div>
+                    <hr/>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="product">Exam - </label>
-                            <label class="col-md-4 control-label" for="product">Subject - </label>
-                            <label class="col-md-4 control-label" for="product">Class - </label>
-                        </div>
-                        <hr/>
+                    <div class="row">
+                        <label class="col-md-5 control-label" for="product">Max Marks - </label>
+                    </div>
+                    <hr/>
 
-                        <div class="row">
-                            <label class="col-md-5 control-label" for="product">Max Marks - </label>
-                        </div>
-                        <hr/>
-
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead>
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Roll Number</th>
+                                <th>Student Name</th>
+                                <th>Marks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($markSheet->getMarkSheetRows() as $item)
                                 <tr>
-                                    <th>Roll Number <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                                    <th>Student Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                                    <th>Marks <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                                    <td>{{$item['student_roll_number']}}</td>
+                                    <td>{{$item['student_full_name']}}</td>
+                                    <td style="max-width:250px;width:250px;">
+                                        <input data-marksheetId="{{$item['marksheet_id']}}" class="input-mark-value form-control" type="text" name="product_name" value="{{$item['student_marks']}}">
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($markSheet->getMarkSheetRows() as $item)
-                                    <tr class="">
-                                        <td>{{$item['student_roll_number']}}</td>
-                                        <td>{{$item['student_full_name']}}</td>
-                                        <td>
-                                            {{$item['student_marks']}}
-                                            <div class="form-group">
-                                                 <label class="col-md-4 control-label" for="product">Product Name</label>
-                                                 <div class="col-md-8">
-                                                     <input id="product" class="form-control" type="text" name="product_name" value="{{ v('product_name') }}" placeholder="Product Name">
-                                                 </div>
-                                             </div>
+                            @endforeach
+                        </tbody>
+                    </table>
 
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-md-7 text-left col-md-offset-5">
 
-                        <hr/>
-                        <div class="row">
-                           <div class="col-md-7 text-left col-md-offset-5">
-                                <button class="btn btn-primary grid_btn" type="button">Save</button>
-                            </div>
+                        <form class="form-horizontal" id="save-marks-form" action="{{url("/cabinet/mark-sheet/save")}}" method="POST">
+                            {{ csrf_field() }}
+
+                            <input type="hidden" name="markids_marks" id="markids_marks" value="">
+
+                            <button class="btn btn-primary grid_btn" type="submit" id="save-marks-submit">Save</button>
+                        </form>
+
                         </div>
-                        <br/>
-                    </form>
+                    </div>
+                    <br/>
                     </section>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+
+    // When submitting the form, prepend all selected checkboxes
+    $('#save-marks-form').submit(function() {
+        var marksIds = $('.input-mark-value').map(function() {
+            return $(this).attr('data-marksheetId') + '-' + this.value;
+        }).get();
+
+        if (marksIds.length == 0) {
+            alert("There are no marks.");
+            return false;
+        }
+
+        $('#markids_marks').val(marksIds.join(','));
+
+        return true;
+    });
+</script>
 @endsection

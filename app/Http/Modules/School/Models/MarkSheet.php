@@ -19,6 +19,11 @@ class MarkSheet extends Model
         $this->examId = $examId;
     }
 
+    public function save()
+    {
+        return $this->repository->save($this);
+    }
+
     public function setMarkSheetId($markSheetId)
     {
         $this->markSheetId = $markSheetId;

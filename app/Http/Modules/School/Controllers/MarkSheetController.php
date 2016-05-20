@@ -33,8 +33,6 @@ class MarkSheetController extends Controller
     {
         $markSheet = new MarkSheet;
         $markSheet->setMarkSheetId($id);
-
-        // dd($markSheet->getMarkSheetRows());
         return view('modules.school.MarkSheet.form', compact('markSheet'));
     }
 
@@ -70,5 +68,22 @@ class MarkSheetController extends Controller
         }
 
         return redirect(url('/cabinet/mark-sheet'))->withErrors($markSheet->getErrors());
+    }
+
+    /**
+     * Save.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function save(Request $request)
+    {
+        $markSheet = new MarkSheet($request->input());
+
+        if ($markSheet->save()) {
+            return redirect('/cabinet/mark-sheet');
+        }
+
+        return \Redirect::back()->withErrors($markSheet->getErrors());
     }
 }
