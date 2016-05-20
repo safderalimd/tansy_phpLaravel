@@ -104,6 +104,10 @@ class MarkSheetRepository extends Repository
         $procedure = 'sproc_sch_mark_sheet_dml_upd';
 
         $iparams = [
+            ':iparam_exam_entity_id',
+            ':iparam_class_entity_id',
+            ':iparam_subject_entity_id',
+            ':iparam_clsStudIDs_marks',
             ':iparam_markids_marks',
             ':iparam_session_id',
             ':iparam_user_id',

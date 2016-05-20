@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\School\Models\MarkSheet;
 use App\Http\Modules\School\Requests\MarkSheetFormRequest;
+use App\Http\Modules\School\Requests\MarkSheetDeleteFormRequest;
 
 class MarkSheetController extends Controller
 {
@@ -72,10 +73,10 @@ class MarkSheetController extends Controller
     /**
      * Save.
      *
-     * @param Request $request
+     * @param MarkSheetDeleteFormRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function save(Request $request)
+    public function save(MarkSheetDeleteFormRequest $request)
     {
         $markSheet = new MarkSheet($request->input());
 

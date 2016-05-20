@@ -19,17 +19,23 @@
                     <?php $allItems = $markSheet->getMarkSheetDetail(); ?>
 
                     @if (count($allItems))
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Exam - <strong>{{$allItems[0]['exam_name']}}</strong></label>
-                        <label class="col-md-4 control-label">Subject - <strong>{{$allItems[0]['subject_name']}}</strong></label>
-                        <label class="col-md-4 control-label">Class - <strong>{{$allItems[0]['class_name']}}</strong></label>
-                    </div>
-                    <br/>
-                    <hr/>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Exam - <strong>{{$allItems[0]['exam_name']}}</strong></label>
+                            <label class="col-md-4 control-label">Subject - <strong>{{$allItems[0]['subject_name']}}</strong></label>
+                            <label class="col-md-4 control-label">Class - <strong>{{$allItems[0]['class_name']}}</strong></label>
+                        </div>
+                        <br/>
+                        <hr/>
 
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">Max Marks - <strong>{{$allItems[0]['max_marks']}}</strong></label>
-                    </div>
+                        <?php
+                            $examEntityId = $allItems[0]['exam_entity_id'];
+                            $classEntityId = $allItems[0]['class_entity_id'];
+                            $subjectEntityId = $allItems[0]['subject_entity_id'];
+                        ?>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Max Marks - <strong>{{$allItems[0]['max_marks']}}</strong></label>
+                        </div>
                     @else
                         There is not data for this form.
                     @endif
@@ -65,7 +71,11 @@
                         <form class="form-horizontal" id="save-marks-form" action="{{url("/cabinet/mark-sheet/save")}}" method="POST">
                             {{ csrf_field() }}
 
-                            <input type="hidden" name="markids_marks" id="markids_marks" value="">
+                            <input type="hidden" name="clsStudIDs_marks" id="clsStudIDs_marks" value="">
+
+                            <input type="hidden" name="exam_entity_id" id="id-exam_entity_id" value="{{$examEntityId}}">
+                            <input type="hidden" name="class_entity_id" id="id-class_entity_id" value="{{$classEntityId}}">
+                            <input type="hidden" name="subject_entity_id" id="id-subject_entity_id" value="{{$subjectEntityId}}">
 
                             <button class="btn btn-primary grid_btn" type="submit" id="save-marks-submit">Save</button>
                         </form>
@@ -95,7 +105,7 @@
             return false;
         }
 
-        $('#markids_marks').val(marksIds.join(','));
+        $('#clsStudIDs_marks').val(marksIds.join(','));
 
         return true;
     });
