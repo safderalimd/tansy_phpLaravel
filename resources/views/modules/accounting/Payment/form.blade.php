@@ -19,11 +19,22 @@
 <form class="form-horizontal" action="/cabinet/payment/pay-now" id="pay-now-form" method="POST">
     {{ csrf_field() }}
 
+    <?php
+        $allRows = $payment->rows();
+        if (count($allRows)) {
+            $accountName = $allRows[0]['account_name'];
+        } else {
+            $accountName = '-';
+            $allRows = [];
+        }
+    ?>
+
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th>Account</th>
                         <th>Total Due</th>
                         <th>New Balance</th>
                         <th>Paid Amount</th>
@@ -31,15 +42,16 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td><div style="padding-top:10px;">{{$accountName}}</div></td>
                         <td>
                             <div style="background-color:#fff;" data-totaldue="{{ $payment->totalDue }}" id="total-due" class="well well-sm">{{ $payment->totalDue }}</div>
                         </td>
                         <td>
-                            <div style="background-color:#fff;" id="new-balance" class="well well-sm">{{ $payment->totalDue }}</div>
+                            <div style="background-color:#fff;min-width:93px;" id="new-balance" class="well well-sm">{{ $payment->totalDue }}</div>
                         </td>
                         <td>
                             <div class="row">
-                                <div class="col-md-7">
+                                <div class="col-md-12">
                                     <input style="height:40px;" id="paid-amount" class="form-control" type="text" name="paid_amount" value="{{ v('paid_amount') }}" disabled="disabled" placeholder="Paid Amount">
                                 </div>
                             </div>
@@ -61,15 +73,13 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <table class="table table-striped">
-                @if (count($payment->rows()))
-                    @foreach($payment->rows() as $row)
-                        <tr>
-                            <td><input type="checkbox" data-scheduleentityid="{{ $row['schedule_entity_id'] }}" data-dateid="{{ $row['date_id'] }}" data-totalamount="{{ $row['total_amount'] }}" data-dueamount="{{ $row['due_amount'] }}" class="detail-row" name="paid-amount-checkbox" value=""></td>
-                            <td>{{ $row['product_name'] }} - {{ $row['schedule_name'] }} ({{$row['current_schedule_name']}})</td>
-                            <td>{{ $row['due_amount'] }}</td>
-                        </tr>
-                    @endforeach
-                @endif
+                @foreach($allRows as $row)
+                    <tr>
+                        <td><input type="checkbox" data-scheduleentityid="{{ $row['schedule_entity_id'] }}" data-dateid="{{ $row['date_id'] }}" data-totalamount="{{ $row['total_amount'] }}" data-dueamount="{{ $row['due_amount'] }}" class="detail-row" name="paid-amount-checkbox" value=""></td>
+                        <td>{{ $row['product_name'] }} - {{ $row['schedule_name'] }} ({{$row['current_schedule_name']}})</td>
+                        <td>{{ $row['due_amount'] }}</td>
+                    </tr>
+                @endforeach
             </table>
         </div>
     </div>
