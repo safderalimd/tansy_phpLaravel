@@ -35,7 +35,7 @@
                 <td>{{$item['frequency']}}</td>
                 <td>{{$item['start_date']}}</td>
                 <td>{{$item['end_date']}}</td>
-                <td>{{$item['amount']}}</td>
+                <td>{{number_format($item['amount'], 2)}}</td>
                 <td>
                     <a class="btn btn-default" href="{{url("/cabinet/schedule-payment/edit/{$item['schedule_entity_id']}")}}" title="Edit">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
