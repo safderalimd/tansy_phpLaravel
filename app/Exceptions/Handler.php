@@ -9,6 +9,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use App\Exceptions\DbModelNotFoundException;
 
 class Handler extends ExceptionHandler
 {
@@ -34,8 +35,10 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
-        if ($e instanceof NotFoundHttpException) {
-            return view('errors.404');
+        if ($this->isHttpException($e)) {
+            if ($e instanceof NotFoundHttpException) {
+                return view('errors.404');
+            }
         }
 
         return parent::report($e);

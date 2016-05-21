@@ -2,7 +2,7 @@
 
 namespace App\Http\Models;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Exceptions\DbModelNotFoundException;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Session;
 use Illuminate\Support\Str;
@@ -239,7 +239,7 @@ class Model
 
         // throw exception if the model is not found
         if (empty($data)) {
-            throw new NotFoundHttpException('Not found model with this id.');
+            throw new DbModelNotFoundException('Not found model with this id.');
         }
 
         // set attributes to the model instance
