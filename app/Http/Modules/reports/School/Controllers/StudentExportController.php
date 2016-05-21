@@ -27,6 +27,7 @@ class StudentExportController extends Controller
      */
     public function report(StudentExportFormRequest $request)
     {
+        return ['data'=>'1','success'=>true];
         // TODO: generate report only for filtered rows
         // dd($request->input());
         $export = new StudentExport($request->input());

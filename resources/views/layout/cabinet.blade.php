@@ -3,8 +3,6 @@
 <head>
     @include('include.head')
     @yield('styles')
-    <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
-    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap-combobox/css/bootstrap-combobox.css">
 </head>
 <body style="padding:0px;">
 <div class="container-fluid">
