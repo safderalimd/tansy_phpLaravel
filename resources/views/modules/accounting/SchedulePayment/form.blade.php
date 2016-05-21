@@ -111,7 +111,7 @@
                                     <div class="col-md-8">
                                         <div class="input-group date">
                                             <input id="end_date" class="form-control" type="text" name="end_date" value="{{ v('end_date') }}" placeholder="End Date">
-                                            <span class="input-group-btn">
+                                            <span id="end-date-btn" class="input-group-btn">
                                                 <button class="btn btn-default" type="button"><span
                                                             class="glyphicon glyphicon-calendar"></span></button>
                                             </span>
@@ -157,6 +157,29 @@
 
 @section('scripts')
 <script type="text/javascript">
+
+    // when Frequency is OneTime disable end time and populate it with start time
+    $('#frequency_id').change(function() {
+        var selectedOption = $("option:selected", this);
+        var frequency = $(selectedOption).text();
+        frequency = frequency.trim().split(' ').join('');
+        frequency = frequency.toLowerCase();
+
+        if (frequency == 'onetime') {
+            $('#end_date').prop('disabled', true);
+            $('#end-date-btn button').prop('disabled', true);
+            $('#end_date').val($('#start_date').val());
+        } else {
+            $('#end-date-btn button').prop('disabled', false);
+            $('#end_date').prop('disabled', false);
+        }
+    });
+    // if Frequency is OneTime, update end time when start time changes
+    $('#start_date').change(function() {
+        if ($('#end_date').is(':disabled')) {
+            $('#end_date').val($('#start_date').val());
+        }
+    });
 
     var allAccountOptions;
 
