@@ -45,6 +45,7 @@ class AdmissionFormRequest extends Request
             'address2' => 'string|max:128',
             'city_name' => 'required|string|max:128',
             'city_area' => 'string|max:100',
+            'city_area_new' => 'string|max:100',
             'postal_code' => 'string|max:30',
 
             // student info'

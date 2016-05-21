@@ -39,7 +39,11 @@ class AdmissionController extends Controller
      */
     public function store(AdmissionFormRequest $request)
     {
-        $admission = new Admission($request->input());
+        $input = $request->input();
+        $cityAreaNew = $request->input('city_area_new');
+        $input['city_area'] = $cityAreaNew;
+
+        $admission = new Admission($input);
 
         if ($admission->save()) {
             return redirect('/cabinet/admission');
@@ -69,10 +73,14 @@ class AdmissionController extends Controller
      */
     public function update(AdmissionFormRequest $request, $id)
     {
-        $admission = Admission::findOrFail($id);
-        $admission->fill($request->input());
+        $input = $request->input();
+        $cityAreaNew = $request->input('city_area_new');
+        $input['city_area'] = $cityAreaNew;
 
-        if ($admission->update($request->input())) {
+        $admission = Admission::findOrFail($id);
+        $admission->fill($input);
+
+        if ($admission->update($input)) {
             return redirect('/cabinet/admission');
         }
 

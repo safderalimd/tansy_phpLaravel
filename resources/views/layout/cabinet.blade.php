@@ -4,6 +4,7 @@
     @include('include.head')
     @yield('styles')
     <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap-combobox/css/bootstrap-combobox.css">
 </head>
 <body style="padding:0px;">
 <div class="container-fluid">
@@ -33,6 +34,7 @@
 <script src="/js/app.js"></script>
 <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
 <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="/bower_components/bootstrap-combobox/js/bootstrap-combobox-custom.js"></script>
 
 <script>
     // for tables

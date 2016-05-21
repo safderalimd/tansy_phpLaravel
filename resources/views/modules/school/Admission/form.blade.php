@@ -145,13 +145,26 @@
                             'keyName' => 'city_name',
                         ])
 
-                        @include('commons.select', [
-                            'label'    => 'City Area',
-                            'name'     => 'city_area',
-                            'options'  => $admission->cityAreas(),
-                            'keyId'    => 'city_area',
-                            'keyName'  => 'city_area',
-                        ])
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="city_area">City Area</label>
+                            <div class="col-md-8">
+                                <select autocomplete="off" id="city_area" class="form-control" name="city_area">
+                                    <option></option>
+                                    <?php
+                                        $cityAreaValue = '';
+                                    ?>
+                                    @foreach($admission->cityAreas() as $option)
+                                        <?php
+                                            if (old('city_area') == $option['city_area']) {
+                                                $cityAreaValue = $option['city_area'];
+                                            }
+                                        ?>
+                                        <option {{ s('city_area', $option['city_area']) }} value="{{ $option['city_area'] }}">{{ $option['city_area'] }}</option>
+                                    @endforeach
+                                </select>
+                                <input type="hidden" value="{{$cityAreaValue}}" name="city_area_new" id="city_area_new">
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="postal_code">Postal Code</label>
@@ -314,4 +327,16 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $('#city_area').combobox({
+            bsVersion: '3'
+        });
+    });
+
+</script>
 @endsection
