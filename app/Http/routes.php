@@ -96,6 +96,9 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('generate-progress/generate', 'School\Controllers\GenerateProgressController@generate');
     Route::get('generate-progress/re-generate', 'School\Controllers\GenerateProgressController@regenerate');
 
+    Route::get('student-export', 'reports\School\Controllers\StudentExportController@index');
+    Route::post('student-export', 'reports\School\Controllers\StudentExportController@report');
+
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
     Route::get('/debug', function() {
