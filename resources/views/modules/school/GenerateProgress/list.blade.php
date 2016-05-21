@@ -55,7 +55,7 @@
         @foreach($progress->generateFilteredProgressGrid() as $item)
         <tr>
             <?php
-                if (strtolower($item['progress_status']) == 'generate successfully') {
+                if (strtolower($item['progress_status']) == 'generated') {
                     $generated = true;
                 } else {
                     $generated = false;
