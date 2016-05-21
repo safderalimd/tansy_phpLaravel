@@ -3,12 +3,23 @@
 @section('title', 'Payment')
 
 @section('content')
+
+<?php
+    $allRows = $payment->rows();
+    if (count($allRows)) {
+        $accountName = $allRows[0]['account_name'];
+    } else {
+        $accountName = '-';
+        $allRows = [];
+    }
+?>
+
     <div class="row">
         <div class="col-md-8 sch_class panel-group panel-bdr">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <i class="glyphicon glyphicon-th"></i>
-                    <h3>Payment</h3>
+                    <h3>Payment for {{$accountName}}</h3>
                 </div>
 
                 <div class="panel-body edit_form_wrapper">
@@ -19,52 +30,46 @@
 <form class="form-horizontal" action="/cabinet/payment/pay-now" id="pay-now-form" method="POST">
     {{ csrf_field() }}
 
-    <?php
-        $allRows = $payment->rows();
-        if (count($allRows)) {
-            $accountName = $allRows[0]['account_name'];
-        } else {
-            $accountName = '-';
-            $allRows = [];
-        }
-    ?>
-
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Account</th>
-                        <th>Total Due</th>
-                        <th>New Balance</th>
-                        <th>Paid Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><div style="padding-top:10px;">{{$accountName}}</div></td>
-                        <td>
-                            <div style="background-color:#fff;" data-totaldue="{{ $payment->totalDue }}" id="total-due" class="well well-sm">{{ $payment->totalDue }}</div>
-                        </td>
-                        <td>
-                            <div style="background-color:#fff;min-width:93px;" id="new-balance" class="well well-sm">{{ $payment->totalDue }}</div>
-                        </td>
-                        <td>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <input style="height:40px;" id="paid-amount" class="form-control" type="text" name="paid_amount" value="{{ v('paid_amount') }}" disabled="disabled" placeholder="Paid Amount">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div data-totaldue="{{ $payment->totalDue }}" id="total-due" style="margin-bottom:0px;" class="well well-sm">{{ number_format($payment->totalDue, 2) }}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12"><h4><strong>Total Due</strong></h4></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="new-balance" style="margin-bottom:0px;" class="well well-sm">{{ number_format($payment->totalDue, 2) }}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12"><h4><strong>New Balance</strong></h4></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input style="height:40px;" id="paid-amount" class="form-control" type="text" name="paid_amount" value="{{ v('paid_amount') }}" disabled="disabled" placeholder="Paid Amount">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12"><h4><strong>Paid Amount</strong></h4></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="row">
-       <div class="col-md-6 col-md-offset-3 text-center grid_footer">
-            <button class="btn btn-success btn-block btn-lg grid_btn" id="pay-now-btn" type="submit">Pay Now</button>
+       <div class="col-md-6 col-md-offset-3 text-center">
+            <button style="margin:15px;" class="btn btn-primary btn-block btn-lg" id="pay-now-btn" type="submit">Pay Now</button>
         </div>
     </div>
 
@@ -77,7 +82,7 @@
                     <tr>
                         <td><input type="checkbox" data-scheduleentityid="{{ $row['schedule_entity_id'] }}" data-dateid="{{ $row['date_id'] }}" data-totalamount="{{ $row['total_amount'] }}" data-dueamount="{{ $row['due_amount'] }}" class="detail-row" name="paid-amount-checkbox" value=""></td>
                         <td>{{ $row['product_name'] }} - {{ $row['schedule_name'] }} ({{$row['current_schedule_name']}})</td>
-                        <td>{{ $row['due_amount'] }}</td>
+                        <td>{{ number_format($row['due_amount'], 2) }}</td>
                     </tr>
                 @endforeach
             </table>
@@ -129,24 +134,38 @@
     // get the paid amount from the text input
     function getPaidAmount() {
         var paidAmount = $('#paid-amount').val();
-        return parseFloat(paidAmount);
+        paidAmount = paidAmount.replace(/,/g , '');
+        paidAmount = parseFloat(paidAmount);
+        if (isNaN(paidAmount)) {
+            paidAmount = 0.00;
+        }
+        return paidAmount;
     }
 
     // get the new balance
     function getNewBalance() {
         var totalDue = getTotalDue();
         var paidAmount = getPaidAmount();
-        return totalDue - paidAmount;
+        var newBalance = totalDue - paidAmount;
+        return parseFloat(Math.round(newBalance * 100) / 100).toFixed(2);
     }
 
     // update the new balance box
     function updateNewBalance() {
-        $('#new-balance').text(getNewBalance());
+        var newBalance = getNewBalance();
+        if (newBalance < 0) {
+            $('#pay-now-btn').prop('disabled', true);
+        } else {
+            $('#pay-now-btn').prop('disabled', false);
+        }
+        $('#new-balance').text(addCommas(newBalance));
     }
 
     // update paid amount with value of selected rows
     function updatePaidAmount() {
-        $('#paid-amount').val(getDetailRowsDueAmount());
+        var paidAmount = getDetailRowsDueAmount();
+        paidAmount = parseFloat(Math.round(paidAmount * 100) / 100).toFixed(2);
+        $('#paid-amount').val(addCommas(paidAmount));
     }
 
     // check if only one checkbox is selected
@@ -182,6 +201,22 @@
     $('#paid-amount').change(function() {
         updateNewBalance();
     });
+    $('#paid-amount').keyup(function() {
+        updateNewBalance();
+    });
+
+    // format numbers
+    function addCommas(nStr) {
+        nStr += '';
+        var x = nStr.split('.');
+        var x1 = x[0];
+        var x2 = x.length > 1 ? '.' + x[1] : '.00';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return x1 + x2;
+    }
 
 </script>
 @endsection
