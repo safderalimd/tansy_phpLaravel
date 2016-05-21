@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/cabinet');
 });
 
 Route::get('/login', '\App\Http\Controllers\User@index'); //->middleware('guest');
