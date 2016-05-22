@@ -35,6 +35,9 @@ class StudentExportController extends Controller
         $view = view('reports.school.StudentExport.pdf', compact('export'));
         $html = $view->render();
 
+        // $options = new Options();
+        // $options->set('isPhpEnabled', true);
+
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'letter');

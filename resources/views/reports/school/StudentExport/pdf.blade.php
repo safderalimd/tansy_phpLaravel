@@ -41,11 +41,6 @@
 
     <div class="footer text-right">
         Page: <span class="pagenum"></span>
-        <script type="text/php">
-            if (isset($pdf) ) {
-                echo $PAGE_COUNT;
-            }
-        </script>
     </div>
 
     <div class="container">
