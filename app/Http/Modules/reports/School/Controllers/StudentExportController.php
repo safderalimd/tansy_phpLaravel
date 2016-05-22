@@ -5,6 +5,8 @@ namespace App\Http\Modules\reports\School\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\School\Models\StudentExport;
 use App\Http\Modules\reports\School\Requests\StudentExportFormRequest;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class StudentExportController extends Controller
 {
@@ -27,14 +29,17 @@ class StudentExportController extends Controller
      */
     public function report(StudentExportFormRequest $request)
     {
-        return ['data'=>'1','success'=>true];
-        // TODO: generate report only for filtered rows
-        // dd($request->input());
         $export = new StudentExport($request->input());
+        $export->loadPdfData();
 
-        dd($export->pdfData());
+        $view = view('reports.school.StudentExport.pdf', compact('export'));
+        $html = $view->render();
 
-        return view('reports.school.StudentExport.form', compact('export'));
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'letter');
+        $dompdf->render();
+        $dompdf->stream($export->className.'.pdf', ['Attachment' => 0]);
     }
 
 }

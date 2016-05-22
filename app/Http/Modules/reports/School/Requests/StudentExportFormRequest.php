@@ -25,8 +25,7 @@ class StudentExportFormRequest extends Request
     public function rules()
     {
         return [
-            'row_type'       => 'required|string',
-            'primary_key_id' => 'required|integer',
+            'pk' => 'required|integer',
         ];
     }
 

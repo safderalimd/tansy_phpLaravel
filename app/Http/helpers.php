@@ -67,3 +67,9 @@ function is_locked($value) {
 
     return false;
 }
+
+function phone_number($number) {
+    $number = strrev($number);
+    $number = preg_replace("/^(\d{4})(\d{3})(\d+)$/", "$1-$2-$3", $number);
+    return strrev($number);
+}

@@ -6,7 +6,6 @@ use App\Http\Repositories\Repository;
 
 class StudentExportRepository extends Repository
 {
-
     public function getPdfData($id)
     {
         return $this->db()->select(
@@ -54,7 +53,8 @@ class StudentExportRepository extends Repository
                 parent_designation_id,
                 parent_gender
             FROM view_sch_student_detail
-            WHERE class_entity_id = :id;',
+            WHERE class_entity_id = :id
+            ORDER BY class_name, student_full_name ASC;',
             ['id' => $id]
         );
     }

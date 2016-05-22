@@ -8,10 +8,23 @@ class StudentExport extends Model
 {
     protected $screenId = 3013;
 
+    public $pdfData;
+    // public $schoolName = 'School Name';
+
     protected $repositoryNamespace = 'App\Http\Modules\reports\School\Repositories\StudentExportRepository';
 
-    public function pdfData()
+    public function setPkAttribute($value)
     {
-        return $this->repository->getPdfData($this->primary_key_id);
+        $this->setAttribute('primary_key_id', $value);
+        return $value;
+    }
+
+    public function loadPdfData()
+    {
+        $this->pdfData = $this->repository->getPdfData($this->primary_key_id);
+
+        // if (count($this->pdfData)) {
+            // $this->schoolName = $this->pdfData[0]['school_name'];
+        // }
     }
 }
