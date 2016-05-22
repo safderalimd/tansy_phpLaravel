@@ -16,6 +16,7 @@
 
             <form class="form-horizontal" id="generate-report-form" action="/cabinet/student-export/pdf" target="_blank" method="GET">
                 <input type="hidden" id="row_type" name="rt" value="">
+                <input type="hidden" id="random_id" name="ri" value="">
                 <div class="row">
                     <div class="col-md-5">
                         <div class="form-group">
@@ -49,6 +50,7 @@
             var primaryKeyId = $('#primary_key_id option:selected').val(0);
         }
         $('#row_type').val(rowType);
+        $('#random_id').val(Date.now());
         return true;
     });
 

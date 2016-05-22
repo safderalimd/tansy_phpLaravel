@@ -47,7 +47,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h3 class="school-name text-center">{{$export->schoolName}}</h3>
-                <h4 class="school-phone text-center">{{phone_number_spaces($export->schoolWorkPhone)}}</h4>
+                <h4 class="school-phone text-center">Phone No. {{phone_number_spaces($export->schoolWorkPhone)}}</h4>
             </div>
         </div>
         <div class="row">
@@ -60,8 +60,8 @@
             <div class="col-md-12">
                 <table class="header-table">
                     <tr>
-                        <td class="text-left"><h4 class="">{{current_date()}}</h4></td>
-                        <td class="text-right"><h4 class="">{{current_time()}}</h4></td>
+                        <td class="text-left"><h4 class="">Date: {{current_date()}}</h4></td>
+                        <td class="text-right"><h4 class="">Time: {{current_time()}}</h4></td>
                     </tr>
                 </table>
             </div>

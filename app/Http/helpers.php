@@ -81,9 +81,9 @@ function phone_number_spaces($number) {
 }
 
 function current_date() {
-    return date('Y-m-d');
+    return date('jS M, Y');
 }
 
 function current_time() {
-    return date('H:i:s');
+    return date('H:i A');
 }
