@@ -39,7 +39,7 @@ class StudentExportController extends Controller
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'letter');
         $dompdf->render();
-        $dompdf->stream($export->className.'.pdf', ['Attachment' => 0]);
+        $dompdf->stream('student-export.pdf', ['Attachment' => 0]);
     }
 
 }
