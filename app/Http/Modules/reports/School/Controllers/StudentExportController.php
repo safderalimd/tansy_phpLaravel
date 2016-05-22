@@ -34,7 +34,6 @@ class StudentExportController extends Controller
 
         $view = view('reports.school.StudentExport.pdf', compact('export'));
         $html = $view->render();
-        // die($html);
 
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html);
@@ -42,7 +41,11 @@ class StudentExportController extends Controller
         $dompdf->render();
 
         $output = $dompdf->output();
-        return response($output)->header('Content-Type', 'application/pdf');
+        return response($output)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', 'Fri, 01 Jan 1990 00:00:00 GMT');
     }
 
 }

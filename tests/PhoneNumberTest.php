@@ -47,4 +47,11 @@ class PhoneNumberTest extends TestCase
         $number = "12345678901";
         $this->assertEquals("1234-567-8901", phone_number($number));
     }
+
+    /** @test */
+    public function format_number_with_spaces()
+    {
+        $number = "12345678901";
+        $this->assertEquals("1234 567 8901", phone_number_spaces($number));
+    }
 }

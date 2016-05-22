@@ -83,7 +83,8 @@ class StudentExportRepository extends Repository
                 city_id,
                 organization_type_id,
                 organization_entity_id
-            FROM view_org_organization_detail_owner;'
+            FROM view_org_organization_detail_owner
+            LIMIT 1;'
         );
     }
 

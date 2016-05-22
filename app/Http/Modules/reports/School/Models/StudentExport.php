@@ -12,6 +12,12 @@ class StudentExport extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\reports\School\Repositories\StudentExportRepository';
 
+    public $reportName = 'Student Export';
+
+    public $schoolName = '-';
+
+    public $schoolWorkPhone = '-';
+
     public function setPkAttribute($value)
     {
         $this->setAttribute('primary_key_id', $value);
@@ -57,6 +63,19 @@ class StudentExport extends Model
             default:
                 throw new \Exception("Invalid row type.");
                 break;
+        }
+
+        $this->setSchoolNameAndPhone();
+    }
+
+    public function setSchoolNameAndPhone()
+    {
+        $name = $this->repository->getSchoolName();
+        if (isset($name[0]) && isset($name[0]['organization_name'])) {
+            $this->schoolName = $name[0]['organization_name'];
+        }
+        if (isset($name[0]) && isset($name[0]['work_phone'])) {
+            $this->schoolWorkPhone = $name[0]['work_phone'];
         }
     }
 }
