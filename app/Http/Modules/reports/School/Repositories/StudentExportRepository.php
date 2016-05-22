@@ -6,10 +6,9 @@ use App\Http\Repositories\Repository;
 
 class StudentExportRepository extends Repository
 {
-    public function getPdfData($id)
+    public function getPdfData($column = null, $id = null)
     {
-        return $this->db()->select(
-            'SELECT
+        $sql = 'SELECT
                 first_name,
                 middle_name,
                 last_name,
@@ -42,6 +41,8 @@ class StudentExportRepository extends Repository
                 class_student_id,
                 student_entity_id,
                 class_entity_id,
+                class_group_entity_id,
+                class_category_entity_id,
                 fiscal_year_entity_id,
                 facility_entity_id,
                 active,
@@ -51,12 +52,19 @@ class StudentExportRepository extends Repository
                 mother_language_id,
                 parent_relationship_type_id,
                 parent_designation_id,
-                parent_gender
-            FROM view_sch_student_detail
-            WHERE class_entity_id = :id
-            ORDER BY class_name, student_full_name ASC;',
-            ['id' => $id]
-        );
+                parent_gender,
+                parent_designation_name
+            FROM view_sch_student_detail';
+
+        if (!is_null($column) && !is_null($id)) {
+            $sql .= ' WHERE '.$column.' = :id';
+            $params = ['id' => $id];
+        } else {
+            $params = [];
+        }
+        $sql .= ' ORDER BY class_name, student_full_name ASC;';
+
+        return $this->db()->select($sql, $params);
     }
 
     public function getDropdown()

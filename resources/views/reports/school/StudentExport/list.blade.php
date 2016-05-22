@@ -14,14 +14,15 @@
 
             @include('commons.errors')
 
-            <form class="form-horizontal" action="/cabinet/student-export/pdf" target="_blank" method="GET">
+            <form class="form-horizontal" id="generate-report-form" action="/cabinet/student-export/pdf" target="_blank" method="GET">
+                <input type="hidden" id="row_type" name="rt" value="">
                 <div class="row">
                     <div class="col-md-5">
                         <div class="form-group">
                             <div class="col-md-4">
                                 <select id="primary_key_id" class="form-control" name="pk">
                                     @foreach($export->dropdown() as $option)
-                                        <option value="{{ $option['primary_key_id'] }}">{{ $option['drop_down_list_name'] }}</option>
+                                        <option data-rowType="{{ $option['row_type'] }}" value="{{ $option['primary_key_id'] }}">{{ $option['drop_down_list_name'] }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -36,4 +37,20 @@
     </div>
 </div>
 
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+
+    $('#generate-report-form').submit(function() {
+        var rowType = $('#primary_key_id option:selected').attr('data-rowType');
+        var primaryKeyId = $('#primary_key_id option:selected').val();
+        if (primaryKeyId == '') {
+            var primaryKeyId = $('#primary_key_id option:selected').val(0);
+        }
+        $('#row_type').val(rowType);
+        return true;
+    });
+
+</script>
 @endsection

@@ -26,6 +26,7 @@ class StudentExportFormRequest extends Request
     {
         return [
             'pk' => 'required|integer',
+            'rt' => 'required|string',
         ];
     }
 

@@ -39,7 +39,9 @@ class StudentExportController extends Controller
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'letter');
         $dompdf->render();
-        $dompdf->stream('student-export', ['Attachment' => 0]);
+
+        $output = $dompdf->output();
+        return response($output)->header('Content-Type', 'application/pdf');
     }
 
 }
