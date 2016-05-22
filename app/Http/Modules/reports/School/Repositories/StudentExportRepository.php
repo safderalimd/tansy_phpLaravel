@@ -67,6 +67,26 @@ class StudentExportRepository extends Repository
         return $this->db()->select($sql, $params);
     }
 
+    // Todo: filter this select
+    public function getSchoolName()
+    {
+        return $this->db()->select(
+            'SELECT
+                organization_name,
+                work_phone,
+                mobile_phone,
+                email,
+                address1,
+                address2,
+                city_area,
+                postal_code,
+                city_id,
+                organization_type_id,
+                organization_entity_id
+            FROM view_org_organization_detail_owner;'
+        );
+    }
+
     public function getDropdown()
     {
         return $this->db()->select(
@@ -77,6 +97,21 @@ class StudentExportRepository extends Repository
                 sequence_id
             FROM view_org_lkp_class_type_4_student_pdf_report
             ORDER BY drop_down_list_name;'
+        );
+    }
+
+    public function getFilterCriteria($id)
+    {
+        return $this->db()->select(
+            'SELECT
+                row_type,
+                primary_key_id,
+                drop_down_list_name,
+                sequence_id
+            FROM view_org_lkp_class_type_4_student_pdf_report
+            WHERE primary_key_id = :id
+            ORDER BY drop_down_list_name
+            LIMIT 1;', ['id' => $id]
         );
     }
 }

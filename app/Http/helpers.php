@@ -73,3 +73,11 @@ function phone_number($number) {
     $number = preg_replace("/^(\d{4})(\d{3})(\d+)$/", "$1-$2-$3", $number);
     return strrev($number);
 }
+
+function current_date() {
+    return date('Y-m-d');
+}
+
+function current_time() {
+    return date('H:i:s');
+}

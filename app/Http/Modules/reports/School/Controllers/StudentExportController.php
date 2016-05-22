@@ -34,6 +34,7 @@ class StudentExportController extends Controller
 
         $view = view('reports.school.StudentExport.pdf', compact('export'));
         $html = $view->render();
+        // die($html);
 
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html);

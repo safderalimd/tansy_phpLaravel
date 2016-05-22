@@ -24,6 +24,21 @@ class StudentExport extends Model
         return $value;
     }
 
+    public function filterCriteria()
+    {
+        if (empty($this->pk)) {
+            return 'All Clasess';
+        }
+
+        $criteria = $this->repository->getFilterCriteria($this->pk);
+
+        if (isset($criteria[0]) && isset($criteria[0]['drop_down_list_name'])) {
+            return $criteria[0]['drop_down_list_name'];
+        }
+
+        return '-';
+    }
+
     public function loadPdfData()
     {
         switch ($this->row_type) {
