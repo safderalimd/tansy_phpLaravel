@@ -29,7 +29,7 @@
             <tr>
                 <td>{{$item['receipt_number']}}</td>
                 <td>{{$item['receipt_date']}}</td>
-                <td>{{$item['receipt_amount']}}</td>
+                <td>{{amount($item['receipt_amount'])}}</td>
                 <td>
                     <a class="btn btn-default" target="_blank" href="{{url("/cabinet/receipt-report/pdf/{$item['receipt_id']}")}}" title="Print PDF">Print PDF</a>
                 </td>
