@@ -1,0 +1,85 @@
+.navbar {
+   min-height: 50px;
+}
+.navbar-inverse {
+    background-color: #222;
+    border-color: #090909;
+}
+.navbar-header {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #333333;
+}
+.navbar-inverse .navbar-brand {
+    color: #9d9d9d;
+}
+.navbar-brand {
+    float: left;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px;
+    height: 50px;
+}
+
+.navbar .nav>li>a {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #fff;
+    line-height: 20px;
+    font-weight: normal;
+    text-transform: none;
+    padding: 15px;
+}
+
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #9d9d9d;
+}
+.navbar-inverse .navbar-nav>li>a:hover,
+.navbar-inverse .navbar-nav>li>a:focus {
+    color: #fff;
+    background-color: transparent;
+}
+.navbar-inverse .navbar-nav>.active>a,
+.navbar-inverse .navbar-nav>.active>a:hover,
+.navbar-inverse .navbar-nav>.active>a:focus {
+    color: #fff;
+    background-color: #080808;
+}
+.navbar-inverse .navbar-nav>.disabled>a,
+.navbar-inverse .navbar-nav>.disabled>a:hover,
+.navbar-inverse .navbar-nav>.disabled>a:focus {
+    color: #444;
+    background-color: transparent;
+}
+
+.active {
+    background-color: #00b;
+}
+
+#sidebarMenu {
+    color: #333333;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+}
+#sidebarMenu a {
+    padding: 10px 15px;
+}
+#sidebarMenu a:hover {
+    background-color: #f5f5f5;
+}
+a.list-group-item, button.list-group-item {
+    color: #555;
+}
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+.list-group.panel > a.list-group-item:last-of-type {
+    margin-bottom: 0px;
+}

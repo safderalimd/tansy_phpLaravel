@@ -11,7 +11,7 @@
         </div>
         <div id="navs-tab" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                @include(config('laravel-menu.views.bootstrap-items'), array('items' => $topbar->roots()))
+                @include(config('laravel-menu.views.bootstrap-items'), ['items' => $topbar->roots()])
             </ul>
         </div>
     </div>

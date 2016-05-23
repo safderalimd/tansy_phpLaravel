@@ -11,6 +11,7 @@
     <link type="text/css" href="/dashboard/bootstrap-select.css" rel="stylesheet">
     <link type="text/css" href="/dashboard/fileinput.min.css" rel="stylesheet">
     <link type="text/css" href="/dashboard/dashboard.css" rel="stylesheet">
+    <link type="text/css" href="/dashboard/custom.css" rel="stylesheet">
 </head>
 <body style="padding:0px;">
 <div class="container-fluid">
