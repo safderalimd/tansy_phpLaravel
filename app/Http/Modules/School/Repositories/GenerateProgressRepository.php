@@ -9,7 +9,7 @@ class GenerateProgressRepository extends Repository
 
     public function generateFilteredProgressGrid($id)
     {
-        return $this->db()->select(
+        return $this->select(
             'SELECT
                 class_name,
                 locked,

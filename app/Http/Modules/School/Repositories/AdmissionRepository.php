@@ -8,7 +8,7 @@ class AdmissionRepository extends Repository
 {
     public function getModelById($id)
     {
-        return $this->db()->select(
+        return $this->select(
             'SELECT
                 admission_id,
                 student_first_name,

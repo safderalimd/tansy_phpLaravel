@@ -8,7 +8,7 @@ class MarkSheetLoadRepository extends Repository
 {
     // public function getModelById($id)
     // {
-    //     return $this->db()->select(
+    //     return $this->select(
     //         'SELECT
     //             product AS product_name,
     //             product_type,

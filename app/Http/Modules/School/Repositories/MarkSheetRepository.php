@@ -8,7 +8,7 @@ class MarkSheetRepository extends Repository
 {
     public function markSheetGrid($id)
     {
-        return $this->db()->select(
+        return $this->select(
             'SELECT
                 class_name,
                 subject,
@@ -26,7 +26,7 @@ class MarkSheetRepository extends Repository
 
     public function getMarkSheetEditForm($model)
     {
-        return $this->db()->select(
+        return $this->select(
             'SELECT
                 student_roll_number,
                 class_entity_id,

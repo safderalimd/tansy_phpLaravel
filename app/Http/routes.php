@@ -15,10 +15,18 @@ Route::get('/', function () {
     return redirect('/cabinet');
 });
 
+Route::get('/debug', function() {
+    return view('errors.debug');
+});
+
 Route::get('/login', '\App\Http\Controllers\User@index'); //->middleware('guest');
 Route::post('/login', '\App\Http\Controllers\User@login');
 
 Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], function() {
+
+    Route::get('/debug', function() {
+        return redirect('/debug');
+    });
 
     Route::get('fiscal-year', 'Organization\Controllers\FiscalYearController@index');
     Route::get('fiscal-year/create', 'Organization\Controllers\FiscalYearController@create');
@@ -113,10 +121,6 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
         'reports\School\Controllers\ProgressPrintClassController@report');
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
-
-    Route::get('/debug', function() {
-        return view('errors.debug');
-    });
 
     Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {
         return view('cabinet.main');

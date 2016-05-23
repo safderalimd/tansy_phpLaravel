@@ -8,7 +8,7 @@ class SchedulePaymentRepository extends Repository
 {
     public function getModelById($id)
     {
-        return $this->db()->select(
+        return $this->select(
             'SELECT
                 schedule_entity_id,
                 subject_entity_id,

@@ -8,7 +8,7 @@ class AccountStudentRepository extends Repository
 {
     public function getModelById($id)
     {
-        return $this->db()->select(
+        return $this->select(
             'SELECT
                 student_entity_id,
                 first_name AS student_first_name,

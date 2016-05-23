@@ -8,7 +8,7 @@ class ReceiptPrintRepository extends Repository
 {
     public function getReceiptGrid($id)
     {
-        return $this->db()->select(
+        return $this->select(
             'SELECT
                 receipt_id,
                 receipt_number,
@@ -26,7 +26,7 @@ class ReceiptPrintRepository extends Repository
 
     public function getReceiptHeader($id)
     {
-        return $this->db()->select(
+        return $this->select(
             'SELECT
                 receipt_id,
                 receipt_number,
@@ -42,7 +42,7 @@ class ReceiptPrintRepository extends Repository
 
     public function getReceiptDetail($id)
     {
-        return $this->db()->select(
+        return $this->select(
             'SELECT
                 receipt_id,
                 credit_amount,
@@ -54,7 +54,7 @@ class ReceiptPrintRepository extends Repository
 
     public function getSchoolName()
     {
-        return $this->db()->select(
+        return $this->select(
             'SELECT
                 organization_name,
                 work_phone,

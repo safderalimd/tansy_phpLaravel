@@ -8,7 +8,7 @@ class ClassSubjectMapRepository extends Repository
 {
     public function getModelById($id)
     {
-        return $this->db()->select(
+        return $this->select(
             'SELECT
                 class_name,
                 subject,

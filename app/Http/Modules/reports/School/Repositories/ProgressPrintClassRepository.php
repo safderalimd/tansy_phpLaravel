@@ -8,7 +8,7 @@ class ProgressPrintClassRepository extends Repository
 {
     public function getExamName($id)
     {
-        return $this->db()->select(
+        return $this->select(
             'SELECT exam, exam_type, exam_entity_id
             FROM view_sch_lkp_exam
             WHERE exam_entity_id = :id
@@ -18,7 +18,7 @@ class ProgressPrintClassRepository extends Repository
 
     public function getSchoolName()
     {
-        return $this->db()->select(
+        return $this->select(
             'SELECT
                 organization_name,
                 work_phone,

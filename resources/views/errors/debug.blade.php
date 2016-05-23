@@ -41,9 +41,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (session('debug-info-select') as $row)
+                    <?php
+                        $selects = session('debug-info-select');
+                        if (!is_array($selects)) {
+                            $selects = [[null]];
+                        }
+                    ?>
+                    @foreach ($selects as $row)
                     <tr>
-                        <th>{{d(array_shift($row))}}</th>
+                        <td>{{d(array_shift($row))}}</td>
                         <td>{{d($row)}}</td>
                     </tr>
                     @endforeach

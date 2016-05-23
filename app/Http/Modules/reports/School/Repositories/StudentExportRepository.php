@@ -64,13 +64,13 @@ class StudentExportRepository extends Repository
         }
         $sql .= ' ORDER BY class_name, student_full_name ASC;';
 
-        return $this->db()->select($sql, $params);
+        return $this->select($sql, $params);
     }
 
     // Todo: filter this select
     public function getSchoolName()
     {
-        return $this->db()->select(
+        return $this->select(
             'SELECT
                 organization_name,
                 work_phone,
@@ -90,7 +90,7 @@ class StudentExportRepository extends Repository
 
     public function getDropdown()
     {
-        return $this->db()->select(
+        return $this->select(
             'SELECT
                 row_type,
                 primary_key_id,
@@ -103,7 +103,7 @@ class StudentExportRepository extends Repository
 
     public function getFilterCriteria($id)
     {
-        return $this->db()->select(
+        return $this->select(
             'SELECT
                 row_type,
                 primary_key_id,
