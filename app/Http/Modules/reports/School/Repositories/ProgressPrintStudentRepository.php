@@ -6,6 +6,28 @@ use App\Http\Repositories\Repository;
 
 class ProgressPrintStudentRepository extends Repository
 {
+    public function getStudentDetails($examId, $studentId)
+    {
+        return $this->db()->select(
+            'SELECT
+                exam_entity_id,
+                class_entity_id,
+                subject_entity_id,
+                class_student_id,
+                subject,
+                max_marks,
+                student_marks,
+                pass_fail
+            FROM view_sch_progress_print_details
+            WHERE exam_entity_id = :exam_id
+            AND class_student_id = :student_id
+            ORDER BY subject ASC;', [
+                'exam_id' => $examId,
+                'student_id' => $studentId,
+            ]
+        );
+    }
+
     public function getExamName($id)
     {
         return $this->db()->select(
