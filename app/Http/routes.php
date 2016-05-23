@@ -102,6 +102,11 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('receipt-report/{id}', 'reports\Accounting\Controllers\ReceiptPrintController@index');
     Route::get('receipt-report/pdf/{id}', 'reports\Accounting\Controllers\ReceiptPrintController@report');
 
+    Route::get('progress-print---student',
+        'reports\School\Controllers\ProgressPrintStudentController@index');
+    Route::get('progress-print--student/pdf',
+        'reports\School\Controllers\ProgressPrintStudentController@report');
+
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
     Route::get('/debug', function() {
