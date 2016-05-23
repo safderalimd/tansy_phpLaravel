@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Modules\Product\Requests;
+namespace App\Http\Modules\dashboard\accounting\Requests;
 
 use App\Http\Requests\Request;
 use Illuminate\Contracts\Validation\Validator;
 
-class ProductFormRequest extends Request
+class PaymentFormRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,10 @@ class ProductFormRequest extends Request
     public function rules()
     {
         return [
-            // 'active'    => 'boolean',
-            'product_name'           => 'required|string|max:120',
-            'product_type_entity_id' => 'required|integer',
-            'facility_ids'           => 'required|integer',
-            'unit_rate'              => 'required|numeric|min:0',
+            // 'product_name'           => 'required|string|max:120',
+            // 'product_type_entity_id' => 'required|integer',
+            // 'facility_ids'           => 'required|integer',
+            // 'unit_rate'              => 'required|numeric|min:0',
         ];
     }
 

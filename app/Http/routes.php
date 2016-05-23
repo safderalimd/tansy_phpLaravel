@@ -120,6 +120,8 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('progress-print--class/pdf',
         'reports\School\Controllers\ProgressPrintClassController@report');
 
+    Route::get('fee-dashboard-v1', 'dashboard\accounting\Controllers\PaymentController@index');
+
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
     Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {

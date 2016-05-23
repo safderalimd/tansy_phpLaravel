@@ -1,21 +1,12 @@
 <?php
 
-namespace App\Http\Modules\Product\Models;
+namespace App\Http\Modules\dashboard\accounting\Models;
 
 use App\Http\Models\Model;
 
-class Product extends Model
+class Payment extends Model
 {
-    protected $screenId = 2003;
+    protected $screenId = 2011;
 
-    protected $repositoryNamespace = 'App\Http\Modules\Product\Repositories\ProductRepository';
-
-    public function setActiveAttribute($value)
-    {
-        if (!empty($value) || $value == 'on') {
-            return 1;
-        }
-
-        return 0;
-    }
+    protected $repositoryNamespace = 'App\Http\Modules\dashboard\accounting\Repositories\PaymentRepository';
 }
