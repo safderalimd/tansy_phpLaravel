@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Debug\Dumper;
+
 /**
  * Display old form value on edit and create.
  *
@@ -90,4 +92,14 @@ function current_time() {
 
 function amount($amount) {
     return number_format($amount, 2);
+}
+
+/**
+ * Dump function
+ */
+function d()
+{
+    array_map(function ($x) {
+        (new Dumper)->dump($x);
+    }, func_get_args());
 }
