@@ -71,9 +71,9 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th class="text-center"><h4 class="">Student Name <br/> {{$export->header['paid_by_name']}}</h4></th>
-                            <th class="text-center"><h4 class="">Mobile No. <br/> {{phone_number($export->header['mobile_phone'])}}</h4></th>
-                            <th class="text-center"><h4 class="">Receipt No. <br/> {{$export->header['receipt_number']}}</h4></th>
+                            <th class="text-center"><h4 class=""><strong>Student Name</strong> <br/> {{$export->header['paid_by_name']}}</h4></th>
+                            <th class="text-center"><h4 class=""><strong>Mobile No.</strong> <br/> {{phone_number($export->header['mobile_phone'])}}</h4></th>
+                            <th class="text-center"><h4 class=""><strong>Receipt No.</strong> <br/> {{$export->header['receipt_number']}}</h4></th>
                         </tr>
                     </thead>
                 </table>
@@ -93,7 +93,7 @@
                     @foreach($export->details as $row)
                     <tr>
                         <td class="text-left">{{$row['description']}}</td>
-                        <td class="text-right">{{$row['credit_amount']}}</td>
+                        <td class="text-right">{{amount($row['credit_amount'])}}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -103,12 +103,12 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="text-right well">Pay: {{$export->header['receipt_amount']}}</div>
+                <div class="text-right well  well-sm">Total Paid: {{amount($export->header['receipt_amount'])}}</div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="text-right well">New Balance: {{$export->header['new_balance']}}</div>
+                <div class="text-right well  well-sm">New Balance: {{amount($export->header['new_balance'])}}</div>
             </div>
         </div>
 

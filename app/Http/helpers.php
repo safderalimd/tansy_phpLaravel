@@ -87,3 +87,7 @@ function current_date() {
 function current_time() {
     return date('H:i A');
 }
+
+function amount($amount) {
+    return number_format($amount, 2);
+}
