@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dashboard</title>
+@extends('layout.dashboard')
 
-<link type="text/css" href="/dashboard/font-awesome.min.css" rel="stylesheet">
-<link type="text/css" href="/dashboard/bootstrap.min.css" rel="stylesheet">
-<link type="text/css" href="/dashboard/dataTables.bootstrap.min.css" rel="stylesheet">
-<link type="text/css" href="/dashboard/bootstrap-select.css" rel="stylesheet">
-<link type="text/css" href="/dashboard/fileinput.min.css" rel="stylesheet">
-<link type="text/css" href="/dashboard/dashboard.css" rel="stylesheet">
+@section('title', 'Fee Dashboard-v1')
 
-</head>
-<body>
+@section('content')
 
 <div class="content-wrapper">
     <div class="container-fluid">
@@ -259,14 +247,9 @@
     </div>
 </div>
 
-<script src="/dashboard/jquery.min.js"></script>
-<script src="/dashboard/bootstrap-select.min.js"></script>
-<script src="/dashboard/bootstrap.min.js"></script>
-<script src="/dashboard/jquery.dataTables.min.js"></script>
-<script src="/dashboard/dataTables.bootstrap.min.js"></script>
-<script src="/dashboard/Chart.min.js"></script>
-<script src="/dashboard/fileinput.js"></script>
+@endsection
 
+@section('scripts')
 <script type="text/javascript">
 var doughnutData = [
     {
@@ -322,29 +305,9 @@ var pieData = [
     }
 ];
 
-$(document).ready(function () {
-
-    // $(".ts-sidebar-menu li a").each(function () {
-    //     if ($(this).next().length > 0) {
-    //         $(this).addClass("parent");
-    //     };
-    // })
-    // var menux = $('.ts-sidebar-menu li a.parent');
-    // $('<div class="more"><i class="fa fa-angle-down"></i></div>').insertBefore(menux);
-    // $('.more').click(function () {
-    //     $(this).parent('li').toggleClass('open');
-    // });
-    // $('.parent').click(function (e) {
-    //     e.preventDefault();
-    //     $(this).parent('li').toggleClass('open');
-    // });
-    // $('.menu-btn').click(function () {
-    //     $('nav.ts-sidebar').toggleClass('menu-open');
-    // });
-
+$(document).ready(function() {
 
     $('#zctb').DataTable();
-
 
     $("#input-43").fileinput({
         showPreview: false,
@@ -355,7 +318,7 @@ $(document).ready(function () {
 
 });
 
-window.onload = function(){
+window.onload = function() {
 
     // Pie Chart from doughutData
     var doctx = document.getElementById("chart-area3").getContext("2d");
@@ -366,6 +329,4 @@ window.onload = function(){
     window.myDoughnut = new Chart(doctx).Doughnut(doughnutData, {responsive : true});
 };
 </script>
-<!-- endsection -->
-</body>
-</html>
+@endsection

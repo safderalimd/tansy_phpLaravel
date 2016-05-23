@@ -12,8 +12,3 @@
 <link href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 <link type="text/css" href="/bower_components/bootstrap-combobox/css/bootstrap-combobox.css" rel="stylesheet">
 <link href="/css/custom.css" rel="stylesheet" type="text/css">
-
-<link type="text/css" href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<link type="text/css" href="/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-<link type="text/css" href="/bower_components/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
-<link type="text/css" href="/dashboard/dashboard.css" rel="stylesheet">
