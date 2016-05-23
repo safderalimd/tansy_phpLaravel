@@ -43,6 +43,9 @@
             .first-td {
                 min-width: 300px;
             }
+            .table {
+                font-size: 12px;
+            }
         </style>
     </head>
     <body>
@@ -88,11 +91,9 @@
             </div>
         </div>
 
-
-
         <div class="row">
             <div class="col-md-12">
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped table-condensed">
                 <thead>
                     <tr>
                         <th class="text-left">Student Name</th>

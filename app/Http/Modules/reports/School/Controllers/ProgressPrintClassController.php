@@ -41,7 +41,7 @@ class ProgressPrintClassController extends Controller
 
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'letter');
+        $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
         $output = $dompdf->output();
