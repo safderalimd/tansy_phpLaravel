@@ -51,7 +51,6 @@
     <body>
 
     <div class="container">
-
         @foreach($export->studentRows as $row)
 
         <div class="row">

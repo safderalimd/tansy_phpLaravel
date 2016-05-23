@@ -20,6 +20,8 @@ class ProgressPrintStudent extends Model
 
     public $examName = '-';
 
+    protected $studentDetails;
+
     protected $repositoryNamespace = 'App\Http\Modules\reports\School\Repositories\ProgressPrintStudentRepository';
 
     public function progressList()
@@ -38,13 +40,21 @@ class ProgressPrintStudent extends Model
             }
         }
 
+        $this->setStudentDetails();
         $this->setSchoolNameAndPhone();
         $this->setExamName();
     }
 
+    public function setStudentDetails()
+    {
+        $this->studentDetails = $this->repository->getStudentDetails($this->exam_entity_id, $this->class_entity_id);
+    }
+
     public function studentDetails($studentId)
     {
-        return $this->repository->getStudentDetails($this->exam_entity_id, $studentId);
+        return array_filter($this->studentDetails, function($item) use ($studentId) {
+            return $item['class_student_id'] == $studentId;
+        });
     }
 
     public function setExamName()

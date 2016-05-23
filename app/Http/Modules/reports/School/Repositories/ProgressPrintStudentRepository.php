@@ -6,7 +6,7 @@ use App\Http\Repositories\Repository;
 
 class ProgressPrintStudentRepository extends Repository
 {
-    public function getStudentDetails($examId, $studentId)
+    public function getStudentDetails($examId, $classId)
     {
         return $this->db()->select(
             'SELECT
@@ -20,10 +20,10 @@ class ProgressPrintStudentRepository extends Repository
                 pass_fail
             FROM view_sch_progress_print_details
             WHERE exam_entity_id = :exam_id
-            AND class_student_id = :student_id
+            AND class_entity_id = :class_id
             ORDER BY subject ASC;', [
                 'exam_id' => $examId,
-                'student_id' => $studentId,
+                'class_id' => $classId,
             ]
         );
     }
