@@ -107,6 +107,11 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('progress-print--student/pdf',
         'reports\School\Controllers\ProgressPrintStudentController@report');
 
+    Route::get('progress-print---class',
+        'reports\School\Controllers\ProgressPrintClassController@index');
+    Route::get('progress-print--class/pdf',
+        'reports\School\Controllers\ProgressPrintClassController@report');
+
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
     Route::get('/debug', function() {
