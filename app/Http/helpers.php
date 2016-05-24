@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Debug\Dumper;
+use Illuminate\Http\Request;
 
 /**
  * Display old form value on edit and create.
@@ -102,4 +103,18 @@ function d()
     array_map(function ($x) {
         (new Dumper)->dump($x);
     }, func_get_args());
+}
+
+function activeLink($value, $getKey, $isDefault = false) {
+    $input = app('request')->input($getKey);
+
+    if (empty($input) && $isDefault) {
+        return 'active';
+    }
+
+    if ($input == $value) {
+        return 'active';
+    }
+
+    return '';
 }

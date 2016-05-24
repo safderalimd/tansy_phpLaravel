@@ -86,10 +86,10 @@
                             <div class="panel-heading">
                                 <span style="margin-right: 5px;">Collection Report</span>
                                 <div class="btn-group">
-                                    <a class="btn btn-info active" href="/cabinet/fee-dashboard-v1?fi=1">Current Week</a>
-                                    <a class="btn btn-info" href="/cabinet/fee-dashboard-v1?fi=2">Current Month</a>
-                                    <a class="btn btn-info" href="/cabinet/fee-dashboard-v1?fi=3">Current Quater</a>
-                                    <a class="btn btn-info" href="/cabinet/fee-dashboard-v1?fi=4">All</a>
+                                    <a class="btn btn-info {{activeLink(1, 'fi', true)}}" href="/cabinet/fee-dashboard-v1?fi=1">Current Week</a>
+                                    <a class="btn btn-info {{activeLink(2, 'fi')}}" href="/cabinet/fee-dashboard-v1?fi=2">Current Month</a>
+                                    <a class="btn btn-info {{activeLink(3, 'fi')}}" href="/cabinet/fee-dashboard-v1?fi=3">Current Quater</a>
+                                    <a class="btn btn-info {{activeLink(4, 'fi')}}" href="/cabinet/fee-dashboard-v1?fi=4">All</a>
                                 </div>
                             </div>
                             <div class="panel-body">
