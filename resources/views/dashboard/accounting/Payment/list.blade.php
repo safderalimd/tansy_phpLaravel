@@ -190,7 +190,7 @@
                                             @foreach($payment->dueDetails as $row)
                                             <tr>
                                                 <td>{{$row['account_name']}}</td>
-                                                <td>-</td>
+                                                <td>{{$row['class_name']}}</td>
                                                 <td>{{amount($row['due_amount'])}}</td>
                                             </tr>
                                             @endforeach
