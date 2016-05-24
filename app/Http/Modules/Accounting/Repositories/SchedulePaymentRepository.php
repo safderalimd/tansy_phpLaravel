@@ -14,13 +14,13 @@ class SchedulePaymentRepository extends Repository
                 subject_entity_id,
                 product_entity_id,
                 frequency_id,
+                due_date_days_value,
                 schedule_name,
-                amount,
                 start_date,
                 end_date,
-                due_date_days_value,
-                entity_type_id,
-                active
+                amount,
+                active,
+                product_name
              FROM view_act_rcv_schedule_detail
              WHERE schedule_entity_id = :id
              LIMIT 1;', ['id' => $id]

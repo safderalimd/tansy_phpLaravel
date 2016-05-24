@@ -93,7 +93,8 @@ class SchedulePaymentController extends Controller
      */
     public function destroy($id)
     {
-        $payment = SchedulePayment::findOrFail($id);
+        $payment = new SchedulePayment;
+        $payment->setAttribute('schedule_entity_id', $id);
 
         if ($payment->delete()) {
             return redirect('/cabinet/schedule-payment');
