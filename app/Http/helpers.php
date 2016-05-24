@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Debug\Dumper;
-use Illuminate\Http\Request;
 
 /**
  * Display old form value on edit and create.
@@ -49,7 +48,7 @@ function s($name, $value) {
 }
 
 function form_label() {
-    if(Request::segment(3) == "edit") {
+    if(app('request')->segment(3) == "edit") {
         return ' - Update';
     } else {
         return ' - Add New Record';
@@ -57,7 +56,7 @@ function form_label() {
 }
 
 function form_action() {
-    return '/' . Request::path();
+    return '/' . app('request')->path();
 }
 
 function is_locked($value) {
