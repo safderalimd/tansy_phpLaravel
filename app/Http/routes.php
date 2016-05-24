@@ -124,6 +124,9 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('fee-dashboard-v1/schedule-fee', 'dashboard\accounting\Controllers\PaymentController@scheduleFee');
     Route::get('fee-dashboard-v1/discount', 'dashboard\accounting\Controllers\PaymentController@discount');
 
+    Route::get('sms-dashboard', 'dashboard\sms\Controllers\SmsController@index');
+
+
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
     Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {

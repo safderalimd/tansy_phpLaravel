@@ -95,6 +95,10 @@ function amount($amount) {
     return number_format($amount, 2);
 }
 
+function sms($amount) {
+    return number_format($amount, 0);
+}
+
 /**
  * Dump function
  */
