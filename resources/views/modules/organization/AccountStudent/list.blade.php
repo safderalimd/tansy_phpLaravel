@@ -27,7 +27,9 @@
 
             @foreach($account->students() as $student)
             <tr>
-                <td>{{$student['student_full_name']}}</td>
+                <td>
+                    <a class="" href="{{url("/cabinet/student-dashboard?csi={$student['class_student_id']}&sei={$student['student_entity_id']}")}}" title="Student Dashboard">{{$student['student_full_name']}}</a>
+                </td>
                 <td>{{$student['class_name']}}</td>
                 <td>{{$student['mobile_phone']}}</td>
                 <td>

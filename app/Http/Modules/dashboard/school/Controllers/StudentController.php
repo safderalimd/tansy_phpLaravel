@@ -16,22 +16,33 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
-        return redirect('/cabinet');
         $student = new Student;
-        $student->setCollectionFilter($request->input('fi'));
+        $student->setAttribute('class_student_id', $request->input('csi'));
+        $student->setAttribute('student_entity_id', $request->input('sei'));
+        $student->setAttribute('exam_entity_id', $request->input('eei'));
+
         $student->loadData();
         return view('dashboard.school.Student.list', compact('student'));
     }
 
-    // public function scheduleFee()
-    // {
-    //     $student = new Student;
-    //     return view('dashboard.school.Student.schedule-fee', compact('student'));
-    // }
+    public function overallGrade(Request $request)
+    {
+        $student = new Student;
+        $student->setAttribute('class_student_id', $request->input('csi'));
+        return view('dashboard.school.Student.overall-grade', compact('student'));
+    }
 
-    // public function discount()
-    // {
-    //     $student = new Student;
-    //     return view('dashboard.school.Student.discount', compact('student'));
-    // }
+    public function feeDueDetails(Request $request)
+    {
+        $student = new Student;
+        $student->setAttribute('student_entity_id', $request->input('sei'));
+        return view('dashboard.school.Student.overall-grade', compact('student'));
+    }
+
+    public function smsHistory(Request $request)
+    {
+        $student = new Student;
+        $student->setAttribute('class_student_id', $request->input('csi'));
+        return view('dashboard.school.Student.sms-history', compact('student'));
+    }
 }
