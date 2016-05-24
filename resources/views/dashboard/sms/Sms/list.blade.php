@@ -152,7 +152,7 @@
                                                 <td>{{$row['batch_number']}}</td>
                                                 <td>{{$row['batch_date']}}</td>
                                                 <td>{{$row['sms_type']}}</td>
-                                                <td>{{amount($row['sms_cost'])}}</td>
+                                                <td><i class="fa fa-inr"></i> {{amount($row['sms_cost'])}}</td>
                                                 <td>{{$row['sms_success_count']}}</td>
                                                 <td>{{$row['sms_fail_count']}}</td>
                                             </tr>
