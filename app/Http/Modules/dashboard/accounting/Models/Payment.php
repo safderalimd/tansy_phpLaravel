@@ -39,13 +39,29 @@ class Payment extends Model
             ];
         }, $this->dueDoughnut);
 
-        // $this->collectionPie = $this->repository->collection($this);
-        // dd($this->collectionPie);
+        $collectionData = $this->repository->collection($this);
+
+        if (isset($collectionData[0])) {
+            $this->collectionChart = $collectionData[0];
+        }
+
+        if (isset($collectionData[1])) {
+            $this->collectionGrid = $collectionData[1];
+        }
+
+        $this->collectionChart = array_map(function($item) {
+            return [
+                'value' => $item['collection_amount'],
+                'label' => $item['product_name'],
+            ];
+        }, $this->collectionChart);
     }
 
     public function setCollectionFilter($id)
     {
-        if ($id == 1) {
+        if (empty($id)) {
+            $this->setAttribute('filter_type', 'Current week');
+        } elseif ($id == 1) {
             $this->setAttribute('filter_type', 'Current week');
         } elseif ($id == 2) {
             $this->setAttribute('filter_type', 'Current Month');

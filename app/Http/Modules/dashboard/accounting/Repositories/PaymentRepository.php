@@ -64,4 +64,24 @@ class PaymentRepository extends Repository
             ORDER BY account_name;'
         );
     }
+
+    public function getScheduleDetail()
+    {
+        return $this->select(
+            'SELECT
+                schedule_entity_id,
+                subject_entity_id,
+                product_entity_id,
+                frequency_id,
+                due_date_days_value,
+                schedule_name,
+                start_date,
+                end_date,
+                amount,
+                active,
+                product_name
+            FROM view_act_rcv_schedule_detail
+            ORDER BY schedule_name ASC;'
+        );
+    }
 }

@@ -19,7 +19,7 @@
                                     <div class="panel-body bk-info text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> {{amount($student->scheduled_amount)}}
+                                                {{amount($student->scheduled_amount)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Schedule fee
@@ -35,7 +35,7 @@
                                     <div class="panel-body bk-danger text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> {{amount($student->collection_amount)}}
+                                                {{amount($student->collection_amount)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Collection
@@ -50,7 +50,7 @@
                                     <div class="panel-body bk-warning text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> {{amount($student->due_amount)}}
+                                                {{amount($student->due_amount)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Due
@@ -65,7 +65,7 @@
                                     <div class="panel-body bk-success text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> {{amount($student->discount_amount)}}
+                                                {{amount($student->discount_amount)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Discount
@@ -131,7 +131,7 @@
                                             <tr>
                                                 <td>12/9/2016</td>
                                                 <td>Term fee</td>
-                                                <td><i class="fa fa-inr"></i> 10,000</td>
+                                                <td>10,000</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -187,7 +187,7 @@
                                             <tr>
                                                 <td>{{$row['account_name']}}</td>
                                                 <td>-</td>
-                                                <td><i class="fa fa-inr"></i> {{amount($row['due_amount'])}}</td>
+                                                <td>{{amount($row['due_amount'])}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>

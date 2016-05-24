@@ -19,7 +19,7 @@
                                     <div class="panel-body bk-info text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> {{amount($payment->scheduled_amount)}}
+                                                {{amount($payment->scheduled_amount)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Schedule fee
@@ -35,7 +35,7 @@
                                     <div class="panel-body bk-danger text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> {{amount($payment->collection_amount)}}
+                                                {{amount($payment->collection_amount)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Collection
@@ -51,7 +51,7 @@
                                     <div class="panel-body bk-warning text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> {{amount($payment->due_amount)}}
+                                                {{amount($payment->due_amount)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Due
@@ -67,7 +67,7 @@
                                     <div class="panel-body bk-success text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> {{amount($payment->discount_amount)}}
+                                                {{amount($payment->discount_amount)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Discount
@@ -98,10 +98,10 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <ul class="chart-dot-list">
-                                            <li class="a1">Term fee</li>
-                                            <li class="a2">Special fee</li>
-                                            <li class="a3">Admission fee</li>
-                                            <li class="a4">Material fee</li>
+                                            <?php $i=1; ?>
+                                            @foreach($payment->collectionChart as $row)
+                                                <li class="a{{$i++}}">{{$row['label']}}</li>
+                                            @endforeach
                                         </ul>
                                     </div>
                                     <div class="col-md-8">
@@ -130,11 +130,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($payment->collectionGrid as $row)
                                             <tr>
-                                                <td>12/9/2016</td>
-                                                <td>Term fee</td>
-                                                <td><i class="fa fa-inr"></i> 10,000</td>
+                                                <td>{{$row['receipt_date']}}</td>
+                                                <td>{{$row['product_name']}}</td>
+                                                <td>{{amount($row['collection_amount'])}}</td>
                                             </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -189,7 +191,7 @@
                                             <tr>
                                                 <td>{{$row['account_name']}}</td>
                                                 <td>-</td>
-                                                <td><i class="fa fa-inr"></i> {{amount($row['due_amount'])}}</td>
+                                                <td>{{amount($row['due_amount'])}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -213,32 +215,8 @@
     var dueDoughnut = <?php echo json_encode($payment->dueDoughnutChart); ?>;
     dueDoughnut = applyChartColors(dueDoughnut);
 
-    var pieData = [
-        {
-            value: 1120,
-            color:"#FFBB00",
-            highlight: "#FFBB11",
-            label: "Term fee"
-        },
-        {
-            value: 1550,
-            color: "#3cba54",
-            highlight: "#008744",
-            label: "Special fee"
-        },
-        {
-            value: 2010,
-            color: "#d62d20",
-            highlight: "#db3236",
-            label: "Admission fee"
-        },
-        {
-            value: 1100,
-            color: "#4885ed",
-            highlight: "#0057e7",
-            label: "Material fee"
-        }
-    ];
+    var pieData = <?php echo json_encode($payment->collectionChart); ?>;
+    pieData = applyChartColors(pieData);
 
     $(document).ready(function() {
         $('#table-student').DataTable();

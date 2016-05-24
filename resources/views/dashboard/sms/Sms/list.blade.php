@@ -18,7 +18,7 @@
                                     <div class="panel-body bk-info text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> {{sms($sms->total_sms_purchase_count)}}
+                                                {{sms($sms->total_sms_purchase_count)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Total Purchased
@@ -33,7 +33,7 @@
                                     <div class="panel-body bk-danger text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> {{sms($sms->total_sms_send_count)}}
+                                                {{sms($sms->total_sms_send_count)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Total Send
@@ -48,7 +48,7 @@
                                     <div class="panel-body bk-warning text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> {{sms($sms->total_sms_balance_count)}}
+                                                {{sms($sms->total_sms_balance_count)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Balance
@@ -63,7 +63,7 @@
                                     <div class="panel-body bk-success text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> {{$sms->sms_success_rate}}%
+                                                {{$sms->sms_success_rate}}%
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Success Rate
@@ -152,7 +152,7 @@
                                                 <td>{{$row['batch_number']}}</td>
                                                 <td>{{$row['batch_date']}}</td>
                                                 <td>{{$row['sms_type']}}</td>
-                                                <td><i class="fa fa-inr"></i> {{amount($row['sms_cost'])}}</td>
+                                                <td>{{amount($row['sms_cost'])}}</td>
                                                 <td>{{$row['sms_success_count']}}</td>
                                                 <td>{{$row['sms_fail_count']}}</td>
                                             </tr>

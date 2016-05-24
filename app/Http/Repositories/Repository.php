@@ -126,11 +126,19 @@ class Repository
             $iparam = '@'.substr($iparam, 1);
         }
 
+        $debugIParams = [];
         foreach ($iparams as $parameter) {
             $modelProperty = $this->extractProperty($parameter);
             $value = $pdo->quote($model->{$modelProperty});
             $pdo->query("set {$parameter} = {$value};");
+
+            // debug code
+            $debugIParams[$parameter] = $value;
         }
+
+        // debug code
+        session()->put('debug-info-procedure', $procedure);
+        session()->put('debug-info-iparams', $debugIParams);
 
         $procedureSql = $this->generateProcedureSql($procedure, $iparams, $oparams);
         $stmt = $pdo->query($procedureSql);
@@ -151,6 +159,9 @@ class Repository
             }
         } while ($stmt->nextRowset());
         $model->setProcedureOparams($oparamsResults);
+
+        // debug code
+        session()->put('debug-info-oparams', $oparamsResults);
 
         return $dataResults;
     }
@@ -341,15 +352,6 @@ class Repository
             'SELECT payment_type_id, payment_type
             FROM view_act_lkp_payment_type
             ORDER BY payment_type ASC;'
-        );
-    }
-
-    public function getScheduleDetail()
-    {
-        return $this->select(
-            'SELECT schedule_entity_id, entity_type_id, subject_entity_id, product_entity_id, frequency_id, due_date_days_value, schedule_name, start_date, end_date, amount
-            FROM view_act_rcv_schedule_detail
-            ORDER BY schedule_name ASC;'
         );
     }
 
