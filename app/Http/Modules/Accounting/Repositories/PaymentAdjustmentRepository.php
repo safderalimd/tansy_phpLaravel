@@ -62,13 +62,6 @@ class PaymentAdjustmentRepository extends Repository
         return $dataResults;
     }
 
-
-
-
-
-
-
-
     public function insert($model)
     {
         $procedure = 'sproc_act_rcv_adjustment_dml_ins';

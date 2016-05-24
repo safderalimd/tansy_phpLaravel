@@ -37,31 +37,7 @@
     <td>{{$row['due_amount']}}</td>
     <td>{{$row['adjustment_amount']}}</td>
     <td>
-        @if ($row['adjustment_amount'] == 0)
-            <form action="{{url("/cabinet/payment-adjustment/add")}}" method="POST">
-                {{ csrf_field() }}
-
-                <input type="hidden" name="subject_entity_id" value="{{$row['subject_entity_id']}}"/>
-                <input type="hidden" name="schedule_entity_id" value="{{$row['schedule_entity_id']}}"/>
-                <input type="hidden" name="account_entity_id" value="{{$row['account_entity_id']}}"/>
-                <input type="hidden" name="date_id" value="{{$row['date_id']}}"/>
-                <input type="hidden" name="schedule_detail_id" value="{{$row['schedule_detail_id']}}"/>
-                <input type="hidden" name="product_entity_id" value="{{$row['product_entity_id']}}"/>
-                <input type="hidden" name="product_name" value="{{$row['product_name']}}"/>
-                <input type="hidden" name="account_name" value="{{$row['account_name']}}"/>
-                <input type="hidden" name="schedule_name" value="{{$row['schedule_name']}}"/>
-                <input type="hidden" name="current_schedule_name" value="{{$row['current_schedule_name']}}"/>
-                <input type="hidden" name="due_start_date" value="{{$row['due_start_date']}}"/>
-                <input type="hidden" name="due_end_date" value="{{$row['due_end_date']}}"/>
-                <input type="hidden" name="total_amount" value="{{$row['total_amount']}}"/>
-                <input type="hidden" name="total_credit_amount" value="{{$row['total_credit_amount']}}"/>
-                <input type="hidden" name="paid_amount" value="{{$row['paid_amount']}}"/>
-                <input type="hidden" name="adjustment_amount" value="{{$row['adjustment_amount']}}"/>
-                <input type="hidden" name="due_amount" value="{{$row['due_amount']}}"/>
-
-                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add</button>
-            </form>
-        @else
+        @if ($row['schedule_detail_id'] > 0)
             <div>
                 <div>
                     <form action="{{url("/cabinet/payment-adjustment/edit")}}" method="POST">
@@ -100,6 +76,30 @@
                     </form>
                 </div>
             </div>
+        @else
+            <form action="{{url("/cabinet/payment-adjustment/add")}}" method="POST">
+                {{ csrf_field() }}
+
+                <input type="hidden" name="subject_entity_id" value="{{$row['subject_entity_id']}}"/>
+                <input type="hidden" name="schedule_entity_id" value="{{$row['schedule_entity_id']}}"/>
+                <input type="hidden" name="account_entity_id" value="{{$row['account_entity_id']}}"/>
+                <input type="hidden" name="date_id" value="{{$row['date_id']}}"/>
+                <input type="hidden" name="schedule_detail_id" value="{{$row['schedule_detail_id']}}"/>
+                <input type="hidden" name="product_entity_id" value="{{$row['product_entity_id']}}"/>
+                <input type="hidden" name="product_name" value="{{$row['product_name']}}"/>
+                <input type="hidden" name="account_name" value="{{$row['account_name']}}"/>
+                <input type="hidden" name="schedule_name" value="{{$row['schedule_name']}}"/>
+                <input type="hidden" name="current_schedule_name" value="{{$row['current_schedule_name']}}"/>
+                <input type="hidden" name="due_start_date" value="{{$row['due_start_date']}}"/>
+                <input type="hidden" name="due_end_date" value="{{$row['due_end_date']}}"/>
+                <input type="hidden" name="total_amount" value="{{$row['total_amount']}}"/>
+                <input type="hidden" name="total_credit_amount" value="{{$row['total_credit_amount']}}"/>
+                <input type="hidden" name="paid_amount" value="{{$row['paid_amount']}}"/>
+                <input type="hidden" name="adjustment_amount" value="{{$row['adjustment_amount']}}"/>
+                <input type="hidden" name="due_amount" value="{{$row['due_amount']}}"/>
+
+                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add</button>
+            </form>
         @endif
 
     </td>
