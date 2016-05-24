@@ -50,7 +50,7 @@ class Repository
         $dbCall->closeCursor();
 
         // generate sql for output params and execute it
-        $outputSql = $this->generateOutputSql($oparams);
+        $outputSql = $this->generateOparamsSelect($oparams);
         $response = $pdo->query($outputSql)->fetch(\PDO::FETCH_ASSOC);
 
 
@@ -118,6 +118,43 @@ class Repository
         return $dataResults;
     }
 
+    public function procedure($model, $procedure, $iparams, $oparams)
+    {
+        $pdo = $this->db()->getPdo();
+
+        foreach ($iparams as &$iparam) {
+            $iparam = '@'.substr($iparam, 1);
+        }
+
+        foreach ($iparams as $parameter) {
+            $modelProperty = $this->extractProperty($parameter);
+            $value = $pdo->quote($model->{$modelProperty});
+            $pdo->query("set {$parameter} = {$value};");
+        }
+
+        $procedureSql = $this->generateProcedureSql($procedure, $iparams, $oparams);
+        $stmt = $pdo->query($procedureSql);
+
+        $dataResults = [];
+        do {
+            $rows = $stmt->fetchAll();
+            $dataResults[] = $rows;
+        } while ($stmt->nextRowset());
+
+        // TODO: check for errors here
+        $stmt = $pdo->query($this->generateOparamsSelect($oparams));
+        $oparamsResults = [];
+        do {
+            $rows = $stmt->fetchAll();
+            if ($rows) {
+                $oparamsResults = array_merge($oparamsResults, $rows);
+            }
+        } while ($stmt->nextRowset());
+        $model->setProcedureOparams($oparamsResults);
+
+        return $dataResults;
+    }
+
     public function extractProperty($parameter)
     {
         if (strpos($parameter, 'iparm_') !== false) {
@@ -133,7 +170,7 @@ class Repository
      * @param  array $oparams
      * @return string
      */
-    public function generateOutputSql($oparams)
+    public function generateOparamsSelect($oparams)
     {
         return 'SELECT ' . implode(', ', $oparams);
     }

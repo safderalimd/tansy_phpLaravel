@@ -45,6 +45,7 @@
 <script src="/dashboard/dataTables.bootstrap.min.js"></script>
 <script src="/dashboard/Chart.min.js"></script>
 <script src="/dashboard/fileinput.js"></script>
+<script src="/dashboard/custom.js"></script>
 
 @yield('scripts')
 

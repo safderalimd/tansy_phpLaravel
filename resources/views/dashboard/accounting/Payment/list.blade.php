@@ -19,14 +19,14 @@
                                     <div class="panel-body bk-info text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> 25,000
+                                                <i class="fa fa-inr"></i> {{amount($payment->scheduled_amount)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Schedule fee
                                             </div>
                                         </div>
                                     </div>
-                                    <a class="block-anchor panel-footer text-center" href="#">Full Details &nbsp;<i class="fa fa-arrow-right"></i></a>
+                                    <a class="block-anchor panel-footer text-center" href="/cabinet/fee-dashboard-v1/schedule-fee">Full Details &nbsp;<i class="fa fa-arrow-right"></i></a>
                                 </div>
                             </div>
 
@@ -35,14 +35,13 @@
                                     <div class="panel-body bk-danger text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> 15,000
+                                                <i class="fa fa-inr"></i> {{amount($payment->collection_amount)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Collection
                                             </div>
                                         </div>
                                     </div>
-                                    <a class="block-anchor panel-footer text-center" href="#">Full Details &nbsp; <i class="fa fa-arrow-right"></i></a>
                                 </div>
                             </div>
 
@@ -51,14 +50,13 @@
                                     <div class="panel-body bk-warning text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> 10,000
+                                                <i class="fa fa-inr"></i> {{amount($payment->due_amount)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Due
                                             </div>
                                         </div>
                                     </div>
-                                    <a class="block-anchor panel-footer text-center" href="#">Full Details &nbsp; <i class="fa fa-arrow-right"></i></a>
                                 </div>
                             </div>
 
@@ -67,14 +65,14 @@
                                     <div class="panel-body bk-success text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> 12,000
+                                                <i class="fa fa-inr"></i> {{amount($payment->discount_amount)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Discount
                                             </div>
                                         </div>
                                     </div>
-                                    <a class="block-anchor panel-footer text-center" href="#">Full Details &nbsp; <i class="fa fa-arrow-right"></i></a>
+                                    <a class="block-anchor panel-footer text-center" href="/cabinet/fee-dashboard-v1/discount">Full Details &nbsp; <i class="fa fa-arrow-right"></i></a>
                                 </div>
                             </div>
 
@@ -86,12 +84,12 @@
                     <div class="col-md-6">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                Collection Report
+                                <span style="margin-right: 5px;">Collection Report</span>
                                 <div class="btn-group">
-                                    <a class="btn btn-info" href="#">Current Week</a>
-                                    <a class="btn btn-info" href="#">Current Month</a>
-                                    <a class="btn btn-info" href="#">Current Quater</a>
-                                    <a class="btn btn-info" href="#">All</a>
+                                    <a class="btn btn-info active" href="/cabinet/fee-dashboard-v1?fi=1">Current Week</a>
+                                    <a class="btn btn-info" href="/cabinet/fee-dashboard-v1?fi=2">Current Month</a>
+                                    <a class="btn btn-info" href="/cabinet/fee-dashboard-v1?fi=3">Current Quater</a>
+                                    <a class="btn btn-info" href="/cabinet/fee-dashboard-v1?fi=4">All</a>
                                 </div>
                             </div>
                             <div class="panel-body">
@@ -106,9 +104,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="chart chart-doughnut">
-                                            <canvas height="900" id="chart-area3" width=
-                                            "1200">
-                                            </canvas>
+                                            <canvas height="900" id="collection-report" width= "1200"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -123,39 +119,19 @@
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
+                                    <table id="table-collection" class="table table-bordered table-striped">
                                         <thead>
-                                        </thead>
-                                        <tbody>
                                             <tr>
                                                 <th>Date</th>
                                                 <th>Fee type</th>
                                                 <th>Collection amount</th>
                                             </tr>
+                                        </thead>
+                                        <tbody>
                                             <tr>
                                                 <td>12/9/2016</td>
                                                 <td>Term fee</td>
                                                 <td><i class="fa fa-inr"></i> 10,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>10/6/2016</td>
-                                                <td>Admission fee</td>
-                                                <td><i class="fa fa-inr"></i> 2,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>22/6/2016</td>
-                                                <td>Special fee</td>
-                                                <td><i class="fa fa-inr"></i> 1,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>19/5/2016</td>
-                                                <td>material fee</td>
-                                                <td><i class="fa fa-inr"></i> 1,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>17/11/2016</td>
-                                                <td>Term fee</td>
-                                                <td><i class="fa fa-inr"></i> 1,200</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -175,17 +151,15 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <ul class="chart-dot-list">
-                                            <li class="a1">Term fee</li>
-                                            <li class="a2">Special fee</li>
-                                            <li class="a3">Admission fee</li>
-                                            <li class="a4">Material fee</li>
+                                            <?php $i=1; ?>
+                                            @foreach($payment->dueDoughnut as $row)
+                                                <li class="a{{$i++}}">{{$row['product_name']}}</li>
+                                            @endforeach
                                         </ul>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="chart chart-doughnut">
-                                            <canvas height="900" id="chart-area4" width=
-                                            "1200">
-                                            </canvas>
+                                            <canvas height="900" id="due-report" width="1200"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -200,40 +174,22 @@
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
+                                    <table id="table-student" class="table table-bordered table-striped">
                                         <thead>
-                                        </thead>
-                                        <tbody>
                                             <tr>
                                                 <th>Student</th>
                                                 <th>Class</th>
                                                 <th>Due amount</th>
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($payment->dueDetails as $row)
                                             <tr>
-                                                <td>Ramesh</td>
-                                                <td>VII</td>
-                                                <td><i class="fa fa-inr"></i> 12,000</td>
+                                                <td>{{$row['account_name']}}</td>
+                                                <td>-</td>
+                                                <td><i class="fa fa-inr"></i> {{amount($row['due_amount'])}}</td>
                                             </tr>
-                                            <tr>
-                                                <td>rajesh</td>
-                                                <td>VI</td>
-                                                <td><i class="fa fa-inr"></i> 13,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>salman</td>
-                                                <td>V</td>
-                                                <td><i class="fa fa-inr"></i> 12,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>raju</td>
-                                                <td>III</td>
-                                                <td><i class="fa fa-inr"></i> 11,200</td>
-                                            </tr>
-                                            <tr>
-                                                <td>raju</td>
-                                                <td>IV</td>
-                                                <td><i class="fa fa-inr"></i> 10,000</td>
-                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -251,82 +207,50 @@
 
 @section('scripts')
 <script type="text/javascript">
-var doughnutData = [
-    {
-        value: 10000,
-        color:" #FFBB00",
-        highlight: " #FFBB11",
-        label: "Term fee"
-    },
-     {
-        value: 5000,
-        color:"#3cba54",
-        highlight: "#008744 ",
-        label: "Special fee"
-    },
-     {
-        value: 2000,
-        color:"#d62d20",
-        highlight: "#db3236",
-        label: "Admission fee"
-    },
-    {
-        value: 4000,
-        color:"#4885ed",
-        highlight: "#0057e7",
-        label: "Material fee"
-    }
-];
 
-var pieData = [
-    {
-        value: 1120,
-        color:"#FFBB00",
-        highlight: "#FFBB11",
-        label: "Term fee"
-    },
-    {
-        value: 1550,
-        color: "#3cba54",
-        highlight: "#008744",
-        label: "Special fee"
-    },
-    {
-        value: 2010,
-        color: "#d62d20",
-        highlight: "#db3236",
-        label: "Admission fee"
-    },
-    {
-        value: 1100,
-        color: "#4885ed",
-        highlight: "#0057e7",
-        label: "Material fee"
-    }
-];
+    var dueDoughnut = <?php echo json_encode($payment->dueDoughnutChart); ?>;
+    dueDoughnut = applyChartColors(dueDoughnut);
 
-$(document).ready(function() {
+    var pieData = [
+        {
+            value: 1120,
+            color:"#FFBB00",
+            highlight: "#FFBB11",
+            label: "Term fee"
+        },
+        {
+            value: 1550,
+            color: "#3cba54",
+            highlight: "#008744",
+            label: "Special fee"
+        },
+        {
+            value: 2010,
+            color: "#d62d20",
+            highlight: "#db3236",
+            label: "Admission fee"
+        },
+        {
+            value: 1100,
+            color: "#4885ed",
+            highlight: "#0057e7",
+            label: "Material fee"
+        }
+    ];
 
-    $('#zctb').DataTable();
-
-    $("#input-43").fileinput({
-        showPreview: false,
-        allowedFileExtensions: ["zip", "rar", "gz", "tgz"],
-        elErrorContainer: "#errorBlock43"
+    $(document).ready(function() {
+        $('#table-student').DataTable();
+        $('#table-collection').DataTable();
     });
-    // you can configure `msgErrorClass` and `msgInvalidFileExtension` as well
 
-});
+    window.onload = function() {
+        // Pie Chart from doughutData
+        var pieContext = document.getElementById("collection-report").getContext("2d");
+        window.myPie = new Chart(pieContext).Pie(pieData, {responsive : true});
 
-window.onload = function() {
-
-    // Pie Chart from doughutData
-    var doctx = document.getElementById("chart-area3").getContext("2d");
-    window.myDoughnut = new Chart(doctx).Pie(pieData, {responsive : true});
-
-    // Dougnut Chart from doughnutData
-    var doctx = document.getElementById("chart-area4").getContext("2d");
-    window.myDoughnut = new Chart(doctx).Doughnut(doughnutData, {responsive : true});
-};
+        // Dougnut Chart from dueDoughnut
+        var doughnutContext = document.getElementById("due-report").getContext("2d");
+        window.myDoughnut = new Chart(doughnutContext).Doughnut(dueDoughnut, {responsive : true});
+    };
 </script>
 @endsection

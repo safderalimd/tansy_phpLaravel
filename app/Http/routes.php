@@ -121,6 +121,8 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
         'reports\School\Controllers\ProgressPrintClassController@report');
 
     Route::get('fee-dashboard-v1', 'dashboard\accounting\Controllers\PaymentController@index');
+    Route::get('fee-dashboard-v1/schedule-fee', 'dashboard\accounting\Controllers\PaymentController@scheduleFee');
+    Route::get('fee-dashboard-v1/discount', 'dashboard\accounting\Controllers\PaymentController@discount');
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
