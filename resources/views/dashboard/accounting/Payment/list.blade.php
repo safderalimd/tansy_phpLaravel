@@ -42,6 +42,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <a href="#" class="block-anchor panel-footer text-center">&nbsp;</a>
                                 </div>
                             </div>
 
@@ -57,6 +58,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <a href="#" class="block-anchor panel-footer text-center">&nbsp;</a>
                                 </div>
                             </div>
 

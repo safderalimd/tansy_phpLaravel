@@ -127,6 +127,11 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('sms-dashboard', 'dashboard\sms\Controllers\SmsController@index');
 
 
+    Route::get('student-dashboard', 'dashboard\school\Controllers\StudentController@index');
+    // Route::get('student-dashboard/schedule-fee', 'dashboard\school\Controllers\StudentController@scheduleFee');
+    // Route::get('student-dashboard/discount', 'dashboard\school\Controllers\StudentController@discount');
+
+
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
     Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {
