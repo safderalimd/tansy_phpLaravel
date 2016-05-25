@@ -58,7 +58,7 @@
         <td>{{$row['account_name']}}</td>
         <td>{{number_format($row['2'], 2)}}</td>
         <td>
-            <a class="btn btn-default btn-sm" href="{{url("/cabinet/payment/create/?rt={$rowType}&pk={$row['account_entity_id']}")}}" title="Payment">Payment</a>
+            <a class="btn btn-default btn-sm" href="{{url("/cabinet/payment/create/?pk={$row['account_entity_id']}")}}" title="Payment">Payment</a>
             <a class="btn btn-default btn-sm" href="{{url("/cabinet/payment-adjustment/{$row['account_entity_id']}")}}" title="Adjustment">Adjustment</a>
             <a class="btn btn-default btn-sm" href="{{url("/cabinet/schedule-payment/create?aei={$row['account_entity_id']}")}}" title="Schedule">Schedule</a>
             <a class="btn btn-default btn-sm" href="{{url("/cabinet/receipt-report/{$row['account_entity_id']}")}}" title="Receipt">Receipt</a>
