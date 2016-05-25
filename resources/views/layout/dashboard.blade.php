@@ -14,6 +14,7 @@
     <link type="text/css" href="/dashboard/custom.css?v=2" rel="stylesheet">
 </head>
 <body style="padding:0px;">
+<div class="loader"></div>
 <div class="container-fluid">
 
     <header class="row">

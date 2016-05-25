@@ -100,5 +100,5 @@ a.list-group-item, button.list-group-item {
     z-index: 9999;
     opacity: 0.9;
     display: none;
-    background: url('/images/page-loader2.gif') 50% 50% no-repeat #fff;
+    background: url('/images/page-loader.gif') 50% 50% no-repeat #fff;
 }
