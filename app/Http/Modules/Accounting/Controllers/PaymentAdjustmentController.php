@@ -54,7 +54,7 @@ class PaymentAdjustmentController extends Controller
             if ($adjustment->save()) {
                 return redirect('/cabinet/payment-adjustment/'.$adjustment->account_entity_id);
             }
-            $errors = $adjustment->getErrors();
+            $errors = [$adjustment->getErrors()];
             return view('modules.accounting.PaymentAdjustment.form', compact('adjustment', 'errors'));
 
         } else {
