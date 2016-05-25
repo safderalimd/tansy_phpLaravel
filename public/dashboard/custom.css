@@ -83,3 +83,10 @@ a.list-group-item, button.list-group-item {
 .list-group.panel > a.list-group-item:last-of-type {
     margin-bottom: 0px;
 }
+.active-exam {
+    text-decoration: underline;
+}
+.dropdown-menu {
+    max-height: 290px;
+    overflow-y: scroll;
+}

@@ -22,15 +22,10 @@ class Payment extends Model
 
     public function loadData()
     {
+        // get data for the first chart and grid
         $fees = $this->repository->feePayment($this);
-
-        if (isset($fees[0])) {
-            $this->dueDoughnut = $fees[0];
-        }
-
-        if (isset($fees[1])) {
-            $this->dueDetails = $fees[1];
-        }
+        $this->dueDoughnut = first_resultset($fees);
+        $this->dueDetails = second_resultset($fees);
 
         $this->dueDoughnutChart = array_map(function($item) {
             return [
@@ -39,15 +34,10 @@ class Payment extends Model
             ];
         }, $this->dueDoughnut);
 
+        // get data for the second chart and grid
         $collectionData = $this->repository->collection($this);
-
-        if (isset($collectionData[0])) {
-            $this->collectionChart = $collectionData[0];
-        }
-
-        if (isset($collectionData[1])) {
-            $this->collectionGrid = $collectionData[1];
-        }
+        $this->collectionChart = first_resultset($collectionData);
+        $this->collectionGrid = second_resultset($collectionData);
 
         $this->collectionChart = array_map(function($item) {
             return [

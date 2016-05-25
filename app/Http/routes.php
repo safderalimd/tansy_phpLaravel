@@ -131,6 +131,11 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('student-dashboard/fee-due', 'dashboard\school\Controllers\StudentController@feeDueDetails');
     Route::get('student-dashboard/sms-history', 'dashboard\school\Controllers\StudentController@smsHistory');
 
+    Route::get('exam-dashboard', 'dashboard\school\Controllers\ExamController@index');
+    Route::get('exam-dashboard/toppers', 'dashboard\school\Controllers\ExamController@toppers');
+    Route::get('exam-dashboard/failed-students', 'dashboard\school\Controllers\ExamController@failedStudents');
+    Route::get('exam-dashboard/absentees', 'dashboard\school\Controllers\ExamController@absentees');
+
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
     Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {

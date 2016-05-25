@@ -619,9 +619,9 @@ class Repository
     public function getExam()
     {
         return $this->select(
-            'SELECT exam, exam_type, exam_entity_id
+            'SELECT exam, exam_type, exam_entity_id, reporting_order
             FROM view_sch_lkp_exam
-            ORDER BY exam ASC;'
+            ORDER BY reporting_order ASC;'
         );
     }
 

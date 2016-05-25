@@ -19,14 +19,8 @@ class Sms extends Model
     public function loadData()
     {
         $details = $this->repository->smsDetails($this);
-
-        if (isset($details[0])) {
-            $this->pieDetails = $details[0];
-        }
-
-        if (isset($details[1])) {
-            $this->gridDetails = $details[1];
-        }
+        $this->pieDetails = first_resultset($details);
+        $this->gridDetails = second_resultset($details);
 
         $this->smsPieChart = array_map(function($item) {
             return [
