@@ -5,6 +5,7 @@
     @yield('styles')
 </head>
 <body style="padding:0px;">
+<div class="loader"></div>
 <div class="container-fluid">
 
     <header class="row">
@@ -35,6 +36,14 @@
 <script type="text/javascript" src="/bower_components/bootstrap-combobox/js/bootstrap-combobox-custom.js"></script>
 
 <script>
+    // when page reloads show preloader
+    window.onunload = function() {
+        $('.loader').fadeIn();
+    }
+    window.onbeforeunload = function() {
+        $('.loader').fadeIn();
+    }
+
     // for tables
     $( document ).ready(function() {
         $('.date').datepicker({

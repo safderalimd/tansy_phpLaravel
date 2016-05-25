@@ -11,7 +11,7 @@
     <link type="text/css" href="/dashboard/bootstrap-select.css" rel="stylesheet">
     <link type="text/css" href="/dashboard/fileinput.min.css" rel="stylesheet">
     <link type="text/css" href="/dashboard/dashboard.css" rel="stylesheet">
-    <link type="text/css" href="/dashboard/custom.css" rel="stylesheet">
+    <link type="text/css" href="/dashboard/custom.css?v=2" rel="stylesheet">
 </head>
 <body style="padding:0px;">
 <div class="container-fluid">
@@ -37,7 +37,6 @@
     </footer>
 
 </div>
-
 <script src="/dashboard/jquery.min.js"></script>
 <script src="/dashboard/bootstrap-select.min.js"></script>
 <script src="/dashboard/bootstrap.min.js"></script>
@@ -46,6 +45,15 @@
 <script src="/dashboard/Chart.min.js"></script>
 <script src="/dashboard/fileinput.js"></script>
 <script src="/dashboard/custom.js"></script>
+<script type="text/javascript">
+    // when page reloads show preloader
+    window.onunload = function() {
+        $('.loader').fadeIn();
+    }
+    window.onbeforeunload = function() {
+        $('.loader').fadeIn();
+    }
+</script>
 
 @yield('scripts')
 
