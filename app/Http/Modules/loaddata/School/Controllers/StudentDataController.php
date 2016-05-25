@@ -15,8 +15,20 @@ class StudentDataController extends Controller
      */
     public function index()
     {
-        $studentData = new StudentData;
-        return view('loaddata.school.StudentData.list', compact('studentData'));
+
+        $file = base_path('docs').'/#24 Load Data - SAMPLE DATA.ods';
+
+        if (file_exists($file)) {
+
+            $x = \Excel::load($file)->get();
+            d($x);
+
+            dd($file);
+        }
+
+        dd('--file not found--');
+        // $studentData = new StudentData;
+        // return view('loaddata.school.StudentData.list', compact('studentData'));
     }
 
     // /**

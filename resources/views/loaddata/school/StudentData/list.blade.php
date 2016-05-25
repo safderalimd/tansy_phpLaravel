@@ -4,35 +4,55 @@
 
 @section('content')
 
-        <div class="panel-group sch_class">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <i class="glyphicon glyphicon-th-list"></i>
-                    <h3>Student Data Load</h3>
-                </div>
-                <div class="panel-body">
-                    @include('commons.errors')
-
-                    <span class="btn btn-success fileinput-button">
-                        <i class="glyphicon glyphicon-plus"></i>
-                        <span>Select file...</span>
-                        <input id="fileupload" type="file" name="files">
-                    </span>
-
-                    <br/>
-                    <br/>
-
-                    <div id="progress" class="progress">
-                        <div class="progress-bar progress-bar-success"></div>
-                    </div>
-
-                    <!-- The container for the uploaded files -->
-                    <div id="files" class="files"></div>
-
-                    @include('commons.modal')
-                </div>
-            </div>
+<div class="panel-group sch_class">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <i class="glyphicon glyphicon-th-list"></i>
+            <h3>Student Data Load</h3>
         </div>
+        <div class="panel-body">
+            @include('commons.errors')
+
+
+            <form class="form-horizontal" action="{{ form_action() }}" method="POST">
+                {{ csrf_field() }}
+
+                @include('commons.select', [
+                    'label'   => 'Account Type' ,
+                    'name'    => 'account_type_id',
+                    'options' => $payment->accountType(),
+                    'keyId'   => 'entity_type_id',
+                    'keyName' => 'entity_type',
+                ])
+
+                <div class="row">
+                   <div class="col-md-12 text-center">
+                        <button class="btn btn-primary" type="submit">Select Facility</button>
+                        <a href="{{ url("/cabinet/product")}}" class="btn btn-default cancle_btn">Cancel</a>
+                    </div>
+                </div>
+            </form>
+
+            <span class="btn btn-success fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Select file...</span>
+                <input id="fileupload" type="file" name="files">
+            </span>
+
+            <br/>
+            <br/>
+
+            <div id="progress" class="progress">
+                <div class="progress-bar progress-bar-success"></div>
+            </div>
+
+            <!-- The container for the uploaded files -->
+            <div id="files" class="files"></div>
+
+            @include('commons.modal')
+        </div>
+    </div>
+</div>
 
 @endsection
 

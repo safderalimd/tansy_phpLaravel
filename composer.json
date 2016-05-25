@@ -9,7 +9,9 @@
         "laravel/framework": "5.2.*",
         "lavary/laravel-menu": "dev-master",
 		"laravelcollective/html": "~5.0",
-        "dompdf/dompdf": "^0.7.0"
+        "dompdf/dompdf": "^0.7.0",
+        "phpoffice/phpexcel": "^1.8",
+        "maatwebsite/excel": "^2.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
