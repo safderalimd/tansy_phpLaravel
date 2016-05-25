@@ -4,8 +4,9 @@ namespace App\Http\Modules\loaddata\School\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Modules\loaddata\School\Models\StudentData;
-use App\Http\Modules\loaddata\School\Models\ExcelValueBinder;
 use App\Http\Modules\loaddata\School\Requests\StudentDataFormRequest;
+use Excel;
+use Carbon\Carbon;
 
 class StudentDataController extends Controller
 {
@@ -25,29 +26,40 @@ class StudentDataController extends Controller
         $studentData = new StudentData($request->input());
 
         // get excel to db column mapping
-        $mapping = $studentData->columnMapping();
+        $mappings = $studentData->columnMapping();
 
         // save the uploaded file
         $file = $request->file('attachment');
         $newName = time().uniqid().'.'.$file->clientExtension();
         $savedFile = $file->move(storage_path('uploads/student-data'), $newName);
 
-        // parse the uploaded file
+        $insertRows = [];
 
-        $binder = new ExcelValueBinder;
-        $excel = \Excel::setValueBinder($binder);
+        // parse the excel
+        $rows = Excel::load($savedFile->getRealPath())->get()->first();
 
-        $sheets = $excel->load($savedFile->getRealPath())->get();
+        // map db mappins to excel columns
+        $insertRow = [];
+        foreach ($rows as $row) {
 
-        dd($sheets->first()->toArray());
+            foreach ($mappings as $mapping) {
+                $value = $row->get($mapping['file_column_name']);
+                if ($value instanceof Carbon) {
+                    $value = $value->toDateString();
+                }
+                $insertRow[$mapping['table_column_name']] = $value;
+            }
 
+            $insertRow['facility_entity_id'] = $studentData->facility_entity_id;
+            $insertRows[] = $insertRow;
+        }
 
-        $sheets->first()->each(function ($item, $key) {
-            dd($item->all());
-        });
+        $studentData->add($insertRows);
 
         // delete the uploaded file
         unlink($savedFile->getRealPath());
+
+        return redirect('/cabinet/admission');
     }
 
 }
