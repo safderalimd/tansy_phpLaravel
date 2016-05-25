@@ -17,7 +17,7 @@ class PaymentAdjustmentController extends Controller
     public function index($id)
     {
         $adjustment = new PaymentAdjustment;
-        $adjustment->setAttribute('filter_type', 'entity');
+        $adjustment->setAttribute('filter_type', 'Individual');
         $adjustment->setAttribute('return_type', 'Detail'); // or Summary
         $adjustment->setAttribute('subject_entity_id', $id);
 
