@@ -70,7 +70,6 @@ class Exam extends Model
         }, first_resultset($classPerformance));
 
         $this->classPerformancePieGrid = second_resultset($classPerformance);
-
     }
 
     public function setClassFilter()

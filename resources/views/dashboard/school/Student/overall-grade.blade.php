@@ -12,8 +12,6 @@
                 </div>
                 <div class="panel-body">
 
-                    {{dd($student->overallDetails())}}
-
                     @include('commons.errors')
 
             <table class="table table-striped table-bordered table-hover" data-datatable>

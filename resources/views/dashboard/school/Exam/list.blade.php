@@ -199,7 +199,7 @@
                                         <tbody>
                                             @foreach($exam->classPerformancePieGrid as $row)
                                             <tr>
-                                                <td>{{$row['student']}}</td>
+                                                <td>{{$row['student_full_name']}}</td>
                                                 <td>{{$row['grade']}}</td>
                                             </tr>
                                             @endforeach
