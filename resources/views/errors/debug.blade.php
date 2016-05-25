@@ -33,7 +33,7 @@
                 </tbody>
             </table>
 
-            <table class="table table-bordered">
+            <table style="display:none;" class="table table-bordered">
                 <thead>
                     <tr>
                         <th>Select Sql</th>
@@ -42,10 +42,11 @@
                 </thead>
                 <tbody>
                     <?php
-                        $selects = session('debug-info-select');
-                        if (!is_array($selects)) {
-                            $selects = [[null]];
-                        }
+                        // $selects = session('debug-info-select');
+                        // if (!is_array($selects)) {
+                        //     $selects = [[null]];
+                        // }
+                        $selects = [];
                     ?>
                     @foreach ($selects as $row)
                     <tr>
