@@ -136,6 +136,9 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('exam-dashboard/failed-students', 'dashboard\school\Controllers\ExamController@failedStudents');
     Route::get('exam-dashboard/absentees', 'dashboard\school\Controllers\ExamController@absentees');
 
+    Route::get('load-student-data', 'loaddata\School\Controllers\StudentDataController@index');
+    // Route::post('load-student-data', 'loaddata\School\Controllers\StudentDataController@load');
+
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
     Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {
