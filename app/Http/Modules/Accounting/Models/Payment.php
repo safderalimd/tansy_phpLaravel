@@ -26,7 +26,7 @@ class Payment extends Model
 
         if (!empty($rowType) && !empty($primaryKey)) {
             $payment->setAttribute('return_type', 'Summary');
-            $payment->setAttribute('filter_type', 'entity'); // or $rowType
+            $payment->setAttribute('filter_type', $rowType);
             $payment->setAttribute('subject_entity_id', $primaryKey);
             $rows = $payment->repository->getAllPayments($payment);
             $payment->setRows($rows);
@@ -36,13 +36,13 @@ class Payment extends Model
     }
 
     // show payment form
-    public static function details($primaryKey)
+    public static function details($rowType, $primaryKey)
     {
         $payment = new static;
 
-        if (!empty($primaryKey)) {
+        if (!empty($rowType) && !empty($primaryKey)) {
             $payment->setAttribute('return_type', 'Detail');
-            $payment->setAttribute('filter_type', 'entity'); // or $rowType
+            $payment->setAttribute('filter_type', $rowType);
             $payment->setAttribute('subject_entity_id', $primaryKey);
             $rows = $payment->repository->getAllPayments($payment);
 

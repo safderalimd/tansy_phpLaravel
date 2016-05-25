@@ -31,10 +31,11 @@ class PaymentController extends Controller
      */
     public function create(Request $request)
     {
+        $rowType = $request->input('rt');
         $primaryKey = $request->input('pk');
-        $payment = Payment::details($primaryKey);
+        $payment = Payment::details($rowType, $primaryKey);
 
-        return view('modules.accounting.Payment.form', compact('payment', 'primaryKey'));
+        return view('modules.accounting.Payment.form', compact('payment', 'primaryKey', 'rowType'));
     }
 
     /**
