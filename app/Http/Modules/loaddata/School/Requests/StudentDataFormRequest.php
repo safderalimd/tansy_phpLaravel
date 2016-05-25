@@ -25,10 +25,20 @@ class StudentDataFormRequest extends Request
     public function rules()
     {
         return [
-            // 'product_name'           => 'required|string|max:120',
-            // 'product_type_entity_id' => 'required|integer',
-            // 'facility_ids'           => 'required|integer',
-            // 'unit_rate'              => 'required|numeric|min:0',
+            'facility_entity_id' => 'required|integer',
+            'attachment' => 'required|excel_file',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'excel_file' => 'The attachment must be a file of type: xls, xlsx, csv, ods.',
         ];
     }
 

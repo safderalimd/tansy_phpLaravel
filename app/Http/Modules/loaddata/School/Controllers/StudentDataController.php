@@ -4,6 +4,7 @@ namespace App\Http\Modules\loaddata\School\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Modules\loaddata\School\Models\StudentData;
+use App\Http\Modules\loaddata\School\Models\ExcelValueBinder;
 use App\Http\Modules\loaddata\School\Requests\StudentDataFormRequest;
 
 class StudentDataController extends Controller
@@ -15,95 +16,38 @@ class StudentDataController extends Controller
      */
     public function index()
     {
-
-        $file = base_path('docs').'/#24 Load Data - SAMPLE DATA.ods';
-
-        if (file_exists($file)) {
-
-            $x = \Excel::load($file)->get();
-            d($x);
-
-            dd($file);
-        }
-
-        dd('--file not found--');
-        // $studentData = new StudentData;
-        // return view('loaddata.school.StudentData.list', compact('studentData'));
+        $studentData = new StudentData;
+        return view('loaddata.school.StudentData.list', compact('studentData'));
     }
 
-    // /**
-    //  * Show the form for creating a new resource.
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function create()
-    // {
-    //     $studentData = new StudentData;
-    //     return view('loaddata.school.StudentData.form', compact('studentData'));
-    // }
+    public function store(StudentDataFormRequest $request)
+    {
+        $studentData = new StudentData($request->input());
 
-    // /**
-    //  * Store a newly created resource in storage.
-    //  *
-    //  * @param ProductFormRequest $request
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function store(ProductFormRequest $request)
-    // {
-    //     $studentData = new StudentData($request->input());
+        // get excel to db column mapping
+        $mapping = $studentData->columnMapping();
 
-    //     if ($studentData->save()) {
-    //         return redirect('/cabinet/load-student-data');
-    //     }
+        // save the uploaded file
+        $file = $request->file('attachment');
+        $newName = time().uniqid().'.'.$file->clientExtension();
+        $savedFile = $file->move(storage_path('uploads/student-data'), $newName);
 
-    //     return redirect('/cabinet/load-student-data/create')->withErrors($studentData->getErrors());
-    // }
+        // parse the uploaded file
 
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  *
-    //  * @param  int $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function edit($id)
-    // {
-    //     $studentData = StudentData::findOrFail($id);
-    //     return view('loaddata.school.StudentData.form', compact('studentData'));
-    // }
+        $binder = new ExcelValueBinder;
+        $excel = \Excel::setValueBinder($binder);
 
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param ProductFormRequest $request
-    //  * @param  int $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(ProductFormRequest $request, $id)
-    // {
-    //     $studentData = StudentData::findOrFail($id);
+        $sheets = $excel->load($savedFile->getRealPath())->get();
 
-    //     if ($studentData->update($request->input())) {
-    //         return redirect('/cabinet/load-student-data');
-    //     }
+        dd($sheets->first()->toArray());
 
-    //     return redirect(url('/cabinet/load-student-data/edit', compact('id')))
-    //         ->withErrors($studentData->getErrors());
-    // }
 
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  int $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy($id)
-    // {
-    //     $studentData = StudentData::findOrFail($id);
+        $sheets->first()->each(function ($item, $key) {
+            dd($item->all());
+        });
 
-    //     if ($studentData->delete()) {
-    //         return redirect('/cabinet/load-student-data');
-    //     }
+        // delete the uploaded file
+        unlink($savedFile->getRealPath());
+    }
 
-    //     return redirect('/cabinet/load-student-data')->withErrors($studentData->getErrors());
-    // }
 }

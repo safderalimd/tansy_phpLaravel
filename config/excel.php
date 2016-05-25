@@ -9,7 +9,7 @@ return array(
         | Enable/Disable cell caching
         |--------------------------------------------------------------------------
         */
-        'enable'   => true,
+        'enable'   => false,
 
         /*
         |--------------------------------------------------------------------------
@@ -363,7 +363,7 @@ return array(
         |
         */
 
-        'heading'                 => 'slugged',
+        'heading'                 => 'original',
 
         /*
         |--------------------------------------------------------------------------
@@ -455,7 +455,7 @@ return array(
         | When set to true, it will return a sheet collection instead.
         |
         */
-        'force_sheets_collection' => false,
+        'force_sheets_collection' => true,
 
         /*
         |--------------------------------------------------------------------------
@@ -473,7 +473,7 @@ return array(
             | Enable/disable date formatting
             |--------------------------------------------------------------------------
             */
-            'enabled' => true,
+            'enabled' => false,
 
             /*
             |--------------------------------------------------------------------------

@@ -6,21 +6,17 @@ use App\Http\Repositories\Repository;
 
 class StudentDataRepository extends Repository
 {
-    // public function getModelById($id)
-    // {
-    //     return $this->select(
-    //         'SELECT
-    //             product AS product_name,
-    //             product_type,
-    //             unit_rate,
-    //             product_type_entity_id,
-    //             product_entity_id,
-    //             active
-    //          FROM view_prd_lkp_product
-    //          WHERE product_entity_id = :id
-    //          LIMIT 1;', ['id' => $id]
-    //     );
-    // }
+    public function getColumnMapping()
+    {
+        return $this->select(
+            'SELECT
+                table_name,
+                table_column_name,
+                file_column_name
+            FROM view_sys_external_load_column_mapping
+            WHERE table_name = "sch_admission";'
+        );
+    }
 
     // public function insert($model)
     // {
