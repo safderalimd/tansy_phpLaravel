@@ -3,6 +3,6 @@
 ?>
 <div id="sidebarMenu">
     <div class="list-group panel">
-        @include('include.sidebar-menuItem', array('items' => $sidebarItems))
+        @include('include.sidebar-menuItem', ['items' => $sidebarItems])
     </div>
 </div>

@@ -17,7 +17,7 @@
                 {{ csrf_field() }}
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="facility_entity_id">Facility</label>
+                    <label class="col-md-1 control-label" for="facility_entity_id">Facility</label>
                     <div class="col-md-4">
                         <select id="facility_entity_id" class="form-control" name="facility_entity_id">
                             @foreach($studentData->facilities() as $option)
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Excel File</label>
+                    <label class="col-md-1 control-label">Excel File</label>
                     <div class="col-md-10">
                         <label class="btn btn-default btn-file">
                             Choose File...
@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-md-2 col-md-offset-2">
+                    <div class="col-md-2 col-md-offset-1">
                         <button class="btn btn-primary" type="submit">Load Data</button>
                     </div>
                 </div>
