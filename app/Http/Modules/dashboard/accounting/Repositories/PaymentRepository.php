@@ -79,7 +79,8 @@ class PaymentRepository extends Repository
                 end_date,
                 amount,
                 active,
-                product_name
+                product_name,
+                frequency
             FROM view_act_rcv_schedule_detail
             ORDER BY schedule_name ASC;'
         );

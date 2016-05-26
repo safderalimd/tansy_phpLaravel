@@ -19,6 +19,7 @@
             <tr>
                 <th>Schedule Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                 <th>Product Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                <th>Frequency <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                 <th>Start Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                 <th>End Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                 <th>Amount <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
@@ -29,6 +30,7 @@
             <tr>
                 <td>{{$item['schedule_name']}}</td>
                 <td>{{$item['product_name']}}</td>
+                <td>{{$item['frequency']}}</td>
                 <td>{{$item['start_date']}}</td>
                 <td>{{$item['end_date']}}</td>
                 <td>{{amount($item['amount'])}}</td>
