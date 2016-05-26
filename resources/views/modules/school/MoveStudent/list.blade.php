@@ -14,24 +14,27 @@
 
             @include('commons.errors')
 
-            <div class="row">
-                <div class="col-md-4">
-                    <?php
-                        $classes = $move->classes();
-                        array_unshift($classes, [
-                            "class_entity_id" => "none",
-                            "class_name" => "Select a class",
-                        ]);
-                    ?>
-                    @include('commons.select', [
-                        'label'   => 'Class' ,
-                        'name'    => 'class-entity-id-filter',
-                        'options' => $classes,
-                        'keyId'   => 'class_entity_id',
-                        'keyName' => 'class_name',
-                    ])
+            <form class="form-horizontal" action="" method="POST">
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="class-entity-id-filter">Class</label>
+                            <div class="col-md-8">
+                                <select id="class-entity-id-filter" class="form-control" name="class-entity-id-filter">
+                                    <option value="none">Select a class</option>
+                                    @foreach($move->classes() as $option)
+                                        <option {{ s('class-entity-id-filter', $option['class_entity_id']) }} value="{{ $option['class_entity_id'] }}">
+                                            {{ $option['class_name'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
+            </form>
 
             <hr/>
 
@@ -135,7 +138,12 @@
     // Checkbox table header - for this page, toggle all checkboxes
     $('#toggle-subjects').change(function() {
         if($(this).is(":checked")) {
-            $('.student-entity-id').prop('checked', true);
+            var classId = $('#class-entity-id-filter').val();
+            $('.student-entity-id').each(function() {
+                if ($(this).attr('data-classid') == classId) {
+                    $(this).prop('checked', true);
+                }
+            });
         } else {
             $('.student-entity-id').prop('checked', false);
         }
