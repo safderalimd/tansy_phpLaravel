@@ -104,23 +104,27 @@
 <script type="text/javascript">
 
     $('#sms_type_id').change(function() {
-        updateUrlQueryString();
+        if (examResultsIsSelected()) {
+            updateQueryString();
+        } else {
+            updateQueryString(true);
+        }
     });
 
     $('#sms_account_entity_id').change(function() {
-        updateUrlQueryString();
+        updateQueryString();
     });
 
     $('#exam_entity_id').change(function() {
-        updateUrlQueryString();
+        updateQueryString();
     });
 
-    function updateUrlQueryString() {
-        window.location.href = "/cabinet/send-sms" + getQueryString();
+    function updateQueryString(skipExamId) {
+        window.location.href = "/cabinet/send-sms" + getQueryString(skipExamId);
     }
 
     // get teh query string depending on which selectboxes are set
-    function getQueryString() {
+    function getQueryString(skipExamId) {
         var sti = $('#sms_type_id option:selected').val();
         var aei = $('#sms_account_entity_id option:selected').val();
         var eei = $('#exam_entity_id option:selected').val();
@@ -132,7 +136,7 @@
         if (aei != "none") {
             items.push('aei='+aei);
         }
-        if (eei != "none") {
+        if (!skipExamId && eei != "none") {
             items.push('eei='+eei);
         }
         var queryString = items.join('&');
@@ -142,17 +146,17 @@
         return '';
     }
 
-    // enable exam dropdown only if sms type is 'Exam Result'
-    $(document).ready(function() {
+    function examResultsIsSelected() {
         var text = $('#sms_type_id option:selected').text();
         text = text.trim();
         text = text.toLowerCase();
-        if (text.indexOf("exam result") > -1) {
-            $('#exam_entity_id').prop('disabled', false);
+        return (text.indexOf("exam result") > -1);
+    }
+
+    // enable exam dropdown only if sms type is 'Exam Result'
+    $(document).ready(function() {
+        if (examResultsIsSelected()) {
             $('#exam-container').show();
-        } else {
-            $('#exam_entity_id').prop('disabled', true);
-            $('#exam-container').hide();
         }
     });
 
