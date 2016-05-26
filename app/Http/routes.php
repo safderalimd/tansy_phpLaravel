@@ -139,6 +139,8 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('load-student-data', 'loaddata\School\Controllers\StudentDataController@index');
     Route::post('load-student-data', 'loaddata\School\Controllers\StudentDataController@store');
 
+    Route::get('send-sms', 'thirdparty\sms\Controllers\SendSmsController@index');
+
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
     Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {

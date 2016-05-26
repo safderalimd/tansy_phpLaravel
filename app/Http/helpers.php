@@ -142,6 +142,21 @@ function activeLink($value, $getKey, $isDefault = false)
     return '';
 }
 
+function activeSelect($value, $getKey, $isDefault = false)
+{
+    $input = app('request')->input($getKey);
+
+    if (empty($input) && $isDefault) {
+        return 'selected';
+    }
+
+    if (!is_null($input) && ($input == $value)) {
+        return 'selected';
+    }
+
+    return '';
+}
+
 function activeExam($value, $getKey)
 {
     $input = app('request')->input($getKey);
