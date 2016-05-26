@@ -65,8 +65,6 @@
 
         </form>
 
-        {{d($rows = $sms->rows())}}
-
         <table id="sms-table" class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
@@ -77,8 +75,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- sms->rows() -->
-                @foreach($rows as $row)
+                @foreach($sms->rows() as $row)
                 <tr>
                     <td class="text-center">
                         <input type="checkbox" data-id="{{$row['account_entity_id']}}" class="account-entity-id" name="account_entity_id" value="{{$row['account_entity_id']}}">
@@ -90,6 +87,33 @@
                 @endforeach
             </tbody>
         </table>
+
+        <br/>
+
+        <table style="width:100%;">
+            <tr>
+                <td style="width:200px;">
+                    <div class="checkbox text-center">
+                        <label style="margin-bottom:10px;"><input type="checkbox" name="common-sms" value="">Common SMS Text:</label>
+                    </div>
+                </td>
+                <td>
+                    <textarea maxlength="160" id="sms-message" class="form-control" rows="4"></textarea>
+                    <span class="pull-right text-muted"><span id="total-chars-used">160</span> used out of 160 characters</span>
+                </td>
+            </tr>
+        </table>
+
+        <br/>
+
+        <nav class="nav-footer navbar navbar-default">
+            <div class="container-fluid">
+                <form class="navbar-form navbar-right">
+                    <a class="btn btn-default" href="/cabinet/send-sms">Cancel</a>
+                    <button disabled="disabled" id="send-sms-button" type="button" class="btn btn-primary">Send Sms</button>
+                </form>
+            </div>
+        </nav>
 
         @include('commons.modal')
 
@@ -103,6 +127,17 @@
 @section('scripts')
 <script type="text/javascript">
 
+    // init send sms button
+    updateSendButton();
+
+    // max nr of charachters counter for text area
+    $('#sms-message').keyup(function() {
+        var textLength = $('#sms-message').val().length;
+        var textRemaining = 160 - textLength;
+        $('#total-chars-used').text(textRemaining);
+    });
+
+    // when the sms type dropdown changes redirect
     $('#sms_type_id').change(function() {
         if (examResultsIsSelected()) {
             updateQueryString();
@@ -111,10 +146,12 @@
         }
     });
 
+    // when the sms account type dropdown changes redirect
     $('#sms_account_entity_id').change(function() {
         updateQueryString();
     });
 
+    // when the exam dropdown changes redirect
     $('#exam_entity_id').change(function() {
         updateQueryString();
     });
@@ -162,6 +199,14 @@
         }
     });
 
+    function updateSendButton() {
+        if (canSendSms()) {
+            $('#send-sms-button').prop('disabled', false);
+        } else {
+            $('#send-sms-button').prop('disabled', true);
+        }
+    }
+
     // create datatale with checkbox column unsortable
     $('#sms-table').DataTable( {
           "aoColumnDefs": [
@@ -172,6 +217,17 @@
     function updateCurrentSelected() {
         var nr = $('.account-entity-id:checked').length;
         $('#current-selected').text(nr);
+        updateSendButton();
+    }
+
+    function canSendSms() {
+        var balance = $('#sms-balance-count').attr('data-balance');
+        balance = parseInt(balance);
+        var currentSelected = $('.account-entity-id:checked').length;
+        if (balance == 0 || currentSelected > balance) {
+            return false;
+        }
+        return true;
     }
 
     // update current selected
@@ -194,6 +250,7 @@
 
     // reset all checkboxes after you change the page
     $('#sms-table').on('page.dt', function () {
+        updateCurrentSelected();
         $('.account-entity-id').prop('checked', false);
         $('#toggle-subjects').prop('checked', false);
     });
