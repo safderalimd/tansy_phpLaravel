@@ -6,6 +6,13 @@ use App\Http\Repositories\Repository;
 
 class SendSmsRepository extends Repository
 {
+    public function smsBalanceCount()
+    {
+        return $this->select(
+            'SELECT * FROM view_sms_balance_count LIMIT 1;'
+        );
+    }
+
     public function getSmsTypes()
     {
         return $this->select(
@@ -52,6 +59,7 @@ class SendSmsRepository extends Repository
             '@oparam_err_msg'
         ];
 
-        return $this->procedure($model, $procedure, $iparams, $oparams);
+        $data = $this->procedure($model, $procedure, $iparams, $oparams);
+        return first_resultset($data);
     }
 }

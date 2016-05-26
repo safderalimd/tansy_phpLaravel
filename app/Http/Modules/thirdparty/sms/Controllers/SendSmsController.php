@@ -2,6 +2,7 @@
 
 namespace App\Http\Modules\thirdparty\sms\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\thirdparty\sms\Models\SendSms;
 use App\Http\Modules\thirdparty\sms\Requests\SendSmsFormRequest;
@@ -11,11 +12,17 @@ class SendSmsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $sms = new SendSms;
+        $sms->setAttribute('sms_type_id', $request->input('sti'));
+        $sms->setAttribute('sms_account_entity_id', $request->input('aei'));
+        $sms->setAttribute('sms_account_row_type', $request->input('art'));
+        $sms->setAttribute('exam_entity_id', $request->input('eei'));
+        $sms->loadData();
         return view('thirdparty.sms.SendSms.list', compact('sms'));
     }
 
