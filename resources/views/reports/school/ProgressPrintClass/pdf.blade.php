@@ -67,6 +67,7 @@
                         @endforeach
                         <th class="text-left">Student Total</th>
                         <th class="text-left">Grade</th>
+                        <th class="text-left">Result</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -85,6 +86,7 @@
                         @endforeach
                         <td class="text-left">{{$row['student_total_marks']}}</td>
                         <td class="text-left">{{$row['grade']}}</td>
+                        <td class="text-left">{{$row['pass_fail']}}</td>
                     </tr>
                     @endforeach
                 </tbody>
