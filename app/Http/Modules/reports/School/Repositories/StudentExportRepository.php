@@ -53,7 +53,8 @@ class StudentExportRepository extends Repository
                 parent_relationship_type_id,
                 parent_designation_id,
                 parent_gender,
-                parent_designation_name
+                parent_designation_name,
+                class_reporting_order
             FROM view_sch_student_detail';
 
         if (!is_null($column) && !is_null($id)) {
@@ -62,7 +63,7 @@ class StudentExportRepository extends Repository
         } else {
             $params = [];
         }
-        $sql .= ' ORDER BY class_name, student_full_name ASC;';
+        $sql .= ' ORDER BY class_reporting_order, student_full_name ASC;';
 
         return $this->select($sql, $params);
     }
