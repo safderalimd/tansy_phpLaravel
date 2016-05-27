@@ -51,7 +51,7 @@ class Student extends Model
     public function loadExamData()
     {
         // load all exams
-        $this->exams = $this->repository->getExam();
+        $this->exams = $this->repository->getExamWithResult();
 
         // get selected exam, or first one as default
         $this->examId = $this->exams[0]['exam_entity_id'];
