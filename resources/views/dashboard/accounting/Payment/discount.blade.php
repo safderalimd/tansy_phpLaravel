@@ -18,6 +18,7 @@
         <thead>
             <tr>
                 <th>Account Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                <th>Schedule Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                 <th>Credit Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                 <th>Adjustment Amount <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
             </tr>
@@ -26,6 +27,7 @@
             @foreach($payment->detailCurrentFiscal() as $item)
             <tr>
                 <td>{{$item['account_name']}}</td>
+                <td>{{$item['schedule_name']}}</td>
                 <td>{{$item['credit_date']}}</td>
                 <td>{{amount($item['adjustment_amount'])}}</td>
             </tr>

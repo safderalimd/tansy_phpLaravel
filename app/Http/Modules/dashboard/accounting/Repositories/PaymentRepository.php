@@ -12,7 +12,8 @@ class PaymentRepository extends Repository
             'SELECT
                 account_name,
                 credit_date,
-                adjustment_amount
+                adjustment_amount,
+                schedule_name
             FROM view_act_adjustment_detail_current_fiscal
             ORDER BY account_name;'
         );
@@ -33,7 +34,8 @@ class PaymentRepository extends Repository
                 amount,
                 active,
                 product_name,
-                frequency
+                frequency,
+                scheduled_for
             FROM view_act_rcv_schedule_detail
             ORDER BY schedule_name ASC;'
         );
