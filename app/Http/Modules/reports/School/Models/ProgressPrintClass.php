@@ -19,6 +19,7 @@ class ProgressPrintClass extends Model
         'exam_end_date'   => '-',
         'class_name'      => '-',
         'exam'            => '-',
+        'max_marks'       => '-',
     ];
 
     public $studentRows = [];

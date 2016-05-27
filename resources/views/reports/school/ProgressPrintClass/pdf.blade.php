@@ -49,7 +49,7 @@
                     </tr>
                     <tr>
                         <td class="text-left"><h4><strong>Class Name:</strong> {{$export->examInfo['class_name']}}</h4></td>
-                        <td class="text-right"></td>
+                        <td class="text-right"><h4><strong>Max Marks:</strong> {{$export->examInfo['max_marks']}}</h4></td>
                     </tr>
                 </table>
             </div>
