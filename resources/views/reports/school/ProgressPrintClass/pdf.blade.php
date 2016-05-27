@@ -65,7 +65,7 @@
                         @foreach($export->subjectList as $subject)
                             <th class="text-left">{{$subject}}</th>
                         @endforeach
-                        <th class="text-left">Student Total</th>
+                        <th class="text-left">Total</th>
                         <th class="text-left">Grade</th>
                         <th class="text-left">Result</th>
                     </tr>
