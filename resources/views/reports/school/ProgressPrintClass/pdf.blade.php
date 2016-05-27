@@ -65,7 +65,6 @@
                         @foreach($export->subjectList as $subject)
                             <th class="text-left">{{$subject}}</th>
                         @endforeach
-                        <th class="text-left">Max Total</th>
                         <th class="text-left">Student Total</th>
                         <th class="text-left">Grade</th>
                     </tr>
@@ -84,7 +83,6 @@
                                 @endif
                             </td>
                         @endforeach
-                        <td class="text-left">{{$row['max_total_marks']}}</td>
                         <td class="text-left">{{$row['student_total_marks']}}</td>
                         <td class="text-left">{{$row['grade']}}</td>
                     </tr>
