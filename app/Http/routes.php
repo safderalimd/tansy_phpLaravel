@@ -140,6 +140,7 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::post('load-student-data', 'loaddata\School\Controllers\StudentDataController@store');
 
     Route::get('send-sms', 'thirdparty\sms\Controllers\SendSmsController@index');
+    Route::get('send-sms/send', 'thirdparty\sms\Controllers\SendSmsController@send');
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
