@@ -24,7 +24,11 @@
                                     <div class="panel-body bk-success text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                {{$student->overall_grade}}
+                                                @if (!is_numeric($student->overall_grade) && empty($student->overall_grade))
+                                                    &nbsp;
+                                                @else
+                                                    {{$student->overall_grade}}
+                                                @endif
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                Overall Grade
@@ -40,7 +44,11 @@
                                     <div class="panel-body bk-warning text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> {{amount($student->feeDue)}}
+                                                @if (!is_numeric($student->feeDue) && empty($student->feeDue))
+                                                    <i class="fa fa-inr"></i> &nbsp;
+                                                @else
+                                                    <i class="fa fa-inr"></i> {{amount($student->feeDue)}}
+                                                @endif
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Fee Due
@@ -55,8 +63,12 @@
                                 <div class="panel panel-default">
                                     <div class="panel-body bk-info text-light">
                                         <div class="stat-panel text-center">
-                                            <div class="stat-panel-number h1">
-                                                {{phone_number_spaces($student->info['mobile_phone'])}}
+                                            <div class="stat-panel-number h1" style="height:39px;font-size:32px;">
+                                                @if (empty($student->info['mobile_phone']))
+                                                    &nbsp;
+                                                @else
+                                                    {{phone_number_spaces($student->info['mobile_phone'])}}
+                                                @endif
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Mobile No
@@ -79,7 +91,7 @@
                                     <div class="col-xs-6 col-sm-6">
                                         <h2>Student</h2>
                                         <h5><br/>Name: {{$student->info['student_full_name']}}
-                                        <br/><br/>Date of Birth: {{$student->info['date_of_birth']}}
+                                        <br/><br/>Date of Birth: {{style_date($student->info['date_of_birth'])}}
                                         <br/><br/>Identification: {{$student->info['identification1']}} {{$student->info['identification2']}}
                                         </h5>
                                     </div>
@@ -104,7 +116,7 @@
                                         <h5>Class:  {{$student->info['class_name']}}
                                         <br/><br/>Roll Number: {{$student->info['student_roll_number']}}
                                         <br/><br/>Admission Number: {{$student->info['admission_number']}}
-                                        <br/><br/>Admission Date:  {{$student->info['admission_date']}}
+                                        <br/><br/>Admission Date:  {{style_date($student->info['admission_date'])}}
                                         </h5>
                                     </div>
                                 </div>

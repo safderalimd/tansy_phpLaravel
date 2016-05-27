@@ -91,6 +91,16 @@ function phone_number_spaces($number)
     return strrev($number);
 }
 
+/**
+ * Format dates like this 'May 26th, 2015'
+ *
+ * @param  string $date Date in the format '2015-03-21'
+ * @return string
+ */
+function style_date($date) {
+    return date("F jS, Y", strtotime($date));
+}
+
 function current_date()
 {
     return date('jS M, Y');
