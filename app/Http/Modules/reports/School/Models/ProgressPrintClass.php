@@ -8,7 +8,7 @@ class ProgressPrintClass extends Model
 {
     protected $screenId = 3016;
 
-    public $reportName = 'Progress Report - Class';
+    public $reportName = 'Progress Report';
 
     public $schoolName = '-';
 

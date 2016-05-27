@@ -25,7 +25,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12"><h4 class="report-name text-center">{{$export->reportName}}</h4></div>
+            <div class="col-md-12">
+                <h4 class="report-name text-center">{{$export->examInfo['exam']}} - {{$export->reportName}}</h4>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -47,7 +49,7 @@
                     </tr>
                     <tr>
                         <td class="text-left"><h4><strong>Class Name:</strong> {{$export->examInfo['class_name']}}</h4></td>
-                        <td class="text-right"><h4><strong>Exam:</strong> {{$export->examInfo['exam']}}</h4></td>
+                        <td class="text-right"></td>
                     </tr>
                 </table>
             </div>
