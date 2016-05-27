@@ -174,6 +174,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h5>Exam Grade: {{$student->exam_grade}}</h5>
+                                        <h5>Result: {{$student->exam_result}}</h5>
                                     </div>
                                 </div>
                             </div>
