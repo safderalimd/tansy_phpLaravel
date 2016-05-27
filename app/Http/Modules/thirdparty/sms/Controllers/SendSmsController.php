@@ -26,6 +26,11 @@ class SendSmsController extends Controller
         return view('thirdparty.sms.SendSms.list', compact('sms'));
     }
 
+    public function store()
+    {
+
+    }
+
     public function send()
     {
         // textlocal rules:
@@ -49,7 +54,7 @@ class SendSmsController extends Controller
 
         // 9849917468, 9849917468, 9293951595, 9948038595, 7702416595, 949173059,
 
-        $numbers = [919491730595, 123455, 919490111595];
+        $numbers = [9491730595];
         $message = 'This is a test sms message';
         $sender = 'TXTLCL';
         $schedule = null;

@@ -108,7 +108,10 @@
 
         <nav class="nav-footer navbar navbar-default">
             <div class="container-fluid">
-                <form class="navbar-form navbar-right">
+                <form class="navbar-form navbar-right" id="send-sms-form" action="{{url("/cabinet/send-sms/send")}}" method="POST">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="student_ids" id="student_ids" value="">
+
                     <a class="btn btn-default" href="/cabinet/send-sms">Cancel</a>
                     <button disabled="disabled" id="send-sms-button" type="button" class="btn btn-primary">Send Sms</button>
                 </form>

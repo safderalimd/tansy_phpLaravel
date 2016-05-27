@@ -141,6 +141,7 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
 
     Route::get('send-sms', 'thirdparty\sms\Controllers\SendSmsController@index');
     Route::get('send-sms/send', 'thirdparty\sms\Controllers\SendSmsController@send');
+    Route::post('send-sms/send', 'thirdparty\sms\Controllers\SendSmsController@store');
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
