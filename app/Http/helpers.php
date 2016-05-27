@@ -195,3 +195,17 @@ function second_resultset($data)
 
     return [];
 }
+
+/**
+ * Get the third resultset from the stored procedure results.
+ * @param  array $data Stored procedure return.
+ * @return array
+ */
+function third_resultset($data)
+{
+    if (isset($data[2])) {
+        return $data[2];
+    }
+
+    return [];
+}

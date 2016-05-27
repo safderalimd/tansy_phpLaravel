@@ -51,7 +51,7 @@
                                     <div class="panel-body bk-warning text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> {{amount($payment->due_amount)}}
+                                                <i class="fa fa-inr"></i> {{amount($payment->dueAmount)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Due
@@ -156,8 +156,8 @@
                                     <div class="col-md-4">
                                         <ul class="chart-dot-list">
                                             <?php $i=1; ?>
-                                            @foreach($payment->dueDoughnut as $row)
-                                                <li class="a{{$i++}}">{{$row['product_name']}}</li>
+                                            @foreach($payment->dueDoughnutChart as $row)
+                                                <li class="a{{$i++}}">{{$row['label']}}</li>
                                             @endforeach
                                         </ul>
                                     </div>
@@ -182,16 +182,14 @@
                                         <thead>
                                             <tr>
                                                 <th>Student</th>
-                                                <th>Class</th>
                                                 <th>Due amount</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($payment->dueDetails as $row)
+                                            @foreach($payment->dueDoughnutDetails as $row)
                                             <tr>
                                                 <td>{{$row['account_name']}}</td>
-                                                <td>{{$row['class_name']}}</td>
-                                                <td><i class="fa fa-inr"></i> {{amount($row['due_amount'])}}</td>
+                                                <td><i class="fa fa-inr"></i> {{amount($row['2'])}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>

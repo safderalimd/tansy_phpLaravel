@@ -8,9 +8,7 @@ class Payment extends Model
 {
     protected $screenId = 2011;
 
-    public $dueDoughnut = [];
-
-    public $dueDetails = [];
+    public $dueDoughnutDetails = [];
 
     public $dueDoughnutChart;
 
@@ -18,21 +16,46 @@ class Payment extends Model
 
     public $collectionGrid;
 
+    public $dueAmount = 0;
+
     protected $repositoryNamespace = 'App\Http\Modules\dashboard\accounting\Repositories\PaymentRepository';
 
     public function loadData()
     {
+        $model = new static;
+        $model->setAttribute('filter_type', 'All Students');
+        $model->setAttribute('subject_entity_id', 0);
+        $model->setAttribute('return_type', 'Dashboard');
+        $dueList = $model->repository->dueList($model);
+
+        $dueAmount = first_resultset($dueList);
+        if (isset($dueAmount[0]['due_amount'])) {
+            $this->dueAmount = $dueAmount[0]['due_amount'];
+        }
+
         // get data for the first chart and grid
-        $fees = $this->repository->feePayment($this);
-        $this->dueDoughnut = first_resultset($fees);
-        $this->dueDetails = second_resultset($fees);
+        $dueDoughnut = second_resultset($dueList);
+        $this->dueDoughnutDetails = third_resultset($dueList);
 
         $this->dueDoughnutChart = array_map(function($item) {
             return [
                 'value' => $item['due_amount'],
                 'label' => $item['product_name'],
             ];
-        }, $this->dueDoughnut);
+        }, $dueDoughnut);
+
+        // call this sproc to set output parameters
+        $this->repository->feePayment($this);
+
+        // $this->dueDoughnut = first_resultset($fees);
+        // $this->dueDoughnutDetails = second_resultset($fees);
+
+        // $this->dueDoughnutChart = array_map(function($item) {
+        //     return [
+        //         'value' => $item['due_amount'],
+        //         'label' => $item['product_name'],
+        //     ];
+        // }, $this->dueDoughnut);
 
         // get data for the second chart and grid
         $collectionData = $this->repository->collection($this);
