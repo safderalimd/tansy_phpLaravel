@@ -39,7 +39,7 @@ class Student extends Model
 
     public function loadAccountSummary()
     {
-        $this->setAttribute('filter_type', 'entity');
+        $this->setAttribute('filter_type', 'Student');
         $this->setAttribute('subject_entity_id', $this->student_entity_id);
         $this->setAttribute('return_type', 'Summary');
         $data = $this->repository->studentList($this);

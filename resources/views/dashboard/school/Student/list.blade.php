@@ -44,11 +44,7 @@
                                     <div class="panel-body bk-warning text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                @if (!is_numeric($student->feeDue) && empty($student->feeDue))
-                                                    <i class="fa fa-inr"></i> &nbsp;
-                                                @else
-                                                    <i class="fa fa-inr"></i> {{amount($student->feeDue)}}
-                                                @endif
+                                                <i class="fa fa-inr"></i> {{amount($student->feeDue)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Fee Due
