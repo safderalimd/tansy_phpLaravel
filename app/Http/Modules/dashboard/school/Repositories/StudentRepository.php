@@ -69,6 +69,7 @@ class StudentRepository extends Repository
 
         $oparams = [
             '@oparam_exam_grade',
+            '@oparam_exam_result',
             '@oparam_err_flag',
             '@oparam_err_step',
             '@oparam_err_msg',
