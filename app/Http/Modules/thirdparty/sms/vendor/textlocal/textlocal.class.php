@@ -142,61 +142,6 @@ class Textlocal
 		return $this->lastRequest;
 	}
 
-	public function sendSmsBulk($messages, $test = true)
-	{
-		if ($this->apiKey && !empty($this->apiKey)) {
-			$password = $this->apiKey;
-		} else {
-			$password = $this->hash;
-		}
-		$username = $this->username;
-		$test = intval($test);
-
-		$view = view('thirdparty.sms.SendSms.sms-bulk-api-call',
-			compact('username', 'password', 'test', 'messages'));
-		$xmlData = $view->render();
-
-		$post = 'data='. urlencode($xmlData);
-		$url = "http://api.textlocal.in/xmlapi.php";
-
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$rawResponse = curl_exec($ch);
-		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		$error = curl_error($ch);
-		curl_close($ch);
-
-		d($httpCode);
-		d($error);
-		dd($rawResponse);
-
-		if ($rawResponse === false) {
-			throw new Exception('Failed to connect to the Textlocal service: ' . $error);
-		} elseif ($httpCode != 200) {
-			throw new Exception('Bad response from the Textlocal service: HTTP code ' . $httpCode);
-		}
-
-		return $rawResponse;
-
-		// $result = json_decode($rawResponse);
-		// if (isset($result->errors)) {
-		// 	if (count($result->errors) > 0) {
-		// 		foreach ($result->errors as $error) {
-		// 			switch ($error->code) {
-		// 				default:
-		// 					throw new Exception($error->message);
-		// 			}
-		// 		}
-		// 	}
-		// }
-
-		// return $result;
-
-	}
-
 	/**
 	 * Send an SMS to one or more comma separated numbers
 	 * @param       $numbers

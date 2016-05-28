@@ -19,55 +19,103 @@ class SendSmsController extends Controller
     public function index(Request $request)
     {
         $sms = new SendSms;
-        $sms->setAttribute('sms_type_id', $request->input('sti'));
-        $sms->setAttribute('sms_account_entity_id', $request->input('aei'));
-        $sms->setAttribute('sms_account_row_type', $request->input('art'));
-        $sms->setAttribute('exam_entity_id', $request->input('eei'));
+        $sms->setRequestAttributes($request);
         $sms->loadData();
         return view('thirdparty.sms.SendSms.list', compact('sms'));
     }
 
-    public function store()
+    /**
+     * Send sms messages
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
+        $sms = new SendSms;
+        $sms->setRequestAttributes($request);
+        $sms->loadData();
 
+        // validate student ids
+        $this->validate($request, ['student_ids' => 'required|string']);
+
+        // if sms type is different than fee reminder or exam result, use common message
+        $useCommonMessage = false;
+        if (!$sms->smsIsOfType('Fee Reminder') && !$sms->smsIsOfType('Exam Result')) {
+            $this->validate($request, ['common_message' => 'required|string|max:160']);
+            $useCommonMessage = true;
+        }
+
+        // get rows from db with selected account ids
+        $dbRows = $sms->rows();
+        $studentIds = explode(',', $request->input('student_ids'));
+        $validRows = array_filter($dbRows, function($row) use ($studentIds) {
+            return in_array($row['account_entity_id'], $studentIds);
+        });
+
+        // apply the message to the rows
+        $validRows = array_map(function($row) use ($useCommonMessage, $request) {
+            if ($useCommonMessage) {
+                $row['sms_text'] = $request->input('common_message');
+            } elseif (isset($row['due_amount'])) {
+                $row['sms_text'] = ' Your current due is ' . amount($row['due_amount']);
+            }
+            return $row;
+        }, $validRows);
+
+        try {
+            $sender = SmsSender::sandbox($validRows);
+        } catch (\Exception $e) {
+            return \Redirect::back()->withErrors([$e->getMessage()]);
+        }
+
+        // todo: need to calculate credits used, success count, failure count
+        // dd($sender->getResult());
+
+        $accountIds = array_map(function($item) {
+            return $item['account_entity_id'] . '-' . $item['mobile_phone'] . '-' . 'S';
+        }, $validRows);
+
+        $data = [
+            'totalSmsInBatch' => count($validRows),
+            'accountIds' => implode(',', $accountIds),
+            'creditsUsed' => '',
+            'successCount' => '',
+            'failureCount' => '',
+            'useCommonMessage' => $useCommonMessage,
+            'commonMessage' => $request->input('common_message'),
+            'xmlSent' => $sender->getXmlData(),
+            'jsonReceived' => $sender->getRawResponse(),
+        ];
+
+        $sms->storeBatchStatus($data);
+
+        return \Redirect::back();
     }
 
     public function send()
     {
-        // todo: validate message length <= 160 chars
+        // try {
+        //     // Abhilash G (X-A) (8801933344)
+        //     // Anurag G (X-A) (9603384881)
+        //     $message = 'This is a test sms message';
+        //     $messages = [
+        //         ['number' => 8801933344, 'text' => 'Test sms message #1'],
+        //         ['number' => 9603384881, 'text' => 'Test sms message #2'],
+        //     ];
 
-        try {
+        //     $test = true;
+        //     $sender = SmsSender::send($messages, $test);
 
-            // Abhilash G (X-A) (8801933344)
-            // Anurag G (X-A) (9603384881)
+        //     d($sender->getXmlData());
+        //     d($sender->getRawResponse());
+        //     dd($sender->getResult());
 
-            $message = 'This is a test sms message';
-            $messages = [
-                ['number' => 234, 'text' => 'Test sms message #1'],
-                ['number' => 554, 'text' => 'Test sms message #2'],
-            ];
+        // } catch (\Exception $e) {
+        //     dd($e);
+        // }
 
-            $test = true;
-            $sender = SmsSender::send($messages, $test);
-
-            d($sender->getXmlData());
-            d($sender->getRawResponse());
-            dd($sender->getResult());
-
-            // read batch status
-            // $batchStatus = $textlocal->getBatchStatus($result->batch_id);
-            // dd($batchStatus);
-
-        } catch (\Exception $e) {
-
-            // todo: redirect back to view, and display error message
-            // todo: log error, mail admin
-            dd($e);
-        }
-
-        // todo: redirect back with success flash message
-
-        dd('---');
+        // dd('---');
     }
 
 }

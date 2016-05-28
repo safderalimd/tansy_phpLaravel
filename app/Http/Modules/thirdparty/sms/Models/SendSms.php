@@ -18,6 +18,14 @@ class SendSms extends Model
 
     public $selectedSmsType;
 
+    public function setRequestAttributes($request)
+    {
+        $this->setAttribute('sms_type_id', $request->input('sti'));
+        $this->setAttribute('sms_account_entity_id', $request->input('aei'));
+        $this->setAttribute('sms_account_row_type', $request->input('art'));
+        $this->setAttribute('exam_entity_id', $request->input('eei'));
+    }
+
     public function loadData()
     {
         $this->smsBalanceCount = $this->smsBalanceCount();
@@ -37,7 +45,11 @@ class SendSms extends Model
         if ($this->smsIsOfType('Fee Reminder')) {
             return $this->feeReminders();
         } elseif ($this->smsIsOfType('Exam Result')) {
-            return $this->examResults();
+            if (!empty($this->exam_entity_id)) {
+                return $this->examResults();
+            } else {
+                return [];
+            }
         } else {
             return $this->otherSmsResults();
         }
@@ -134,60 +146,57 @@ class SendSms extends Model
         return 0;
     }
 
-    public function storeBatchStatus()
+    public function storeBatchStatus($data)
     {
         $model = new static;
 
-        $model->settAttribute('send_datetime', date('Y-m-d'));
-        $model->settAttribute('provider_name', 'Text Local');
+        $model->setAttribute('send_datetime', date('Y-m-d'));
+        $model->setAttribute('provider_name', 'Text Local');
 
         // a unique batch id does not exist
-        $model->settAttribute('provider_batch_id', null);
+        $model->setAttribute('provider_batch_id', null);
 
         // a batch status does not exist, only statuses for single messages
-        $model->settAttribute('provider_batch_status', null);
+        $model->setAttribute('provider_batch_status', null);
 
-        $model->settAttribute('provider_batch_credits', $batch->credits_used);
+        $model->setAttribute('provider_batch_credits', $data['creditsUsed']);
 
         // a batch error does not exist for the batch, only for single messages
-        $model->settAttribute('provider_batch_error', null);
+        $model->setAttribute('provider_batch_error', null);
 
         // drop down primary key
-        $model->settAttribute('sms_type_id', $batch->sms_type_id);
+        $model->setAttribute('sms_type_id', $this->sms_type_id);
 
         // row_type from account type drop down
-        $model->settAttribute('account_filter_row_type', $batch->account_filter_row_type);
+        $model->setAttribute('account_filter_row_type', $this->sms_account_row_type);
 
         // entity_id from account type drop down
-        $model->settAttribute('account_filter_entity_id', $batch->account_filter_entity_id);
+        $model->setAttribute('account_filter_entity_id', $this->sms_account_entity_id);
 
         // third drop down id
-        $model->settAttribute('filter2_id', $batch->filter2_id);
+        $model->setAttribute('filter2_id', $this->exam_entity_id);
 
         // i calculate this from php
-        $model->settAttribute('total_sms_in_batch', $batch->total_sms_in_batch);
+        $model->setAttribute('total_sms_in_batch', $data['totalSmsInBatch']);
 
         // i calculate this from php
-        $model->settAttribute('success_count', $batch->success_count);
+        $model->setAttribute('success_count', $data['successCount']);
 
         // i calculate this from php
-        $model->settAttribute('failure_count', $batch->failure_count);
+        $model->setAttribute('failure_count', $data['failureCount']);
 
         // 0 false, 1 true
-        $model->settAttribute('common_message_flag', $batch->common_message_flag);
+        $model->setAttribute('common_message_flag', intval($data['useCommonMessage']));
 
-        $model->settAttribute('common_message', $batch->common_message);
+        $model->setAttribute('common_message', $data['commonMessage']);
 
-        // '122-8801933344-D,123-8801933355-F';
-        $model->settAttribute('entityID_smsMobile_PrvStatus_details', $batch->entityID_smsMobile_PrvStatus_details);
+        $model->setAttribute('entityID_smsMobile_PrvStatus_details', $data['accountIds']);
 
-        $model->settAttribute('log_json_sms_sent', $batch->log_json_sms_sent);
-         //  '';
-        $model->settAttribute('log_json_sms_received', $batch->log_json_sms_received);
-         // '' ;
-        $model->settAttribute('log_json_batch_sent', $batch->log_json_batch_sent);
-         //  '';
-        $model->settAttribute('log_json_batch_received', $batch->log_json_batch_received);
-         //  '';
+        $model->setAttribute('log_json_sms_sent', $data['xmlSent']);
+        $model->setAttribute('log_json_sms_received', $data['jsonReceived']);
+        $model->setAttribute('log_json_batch_sent', null);
+        $model->setAttribute('log_json_batch_received', null);
+
+        return $model->repository->storeBatchStatus($model);
     }
 }

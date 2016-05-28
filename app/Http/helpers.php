@@ -65,6 +65,11 @@ function form_action()
     return '/' . app('request')->path();
 }
 
+function form_action_full()
+{
+    return app('request')->fullUrl();
+}
+
 function is_locked($value)
 {
     $value = strtolower($value);

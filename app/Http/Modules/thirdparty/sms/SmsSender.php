@@ -28,6 +28,11 @@ class SmsSender
         $this->password = 'Abil@usuf1';
     }
 
+    public static function sandbox($messages)
+    {
+        return static::send($messages, true);
+    }
+
     public static function send($messages, $test = false)
     {
         $sender = new static($messages, $test);

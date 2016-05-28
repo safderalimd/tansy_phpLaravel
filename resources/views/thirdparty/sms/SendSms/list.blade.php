@@ -80,9 +80,19 @@
                     <td class="text-center">
                         <input type="checkbox" data-id="{{$row['account_entity_id']}}" class="account-entity-id" name="account_entity_id" value="{{$row['account_entity_id']}}">
                     </td>
-                    <td>{{$row['account_name']}}</td>
-                    <td>{{phone_number($row['mobile_phone'])}}</td>
-                    <td>{{amount($row['due_amount'])}}</td>
+                    <td>
+                        {{$row['account_name']}}
+                    </td>
+                    <td>
+                        {{phone_number($row['mobile_phone'])}}
+                    </td>
+                    <td>
+                        @if (isset($row['due_amount']))
+                            Your current due is {{amount($row['due_amount'])}}.
+                        @elseif (isset($row['sms_text']))
+                            {{$row['sms_text']}}
+                        @endif
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -94,11 +104,11 @@
             <tr>
                 <td style="width:200px;">
                     <div class="checkbox text-center">
-                        <label style="margin-bottom:10px;"><input type="checkbox" name="common-sms" value="">Common SMS Text:</label>
+                        <label style="margin-bottom:10px;"><input disabled="disabled" type="checkbox" id="common-sms-checkbox" name="common-sms" value="">Common SMS Text:</label>
                     </div>
                 </td>
                 <td>
-                    <textarea maxlength="160" id="sms-message" class="form-control" rows="4"></textarea>
+                    <textarea maxlength="160" disabled="disabled" id="sms-message" class="form-control" rows="4"></textarea>
                     <span class="pull-right text-muted"><span id="total-chars-used">160</span> used out of 160 characters</span>
                 </td>
             </tr>
@@ -108,12 +118,13 @@
 
         <nav class="nav-footer navbar navbar-default">
             <div class="container-fluid">
-                <form class="navbar-form navbar-right" id="send-sms-form" action="{{url("/cabinet/send-sms/send")}}" method="POST">
+                <form class="navbar-form navbar-right" id="send-sms-form" action="{{form_action_full()}}" method="POST">
                     {{ csrf_field() }}
                     <input type="hidden" name="student_ids" id="student_ids" value="">
+                    <input type="hidden" name="common_message" id="common_message" value="">
 
                     <a class="btn btn-default" href="/cabinet/send-sms">Cancel</a>
-                    <button disabled="disabled" id="send-sms-button" type="button" class="btn btn-primary">Send Sms</button>
+                    <button disabled="disabled" id="send-sms-button" type="submit" class="btn btn-primary">Send Sms</button>
                 </form>
             </div>
         </nav>
@@ -130,8 +141,8 @@
 @section('scripts')
 <script type="text/javascript">
 
-    // init send sms button
     updateSendButton();
+    updateCommonSms();
 
     // create datatale with checkbox column unsortable
     $('#sms-table').DataTable( {
@@ -211,10 +222,20 @@
     });
 
     function updateSendButton() {
-        if (canSendSms()) {
+        // if (canSendSms()) {
             $('#send-sms-button').prop('disabled', false);
+        // } else {
+        //     $('#send-sms-button').prop('disabled', true);
+        // }
+    }
+
+    function updateCommonSms() {
+        if (canUseCommmonSms()) {
+            $('#sms-message').prop('disabled', false);
+            $('#common-sms-checkbox').prop('checked', true);
         } else {
-            $('#send-sms-button').prop('disabled', true);
+            $('#sms-message').prop('disabled', true);
+            $('#common-sms-checkbox').prop('checked', false);
         }
     }
 
@@ -229,6 +250,16 @@
         balance = parseInt(balance);
         var currentSelected = $('.account-entity-id:checked').length;
         if (balance == 0 || currentSelected > balance) {
+            return false;
+        }
+        return true;
+    }
+
+    function canUseCommmonSms() {
+        var text = $('#sms_type_id option:selected').text();
+        text = text.trim();
+        text = text.toLowerCase();
+        if (text == 'exam result' || text == 'fee reminder') {
             return false;
         }
         return true;
@@ -249,24 +280,23 @@
         updateCurrentSelected();
     });
 
-    // $('#schedule-rows-form').submit(function() {
-    //     var exam_entity_id = $('#exam_entity_id').val();
-    //     $('#hidden_exam_entity_id').val(exam_entity_id);
+    $('#send-sms-form').submit(function() {
 
-    //     // set the subjec ids
-    //     var subjectIds = $('.account-entity-id:checked').map(function() {
-    //         // return this.value;
-    //         return $(this).attr('data-classEntityId') + "-" + $(this).attr('data-subjectEntityId');
-    //     }).get();
+        var message = $('#sms-message').val();
+        $('#common_message').val(message);
 
-    //     if (subjectIds.length == 0) {
-    //         alert("No subjects are selected.");
-    //         return false;
-    //     }
+        var accountIds = $('.account-entity-id:checked').map(function() {
+            return this.value;
+        }).get();
 
-    //     $('#hidden_class_subject_ids').val(subjectIds.join(','));
+        if (accountIds.length == 0) {
+            alert("No accounts are selected.");
+            return false;
+        }
 
-    //     return true;
-    // });
+        $('#student_ids').val(accountIds.join(','));
+
+        return true;
+    });
 </script>
 @endsection

@@ -3,8 +3,8 @@
     <Sender From="TXTLCL">
         <Messages>
             @foreach ($messages as $message)
-                <Msg Number="{{$message['number']}}">
-                    <Text>{{$message['text']}}</Text>
+                <Msg ID="{{$message['account_entity_id']}}" Number="{{$message['mobile_phone']}}">
+                    <Text>{{$message['sms_text']}}</Text>
                 </Msg>
             @endforeach
         </Messages>
