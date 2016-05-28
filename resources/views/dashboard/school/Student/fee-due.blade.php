@@ -18,16 +18,32 @@
                 <thead>
                     <tr>
                         <th>Product Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                        <th>Product Type <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                        <th>Active</th>
-                        <th>Actions</th>
+                        <th>Account Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Schedule Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Current Schedule <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Due Start Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Due End Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Total Amount <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Total Credit Amount <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Paid Amount <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Adjustment Amount <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Due Amount <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($student->overallGrade() as $item)
+                    @foreach($student->feeDueDetails() as $item)
                     <tr>
-                        <td>{{$item['product']}}</td>
-                        <td>{{$item['product_type']}}</td>
+                        <td>{{$item['product_name']}}</td>
+                        <td>{{$item['account_name']}}</td>
+                        <td>{{$item['schedule_name']}}</td>
+                        <td>{{$item['current_schedule_name']}}</td>
+                        <td>{{$item['due_start_date']}}</td>
+                        <td>{{$item['due_end_date']}}</td>
+                        <td>{{amount($item['total_amount'])}}</td>
+                        <td>{{amount($item['total_credit_amount'])}}</td>
+                        <td>{{amount($item['paid_amount'])}}</td>
+                        <td>{{amount($item['adjustment_amount'])}}</td>
+                        <td>{{amount($item['due_amount'])}}</td>
                     </tr>
                     @endforeach
                 </tbody>

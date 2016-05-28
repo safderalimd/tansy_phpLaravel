@@ -37,8 +37,7 @@ class StudentController extends Controller
     {
         $student = new Student;
         $student->setAttribute('student_entity_id', $request->input('sei'));
-        dd($student->feeDueDetails());
-        return view('dashboard.school.Student.overall-grade', compact('student'));
+        return view('dashboard.school.Student.fee-due', compact('student'));
     }
 
     public function smsHistory(Request $request)

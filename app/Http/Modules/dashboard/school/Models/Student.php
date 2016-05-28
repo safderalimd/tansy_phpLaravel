@@ -94,22 +94,15 @@ class Student extends Model
 
     public function feeDueDetails()
     {
-        $this->setAttribute('filter_type', 'entity');
+        $this->setAttribute('filter_type', 'Student');
         $this->setAttribute('subject_entity_id', $this->student_entity_id);
-        $this->setAttribute('return_type', 'Details');
+        $this->setAttribute('return_type', 'Detail');
         $data = $this->repository->studentList($this);
-        dd($data);
-        if (isset($data[0][0][2])) {
-            $this->feeDue = $data[0][0][2];
-        }
+        return first_resultset($data);
     }
 
     public function smsHistory()
     {
-        $data = $this->repository->smsHistory($this);
-        if (isset($data[0])) {
-            return $data[0];
-        }
-        return [];
+        return $this->repository->smsHistory($this);
     }
 }

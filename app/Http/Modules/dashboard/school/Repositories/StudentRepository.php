@@ -128,6 +128,7 @@ class StudentRepository extends Repository
             '@oparam_err_msg',
         ];
 
-        return $this->procedure($model, $procedure, $iparams, $oparams);
+        $data = $this->procedure($model, $procedure, $iparams, $oparams);
+        return first_resultset($data);
     }
 }
