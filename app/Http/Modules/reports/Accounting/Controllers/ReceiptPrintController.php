@@ -5,8 +5,7 @@ namespace App\Http\Modules\reports\Accounting\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\Accounting\Models\ReceiptPrint;
 use App\Http\Modules\reports\Accounting\Requests\ReceiptPrintFormRequest;
-use Dompdf\Dompdf;
-use Dompdf\Options;
+use App\Http\PdfGenerator\Pdf;
 
 class ReceiptPrintController extends Controller
 {
@@ -33,23 +32,9 @@ class ReceiptPrintController extends Controller
     {
         $export = new ReceiptPrint;
         $export->setAttribute('report_id', $id);
-
         $export->loadPdfData();
-
         $view = view('reports.accounting.ReceiptPrint.pdf', compact('export'));
-        $html = $view->render();
-
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'letter');
-        $dompdf->render();
-
-        $output = $dompdf->output();
-        return response($output)
-            ->header('Content-Type', 'application/pdf')
-            ->header('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate')
-            ->header('Pragma', 'no-cache')
-            ->header('Expires', 'Fri, 01 Jan 1990 00:00:00 GMT');
+        return Pdf::render($view);
     }
 
 }
