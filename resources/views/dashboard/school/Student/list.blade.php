@@ -35,7 +35,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a class="block-anchor panel-footer text-center" href="/cabinet/student-dashboard/overall-grade?csi={{$student->student_entity_id}}">Full Details &nbsp;<i class="fa fa-arrow-right"></i></a>
+                                    <a class="block-anchor panel-footer text-center" href="/cabinet/student-dashboard/overall-grade?csi={{$student->class_student_id}}">Full Details &nbsp;<i class="fa fa-arrow-right"></i></a>
                                 </div>
                             </div>
 

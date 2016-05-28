@@ -89,7 +89,8 @@ class Student extends Model
 
     public function overallDetails()
     {
-        return $this->repository->overallDetails($this);
+        $data = $this->repository->overallDetails($this);
+        return first_resultset($data);
     }
 
     public function feeDueDetails()

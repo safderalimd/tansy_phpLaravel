@@ -17,17 +17,15 @@
             <table class="table table-striped table-bordered table-hover" data-datatable>
                 <thead>
                     <tr>
-                        <th>Product Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                        <th>Product Type <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                        <th>Active</th>
-                        <th>Actions</th>
+                        <th>Exam <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Grade <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($student->overallGrade() as $item)
+                    @foreach($student->overallDetails() as $item)
                     <tr>
-                        <td>{{$item['product']}}</td>
-                        <td>{{$item['product_type']}}</td>
+                        <td>{{$item['exam']}}</td>
+                        <td>{{$item['grade']}}</td>
                     </tr>
                     @endforeach
                 </tbody>

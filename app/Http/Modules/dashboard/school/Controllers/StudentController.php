@@ -29,7 +29,6 @@ class StudentController extends Controller
     {
         $student = new Student;
         $student->setAttribute('class_student_id', $request->input('csi'));
-        dd($student->overallDetails());
         return view('dashboard.school.Student.overall-grade', compact('student'));
     }
 
