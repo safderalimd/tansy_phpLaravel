@@ -43,11 +43,11 @@ class SendSmsController extends Controller
 
             $message = 'This is a test sms message';
             $messages = [
-                ['number' => 8801933344, 'text' => 'Test sms message #1'],
-                ['number' => 9603384881, 'text' => 'Test sms message #2'],
+                ['number' => 234, 'text' => 'Test sms message #1'],
+                ['number' => 554, 'text' => 'Test sms message #2'],
             ];
 
-            $test = false;
+            $test = true;
             $sender = SmsSender::send($messages, $test);
 
             d($sender->getXmlData());

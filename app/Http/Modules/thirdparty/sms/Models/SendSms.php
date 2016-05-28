@@ -133,4 +133,61 @@ class SendSms extends Model
 
         return 0;
     }
+
+    public function storeBatchStatus()
+    {
+        $model = new static;
+
+        $model->settAttribute('send_datetime', date('Y-m-d'));
+        $model->settAttribute('provider_name', 'Text Local');
+
+        // a unique batch id does not exist
+        $model->settAttribute('provider_batch_id', null);
+
+        // a batch status does not exist, only statuses for single messages
+        $model->settAttribute('provider_batch_status', null);
+
+        $model->settAttribute('provider_batch_credits', $batch->credits_used);
+
+        // a batch error does not exist for the batch, only for single messages
+        $model->settAttribute('provider_batch_error', null);
+
+        // drop down primary key
+        $model->settAttribute('sms_type_id', $batch->sms_type_id);
+
+        // row_type from account type drop down
+        $model->settAttribute('account_filter_row_type', $batch->account_filter_row_type);
+
+        // entity_id from account type drop down
+        $model->settAttribute('account_filter_entity_id', $batch->account_filter_entity_id);
+
+        // third drop down id
+        $model->settAttribute('filter2_id', $batch->filter2_id);
+
+        // i calculate this from php
+        $model->settAttribute('total_sms_in_batch', $batch->total_sms_in_batch);
+
+        // i calculate this from php
+        $model->settAttribute('success_count', $batch->success_count);
+
+        // i calculate this from php
+        $model->settAttribute('failure_count', $batch->failure_count);
+
+        // 0 false, 1 true
+        $model->settAttribute('common_message_flag', $batch->common_message_flag);
+
+        $model->settAttribute('common_message', $batch->common_message);
+
+        // '122-8801933344-D,123-8801933355-F';
+        $model->settAttribute('entityID_smsMobile_PrvStatus_details', $batch->entityID_smsMobile_PrvStatus_details);
+
+        $model->settAttribute('log_json_sms_sent', $batch->log_json_sms_sent);
+         //  '';
+        $model->settAttribute('log_json_sms_received', $batch->log_json_sms_received);
+         // '' ;
+        $model->settAttribute('log_json_batch_sent', $batch->log_json_batch_sent);
+         //  '';
+        $model->settAttribute('log_json_batch_received', $batch->log_json_batch_received);
+         //  '';
+    }
 }

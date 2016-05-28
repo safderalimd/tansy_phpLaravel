@@ -133,6 +133,14 @@
     // init send sms button
     updateSendButton();
 
+    // create datatale with checkbox column unsortable
+    $('#sms-table').DataTable( {
+       "aoColumnDefs": [
+           { 'bSortable': false, 'aTargets': [ 0 ] }
+        ],
+        "bPaginate": false
+    });
+
     // max nr of charachters counter for text area
     $('#sms-message').keyup(function() {
         var textLength = $('#sms-message').val().length;
@@ -210,13 +218,6 @@
         }
     }
 
-    // create datatale with checkbox column unsortable
-    $('#sms-table').DataTable( {
-          "aoColumnDefs": [
-              { 'bSortable': false, 'aTargets': [ 0 ] }
-           ]
-    });
-
     function updateCurrentSelected() {
         var nr = $('.account-entity-id:checked').length;
         $('#current-selected').text(nr);
@@ -240,22 +241,12 @@
 
     // check/uncheck all checkboxes
     $('#toggle-subjects').change(function() {
-        $('.account-entity-id').prop('checked', false);
         if($(this).is(":checked")) {
-            var table = $('.table').DataTable();
-            var rows = table.rows({ page: 'current' }).nodes();
-            rows.each(function() {
-                $('.account-entity-id', this).prop('checked',true)
-            });
+            $('.account-entity-id').prop('checked', true)
+        } else {
+            $('.account-entity-id').prop('checked', false);
         }
         updateCurrentSelected();
-    });
-
-    // reset all checkboxes after you change the page
-    $('#sms-table').on('page.dt', function () {
-        updateCurrentSelected();
-        $('.account-entity-id').prop('checked', false);
-        $('#toggle-subjects').prop('checked', false);
     });
 
     // $('#schedule-rows-form').submit(function() {
