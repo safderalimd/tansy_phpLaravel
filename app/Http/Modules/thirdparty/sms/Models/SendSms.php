@@ -37,9 +37,9 @@ class SendSms extends Model
         if ($this->smsIsOfType('Fee Reminder')) {
             return $this->feeReminders();
         } elseif ($this->smsIsOfType('Exam Result')) {
-            return [];
+            return $this->examResults();
         } else {
-            return [];
+            return $this->otherSmsResults();
         }
 
         return [];
@@ -52,6 +52,29 @@ class SendSms extends Model
             $this->setAttribute('subject_entity_id', $this->sms_account_entity_id);
             $this->setAttribute('return_type', 'SMS');
             return $this->repository->feeReminders($this);
+        }
+
+        return [];
+    }
+
+    public function examResults()
+    {
+        if (!is_null($this->sms_account_row_type) && !is_null($this->sms_account_entity_id)) {
+            $this->setAttribute('filter_type', $this->sms_account_row_type);
+            $this->setAttribute('filter_entity_id', $this->sms_account_entity_id);
+            $this->setAttribute('exam_entity_id', $this->exam_entity_id);
+            return $this->repository->examResults($this);
+        }
+
+        return [];
+    }
+
+    public function otherSmsResults()
+    {
+        if (!is_null($this->sms_account_row_type) && !is_null($this->sms_account_entity_id)) {
+            $this->setAttribute('filter_type', $this->sms_account_row_type);
+            $this->setAttribute('filter_entity_id', $this->sms_account_entity_id);
+            return $this->repository->otherSmsResults($this);
         }
 
         return [];
