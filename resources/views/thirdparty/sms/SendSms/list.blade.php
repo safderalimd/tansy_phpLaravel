@@ -222,11 +222,11 @@
     });
 
     function updateSendButton() {
-        // if (canSendSms()) {
+        if (canSendSms()) {
             $('#send-sms-button').prop('disabled', false);
-        // } else {
-        //     $('#send-sms-button').prop('disabled', true);
-        // }
+        } else {
+            $('#send-sms-button').prop('disabled', true);
+        }
     }
 
     function updateCommonSms() {
