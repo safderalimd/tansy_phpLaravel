@@ -39,6 +39,9 @@ class SendSmsController extends Controller
         // validate student ids
         $this->validate($request, ['student_ids' => 'required|string']);
 
+        // get rows from db with selected account ids; do this before anything else to load data
+        $dbRows = $sms->rows();
+
         // if sms type is different than fee reminder or exam result, use common message
         $useCommonMessage = false;
         if (!$sms->smsIsOfType('Fee Reminder') && !$sms->smsIsOfType('Exam Result')) {
@@ -46,8 +49,6 @@ class SendSmsController extends Controller
             $useCommonMessage = true;
         }
 
-        // get rows from db with selected account ids
-        $dbRows = $sms->rows();
         $studentIds = explode(',', $request->input('student_ids'));
         $validRows = array_filter($dbRows, function($row) use ($studentIds) {
             return in_array($row['account_entity_id'], $studentIds);
@@ -66,11 +67,15 @@ class SendSmsController extends Controller
         try {
             $sender = SmsSender::send($validRows);
         } catch (\Exception $e) {
+
+            d($validRows);
+            d($sender->getXmlData());
+            dd($sender->getRawResponse());
+
             return \Redirect::back()->withErrors([$e->getMessage()]);
         }
 
         // todo: need to calculate credits used, success count, failure count
-        // dd($sender->getResult());
 
         $accountIds = array_map(function($item) {
             return $item['account_entity_id'] . '-' . $item['mobile_phone'] . '-' . 'S';
@@ -89,6 +94,9 @@ class SendSmsController extends Controller
         ];
 
         $sms->storeBatchStatus($data);
+
+        d($validRows);
+        dd($data);
 
         return \Redirect::back();
     }
