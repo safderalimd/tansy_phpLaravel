@@ -88,7 +88,7 @@
                     </td>
                     <td>
                         @if (isset($row['due_amount']))
-                            Your current due is {{amount($row['due_amount'])}}.
+                            Your current fee due amount is {{amount($row['due_amount'])}}.
                         @elseif (isset($row['sms_text']))
                             {{$row['sms_text']}}
                         @endif

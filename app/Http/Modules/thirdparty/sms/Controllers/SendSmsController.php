@@ -61,7 +61,7 @@ class SendSmsController extends Controller
             if ($useCommonMessage) {
                 $row['sms_text'] = $request->input('common_message');
             } elseif (isset($row['due_amount'])) {
-                $row['sms_text'] = ' Your current due is ' . amount($row['due_amount']);
+                $row['sms_text'] = 'Your current fee due amount is ' . amount($row['due_amount']);
             }
             $row['api_status'] = '';
             return $row;
