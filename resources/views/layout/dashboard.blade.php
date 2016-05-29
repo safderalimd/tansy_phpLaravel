@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title') | SamaSchool</title>
+    @include('include.meta-and-title')
     <link type="text/css" href="/dashboard/font-awesome.min.css" rel="stylesheet">
     <link type="text/css" href="/dashboard/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" href="/dashboard/dataTables.bootstrap.min.css" rel="stylesheet">
