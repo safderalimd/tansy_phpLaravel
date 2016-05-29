@@ -27,8 +27,7 @@ class ExamController extends Controller
     {
         $exam = new Exam;
         $exam->setAttribute('exam_entity_id', $request->input('eei'));
-        d($exam->topperDetails());
-        // return view('dashboard.school.Exam.toppers', compact('exam'));
+        return view('dashboard.school.Exam.toppers', compact('exam'));
     }
 
     public function failedStudents(Request $request)

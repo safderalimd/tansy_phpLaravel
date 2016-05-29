@@ -17,17 +17,15 @@
             <table class="table table-striped table-bordered table-hover" data-datatable>
                 <thead>
                     <tr>
-                        <th>Product Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                        <th>Product Type <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                        <th>Active</th>
-                        <th>Actions</th>
+                        <th>Student Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Class Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($exam->overallGrade() as $item)
+                    @foreach($exam->topperDetails() as $item)
                     <tr>
-                        <td>{{$item['product']}}</td>
-                        <td>{{$item['product_type']}}</td>
+                        <td>{{$item['student_full_name']}}</td>
+                        <td>{{$item['class_name']}}</td>
                     </tr>
                     @endforeach
                 </tbody>

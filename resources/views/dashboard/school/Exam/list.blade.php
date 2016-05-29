@@ -83,6 +83,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <a class="block-anchor panel-footer text-center" href="#">&nbsp;</a>
                                 </div>
                             </div>
 
