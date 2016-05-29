@@ -34,8 +34,7 @@ class ExamController extends Controller
     {
         $exam = new Exam;
         $exam->setAttribute('exam_entity_id', $request->input('eei'));
-        d($exam->failedStudents());
-        // return view('dashboard.school.Exam.failed-students', compact('exam'));
+        return view('dashboard.school.Exam.failed-students', compact('exam'));
     }
 
     public function absentees(Request $request)
