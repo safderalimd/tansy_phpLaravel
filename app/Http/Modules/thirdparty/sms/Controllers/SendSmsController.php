@@ -4,25 +4,42 @@ namespace App\Http\Modules\thirdparty\sms\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Modules\thirdparty\sms\Models\SendSms;
-use App\Http\Modules\thirdparty\sms\Requests\SendSmsFormRequest;
+use App\Http\Modules\thirdparty\sms\Models\SendSmsGeneral;
+use App\Http\Modules\thirdparty\sms\Models\SendSmsExam;
+use App\Http\Modules\thirdparty\sms\Models\SendSmsAttendance;
+use App\Http\Modules\thirdparty\sms\Models\SendSmsFeeDue;
 use App\Http\Modules\thirdparty\sms\SmsSender;
 
 class SendSmsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @param  Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+    public function general(Request $request)
     {
-        $sms = new SendSms;
-        $sms->setRequestAttributes($request);
+        $sms = new SendSmsGeneral($request->input());
+        // todo: validate common message
         $sms->loadData();
-        // dd($sms->rows());
-        return view('thirdparty.sms.SendSms.list', compact('sms'));
+        return view('thirdparty.sms.SendSms.general', compact('sms'));
+    }
+
+    public function examResults(Request $request)
+    {
+        $sms = new SendSmsExam($request->input());
+        $sms->loadData();
+        return view('thirdparty.sms.SendSms.exam-results', compact('sms'));
+    }
+
+    public function attendence(Request $request)
+    {
+        $sms = new SendSmsAttendance($request->input());
+        // todo: validate date format
+        $sms->loadData();
+        return view('thirdparty.sms.SendSms.attendance', compact('sms'));
+    }
+
+    public function feeDue(Request $request)
+    {
+        $sms = new SendSmsFeeDue($request->input());
+        $sms->loadData();
+        return view('thirdparty.sms.SendSms.fee-due', compact('sms'));
     }
 
     /**

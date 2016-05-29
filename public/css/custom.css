@@ -60,3 +60,15 @@ a.selected {
     border-width: 0px;
     border-radius: 0px;
 }
+
+
+@media (max-width: 767px) {
+    .form-horizontal .control-label {
+        text-align: right;
+        margin-bottom: 0;
+        padding-top: 7px;
+    }
+
+}
+
+

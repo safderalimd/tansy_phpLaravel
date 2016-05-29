@@ -144,8 +144,14 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('load-student-data', 'loaddata\School\Controllers\StudentDataController@index');
     Route::post('load-student-data', 'loaddata\School\Controllers\StudentDataController@store');
 
-    Route::get('send-sms', 'thirdparty\sms\Controllers\SendSmsController@index');
-    Route::post('send-sms', 'thirdparty\sms\Controllers\SendSmsController@store');
+    // Route::get('send-sms', 'thirdparty\sms\Controllers\SendSmsController@index');
+    // Route::post('send-sms', 'thirdparty\sms\Controllers\SendSmsController@store');
+
+    Route::get('send-sms---general', 'thirdparty\sms\Controllers\SendSmsController@general');
+    Route::get('send-sms---exam-results', 'thirdparty\sms\Controllers\SendSmsController@examResults');
+    Route::get('send-sms---attendence', 'thirdparty\sms\Controllers\SendSmsController@attendence');
+    Route::post('send-sms---attendence', 'thirdparty\sms\Controllers\SendSmsController@attendence');
+    Route::get('send-sms---fee-due', 'thirdparty\sms\Controllers\SendSmsController@feeDue');
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
