@@ -15,6 +15,11 @@ Route::get('/', function () {
     return redirect('/cabinet');
 });
 
+Route::get('/phpinfo', function () {
+    phpinfo();
+    die();
+});
+
 Route::get('/debug', function() {
     return view('errors.debug');
 });
