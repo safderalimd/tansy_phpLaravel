@@ -75,12 +75,13 @@ class User extends Controller
 
         $mysql->query("set @iparam_login_name = '{$mysql->escape_string($login)}';");
         $mysql->query("set @iparam_password = '{$mysql->escape_string($password)}';");
-        $mysql->query("set @iparm_ipaddress = '{$mysql->escape_string($this->request->ip())}';");
+        $mysql->query("set @iparam_ipaddress = '{$mysql->escape_string($this->request->ip())}';");
 
+        // iparm_ipaddress
         $sql = 'call sproc_sec_login(
             @iparam_login_name,
             @iparam_password,
-            @iparm_ipaddress,
+            @iparam_ipaddress,
             @oparam_session_id,
             @oparam_user_id,
             @oparam_login_success,

@@ -21,6 +21,7 @@ class SendSmsController extends Controller
         $sms = new SendSms;
         $sms->setRequestAttributes($request);
         $sms->loadData();
+        // dd($sms->rows());
         return view('thirdparty.sms.SendSms.list', compact('sms'));
     }
 
@@ -145,8 +146,8 @@ class SendSmsController extends Controller
         $sms->storeBatchStatus($data);
 
         d($validRows);
-        dd($data);
+        d($data);
 
-        return \Redirect::back();
+        // return \Redirect::back();
     }
 }

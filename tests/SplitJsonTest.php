@@ -17,14 +17,6 @@ class SplitJsonTest extends TestCase
             '{"balance":995,"batch_id":244712728,"cost":1,"num_messages":1,"message":{"num_parts":1,"sender":"TXTLCL","content":"Exam Result: TEL-4,HIN-6,ENG-78,MAT-35,TOT=345,FAIL"},"receipt_url":"","custom":"88","messages":[{"id":"119713472","recipient":918801933344}],"status":"success"}',
         ];
 
-        $x = $expected[0];
-
-        $x = json_decode($x);
-        var_dump($x->warnings[0]->numbers);
-        var_dump($x);
-
-        die();
-
         $this->assertEquals(SmsSender::jsonSplitObjects($input), $expected);
     }
 }
