@@ -17,13 +17,15 @@
             <table class="table table-striped table-bordered table-hover" data-datatable>
                 <thead>
                     <tr>
-                        <th>Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Student Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Class Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($exam->absentees() as $item)
                     <tr>
-                        <td>{{$item[0]}}</td>
+                        <td>{{$item['student_full_name']}}</td>
+                        <td>{{$item['class_name']}}</td>
                     </tr>
                     @endforeach
                 </tbody>
