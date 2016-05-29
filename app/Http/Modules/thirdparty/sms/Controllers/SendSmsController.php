@@ -64,7 +64,7 @@ class SendSmsController extends Controller
         }, $validRows);
 
         try {
-            $sender = SmsSender::sandbox($validRows);
+            $sender = SmsSender::send($validRows);
         } catch (\Exception $e) {
             return \Redirect::back()->withErrors([$e->getMessage()]);
         }
