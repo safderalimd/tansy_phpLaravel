@@ -67,7 +67,7 @@ class MenuMiddleware
 
         $sideMenu = Menu::make('sidebar', function ($menu) use ($modules) {
             foreach ($modules as $module) {
-                $menu->add($module, '#');
+                $menu->add(studly_case($module), '#');
             }
         });
 
@@ -88,7 +88,7 @@ class MenuMiddleware
 
     private function setCurrentModule()
     {
-        $currentModule = '';
+        $currentModule = null;
 
         foreach ($this->modules as $module) {
             if ($this->isSamePath($module)) {
@@ -104,10 +104,6 @@ class MenuMiddleware
                     break;
                 }
             }
-        }
-
-        if (empty($currentModule)) {
-            $currentModule = 'admin';
         }
 
         \View::share('currentModule', $currentModule);

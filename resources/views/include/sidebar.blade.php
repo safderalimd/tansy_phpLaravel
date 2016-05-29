@@ -1,8 +1,12 @@
 <?php
-    if (isset($sidebar->{$currentModule}->id)) {
+
+    if (!is_null($currentModule)
+        && !is_null($sidebar->{$currentModule})
+        && is_string($sidebar->{$currentModule}->id))
+    {
         $sidebarItems = $sidebar->whereParent($sidebar->{$currentModule}->id);
     } else {
-        $sidebarItems = $sidebar->whereParent();
+        $sidebarItems = $sidebar->roots();
     }
 ?>
 <div id="sidebarMenu">
