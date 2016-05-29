@@ -11,7 +11,7 @@
                 <div class="page-title">
                     <h2>Exam Dashboard</h2>
                     <h4>
-                        @foreach($exam->exam() as $row)
+                        @foreach($exam->examWithResult() as $row)
                             <a class="{{activeExam($row['exam_entity_id'],'eei')}}" href="/cabinet/exam-dashboard?eei={{$row['exam_entity_id']}}">{{$row['exam']}}</a> &nbsp; &nbsp;
                         @endforeach
                     </h4>
