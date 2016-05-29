@@ -104,6 +104,7 @@ class SmsSender
     {
         $q = FALSE;
         $len = strlen($json);
+        $objects = [];
         for($l=$c=$i=0;$i<$len;$i++)
         {
             $json[$i] == '"' && ($i>0?$json[$i-1]:'') != '\\' && $q = !$q;

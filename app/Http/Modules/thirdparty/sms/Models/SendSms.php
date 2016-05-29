@@ -150,8 +150,6 @@ class SendSms extends Model
     {
         $model = new static;
 
-        $model->setAttribute('ipaddress', app('request')->ip());
-
         $model->setAttribute('send_datetime', date('Y-m-d'));
         $model->setAttribute('provider_name', 'Text Local');
 
@@ -194,8 +192,8 @@ class SendSms extends Model
 
         $model->setAttribute('entityID_smsMobile_PrvStatus_details', $data['accountIds']);
 
-        $model->setAttribute('log_json_sms_sent', null); //$data['xmlSent']);
-        $model->setAttribute('log_json_sms_received', null); //$data['jsonReceived']);
+        $model->setAttribute('log_json_sms_sent', $data['xmlSent']);
+        $model->setAttribute('log_json_sms_received', $data['jsonReceived']);
         $model->setAttribute('log_json_batch_sent', null);
         $model->setAttribute('log_json_batch_received', null);
 
