@@ -16,8 +16,6 @@ class SmsSender
 
     private $rawResponse;
 
-    private $result;
-
     private $xmlData;
 
     public function __construct($messages, $test)
@@ -64,20 +62,6 @@ class SmsSender
 
         $this->rawResponse = $rawResponse;
 
-        $result = json_decode($rawResponse);
-        if (isset($result->errors)) {
-            if (count($result->errors) > 0) {
-                foreach ($result->errors as $error) {
-                    switch ($error->code) {
-                        default:
-                            throw new Exception($error->message);
-                    }
-                }
-            }
-        }
-
-        $this->result = $result;
-
         return $this;
     }
 
@@ -96,11 +80,6 @@ class SmsSender
     public function getRawResponse()
     {
         return $this->rawResponse;
-    }
-
-    public function getResult()
-    {
-        return $this->result;
     }
 
     public function getXmlData()

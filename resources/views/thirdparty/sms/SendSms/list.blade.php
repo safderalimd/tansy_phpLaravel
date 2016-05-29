@@ -252,6 +252,9 @@
         if (balance == 0 || currentSelected > balance) {
             return false;
         }
+        if (currentSelected <= 0) {
+            return false;
+        }
         return true;
     }
 
