@@ -12,7 +12,7 @@ class SendSmsAttendance extends SendSmsModel
         return $value;
     }
 
-    public function __construct($arguments)
+    public function __construct($arguments = [])
     {
         parent::__construct($arguments);
 
@@ -25,22 +25,44 @@ class SendSmsAttendance extends SendSmsModel
 
     public function rows()
     {
-        $absenteesSmsTypeId = $this->getAbsenteesSmsTypeId();
-        $this->setAttribute('filter_entity_id', $absenteesSmsTypeId);
+        $this->setAttribute('filter_entity_id', $this->allStudentsAccountId());
         $this->setAttribute('filter_type', 'All Students');
         return $this->repository->absenteesSmsResults($this);
+    }
+
+    public function setSmsBatchAttributes()
+    {
+        $this->setAttribute('sms_type_id', $this->getAbsenteesSmsTypeId());
+        $this->setAttribute('sms_account_row_type', 'All Students');
+        $this->setAttribute('sms_account_entity_id', $this->allStudentsAccountId());
+        $this->setAttribute('exam_entity_id', null);
     }
 
     public function getAbsenteesSmsTypeId()
     {
         $smsTypes = $this->repository->getSmsTypes();
-        $absenteesSmsTypeId = null;
-        foreach ($smsTypes as $type) {
-            if (strtolower($type['sms_type']) == 'absentees') {
-                $absenteesSmsTypeId = $type['sms_type_id'];
-                break;
+
+        foreach ($smsTypes as $item) {
+            $type = trim($item['sms_type']);
+            if ($type == 'Absentees') {
+                return $item['sms_type_id'];
             }
         }
-        return $absenteesSmsTypeId;
+
+        return null;
+    }
+
+    public function allStudentsAccountId()
+    {
+        $accountTypes = $this->repository->getSmsAccountTypes();
+
+        foreach ($accountTypes as $item) {
+            $type = trim($item['row_type']);
+            if ($type == 'All Students') {
+                return $item['entity_id'];
+            }
+        }
+
+        return null;
     }
 }

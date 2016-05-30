@@ -10,6 +10,11 @@ class SendSmsGeneral extends SendSmsModel
 
     public $smsAccountTypes;
 
+    public function setStiAttribute($value)
+    {
+        $this->setAttribute('sms_type_id', $value);
+    }
+
     public function setAeiAttribute($value)
     {
         $this->setAttribute('filter_entity_id', $value);
@@ -20,7 +25,7 @@ class SendSmsGeneral extends SendSmsModel
         $this->setAttribute('filter_type', $value);
     }
 
-    public function __construct($arguments)
+    public function __construct($arguments = [])
     {
         parent::__construct($arguments);
 
@@ -31,6 +36,10 @@ class SendSmsGeneral extends SendSmsModel
 
     public function rows()
     {
+        if (is_null($this->sms_type_id) || !is_numeric($this->sms_type_id)) {
+            return [];
+        }
+
         if (!is_null($this->filter_entity_id) && !is_null($this->filter_type)) {
             return $this->repository->generalSmsResults($this);
         }
@@ -47,5 +56,13 @@ class SendSmsGeneral extends SendSmsModel
             $type = trim($item['sms_type']);
             return (in_array($type, $filters)) ? false : true;
         });
+    }
+
+    public function setSmsBatchAttributes()
+    {
+        $this->setAttribute('sms_type_id', $this->sms_type_id);
+        $this->setAttribute('sms_account_row_type', $this->filter_type);
+        $this->setAttribute('sms_account_entity_id', $this->filter_entity_id);
+        $this->setAttribute('exam_entity_id', null);
     }
 }

@@ -41,7 +41,7 @@ class SendSmsController extends Controller
     {
         $this->validate($request, ['student_ids' => 'required|string']);
         $sms = new SendSmsFeeDue($request->input());
-        $this->sendSmsToStudents($sms, $request->input('student_ids'));
+        return $this->sendSmsToStudents($sms, $request->input('student_ids'));
     }
 
     public function sendAttendence(Request $request)
@@ -49,29 +49,30 @@ class SendSmsController extends Controller
         $this->validate($request, ['student_ids' => 'required|string']);
         $this->validate($request, ['hidden_absense_date' => 'required|string|max:20']);
         $sms = new SendSmsAttendance($request->input());
-        $this->sendSmsToStudents($sms, $request->input('student_ids'));
+        return $this->sendSmsToStudents($sms, $request->input('student_ids'));
     }
 
     public function sendExamResults(Request $request)
     {
         $this->validate($request, ['student_ids' => 'required|string']);
         $sms = new SendSmsExam($request->input());
-        $this->sendSmsToStudents($sms, $request->input('student_ids'));
+        return $this->sendSmsToStudents($sms, $request->input('student_ids'));
     }
 
     public function sendGeneral(Request $request)
     {
         $this->validate($request, ['student_ids' => 'required|string']);
-        // validate sms type id
         $this->validate($request, ['common_message' => 'required|string|max:160']);
         $sms = new SendSmsGeneral($request->input());
 
         $text = $request->input('common_message');
-        $this->sendSmsToStudents($sms, $request->input('student_ids'), true, $text);
+        return $this->sendSmsToStudents($sms, $request->input('student_ids'), true, $text);
     }
 
     public function sendSmsToStudents(SendSmsModel $sms, $ids, $commonMessage = false, $text = '')
     {
+        $sms->setSmsBatchAttributes();
+
         // get rows from db with all students
         $dbRows = $sms->rows();
 
@@ -80,6 +81,14 @@ class SendSmsController extends Controller
         $validRows = array_filter($dbRows, function($row) use ($ids) {
             return in_array($row['account_entity_id'], $ids);
         });
+
+        // validate that valid row count is less than balance
+        if (!is_numeric($sms->smsBalanceCount)) {
+            $sms->smsBalanceCount = 0;
+        }
+        if (count($validRows) > $sms->smsBalanceCount) {
+            throw new \Exception("You do not have enought sms credits.");
+        }
 
         // apply the message to the rows
         $validRows = array_map(function($row) use ($commonMessage, $text) {
@@ -94,7 +103,7 @@ class SendSmsController extends Controller
 
         // send the sms messages
         try {
-            $sender = SmsSender::sandbox($validRows);
+            $sender = SmsSender::send($validRows);
         } catch (\Exception $e) {
             return \Redirect::back()->withErrors([$e->getMessage()]);
         }
@@ -167,10 +176,11 @@ class SendSmsController extends Controller
             'jsonReceived' => $sender->getRawResponse(),
         ];
 
-        // $sms->storeBatchStatus($data);
+        $sms->storeBatchStatus($data);
 
-        d($validRows);
-        dd($data);
+        // d($sms);
+        // d($validRows);
+        // dd($data);
 
         return \Redirect::back();
     }
