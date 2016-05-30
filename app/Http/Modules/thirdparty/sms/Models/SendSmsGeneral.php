@@ -20,8 +20,10 @@ class SendSmsGeneral extends SendSmsModel
         $this->setAttribute('filter_type', $value);
     }
 
-    public function loadData()
+    public function __construct($arguments)
     {
+        parent::__construct($arguments);
+
         $this->generalSmsTypes = $this->generalSmsTypes();
         $this->smsBalanceCount = $this->smsBalanceCount();
         $this->smsAccountTypes = $this->repository->getSmsAccountTypes();

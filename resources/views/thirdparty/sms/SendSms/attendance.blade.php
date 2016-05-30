@@ -75,9 +75,10 @@
 
         <nav class="nav-footer navbar navbar-default">
             <div class="container-fluid">
-                <form class="navbar-form navbar-right" id="send-sms-form" action="{{form_action_full()}}" method="POST">
+                <form class="navbar-form navbar-right" id="send-sms-form" action="/cabinet/send-sms---attendence/send" method="POST">
                     {{ csrf_field() }}
                     <input type="hidden" name="student_ids" id="student_ids" value="">
+                    <input type="hidden" name="hidden_absense_date" id="hidden_absense_date" value="">
 
                     <a class="btn btn-default" href="/cabinet/send-sms---attendence">Cancel</a>
                     <button disabled="disabled" id="send-sms-button" type="submit" class="btn btn-primary">Send Sms</button>
@@ -146,6 +147,8 @@
     });
 
     $('#send-sms-form').submit(function() {
+        var date = $('#absense_date').val();
+        $('#hidden_absense_date').val(date);
 
         var accountIds = $('.account-entity-id:checked').map(function() {
             return this.value;

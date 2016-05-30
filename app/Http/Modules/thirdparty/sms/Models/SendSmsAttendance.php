@@ -6,8 +6,16 @@ class SendSmsAttendance extends SendSmsModel
 {
     protected $screenId = 2006;
 
-    public function loadData()
+    public function setHiddenAbsenseDateAttribute($value)
     {
+        $this->setAttribute('absense_date', $value);
+        return $value;
+    }
+
+    public function __construct($arguments)
+    {
+        parent::__construct($arguments);
+
         $this->smsBalanceCount = $this->smsBalanceCount();
 
         if (!isset($this->absense_date)) {

@@ -10,6 +10,11 @@ class SendSmsModel extends Model
 
     public $smsBalanceCount;
 
+    public function __construct($arguments)
+    {
+        parent::__construct($arguments);
+    }
+
     public function smsBalanceCount()
     {
         $count = $this->repository->smsBalanceCount();

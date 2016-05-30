@@ -8,8 +8,10 @@ class SendSmsFeeDue extends SendSmsModel
 
     public $smsAccountTypes;
 
-    public function loadData()
+    public function __construct($arguments)
     {
+        parent::__construct($arguments);
+
         $this->smsBalanceCount = $this->smsBalanceCount();
         $this->smsAccountTypes = $this->repository->getSmsAccountTypes();
     }

@@ -8,75 +8,83 @@ use App\Http\Modules\thirdparty\sms\Models\SendSmsGeneral;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsExam;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsAttendance;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsFeeDue;
+use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
 use App\Http\Modules\thirdparty\sms\SmsSender;
 
 class SendSmsController extends Controller
 {
-    public function general(Request $request)
+    public function feeDue(Request $request)
     {
-        $sms = new SendSmsGeneral($request->input());
-        // todo: validate common message
-        $sms->loadData();
-        return view('thirdparty.sms.SendSms.general', compact('sms'));
-    }
-
-    public function examResults(Request $request)
-    {
-        $sms = new SendSmsExam($request->input());
-        $sms->loadData();
-        return view('thirdparty.sms.SendSms.exam-results', compact('sms'));
+        $sms = new SendSmsFeeDue($request->input());
+        return view('thirdparty.sms.SendSms.fee-due', compact('sms'));
     }
 
     public function attendence(Request $request)
     {
         $sms = new SendSmsAttendance($request->input());
-        // todo: validate date format
-        $sms->loadData();
         return view('thirdparty.sms.SendSms.attendance', compact('sms'));
     }
 
-    public function feeDue(Request $request)
+    public function examResults(Request $request)
     {
-        $sms = new SendSmsFeeDue($request->input());
-        $sms->loadData();
-        return view('thirdparty.sms.SendSms.fee-due', compact('sms'));
+        $sms = new SendSmsExam($request->input());
+        return view('thirdparty.sms.SendSms.exam-results', compact('sms'));
     }
 
-    /**
-     * Send sms messages
-     *
-     * @param  Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function general(Request $request)
     {
-        $sms = new SendSms;
-        $sms->setRequestAttributes($request);
-        $sms->loadData();
+        $sms = new SendSmsGeneral($request->input());
+        return view('thirdparty.sms.SendSms.general', compact('sms'));
+    }
 
-        // validate student ids
+    public function sendFeeDue(Request $request)
+    {
         $this->validate($request, ['student_ids' => 'required|string']);
+        $sms = new SendSmsFeeDue($request->input());
+        $this->sendSmsToStudents($sms, $request->input('student_ids'));
+    }
 
-        // get rows from db with selected account ids; do this before anything else to load data
+    public function sendAttendence(Request $request)
+    {
+        $this->validate($request, ['student_ids' => 'required|string']);
+        $this->validate($request, ['hidden_absense_date' => 'required|string|max:20']);
+        $sms = new SendSmsAttendance($request->input());
+        $this->sendSmsToStudents($sms, $request->input('student_ids'));
+    }
+
+    public function sendExamResults(Request $request)
+    {
+        $this->validate($request, ['student_ids' => 'required|string']);
+        $sms = new SendSmsExam($request->input());
+        $this->sendSmsToStudents($sms, $request->input('student_ids'));
+    }
+
+    public function sendGeneral(Request $request)
+    {
+        $this->validate($request, ['student_ids' => 'required|string']);
+        // validate sms type id
+        $this->validate($request, ['common_message' => 'required|string|max:160']);
+        $sms = new SendSmsGeneral($request->input());
+
+        $text = $request->input('common_message');
+        $this->sendSmsToStudents($sms, $request->input('student_ids'), true, $text);
+    }
+
+    public function sendSmsToStudents(SendSmsModel $sms, $ids, $commonMessage = false, $text = '')
+    {
+        // get rows from db with all students
         $dbRows = $sms->rows();
 
-        // if sms type is different than fee reminder or exam result, use common message
-        $useCommonMessage = false;
-        if (!$sms->smsIsOfType('Fee Reminder') && !$sms->smsIsOfType('Exam Result')) {
-            $this->validate($request, ['common_message' => 'required|string|max:160']);
-            $useCommonMessage = true;
-        }
-
         // get only rows selected
-        $studentIds = explode(',', $request->input('student_ids'));
-        $validRows = array_filter($dbRows, function($row) use ($studentIds) {
-            return in_array($row['account_entity_id'], $studentIds);
+        $ids = explode(',', $ids);
+        $validRows = array_filter($dbRows, function($row) use ($ids) {
+            return in_array($row['account_entity_id'], $ids);
         });
 
         // apply the message to the rows
-        $validRows = array_map(function($row) use ($useCommonMessage, $request) {
-            if ($useCommonMessage) {
-                $row['sms_text'] = $request->input('common_message');
+        $validRows = array_map(function($row) use ($commonMessage, $text) {
+            if ($commonMessage) {
+                $row['sms_text'] = $text;
             } elseif (isset($row['due_amount'])) {
                 $row['sms_text'] = 'Your current fee due amount is ' . amount($row['due_amount']);
             }
@@ -86,18 +94,17 @@ class SendSmsController extends Controller
 
         // send the sms messages
         try {
-            $sender = SmsSender::send($validRows);
+            $sender = SmsSender::sandbox($validRows);
         } catch (\Exception $e) {
             return \Redirect::back()->withErrors([$e->getMessage()]);
         }
 
         // extract combined json rows into an array
         $jsonRows = SmsSender::jsonSplitObjects($sender->getRawResponse());
-        $accountIds = [];
 
         // init total sms in batch, credits used, success count, failure count
         $totalSmsInBatch = count($validRows);
-        $creditsUsed = 0;
+        $creditsUsed  = 0;
         $successCount = 0;
         $failureCount = 0;
 
@@ -154,16 +161,16 @@ class SendSmsController extends Controller
             'creditsUsed' => $creditsUsed,
             'successCount' => $successCount,
             'failureCount' => $failureCount,
-            'useCommonMessage' => $useCommonMessage,
-            'commonMessage' => $request->input('common_message'),
+            'useCommonMessage' => $commonMessage,
+            'commonMessage' => $text,
             'xmlSent' => $sender->getXmlData(),
             'jsonReceived' => $sender->getRawResponse(),
         ];
 
-        $sms->storeBatchStatus($data);
+        // $sms->storeBatchStatus($data);
 
-        // d($validRows);
-        // d($data);
+        d($validRows);
+        dd($data);
 
         return \Redirect::back();
     }
