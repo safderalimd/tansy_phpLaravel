@@ -158,6 +158,13 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('daily-attendance', 'School\Controllers\AttendanceController@index');
     Route::post('daily-attendance', 'School\Controllers\AttendanceController@update');
 
+    Route::get('organizations', 'Organization\Controllers\OrganizationController@index');
+    Route::get('organizations/create', 'Organization\Controllers\OrganizationController@create');
+    Route::post('organizations/create', 'Organization\Controllers\OrganizationController@store');
+    Route::get('organizations/edit/{id}', 'Organization\Controllers\OrganizationController@edit');
+    Route::post('organizations/edit/{id}', 'Organization\Controllers\OrganizationController@update');
+    Route::get('organizations/delete/{id}', 'Organization\Controllers\OrganizationController@destroy');
+
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
     Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {
