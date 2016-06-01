@@ -165,6 +165,9 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::post('organizations/edit/{id}', 'Organization\Controllers\OrganizationController@update');
     Route::get('organizations/delete/{id}', 'Organization\Controllers\OrganizationController@destroy');
 
+    Route::get('fee-due-report', 'reports\School\Controllers\FeeDueReportController@index');
+    Route::get('fee-due-report/pdf', 'reports\School\Controllers\FeeDueReportController@report');
+
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
     Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {
