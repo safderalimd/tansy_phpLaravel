@@ -19,12 +19,6 @@ class Cabinet
             return redirect('/login')->withErrors(['test' => 'You need to login']);
         }
 
-        // clear debug session
-        // session()->forget('debug-info-procedure');
-        // session()->forget('debug-info-iparams');
-        // session()->forget('debug-info-oparams');
-        // session()->forget('debug-info-select');
-
         $dbData = \Session::get('dbConnectionData');
 
         $secondDB = array(
