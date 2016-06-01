@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class PaymentAdjustment extends Model
 {
-    protected $screenId = 2009;
+    protected $screenId = 2012;
 
     protected $repositoryNamespace = 'App\Http\Modules\Accounting\Repositories\PaymentAdjustmentRepository';
 

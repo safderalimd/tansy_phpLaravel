@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class SchedulePayment extends Model
 {
-    protected $screenId = 2008;
+    protected $screenId = 2011;
 
     protected $repositoryNamespace = 'App\Http\Modules\Accounting\Repositories\SchedulePaymentRepository';
 

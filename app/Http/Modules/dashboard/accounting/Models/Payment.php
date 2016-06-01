@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class Payment extends Model
 {
-    protected $screenId = 2011;
+    protected $screenId = 2014;
 
     public $dueDoughnutDetails = [];
 
