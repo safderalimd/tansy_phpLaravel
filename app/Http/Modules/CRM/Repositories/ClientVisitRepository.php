@@ -72,7 +72,7 @@ class ClientVisitRepository extends Repository
     //         '@oparam_product_entity_id',
     //         '@oparam_err_flag',
     //         '@oparam_err_step',
-    //         '@oparam_err_msg'
+    //         '@oparam_err_msg',
     //     ];
 
     //     return $this->runProcedure($model, $procedure, $iparams, $oparams);
@@ -99,7 +99,7 @@ class ClientVisitRepository extends Repository
     //     $oparams = [
     //         '@oparam_err_flag',
     //         '@oparam_err_step',
-    //         '@oparam_err_msg'
+    //         '@oparam_err_msg',
     //     ];
 
     //     return $this->runProcedure($model, $procedure, $iparams, $oparams);
@@ -121,7 +121,7 @@ class ClientVisitRepository extends Repository
     //     $oparams = [
     //         '@oparam_err_flag',
     //         '@oparam_err_step',
-    //         '@oparam_err_msg'
+    //         '@oparam_err_msg',
     //     ];
 
     //     return $this->runProcedure($model, $procedure, $iparams, $oparams);

@@ -54,7 +54,7 @@ class ProgressPrintClassRepository extends Repository
         $oparams = [
             '@oparam_err_flag',
             '@oparam_err_step',
-            '@oparam_err_msg'
+            '@oparam_err_msg',
         ];
 
         return $this->runReadProcedure($model, $procedure, $iparams, $oparams);

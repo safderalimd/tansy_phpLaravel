@@ -51,7 +51,7 @@ class PaymentRepository extends Repository
             '@oparam_receipt_id',
             '@oparam_err_flag',
             '@oparam_err_step',
-            '@oparam_err_msg'
+            '@oparam_err_msg',
         ];
 
         return $this->runProcedure($model, $procedure, $iparams, $oparams);
