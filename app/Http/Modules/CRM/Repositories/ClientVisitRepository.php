@@ -6,6 +6,25 @@ use App\Http\Repositories\Repository;
 
 class ClientVisitRepository extends Repository
 {
+    public function getModelById($id)
+    {
+        return $this->select(
+            'SELECT
+                campaign_entity_id,
+                organization_entity_id,
+                facility_entity_id,
+                contact_entity_id,
+                agent_entity_id,
+                visit_date,
+                notes,
+                next_visit_date,
+                visit_id
+             FROM view_crm_client_visit_detail
+             WHERE visit_id = :id
+             LIMIT 1;', ['id' => $id]
+        );
+    }
+
     public function getClientVisits()
     {
         return $this->select(
@@ -19,21 +38,19 @@ class ClientVisitRepository extends Repository
         );
     }
 
-    // public function getModelById($id)
-    // {
-    //     return $this->select(
-    //         'SELECT
-    //             product AS product_name,
-    //             product_type,
-    //             unit_rate,
-    //             product_type_entity_id,
-    //             product_entity_id,
-    //             active
-    //          FROM view_prd_lkp_product
-    //          WHERE product_entity_id = :id
-    //          LIMIT 1;', ['id' => $id]
-    //     );
-    // }
+    public function getOrganizations()
+    {
+        return $this->select(
+            'SELECT
+                organization_name,
+                organization_type,
+                mobile_phone,
+                active,
+                organization_entity_id
+             FROM view_org_organization_grid
+             ORDER BY organization_name ASC;'
+        );
+    }
 
     // public function insert($model)
     // {
