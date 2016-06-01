@@ -172,6 +172,22 @@ function activeSelect($value, $getKey, $isDefault = false)
     return '';
 }
 
+function activeSelectAccount($option)
+{
+    $aei = app('request')->input('aei');
+    $art = app('request')->input('art');
+
+    if (is_null($aei) || is_null($art)) {
+        return '';
+    }
+
+    if ($aei == $option['entity_id'] && $art == $option['row_type']) {
+        return 'selected';
+    }
+
+    return '';
+}
+
 function activeExam($value, $getKey)
 {
     $input = app('request')->input($getKey);
@@ -181,6 +197,13 @@ function activeExam($value, $getKey)
     }
 
     return '';
+}
+
+function absent($value)
+{
+    if (!empty($value)) {
+        return ' checked="checked" ';
+    }
 }
 
 /**

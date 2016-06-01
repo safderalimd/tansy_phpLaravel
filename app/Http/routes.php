@@ -156,6 +156,7 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::post('send-sms---fee-due', 'thirdparty\sms\Controllers\SendSmsController@sendFeeDue');
 
     Route::get('daily-attendance', 'School\Controllers\AttendanceController@index');
+    Route::post('daily-attendance', 'School\Controllers\AttendanceController@update');
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 

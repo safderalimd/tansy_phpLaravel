@@ -2,6 +2,7 @@
 
 namespace App\Http\Modules\School\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\School\Models\Attendance;
 
@@ -10,29 +11,30 @@ class AttendanceController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        dd('-');
-        $attendance = new Attendance;
+        $attendance = new Attendance($request->input());
+        $attendance->loadData();
         return view('modules.school.Attendance.list', compact('attendance'));
     }
 
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(Req $request, $id)
-    // {
-    //     // $attendance = Attendance::findOrFail($id);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        $attendance = new Attendance;
 
-    //     // if ($attendance->update($request->input())) {
-    //     //     return redirect('/cabinet/attendance');
-    //     // }
+        if ($attendance->update($request->input())) {
+            return \Redirect::back();
+        }
 
-    //     // return redirect(url('/cabinet/product/edit', compact('id')))
-    //     //     ->withErrors($product->getErrors());
-    // }
+        return \Redirect::back()->withErrors($attendance->getErrors());
+    }
 }
