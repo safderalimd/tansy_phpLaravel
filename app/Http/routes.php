@@ -168,6 +168,13 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('fee-due-report', 'reports\School\Controllers\FeeDueReportController@index');
     Route::get('fee-due-report/pdf', 'reports\School\Controllers\FeeDueReportController@report');
 
+    // Route::get('agent-visit', 'Organization\Controllers\OrganizationController@index');
+    // Route::get('agent-visit/create', 'Organization\Controllers\OrganizationController@create');
+    // Route::post('agent-visit/create', 'Organization\Controllers\OrganizationController@store');
+    // Route::get('agent-visit/edit/{id}', 'Organization\Controllers\OrganizationController@edit');
+    // Route::post('agent-visit/edit/{id}', 'Organization\Controllers\OrganizationController@update');
+    // Route::get('agent-visit/delete/{id}', 'Organization\Controllers\OrganizationController@destroy');
+
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
     Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {
