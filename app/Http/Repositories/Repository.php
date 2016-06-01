@@ -83,41 +83,6 @@ class Repository
     /**
      * Procedure that also reads multiple data sets
      */
-    public function runReadProcedure($model, $procedure, $iparams, $oparams)
-    {
-        $pdo = $this->db()->getPdo();
-
-        foreach ($iparams as $parameter) {
-            $modelProperty = $this->extractProperty($parameter);
-            $value = $pdo->quote($model->{$modelProperty});
-            $pdo->query("set {$parameter} = {$value};");
-        }
-
-        $procedureSql = $this->generateProcedureSql($procedure, $iparams, $oparams);
-        $stmt = $pdo->query($procedureSql);
-
-        $dataResults = [];
-        do {
-            $rows = $stmt->fetchAll();
-            if ($rows) {
-                $dataResults = array_merge($dataResults, $rows);
-            }
-        } while ($stmt->nextRowset());
-
-        // TODO: check for errors here
-        // $sql = 'SELECT @oparam_err_flag, @oparam_err_step, @oparam_err_msg;';
-        // $stmt = $pdo->query($sql);
-        // $errorResults = [];
-        // do {
-        //     $rows = $stmt->fetchAll();
-        //     if ($rows) {
-        //         $errorResults = array_merge($errorResults, $rows);
-        //     }
-        // } while ($stmt->nextRowset());
-
-        return $dataResults;
-    }
-
     public function procedure($model, $procedure, $iparams, $oparams)
     {
         $pdo = $this->db()->getPdo();

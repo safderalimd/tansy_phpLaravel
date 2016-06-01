@@ -63,14 +63,14 @@ class ProgressPrintStudentRepository extends Repository
         $procedure = 'sproc_sch_progress_lst';
 
         $iparams = [
-            '@iparam_exam_entity_id',
-            '@iparam_class_entity_id',
-            '@iparam_class_student_id',
-            '@iparam_session_id',
-            '@iparam_user_id',
-            '@iparam_screen_id',
-            '@iparam_debug_sproc',
-            '@iparam_audit_screen_visit',
+            ':iparam_exam_entity_id',
+            ':iparam_class_entity_id',
+            ':iparam_class_student_id',
+            ':iparam_session_id',
+            ':iparam_user_id',
+            ':iparam_screen_id',
+            ':iparam_debug_sproc',
+            ':iparam_audit_screen_visit',
         ];
 
         $oparams = [
@@ -79,6 +79,6 @@ class ProgressPrintStudentRepository extends Repository
             '@oparam_err_msg',
         ];
 
-        return $this->runReadProcedure($model, $procedure, $iparams, $oparams);
+        return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 }

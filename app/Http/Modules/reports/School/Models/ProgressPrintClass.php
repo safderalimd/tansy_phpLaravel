@@ -30,19 +30,13 @@ class ProgressPrintClass extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\reports\School\Repositories\ProgressPrintClassRepository';
 
-    public function progressList()
-    {
-        return $this->repository->getProgressList($this);
-    }
-
     public function loadPdfData()
     {
-        $list = $this->progressList();
-        if (count($list)) {
-            $this->examInfo = array_pop($list);
-            if (!empty($list)) {
-                $this->studentRows = $list;
-            }
+        $data = $this->repository->getProgressList($this);
+        $this->studentRows = first_resultset($data);
+        $this->examInfo = second_resultset($data);
+        if (isset($this->examInfo[0])) {
+            $this->examInfo = $this->examInfo[0];
         }
 
         $this->setSubjectList();
