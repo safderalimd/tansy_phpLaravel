@@ -21,9 +21,7 @@
                     <div class="col-md-4">
                         <select id="facility_entity_id" class="form-control" name="facility_entity_id">
                             @foreach($studentData->facilities() as $option)
-                                <option value="{{ $option['facility_entity_id'] }}">
-                                    {{ $option['facility_name'] }}
-                                </option>
+                                <option value="{{ $option['facility_entity_id'] }}">{{ $option['facility_name'] }}</option>
                             @endforeach
                         </select>
                     </div>

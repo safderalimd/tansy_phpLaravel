@@ -29,9 +29,7 @@
                                                         $accountType = $option['drop_down_list_name'];
                                                     }
                                                 ?>
-                                                <option data-rowtype="{{$option['row_type']}}" {{ ($primaryKey == $option['primary_key_id']) ? 'selected' : ''}} value="{!! $option['primary_key_id'] !!}">
-                                                    {!! $option['drop_down_list_name'] !!}
-                                                </option>
+                                                <option data-rowtype="{{$option['row_type']}}" {{ ($primaryKey == $option['primary_key_id']) ? 'selected' : ''}} value="{!! $option['primary_key_id'] !!}">{!! $option['drop_down_list_name'] !!}</option>
                                             @endforeach
                                         </select>
                                     </div>

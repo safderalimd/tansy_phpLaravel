@@ -66,15 +66,11 @@
                                 <select id="subject_entity_id" class="form-control" name="subject_entity_id">
                                     @if (!$payment->isNewRecord())
                                         @foreach($payment->entityName() as $option)
-                                            <option data-entityTypeId="{{$option['entity_type_id']}}" {{ s('subject_entity_id', $option['entity_id']) }} value="{!! $option['entity_id'] !!}">
-                                                {!! $option['entity_name'] !!}
-                                            </option>
+                                            <option data-entityTypeId="{{$option['entity_type_id']}}" {{ s('subject_entity_id', $option['entity_id']) }} value="{!! $option['entity_id'] !!}">{!! $option['entity_name'] !!}</option>
                                         @endforeach
                                     @else
                                         @foreach($payment->entityName() as $option)
-                                            <option data-entityTypeId="{{$option['entity_type_id']}}" @if ($accountEntityId == $option['entity_id']) {{'selected'}} @endif value="{!! $option['entity_id'] !!}">
-                                                {!! $option['entity_name'] !!}
-                                            </option>
+                                            <option data-entityTypeId="{{$option['entity_type_id']}}" @if ($accountEntityId == $option['entity_id']) {{'selected'}} @endif value="{!! $option['entity_id'] !!}">{!! $option['entity_name'] !!}</option>
                                         @endforeach
                                     @endif
                                 </select>

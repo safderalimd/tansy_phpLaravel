@@ -24,9 +24,7 @@
                                 <select id="class-entity-id-filter" class="form-control" name="class-entity-id-filter">
                                     <option value="none">Select a class</option>
                                     @foreach($move->classes() as $option)
-                                        <option {{ s('class-entity-id-filter', $option['class_entity_id']) }} value="{{ $option['class_entity_id'] }}">
-                                            {{ $option['class_name'] }}
-                                        </option>
+                                        <option {{ s('class-entity-id-filter', $option['class_entity_id']) }} value="{{ $option['class_entity_id'] }}">{{ $option['class_name'] }}</option>
                                     @endforeach
                                 </select>
                             </div>

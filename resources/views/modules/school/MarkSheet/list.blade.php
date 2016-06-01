@@ -24,9 +24,7 @@
                                         <select id="exam_entity_id" class="form-control" name="exam_entity_id">
                                             <option value="none">Select an exam</option>
                                             @foreach($markSheet->exam() as $option)
-                                                <option {{ ($examId == $option['exam_entity_id']) ? 'selected' : ''}} value="{!! $option['exam_entity_id'] !!}">
-                                                    {!! $option['exam'] !!}
-                                                </option>
+                                                <option {{ ($examId == $option['exam_entity_id']) ? 'selected' : ''}} value="{!! $option['exam_entity_id'] !!}">{!! $option['exam'] !!}</option>
                                             @endforeach
                                         </select>
                                     </div>
