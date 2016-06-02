@@ -14,7 +14,7 @@ class Repository
     public function select()
     {
         $args = func_get_args();
-        session()->push('debug-info-select', $args);
+        // session()->push('debug-info-select', $args);
         return call_user_func_array([$this->db(),'select'], $args);
     }
 
