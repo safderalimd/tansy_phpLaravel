@@ -19,8 +19,6 @@
                 <form class="form-horizontal" action="{{ form_action() }}" method="POST">
                     {{ csrf_field() }}
 
-                    <!-- if($client->isNewRecord()) -->
-
                     <hr/>
 <!--                     <div class="row"><div class="col-md-3 pull-left"><h3>Campaign</h3></div></div> -->
 
@@ -113,45 +111,9 @@
                     <div class="row">
                         <label class="col-md-4 control-label" for="status">Notes</label>
                         <div class="col-md-8">
-                            <textarea maxlength="160" id="notes" name="notes" class="form-control" rows="4"></textarea>
+                            <textarea maxlength="160" id="notes" name="notes" class="form-control" rows="4">{{old('notes')}}</textarea>
                         </div>
                     </div>
-
-
-                    <!--
-
-                        campaign dropdown
-
-                        -organization-
-                        organizaition dropdown
-                        new checkbox
-                        name
-                        address1          address2
-                        city              city_area
-                        phone_number      mobile_number
-
-                        -facility-
-                        facility dropdown
-                        new checkbox
-                        name
-                        address1          address2
-                        city              city_area
-                        phone_number      mobile_number
-
-                        -contact person-
-                        contact person dropdown
-                        new checkbox
-                        first name             last name
-                        email
-                        phone number           mobile number
-
-                        visit date
-                        agent
-                        status
-                        notes
-
-
-                    -->
 
                     <div class="row">
                        <div class="col-md-12 text-center grid_footer">

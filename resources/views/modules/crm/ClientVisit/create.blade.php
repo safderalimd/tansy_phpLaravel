@@ -124,7 +124,7 @@
                     <div class="row">
                         <label class="col-md-4 control-label" for="status">Notes</label>
                         <div class="col-md-8">
-                            <textarea maxlength="160" id="notes" name="notes" class="form-control" rows="4"></textarea>
+                            <textarea maxlength="160" id="notes" name="notes" class="form-control" rows="4">{{old('notes')}}</textarea>
                         </div>
                     </div>
 
