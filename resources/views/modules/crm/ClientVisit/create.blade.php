@@ -159,9 +159,16 @@
             }
         });
 
-        $('#organization_city_area').combobox({bsVersion: '3'});
-        // $('#city_area').combobox({bsVersion: '3'});
-        // $('#city_area').combobox({bsVersion: '3'});
+        $('#organization_city_area').combobox({
+            bsVersion: '3',
+            newTarget: '#organization_city_area_new'
+        });
+
+        $('#facility_city_area').combobox({
+            bsVersion: '3',
+            newTarget: '#facility_city_area_new'
+        });
+
     });
 
 </script>

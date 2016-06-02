@@ -40,13 +40,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="facility_city">City</label>
-            <div class="col-md-8">
-                <input id="facility_city" class="form-control" type="text" name="facility_city" value="{{ v('facility_city') }}" placeholder="City">
-            </div>
-        </div>
-
         @include('commons.select', [
             'label'   => 'City' ,
             'name'    => 'facility_city_id',

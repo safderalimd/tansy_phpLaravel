@@ -391,7 +391,11 @@
         case 13: // enter
           if (!this.shown) {return;}
           this.select();
-          $('#city_area_new').val(this.$element.val());
+          if (this.options.newTarget) {
+            $(this.options.newTarget).val(this.$element.val());
+          } else {
+            $('#city_area_new').val(this.$element.val());
+          }
           break;
 
         case 27: // escape
@@ -421,7 +425,11 @@
         // this.$source.val('').trigger('change');
         // this.$target.val('').trigger('change');
       // }
-      $('#city_area_new').val(val);
+      if (this.options.newTarget) {
+        $(this.options.newTarget).val(val);
+      } else {
+        $('#city_area_new').val(val);
+      }
       if (!this.mousedover && this.shown) {setTimeout(function () { that.hide(); }, 200);}
     }
 
