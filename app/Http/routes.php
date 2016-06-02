@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return redirect('/cabinet');
+    return view('tansycloud');
 });
 
 Route::get('/phpinfo', function () {
