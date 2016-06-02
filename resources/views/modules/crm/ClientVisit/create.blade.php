@@ -128,32 +128,6 @@
                         </div>
                     </div>
 
-
-                    <!--
-
-                        -facility-
-                        facility dropdown
-                        new checkbox
-                        name
-                        address1          address2
-                        city              city_area
-                        phone_number      mobile_number
-
-                        -contact person-
-                        contact person dropdown
-                        new checkbox
-                        first name             last name
-                        email
-                        phone number           mobile number
-
-                        visit date
-                        agent
-                        status
-                        notes
-
-
-                    -->
-
                     <div class="row">
                        <div class="col-md-12 text-center grid_footer">
                             <button class="btn btn-primary grid_btn" type="submit">Save</button>

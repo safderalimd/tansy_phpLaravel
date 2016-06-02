@@ -20,7 +20,6 @@
                     {{ csrf_field() }}
 
                     <hr/>
-<!--                     <div class="row"><div class="col-md-3 pull-left"><h3>Campaign</h3></div></div> -->
 
                     @include('commons.select', [
                         'label'   => 'Campaign' ,
@@ -31,7 +30,6 @@
                     ])
 
                     <hr/>
-<!--                     <div class="row"><div class="col-md-3 pull-left"><h3>Organization</h3></div></div> -->
 
                     @include('commons.select', [
                         'label'   => 'Organization' ,
@@ -42,7 +40,6 @@
                     ])
 
                     <hr/>
-<!--                     <div class="row"><div class="col-md-3 pull-left"><h3>Facility</h3></div></div> -->
 
                     @include('commons.select', [
                         'label'   => 'Facility' ,
@@ -53,18 +50,16 @@
                     ])
 
                     <hr/>
-<!--                     <div class="row"><div class="col-md-3 pull-left"><h3>Contact Person</h3></div></div> -->
 
                     @include('commons.select', [
                         'label'   => 'Contact Person' ,
-                        'name'    => 'organization_entity_id',
+                        'name'    => 'contact_entity_id',
                         'options' => $client->contacts(),
                         'keyId'   => 'organization_entity_id',
                         'keyName' => 'contact_name',
                     ])
 
                     <hr/>
-<!--                     <div class="row"><div class="col-md-3 pull-left"><h3>Visit</h3></div></div> -->
 
                     @include('commons.select', [
                         'label'   => 'Agent' ,
