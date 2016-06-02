@@ -68,7 +68,7 @@
                         'label'   => 'Contact Person' ,
                         'name'    => 'contact_entity_id',
                         'options' => $client->contacts(),
-                        'keyId'   => 'organization_entity_id',
+                        'keyId'   => 'contact_entity_id',
                         'keyName' => 'contact_name',
                     ])
 

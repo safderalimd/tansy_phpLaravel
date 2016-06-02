@@ -68,7 +68,8 @@ class ClientVisitRepository extends Repository
             'SELECT
                 contact_name,
                 facility_entity_id,
-                organization_entity_id
+                organization_entity_id,
+                contact_entity_id
              FROM view_org_lkp_organization_contact
              ORDER BY contact_name ASC;'
         );
