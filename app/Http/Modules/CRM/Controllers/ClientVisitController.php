@@ -4,7 +4,8 @@ namespace App\Http\Modules\CRM\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Modules\CRM\Models\ClientVisit;
-use App\Http\Modules\CRM\Requests\ClientVisitFormRequest;
+use App\Http\Modules\CRM\Requests\ClientVisitEditFormRequest;
+use App\Http\Modules\CRM\Requests\ClientVisitCreateFormRequest;
 
 class ClientVisitController extends Controller
 {
@@ -27,18 +28,24 @@ class ClientVisitController extends Controller
     public function create()
     {
         $client = new ClientVisit;
-        return view('modules.crm.ClientVisit.form', compact('client'));
+        $client->loadData();
+        return view('modules.crm.ClientVisit.create', compact('client'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param ClientVisitFormRequest $request
+     * @param ClientVisitCreateFormRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ClientVisitFormRequest $request)
+    public function store(ClientVisitCreateFormRequest $request)
     {
-        $client = new ClientVisit($request->input());
+        $input = $request->input();
+        $input['organization_city_area'] = $request->input('organization_city_area_new');
+        $input['facility_city_area'] = $request->input('facility_city_area_new');
+
+        $client = new ClientVisit($input);
+        $client->setFlags();
 
         if ($client->save()) {
             return redirect('/cabinet/client-visit');
@@ -62,11 +69,11 @@ class ClientVisitController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param ClientVisitFormRequest $request
+     * @param ClientVisitEditFormRequest $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ClientVisitFormRequest $request, $id)
+    public function update(ClientVisitEditFormRequest $request, $id)
     {
         $client = ClientVisit::findOrFail($id);
 

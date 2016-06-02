@@ -169,11 +169,11 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('fee-due-report/pdf', 'reports\School\Controllers\FeeDueReportController@report');
 
     Route::get('client-visit', 'CRM\Controllers\ClientVisitController@index');
-    // Route::get('client-visit/create', 'CRM\Controllers\ClientVisitController@create');
-    // Route::post('client-visit/create', 'CRM\Controllers\ClientVisitController@store');
+    Route::get('client-visit/create', 'CRM\Controllers\ClientVisitController@create');
+    Route::post('client-visit/create', 'CRM\Controllers\ClientVisitController@store');
     Route::get('client-visit/edit/{id}', 'CRM\Controllers\ClientVisitController@edit');
-    // Route::post('client-visit/edit/{id}', 'CRM\Controllers\ClientVisitController@update');
-    // Route::get('client-visit/delete/{id}', 'CRM\Controllers\ClientVisitController@destroy');
+    Route::post('client-visit/edit/{id}', 'CRM\Controllers\ClientVisitController@update');
+    Route::get('client-visit/delete/{id}', 'CRM\Controllers\ClientVisitController@destroy');
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 

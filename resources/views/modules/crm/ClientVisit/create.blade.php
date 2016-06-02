@@ -19,10 +19,7 @@
                 <form class="form-horizontal" action="{{ form_action() }}" method="POST">
                     {{ csrf_field() }}
 
-                    <!-- if($client->isNewRecord()) -->
-
                     <hr/>
-<!--                     <div class="row"><div class="col-md-3 pull-left"><h3>Campaign</h3></div></div> -->
 
                     @include('commons.select', [
                         'label'   => 'Campaign' ,
@@ -32,8 +29,10 @@
                         'keyName' => 'campaign_name',
                     ])
 
+
                     <hr/>
-<!--                     <div class="row"><div class="col-md-3 pull-left"><h3>Organization</h3></div></div> -->
+                    <div class="row"><div class="col-md-3 pull-left"><h3>Organization</h3></div></div>
+
 
                     @include('commons.select', [
                         'label'   => 'Organization' ,
@@ -43,8 +42,12 @@
                         'keyName' => 'organization_name',
                     ])
 
+                    @include('modules.crm.ClientVisit.new-organization')
+
+
                     <hr/>
-<!--                     <div class="row"><div class="col-md-3 pull-left"><h3>Facility</h3></div></div> -->
+                    <div class="row"><div class="col-md-3 pull-left"><h3>Facility</h3></div></div>
+
 
                     @include('commons.select', [
                         'label'   => 'Facility' ,
@@ -54,19 +57,27 @@
                         'keyName' => 'facility_name',
                     ])
 
+                    @include('modules.crm.ClientVisit.new-facility')
+
+
                     <hr/>
-<!--                     <div class="row"><div class="col-md-3 pull-left"><h3>Contact Person</h3></div></div> -->
+                    <div class="row"><div class="col-md-3 pull-left"><h3>Contact Person</h3></div></div>
+
 
                     @include('commons.select', [
                         'label'   => 'Contact Person' ,
-                        'name'    => 'organization_entity_id',
+                        'name'    => 'contact_entity_id',
                         'options' => $client->contacts(),
                         'keyId'   => 'organization_entity_id',
                         'keyName' => 'contact_name',
                     ])
 
+                    @include('modules.crm.ClientVisit.new-contact')
+
+
                     <hr/>
-<!--                     <div class="row"><div class="col-md-3 pull-left"><h3>Visit</h3></div></div> -->
+                    <div class="row"><div class="col-md-3 pull-left"><h3>Visit</h3></div></div>
+
 
                     @include('commons.select', [
                         'label'   => 'Agent' ,
@@ -120,16 +131,6 @@
 
                     <!--
 
-                        campaign dropdown
-
-                        -organization-
-                        organizaition dropdown
-                        new checkbox
-                        name
-                        address1          address2
-                        city              city_area
-                        phone_number      mobile_number
-
                         -facility-
                         facility dropdown
                         new checkbox
@@ -166,4 +167,28 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $('.new-checkbox').change(function() {
+            var selectId = '#' + $(this).attr('data-selectid');
+            if($(this).is(":checked")) {
+                $(this).closest('.new-checkbox-group').find('.new-checkbox-inputs').fadeIn();
+                $(selectId).prop('disabled', true);
+            } else {
+                $(this).closest('.new-checkbox-group').find('.new-checkbox-inputs').fadeOut();
+                $(selectId).prop('disabled', false);
+            }
+        });
+
+        $('#organization_city_area').combobox({bsVersion: '3'});
+        // $('#city_area').combobox({bsVersion: '3'});
+        // $('#city_area').combobox({bsVersion: '3'});
+    });
+
+</script>
 @endsection

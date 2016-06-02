@@ -5,7 +5,7 @@ namespace App\Http\Modules\CRM\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Contracts\Validation\Validator;
 
-class ClientVisitFormRequest extends Request
+class ClientVisitEditFormRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,17 @@ class ClientVisitFormRequest extends Request
     public function rules()
     {
         return [
-            // 'active'    => 'boolean',
-            'product_name'           => 'required|string|max:120',
-            'product_type_entity_id' => 'required|integer',
-            'facility_ids'           => 'required|integer',
-            'unit_rate'              => 'required|numeric|min:0',
+            'organization_entity_id' => 'required|integer',
+            'facility_entity_id'     => 'required|integer',
+
+            'campaign_entity_id'     => 'required|integer',
+            'contact_entity_id'      => 'required|integer',
+
+            'client_status_id'       => 'required|integer',
+            'agent_entity_id'        => 'required|integer',
+            'notes'                  => 'string',
+            'visit_date'             => 'required|string|max:20|date',
+            'next_visit_date'        => 'required|string|max:20|date',
         ];
     }
 
