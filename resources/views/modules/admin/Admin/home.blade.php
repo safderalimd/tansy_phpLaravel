@@ -23,6 +23,9 @@
             Collection Amount:{{amount($admin->collection_amount)}}
             <br/>
 
+            Fee Due:{{amount($admin->dueAmount)}}
+            <br/>
+
 
         </div>
     </div>
