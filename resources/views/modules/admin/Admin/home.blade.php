@@ -14,18 +14,69 @@
 
             @include('commons.errors')
 
-            Employee Absentee:{{nr($admin->employee_absentee)}}
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body bk-danger text-light">
+                            <div class="stat-panel text-center">
+                                <div class="stat-panel-number h1">
+                                    {{nr($admin->employee_absentee)}}
+                                </div>
+                                <div class="stat-panel-title text-uppercase h5">
+                                    Employee Absence
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body bk-danger text-light">
+                            <div class="stat-panel text-center">
+                                <div class="stat-panel-number h1">
+                                    {{sms($admin->sms_send_count)}}
+                                </div>
+                                <div class="stat-panel-title text-uppercase h5">
+                                    Sms Send Count
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <br/>
 
-            Sms Send Count:{{sms($admin->sms_send_count)}}
-            <br/>
-
-            Collection Amount:{{amount($admin->collection_amount)}}
-            <br/>
-
-            Fee Due:{{amount($admin->dueAmount)}}
-            <br/>
-
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body bk-danger text-light">
+                            <div class="stat-panel text-center">
+                                <div class="stat-panel-number h1">
+                                    {{amount($admin->collection_amount)}}
+                                </div>
+                                <div class="stat-panel-title text-uppercase h5">
+                                    Collection Amount
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body bk-danger text-light">
+                            <div class="stat-panel text-center">
+                                <div class="stat-panel-number h1">
+                                    {{amount($admin->dueAmount)}}
+                                </div>
+                                <div class="stat-panel-title text-uppercase h5">
+                                    Fee Due
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
