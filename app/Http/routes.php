@@ -17,7 +17,6 @@ Route::get('/', function () {
 
 Route::get('/phpinfo', function () {
     phpinfo();
-    die();
 });
 
 Route::get('/debug', function() {
