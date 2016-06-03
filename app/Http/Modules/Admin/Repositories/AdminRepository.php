@@ -6,6 +6,14 @@ use App\Http\Repositories\Repository;
 
 class AdminRepository extends Repository
 {
+    public function debugReset()
+    {
+        $pdo = $this->db()->getPdo();
+
+        $procedure = 'call sproc_sys_solve_duplicate_error';
+        $pdo->query($procedure);
+    }
+
     public function homeData($model)
     {
         $procedure = 'sproc_org_home_sysadmin_v1';

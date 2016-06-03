@@ -14,7 +14,6 @@ class GenerateProgressRepository extends Repository
                 class_name,
                 locked,
                 progress_status,
-                last_upload_modified_date,
                 exam_entity_id,
                 class_entity_id,
                 class_reporting_order

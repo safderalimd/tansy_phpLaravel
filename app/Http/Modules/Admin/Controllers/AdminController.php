@@ -21,9 +21,8 @@ class AdminController extends Controller
 
     public function debugReset()
     {
-        // $admin = new Admin;
-        // $admin->repository->debugReset();
-        // call sproc_sys_solve_duplicate_error
+        $admin = new Admin;
+        $admin->repository->debugReset($admin);
         return view('cabinet.main');
     }
 }
