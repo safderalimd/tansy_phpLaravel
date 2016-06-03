@@ -61,7 +61,7 @@
                 <td>{{$item['class_name']}}</td>
                 <td>{{$item['subject']}}</td>
                 <td>{{$item['max_marks']}}</td>
-                <td>{{$item['exam_date']}}</td>
+                <td>{{style_date($item['exam_date'])}}</td>
                 <td>{{$item['exam_time']}}</td>
                 <td>
                     <a class="btn btn-default formConfirm" href="{{url("/cabinet/exam-schedule/delete?cid={$item['class_entity_id']}&sid={$item['subject_entity_id']}&eid={$item['exam_entity_id']}")}}"

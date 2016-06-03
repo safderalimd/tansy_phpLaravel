@@ -102,8 +102,15 @@ function phone_number_spaces($number)
  * @param  string $date Date in the format '2015-03-21'
  * @return string
  */
-function style_date($date) {
-    return date("F jS, Y", strtotime($date));
+function style_date($date)
+{
+    $date = strtotime($date);
+
+    if (empty($date)) {
+        return '-';
+    }
+
+    return date("F jS, Y", $date);
 }
 
 function current_date()
