@@ -17,7 +17,7 @@ class MarkSheet extends Model
         $this->examId = $examId;
     }
 
-    public function save()
+    public function saveMarksheet()
     {
         return $this->repository->save($this);
     }

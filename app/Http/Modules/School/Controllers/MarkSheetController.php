@@ -80,7 +80,7 @@ class MarkSheetController extends Controller
     {
         $markSheet = new MarkSheet($request->input());
 
-        if ($markSheet->save()) {
+        if ($markSheet->saveMarksheet()) {
             return redirect('/cabinet/mark-sheet');
         }
 
