@@ -18,4 +18,10 @@ class AdminController extends Controller
         $admin = new Admin;
         return view('modules.admin.Admin.home', compact('admin'));
     }
+
+    public function debugReset()
+    {
+
+        return view('cabinet.main');
+    }
 }

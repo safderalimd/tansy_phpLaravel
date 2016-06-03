@@ -174,7 +174,8 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::post('client-visit/edit/{id}', 'CRM\Controllers\ClientVisitController@update');
     Route::get('client-visit/delete/{id}', 'CRM\Controllers\ClientVisitController@destroy');
 
-    Route::get('home', 'Admin\Controllers\AdminController@home');
+    Route::get('home-v1', 'Admin\Controllers\AdminController@home');
+    Route::get('change-password', 'Admin\Controllers\AdminController@debugReset');
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
