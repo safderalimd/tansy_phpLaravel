@@ -12,6 +12,7 @@ class SchedulePayment extends Model
 
     public function setActiveAttribute($value)
     {
+        $value = (string)$value;
         if (!empty($value) || $value == 'on') {
             return 1;
         }
