@@ -51,6 +51,11 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="facility_ids">Facility</label>
                             <div class="col-md-8">
+                                <?php
+                                    if (!is_array($product->selectedFacilities)) {
+                                        $product->selectedFacilities = [];
+                                    }
+                                ?>
                                 <select id="facility_ids" class="form-control" name="facility_ids">
                                     @foreach($product->facilities() as $option)
                                         <option @if(in_array($option['facility_entity_id'], $product->selectedFacilities)) selected @endif value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
