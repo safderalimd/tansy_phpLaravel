@@ -19,7 +19,7 @@
                         <tr>
                             <th>Class <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                             <th>Subject <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                            <th>Mapped</th>
+                            <th>Mapped <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                             <th>Actions</th>
                         </tr>
                     </thead>
