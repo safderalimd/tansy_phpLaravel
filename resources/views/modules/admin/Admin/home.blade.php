@@ -1,83 +1,87 @@
-@extends('layout.cabinet')
+@extends('layout.dashboard')
 
-@section('title', 'Home v1')
+@section('title', 'Home - v1')
 
 @section('content')
 
-<div class="panel-group sch_class">
-    <div class="panel panel-primary">
-    	<div class="panel-heading">
-        	<i class="glyphicon glyphicon-th-list"></i>
-        	<h3>Home v1</h3>
-        </div>
-        <div class="panel-body">
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-title">
+                    <h2>Home - v1</h2>
+                </div>
 
-            @include('commons.errors')
+                <div class="row">
+                    <div class="col-md-12">
 
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-body bk-danger text-light">
-                            <div class="stat-panel text-center">
-                                <div class="stat-panel-number h1">
-                                    {{nr($admin->employee_absentee)}}
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="panel panel-default">
+                                    <div class="panel-body bk-info text-light">
+                                        <div class="stat-panel text-center">
+                                            <div class="stat-panel-number h1">
+                                                {{nr($admin->employee_absentee)}}
+                                            </div>
+                                            <div class="stat-panel-title text-uppercase">
+                                                Employee Absence
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="stat-panel-title text-uppercase h5">
-                                    Employee Absence
+                            </div>
+                            <div class="col-md-3">
+                                <div class="panel panel-default">
+                                    <div class="panel-body bk-danger text-light">
+                                        <div class="stat-panel text-center">
+                                            <div class="stat-panel-number h1">
+                                                {{sms($admin->sms_send_count)}}
+                                            </div>
+                                            <div class="stat-panel-title text-uppercase">
+                                                Sms Send Count
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-body bk-danger text-light">
-                            <div class="stat-panel text-center">
-                                <div class="stat-panel-number h1">
-                                    {{sms($admin->sms_send_count)}}
-                                </div>
-                                <div class="stat-panel-title text-uppercase h5">
-                                    Sms Send Count
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="panel panel-default">
+                                    <div class="panel-body bk-warning text-light">
+                                        <div class="stat-panel text-center">
+                                            <div class="stat-panel-number h1">
+                                                <i class="fa fa-inr"></i> {{amount($admin->collection_amount)}}
+                                            </div>
+                                            <div class="stat-panel-title text-uppercase">
+                                                Collection Amount
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-3">
+                                <div class="panel panel-default">
+                                    <div class="panel-body bk-success text-light">
+                                        <div class="stat-panel text-center">
+                                            <div class="stat-panel-number h1">
+                                                <i class="fa fa-inr"></i> {{amount($admin->dueAmount)}}
+                                            </div>
+                                            <div class="stat-panel-title text-uppercase">
+                                                Fee Due
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
+
             </div>
-
-            <br/>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-body bk-danger text-light">
-                            <div class="stat-panel text-center">
-                                <div class="stat-panel-number h1">
-                                    {{amount($admin->collection_amount)}}
-                                </div>
-                                <div class="stat-panel-title text-uppercase h5">
-                                    Collection Amount
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-body bk-danger text-light">
-                            <div class="stat-panel text-center">
-                                <div class="stat-panel-number h1">
-                                    {{amount($admin->dueAmount)}}
-                                </div>
-                                <div class="stat-panel-title text-uppercase h5">
-                                    Fee Due
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>

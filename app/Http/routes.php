@@ -179,9 +179,11 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
-    Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {
-        return view('cabinet.main');
-    }]);
+    Route::get('/{module?}', ['as' => 'cabinet', 'uses' => 'Admin\Controllers\AdminController@home']);
+
+    // Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {
+    //     return view('cabinet.main');
+    // }]);
 
 });
 

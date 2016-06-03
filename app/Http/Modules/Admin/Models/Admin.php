@@ -19,6 +19,18 @@ class Admin extends Model
         // call procedure to load oparams to the model
         $this->repository->homeData($this);
 
+        if (is_null($this->employee_absentee)) {
+            $this->employee_absentee = 0;
+        }
+
+        if (is_null($this->sms_send_count)) {
+            $this->sms_send_count = 0;
+        }
+
+        if (is_null($this->collection_amount)) {
+            $this->collection_amount = 0;
+        }
+
         $this->setDueAmount();
     }
 
