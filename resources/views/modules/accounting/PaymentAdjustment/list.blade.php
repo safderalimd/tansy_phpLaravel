@@ -34,8 +34,8 @@
     <td>{{$row['product_name']}}</td>
     <td>{{$row['schedule_name']}}</td>
     <td>{{$row['current_schedule_name']}}</td>
-    <td>{{$row['due_amount']}}</td>
-    <td>{{$row['adjustment_amount']}}</td>
+    <td>&#x20b9; {{amount($row['due_amount'])}}</td>
+    <td>&#x20b9; {{amount($row['adjustment_amount'])}}</td>
     <td>
         @if ($row['schedule_detail_id'] > 0)
             <div>

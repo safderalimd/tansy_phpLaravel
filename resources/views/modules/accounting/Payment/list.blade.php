@@ -54,7 +54,11 @@
     <tr>
         <td style="width:160px;">{{$accountType}}</td>
         <td>{{$row['account_name']}}</td>
-        <td>{{number_format($row['2'], 2)}}</td>
+        @if (isset($row['2']))
+            <td>&#x20b9; {{amount($row['2'])}}</td>
+        @else
+            <td>-</td>
+        @endif
         <td>
             <a class="btn btn-default btn-sm" href="{{url("/cabinet/payment/create/?pk={$row['account_entity_id']}")}}" title="Payment">Payment</a>
             <a class="btn btn-default btn-sm" href="{{url("/cabinet/payment-adjustment/{$row['account_entity_id']}")}}" title="Adjustment">Adjustment</a>
