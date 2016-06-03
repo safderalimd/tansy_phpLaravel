@@ -34,9 +34,9 @@ class ProgressPrintClass extends Model
     {
         $data = $this->repository->getProgressList($this);
         $this->studentRows = first_resultset($data);
-        $this->examInfo = second_resultset($data);
-        if (isset($this->examInfo[0])) {
-            $this->examInfo = $this->examInfo[0];
+        $examInfo = second_resultset($data);
+        if (isset($examInfo[0])) {
+            $this->examInfo = $examInfo[0];
         }
 
         $this->setSubjectList();
