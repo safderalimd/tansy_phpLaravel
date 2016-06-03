@@ -201,13 +201,17 @@ class Model
         return $this->errors;
     }
 
-    public function save()
+    public function save($attributes = null)
     {
-        return $this->insert();
+        return $this->insert($attributes);
     }
 
-    public function insert()
+    public function insert($attributes = null)
     {
+        if (!is_null($attributes)) {
+            $this->fill($attributes);
+        }
+
         return $this->repository->insert($this);
     }
 

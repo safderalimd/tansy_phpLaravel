@@ -9,28 +9,35 @@
         <div class="panel-heading">
             <i class="glyphicon glyphicon-th-list"></i>
             <h3>Fiscal Years</h3>
-            <a href="{!!url('/cabinet/fiscal-year/create/')!!}" class="btn pull-right btn-default">Add new record</a>
+            <a href="{{url('/cabinet/fiscal-year/create/')}}" class="btn pull-right btn-default">Add new record</a>
         </div>
         <div class="panel-body">
 
+        @include('commons.errors')
 
         <table class="table table-striped table-bordered table-hover" data-datatable>
             <thead>
                 <tr>
-                    <th>Fiscal Year</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Current Year</th>
+                    <th>Fiscal Year <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                    <th>Start Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                    <th>End Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                    <th>Current Year <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-            @foreach($data as $row)
+            @foreach($fiscalYear->allFiscalYears() as $row)
             <tr>
-                <td>{{$row['fiscal_year']}}</td>
-                <td>{{$row['start_date']}}</td>
-                <td>{{$row['end_date']}}</td>
-                <td>{{$row['current_fiscal_year']}}</td>
+                <td>{{$row['name']}}</td>
+                <td>{{style_date($row['start_date'])}}</td>
+                <td>{{style_date($row['end_date'])}}</td>
+                <td>
+                    @if ($row['current_fiscal_year'] == 1)
+                        <strong>Yes</strong>
+                    @else
+                        No
+                    @endif
+                </td>
                 <td>
                     <a class="btn btn-default" href="{{url("/cabinet/fiscal-year/edit/{$row['fiscal_year_entity_id']}")}}" title="Edit">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -52,6 +59,5 @@
         </div>
     </div>
 </div>
-
 
 @endsection

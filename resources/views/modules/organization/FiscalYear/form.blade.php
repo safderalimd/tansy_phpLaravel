@@ -4,70 +4,70 @@
 
 @section('content')
 
-
 <div class="row">
     <div class="col-md-8 sch_class panel-group panel-bdr">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <i class="glyphicon glyphicon-th"></i>
-                <h3>Fiscal Year</h3>
-                @if(Request::segment(3) == "edit")
-                    <label>- Update</label>
-                @else
-                    <label>- Add New Record</label>
-                @endif
+                <h3>Fiscal Year{{ form_label() }}</h3>
             </div>
 
             <div class="panel-body edit_form_wrapper">
+                <section class="form_panel">
 
                 @include('commons.errors')
 
-                <form class="form-horizontal"
-                      action="@if($model->isNewRecord()){{ url("/cabinet/fiscal-year/create")}} @else {{url("/cabinet/fiscal-year/edit/{$model->getID()}")}} @endif"
-                      method="POST">
+                <form class="form-horizontal" action="{{ form_action() }}" method="POST">
                     {{ csrf_field() }}
+
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="name">Fiscal Year</label>
                         <div class="col-md-6">
-                            <input id="name" class="form-control" type="text" name="name" value="{!!$model->name!!}"
-                                   placeholder="Name">
+                            <input id="name" class="form-control" type="text" name="name" value="{{ v('name') }}" placeholder="Name">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="startDate">Start Date</label>
+                        <label class="col-md-2 control-label" for="start_date">Start Date</label>
                         <div class="col-md-6">
                             <div class="input-group date">
-                                <input id="startDate" class="form-control" type="text" name="startDate"
-                                       value="{!!$model->startDate!!}" placeholder="Start Date">
+                                <input id="start_date" class="form-control" type="text" name="start_date"
+                                       value="{{ v('start_date') }}" placeholder="Start Date">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><span
-                                                class="glyphicon glyphicon-calendar"></span></button>
+                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>
                                 </span>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="endDate">End Date</label>
+                        <label class="col-md-2 control-label" for="end_date">End Date</label>
                         <div class="col-md-6">
                             <div class="input-group date">
-                                <input id="endDate" class="form-control" type="text" name="endDate"
-                                       value="{!!$model->endDate!!}" placeholder="End Date">
+                                <input id="end_date" class="form-control" type="text" name="end_date"
+                                       value="{{ v('end_date') }}" placeholder="End Date">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><span
-                                                class="glyphicon glyphicon-calendar"></span></button>
+                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>
                                 </span>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="facility">Facility</label>
+                        <label class="col-md-2 control-label" for="facility_ids">Facility</label>
                         <div class="col-md-8">
-                            <select id="facility" multiple class="form-control" name="facility[]">
-                                @foreach($facility as $item)
-                                    <option @if (!$model->isNewRecord() && in_array($item['facility_entity_id'], $model->getFacilitates())) selected @endif value="{!!$item['facility_entity_id']!!}">{!!$item['facility_name']!!}</option>
+                            <select id="facility_ids" multiple class="form-control" name="facility_ids[]">
+                                <?php
+                                    $facilities = old('facility_ids');
+                                    if (!is_array($facilities)) {
+                                        $facilities = [];
+                                    }
+                                    if (is_array($fiscalYear->selectedFacilities)) {
+                                        $facilities = $fiscalYear->selectedFacilities;
+                                    }
+                                ?>
+                                @foreach($fiscalYear->facilities() as $option)
+                                    <option @if(in_array($option['facility_entity_id'], $facilities)) selected @endif value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -77,7 +77,7 @@
                         <div class="col-md-offset-2 col-sm-5">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="currentFiscalYear" value="1" @if($model->currentFiscalYear) checked @endif> Current year?
+                                    <input {{ c('active') }} type="checkbox" name="current_fiscal_year" value="1"> Current year?
                                 </label>
                             </div>
                         </div>
@@ -91,6 +91,7 @@
                     </div>
                 </form>
 
+                </section>
             </div>
         </div>
     </div>

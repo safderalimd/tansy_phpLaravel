@@ -38,9 +38,10 @@ class ProductController extends Controller
      */
     public function store(ProductFormRequest $request)
     {
-        $product = new Product($request->input());
+        $product = new Product;
+        $product->setAttribute('active', 0);
 
-        if ($product->save()) {
+        if ($product->save($request->input())) {
             return redirect('/cabinet/product');
         }
 

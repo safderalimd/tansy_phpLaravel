@@ -6,34 +6,29 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Organization\Models\FiscalYear;
 use App\Http\Modules\Organization\Requests\FiscalYearFormRequest;
-use App\Http\Modules\Organization\Repositories\FiscalYearRepository;
 
 class FiscalYearController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  FiscalYearRepository $repo
      * @return \Illuminate\Http\Response
      */
-    public function index(FiscalYearRepository $repo)
+    public function index()
     {
-        $rows = $repo->getAllFiscalYears();
-        return view('modules.organization.FiscalYear.list', ['data' => $rows]);
+        $fiscalYear = new FiscalYear;
+        return view('modules.organization.FiscalYear.list', compact('fiscalYear'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @param  FiscalYearRepository $repo
      * @return \Illuminate\Http\Response
      */
-    public function create(FiscalYearRepository $repo)
+    public function create()
     {
-        $model = new FiscalYear();
-        $facility = $repo->getFacilities();
-
-        return view('modules.organization.FiscalYear.form', ['model' => $model, 'facility' => $facility]);
+        $fiscalYear = new FiscalYear;
+        return view('modules.organization.FiscalYear.form', compact('fiscalYear'));
     }
 
     /**
@@ -44,29 +39,27 @@ class FiscalYearController extends Controller
      */
     public function store(FiscalYearFormRequest $request)
     {
-        $params = $request->input();
+        $fiscalYear = new FiscalYear;
+        $fiscalYear->setAttribute('current_fiscal_year', 0);
 
-        $model = new FiscalYear($params);
-        if ($model->save()) {
+        if ($fiscalYear->save($request->input())) {
             return redirect('/cabinet/fiscal-year');
         }
 
-        return redirect('/cabinet/fiscal-year/create')->withErrors($model->getErrors());
+        return redirect('/cabinet/fiscal-year/create')->withErrors($fiscalYear->getErrors());
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  FiscalYearRepository $repo
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(FiscalYearRepository $repo, $id)
+    public function edit($id)
     {
-        $model = FiscalYear::findOrFail($id);
-        $facility = $repo->getFacilities();
-
-        return view('modules.organization.FiscalYear.form', ['model' => $model, 'facility' => $facility]);
+        $fiscalYear = FiscalYear::findOrFail($id);
+        $fiscalYear->loadData();
+        return view('modules.organization.FiscalYear.form', compact('fiscalYear'));
     }
 
     /**
@@ -78,16 +71,15 @@ class FiscalYearController extends Controller
      */
     public function update(FiscalYearFormRequest $request, $id)
     {
-        $params = $request->input();
-        $params['entityID'] = $id;
+        $fiscalYear = new FiscalYear;
+        $fiscalYear->setAttribute('fiscal_year_entity_id', $id);
+        $fiscalYear->setAttribute('current_fiscal_year', 0);
 
-        $model = new FiscalYear($params);
-
-        if ($model->save()) {
+        if ($fiscalYear->update($request->input())) {
             return redirect('/cabinet/fiscal-year');
         }
 
-        return redirect(url('/cabinet/fiscal-year/edit', ['id' => $model->getID()]))->withErrors($model->getErrors());
+        return \Redirect::back()->withErrors($fiscalYear->getErrors());
     }
 
     /**
@@ -98,12 +90,12 @@ class FiscalYearController extends Controller
      */
     public function destroy($id)
     {
-        $model = FiscalYear::findOrFail($id);
+        $fiscalYear = FiscalYear::findOrFail($id);
 
-        if ($model->delete()) {
+        if ($fiscalYear->delete()) {
             return redirect('/cabinet/fiscal-year');
         }
 
-        return redirect('/cabinet/fiscal-year')->withErrors($model->getErrors());
+        return redirect('/cabinet/fiscal-year')->withErrors($fiscalYear->getErrors());
     }
 }

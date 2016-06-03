@@ -25,12 +25,11 @@ class FiscalYearFormRequest extends Request
     public function rules()
     {
         return [
-            'entityID' => 'integer',
-            'startDate' => 'required|date',
-            'endDate' => 'required|date|after:startDate',
-            'name' => 'required|string',
-            'facilityIDs' => 'array',
-            'currentFiscalYear' => 'boolean'
+            'start_date'          => 'required|date',
+            'end_date'            => 'required|date|after:start_date',
+            'name'                => 'required|string',
+            'facility_ids'        => 'required|array',
+            'current_fiscal_year' => 'boolean'
         ];
     }
 

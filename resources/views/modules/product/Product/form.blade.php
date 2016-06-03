@@ -8,7 +8,7 @@
             <div class="panel panel-primary">
 			    <div class="panel-heading">
                 	<i class="glyphicon glyphicon-th"></i>
-                	<h3>Product{!! form_label() !!}</h3>
+                	<h3>Product{{ form_label() }}</h3>
                 </div>
 
                 <div class="panel-body edit_form_wrapper">

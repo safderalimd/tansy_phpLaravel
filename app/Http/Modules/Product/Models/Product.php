@@ -12,7 +12,7 @@ class Product extends Model
 
     public function setActiveAttribute($value)
     {
-        $value = parse_str($value);
+        $value = (string)$value;
         if (!empty($value) || $value == 'on') {
             return 1;
         }
