@@ -23,7 +23,11 @@
                             <div class="col-sm-offset-4 col-sm-8">
                                 <div class="checkbox">
                                     <label>
-                                        <input {{ c('active') }} name="active" type="checkbox"> Active
+                                        @if($payment->isNewRecord())
+                                            <input checked="checked" name="active" type="checkbox" disabled readonly> Active
+                                        @else
+                                            <input {{ c('active') }} name="active" type="checkbox"> Active
+                                        @endif
                                     </label>
                                 </div>
                             </div>

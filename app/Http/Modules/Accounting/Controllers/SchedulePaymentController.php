@@ -75,7 +75,9 @@ class SchedulePaymentController extends Controller
      */
     public function update(SchedulePaymentFormRequest $request, $id)
     {
-        $payment = SchedulePayment::findOrFail($id);
+        $payment = new SchedulePayment;
+        $payment->setAttribute('schedule_entity_id', $id);
+        $payment->setAttribute('active', 0);
 
         if ($payment->update($request->input())) {
             return redirect('/cabinet/schedule-payment');
