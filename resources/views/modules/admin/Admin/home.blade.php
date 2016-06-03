@@ -16,7 +16,7 @@
                     <div class="col-md-12">
 
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="panel panel-default">
                                     <div class="panel-body bk-info text-light">
                                         <div class="stat-panel text-center">
@@ -30,7 +30,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="panel panel-default">
                                     <div class="panel-body bk-danger text-light">
                                         <div class="stat-panel text-center">
@@ -47,7 +47,7 @@
                         </div>
                         <div class="row">
 
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="panel panel-default">
                                     <div class="panel-body bk-warning text-light">
                                         <div class="stat-panel text-center">
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="panel panel-default">
                                     <div class="panel-body bk-success text-light">
                                         <div class="stat-panel text-center">
@@ -86,4 +86,15 @@
     </div>
 </div>
 
+@endsection
+
+@section('styles')
+<style type="text/css">
+    .panel-body {
+        height: 200px;
+    }
+    .stat-panel {
+        margin-top: 50px;
+    }
+</style>
 @endsection
