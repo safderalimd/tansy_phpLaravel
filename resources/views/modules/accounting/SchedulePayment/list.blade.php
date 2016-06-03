@@ -23,7 +23,7 @@
                             <th>Frequency Type <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                             <th>Start Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                             <th>End Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                            <th>Amount (<i class="fa fa-inr"></i>) <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                            <th>Amount <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                             <th>Actions</th>
                         </tr>
                     </thead>
