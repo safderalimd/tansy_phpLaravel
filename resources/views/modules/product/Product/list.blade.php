@@ -20,7 +20,7 @@
                         <tr>
                             <th>Product Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                             <th>Product Type <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                            <th>Active</th>
+                            <th>Active <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                             <th>Actions</th>
                         </tr>
                     </thead>

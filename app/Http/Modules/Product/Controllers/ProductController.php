@@ -68,7 +68,9 @@ class ProductController extends Controller
      */
     public function update(ProductFormRequest $request, $id)
     {
-        $product = Product::findOrFail($id);
+        $product = new Product;
+        $product->setAttribute('product_entity_id', $id);
+        $product->setAttribute('active', 0);
 
         if ($product->update($request->input())) {
             return redirect('/cabinet/product');

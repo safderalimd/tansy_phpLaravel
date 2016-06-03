@@ -12,10 +12,16 @@ class Product extends Model
 
     public function setActiveAttribute($value)
     {
+        $value = parse_str($value);
         if (!empty($value) || $value == 'on') {
             return 1;
         }
 
         return 0;
+    }
+
+    public function setUnitRateAttribute($value)
+    {
+        return round(floatval($value), 2);
     }
 }
