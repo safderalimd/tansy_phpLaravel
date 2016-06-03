@@ -77,7 +77,7 @@
                         <div class="col-md-offset-2 col-sm-5">
                             <div class="checkbox">
                                 <label>
-                                    <input {{ c('active') }} type="checkbox" name="current_fiscal_year" value="1"> Current year?
+                                    <input {{ c('current_fiscal_year') }} type="checkbox" name="current_fiscal_year" value="1"> Current year?
                                 </label>
                             </div>
                         </div>

@@ -91,12 +91,12 @@ class FiscalYearRepository extends Repository
         $procedure = 'sproc_org_fiscal_year_dml_upd';
 
         $iparams = [
-            ':iparam_fiscal_year_entity_id',
             ':iparam_start_date',
             ':iparam_end_date',
             ':iparam_name',
             ':iparam_current_fiscal_year',
             ':iparam_facility_ids',
+            ':iparam_fiscal_year_entity_id',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
