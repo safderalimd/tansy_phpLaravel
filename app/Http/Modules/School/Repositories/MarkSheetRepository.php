@@ -17,10 +17,13 @@ class MarkSheetRepository extends Repository
                 last_upload_modified_date,
                 exam_entity_id,
                 class_entity_id,
-                subject_entity_id
+                subject_entity_id,
+                class_reporting_order,
+                subject_reporting_order
                 FROM view_sch_mark_sheet_grid
                 WHERE exam_entity_id = :id
-                ORDER BY class_name ASC;', ['id' => $id]
+                ORDER BY class_reporting_order, subject_reporting_order ASC;',
+                ['id' => $id]
         );
     }
 

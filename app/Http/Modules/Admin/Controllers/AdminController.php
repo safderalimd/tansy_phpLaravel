@@ -21,7 +21,8 @@ class AdminController extends Controller
 
     public function debugReset()
     {
-
+        // $admin = new Admin;
+        // $admin->repository->debugReset();
         return view('cabinet.main');
     }
 }
