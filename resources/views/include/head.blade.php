@@ -1,5 +1,6 @@
 @include('include.meta-and-title')
 
+<link type="text/css" href="/dashboard/font-awesome.min.css" rel="stylesheet">
 <link href="/css/app.css" rel="stylesheet">
 <link href="/css/layout.css" rel="stylesheet">
 <link href="/css/datapicker.css" rel="stylesheet">

@@ -23,7 +23,7 @@
                             <th>Frequency Type <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                             <th>Start Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                             <th>End Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                            <th>Amount <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                            <th>Amount (<i class="fa fa-inr"></i>) <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -35,7 +35,7 @@
                 <td>{{$item['frequency']}}</td>
                 <td>{{style_date($item['start_date'])}}</td>
                 <td>{{style_date($item['end_date'])}}</td>
-                <td>{{amount($item['amount'])}}</td>
+                <td>&#x20b9; {{amount($item['amount'])}}</td>
                 <td>
                     <a class="btn btn-default" href="{{url("/cabinet/schedule-payment/edit/{$item['schedule_entity_id']}")}}" title="Edit">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
