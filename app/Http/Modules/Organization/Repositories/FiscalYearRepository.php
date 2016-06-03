@@ -20,17 +20,6 @@ class FiscalYearRepository extends Repository
         );
     }
 
-    public function getFacilities()
-    {
-        return $this->select(
-            'SELECT
-                facility_entity_id,
-                facility_name
-             FROM view_org_facility_lkp
-             ORDER BY facility_name;'
-        );
-    }
-
     public function getSelectedFacilities($id)
     {
         return $this->select(
