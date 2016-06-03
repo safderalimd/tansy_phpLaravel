@@ -19,7 +19,7 @@
                         <tr>
                             <th>Student Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                             <th>Class <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                            <th>Mobile Number</th>
+                            <th>Mobile Number <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -31,7 +31,7 @@
                     <a class="" href="{{url("/cabinet/student-dashboard?csi={$student['class_student_id']}&sei={$student['student_entity_id']}")}}" title="Student Dashboard">{{$student['student_full_name']}}</a>
                 </td>
                 <td>{{$student['class_name']}}</td>
-                <td>{{$student['mobile_phone']}}</td>
+                <td>{{phone_number($student['mobile_phone'])}}</td>
                 <td>
                     <a class="btn btn-default" href="{{url("/cabinet/student-account/edit/{$student['student_entity_id']}")}}" title="Edit">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>

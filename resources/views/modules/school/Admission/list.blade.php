@@ -21,9 +21,9 @@
                     <th class="text-center"><input type="checkbox" id="toggle-subjects" name="toggle-checkbox" value=""></th>
                     <th>Student Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                     <th>Admission # <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                    <th>Admission Date</th>
-                    <th>Admitted</th>
-                    <th>Status</th>
+                    <th>Admission Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                    <th>Admitted <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                    <th>Status <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -36,7 +36,7 @@
         </td>
         <td>{{$student['student_full_name']}}</td>
         <td>{{$student['admission_number']}}</td>
-        <td>{{$student['admission_date']}}</td>
+        <td>{{style_date($student['admission_date'])}}</td>
         <td>{{$student['admitted_to']}}</td>
         <td>{{$student['admission_status']}}</td>
         <td>
