@@ -48,13 +48,16 @@
                             'keyName' => 'product_type',
                         ])
 
-                        @include('commons.select', [
-                            'label'   => 'Facility Type' ,
-                            'name'    => 'facility_ids',
-                            'options' => $product->facilities(),
-                            'keyId'   => 'facility_entity_id',
-                            'keyName' => 'facility_name',
-                        ])
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="facility_ids">Facility</label>
+                            <div class="col-md-8">
+                                <select id="facility_ids" class="form-control" name="facility_ids">
+                                    @foreach($product->facilities() as $option)
+                                        <option @if(in_array($option['facility_entity_id'], $product->selectedFacilities)) selected @endif value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="unit-rate">Unit Rate</label>

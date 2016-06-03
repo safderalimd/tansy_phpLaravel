@@ -10,6 +10,8 @@ class Product extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\Product\Repositories\ProductRepository';
 
+    public $selectedFacilities;
+
     public function setActiveAttribute($value)
     {
         $value = (string)$value;
@@ -23,5 +25,14 @@ class Product extends Model
     public function setUnitRateAttribute($value)
     {
         return round(floatval($value), 2);
+    }
+
+    public function loadData()
+    {
+        $facilities = $this->repository->getSelectedFacilities($this->product_entity_id);
+        $this->selectedFacilities = array_column($facilities, 'facility_entity_id');
+        if (!is_array($this->selectedFacilities)) {
+            $this->selectedFacilities = [];
+        }
     }
 }
