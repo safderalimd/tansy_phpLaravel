@@ -42,11 +42,33 @@ class AccountEmployeeRepository extends Repository
                 joining_date,
                 login_name,
                 password,
-                login_user_account_status,
+                login_user_account_status AS user_account_active,
                 account_entity_id
             FROM view_org_account_employee_detail
             WHERE account_entity_id = :id
             LIMIT 1;', ['id' => $id]
+        );
+    }
+
+    public function getDepartments()
+    {
+        return $this->select(
+            'SELECT
+                department_name,
+                department_id
+             FROM view_org_lkp_department
+             ORDER BY department_name ASC;'
+        );
+    }
+
+    public function getSecurityGroup()
+    {
+        return $this->select(
+            'SELECT
+                group_name,
+                group_entity_id
+             FROM view_org_lkp_sec_group_for_employee
+             ORDER BY group_name ASC;'
         );
     }
 

@@ -38,8 +38,10 @@ class AccountEmployeeController extends Controller
      */
     public function store(AccountEmployeeFormRequest $request)
     {
-        $account = new AccountEmployee($request->input());
-        $account->save();
+        $account = new AccountEmployee;
+        $account->setAttribute('active', 0);
+        $account->setAttribute('user_account_active', 0);
+        $account->save($request->input());
         return redirect('/cabinet/account-employee');
     }
 
@@ -52,6 +54,7 @@ class AccountEmployeeController extends Controller
     public function edit($id)
     {
         $account = AccountEmployee::findOrFail($id);
+        $account->loadData();
         return view('modules.organization.AccountEmployee.form', compact('account'));
     }
 
@@ -65,8 +68,10 @@ class AccountEmployeeController extends Controller
     public function update(AccountEmployeeFormRequest $request, $id)
     {
         $account = new AccountEmployee;
-        $account->setAttribute('AccountEmployee_entity_id', $id);
-        $account->update($request->input());
+        $account->setAttribute('account_entity_id', $id);
+        $account->setAttribute('active', 0);
+        $account->setAttribute('user_account_active', 0);
+        $account->save($request->input());
         return redirect('/cabinet/account-employee');
     }
 
