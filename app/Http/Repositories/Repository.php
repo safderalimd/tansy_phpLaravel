@@ -57,9 +57,29 @@ class Repository
     public function getFacilities()
     {
         return $this->select(
-            'SELECT facility_entity_id, facility_name
+            'SELECT
+                facility_entity_id,
+                facility_name,
+                organization_type,
+                organization_entity_id,
+                organization_type_id
              FROM view_org_lkp_facility
              ORDER BY facility_name ASC;'
+        );
+    }
+
+    public function getFacilitiesForOwner()
+    {
+        return $this->select(
+            'SELECT
+                facility_entity_id,
+                facility_name,
+                organization_type,
+                organization_entity_id,
+                organization_type_id
+             FROM view_org_lkp_facility
+             WHERE organization_type = :type
+             ORDER BY facility_name ASC;', ['type' => 'owner']
         );
     }
 
@@ -537,6 +557,41 @@ class Repository
             'SELECT sms_type, sms_type_id
             FROM view_sms_lkp_sms_type
             ORDER BY sms_type ASC;'
+        );
+    }
+
+    public function getIdentifications()
+    {
+        return $this->select(
+            'SELECT
+                unique_key,
+                unique_key_id,
+                default_value
+             FROM view_org_lkp_client_unique_key;'
+        );
+    }
+
+    public function getIdentification($id)
+    {
+        return $this->select(
+           'SELECT
+               unique_key,
+               unique_key_id,
+               default_value
+            FROM view_org_lkp_client_unique_key
+            WHERE unique_key_id = :id
+            LIMIT 1;', ['id' => $id]
+        );
+    }
+
+    public function getSelectedFacilities($id)
+    {
+        return $this->select(
+            'SELECT
+                entity_id,
+                facility_entity_id
+             FROM view_org_entity_scope
+             WHERE entity_id = :id;', ['id' => $id]
         );
     }
 }

@@ -169,6 +169,27 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('home-v1', 'Admin\Controllers\AdminController@home');
     Route::get('change-password', 'Admin\Controllers\AdminController@debugReset');
 
+    Route::get('account-client', 'Organization\Controllers\AccountClientController@index');
+    Route::get('account-client/create', 'Organization\Controllers\AccountClientController@create');
+    Route::post('account-client/create', 'Organization\Controllers\AccountClientController@store');
+    Route::get('account-client/edit/{id}', 'Organization\Controllers\AccountClientController@edit');
+    Route::post('account-client/edit/{id}', 'Organization\Controllers\AccountClientController@update');
+    Route::get('account-client/delete/{id}', 'Organization\Controllers\AccountClientController@destroy');
+
+    Route::get('account-agent', 'Organization\Controllers\AccountAgentController@index');
+    Route::get('account-agent/create', 'Organization\Controllers\AccountAgentController@create');
+    Route::post('account-agent/create', 'Organization\Controllers\AccountAgentController@store');
+    Route::get('account-agent/edit/{id}', 'Organization\Controllers\AccountAgentController@edit');
+    Route::post('account-agent/edit/{id}', 'Organization\Controllers\AccountAgentController@update');
+    Route::get('account-agent/delete/{id}', 'Organization\Controllers\AccountAgentController@destroy');
+
+    Route::get('account-employee', 'Organization\Controllers\AccountEmployeeController@index');
+    Route::get('account-employee/create', 'Organization\Controllers\AccountEmployeeController@create');
+    Route::post('account-employee/create', 'Organization\Controllers\AccountEmployeeController@store');
+    Route::get('account-employee/edit/{id}', 'Organization\Controllers\AccountEmployeeController@edit');
+    Route::post('account-employee/edit/{id}', 'Organization\Controllers\AccountEmployeeController@update');
+    Route::get('account-employee/delete/{id}', 'Organization\Controllers\AccountEmployeeController@destroy');
+
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
     Route::get('/{module?}', ['as' => 'cabinet', 'uses' => 'Admin\Controllers\AdminController@home']);
