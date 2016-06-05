@@ -47,11 +47,8 @@ class ClientVisitController extends Controller
         $client = new ClientVisit($input);
         $client->setFlags();
 
-        if ($client->save()) {
-            return redirect('/cabinet/client-visit');
-        }
-
-        return redirect('/cabinet/client-visit/create')->withErrors($client->getErrors());
+        $client->save();
+        return redirect('/cabinet/client-visit');
     }
 
     /**
@@ -76,13 +73,8 @@ class ClientVisitController extends Controller
     public function update(ClientVisitEditFormRequest $request, $id)
     {
         $client = ClientVisit::findOrFail($id);
-
-        if ($client->update($request->input())) {
-            return redirect('/cabinet/client-visit');
-        }
-
-        return redirect(url('/cabinet/client-visit/edit', compact('id')))
-            ->withErrors($client->getErrors());
+        $client->update($request->input());
+        return redirect('/cabinet/client-visit');
     }
 
     /**
@@ -94,11 +86,7 @@ class ClientVisitController extends Controller
     public function destroy($id)
     {
         $client = ClientVisit::findOrFail($id);
-
-        if ($client->delete()) {
-            return redirect('/cabinet/client-visit');
-        }
-
-        return redirect('/cabinet/client-visit')->withErrors($client->getErrors());
+        $client->delete();
+        return redirect('/cabinet/client-visit');
     }
 }

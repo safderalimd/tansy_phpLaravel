@@ -40,12 +40,8 @@ class ProductController extends Controller
     {
         $product = new Product;
         $product->setAttribute('active', 0);
-
-        if ($product->save($request->input())) {
-            return redirect('/cabinet/product');
-        }
-
-        return redirect('/cabinet/product/create')->withErrors($product->getErrors());
+        $product->save($request->input());
+        return redirect('/cabinet/product');
     }
 
     /**
@@ -73,13 +69,8 @@ class ProductController extends Controller
         $product = new Product;
         $product->setAttribute('product_entity_id', $id);
         $product->setAttribute('active', 0);
-
-        if ($product->update($request->input())) {
-            return redirect('/cabinet/product');
-        }
-
-        return redirect(url('/cabinet/product/edit', compact('id')))
-            ->withErrors($product->getErrors());
+        $product->update($request->input());
+        return redirect('/cabinet/product');
     }
 
     /**
@@ -91,11 +82,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
-
-        if ($product->delete()) {
-            return redirect('/cabinet/product');
-        }
-
-        return redirect('/cabinet/product')->withErrors($product->getErrors());
+        $product->delete();
+        return redirect('/cabinet/product');
     }
 }

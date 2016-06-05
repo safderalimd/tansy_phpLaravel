@@ -33,5 +33,4 @@ class StudentExportController extends Controller
         $view = view('reports.school.StudentExport.pdf', compact('export'));
         return Pdf::render($view);
     }
-
 }

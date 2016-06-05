@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use App\Exceptions\DbModelNotFoundException;
+use App\Exceptions\DbErrorException;
 
 class Handler extends ExceptionHandler
 {
@@ -53,6 +53,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        // if a db error occures, redirect back with error messages
+        if ($e instanceof DbErrorException) {
+            return \Redirect::back()->withErrors($e->getMessage());
+        }
+
         return parent::render($request, $e);
     }
 }

@@ -42,11 +42,8 @@ class FiscalYearController extends Controller
         $fiscalYear = new FiscalYear;
         $fiscalYear->setAttribute('current_fiscal_year', 0);
 
-        if ($fiscalYear->save($request->input())) {
-            return redirect('/cabinet/fiscal-year');
-        }
-
-        return redirect('/cabinet/fiscal-year/create')->withErrors($fiscalYear->getErrors());
+        $fiscalYear->save($request->input());
+        return redirect('/cabinet/fiscal-year');
     }
 
     /**
@@ -75,11 +72,8 @@ class FiscalYearController extends Controller
         $fiscalYear->setAttribute('fiscal_year_entity_id', $id);
         $fiscalYear->setAttribute('current_fiscal_year', 0);
 
-        if ($fiscalYear->update($request->input())) {
-            return redirect('/cabinet/fiscal-year');
-        }
-
-        return \Redirect::back()->withErrors($fiscalYear->getErrors());
+        $fiscalYear->update($request->input());
+        return redirect('/cabinet/fiscal-year');
     }
 
     /**
@@ -92,10 +86,7 @@ class FiscalYearController extends Controller
     {
         $fiscalYear = FiscalYear::findOrFail($id);
 
-        if ($fiscalYear->delete()) {
-            return redirect('/cabinet/fiscal-year');
-        }
-
-        return redirect('/cabinet/fiscal-year')->withErrors($fiscalYear->getErrors());
+        $fiscalYear->delete();
+        return redirect('/cabinet/fiscal-year');
     }
 }

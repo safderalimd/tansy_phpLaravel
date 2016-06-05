@@ -19,18 +19,10 @@ Route::get('/phpinfo', function () {
     phpinfo();
 });
 
-Route::get('/debug', function() {
-    return view('errors.debug');
-});
-
 Route::get('/login', '\App\Http\Controllers\User@index'); //->middleware('guest');
 Route::post('/login', '\App\Http\Controllers\User@login');
 
 Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], function() {
-
-    Route::get('/debug', function() {
-        return redirect('/debug');
-    });
 
     Route::get('fiscal-year', 'Organization\Controllers\FiscalYearController@index');
     Route::get('fiscal-year/create', 'Organization\Controllers\FiscalYearController@create');

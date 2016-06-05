@@ -178,10 +178,6 @@ class SendSmsController extends Controller
 
         $sms->storeBatchStatus($data);
 
-        // d($sms);
-        // d($validRows);
-        // dd($data);
-
         return \Redirect::back();
     }
 }

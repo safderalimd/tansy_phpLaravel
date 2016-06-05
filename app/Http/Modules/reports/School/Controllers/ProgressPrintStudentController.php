@@ -36,5 +36,4 @@ class ProgressPrintStudentController extends Controller
         $view = view('reports.school.ProgressPrintStudent.pdf', compact('export'));
         return Pdf::render($view);
     }
-
 }

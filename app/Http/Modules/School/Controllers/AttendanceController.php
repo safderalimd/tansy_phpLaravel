@@ -30,11 +30,7 @@ class AttendanceController extends Controller
     public function update(Request $request)
     {
         $attendance = new Attendance;
-
-        if ($attendance->update($request->input())) {
-            return \Redirect::back();
-        }
-
-        return \Redirect::back()->withErrors($attendance->getErrors());
+        $attendance->update($request->input());
+        return \Redirect::back();
     }
 }

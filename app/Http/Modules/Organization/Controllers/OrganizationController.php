@@ -40,13 +40,10 @@ class OrganizationController extends Controller
     {
         $input = $request->input();
         $input['city_area'] = $request->input('city_area_new');
+
         $organization = new Organization($input);
-
-        if ($organization->save()) {
-            return redirect('/cabinet/organizations');
-        }
-
-        return redirect('/cabinet/organizations/create')->withErrors($organization->getErrors());
+        $organization->save();
+        return redirect('/cabinet/organizations');
     }
 
     /**
@@ -75,13 +72,8 @@ class OrganizationController extends Controller
         $input['organization_entity_id'] = $id;
 
         $organization = new Organization($input);
-
-        if ($organization->update($request->input())) {
-            return redirect('/cabinet/organizations');
-        }
-
-        return redirect(url('/cabinet/organizations/edit', compact('id')))
-            ->withErrors($organization->getErrors());
+        $organization->update($request->input());
+        return redirect('/cabinet/organizations');
     }
 
     /**
@@ -93,11 +85,7 @@ class OrganizationController extends Controller
     public function destroy($id)
     {
         $organization = Organization::findOrFail($id);
-
-        if ($organization->delete()) {
-            return redirect('/cabinet/organizations');
-        }
-
-        return redirect('/cabinet/organizations')->withErrors($organization->getErrors());
+        $$organization->delete();
+        return redirect('/cabinet/organizations');
     }
 }

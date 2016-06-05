@@ -58,7 +58,7 @@ class ProductRepository extends Repository
             '@oparam_err_msg',
         ];
 
-        return $this->runProcedure($model, $procedure, $iparams, $oparams);
+        return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 
     public function update($model)
@@ -85,7 +85,7 @@ class ProductRepository extends Repository
             '@oparam_err_msg',
         ];
 
-        return $this->runProcedure($model, $procedure, $iparams, $oparams);
+        return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 
     public function delete($model)
@@ -107,6 +107,6 @@ class ProductRepository extends Repository
             '@oparam_err_msg',
         ];
 
-        return $this->runProcedure($model, $procedure, $iparams, $oparams);
+        return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 }

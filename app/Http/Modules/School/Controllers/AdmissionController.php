@@ -44,12 +44,8 @@ class AdmissionController extends Controller
         $input['city_area'] = $cityAreaNew;
 
         $admission = new Admission($input);
-
-        if ($admission->save()) {
-            return redirect('/cabinet/admission');
-        }
-
-        return redirect('/cabinet/admission/create')->withErrors($admission->getErrors());
+        $admission->save();
+        return redirect('/cabinet/admission');
     }
 
     /**
@@ -79,13 +75,8 @@ class AdmissionController extends Controller
 
         $admission = Admission::findOrFail($id);
         $admission->fill($input);
-
-        if ($admission->update($input)) {
-            return redirect('/cabinet/admission');
-        }
-
-        return redirect(url('/cabinet/admission/edit', compact('id')))
-            ->withErrors($admission->getErrors());
+        $admission->update($input);
+        return redirect('/cabinet/admission');
     }
 
     /**
@@ -97,12 +88,8 @@ class AdmissionController extends Controller
     public function destroy($id)
     {
         $admission = Admission::findOrFail($id);
-
-        if ($admission->delete()) {
-            return redirect('/cabinet/admission');
-        }
-
-        return redirect('/cabinet/admission')->withErrors($admission->getErrors());
+        $admission->delete();
+        return redirect('/cabinet/admission');
     }
 
     /**
@@ -114,11 +101,7 @@ class AdmissionController extends Controller
     public function moveStudents(AdmissionMoveStudentsFormRequest $request)
     {
         $admission = new Admission($request->input());
-
-        if ($admission->moveStudents()) {
-            return redirect('/cabinet/admission');
-        }
-
-        return redirect('/cabinet/admission')->withErrors($admission->getErrors());
+        $admission->moveStudents();
+        return redirect('/cabinet/admission');
     }
 }

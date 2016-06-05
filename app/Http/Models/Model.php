@@ -261,11 +261,9 @@ class Model
 
     public function setProcedureOparams($oparams)
     {
-        if (isset($oparams[0])) {
-            foreach ($oparams[0] as $key => $value) {
-                $name = substr($key, 8);
-                $this->attributes[$name] = $value;
-            }
+        foreach ($oparams as $key => $value) {
+            $name = substr($key, 8);
+            $this->attributes[$name] = $value;
         }
     }
 }

@@ -22,7 +22,6 @@ class ExamScheduleController extends Controller
         $examId = $request->input('eid');
         $schedule = new ExamSchedule;
         $schedule->setExamId($examId);
-
         return view('modules.school.ExamSchedule.list', compact('schedule', 'examId'));
     }
 
@@ -35,12 +34,8 @@ class ExamScheduleController extends Controller
     public function mapSubjects(ExamScheduleMapSubjectsFormRequest $request)
     {
         $schedule = new ExamSchedule($request->input());
-
-        if ($schedule->mapSubjects()) {
-            return redirect('/cabinet/exam-schedule');
-        }
-
-        return redirect('/cabinet/exam-schedule')->withErrors($schedule->getErrors());
+        $schedule->mapSubjects();
+        return redirect('/cabinet/exam-schedule');
     }
 
     /**
@@ -52,12 +47,8 @@ class ExamScheduleController extends Controller
     public function scheduleRows(ExamScheduleRowsFormRequest $request)
     {
         $schedule = new ExamSchedule($request->input());
-
-        if ($schedule->scheduleRows()) {
-            return redirect('/cabinet/exam-schedule');
-        }
-
-        return redirect('/cabinet/exam-schedule')->withErrors($schedule->getErrors());
+        $schedule->scheduleRows();
+        return redirect('/cabinet/exam-schedule');
     }
 
     /**
@@ -70,11 +61,7 @@ class ExamScheduleController extends Controller
     public function destroy(ExamScheduleDeleteFormRequest $request)
     {
         $schedule = new ExamSchedule($request->input());
-
-        if ($schedule->delete()) {
-            return redirect('/cabinet/exam-schedule');
-        }
-
-        return redirect('/cabinet/exam-schedule')->withErrors($schedule->getErrors());
+        $schedule->delete();
+        return redirect('/cabinet/exam-schedule');
     }
 }

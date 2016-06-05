@@ -83,11 +83,7 @@ class PaymentAdjustmentController extends Controller
     public function destroy(Request $request)
     {
         $adjustment = new PaymentAdjustment($request->input());
-
-        if ($adjustment->delete()) {
-            return \Redirect::back();
-        }
-
-        return \Redirect::back()->withErrors($adjustment->getErrors());
+        $adjustment->delete();
+        return \Redirect::back();
     }
 }

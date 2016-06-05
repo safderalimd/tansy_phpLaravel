@@ -46,12 +46,8 @@ class AccountStudentController extends Controller
             $account->setActiveToFalse();
         }
 
-        if ($account->update()) {
-            return redirect('/cabinet/student-account');
-        }
-
-        return redirect(url('/cabinet/student-account/edit', compact('id')))
-            ->withErrors($account->getErrors());
+        $account->update();
+        return redirect('/cabinet/student-account');
     }
 
     /**
@@ -63,11 +59,7 @@ class AccountStudentController extends Controller
     public function destroy($id)
     {
         $account = AccountStudent::findOrFail($id);
-
-        if ($account->delete()) {
-            return redirect('/cabinet/student-account');
-        }
-
-        return redirect('/cabinet/student-account')->withErrors($account->getErrors());
+        $account->delete();
+        return redirect('/cabinet/student-account');
     }
 }

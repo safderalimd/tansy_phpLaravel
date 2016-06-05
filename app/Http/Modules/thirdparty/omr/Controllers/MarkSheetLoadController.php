@@ -40,11 +40,8 @@ class MarkSheetLoadController extends Controller
     {
         $markSheet = new MarkSheetLoad($request->input());
 
-        if ($markSheet->save()) {
-            return redirect('/cabinet/mark-sheet---load');
-        }
-
-        return redirect('/cabinet/mark-sheet---load/create')->withErrors($markSheet->getErrors());
+        $markSheet->save();
+        return redirect('/cabinet/mark-sheet---load');
     }
 
     /**
@@ -70,12 +67,8 @@ class MarkSheetLoadController extends Controller
     {
         $markSheet = MarkSheetLoad::findOrFail($id);
 
-        if ($markSheet->update($request->input())) {
-            return redirect('/cabinet/mark-sheet---load');
-        }
-
-        return redirect(url('/cabinet/mark-sheet---load/edit', compact('id')))
-            ->withErrors($markSheet->getErrors());
+        $markSheet->update($request->input());
+        return redirect('/cabinet/mark-sheet---load');
     }
 
     /**
@@ -87,11 +80,7 @@ class MarkSheetLoadController extends Controller
     public function destroy($id)
     {
         $markSheet = MarkSheetLoad::findOrFail($id);
-
-        if ($markSheet->delete()) {
-            return redirect('/cabinet/mark-sheet---load');
-        }
-
-        return redirect('/cabinet/mark-sheet---load')->withErrors($markSheet->getErrors());
+        $markSheet->delete();
+        return redirect('/cabinet/mark-sheet---load');
     }
 }

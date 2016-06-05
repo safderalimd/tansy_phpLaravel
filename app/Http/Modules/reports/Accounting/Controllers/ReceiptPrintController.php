@@ -36,5 +36,4 @@ class ReceiptPrintController extends Controller
         $view = view('reports.accounting.ReceiptPrint.pdf', compact('export'));
         return Pdf::render($view);
     }
-
 }

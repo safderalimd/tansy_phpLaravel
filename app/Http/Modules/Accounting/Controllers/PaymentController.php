@@ -49,11 +49,8 @@ class PaymentController extends Controller
 
         // TODO: make sure the payment calculations are validated in php again here
 
-        if ($payment->payNow()) {
-            return redirect('/cabinet/payment');
-        }
-
-        return \Redirect::back()->withErrors($payment->getErrors());
+        $payment->payNow();
+        return redirect('/cabinet/payment');
     }
 
     /**
@@ -78,13 +75,8 @@ class PaymentController extends Controller
     public function update(PaymentFormRequest $request, $id)
     {
         $payment = Payment::findOrFail($id);
-
-        if ($payment->update($request->input())) {
-            return redirect('/cabinet/payment');
-        }
-
-        return redirect(url('/cabinet/payment/edit', compact('id')))
-            ->withErrors($payment->getErrors());
+        $payment->update($request->input());
+        return redirect('/cabinet/payment');
     }
 
     /**
@@ -96,11 +88,7 @@ class PaymentController extends Controller
     public function destroy($id)
     {
         $payment = Payment::findOrFail($id);
-
-        if ($payment->delete()) {
-            return redirect('/cabinet/payment');
-        }
-
-        return redirect('/cabinet/payment')->withErrors($payment->getErrors());
+        $payment->delete();
+        return redirect('/cabinet/payment');
     }
 }

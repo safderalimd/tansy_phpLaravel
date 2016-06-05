@@ -32,12 +32,8 @@ class ClassSubjectMapController extends Controller
         $subject = new ClassSubjectMap;
         $subject->setAttribute('class_entity_id', $classId);
         $subject->setAttribute('subject_entity_id', $subjectId);
-
-        if ($subject->map()) {
-            return redirect('/cabinet/class-subject-map');
-        }
-
-        return redirect('/cabinet/class-subject-map')->withErrors($subject->getErrors());
+        $subject->map();
+        return redirect('/cabinet/class-subject-map');
     }
 
     /**
@@ -53,11 +49,7 @@ class ClassSubjectMapController extends Controller
         $subject = new ClassSubjectMap;
         $subject->setAttribute('class_entity_id', $classId);
         $subject->setAttribute('subject_entity_id', $subjectId);
-
-        if ($subject->delete()) {
-            return redirect('/cabinet/class-subject-map');
-        }
-
-        return redirect('/cabinet/class-subject-map')->withErrors($subject->getErrors());
+        $subject->delete();
+        return redirect('/cabinet/class-subject-map');
     }
 }

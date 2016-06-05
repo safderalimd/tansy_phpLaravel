@@ -28,11 +28,7 @@ class MoveStudentController extends Controller
     public function move(MoveStudentFormRequest $request)
     {
         $move = new MoveStudent($request->input());
-
-        if ($move->move()) {
-            return redirect('/cabinet/move-student');
-        }
-
-        return redirect('/cabinet/move-student')->withErrors($move->getErrors());
+        $move->move();
+        return redirect('/cabinet/move-student');
     }
 }

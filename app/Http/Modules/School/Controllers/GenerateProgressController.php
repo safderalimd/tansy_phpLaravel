@@ -20,7 +20,6 @@ class GenerateProgressController extends Controller
         $examId = $request->input('eid');
         $progress = new GenerateProgress;
         $progress->setExamId($examId);
-
         return view('modules.school.GenerateProgress.list', compact('progress', 'examId'));
     }
 
@@ -34,12 +33,8 @@ class GenerateProgressController extends Controller
     {
         $progress = new GenerateProgress($request->input());
         $progress->setAttribute('class_entity_id', null);
-
-        if ($progress->generate()) {
-            return redirect('/cabinet/generate-progress');
-        }
-
-        return redirect('/cabinet/generate-progress')->withErrors($progress->getErrors());
+        $progress->generate();
+        return redirect('/cabinet/generate-progress');
     }
 
     /**
@@ -51,12 +46,8 @@ class GenerateProgressController extends Controller
     public function generate(GenerateProgressFormRequest $request)
     {
         $progress = new GenerateProgress($request->input());
-
-        if ($progress->generate()) {
-            return redirect('/cabinet/generate-progress');
-        }
-
-        return redirect('/cabinet/generate-progress')->withErrors($progress->getErrors());
+        $progress->generate();
+        return redirect('/cabinet/generate-progress');
     }
 
     /**
@@ -68,12 +59,7 @@ class GenerateProgressController extends Controller
     public function regenerate(GenerateProgressFormRequest $request)
     {
         $progress = new GenerateProgress($request->input());
-
-        if ($progress->generate()) {
-            return redirect('/cabinet/generate-progress');
-        }
-
-        return redirect('/cabinet/generate-progress')->withErrors($progress->getErrors());
+        $progress->generate();
+        return redirect('/cabinet/generate-progress');
     }
-
 }

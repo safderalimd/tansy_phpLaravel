@@ -45,12 +45,8 @@ class MarkSheetController extends Controller
     public function lock(MarkSheetFormRequest $request)
     {
         $markSheet = new MarkSheet($request->input());
-
-        if ($markSheet->lock()) {
-            return redirect('/cabinet/mark-sheet');
-        }
-
-        return redirect(url('/cabinet/mark-sheet'))->withErrors($markSheet->getErrors());
+        $markSheet->lock();
+        return redirect('/cabinet/mark-sheet');
     }
 
     /**
@@ -62,12 +58,8 @@ class MarkSheetController extends Controller
     public function unlock(MarkSheetFormRequest $request)
     {
         $markSheet = new MarkSheet($request->input());
-
-        if ($markSheet->unlock()) {
-            return redirect('/cabinet/mark-sheet');
-        }
-
-        return redirect(url('/cabinet/mark-sheet'))->withErrors($markSheet->getErrors());
+        $markSheet->unlock();
+        return redirect('/cabinet/mark-sheet');
     }
 
     /**
@@ -79,11 +71,7 @@ class MarkSheetController extends Controller
     public function save(MarkSheetDeleteFormRequest $request)
     {
         $markSheet = new MarkSheet($request->input());
-
-        if ($markSheet->saveMarksheet()) {
-            return redirect('/cabinet/mark-sheet');
-        }
-
-        return \Redirect::back()->withErrors($markSheet->getErrors());
+        $markSheet->saveMarksheet();
+        return redirect('/cabinet/mark-sheet');
     }
 }

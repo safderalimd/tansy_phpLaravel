@@ -3,6 +3,7 @@
 namespace App\Http\Repositories;
 
 use DB;
+use App\Http\Models\Model;
 
 class Repository
 {
@@ -14,157 +15,16 @@ class Repository
     public function select()
     {
         $args = func_get_args();
-        // session()->push('debug-info-select', $args);
         return call_user_func_array([$this->db(),'select'], $args);
-    }
-
-    public function runProcedure($model, $procedure, $iparams, $oparams)
-    {
-        // generate the sql for the procedure call
-        $procedureSql = $this->generateProcedureSql($procedure, $iparams, $oparams);
-
-        // prepare the procedure
-        $pdo = $this->db()->getPdo();
-        $pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, true);
-
-        $dbCall = $pdo->prepare($procedureSql);
-
-        // debug code
-        $debugIParams = [];
-
-        // bind the input parameters
-        foreach ($iparams as $parameter) {
-            $property = $this->extractProperty($parameter);
-            $dbCall->bindValue($parameter, $model->{$property});
-
-            // debug code
-            $debugIParams[$parameter] = $model->{$property};
-        }
-
-        // debug code
-        session()->put('debug-info-procedure', $procedure);
-        session()->put('debug-info-iparams', $debugIParams);
-
-        // execute procedure
-        $dbCall->execute();
-        $dbCall->closeCursor();
-
-        // generate sql for output params and execute it
-        $outputSql = $this->generateOparamsSelect($oparams);
-        $response = $pdo->query($outputSql)->fetch(\PDO::FETCH_ASSOC);
-
-
-        // debug code
-        $debugOParams = [];
-
-        // set output params on the model
-        foreach ($oparams as $oparam) {
-            if (isset($response[$oparam])) {
-                $property = substr($oparam, 8);
-                $model->setAttribute($property, $response[$oparam]);
-
-                // debug code
-                $debugOParams[$property] = $response[$oparam];
-            }
-        }
-
-        // debug code
-        session()->put('debug-info-oparams', $debugOParams);
-
-
-        if ($response['@oparam_err_flag'] == null) {
-            return true;
-        }
-
-        $model->errors = $response['@oparam_err_msg'];
-        return false;
     }
 
     /**
      * Procedure that also reads multiple data sets
      */
-    public function procedure($model, $procedure, $iparams, $oparams)
+    public function procedure(Model $model, $procedure, $iparams = [], $oparams = [])
     {
-        $pdo = $this->db()->getPdo();
-
-        foreach ($iparams as &$iparam) {
-            $iparam = '@'.substr($iparam, 1);
-        }
-
-        $debugIParams = [];
-        foreach ($iparams as $parameter) {
-            $modelProperty = $this->extractProperty($parameter);
-            $value = $pdo->quote($model->{$modelProperty});
-            $pdo->query("set {$parameter} = {$value};");
-
-            // debug code
-            $debugIParams[$parameter] = $value;
-        }
-
-        // debug code
-        session()->put('debug-info-procedure', $procedure);
-        session()->put('debug-info-iparams', $debugIParams);
-
-        $procedureSql = $this->generateProcedureSql($procedure, $iparams, $oparams);
-        $stmt = $pdo->query($procedureSql);
-
-        $dataResults = [];
-        do {
-            $rows = $stmt->fetchAll();
-            $dataResults[] = $rows;
-        } while ($stmt->nextRowset());
-
-        // TODO: check for errors here
-        $stmt = $pdo->query($this->generateOparamsSelect($oparams));
-        $oparamsResults = [];
-        do {
-            $rows = $stmt->fetchAll();
-            if ($rows) {
-                $oparamsResults = array_merge($oparamsResults, $rows);
-            }
-        } while ($stmt->nextRowset());
-        $model->setProcedureOparams($oparamsResults);
-
-        // debug code
-        session()->put('debug-info-oparams', $oparamsResults);
-
-        return $dataResults;
-    }
-
-    public function extractProperty($parameter)
-    {
-        if (strpos($parameter, 'iparm_') !== false) {
-            return substr($parameter, 7);
-        } else {
-            return substr($parameter, 8);
-        }
-    }
-
-    /**
-     * Generate sql to select procedure output parameters.
-     *
-     * @param  array $oparams
-     * @return string
-     */
-    public function generateOparamsSelect($oparams)
-    {
-        return 'SELECT ' . implode(', ', $oparams);
-    }
-
-    /**
-     * Generate sql for procedure with input parameters.
-     *
-     * @param  array $oparams
-     * @return string
-     */
-    public function generateProcedureSql($procedure, $iparams, $oparams)
-    {
-        $sql = 'call ' . $procedure . '(';
-        $sql .= implode(', ', $iparams);
-        $sql .= ', ';
-        $sql .= implode(', ', $oparams);
-        $sql .= ');';
-        return $sql;
+        $procedure = new Procedure($this, $model, $procedure, $iparams, $oparams);
+        return $procedure->run();
     }
 
     public function getAdmissionGrid()

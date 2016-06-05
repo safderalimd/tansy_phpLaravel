@@ -46,12 +46,8 @@ class SchedulePaymentController extends Controller
     public function store(SchedulePaymentFormRequest $request)
     {
         $payment = new SchedulePayment($request->input());
-
-        if ($payment->save()) {
-            return redirect('/cabinet/schedule-payment');
-        }
-
-        return redirect('/cabinet/schedule-payment/create')->withErrors($payment->getErrors());
+        $payment->save();
+        return redirect('/cabinet/schedule-payment');
     }
 
     /**
@@ -79,12 +75,8 @@ class SchedulePaymentController extends Controller
         $payment->setAttribute('schedule_entity_id', $id);
         $payment->setAttribute('active', 0);
 
-        if ($payment->update($request->input())) {
-            return redirect('/cabinet/schedule-payment');
-        }
-
-        return redirect(url('/cabinet/schedule-payment/edit', compact('id')))
-            ->withErrors($payment->getErrors());
+        $payment->update($request->input());
+        return redirect('/cabinet/schedule-payment');
     }
 
     /**
@@ -98,10 +90,7 @@ class SchedulePaymentController extends Controller
         $payment = new SchedulePayment;
         $payment->setAttribute('schedule_entity_id', $id);
 
-        if ($payment->delete()) {
-            return redirect('/cabinet/schedule-payment');
-        }
-
-        return redirect('/cabinet/schedule-payment')->withErrors($payment->getErrors());
+        $payment->delete();
+        return redirect('/cabinet/schedule-payment');
     }
 }
