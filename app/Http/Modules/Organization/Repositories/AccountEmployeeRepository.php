@@ -54,6 +54,8 @@ class AccountEmployeeRepository extends Repository
                 login_name,
                 password,
                 login_user_account_status AS user_account_active,
+                group_entity_id,
+                manager_entity_id,
                 account_entity_id
             FROM view_org_account_employee_detail
             WHERE account_entity_id = :id
