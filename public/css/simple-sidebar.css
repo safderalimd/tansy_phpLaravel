@@ -12,7 +12,7 @@
 
 #sidebar-wrapper {
     z-index: 1000;
-    position: fixed;
+    position: absolute;
     left: 305px;
     width: 0;
     height: 100%;

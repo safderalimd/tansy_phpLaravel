@@ -9,7 +9,7 @@
     <link type="text/css" href="/dashboard/fileinput.min.css" rel="stylesheet">
     <link type="text/css" href="/dashboard/dashboard.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
-    <link type="text/css" href="/dashboard/custom.css?v=2" rel="stylesheet">
+    <link type="text/css" href="/dashboard/custom.css?v=3" rel="stylesheet">
     @yield('styles')
 </head>
 <body style="padding:0px;">
