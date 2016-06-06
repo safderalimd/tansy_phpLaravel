@@ -38,9 +38,12 @@ class AccountClientController extends Controller
      */
     public function store(AccountClientFormRequest $request)
     {
+        $input = $request->input();
+        $input['city_area'] = $request->input('city_area_new');
+
         $account = new AccountClient;
         $account->setAttribute('active', 0);
-        $account->save($request->input());
+        $account->save($input);
         return redirect('/cabinet/account-client');
     }
 
@@ -66,10 +69,13 @@ class AccountClientController extends Controller
      */
     public function update(AccountClientFormRequest $request, $id)
     {
+        $input = $request->input();
+        $input['city_area'] = $request->input('city_area_new');
+
         $account = new AccountClient;
         $account->setAttribute('account_entity_id', $id);
         $account->setAttribute('active', 0);
-        $account->update($request->input());
+        $account->update($input);
         return redirect('/cabinet/account-client');
     }
 

@@ -236,6 +236,14 @@
                             'keyName' => 'group_name',
                         ])
 
+                        @include('commons.select', [
+                            'label'   => 'Manager',
+                            'name'    => 'manager_entity_id',
+                            'options' => $account->managers(),
+                            'keyId'   => 'employee_entity_id',
+                            'keyName' => 'employee_name',
+                        ])
+
                         <div class="row">
                            <div class="col-md-12 text-center grid_footer">
                                 <button class="btn btn-primary grid_btn" type="submit">Save</button>

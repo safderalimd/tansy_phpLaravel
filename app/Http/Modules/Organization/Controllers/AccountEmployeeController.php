@@ -38,10 +38,13 @@ class AccountEmployeeController extends Controller
      */
     public function store(AccountEmployeeFormRequest $request)
     {
+        $input = $request->input();
+        $input['city_area'] = $request->input('city_area_new');
+
         $account = new AccountEmployee;
         $account->setAttribute('active', 0);
         $account->setAttribute('user_account_active', 0);
-        $account->save($request->input());
+        $account->save($input);
         return redirect('/cabinet/account-employee');
     }
 
@@ -67,11 +70,14 @@ class AccountEmployeeController extends Controller
      */
     public function update(AccountEmployeeFormRequest $request, $id)
     {
+        $input = $request->input();
+        $input['city_area'] = $request->input('city_area_new');
+
         $account = new AccountEmployee;
         $account->setAttribute('account_entity_id', $id);
         $account->setAttribute('active', 0);
         $account->setAttribute('user_account_active', 0);
-        $account->save($request->input());
+        $account->update($input);
         return redirect('/cabinet/account-employee');
     }
 

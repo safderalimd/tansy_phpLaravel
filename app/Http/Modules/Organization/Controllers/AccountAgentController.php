@@ -38,10 +38,13 @@ class AccountAgentController extends Controller
      */
     public function store(AccountAgentFormRequest $request)
     {
+        $input = $request->input();
+        $input['city_area'] = $request->input('city_area_new');
+
         $account = new AccountAgent;
         $account->setAttribute('active', 0);
         $account->setAttribute('user_account_active', 0);
-        $account->save($request->input());
+        $account->save($input);
         return redirect('/cabinet/account-agent');
     }
 
@@ -67,11 +70,14 @@ class AccountAgentController extends Controller
      */
     public function update(AccountAgentFormRequest $request, $id)
     {
+        $input = $request->input();
+        $input['city_area'] = $request->input('city_area_new');
+
         $account = new AccountAgent;
         $account->setAttribute('account_entity_id', $id);
         $account->setAttribute('active', 0);
         $account->setAttribute('user_account_active', 0);
-        $account->update($request->input());
+        $account->update($input);
         return redirect('/cabinet/account-agent');
     }
 

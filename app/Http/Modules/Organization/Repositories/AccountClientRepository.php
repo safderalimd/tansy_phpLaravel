@@ -45,6 +45,43 @@ class AccountClientRepository extends Repository
         );
     }
 
+    public function insert($model)
+    {
+        $procedure = 'sproc_org_account_client_dml_ins';
+
+        $iparams = [
+            ':iparam_facility_ids',
+            ':iparam_unique_key_id',
+            ':iparam_first_name',
+            ':iparam_middle_name',
+            ':iparam_last_name',
+            ':iparam_date_of_birth',
+            ':iparam_gender',
+            ':iparam_email',
+            ':iparam_work_phone',
+            ':iparam_mobile_phone',
+            ':iparam_address1',
+            ':iparam_address2',
+            ':iparam_city_area',
+            ':iparam_city_id',
+            ':iparam_postal_code',
+            ':iparam_session_id',
+            ':iparam_user_id',
+            ':iparam_screen_id',
+            ':iparam_debug_sproc',
+            ':iparam_audit_screen_visit',
+        ];
+
+        $oparams = [
+            '@oparam_account_entity_id',
+            '@oparam_err_flag',
+            '@oparam_err_step',
+            '@oparam_err_msg',
+        ];
+
+        return $this->procedure($model, $procedure, $iparams, $oparams);
+    }
+
     public function update($model)
     {
         $procedure = 'sproc_org_account_client_dml_upd';
