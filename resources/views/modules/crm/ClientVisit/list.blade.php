@@ -31,7 +31,7 @@
                         <td>{{$item['campaign_name']}}</td>
                         <td>{{$item['entity_name']}}</td>
                         <td>{{$item['client_status']}}</td>
-                        <td>{{$item['visit_date']}}</td>
+                        <td>{{style_date($item['visit_date'])}}</td>
                         <td>
                             <a class="btn btn-default" href="{{url("/cabinet/client-visit/edit/{$item['visit_id']}")}}" title="Edit">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>

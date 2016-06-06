@@ -28,7 +28,7 @@
             @foreach($receipt->receiptGrid() as $item)
             <tr>
                 <td>{{$item['receipt_number']}}</td>
-                <td>{{$item['receipt_date']}}</td>
+                <td>{{style_date($item['receipt_date'])}}</td>
                 <td>&#x20b9; {{amount($item['receipt_amount'])}}</td>
                 <td>
                     <a class="btn btn-default" target="_blank" href="{{url("/cabinet/receipt-report/pdf/{$item['receipt_id']}")}}" title="Print PDF">Print PDF</a>

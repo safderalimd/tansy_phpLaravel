@@ -33,8 +33,8 @@
                 <td>{{$item['product_name']}}</td>
                 <td>{{$item['scheduled_for']}}</td>
                 <td>{{$item['frequency']}}</td>
-                <td>{{$item['start_date']}}</td>
-                <td>{{$item['end_date']}}</td>
+                <td>{{style_date($item['start_date'])}}</td>
+                <td>{{style_date($item['end_date'])}}</td>
                 <td>&#x20b9; {{amount($item['amount'])}}</td>
             </tr>
             @endforeach

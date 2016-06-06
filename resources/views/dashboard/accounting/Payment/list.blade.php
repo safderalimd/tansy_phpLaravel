@@ -116,7 +116,7 @@
                                         <tbody>
                                             @foreach($payment->collectionGrid as $row)
                                             <tr>
-                                                <td>{{$row['receipt_date']}}</td>
+                                                <td>{{style_date($row['receipt_date'])}}</td>
                                                 <td>{{$row['product_name']}}</td>
                                                 <td><i class="fa fa-inr"></i> {{amount($row['collection_amount'])}}</td>
                                             </tr>

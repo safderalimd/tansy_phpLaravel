@@ -29,7 +29,7 @@
                     <tr>
                         <td>{{$item['sms_type']}}</td>
                         <td>{{$item['sms_message']}}</td>
-                        <td>{{$item['sms_date']}}</td>
+                        <td>{{style_date($item['sms_date'])}}</td>
                         <td>{{phone_number($item['sms_number'])}}</td>
                         <td>{{$item['success_fail_flag']}}</td>
                     </tr>

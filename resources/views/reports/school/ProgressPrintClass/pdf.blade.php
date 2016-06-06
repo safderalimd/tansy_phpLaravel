@@ -44,8 +44,8 @@
             <div class="col-md-12">
                 <table class="header-table">
                     <tr>
-                        <td class="text-left"><h4><strong>Exam Start Date:</strong> {{$export->examInfo['exam_start_date']}}</h4></td>
-                        <td class="text-right"><h4><strong>Exam End Date:</strong> {{$export->examInfo['exam_end_date']}}</h4></td>
+                        <td class="text-left"><h4><strong>Exam Start Date:</strong> {{style_date($export->examInfo['exam_start_date'])}}</h4></td>
+                        <td class="text-right"><h4><strong>Exam End Date:</strong> {{style_date($export->examInfo['exam_end_date'])}}</h4></td>
                     </tr>
                     <tr>
                         <td class="text-left"><h4><strong>Class Name:</strong> {{$export->examInfo['class_name']}}</h4></td>

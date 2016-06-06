@@ -37,8 +37,8 @@
                         <td>{{$item['account_name']}}</td>
                         <td>{{$item['schedule_name']}}</td>
                         <td>{{$item['current_schedule_name']}}</td>
-                        <td>{{$item['due_start_date']}}</td>
-                        <td>{{$item['due_end_date']}}</td>
+                        <td>{{style_date($item['due_start_date'])}}</td>
+                        <td>{{style_date($item['due_end_date'])}}</td>
                         <td>&#x20b9; {{amount($item['total_amount'])}}</td>
                         <td>&#x20b9; {{amount($item['total_credit_amount'])}}</td>
                         <td>&#x20b9; {{amount($item['paid_amount'])}}</td>

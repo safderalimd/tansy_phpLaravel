@@ -149,7 +149,7 @@
                                             @foreach($sms->gridDetails as $row)
                                             <tr>
                                                 <td>{{$row['batch_number']}}</td>
-                                                <td>{{$row['batch_date']}}</td>
+                                                <td>{{style_date($row['batch_date'])}}</td>
                                                 <td>{{$row['sms_type']}}</td>
                                                 <td>{{$row['sms_success_count']}}</td>
                                                 <td>{{$row['sms_fail_count']}}</td>
