@@ -12,21 +12,30 @@
         @include('include.navbar')
     </header>
 
-    <main class="row">
+    <div id="wrapper">
 
-        <nav class="col-sm-3 col-lg-2">
-            @include('include.sidebar')
-        </nav>
-
-        <div class="col-sm-9 col-lg-10">
-            @yield('content')
+        <div id="sidebar-wrapper">
+            <div class="sidebar-nav">
+                @include('include.sidebar')
+            </div>
         </div>
 
-    </main>
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        @yield('content')
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        @include('include.footer')
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <footer>
-        @include('include.footer')
-    </footer>
+    </div>
 
 </div>
 
@@ -36,6 +45,12 @@
 <script type="text/javascript" src="/bower_components/bootstrap-combobox/js/bootstrap-combobox-custom.js"></script>
 
 <script>
+
+    $("#sidebar-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
     // when page reloads show preloader
     window.onunload = function() {
         $('.loader').fadeIn();

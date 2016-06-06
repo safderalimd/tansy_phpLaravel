@@ -107,3 +107,27 @@ a.selected {
     color: #555;
     background-color: #f5f5f5;
 }
+
+.navbar-inverse .navbar-toggle {
+    border-color: #333;
+}
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+    background-color: #333;
+}
+
+.navbar-toggle {
+    position: relative;
+    float: right;
+    margin-right: 15px;
+    padding: 9px 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
