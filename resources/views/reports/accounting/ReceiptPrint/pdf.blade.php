@@ -59,7 +59,7 @@
                     @foreach($export->details as $row)
                     <tr>
                         <td class="text-left">{{$row['description']}}</td>
-                        <td class="text-right">&#x20b9; {{amount($row['credit_amount'])}}</td>
+                        <td class="text-right">{{amount($row['credit_amount'])}}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -69,12 +69,12 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="text-right well  well-sm">Total Paid: &#x20b9; {{amount($export->header['receipt_amount'])}}</div>
+                <div class="text-right well  well-sm">Total Paid: {{amount($export->header['receipt_amount'])}}</div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="text-right well  well-sm">New Balance: &#x20b9; {{amount($export->header['new_balance'])}}</div>
+                <div class="text-right well  well-sm">New Balance: {{amount($export->header['new_balance'])}}</div>
             </div>
         </div>
 
