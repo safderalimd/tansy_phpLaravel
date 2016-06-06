@@ -51,7 +51,7 @@
                         <td>{{$row['class_name']}}</td>
                         <td>{{$row['student_full_name']}}</td>
                         <td>{{phone_number($row['mobile_phone'])}}</td>
-                        <td>{{amount($row['due_amount'])}}</td>
+                        <td>&#x20b9; {{amount($row['due_amount'])}}</td>
                     </tr>
                     @endforeach
                 </tbody>

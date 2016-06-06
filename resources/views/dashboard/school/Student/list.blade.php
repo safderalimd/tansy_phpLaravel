@@ -198,8 +198,8 @@
                                             <tr>
                                                 <td><a target="_blank" href="/cabinet/receipt-report/pdf/{{$row['receipt_id']}}">{{$row['receipt_number']}}</a></td>
                                                 <td>{{$row['receipt_date']}}</td>
-                                                <td>{{amount($row['receipt_amount'])}}</td>
-                                                <td>{{amount($row['new_balance'])}}</td>
+                                                <td>&#x20b9; {{amount($row['receipt_amount'])}}</td>
+                                                <td>&#x20b9; {{amount($row['new_balance'])}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>

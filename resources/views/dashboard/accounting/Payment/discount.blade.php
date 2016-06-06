@@ -29,7 +29,7 @@
                 <td>{{$item['account_name']}}</td>
                 <td>{{$item['schedule_name']}}</td>
                 <td>{{$item['credit_date']}}</td>
-                <td>{{amount($item['adjustment_amount'])}}</td>
+                <td>&#x20b9; {{amount($item['adjustment_amount'])}}</td>
             </tr>
             @endforeach
         </tbody>

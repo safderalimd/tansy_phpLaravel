@@ -35,7 +35,7 @@
                 <td>{{$item['frequency']}}</td>
                 <td>{{$item['start_date']}}</td>
                 <td>{{$item['end_date']}}</td>
-                <td>{{amount($item['amount'])}}</td>
+                <td>&#x20b9; {{amount($item['amount'])}}</td>
             </tr>
             @endforeach
         </tbody>
