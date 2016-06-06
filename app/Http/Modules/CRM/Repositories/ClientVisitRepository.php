@@ -44,8 +44,7 @@ class ClientVisitRepository extends Repository
         return $this->select(
             'SELECT
                 organization_name,
-                organization_entity_id,
-                organization_type_id
+                organization_entity_id
              FROM view_org_lkp_organization
              ORDER BY organization_name ASC;'
         );
