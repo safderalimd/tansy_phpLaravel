@@ -13,15 +13,6 @@ class MenuMiddleware
     private $menuInfo;
 
     /**
-     * Set modules for links that don't appear in the sidebar.
-     *
-     * @var array
-     */
-    private $defaultModules = [
-        // todo: add links here
-    ];
-
-    /**
      * The list of modules.
      *
      * @var array
@@ -37,7 +28,7 @@ class MenuMiddleware
     {
         $this->init();
 
-        $this->generateTopMenubar($this->modules);
+        // $this->generateTopMenubar($this->modules);
         $this->generateSideBar($this->modules);
 
         return $next($request);
@@ -47,19 +38,19 @@ class MenuMiddleware
     {
         $this->menuInfo = session('dbMenuInfo');
         $this->modules = $this->getModules();
-        $this->setCurrentModule();
+        // $this->setCurrentModule();
     }
 
-    private function generateTopMenubar($modules)
-    {
-        Menu::make('topbar', function ($menu) use ($modules) {
-            foreach ($modules as $module) {
-                $menu->add(ucwords($module), ['route' => ['cabinet', 'module' => $module]]);
-            }
+    // private function generateTopMenubar($modules)
+    // {
+    //     Menu::make('topbar', function ($menu) use ($modules) {
+    //         foreach ($modules as $module) {
+    //             $menu->add(ucwords($module), ['route' => ['cabinet', 'module' => $module]]);
+    //         }
 
-            $menu->add('Logout', 'cabinet/logout');
-        });
-    }
+    //         $menu->add('Logout', 'cabinet/logout');
+    //     });
+    // }
 
     private function generateSideBar($modules)
     {
@@ -83,47 +74,49 @@ class MenuMiddleware
             $sideMenu->$group->add($item['link_name'], $url);
         }
 
+        $sideMenu->add('Logout', 'cabinet/logout');
+
         return $sideMenu;
     }
 
-    private function setCurrentModule()
-    {
-        $currentModule = null;
+    // private function setCurrentModule()
+    // {
+    //     $currentModule = null;
 
-        foreach ($this->modules as $module) {
-            if ($this->isSamePath($module)) {
-                $currentModule = $module;
-                break;
-            }
-        }
+    //     foreach ($this->modules as $module) {
+    //         if ($this->isSamePath($module)) {
+    //             $currentModule = $module;
+    //             break;
+    //         }
+    //     }
 
-        if (empty($currentModule)) {
-            foreach ($this->menuInfo as $item) {
-                if ($this->isSamePath($item['screen_name'])) {
-                    $currentModule = $this->link($item['module_name']);
-                    break;
-                }
-            }
-        }
+    //     if (empty($currentModule)) {
+    //         foreach ($this->menuInfo as $item) {
+    //             if ($this->isSamePath($item['screen_name'])) {
+    //                 $currentModule = $this->link($item['module_name']);
+    //                 break;
+    //             }
+    //         }
+    //     }
 
-        \View::share('currentModule', $currentModule);
-    }
+    //     \View::share('currentModule', $currentModule);
+    // }
 
     private function getModules()
     {
         return array_unique(array_column($this->menuInfo, 'module_name', 'module_id'));
     }
 
-    private function isSamePath($path)
-    {
-        $path = 'cabinet/'.$this->link($path);
+    // private function isSamePath($path)
+    // {
+    //     $path = 'cabinet/'.$this->link($path);
 
-        if (\Request::path() == $path || \Request::is($path.'/*')) {
-            return true;
-        }
+    //     if (\Request::path() == $path || \Request::is($path.'/*')) {
+    //         return true;
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 
     private function link($name) {
         $name = strtolower($name);
