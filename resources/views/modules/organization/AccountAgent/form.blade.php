@@ -40,9 +40,15 @@
                                     }
                                 ?>
                                 <select id="facility_ids" class="form-control" name="facility_ids">
-                                    @foreach($account->facilities() as $option)
-                                        <option data-organizationId="{{$option['organization_entity_id']}}" @if(in_array($option['facility_entity_id'], $account->selectedFacilities)) selected @endif value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
-                                    @endforeach
+                                    @if ($account->isNewRecord())
+                                        @foreach($account->facilities() as $option)
+                                            <option {{ s('facility_ids', $option['facility_entity_id']) }} data-organizationId="{{$option['organization_entity_id']}}" value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
+                                        @endforeach
+                                    @else
+                                        @foreach($account->facilities() as $option)
+                                            <option data-organizationId="{{$option['organization_entity_id']}}" @if(in_array($option['facility_entity_id'], $account->selectedFacilities)) selected @endif value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -237,7 +243,58 @@
         $('#city_area').combobox({
             bsVersion: '3'
         });
+
+        initOrganizationOptions();
+    });
+
+    var allFacilityOptions;
+
+    function initOrganizationOptions() {
+        allFacilityOptions = $('#facility_ids option');
+
+        var selectedOrganizationId = $('#facility_ids option:selected').attr('data-organizationId');
+
+        $('#organization_entity_id option').each(function() {
+            if (this.value == selectedOrganizationId) {
+                $(this).prop('selected',true);
+            }
+        });
+
+        updateFacilities();
+    }
+
+    function getOrganizationId() {
+        return $('#organization_entity_id option:selected').val();
+    }
+
+    function removeAllFacilityOptions() {
+        $('#facility_ids option').remove();
+    }
+
+    function populateFacilitiesSelectbox(facilities) {
+        $(facilities).each(function() {
+            $('#facility_ids').append($(this));
+        });
+    }
+
+    function updateFacilities() {
+        removeAllFacilityOptions();
+
+        var orgId = getOrganizationId();
+        var filteredFacilities = $(allFacilityOptions).filter(function() {
+            if ($(this).attr('data-organizationId') == orgId) {
+                return true;
+            }
+            return false;
+        }).get();
+
+        populateFacilitiesSelectbox(filteredFacilities);
+    }
+
+    $('#organization_entity_id').change(function() {
+        updateFacilities();
     });
 
 </script>
 @endsection
+
