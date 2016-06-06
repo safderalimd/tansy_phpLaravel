@@ -54,8 +54,11 @@ class Student extends Model
         $this->exams = $this->repository->getExamWithResult();
 
         // get selected exam, or first one as default
-        $this->examId = $this->exams[0]['exam_entity_id'];
-        $this->examName = $this->exams[0]['exam'];
+        if (isset($this->exams[0])) {
+            $this->examId = $this->exams[0]['exam_entity_id'];
+            $this->examName = $this->exams[0]['exam'];
+        }
+
         if (isset($this->exam_entity_id) && is_numeric($this->exam_entity_id)) {
             $this->examId = $this->exam_entity_id;
             foreach ($this->exams as $exam) {
