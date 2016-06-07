@@ -31,6 +31,6 @@ class StudentExportController extends Controller
         $export = new StudentExport($request->input());
         $export->loadPdfData();
         $view = view('reports.school.StudentExport.pdf', compact('export'));
-        return Pdf::render($view);
+        return Pdf::renderLandscape($view);
     }
 }
