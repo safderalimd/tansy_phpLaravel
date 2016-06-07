@@ -266,4 +266,9 @@ class Model
             $this->attributes[$name] = $value;
         }
     }
+
+    public function attributesCount()
+    {
+        return count($this->attributes);
+    }
 }

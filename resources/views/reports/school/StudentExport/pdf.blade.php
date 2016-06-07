@@ -5,18 +5,33 @@
         @include('reports.common.bootstrap')
         @include('reports.common.css')
         <style type="text/css">
-            body {
-                font-size: 8px;
-            }
+            @if ($export->attributesCount() > 25)
+                body {
+                    font-size: 8px;
+                }
 
-            .table>tbody>tr>td,
-            .table>tbody>tr>th,
-            .table>tfoot>tr>td,
-            .table>tfoot>tr>th,
-            .table>thead>tr>td,
-            .table>thead>tr>th {
-                padding: 3px;
-            }
+                .table>tbody>tr>td,
+                .table>tbody>tr>th,
+                .table>tfoot>tr>td,
+                .table>tfoot>tr>th,
+                .table>thead>tr>td,
+                .table>thead>tr>th {
+                    padding: 3px;
+                }
+            @elseif ($export->attributesCount() > 20)
+                body {
+                    font-size: 9px;
+                }
+
+                .table>tbody>tr>td,
+                .table>tbody>tr>th,
+                .table>tfoot>tr>td,
+                .table>tfoot>tr>th,
+                .table>thead>tr>td,
+                .table>thead>tr>th {
+                    padding: 4px;
+                }
+            @endif
         </style>
     </head>
     <body>
