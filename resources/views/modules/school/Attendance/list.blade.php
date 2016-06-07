@@ -57,7 +57,7 @@
                         <td>{{$item['account_name']}}</td>
                         <td>{{$item['section']}}</td>
                         <td>
-                            <input type="checkbox" {{absent($item['absent'])}} class="account_entity_id" name="account_entity_id" value="{{$item['account_entity_id']}}">
+                            <input type="checkbox" value="{{absent($item['absent'])}}" class="account_entity_id" name="account_entity_id" data-accountId="{{$item['account_entity_id']}}" >
                         </td>
                     </tr>
                     @endforeach
@@ -88,6 +88,11 @@
 
 @section('scripts')
 <script type="text/javascript">
+
+    $(".account_entity_id").checkboxX({
+        iconChecked: "<b>X</b>",
+        threeState: false
+    });
 
     // create datatale with checkbox column unsortable
     $('#attendance-table').DataTable( {
@@ -138,9 +143,9 @@
 
         var accountIds = $('.account_entity_id').map(function() {
             if (this.checked) {
-                return this.value + '-1';
+                return $(this).attr('data-accountId') + '-1';
             } else {
-                return this.value + '-0';;
+                return $(this).attr('data-accountId') + '-0';;
             }
         }).get();
 

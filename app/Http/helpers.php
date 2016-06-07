@@ -209,8 +209,9 @@ function activeExam($value, $getKey)
 function absent($value)
 {
     if (!empty($value)) {
-        return ' checked="checked" ';
+        return '1';
     }
+    return '0';
 }
 
 /**

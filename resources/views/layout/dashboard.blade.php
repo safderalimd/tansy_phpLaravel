@@ -8,6 +8,7 @@
     <link type="text/css" href="/dashboard/bootstrap-select.css" rel="stylesheet">
     <link type="text/css" href="/dashboard/fileinput.min.css" rel="stylesheet">
     <link type="text/css" href="/dashboard/dashboard.css" rel="stylesheet">
+    <link type="text/css" href="/bower_components/bootstrap-checkbox-x/css/checkbox-x.min.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link type="text/css" href="/dashboard/custom.css?v=3" rel="stylesheet">
     @yield('styles')
@@ -54,6 +55,7 @@
 <script src="/dashboard/dataTables.bootstrap.min.js"></script>
 <script src="/dashboard/Chart.min.js"></script>
 <script src="/dashboard/fileinput.js"></script>
+<script type="text/javascript" src="/bower_components/bootstrap-checkbox-x/js/checkbox-x.min.js"></script>
 <script src="/dashboard/custom.js"></script>
 <script type="text/javascript">
 
