@@ -9,7 +9,7 @@
         box-sizing: content-box;
     }
     .school-logo {
-        display: inline-block;
+        /*display: inline-block;*/
         width: 150px;
         height: 130px;
     }

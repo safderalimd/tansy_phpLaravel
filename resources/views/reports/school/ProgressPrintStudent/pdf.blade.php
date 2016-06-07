@@ -15,8 +15,8 @@
     </head>
     <body>
 
+@foreach($export->studentRows as $row)
     <div class="container">
-        @foreach($export->studentRows as $row)
 
         @include('reports.common.pdf-header', [
             'school' => $export->schoolName,
@@ -107,11 +107,11 @@
                 </table>
             </div>
         </div>
-
-        <div class="pdf-page-break"></div>
-
-        @endforeach
-
     </div>
+
+    <div class="pdf-page-break"></div>
+
+@endforeach
+
     </body>
 </html>
