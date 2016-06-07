@@ -110,12 +110,12 @@ function style_date($date)
         return '-';
     }
 
-    return date("F jS, Y", $date);
+    return date("M jS, Y", $date);
 }
 
 function current_date()
 {
-    return date('jS M, Y');
+    return date('M jS, Y');
 }
 
 function current_time()
