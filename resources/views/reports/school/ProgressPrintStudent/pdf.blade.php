@@ -15,8 +15,11 @@
     </head>
     <body>
 
+    <div id="watermark"><div id="watermark-text">{{$export->schoolName}}</div></div>
+
 @foreach($export->studentRows as $row)
     <div class="container">
+
 
         @include('reports.common.pdf-header', [
             'school' => $export->schoolName,

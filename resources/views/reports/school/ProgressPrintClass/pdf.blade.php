@@ -12,6 +12,8 @@
     </head>
     <body>
 
+    <div id="watermark"><div id="watermark-text">{{$export->schoolName}}</div></div>
+
     <div class="footer text-right">
         Page: <span class="pagenum"></span>
     </div>

@@ -1,4 +1,24 @@
 <style type="text/css">
+    #watermark {
+        position: fixed;
+        bottom: 0px;
+        right: 0px;
+        width: 100%;
+        height: 100%;
+        opacity: .2;
+        z-index: -1000;
+        text-align: center;
+    }
+    #watermark-text {
+        color: #ccc;
+        font-size: 90px;
+        margin-top: -90px;
+        position: relative;
+        top: 50%;
+        transform: rotate(-45deg);
+        text-align: center;
+    }
+
     .logo-container {
         text-align: right;
     }
@@ -9,7 +29,6 @@
         box-sizing: content-box;
     }
     .school-logo {
-        /*display: inline-block;*/
         width: 150px;
         height: 130px;
     }
