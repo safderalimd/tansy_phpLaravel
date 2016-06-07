@@ -53,14 +53,17 @@ class AccountStudentController extends Controller
 
             // get old image extension
             $extensionPath = storage_path('uploads/student-images/'. domain() . "/{$id}");
-            $extension = file_get_contents($extensionPath);
-            $extension = trim($extension);
 
-            // clear previous image cache
-            $server->deleteCache(domain().'/'.$id.'.'.$extension);
+            if (file_exists($extensionPath)) {
+                $extension = file_get_contents($extensionPath);
+                $extension = trim($extension);
 
-            // clear previous image extension info
-            unlink($extensionPath);
+                // clear previous image cache
+                $server->deleteCache(domain().'/'.$id.'.'.$extension);
+
+                // clear previous image extension info
+                unlink($extensionPath);
+            }
 
             // store the uploaded file
             $file = $request->file('attachment');
