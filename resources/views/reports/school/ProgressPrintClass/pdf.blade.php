@@ -18,12 +18,11 @@
 
     <div class="container">
 
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="school-name text-center">{{$export->schoolName}}</h3>
-                <h4 class="school-phone text-center">Phone No. {{phone_number_spaces($export->schoolWorkPhone)}}</h4>
-            </div>
-        </div>
+        @include('reports.common.pdf-header', [
+            'school' => $export->schoolName,
+            'phone'  => $export->schoolWorkPhone,
+        ])
+
         <div class="row">
             <div class="col-md-12">
                 <h4 class="report-name text-center">{{$export->examInfo['exam']}} - {{$export->reportName}}</h4>

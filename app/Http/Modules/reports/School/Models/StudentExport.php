@@ -8,7 +8,7 @@ class StudentExport extends Model
 {
     protected $screenId = 3013;
 
-    public $pdfData;
+    public $pdfData = [];
 
     protected $repositoryNamespace = 'App\Http\Modules\reports\School\Repositories\StudentExportRepository';
 

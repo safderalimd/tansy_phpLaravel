@@ -1,4 +1,19 @@
 <style type="text/css">
+    .logo-container {
+        text-align: right;
+    }
+    .logo-container, .school-container {
+        width: 33%;
+        display: inline-block;
+        padding: 0px;
+        box-sizing: content-box;
+    }
+    .school-logo {
+        display: inline-block;
+        width: 150px;
+        height: 130px;
+    }
+
     .header-table {
         width: 100%;
         border: 0px;
