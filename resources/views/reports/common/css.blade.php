@@ -6,7 +6,7 @@
         width: 100%;
         height: 100%;
         opacity: .2;
-        z-index: -1000;
+        z-index: 1;
         text-align: center;
     }
     #watermark-text {
