@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Image</label>
                                 <div class="col-md-8">
-                                    <img src="/cabinet/img/student/{{$account->student_entity_id}}?w=300&h=300" alt="Student Image" class="img-thumbnail">
+                                    <img src="/cabinet/img/student/{{$account->student_entity_id}}?w=300&h=300&ri=<?php echo time().uniqid(); ?>" alt="Student Image" class="img-thumbnail">
                                 </div>
                             </div>
                         @endif

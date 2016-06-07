@@ -17,7 +17,7 @@
                             @if (file_exists(storage_path('uploads/student-images/'. domain() . "/{$student->student_entity_id}")))
                                 <div class="" style="float:left;">
                                     <div class="img-thumbnail" style="width:270px;height:270px;text-align:center;    margin-bottom:10px;margin-left:15px;">
-                                    <img src="/cabinet/img/student/{{$student->student_entity_id}}?w=260&h=260" alt="Student Image" class="">
+                                    <img src="/cabinet/img/student/{{$student->student_entity_id}}?w=260&h=260&ri=<?php echo time().uniqid(); ?>" alt="Student Image" class="">
                                     </div>
                                 </div>
                             @else
