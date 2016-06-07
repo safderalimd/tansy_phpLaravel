@@ -69,6 +69,8 @@ class AccountStudentFormRequest extends Request
             'parent_middle_name' => 'string|max:100',
             'parent_last_name' => 'required|string|max:100',
             'parent_designation_id' => 'required|integer',
+
+            'attachment' => 'image|dimensions:min_width=100,min_height=200|max:10000',
         ];
     }
 

@@ -192,6 +192,8 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
 
     Route::get('/logout', '\App\Http\Controllers\User@logout');
 
+    Route::get('/img/student/{id}', '\App\Http\Controllers\ImageController@studentImage');
+
     Route::get('/{module?}', ['as' => 'cabinet', 'uses' => 'Admin\Controllers\AdminController@home']);
 
     // Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {

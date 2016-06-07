@@ -254,3 +254,8 @@ function third_resultset($data)
 
     return [];
 }
+
+function domain()
+{
+    return session()->get('dbConnectionData.login_domain');
+}

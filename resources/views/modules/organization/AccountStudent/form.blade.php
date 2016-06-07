@@ -16,7 +16,7 @@
 
                     @include('commons.errors')
 
-                    <form class="form-horizontal" action="{{ form_action() }}" method="POST">
+                    <form class="form-horizontal" accept-charset="UTF-8" action="{{ form_action() }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
                         <hr/>
@@ -29,6 +29,25 @@
                             'keyId'   => 'facility_entity_id',
                             'keyName' => 'facility_name',
                         ])
+
+                        @if (file_exists(storage_path('uploads/student-images/'. domain() . "/{$account->student_entity_id}")))
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Image</label>
+                                <div class="col-md-8">
+                                    <img src="/cabinet/img/student/{{$account->student_entity_id}}?w=300&h=300" alt="Student Image" class="img-thumbnail">
+                                </div>
+                            </div>
+                        @endif
+
+                        @if (!$account->isNewRecord())
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Upload Image</label>
+                                <div class="col-md-8">
+                                    <label class="btn btn-default btn-file" style="padding-left:12px;">Choose File...{!! Form::file('attachment', array('class'=>'form-control')) !!}</label>
+                                    <span class="file-name"></span>
+                                </div>
+                            </div>
+                        @endif
 
                         <div class="form-group">
                             <div class="col-sm-offset-4 col-sm-8">
@@ -312,4 +331,24 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+
+    $(document).on('change', '.btn-file :file', function() {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+
+    $(document).ready( function() {
+        $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+            $('.file-name').text(label);
+        });
+    });
+
+</script>
 @endsection

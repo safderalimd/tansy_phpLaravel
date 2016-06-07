@@ -1,5 +1,7 @@
 /storage/uploads/student-data
 /storage/uploads/debugbar
+/storage/uploads/student-images
+/storage/uploads/student-images-cache
 /vendor
 /node_modules
 Homestead.yaml

@@ -14,10 +14,18 @@
                     <div class="col-md-12">
                         <div class="row">
 
-                        <div class="col-md-2 placeholder text-center">
-                            <img src="/dashboard/student.jpg" class="center-block img-responsive img-circle" alt="Image">
-                            <div class="stat-panel-title text-uppercase">Student</div>
-                        </div>
+                            @if (file_exists(storage_path('uploads/student-images/'. domain() . "/{$student->student_entity_id}")))
+                                <div class="" style="float:left;">
+                                    <div class="img-thumbnail" style="width:270px;height:270px;text-align:center;    margin-bottom:10px;margin-left:15px;">
+                                    <img src="/cabinet/img/student/{{$student->student_entity_id}}?w=260&h=260" alt="Student Image" class="">
+                                    </div>
+                                </div>
+                            @else
+                                <div class="col-md-2 placeholder text-center">
+                                    <img src="/dashboard/student.jpg" class="center-block img-responsive img-circle" alt="Image">
+                                    <div class="stat-panel-title text-uppercase">Student</div>
+                                </div>
+                            @endif
 
                             <div class="col-md-3">
                                 <div class="panel panel-default">
