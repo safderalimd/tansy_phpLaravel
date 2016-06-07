@@ -2,6 +2,7 @@
 /storage/uploads/debugbar
 /storage/uploads/student-images
 /storage/uploads/student-images-cache
+/storage/pdf
 /vendor
 /node_modules
 Homestead.yaml

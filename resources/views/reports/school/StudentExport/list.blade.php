@@ -110,6 +110,12 @@
 <script type="text/javascript">
 
     $('#generate-report-form').submit(function() {
+
+        if ($('.pdf-column:checked').length == 0) {
+            alert('No checkboxes are selected.');
+            return false;
+        }
+
         var rowType = $('#primary_key_id option:selected').attr('data-rowType');
         var primaryKeyId = $('#primary_key_id option:selected').val();
         if (primaryKeyId == '') {
