@@ -8,7 +8,9 @@ class SmsSender
 {
     private $username;
 
-    private $password;
+    private $hash;
+
+    private $senderId;
 
     private $messages;
 
@@ -18,22 +20,28 @@ class SmsSender
 
     private $xmlData;
 
-    public function __construct($messages, $test)
+    public function __construct($username, $hash, $senderId, $messages, $test)
     {
-        $this->test = intval($test);
+        $this->username = trim($username);
+        $this->hash     = trim($hash);
+        $this->senderId = trim($senderId);
+
         $this->messages = $messages;
-        $this->username = 'safderalimd@outlook.com';
-        $this->password = 'Abil@usuf1';
+        $this->test = intval($test);
+
+        if (empty($this->senderId)) {
+            $this->senderId = 'TXTLCL';
+        }
     }
 
-    public static function sandbox($messages)
+    public static function sandbox($username, $hash, $senderId, $messages)
     {
-        return static::send($messages, true);
+        return static::send($username, $hash, $senderId, $messages, true);
     }
 
-    public static function send($messages, $test = false)
+    public static function send($username, $hash, $senderId, $messages, $test = false)
     {
-        $sender = new static($messages, $test);
+        $sender = new static($username, $hash, $senderId, $messages, $test);
         return $sender->sendBulkSms();
     }
 
@@ -69,7 +77,8 @@ class SmsSender
     {
         $view = view('thirdparty.sms.SendSms.sms-bulk-api-call', [
             'username' => $this->username,
-            'password' => $this->password,
+            'hash'     => $this->hash,
+            'senderId' => $this->senderId,
             'test'     => $this->test,
             'messages' => $this->messages,
         ]);
@@ -85,35 +94,5 @@ class SmsSender
     public function getXmlData()
     {
         return $this->xmlData;
-    }
-
-    /**
-     * Return an array of many JSON objects
-     *
-     * @see  http://ryanuber.com/07-31-2012/split-and-decode-json-php.html
-     *
-     * In some applications (such as PHPUnit, or salt), JSON output is presented as multiple
-     * objects, which you cannot simply pass in to json_decode(). This function will split
-     * the JSON objects apart and return them as an array of strings, one object per indice.
-     *
-     * @param string $json  The JSON data to parse
-     *
-     * @return array
-     */
-    public static function jsonSplitObjects($json)
-    {
-        $q = FALSE;
-        $len = strlen($json);
-        $objects = [];
-        for($l=$c=$i=0;$i<$len;$i++)
-        {
-            $json[$i] == '"' && ($i>0?$json[$i-1]:'') != '\\' && $q = !$q;
-            if(!$q && in_array($json[$i], array(" ", "\r", "\n", "\t"))){continue;}
-            in_array($json[$i], array('{', '[')) && !$q && $l++;
-            in_array($json[$i], array('}', ']')) && !$q && $l--;
-            (isset($objects[$c]) && $objects[$c] .= $json[$i]) || $objects[$c] = $json[$i];
-            $c += ($l == 0);
-        }
-        return $objects;
     }
 }

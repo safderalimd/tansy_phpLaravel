@@ -6,6 +6,18 @@ use App\Http\Repositories\Repository;
 
 class SendSmsRepository extends Repository
 {
+    public function smsCredentials()
+    {
+        return $this->select(
+            'SELECT
+                provider_entity_id,
+                sender_user_name,
+                sender_hash,
+                sender_id
+             FROM view_sms_lkp_credentials LIMIT 1;'
+        );
+    }
+
     public function smsBalanceCount()
     {
         return $this->select(

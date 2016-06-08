@@ -103,13 +103,14 @@ class SendSmsController extends Controller
 
         // send the sms messages
         try {
-            $sender = SmsSender::send($validRows);
+            $api = $sms->smsCredentials();
+            $sender = SmsSender::send($api['username'], $api['hash'], $api['senderId'], $validRows);
         } catch (\Exception $e) {
             return \Redirect::back()->withErrors([$e->getMessage()]);
         }
 
-        // extract combined json rows into an array
-        $jsonRows = SmsSender::jsonSplitObjects($sender->getRawResponse());
+        // extract json rows into an array
+        $jsonRows = json_decode($sender->getRawResponse());
 
         // init total sms in batch, credits used, success count, failure count
         $totalSmsInBatch = count($validRows);
@@ -119,27 +120,26 @@ class SendSmsController extends Controller
 
         // calculate credits used, success count, failure count
         foreach ($jsonRows as $jsonRow) {
-            $decoded = json_decode($jsonRow);
-            $status = isset($decoded->status) ? $decoded->status : 'failure';
+            $status = isset($jsonRow->status) ? $jsonRow->status : 'failure';
             if ($status == 'success') {
                 $successCount++;
             } else {
                 $failureCount++;
             }
-            $creditsUsed += isset($decoded->cost) ? intval($decoded->cost) : 0;
+            $creditsUsed += isset($jsonRow->cost) ? intval($jsonRow->cost) : 0;
 
             // set the statuses on the valid rows array
-            if (isset($decoded->custom)) {
+            if (isset($jsonRow->custom)) {
                 foreach ($validRows as &$validRow) {
-                    if ($validRow['account_entity_id'] == $decoded->custom) {
+                    if ($validRow['account_entity_id'] == $jsonRow->custom) {
                         $validRow['api_status'] = $status;
                         break;
                     }
                 }
                 unset($validRow); // clear reference
 
-            } elseif (isset($decoded->warnings[0]->numbers) && is_string($decoded->warnings[0]->numbers)) {
-                $number = $decoded->warnings[0]->numbers;
+            } elseif (isset($jsonRow->warnings[0]->numbers) && is_string($jsonRow->warnings[0]->numbers)) {
+                $number = $jsonRow->warnings[0]->numbers;
                 foreach ($validRows as &$validRow) {
                     if (strpos($number, $validRow['mobile_phone']) !== false) {
                         $validRow['api_status'] = $status;
@@ -148,8 +148,8 @@ class SendSmsController extends Controller
                 }
                 unset($validRow); // clear reference
 
-            } elseif (isset($decoded->messages[0]->recipients) && is_string($decoded->messages[0]->recipients)) {
-                $number = $decoded->messages[0]->recipients;
+            } elseif (isset($jsonRow->messages[0]->recipients) && is_string($jsonRow->messages[0]->recipients)) {
+                $number = $jsonRow->messages[0]->recipients;
                 foreach ($validRows as &$validRow) {
                     if (strpos($number, $validRow['mobile_phone']) !== false) {
                         $validRow['api_status'] = $status;

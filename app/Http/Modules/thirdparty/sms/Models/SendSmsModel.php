@@ -15,6 +15,16 @@ class SendSmsModel extends Model
         parent::__construct($arguments);
     }
 
+    public function smsCredentials()
+    {
+        $credentials = $this->repository->smsCredentials();
+        return [
+            'username' => isset($credentials[0]['sender_user_name']) ? $credentials[0]['sender_user_name'] : '',
+            'hash'     => isset($credentials[0]['sender_hash']) ? $credentials[0]['sender_hash'] : '',
+            'senderId' => isset($credentials[0]['sender_id']) ? $credentials[0]['sender_id'] : '',
+        ];
+    }
+
     public function smsBalanceCount()
     {
         $count = $this->repository->smsBalanceCount();

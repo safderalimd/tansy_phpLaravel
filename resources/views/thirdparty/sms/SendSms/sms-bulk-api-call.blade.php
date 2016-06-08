@@ -1,6 +1,6 @@
 <SMS>
-    <Account Name="{{$username}}" Password="{{$password}}" Test="{{$test}}" Info="1" JSON="1">
-    <Sender From="TXTLCL">
+    <Account Name="{{$username}}" Hash="{{$hash}}" Test="{{$test}}" Info="1" JSON="1">
+    <Sender From="{{$senderId}}">
         <Messages>
             @foreach ($messages as $message)
                 <Msg ID="{{$message['account_entity_id']}}" Number="{{$message['mobile_phone']}}">
