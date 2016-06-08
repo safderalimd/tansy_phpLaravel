@@ -6,6 +6,15 @@ use App\Http\Repositories\Repository;
 
 class PaymentRepository extends Repository
 {
+    public function getCheckboxDefaultValue()
+    {
+        return $this->select(
+            'SELECT send_payment_sms
+             FROM view_sys_lkp_variables
+             LIMIT 1;'
+        );
+    }
+
     public function getAllPayments($model)
     {
         $procedure = 'sproc_act_rcv_due_lst';

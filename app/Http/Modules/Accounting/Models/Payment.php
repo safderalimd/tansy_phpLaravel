@@ -70,6 +70,17 @@ class Payment extends Model
         return $payment;
     }
 
+    public function shouldSendReceiptSms()
+    {
+        $sendSms = $this->repository->getCheckboxDefaultValue();
+
+        if (!isset($sendSms[0]['send_payment_sms'])) {
+            return false;
+        }
+
+        return (bool) $sendSms[0]['send_payment_sms'];
+    }
+
     public function rows()
     {
         return $this->rows;
@@ -82,6 +93,22 @@ class Payment extends Model
 
     public function payNow()
     {
-        return $this->repository->payNow($this);
+        $payment = static::details($this->pk);
+        $rows = $payment->rows();
+
+        // todo: ask client what php validations to be made for payment
+
+        $this->repository->payNow($this);
+
+        // send receipt sms if checkbox is on
+        if (isset($this->send_receipt_sms)) {
+            $phone = null;
+            if (isset($rows[0]['mobile_phone'])) {
+                $phone = $rows[0]['mobile_phone'];
+            }
+            if (!empty($phone)) {
+                // send an sms with the receipt
+            }
+        }
     }
 }

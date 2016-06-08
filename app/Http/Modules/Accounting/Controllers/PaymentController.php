@@ -33,7 +33,6 @@ class PaymentController extends Controller
     {
         $primaryKey = $request->input('pk');
         $payment = Payment::details($primaryKey);
-
         return view('modules.accounting.Payment.form', compact('payment', 'primaryKey'));
     }
 
@@ -46,11 +45,6 @@ class PaymentController extends Controller
     public function payNow(PaymentFormRequest $request)
     {
         $payment = new Payment($request->input());
-
-        // Send sms if checkbox is on
-
-        // TODO: make sure the payment calculations are validated in php again here
-
         $payment->payNow();
         return redirect('/cabinet/payment');
     }

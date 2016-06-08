@@ -8,26 +8,28 @@
     $allRows = $payment->rows();
     if (count($allRows)) {
         $accountName = $allRows[0]['account_name'];
+        $phoneNumber = $allRows[0]['mobile_phone'];
     } else {
         $accountName = '-';
+        $phoneNumber = '-';
         $allRows = [];
     }
 ?>
 
-    <div class="row">
-        <div class="col-md-8 sch_class panel-group panel-bdr">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <i class="glyphicon glyphicon-th"></i>
-                    <h3>Payment for {{$accountName}}</h3>
-                </div>
+<div class="row">
+    <div class="col-md-8 sch_class panel-group panel-bdr">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="glyphicon glyphicon-th"></i>
+                <h3>Payment for {{$accountName}}</h3>
+            </div>
 
-                <div class="panel-body edit_form_wrapper">
-                    <section class="form_panel">
+            <div class="panel-body edit_form_wrapper">
+                <section class="form_panel">
 
-                    @include('commons.errors')
+                @include('commons.errors')
 
-<form class="form-horizontal" action="/cabinet/payment/pay-now" id="pay-now-form" method="POST">
+<form class="form-horizontal" action="{{ form_action_full() }}" id="pay-now-form" method="POST">
     {{ csrf_field() }}
 
     <div class="row">
@@ -80,11 +82,32 @@
             <table class="table table-striped">
                 @foreach($allRows as $row)
                     <tr>
-                        <td><input type="checkbox" data-scheduleentityid="{{ $row['schedule_entity_id'] }}" data-dateid="{{ $row['date_id'] }}" data-totalamount="{{ $row['total_amount'] }}" data-dueamount="{{ $row['due_amount'] }}" class="detail-row" name="paid-amount-checkbox" value=""></td>
-                        <td>{{ $row['product_name'] }} - {{ $row['schedule_name'] }} ({{$row['current_schedule_name']}})</td>
+                        <td class="text-left">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" data-scheduleentityid="{{ $row['schedule_entity_id'] }}" data-dateid="{{ $row['date_id'] }}" data-totalamount="{{ $row['total_amount'] }}" data-dueamount="{{ $row['due_amount'] }}" class="detail-row" name="paid-amount-checkbox" value="">
+                                {{ $row['product_name'] }} - {{ $row['schedule_name'] }} ({{$row['current_schedule_name']}})
+                            </label>
+                        </td>
                         <td>{{ number_format($row['due_amount'], 2) }}</td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td style="margin-top: 10px; margin-bottom: 10px;">
+                        <div class="checkbox">
+                            <label class="checkbox-inline">
+                                @if ($payment->shouldSendReceiptSms())
+                                    <input type="checkbox" name="send_receipt_sms" checked="checked">
+                                @else
+                                    <input type="checkbox" name="send_receipt_sms">
+                                @endif
+
+                                <h5 style="margin:2px;"><small>Send Receipt SMS ({{phone_number($phoneNumber)}})</small></h5>
+
+                            </label>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
             </table>
         </div>
     </div>
@@ -95,11 +118,12 @@
     <input type="hidden" name="total_paid_amount" id="id_total_paid_amount" value="">
 
 </form>
-                    </section>
-                </div>
+
+                </section>
             </div>
         </div>
     </div>
+</div>
 @endsection
 
 
