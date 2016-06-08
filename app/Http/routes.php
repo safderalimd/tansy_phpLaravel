@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('tansycloud');
 });
 
+Route::get('/database-error', function () {
+    return view('errors.db-error');
+});
+
 Route::get('/phpinfo', function () {
     phpinfo();
 });

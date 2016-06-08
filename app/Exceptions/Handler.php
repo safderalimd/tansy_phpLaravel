@@ -53,9 +53,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        // if a db error occures, redirect back with error messages
+        // if a db error occures, redirect to error page with error messages
         if ($e instanceof DbErrorException) {
-            return \Redirect::back()->withErrors($e->getMessage());
+            return redirect('/database-error')->withErrors($e->getMessage());
         }
 
         return parent::render($request, $e);
