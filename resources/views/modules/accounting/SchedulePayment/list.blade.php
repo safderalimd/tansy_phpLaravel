@@ -18,7 +18,8 @@
                    <table class="table table-striped table-bordered table-hover" data-datatable>
                     <thead>
                         <tr>
-                            <th>Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                            <th>Schedule Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                            <th>Subject Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                             <th>Product <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                             <th>Frequency Type <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                             <th>Start Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
@@ -31,6 +32,7 @@
             @foreach($payment->scheduleGrid() as $item)
             <tr>
                 <td>{{$item['schedule_name']}}</td>
+                <td>{{$item['subject_name']}}</td>
                 <td>{{$item['product_name']}}</td>
                 <td>{{$item['frequency']}}</td>
                 <td>{{style_date($item['start_date'])}}</td>
