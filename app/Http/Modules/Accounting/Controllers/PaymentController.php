@@ -47,48 +47,11 @@ class PaymentController extends Controller
     {
         $payment = new Payment($request->input());
 
+        // Send sms if checkbox is on
+
         // TODO: make sure the payment calculations are validated in php again here
 
         $payment->payNow();
-        return redirect('/cabinet/payment');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $payment = Payment::findOrFail($id);
-        return view('modules.accounting.Payment.form', compact('payment'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param PaymentFormRequest $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(PaymentFormRequest $request, $id)
-    {
-        $payment = Payment::findOrFail($id);
-        $payment->update($request->input());
-        return redirect('/cabinet/payment');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $payment = Payment::findOrFail($id);
-        $payment->delete();
         return redirect('/cabinet/payment');
     }
 }
