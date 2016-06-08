@@ -3,9 +3,34 @@
 <head>
     @include('include.head')
     @yield('styles')
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style type="text/css">
+        .flash-message {
+            background-color: #99c93d;
+            display: inline-block;
+            padding: 12px 30px;
+            color: #fff;
+            border-radius: 4px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 15px;
+            line-height: 1.6em;
+            font-family: Lato, sans-serif;
+            display: none;
+        }
+        .flash-message .material-icons {
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body style="padding:0px;">
+
 <div class="loader"></div>
+
+@include('commons.flash')
+
 <div class="container-fluid">
 
     <header class="row">
@@ -62,6 +87,19 @@
 
     // for tables
     $( document ).ready(function() {
+
+        // show and remove flash message
+        $('.flash-message').fadeIn(300).delay(2800)
+            .animate(
+                {marginRight: "-100%"},
+                300,
+                "swing",
+                function() {
+                    $(this).remove();
+                }
+            );
+
+
         $('.date').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true

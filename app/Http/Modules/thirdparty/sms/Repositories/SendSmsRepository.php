@@ -174,6 +174,7 @@ class SendSmsRepository extends Repository
             ':iparam_log_json_sms_received',
             ':iparam_log_json_batch_sent',
             ':iparam_log_json_batch_received',
+            ':iparam_balance_count',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

@@ -71,6 +71,9 @@ class SendSmsController extends Controller
 
     public function sendSmsToStudents(SendSmsModel $sms, $ids, $commonMessage = false, $text = '')
     {
+        $api = $sms->smsCredentials();
+        $sender = new SmsSender($api['username'], $api['hash'], $api['senderId'], true);
+
         $sms->setSmsBatchAttributes();
 
         // get rows from db with all students
@@ -83,10 +86,11 @@ class SendSmsController extends Controller
         });
 
         // validate that valid row count is less than balance
-        if (!is_numeric($sms->smsBalanceCount)) {
-            $sms->smsBalanceCount = 0;
+        $smsBalanceCount = $sender->getBalance();
+        if (!is_numeric($smsBalanceCount)) {
+            $smsBalanceCount = 0;
         }
-        if (count($validRows) > $sms->smsBalanceCount) {
+        if (count($validRows) > $smsBalanceCount) {
             throw new \Exception("You do not have enought sms credits.");
         }
 
@@ -103,9 +107,9 @@ class SendSmsController extends Controller
 
         // send the sms messages
         try {
-            $api = $sms->smsCredentials();
-            $sender = SmsSender::send($api['username'], $api['hash'], $api['senderId'], $validRows);
+            $sender->send($validRows);
         } catch (\Exception $e) {
+            // todo: log exception
             return \Redirect::back()->withErrors([$e->getMessage()]);
         }
 
@@ -174,6 +178,7 @@ class SendSmsController extends Controller
             'commonMessage' => $text,
             'xmlSent' => $sender->getXmlData(),
             'jsonReceived' => $sender->getRawResponse(),
+            'balanceCount' => $sender->getBalance(),
         ];
 
         $sms->storeBatchStatus($data);

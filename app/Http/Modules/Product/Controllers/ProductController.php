@@ -41,6 +41,7 @@ class ProductController extends Controller
         $product = new Product;
         $product->setAttribute('active', 0);
         $product->save($request->input());
+        flash('Product Added!');
         return redirect('/cabinet/product');
     }
 
@@ -70,6 +71,7 @@ class ProductController extends Controller
         $product->setAttribute('product_entity_id', $id);
         $product->setAttribute('active', 0);
         $product->update($request->input());
+        flash('Product Updated!');
         return redirect('/cabinet/product');
     }
 

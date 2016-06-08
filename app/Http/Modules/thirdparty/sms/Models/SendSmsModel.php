@@ -3,6 +3,7 @@
 namespace App\Http\Modules\thirdparty\sms\Models;
 
 use App\Http\Models\Model;
+use App\Http\Modules\thirdparty\sms\SmsSender;
 
 class SendSmsModel extends Model
 {
@@ -27,18 +28,26 @@ class SendSmsModel extends Model
 
     public function smsBalanceCount()
     {
-        $count = $this->repository->smsBalanceCount();
-        if (!is_array($count)) {
+        $api = $this->smsCredentials();
+        $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
+        $balance = $sender->getBalance();
+        if (!is_numeric($balance)) {
             return 0;
         }
+        return $balance;
 
-        $count = array_shift($count);
-        $count = array_values($count);
-        if (isset($count[0])) {
-            return $count[0];
-        }
+        // $count = $this->repository->smsBalanceCount();
+        // if (!is_array($count)) {
+        //     return 0;
+        // }
 
-        return 0;
+        // $count = array_shift($count);
+        // $count = array_values($count);
+        // if (isset($count[0])) {
+        //     return $count[0];
+        // }
+
+        // return 0;
     }
 
     public function storeBatchStatus($data)
@@ -91,6 +100,8 @@ class SendSmsModel extends Model
         $model->setAttribute('log_json_sms_received', $data['jsonReceived']);
         $model->setAttribute('log_json_batch_sent', null);
         $model->setAttribute('log_json_batch_received', null);
+
+        $model->setAttribute('balance_count', $data['balanceCount']);
 
         return $model->repository->storeBatchStatus($model);
     }

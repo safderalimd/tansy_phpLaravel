@@ -20,13 +20,12 @@ class SmsSender
 
     private $xmlData;
 
-    public function __construct($username, $hash, $senderId, $messages, $test)
+    public function __construct($username, $hash, $senderId, $test = false)
     {
         $this->username = trim($username);
         $this->hash     = trim($hash);
         $this->senderId = trim($senderId);
 
-        $this->messages = $messages;
         $this->test = intval($test);
 
         if (empty($this->senderId)) {
@@ -34,15 +33,10 @@ class SmsSender
         }
     }
 
-    public static function sandbox($username, $hash, $senderId, $messages)
+    public function send($messages)
     {
-        return static::send($username, $hash, $senderId, $messages, true);
-    }
-
-    public static function send($username, $hash, $senderId, $messages, $test = false)
-    {
-        $sender = new static($username, $hash, $senderId, $messages, $test);
-        return $sender->sendBulkSms();
+        $this->messages = $messages;
+        return $this->sendBulkSms();
     }
 
     public function sendBulkSms()
@@ -94,5 +88,49 @@ class SmsSender
     public function getXmlData()
     {
         return $this->xmlData;
+    }
+
+    /**
+     * Get Credit Balances
+     * @return array
+     */
+    public function getBalance()
+    {
+        $url = 'http://api.textlocal.in/balance/';
+
+        $params = [
+            'username' => $this->username,
+            'hash' => $this->hash,
+        ];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $rawResponse = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $error = curl_error($ch);
+        curl_close($ch);
+
+        if ($rawResponse === false) {
+            throw new Exception('Failed to connect to the Textlocal service: ' . $error);
+        } elseif ($httpCode != 200) {
+            throw new Exception('Bad response from the Textlocal service: HTTP code ' . $httpCode);
+        }
+
+        $result = json_decode($rawResponse);
+        if (isset($result->errors)) {
+            if (count($result->errors) > 0) {
+                foreach ($result->errors as $error) {
+                    switch ($error->code) {
+                        default:
+                            throw new Exception($error->message);
+                    }
+                }
+            }
+        }
+
+        return $result->balance->sms;
     }
 }
