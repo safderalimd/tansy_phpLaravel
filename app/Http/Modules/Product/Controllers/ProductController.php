@@ -85,6 +85,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->delete();
+        flash('Product Deleted!');
         return redirect('/cabinet/product');
     }
 }
