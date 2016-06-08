@@ -72,7 +72,7 @@ class OrganizationController extends Controller
         $input['organization_entity_id'] = $id;
 
         $organization = new Organization($input);
-        $organization->update($request->input());
+        $organization->update();
         return redirect('/cabinet/organizations');
     }
 
@@ -85,7 +85,7 @@ class OrganizationController extends Controller
     public function destroy($id)
     {
         $organization = Organization::findOrFail($id);
-        $$organization->delete();
+        $organization->delete();
         return redirect('/cabinet/organizations');
     }
 }

@@ -30,7 +30,7 @@ class OrganizationFormRequest extends Request
             'organization_type_id' => 'required|integer',
 
             // contact'
-            'email' => 'required|string|max:100|email',
+            'email' => 'string|max:100|email',
             'work_phone' => 'required|regex:/^\d{3,12}$/',
             'mobile_phone' => 'required|regex:/^\d{3,12}$/',
 
