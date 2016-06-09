@@ -80,7 +80,7 @@ class SubjectController extends Controller
      */
     public function destroy($id)
     {
-        $subject = subject::findOrFail($id);
+        $subject = Subject::findOrFail($id);
         $subject->delete();
         flash('Subject Deleted!');
         return redirect('/cabinet/subject');

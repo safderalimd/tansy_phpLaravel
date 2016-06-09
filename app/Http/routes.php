@@ -56,6 +56,13 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::post('subject/edit/{id}', 'School\Controllers\SubjectController@update');
     Route::get('subject/delete/{id}', 'School\Controllers\SubjectController@destroy');
 
+    Route::get('exam', 'School\Controllers\ExamController@index');
+    Route::get('exam/create', 'School\Controllers\ExamController@create');
+    Route::post('exam/create', 'School\Controllers\ExamController@store');
+    Route::get('exam/edit/{id}', 'School\Controllers\ExamController@edit');
+    Route::post('exam/edit/{id}', 'School\Controllers\ExamController@update');
+    Route::get('exam/delete/{id}', 'School\Controllers\ExamController@destroy');
+
     Route::get('class-subject-map', 'School\Controllers\ClassSubjectMapController@index');
     Route::get('class-subject-map/map/{classId}/{subjectId}', 'School\Controllers\ClassSubjectMapController@map');
     Route::get('class-subject-map/delete/{classId}/{subjectId}', 'School\Controllers\ClassSubjectMapController@destroy');

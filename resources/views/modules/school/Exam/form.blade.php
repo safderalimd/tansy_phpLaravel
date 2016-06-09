@@ -1,6 +1,6 @@
 @extends('layout.cabinet')
 
-@section('title', 'Subject')
+@section('title', 'Exam')
 
 @section('content')
     <div class="row">
@@ -8,7 +8,7 @@
             <div class="panel panel-primary">
 			    <div class="panel-heading">
                 	<i class="glyphicon glyphicon-th"></i>
-                	<h3>Subject{{ form_label() }}</h3>
+                	<h3>Exam{{ form_label() }}</h3>
                 </div>
 
                 <div class="panel-body edit_form_wrapper">
@@ -20,18 +20,18 @@
                         {{ csrf_field() }}
 
                			<div class="form-group">
-                            <label class="col-md-4 control-label" for="subject_name">Subject</label>
+                            <label class="col-md-4 control-label" for="exam_name">Exam</label>
                             <div class="col-md-8">
-                                <input id="subject_name" class="form-control" type="text" name="subject_name" value="{{ v('subject_name') }}" placeholder="Subject">
+                                <input id="exam_name" class="form-control" type="text" name="exam_name" value="{{ v('exam_name') }}" placeholder="Exam">
                             </div>
                         </div>
 
                         @include('commons.select', [
-                            'label'   => 'Subject Type' ,
-                            'name'    => 'subject_type_id',
-                            'options' => $subject->subjectTypes(),
-                            'keyId'   => 'subject_type_id',
-                            'keyName' => 'subject_type',
+                            'label'   => 'Exam Type' ,
+                            'name'    => 'exam_type_id',
+                            'options' => $exam->examTypes(),
+                            'keyId'   => 'exam_type_id',
+                            'keyName' => 'exam_type',
                         ])
 
                         <div class="form-group">
@@ -41,17 +41,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="subject_short_code">Short Code</label>
-                            <div class="col-md-8">
-                                <input id="subject_short_code" class="form-control" type="text" name="subject_short_code" value="{{ v('subject_short_code') }}" placeholder="Short Code">
-                            </div>
-                        </div>
-
                         <div class="row">
                            <div class="col-md-12 text-center grid_footer">
                                 <button class="btn btn-primary grid_btn" type="submit">Save</button>
-                                <a href="{{ url("/cabinet/subject")}}" class="btn btn-default cancle_btn">Cancel</a>
+                                <a href="{{ url("/cabinet/exam")}}" class="btn btn-default cancle_btn">Cancel</a>
                             </div>
                         </div>
                     </form>
