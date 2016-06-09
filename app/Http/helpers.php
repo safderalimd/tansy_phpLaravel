@@ -260,3 +260,19 @@ function domain()
 {
     return session()->get('dbConnectionData.login_domain');
 }
+
+function currentMenuLink($item)
+{
+    $filtered = $item->children()->filter(function ($item) {
+        if ($item->hasChildren()) {
+            return currentMenuLink($item);
+        }
+        return $item->url() == app('request')->url();
+    });
+
+    if (count($filtered)) {
+        return true;
+    }
+
+    return false;
+}

@@ -11,16 +11,10 @@
 
     @if($item->hasChildren())
         <?php
-            // $collapsed = 'collapse';
-            // $filtered = $item->children()->filter(function ($item) {
-            //     return $item->url() == app('request')->url();
-            // });
-
-            // if (count($filtered)) {
-            //    $collapsed = 'collapsed in';
-            // }
-            $collapsed = 'collapsed in';
-
+            $collapsed = 'collapse';
+            if (currentMenuLink($item)) {
+                $collapsed = 'collapsed in';
+            }
         ?>
         <div class="{{$collapsed}}" id="{!!$item->id!!}" style="margin-left: 10px">
             <div id="{!!$item->id!!}">
