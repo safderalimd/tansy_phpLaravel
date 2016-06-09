@@ -148,6 +148,7 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
 
     Route::post('send-sms---general', 'thirdparty\sms\Controllers\SendSmsController@sendGeneral');
     Route::post('send-sms---exam-results', 'thirdparty\sms\Controllers\SendSmsController@sendExamResults');
+    Route::post('send-sms---exam-schedule', 'thirdparty\sms\Controllers\SendSmsController@sendExamSchedule');
     Route::post('send-sms---attendence/send', 'thirdparty\sms\Controllers\SendSmsController@sendAttendence');
     Route::post('send-sms---fee-due', 'thirdparty\sms\Controllers\SendSmsController@sendFeeDue');
 

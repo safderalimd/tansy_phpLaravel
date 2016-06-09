@@ -28,26 +28,24 @@ class SendSmsModel extends Model
 
     public function smsBalanceCount()
     {
+        // check if the balance is in the session first
+        $balance = session()->get('smsBalance');
+        if (!is_null($balance) && is_numeric($balance)) {
+            return $balance;
+        }
+
+        // make an api call to get the balance
         $api = $this->smsCredentials();
         $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
         $balance = $sender->getBalance();
         if (!is_numeric($balance)) {
-            return 0;
+            $balance = 0;
         }
+
+        // store the balance in the session
+        session()->put('smsBalance', $balance);
+
         return $balance;
-
-        // $count = $this->repository->smsBalanceCount();
-        // if (!is_array($count)) {
-        //     return 0;
-        // }
-
-        // $count = array_shift($count);
-        // $count = array_values($count);
-        // if (isset($count[0])) {
-        //     return $count[0];
-        // }
-
-        // return 0;
     }
 
     public function storeBatchStatus($data)

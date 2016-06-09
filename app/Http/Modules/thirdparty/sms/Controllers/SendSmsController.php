@@ -66,6 +66,13 @@ class SendSmsController extends Controller
         return $this->sendSmsToStudents($sms, $request->input('student_ids'));
     }
 
+    public function sendExamSchedule(Request $request)
+    {
+        $this->validate($request, ['student_ids' => 'required|string']);
+        $sms = new SendSmsExamSchedule($request->input());
+        return $this->sendSmsToStudents($sms, $request->input('student_ids'));
+    }
+
     public function sendGeneral(Request $request)
     {
         $this->validate($request, ['student_ids' => 'required|string']);
@@ -78,9 +85,16 @@ class SendSmsController extends Controller
 
     public function sendSmsToStudents(SendSmsModel $sms, $ids, $commonMessage = false, $text = '')
     {
+        // clear the sms balance from the session
+        session()->put('smsBalance', null);
+
+        // get the textlocal.in credentials for this domain from the database
         $api = $sms->smsCredentials();
+
+        // create sms sender object
         $sender = new SmsSender($api['username'], $api['hash'], $api['senderId'], true);
 
+        // set request properties on the model
         $sms->setSmsBatchAttributes();
 
         // get rows from db with all students

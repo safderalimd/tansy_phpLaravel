@@ -18,13 +18,6 @@ class SendSmsRepository extends Repository
         );
     }
 
-    public function smsBalanceCount()
-    {
-        return $this->select(
-            'SELECT * FROM view_sms_balance_count LIMIT 1;'
-        );
-    }
-
     public function getSmsTypes()
     {
         return $this->select(
