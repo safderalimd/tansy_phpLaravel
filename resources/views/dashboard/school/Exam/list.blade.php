@@ -186,30 +186,28 @@
                     <div class="col-md-6">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                Student Grade
+                                <h5>Class Subject Performence</h5>
                             </div>
                             <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table id="table-subject-report" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Student</th>
-                                                <th>Grade</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($exam->classPerformancePieGrid as $row)
-                                            <tr>
-                                                <td>{{$row['student_full_name']}}</td>
-                                                <td>{{$row['grade']}}</td>
-                                            </tr>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <ul class="chart-dot-list">
+                                            <?php $i=1; ?>
+                                            @foreach($exam->classSubjectPerformancePieChart as $row)
+                                                <li class="a{{$i++}}">{{$row['label']}}</li>
                                             @endforeach
-                                        </tbody>
-                                    </table>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="chart chart-doughnut">
+                                            <canvas height="900" id="class-subject-report" width= "1200"></canvas>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
                 @endif
@@ -232,6 +230,9 @@
     var pieData = <?php echo json_encode($exam->classPerformancePieChart); ?>;
     pieData = applyChartColors(pieData);
 
+    var pieData2 = <?php echo json_encode($exam->classSubjectPerformancePieChart); ?>;
+    pieData2 = applyChartColors(pieData2);
+
     $(document).ready(function() {
         $('#table-exam-report').DataTable();
         $('#table-subject-report').DataTable();
@@ -243,6 +244,9 @@
 
         var pieContext = document.getElementById("subject-report").getContext("2d");
         window.myPie = new Chart(pieContext).Pie(pieData, {responsive : true});
+
+        var pieContext2 = document.getElementById("class-subject-report").getContext("2d");
+        window.myPie2 = new Chart(pieContext2).Pie(pieData2, {responsive : true});
     };
 
 </script>
