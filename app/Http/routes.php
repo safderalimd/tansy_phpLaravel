@@ -49,6 +49,13 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::post('product/edit/{id}', 'Product\Controllers\ProductController@update');
     Route::get('product/delete/{id}', 'Product\Controllers\ProductController@destroy');
 
+    Route::get('subject', 'School\Controllers\SubjectController@index');
+    Route::get('subject/create', 'School\Controllers\SubjectController@create');
+    Route::post('subject/create', 'School\Controllers\SubjectController@store');
+    Route::get('subject/edit/{id}', 'School\Controllers\SubjectController@edit');
+    Route::post('subject/edit/{id}', 'School\Controllers\SubjectController@update');
+    Route::get('subject/delete/{id}', 'School\Controllers\SubjectController@destroy');
+
     Route::get('class-subject-map', 'School\Controllers\ClassSubjectMapController@index');
     Route::get('class-subject-map/map/{classId}/{subjectId}', 'School\Controllers\ClassSubjectMapController@map');
     Route::get('class-subject-map/delete/{classId}/{subjectId}', 'School\Controllers\ClassSubjectMapController@destroy');
