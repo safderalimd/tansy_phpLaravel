@@ -9,4 +9,10 @@ class CashCounter extends Model
     protected $screenId = 2019;
 
     protected $repositoryNamespace = 'App\Http\Modules\Accounting\Repositories\CashCounterRepository';
+
+    public function closeCounter()
+    {
+        $this->setAttribute('iparam_dateIDs_collections', $this->collection_ids);
+        return $this->repository->closeCounter($this);
+    }
 }

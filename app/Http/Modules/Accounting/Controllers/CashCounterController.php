@@ -22,8 +22,9 @@ class CashCounterController extends Controller
 
     public function closeCashCounter(Request $request)
     {
-        dd($request->input());
-
+        $cash = new CashCounter($request->input());
+        $cash->closeCounter();
         flash('Cash Counter Closed!');
+        return redirect('/cabinet/close-cash-counter');
     }
 }

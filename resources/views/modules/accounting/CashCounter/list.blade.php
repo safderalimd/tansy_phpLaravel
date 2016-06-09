@@ -51,7 +51,7 @@
                             <td>{{style_date($row['calendar_date'])}}</td>
                             <td>&#x20b9; {{amount($row['collection_amount'])}}</td>
                             <td class="text-center">
-                                <input type="checkbox" checked="checked" class="cache-row-id" name="cache_row_id" value="{{$row['collection_amount']}}">
+                                <input type="checkbox" checked="checked" class="cache-row-id" name="cache_row_id" value="{{$row['collection_amount']}}" data-dateid="{{$row['date_id']}}">
                             </td>
                         </tr>
                     @endforeach
@@ -62,7 +62,7 @@
                 <div class="container-fluid">
                     <form class="navbar-form navbar-right" id="close-cash-counter-form" action="{{form_action_full()}}" method="POST">
                         {{ csrf_field() }}
-                        <input type="hidden" name="account_ids" id="account_ids" value="">
+                        <input type="hidden" name="collection_ids" id="collection_ids" value="">
 
                         <button id="close-cash-counter" type="submit" class="btn btn-primary">Close Cash Counter</button>
                     </form>
@@ -116,21 +116,21 @@
         return x1 + x2;
     }
 
-    // $('#send-sms-form').submit(function() {
+    $('#close-cash-counter-form').submit(function() {
 
-    //     var accountIds = $('.account-entity-id:checked').map(function() {
-    //         return this.value;
-    //     }).get();
+        var collectionIds = $('.cache-row-id:checked').map(function() {
+            return $(this).attr('data-dateid') + '-' + this.value;
+        }).get();
 
-    //     if (accountIds.length == 0) {
-    //         alert("No accounts are selected.");
-    //         return false;
-    //     }
+        if (collectionIds.length == 0) {
+            alert("No rows are selected.");
+            return false;
+        }
 
-    //     $('#student_ids').val(accountIds.join(','));
+        $('#collection_ids').val(collectionIds.join(','));
 
-    //     return true;
-    // });
+        return true;
+    });
 
 </script>
 @endsection

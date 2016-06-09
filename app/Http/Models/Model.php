@@ -26,6 +26,7 @@ class Model
         'session_id',
         'debug_sproc',
         'audit_screen_visit',
+        'default_facility_id',
     ];
 
     /**
@@ -53,6 +54,7 @@ class Model
     {
         $this->fill($attributes);
 
+        $this->setAttribute('default_facility_id', Session::get('user.defaultFacilityId'));
         $this->setAttribute('user_id', Session::get('user.userID'));
         $this->setAttribute('session_id', Session::get('user.sessionID'));
         $this->setAttribute('debug_sproc', Session::get('user.debugSproc'));
