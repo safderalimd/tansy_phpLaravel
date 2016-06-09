@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsGeneral;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsExam;
+use App\Http\Modules\thirdparty\sms\Models\SendSmsExamSchedule;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsAttendance;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsFeeDue;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
@@ -29,6 +30,12 @@ class SendSmsController extends Controller
     {
         $sms = new SendSmsExam($request->input());
         return view('thirdparty.sms.SendSms.exam-results', compact('sms'));
+    }
+
+    public function examSchedule(Request $request)
+    {
+        $sms = new SendSmsExamSchedule($request->input());
+        return view('thirdparty.sms.SendSms.exam-schedule', compact('sms'));
     }
 
     public function general(Request $request)
