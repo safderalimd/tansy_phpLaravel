@@ -1,3 +1,3 @@
 <div class="text-center">
-    {{ date('Y') . " &reg; MySchool" }}
+    {{ date('Y') . " &reg; tansyCloud" }}
 </div>

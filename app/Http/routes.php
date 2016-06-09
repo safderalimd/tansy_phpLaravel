@@ -80,6 +80,8 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('payment/create', 'Accounting\Controllers\PaymentController@create');
     Route::post('payment/create', 'Accounting\Controllers\PaymentController@payNow');
 
+    Route::get('close-cash-counter', 'Accounting\Controllers\CashCounterController@index');
+
     Route::get('payment-adjustment/{id}', 'Accounting\Controllers\PaymentAdjustmentController@index');
     Route::post('payment-adjustment/add', 'Accounting\Controllers\PaymentAdjustmentController@add');
     Route::post('payment-adjustment/edit', 'Accounting\Controllers\PaymentAdjustmentController@edit');
