@@ -11,8 +11,7 @@
 
     @if($item->hasChildren())
         <?php
-            $collapsed = 'collapse';
-            // todo: in the future have the menu opened as default on browsers and closed on mobile
+            // $collapsed = 'collapse';
             // $filtered = $item->children()->filter(function ($item) {
             //     return $item->url() == app('request')->url();
             // });
@@ -20,6 +19,8 @@
             // if (count($filtered)) {
             //    $collapsed = 'collapsed in';
             // }
+            $collapsed = 'collapsed in';
+
         ?>
         <div class="{{$collapsed}}" id="{!!$item->id!!}" style="margin-left: 10px">
             <div id="{!!$item->id!!}">
