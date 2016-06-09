@@ -92,7 +92,7 @@ class SendSmsController extends Controller
         $api = $sms->smsCredentials();
 
         // create sms sender object
-        $sender = new SmsSender($api['username'], $api['hash'], $api['senderId'], true);
+        $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
 
         // set request properties on the model
         $sms->setSmsBatchAttributes();
