@@ -5,7 +5,10 @@
 <title><?php
     $title = $__env->yieldContent('title');
     if (!empty($title)) {
-        echo $title . ' | ';
+        echo $title;
     }
-    echo Session::get('user.companyName');
+    $titleCompanyName = Session::get('user.companyName');
+    if (!empty($titleCompanyName)) {
+        echo ' | ' . $titleCompanyName;
+    }
 ?></title>

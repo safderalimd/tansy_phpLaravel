@@ -23,8 +23,8 @@ Route::get('/phpinfo', function () {
     phpinfo();
 });
 
-Route::get('/login', '\App\Http\Controllers\User@index'); //->middleware('guest');
-Route::post('/login', '\App\Http\Controllers\User@login');
+Route::get('/login', '\App\Http\Controllers\UserController@index'); //->middleware('guest');
+Route::post('/login', '\App\Http\Controllers\UserController@login');
 
 Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], function() {
 
@@ -81,6 +81,7 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::post('payment/create', 'Accounting\Controllers\PaymentController@payNow');
 
     Route::get('close-cash-counter', 'Accounting\Controllers\CashCounterController@index');
+    Route::post('close-cash-counter', 'Accounting\Controllers\CashCounterController@closeCashCounter');
 
     Route::get('payment-adjustment/{id}', 'Accounting\Controllers\PaymentAdjustmentController@index');
     Route::post('payment-adjustment/add', 'Accounting\Controllers\PaymentAdjustmentController@add');
@@ -198,7 +199,7 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::post('account-employee/edit/{id}', 'Organization\Controllers\AccountEmployeeController@update');
     Route::get('account-employee/delete/{id}', 'Organization\Controllers\AccountEmployeeController@destroy');
 
-    Route::get('/logout', '\App\Http\Controllers\User@logout');
+    Route::get('/logout', '\App\Http\Controllers\UserController@logout');
 
     Route::get('/img/student/{id}', '\App\Http\Controllers\ImageController@studentImage');
 

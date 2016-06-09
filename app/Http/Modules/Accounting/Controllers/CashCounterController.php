@@ -19,4 +19,11 @@ class CashCounterController extends Controller
         $cash = new CashCounter;
         return view('modules.accounting.CashCounter.list', compact('cash'));
     }
+
+    public function closeCashCounter(Request $request)
+    {
+        dd($request->input());
+
+        flash('Cash Counter Closed!');
+    }
 }

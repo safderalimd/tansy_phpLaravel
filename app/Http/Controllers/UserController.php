@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Session;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Session;
+use App\Http\Models\User;
 
-class User extends Controller
+class UserController extends Controller
 {
     /**
      * @var Requests\Login
@@ -47,7 +47,6 @@ class User extends Controller
             if ($this->loginInDB($loginData['login'], $loginData['password'])) {
                 return redirect('/cabinet');
             }
-
         } catch(\Exception $e) {
             return redirect('/login')->withInput()->withErrors([['login' => 'Something wrong. Try again later.']]);
         }
@@ -55,11 +54,10 @@ class User extends Controller
         return redirect('/login')->withInput()->withErrors(['login' => 'Error: You are not logged in.']);
     }
 
-    public function logout() {
-
+    public function logout()
+    {
         if ($this->logoutInDB()) {
             Session::flush();
-
             return redirect('/login');
         }
     }
@@ -71,6 +69,12 @@ class User extends Controller
      */
     private function loginInDB($login, $password)
     {
+        // Todo: refactor later
+        // $user = new User;
+        // $user->setAttribute('iparam_login_name', $login);
+        // $user->setAttribute('iparam_password', $password);
+        // $user->setAttribute('iparam_ipaddress', $this->request->ip());
+
         $mysql = $this->dbConnection;
 
         $mysql->query("set @iparam_login_name = '{$mysql->escape_string($login)}';");
@@ -82,6 +86,7 @@ class User extends Controller
             @iparam_login_name,
             @iparam_password,
             @iparam_ipaddress,
+            @oparam_default_facility_id,
             @oparam_session_id,
             @oparam_user_id,
             @oparam_login_success,
@@ -95,7 +100,8 @@ class User extends Controller
         );';
 
         $sql .= 'select
-            @oparam_session_id ,
+            @oparam_default_facility_id,
+            @oparam_session_id,
             @oparam_user_id,
             @oparam_login_success,
             @oparam_login_err,
@@ -129,6 +135,9 @@ class User extends Controller
             }
 
             if ($loginInfo['@oparam_login_success'] == true && !empty($menuInfo)) {
+
+                Session::put('user.defaultFacilityId', $loginInfo['@oparam_default_facility_id']);
+
                 Session::put('user.sessionID', $loginInfo['@oparam_session_id']);
                 Session::put('user.userID', $loginInfo['@oparam_user_id']);
                 Session::put('user.debugSproc', $loginInfo['@oparam_debug_sproc']);

@@ -1,19 +1,21 @@
-<style>
-    html > body { background-color: #404040; }
-    .login-wrapper { padding-top: 50px; }
-    footer { color: #fff }
-</style>
-
 @extends('layout.default')
 
-@section('title', 'Login Page')
+@section('title', 'Login to tansyCloud')
+
+@section('styles')
+    <style>
+        html > body { background-color: #404040; }
+        .login-wrapper { padding-top: 50px; }
+        footer { color: #fff }
+    </style>
+@endsection
 
 @section('content')
 <div class="login-wrapper">
     <div class="container">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-default">
-                <div class="panel-heading text-center"><h4>Welcome. Please login.</h4></div>
+                <div class="panel-heading text-center"><h4>Login to tansyCloud</h4></div>
                 <div class="panel-body">
                     @if (count($errors) > 0)
                         <div class="alert alert-danger">
@@ -37,6 +39,8 @@
                         <div class="form-group form-group-lg">
                             <button class="btn btn-primary btn-block btn-lg">Login</button>
                         </div>
+
+<!--
                         <div class="form-group form-group-lg" style="margin-bottom: 0;">
                             <div class="row">
                                 <div class="col-xs-6">
@@ -52,6 +56,8 @@
                                 </div>
                             </div>
                         </div>
+-->
+
                     </form>
                 </div>
             </div>
