@@ -124,6 +124,9 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('student-export', 'reports\School\Controllers\StudentExportController@index');
     Route::get('student-export/pdf', 'reports\School\Controllers\StudentExportController@report');
 
+    Route::get('pdf---student-detail', 'reports\School\Controllers\StudentDetailController@index');
+    Route::get('pdf---student-detail/pdf', 'reports\School\Controllers\StudentDetailController@report');
+
     Route::get('receipt-report/{id}', 'reports\Accounting\Controllers\ReceiptPrintController@index');
     Route::get('receipt-report/pdf/{id}', 'reports\Accounting\Controllers\ReceiptPrintController@report');
 
