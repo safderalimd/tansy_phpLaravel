@@ -75,15 +75,27 @@ class Payment extends Model
         return $payment;
     }
 
+    // get checkbox default value
     public function shouldSendReceiptSms()
     {
-        $sendSms = $this->repository->getCheckboxDefaultValue();
+        $settings = $this->repository->getSmsReceiptSettings();
 
-        if (!isset($sendSms[0]['send_payment_sms'])) {
+        if (!isset($settings[0]['send_payment_sms'])) {
             return false;
         }
 
-        return (bool) $sendSms[0]['send_payment_sms'];
+        return (bool) $settings[0]['send_payment_sms'];
+    }
+
+    public function getReceiptSmsTypeID()
+    {
+        $settings = $this->repository->getSmsReceiptSettings();
+
+        if (isset($settings[0]['payment_receipt_sms_type_id'])) {
+            return $settings[0]['payment_receipt_sms_type_id'];
+        }
+
+        return null;
     }
 
     public function rows()

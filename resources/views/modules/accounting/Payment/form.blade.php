@@ -6,12 +6,12 @@
 
 <?php
     $allRows = $payment->rows();
+    $phoneNumber = null;
     if (count($allRows)) {
         $accountName = $allRows[0]['account_name'];
         $phoneNumber = $allRows[0]['mobile_phone'];
     } else {
         $accountName = '-';
-        $phoneNumber = '-';
         $allRows = [];
     }
 ?>
@@ -92,13 +92,17 @@
                     </tr>
                 @endforeach
                 <tr>
-                    <td style="margin-top: 10px; margin-bottom: 10px;">
+                    <td>
                         <div class="checkbox">
-                            <label class="checkbox-inline">
-                                @if ($payment->shouldSendReceiptSms())
-                                    <input type="checkbox" name="send_receipt_sms" checked="checked">
+                            <label class="checkbox-inline" style="margin-top: 25px; margin-bottom: 10px;">
+                                @if (empty($phoneNumber))
+                                    <input type="checkbox" disabled="disabled" name="send_receipt_sms">
                                 @else
-                                    <input type="checkbox" name="send_receipt_sms">
+                                    @if ($payment->shouldSendReceiptSms())
+                                        <input type="checkbox" name="send_receipt_sms" checked="checked">
+                                    @else
+                                        <input type="checkbox" name="send_receipt_sms">
+                                    @endif
                                 @endif
 
                                 <h5 style="margin:2px;"><small>Send Receipt SMS ({{phone_number($phoneNumber)}})</small></h5>

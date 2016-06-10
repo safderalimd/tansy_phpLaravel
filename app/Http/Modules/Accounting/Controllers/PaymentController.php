@@ -86,11 +86,12 @@ class PaymentController extends Controller
             return false;
         }
         $receiptHeader = $receiptHeader[0];
-        $text = 'Thank you for the payment towards ' . $receiptHeader['paid_by_name'] . ', receipt #' . $receiptHeader['receipt_number'] . ', dated ' . style_date($receiptHeader['receipt_date']) . ', current due ' . $receiptHeader['new_balance'];
+
+        $text = 'Received ' . $receiptHeader['paid_by_name'] . ' payment on '. style_date($receiptHeader['receipt_date']) .': Receipt #' . $receiptHeader['receipt_number'] . ', Paid Amount ' . amount($payment->total_paid_amount) . ', New Balance ' . amount($receiptHeader['new_balance']);
 
         $sms = new SendSmsModel;
         $sms->setAttribute('screen_id', $payment->getScreenId());
-        $sms->setAttribute('sms_type_id', null);
+        $sms->setAttribute('sms_type_id', $payment->getReceiptSmsTypeID());
         $sms->setAttribute('sms_account_row_type', null);
         $sms->setAttribute('sms_account_entity_id', $accountEntityId);
         $sms->setAttribute('exam_entity_id', null);
