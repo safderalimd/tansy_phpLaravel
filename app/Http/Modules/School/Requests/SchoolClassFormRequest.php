@@ -25,13 +25,12 @@ class SchoolClassFormRequest extends Request
     public function rules()
     {
         return [
-            'ClassEntityID' => 'integer',
-            'SchoolClassName' => 'required|string',
-            'ClassGroup' => 'required|array',
-            'ClassCategory' => 'required|array',
-        	'ReportingOrder' => 'required|string',
-            'facilityID' => 'required',
-//            'activeRow' => 'required|boolean'
+            'class_name'               => 'required|string|max:100',
+            'class_group_entity_id'    => 'required|integer',
+            'class_category_entity_id' => 'required|integer',
+            'class_teacher_entity_id'  => 'required|integer',
+            'reporting_order'          => 'required|integer',
+            'facility_ids'             => 'required|integer',
         ];
     }
 

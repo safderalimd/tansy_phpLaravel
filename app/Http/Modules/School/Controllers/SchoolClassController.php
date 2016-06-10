@@ -13,29 +13,23 @@ class SchoolClassController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  SchoolClassRepository $repo
      * @return \Illuminate\Http\Response
      */
-    public function index(SchoolClassRepository $repo)
+    public function index()
     {
-        $rows = $repo->getAllSchoolCalsses();
-        return view('modules.school.SchoolClass.list', ['data' => $rows]);
+        $class = new SchoolClass;
+        return view('modules.school.SchoolClass.list', compact('class'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @param  SchoolClassRepository $repo
      * @return \Illuminate\Http\Response
      */
-    public function create(SchoolClassRepository $repo)
+    public function create()
     {
-        $model = new SchoolClass();
-        $facility = $repo->getFacilities();
-        $ClassGroup = $repo->getClassGroups();
-        $ClassCategory = $repo->getClassCategories();
-
-        return view('modules.school.SchoolClass.form', ['model' => $model, 'facility' => $facility, 'ClassGroup' => $ClassGroup, 'ClassCategory' => $ClassCategory]);
+        $class = new SchoolClass;
+        return view('modules.school.SchoolClass.form', compact('class'));
     }
 
     /**
@@ -46,34 +40,22 @@ class SchoolClassController extends Controller
      */
     public function store(SchoolClassFormRequest $request)
     {
-        $params = $request->input();
-
-        $model = new SchoolClass($params);
-        if ($model->save()) {
-			return redirect(url('/cabinet/class'));
-        }
-
-        return redirect('/cabinet/class/create')->withErrors($model->getErrors());
+        $class = new SchoolClass($request->input());
+        $class->save();
+        flash('Class Added!');
+        return redirect('/cabinet/class');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  SchoolClassRepository $repo
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(SchoolClassRepository $repo, $id)
+    public function edit($id)
     {
-        $model = SchoolClass::findOrFail($id);
-        $facility = $repo->getFacilities();
-        $ClassGroup = $repo->getClassGroups();
-        $ClassCategory = $repo->getClassCategories();
-
-        // TODO: Fix this next line
-        $t = $model->getClassGroups();
-
-        return view('modules.school.SchoolClass.form', ['model' => $model, 'facility' => $facility, 'ClassGroup' => $ClassGroup, 'ClassCategory' => $ClassCategory]);
+        $class = SchoolClass::findOrFail($id);
+        return view('modules.school.SchoolClass.form', compact('class'));
     }
 
     /**
@@ -85,16 +67,12 @@ class SchoolClassController extends Controller
      */
     public function update(SchoolClassFormRequest $request, $id)
     {
-        $params = $request->input();
-        $params['ClassEntityID'] = $id;
-
-        $model = new SchoolClass($params);
-
-        if ($model->save()) {
-            return redirect(url('/cabinet/class'));
-        }
-
-        return redirect(url('/cabinet/class/edit', ['id' => $model->getID()]))->withErrors($model->getErrors());
+        $class = new SchoolClass;
+        $class->setAttribute('class_entity_id', $id);
+        $class->setAttribute('active', 0);
+        $class->update($request->input());
+        flash('Class Updated!');
+        return redirect('/cabinet/class');
     }
 
     /**
@@ -105,12 +83,9 @@ class SchoolClassController extends Controller
      */
     public function destroy($id)
     {
-        $model = SchoolClass::findOrFail($id);
-
-        if ($model->delete()) {
-            return redirect('/cabinet/class');
-        }
-
-        return redirect('/cabinet/class')->withErrors($model->getErrors());
+        $class = SchoolClass::findOrFail($id);
+        $class->delete();
+        flash('Class Deleted!');
+        return redirect('/cabinet/class');
     }
 }
