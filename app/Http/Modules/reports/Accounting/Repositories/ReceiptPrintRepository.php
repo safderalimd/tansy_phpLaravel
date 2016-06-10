@@ -34,6 +34,7 @@ class ReceiptPrintRepository extends Repository
                 receipt_amount,
                 new_balance,
                 paid_by_name,
+                financial_year_balance,
                 mobile_phone
             FROM view_act_rcv_receipt_header
             WHERE receipt_id = :id;', ['id' => $id]

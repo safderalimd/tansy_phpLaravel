@@ -78,6 +78,11 @@
                 <div class="text-right well  well-sm">New Balance: {{amount($export->header['new_balance'])}}</div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-right well  well-sm">Fiscal Year Balance: {{amount($export->header['financial_year_balance'])}}</div>
+            </div>
+        </div>
 
     </div>
     </body>
