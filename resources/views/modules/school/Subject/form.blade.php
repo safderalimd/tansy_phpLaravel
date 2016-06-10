@@ -19,6 +19,20 @@
                     <form class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-8">
+                                <div class="checkbox">
+                                    <label>
+                                        @if($subject->isNewRecord())
+                                            <input checked="checked" name="active" type="checkbox" disabled readonly> Active
+                                        @else
+                                            <input {{ c('active') }} name="active" type="checkbox"> Active
+                                        @endif
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
                			<div class="form-group">
                             <label class="col-md-4 control-label" for="subject_name">Subject</label>
                             <div class="col-md-8">
@@ -33,6 +47,22 @@
                             'keyId'   => 'subject_type_id',
                             'keyName' => 'subject_type',
                         ])
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="facility_ids">Facility</label>
+                            <div class="col-md-8">
+                                <?php
+                                    if (!is_array($subject->selectedFacilities)) {
+                                        $subject->selectedFacilities = [];
+                                    }
+                                ?>
+                                <select id="facility_ids" class="form-control" name="facility_ids">
+                                    @foreach($subject->facilities() as $option)
+                                        <option @if(in_array($option['facility_entity_id'], $subject->selectedFacilities)) selected @endif value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="reporting_order">Reporting Order</label>

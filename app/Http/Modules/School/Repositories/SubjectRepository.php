@@ -14,6 +14,7 @@ class SubjectRepository extends Repository
                 subject_type_id,
                 reporting_order,
                 short_code AS subject_short_code,
+                active,
                 subject_entity_id
              FROM view_sch_subject_detail
              WHERE subject_entity_id = :id

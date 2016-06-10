@@ -13,6 +13,7 @@ class ExamRepository extends Repository
                 exam_entity_id,
                 exam AS exam_name,
                 exam_type_id,
+                active,
                 reporting_order
              FROM view_sch_exam_detail
              WHERE exam_entity_id = :id

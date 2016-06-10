@@ -9,4 +9,25 @@ class Exam extends Model
     protected $screenId = 3019;
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\ExamRepository';
+
+    public $selectedFacilities;
+
+    public function setActiveAttribute($value)
+    {
+        $value = (string)$value;
+        if (!empty($value) || $value == 'on') {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    public function loadData()
+    {
+        $facilities = $this->repository->getSelectedFacilities($this->exam_entity_id);
+        $this->selectedFacilities = array_column($facilities, 'facility_entity_id');
+        if (!is_array($this->selectedFacilities)) {
+            $this->selectedFacilities = [];
+        }
+    }
 }

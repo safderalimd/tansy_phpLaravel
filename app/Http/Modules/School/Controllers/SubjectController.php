@@ -38,8 +38,9 @@ class SubjectController extends Controller
      */
     public function store(SubjectFormRequest $request)
     {
-        $subject = new Subject($request->input());
-        $subject->save();
+        $subject = new Subject;
+        $subject->setAttribute('active', 0);
+        $subject->save($request->input());
         flash('Subject Added!');
         return redirect('/cabinet/subject');
     }
@@ -53,6 +54,7 @@ class SubjectController extends Controller
     public function edit($id)
     {
         $subject = Subject::findOrFail($id);
+        $subject->loadData();
         return view('modules.school.Subject.form', compact('subject'));
     }
 
@@ -65,9 +67,10 @@ class SubjectController extends Controller
      */
     public function update(SubjectFormRequest $request, $id)
     {
-        $subject = new Subject($request->input());
+        $subject = new Subject;
+        $subject->setAttribute('active', 0);
         $subject->setAttribute('subject_entity_id', $id);
-        $subject->update();
+        $subject->update($request->input());
         flash('Subject Updated!');
         return redirect('/cabinet/subject');
     }

@@ -38,8 +38,9 @@ class ExamController extends Controller
      */
     public function store(ExamFormRequest $request)
     {
-        $exam = new Exam($request->input());
-        $exam->save();
+        $exam = new Exam;
+        $exam->setAttribute('active', 0);
+        $exam->save($request->input());
         flash('Exam Added!');
         return redirect('/cabinet/exam');
     }
@@ -53,6 +54,7 @@ class ExamController extends Controller
     public function edit($id)
     {
         $exam = Exam::findOrFail($id);
+        $exam->loadData();
         return view('modules.school.Exam.form', compact('exam'));
     }
 
@@ -65,9 +67,10 @@ class ExamController extends Controller
      */
     public function update(ExamFormRequest $request, $id)
     {
-        $exam = new Exam($request->input());
+        $exam = new Exam;
+        $exam->setAttribute('active', 0);
         $exam->setAttribute('exam_entity_id', $id);
-        $exam->update();
+        $exam->update($request->input());
         flash('Exam Updated!');
         return redirect('/cabinet/exam');
     }
