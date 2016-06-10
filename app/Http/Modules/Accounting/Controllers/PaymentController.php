@@ -55,7 +55,7 @@ class PaymentController extends Controller
         $payment->payNow();
         $this->sendSms($payment);
         flash('Amount Paid!');
-        return redirect('/cabinet/payment?ak={$accountKey}&rt={$rowType}');
+        return redirect("/cabinet/payment?ak={$accountKey}&rt={$rowType}");
     }
 
     // todo: refactor this
