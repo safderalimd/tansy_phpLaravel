@@ -14,19 +14,22 @@ class SmsSender
 
     private $messages;
 
-    private $test;
+    /**
+     * Set to 1 for test/sandbox mode, 0 for real sms mode
+     *
+     * @var integer
+     */
+    private $test = 0;
 
     private $rawResponse;
 
     private $xmlData;
 
-    public function __construct($username, $hash, $senderId, $test = false)
+    public function __construct($username, $hash, $senderId)
     {
         $this->username = trim($username);
         $this->hash     = trim($hash);
         $this->senderId = trim($senderId);
-
-        $this->test = intval($test);
 
         if (empty($this->senderId)) {
             $this->senderId = 'TXTLCL';

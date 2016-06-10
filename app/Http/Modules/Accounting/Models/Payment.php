@@ -14,6 +14,11 @@ class Payment extends Model
 
     public $totalDue = 0;
 
+    public function getScreenId()
+    {
+        return $this->screenId;
+    }
+
     public function getAllPayments()
     {
         return $this->repository->getAllPayments($this);
@@ -93,22 +98,6 @@ class Payment extends Model
 
     public function payNow()
     {
-        $payment = static::details($this->pk);
-        $rows = $payment->rows();
-
-        // todo: ask client what php validations to be made for payment
-
         $this->repository->payNow($this);
-
-        // send receipt sms if checkbox is on
-        if (isset($this->send_receipt_sms)) {
-            $phone = null;
-            if (isset($rows[0]['mobile_phone'])) {
-                $phone = $rows[0]['mobile_phone'];
-            }
-            if (!empty($phone)) {
-                // send an sms with the receipt
-            }
-        }
     }
 }

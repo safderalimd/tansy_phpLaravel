@@ -25,11 +25,11 @@
                                             <?php $accountType = 'Account Type'; ?>
                                             @foreach($payment->accountType4ReceivablePayment() as $option)
                                                 <?php
-                                                    if ($primaryKey == $option['primary_key_id']) {
+                                                    if ($accountKey == $option['primary_key_id']) {
                                                         $accountType = $option['drop_down_list_name'];
                                                     }
                                                 ?>
-                                                <option data-rowtype="{{$option['row_type']}}" {{ ($primaryKey == $option['primary_key_id']) ? 'selected' : ''}} value="{!! $option['primary_key_id'] !!}">{!! $option['drop_down_list_name'] !!}</option>
+                                                <option data-rowtype="{{$option['row_type']}}" {{ ($accountKey == $option['primary_key_id']) ? 'selected' : ''}} value="{!! $option['primary_key_id'] !!}">{!! $option['drop_down_list_name'] !!}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -60,7 +60,7 @@
             <td>-</td>
         @endif
         <td>
-            <a class="btn btn-default btn-sm" href="{{url("/cabinet/payment/create/?pk={$row['account_entity_id']}")}}" title="Payment">Payment</a>
+            <a class="btn btn-default btn-sm" href="{{url("/cabinet/payment/create/?ak={$accountKey}&rt={$rowType}&pk={$row['account_entity_id']}")}}" title="Payment">Payment</a>
             <a class="btn btn-default btn-sm" href="{{url("/cabinet/payment-adjustment/{$row['account_entity_id']}")}}" title="Adjustment">Adjustment</a>
             <a class="btn btn-default btn-sm" href="{{url("/cabinet/schedule-payment/create?aei={$row['account_entity_id']}")}}" title="Schedule">Schedule</a>
             <a class="btn btn-default btn-sm" href="{{url("/cabinet/receipt-report/{$row['account_entity_id']}")}}" title="Receipt">Receipt</a>
@@ -90,7 +90,7 @@
         } else {
             var rowType = $(this).find(':selected').attr('data-rowtype');
             rowType = encodeURIComponent(rowType);
-            window.location.href = "/cabinet/payment?pk=" + this.value + "&rt=" + rowType;
+            window.location.href = "/cabinet/payment?ak=" + this.value + "&rt=" + rowType;
         }
     });
 

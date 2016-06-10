@@ -84,6 +84,10 @@ function is_locked($value)
 
 function phone_number($number)
 {
+    if (is_null($number)) {
+        return '-';
+    }
+
     $number = strrev($number);
     $number = preg_replace("/^(\d{4})(\d{3})(\d+)$/", "$1-$2-$3", $number);
     return strrev($number);
@@ -91,6 +95,10 @@ function phone_number($number)
 
 function phone_number_spaces($number)
 {
+    if (is_null($number)) {
+        return '-';
+    }
+
     $number = strrev($number);
     $number = preg_replace("/^(\d{4})(\d{3})(\d+)$/", "$1 $2 $3", $number);
     return strrev($number);

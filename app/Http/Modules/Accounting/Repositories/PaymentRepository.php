@@ -65,4 +65,32 @@ class PaymentRepository extends Repository
 
         return $this->procedure($model, $procedure, $iparams, $oparams);
     }
+
+    public function getReceiptDetail($id)
+    {
+        return $this->select(
+            'SELECT
+                receipt_id,
+                credit_amount,
+                description
+            FROM view_act_rcv_receipt_detail
+            WHERE receipt_id = :id;', ['id' => $id]
+        );
+    }
+
+    public function getReceiptHeader($id)
+    {
+        return $this->select(
+            'SELECT
+                receipt_id,
+                receipt_number,
+                receipt_date,
+                receipt_amount,
+                new_balance,
+                paid_by_name,
+                mobile_phone
+            FROM view_act_rcv_receipt_header
+            WHERE receipt_id = :id;', ['id' => $id]
+        );
+    }
 }
