@@ -71,7 +71,7 @@
 
     <div class="row">
        <div class="col-md-6 col-md-offset-3 text-center">
-            <button style="margin:15px;" class="btn btn-primary btn-block btn-lg" id="pay-now-btn" type="submit">Pay Now</button>
+            <button style="margin:15px;" disabled="disabled" class="btn btn-primary btn-block btn-lg" id="pay-now-btn" type="submit">Pay Now</button>
         </div>
     </div>
 
@@ -135,7 +135,7 @@
 <script type="text/javascript">
 
     $('#pay-now-form').submit(function() {
-        $('#pay-now-btn').prop('disabled',true);
+        $('#pay-now-btn').prop('disabled', true);
         $('#id_new_balance').val(getNewBalance());
 
         var ids = $('.detail-row:checked').map(function() {
@@ -214,6 +214,15 @@
         return total;
     }
 
+    function updatePaymentButton() {
+        var paidAmount = getPaidAmount();
+        if (paidAmount <= 0) {
+            $('#pay-now-btn').prop('disabled', true);
+        } else {
+            $('#pay-now-btn').prop('disabled', false);
+        }
+    }
+
     // when changing a checkbox value
     $('.detail-row').change(function() {
         updatePaidAmount();
@@ -223,14 +232,17 @@
         } else {
             $('#paid-amount').prop('disabled', true);
         }
+        updatePaymentButton();
     });
 
     // when changing the paid amount text input
     $('#paid-amount').change(function() {
         updateNewBalance();
+        updatePaymentButton();
     });
     $('#paid-amount').keyup(function() {
         updateNewBalance();
+        updatePaymentButton();
     });
 
     // format numbers
