@@ -23,8 +23,8 @@ Route::get('/phpinfo', function () {
     phpinfo();
 });
 
-Route::get('/login', '\App\Http\Controllers\UserController@index'); //->middleware('guest');
-Route::post('/login', '\App\Http\Controllers\UserController@login');
+Route::get('/login', '\App\Http\Controllers\UserController@index')->middleware('guest');
+Route::post('/login', '\App\Http\Controllers\UserController@login')->middleware('guest');
 
 Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], function() {
 

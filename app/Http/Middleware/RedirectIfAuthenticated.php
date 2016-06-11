@@ -17,8 +17,8 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/');
+        if ($request->session()->has('user')) {
+            return redirect('/cabinet');
         }
 
         return $next($request);
