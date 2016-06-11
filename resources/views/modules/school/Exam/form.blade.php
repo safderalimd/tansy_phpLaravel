@@ -71,6 +71,13 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="progress_card_reporting_order">Card Reporting Order</label>
+                            <div class="col-md-8">
+                                <input id="progress_card_reporting_order" class="form-control" type="text" name="progress_card_reporting_order" value="{{ v('progress_card_reporting_order') }}" placeholder="Card Reporting Order">
+                            </div>
+                        </div>
+
                         <div class="row">
                            <div class="col-md-12 text-center grid_footer">
                                 <button class="btn btn-primary grid_btn" type="submit">Save</button>

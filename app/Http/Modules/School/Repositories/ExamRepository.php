@@ -14,7 +14,8 @@ class ExamRepository extends Repository
                 exam AS exam_name,
                 exam_type_id,
                 active,
-                reporting_order
+                reporting_order,
+                progress_card_reporting_order
              FROM view_sch_exam_detail
              WHERE exam_entity_id = :id
              LIMIT 1;', ['id' => $id]
@@ -52,6 +53,7 @@ class ExamRepository extends Repository
             ':iparam_exam_name',
             ':iparam_exam_type_id',
             ':iparam_reporting_order',
+            ':iparam_progress_card_reporting_order',
             ':iparam_facility_ids',
             ':iparam_session_id',
             ':iparam_user_id',
@@ -79,6 +81,7 @@ class ExamRepository extends Repository
             ':iparam_exam_name',
             ':iparam_exam_type_id',
             ':iparam_reporting_order',
+            ':iparam_progress_card_reporting_order',
             ':iparam_active',
             ':iparam_facility_ids',
             ':iparam_session_id',

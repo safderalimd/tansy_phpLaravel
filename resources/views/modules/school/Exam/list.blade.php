@@ -36,7 +36,7 @@
                             </a>
                             <a class="btn btn-default formConfirm" href="{{url("/cabinet/exam/delete/{$item['exam_entity_id']}")}}"
                                title="Delete"
-                               data-title="Delete Subject"
+                               data-title="Delete Exam"
                                data-message="Are you sure to delete the selected record?"
                             >
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
