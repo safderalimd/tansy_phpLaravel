@@ -12,9 +12,30 @@
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link type="text/css" href="/dashboard/custom.css?v=3" rel="stylesheet">
     @yield('styles')
+    <style type="text/css">
+        .flash-message {
+            background-color: #99c93d;
+            display: inline-block;
+            padding: 12px 30px;
+            color: #fff;
+            border-radius: 4px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 15px;
+            line-height: 1.6em;
+            font-family: Lato, sans-serif;
+            display: none;
+        }
+        .flash-message .material-icons {
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body style="padding:0px;">
 <div class="loader"></div>
+@include('commons.flash')
 <div class="container-fluid">
 
     <header class="row">

@@ -199,7 +199,8 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('client-visit/delete/{id}', 'CRM\Controllers\ClientVisitController@destroy');
 
     Route::get('home-v1', 'Admin\Controllers\AdminController@home');
-    Route::get('change-password', 'Admin\Controllers\AdminController@debugReset');
+    Route::get('change-password', 'Admin\Controllers\ChangePasswordController@index');
+    Route::post('change-password', 'Admin\Controllers\ChangePasswordController@updatePassword');
 
     Route::get('account-client', 'Organization\Controllers\AccountClientController@index');
     Route::get('account-client/create', 'Organization\Controllers\AccountClientController@create');
