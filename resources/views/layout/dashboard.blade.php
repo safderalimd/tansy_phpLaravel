@@ -92,6 +92,23 @@
     window.onbeforeunload = function() {
         $('.loader').fadeIn();
     }
+
+    // for tables
+    $( document ).ready(function() {
+
+        // show and remove flash message
+        $('.flash-message').fadeIn(300).delay(2800)
+            .animate(
+                {marginRight: "-100%"},
+                300,
+                "swing",
+                function() {
+                    $(this).remove();
+                }
+            );
+
+    });
+
 </script>
 
 @yield('scripts')
