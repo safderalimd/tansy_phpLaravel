@@ -91,6 +91,9 @@
                 <div class="checkbox col-md-offset-1">
                     <label><input type="checkbox" class="pdf-column" value="1" name="postal_code">Postal Code</label>
                 </div>
+                <div class="checkbox col-md-offset-1">
+                    <label><input type="checkbox" class="pdf-column" value="1" name="document_number">Document Number</label>
+                </div>
 
                 <br/>
 

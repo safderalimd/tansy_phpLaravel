@@ -54,7 +54,8 @@ class StudentExportRepository extends Repository
                 parent_designation_id,
                 parent_gender,
                 parent_designation_name,
-                class_reporting_order
+                class_reporting_order,
+                document_number
             FROM view_sch_student_detail';
 
         if (!is_null($column) && !is_null($id)) {

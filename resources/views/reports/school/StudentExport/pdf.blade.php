@@ -127,6 +127,9 @@
                         @if (isset($export->postal_code))
                             <th>Postal Code</th>
                         @endif
+                        @if (isset($export->document_number))
+                            <th>Document Number</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -188,6 +191,9 @@
                         @endif
                         @if (isset($export->postal_code))
                             <td>{{$row['postal_code']}}</td>
+                        @endif
+                        @if (isset($export->document_number))
+                            <td>{{$row['document_number']}}</td>
                         @endif
                     </tr>
                     @endforeach
