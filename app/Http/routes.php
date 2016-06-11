@@ -89,6 +89,8 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('schedule-payment/edit/{id}', 'Accounting\Controllers\SchedulePaymentController@edit');
     Route::post('schedule-payment/edit/{id}', 'Accounting\Controllers\SchedulePaymentController@update');
     Route::get('schedule-payment/delete/{id}', 'Accounting\Controllers\SchedulePaymentController@destroy');
+    Route::get('schedule-payment/create/student', 'Accounting\Controllers\SchedulePaymentController@createStudent');
+    Route::post('schedule-payment/create/student', 'Accounting\Controllers\SchedulePaymentController@storeStudent');
 
     Route::get('payment', 'Accounting\Controllers\PaymentController@index');
     Route::get('payment/create', 'Accounting\Controllers\PaymentController@create');

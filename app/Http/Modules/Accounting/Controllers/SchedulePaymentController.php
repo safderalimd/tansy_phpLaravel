@@ -47,6 +47,7 @@ class SchedulePaymentController extends Controller
     {
         $payment = new SchedulePayment($request->input());
         $payment->save();
+        flash('Schedule Payment Added!');
         return redirect('/cabinet/schedule-payment');
     }
 
@@ -76,6 +77,7 @@ class SchedulePaymentController extends Controller
         $payment->setAttribute('active', 0);
 
         $payment->update($request->input());
+        flash('Schedule Payment Updated!');
         return redirect('/cabinet/schedule-payment');
     }
 
@@ -89,8 +91,27 @@ class SchedulePaymentController extends Controller
     {
         $payment = new SchedulePayment;
         $payment->setAttribute('schedule_entity_id', $id);
-
         $payment->delete();
+        flash('Schedule Payment Deleted!');
         return redirect('/cabinet/schedule-payment');
+    }
+
+    public function createStudent(Request $request)
+    {
+        // this is a link request from payment grid
+        $accountEntityId = null;
+        if (!empty($request->input('aei'))) {
+            $accountEntityId = $request->input('aei');
+        }
+        $payment = new SchedulePayment;
+        return view('modules.accounting.SchedulePayment.form-student', compact('payment', 'accountEntityId'));
+    }
+
+    public function storeStudent(SchedulePaymentFormRequest $request)
+    {
+        $payment = new SchedulePayment($request->input());
+        $payment->save();
+        flash('Schedule Payment Added!');
+        return redirect('/cabinet/student-account');
     }
 }

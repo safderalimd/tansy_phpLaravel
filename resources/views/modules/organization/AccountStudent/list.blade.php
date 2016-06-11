@@ -43,6 +43,8 @@
                     >
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </a>
+                    <a class="btn btn-default" href="{{url("/cabinet/schedule-payment/create/student?aei={$student['student_entity_id']}")}}" title="Schedule $"> Schedule $
+                    </a>
                 </td>
             </tr>
             @endforeach

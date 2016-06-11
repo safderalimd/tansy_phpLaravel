@@ -8,7 +8,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <i class="glyphicon glyphicon-th"></i>
-                    <h3>Schedule Payment{!! form_label() !!}</h3>
+                    <h3>Schedule Payment{{ form_label() }}</h3>
                 </div>
 
                 <div class="panel-body edit_form_wrapper">
@@ -23,11 +23,7 @@
                             <div class="col-sm-offset-4 col-sm-8">
                                 <div class="checkbox">
                                     <label>
-                                        @if($payment->isNewRecord())
-                                            <input checked="checked" name="active" type="checkbox" disabled readonly> Active
-                                        @else
-                                            <input {{ c('active') }} name="active" type="checkbox"> Active
-                                        @endif
+                                        <input checked="checked" name="active" type="checkbox" disabled readonly> Active
                                     </label>
                                 </div>
                             </div>
@@ -56,27 +52,41 @@
                             'keyName' => 'product',
                         ])
 
-                        @include('commons.select', [
-                            'label'   => 'Account Type' ,
-                            'name'    => 'account_type_id',
-                            'options' => $payment->accountType(),
-                            'keyId'   => 'entity_type_id',
-                            'keyName' => 'entity_type',
-                        ])
+                        <?php
+                            $accountTypes = $payment->accountType();
+                            $subjectAccounts = $payment->entityName();
+
+                            $subjectOption = null;
+                            $accountOption = null;
+                            foreach ($subjectAccounts as $subjectAccount) {
+                                if ($subjectAccount['entity_id'] == $accountEntityId) {
+                                    $subjectOption = $subjectAccount;
+                                    break;
+                                }
+                            }
+
+                            foreach ($accountTypes as $accountType) {
+                                if ($accountType['entity_type_id'] == $subjectOption['entity_type_id']) {
+                                    $accountOption = $accountType;
+                                    break;
+                                }
+                            }
+                        ?>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="account_type_id">Account Type</label>
+                            <div class="col-md-8">
+                                <select id="account_type_id" class="form-control" name="account_type_id">
+                                    <option selected value="{{ $accountOption['entity_type_id'] }}">{{ $accountOption['entity_type'] }}</option>
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="subject_entity_id">Subject Account</label>
                             <div class="col-md-8">
                                 <select id="subject_entity_id" class="form-control" name="subject_entity_id">
-                                    @if (!$payment->isNewRecord())
-                                        @foreach($payment->entityName() as $option)
-                                            <option data-entityTypeId="{{$option['entity_type_id']}}" {{ s('subject_entity_id', $option['entity_id']) }} value="{!! $option['entity_id'] !!}">{!! $option['entity_name'] !!}</option>
-                                        @endforeach
-                                    @else
-                                        @foreach($payment->entityName() as $option)
-                                            <option data-entityTypeId="{{$option['entity_type_id']}}" @if ($accountEntityId == $option['entity_id']) {{'selected'}} @endif value="{!! $option['entity_id'] !!}">{!! $option['entity_name'] !!}</option>
-                                        @endforeach
-                                    @endif
+                                    <option selected value="{{ $subjectOption['entity_id'] }}">{{ $subjectOption['entity_name'] }}</option>
                                 </select>
                             </div>
                         </div>
@@ -88,7 +98,6 @@
                             'keyId'   => 'frequency_id',
                             'keyName' => 'description',
                         ])
-
 
                         <div class="row">
                             <div class="col-md-6">
@@ -143,7 +152,7 @@
                         <div class="row">
                            <div class="col-md-12 text-center grid_footer">
                                 <button class="btn btn-primary grid_btn" type="submit">Save</button>
-                                <a href="{{ url("/cabinet/schedule-payment")}}" class="btn btn-default cancle_btn">Cancel</a>
+                                <a href="{{ url("/cabinet/student-account")}}" class="btn btn-default cancle_btn">Cancel</a>
                             </div>
                         </div>
                     </form>
@@ -179,64 +188,6 @@
         if ($('#end_date').is(':disabled')) {
             $('#end_date').val($('#start_date').val());
         }
-    });
-
-    var allAccountOptions;
-
-    function initAccountOptions() {
-        allAccountOptions = $('#subject_entity_id option');
-
-        var selectedAccountTypeId = $('#subject_entity_id option:selected').attr('data-entityTypeId');
-
-        $('#account_type_id option').each(function() {
-            if (this.value == selectedAccountTypeId) {
-                $(this).prop('selected',true);
-            }
-        });
-
-        var selectedStudentId = $('#subject_entity_id option:selected').val();
-
-        updateAccounts();
-
-        $('#subject_entity_id option').each(function() {
-            if (this.value == selectedStudentId) {
-                $(this).prop('selected', true);
-            } else {
-                $(this).prop('selected', false);
-            }
-        });
-    }
-
-    function removeAllAccountOptions() {
-        $('#subject_entity_id option').remove();
-    }
-
-    function populateAccountsSelectbox(accounts) {
-        $(accounts).each(function() {
-            $('#subject_entity_id').append($(this));
-        });
-    }
-
-    function updateAccounts() {
-        removeAllAccountOptions();
-
-        var accountTypeId = $('#account_type_id option:selected').val();
-        var filteredAccounts = $(allAccountOptions).filter(function() {
-            if ($(this).attr('data-entityTypeId') == accountTypeId) {
-                return true;
-            }
-            return false;
-        }).get();
-
-        populateAccountsSelectbox(filteredAccounts);
-    }
-
-    $('#account_type_id').change(function() {
-        updateAccounts();
-    });
-
-    $(document).ready(function() {
-        initAccountOptions();
     });
 </script>
 @endsection
