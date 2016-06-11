@@ -26,22 +26,19 @@ class MenuMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $this->init();
+        $this->menuInfo = session('dbMenuInfo');
 
-        $this->generateSideBar($this->modules);
+        $this->generateSideBar();
 
         return $next($request);
     }
 
-    private function init()
+    private function generateSideBar()
     {
-        $this->menuInfo = session('dbMenuInfo');
-        $this->modules = $this->getModules();
-    }
+        $this->orderSidebarLinks();
 
-    private function generateSideBar($modules)
-    {
         $menuList = collect($this->menuInfo);
+        $modules = $this->getModules();
 
         $sideMenu = Menu::make('sidebar', function ($menu) use ($modules) {
             foreach ($modules as $module) {
@@ -49,16 +46,10 @@ class MenuMiddleware
             }
         });
 
-        foreach ($menuList->unique('link_group') as $group) {
-            $module = camel_case($group['module_name']);
-            $sideMenu->$module->add($group['link_group']);
-        }
-
         foreach ($this->menuInfo as $item) {
             $module = camel_case($item['module_name']);
-            $group = camel_case($item['link_group']);
             $url = "cabinet/" . $this->link($item['screen_name']);
-            $sideMenu->$group->add($item['link_name'], $url);
+            $sideMenu->$module->add($item['link_name'], $url);
         }
 
         $sideMenu->add('Logout', 'cabinet/logout');
@@ -74,5 +65,18 @@ class MenuMiddleware
     private function link($name) {
         $name = strtolower($name);
         return str_replace(' ', '-', $name);
+    }
+
+    public function orderSidebarLinks()
+    {
+        usort($this->menuInfo, function($a, $b) {
+            if ($a['module_id'] == $b['module_id']) {
+                if ($a['link_group_sequence'] == $b['link_group_sequence']) {
+                    return $a['link_name_sequence'] > $b['link_name_sequence'];
+                }
+                return $a['link_group_sequence'] > $b['link_group_sequence'];
+            }
+            return $a['module_id'] > $b['module_id'];
+        });
     }
 }
