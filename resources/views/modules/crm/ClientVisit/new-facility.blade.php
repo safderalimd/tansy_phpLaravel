@@ -1,9 +1,16 @@
 <div class="new-checkbox-group">
     <div class="form-group">
-        <div class="col-md-offset-4 col-md-8">
+        <div class="col-md-offset-4 col-md-3">
             <div class="checkbox">
                 <label style="padding-left:20px;">
-                    <input data-selectid="facility_entity_id" name="facility_new" class="new-checkbox" type="checkbox"> New
+                    <input data-selectid="facility_entity_id" id="facility_new" name="facility_new" class="new-checkbox" type="checkbox"> New
+                </label>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="checkbox">
+                <label style="padding-left:20px;">
+                    <input name="copy_org_contact" id="copy_org_contact" checked="checked" type="checkbox"> Copy Organization Contact
                 </label>
             </div>
         </div>

@@ -3,7 +3,7 @@
         <div class="col-md-offset-4 col-md-8">
             <div class="checkbox">
                 <label style="padding-left:20px;">
-                    <input data-selectid="organization_entity_id" name="organization_new" class="new-checkbox" type="checkbox"> New
+                    <input data-selectid="organization_entity_id" name="organization_new" id="organization_new" class="new-checkbox" type="checkbox"> New
                 </label>
             </div>
         </div>

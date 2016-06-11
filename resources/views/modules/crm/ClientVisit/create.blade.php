@@ -152,12 +152,63 @@
             var selectId = '#' + $(this).attr('data-selectid');
             if($(this).is(":checked")) {
                 $(this).closest('.new-checkbox-group').find('.new-checkbox-inputs').fadeIn();
+
+                if (! $(selectId + ' option[value="none"]').length) {
+                    $(selectId).append($('<option value="none">Select an option</option>'));
+                }
+                $(selectId + ' option[value="none"]').prop('selected', true)
+
                 $(selectId).prop('disabled', true);
             } else {
                 $(this).closest('.new-checkbox-group').find('.new-checkbox-inputs').fadeOut();
+                $(selectId + ' option[value="none"]').remove();
                 $(selectId).prop('disabled', false);
             }
         });
+
+        $('#facility_new').change(function() {
+            if($(this).is(":checked")) {
+                copyOrganizationInfoToFacility();
+            }
+        });
+
+        function copyOrganizationInfoToFacility() {
+            if (!$('#organization_new').is(':checked')) {
+                return false;
+            }
+            if (!$('#copy_org_contact').is(':checked')) {
+                return false;
+            }
+            var orgAddress1 = $('#organization_address1').val();
+            var orgAddress2 = $('#organization_address2').val();
+            var orgCityId = $('#organization_city_id option:selected').val();
+            var orgCityAreaNew = $('#organization_city_area_new').val();
+            var orgWorkPhone = $('#organization_work_phone').val();
+            var orgMobilePhone = $('#organization_mobile_phone').val();
+
+            $('#facility_address1').val(orgAddress1);
+            $('#facility_address2').val(orgAddress2);
+
+            $('#facility_city_id option').each(function() {
+                if (this.value == orgCityId) {
+                    $(this).prop('selected', true);
+                } else {
+                    $(this).prop('selected', false);
+                }
+            });
+
+            if (orgCityAreaNew.trim()) {
+                $('#facility_city_area').append($("<option></option>")
+                    .attr("value", orgCityAreaNew)
+                    .text(orgCityAreaNew));
+                $('#facility_city_area_new').val(orgCityAreaNew);
+                $('#facility_city_area').val(orgCityAreaNew);
+                $('#facility_city_area').data('combobox').refresh();
+            }
+
+            $('#facility_work_phone').val(orgWorkPhone);
+            $('#facility_mobile_phone').val(orgMobilePhone);
+        }
 
         $('#organization_city_area').combobox({
             bsVersion: '3',
