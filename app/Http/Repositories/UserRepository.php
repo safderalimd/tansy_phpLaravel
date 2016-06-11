@@ -32,4 +32,22 @@ class UserRepository extends Repository
 
         return $this->procedure($model, $procedure, $iparams, $oparams);
     }
+
+    public function logout($model)
+    {
+        $procedure = 'sproc_sec_logout';
+
+        $iparams = [
+            ':iparam_session_id',
+            ':iparam_user_id',
+        ];
+
+        $oparams = [
+            '@oparam_err_flag',
+            '@oparam_err_step',
+            '@oparam_err_msg',
+        ];
+
+        return $this->procedure($model, $procedure, $iparams, $oparams);
+    }
 }

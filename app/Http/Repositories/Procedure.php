@@ -44,8 +44,6 @@ class Procedure
 
     public function run()
     {
-        // throw new DbErrorException("some db error");
-
         $this->start = microtime(true);
 
         $this->runSetIparamsQuery();
@@ -119,7 +117,14 @@ class Procedure
 
     protected function logProcedure()
     {
-        $query = $this->setParamsSql . "\n\n" . $this->procedureSql . "\n\n" . $this->oparamsSelect;
+        $query = $this->setParamsSql . "\n\n" . $this->procedureSql . "\n\n" . $this->oparamsSelect . ';';
+
+        foreach ($this->oparamsResults as $oparam => $value) {
+            if (!is_numeric($oparam)) {
+                $query .= "\n\n" . $oparam . ' = ' . $value;
+            }
+        }
+
         $time = $this->getElapsedTime($this->start);
         $bindings = [];
 

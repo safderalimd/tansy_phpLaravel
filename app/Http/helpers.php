@@ -284,3 +284,8 @@ function currentMenuLink($item)
 
     return false;
 }
+
+function userIp()
+{
+    return app('request')->ip();
+}
