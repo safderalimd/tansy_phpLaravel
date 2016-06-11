@@ -11,6 +11,7 @@ class AccountStatementRepository extends Repository
         return $this->select(
             'SELECT
                 student_entity_id,
+                student_full_name,
                 first_name AS student_first_name,
                 middle_name AS student_middle_name,
                 last_name AS student_last_name,
@@ -31,6 +32,7 @@ class AccountStatementRepository extends Repository
                 caste_name,
                 religion_name,
                 mother_tounge,
+                parent_full_name,
                 parent_first_name,
                 parent_middle_name,
                 parent_last_name,
@@ -50,10 +52,10 @@ class AccountStatementRepository extends Repository
                 parent_designation_id,
                 parent_gender,
                 city_area
-            FROM view_sch_student_detail;'
+            FROM view_sch_student_detail
+            WHERE student_entity_id = :id
+            LIMIT 1;', ['id' => $id]
         );
-            // WHERE student_entity_id = :id
-            // LIMIT 1;', ['id' => $id]
     }
 
     public function getStudents()

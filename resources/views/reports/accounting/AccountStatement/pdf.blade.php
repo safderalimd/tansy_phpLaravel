@@ -25,26 +25,20 @@
 
         @include('reports.common.report-name', ['report' => $export->reportName])
 
-{{--         print student full name,
-        parent name,
-
-        student class,
-        student roll number --}}
-
-{{--         <div class="row">
+        <div class="row">
             <div class="col-md-12">
                 <table class="header-table">
                     <tr>
-                        <td class="text-left"><h4><strong>Exam Start Date:</strong> </h4></td>
-                        <td class="text-right"><h4><strong>Exam End Date:</strong> </h4></td>
+                        <td class="text-left"><h4><strong>Student Name:</strong> {{$export->studentData['student_full_name']}} </h4></td>
+                        <td class="text-right"><h4><strong>Class:</strong> {{$export->studentData['class_name']}} </h4></td>
                     </tr>
                     <tr>
-                        <td class="text-left"><h4><strong>Class Name:</strong> </h4></td>
-                        <td class="text-right"><h4><strong>Max Marks:</strong> </h4></td>
+                        <td class="text-left"><h4><strong>Parent Name:</strong> {{$export->studentData['parent_full_name']}} </h4></td>
+                        <td class="text-right"><h4><strong>Roll Number:</strong> {{$export->studentData['student_roll_number']}} </h4></td>
                     </tr>
                 </table>
             </div>
-        </div> --}}
+        </div>
 
         <div class="row">
             <div class="col-md-12">

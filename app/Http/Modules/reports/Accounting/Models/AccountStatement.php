@@ -27,10 +27,11 @@ class AccountStatement extends Model
     public function loadPdfData()
     {
         $this->studentData = $this->repository->getStudentById($this->student_entity_id);
-        dd($this->studentData);
+        if (isset($this->studentData[0])) {
+            $this->studentData = $this->studentData[0];
+        }
 
         $this->pdfData = $this->repository->getReceiptHeaderByStudent($this->student_entity_id);
-
 
         $this->setSchoolNameAndPhone();
     }
