@@ -23,6 +23,6 @@ class AdminController extends Controller
     {
         $admin = new Admin;
         $admin->repository->debugReset($admin);
-        return view('cabinet.main');
+        return "Reset sproc was called.";
     }
 }
