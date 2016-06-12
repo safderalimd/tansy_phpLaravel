@@ -44,6 +44,7 @@ class AccountClientController extends Controller
         $account = new AccountClient;
         $account->setAttribute('active', 0);
         $account->save($input);
+        flash('Client Created!');
         return redirect('/cabinet/account-client');
     }
 
@@ -76,6 +77,7 @@ class AccountClientController extends Controller
         $account->setAttribute('account_entity_id', $id);
         $account->setAttribute('active', 0);
         $account->update($input);
+        flash('Client Updated!');
         return redirect('/cabinet/account-client');
     }
 
@@ -89,6 +91,7 @@ class AccountClientController extends Controller
     {
         $account = AccountClient::findOrFail($id);
         $account->delete();
+        flash('Client Deleted!');
         return redirect('/cabinet/account-client');
     }
 }

@@ -38,7 +38,9 @@ class AccountClientRepository extends Repository
                 city_id,
                 city_area,
                 postal_code,
-                account_entity_id
+                account_entity_id,
+                document_type_id,
+                document_number
             FROM view_org_account_client_detail
             WHERE account_entity_id = :id
             LIMIT 1;', ['id' => $id]
@@ -65,6 +67,8 @@ class AccountClientRepository extends Repository
             ':iparam_city_area',
             ':iparam_city_id',
             ':iparam_postal_code',
+            ':iparam_document_type_id',
+            ':iparam_document_number',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
@@ -104,6 +108,8 @@ class AccountClientRepository extends Repository
             ':iparam_city_area',
             ':iparam_city_id',
             ':iparam_postal_code',
+            ':iparam_document_type_id',
+            ':iparam_document_number',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

@@ -19,8 +19,8 @@
                     <form class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 
-                        <hr/>
-                        <div class="row"><div class="col-md-3 pull-left"><h3>Header</h3></div></div>
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Header</h3></div></div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="facility_ids">Facility</label>
@@ -67,8 +67,8 @@
                             </div>
                         </div>
 
-                        <hr/>
-                        <div class="row"><div class="col-md-3 pull-left"><h3>Client Info</h3></div></div>
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Client Info</h3></div></div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="first_name">First Name</label>
@@ -119,8 +119,8 @@
                         </div>
 
 
-                        <hr/>
-                        <div class="row"><div class="col-md-3 pull-left"><h3>Contact</h3></div></div>
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Contact</h3></div></div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="email">Email</label>
@@ -143,8 +143,8 @@
                             </div>
                         </div>
 
-                        <hr/>
-                        <div class="row"><div class="col-md-3 pull-left"><h3>Adress</h3></div></div>
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Adress</h3></div></div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="address1">Adress 1</label>
@@ -195,6 +195,25 @@
                                 <input id="postal_code" class="form-control" type="text" name="postal_code" value="{{ v('postal_code') }}" placeholder="Postal Code">
                             </div>
                         </div>
+
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Identification</h3></div></div>
+
+                        @include('commons.select', [
+                            'label'    => 'Document Type',
+                            'name'     => 'document_type_id',
+                            'options'  => $account->documentType(),
+                            'keyId'    => 'document_type_id',
+                            'keyName'  => 'document_type',
+                        ])
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="document_number">Document Number</label>
+                            <div class="col-md-8">
+                                <input id="document_number" class="form-control" type="text" name="document_number" value="{{ v('document_number') }}" placeholder="Document Number">
+                            </div>
+                        </div>
+
 
                         <div class="row">
                            <div class="col-md-12 text-center grid_footer">
