@@ -25,7 +25,7 @@ class AdminController extends Controller
             return view('modules.admin.Admin.employee', compact('admin'));
 
         } elseif ($admin->displayType == 'URL') {
-            return view('modules.admin.Admin.student', compact('admin'));
+            return view('modules.admin.Admin.parent', compact('admin'));
 
         } elseif ($admin->displayType == 'RE-DIRECT') {
             $screenId = $admin->boxRawValue(0);

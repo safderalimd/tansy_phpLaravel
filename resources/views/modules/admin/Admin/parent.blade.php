@@ -11,7 +11,10 @@
                 <div class="page-title">
                     <h2>Home - v1</h2>
                     <h4>
-                        <a href="/cabinet/student-dashboard?sei={{session('user.userID')}}&csi={{$admin->boxRawValue(0)}}">{{$admin->boxLabel(0)}}</a>
+                        @foreach ($admin->boxes as $index => $box)
+                            <a href="{{$admin->boxLink($index)}}">{{$admin->boxLabel($index)}}</a>
+                            &nbsp;&nbsp;
+                        @endforeach
                     </h4>
                 </div>
             </div>

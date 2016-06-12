@@ -12,7 +12,7 @@ class Admin extends Model
 
     protected $homeData;
 
-    protected $boxes;
+    public $boxes;
 
     public function loadData()
     {
@@ -61,6 +61,17 @@ class Admin extends Model
             return $this->boxes[$nr]['display_value'];
         }
         return '-';
+    }
+
+    public function boxLink($nr)
+    {
+        if (isset($this->boxes[$nr]['display_value'])) {
+            $value = $this->boxes[$nr]['display_value'];
+            $value = ltrim($value);
+            $value = ltrim($value, '/\\');
+            return '/' . $value;
+        }
+        return '/';
     }
 
     public function boxValue($nr)
