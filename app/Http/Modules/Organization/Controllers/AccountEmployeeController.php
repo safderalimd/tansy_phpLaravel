@@ -43,8 +43,9 @@ class AccountEmployeeController extends Controller
 
         $account = new AccountEmployee;
         $account->setAttribute('active', 0);
-        $account->setAttribute('user_account_active', 0);
+        $account->setAttribute('login_active', 0);
         $account->save($input);
+        flash('Employee Created!');
         return redirect('/cabinet/account-employee');
     }
 
@@ -76,8 +77,9 @@ class AccountEmployeeController extends Controller
         $account = new AccountEmployee;
         $account->setAttribute('account_entity_id', $id);
         $account->setAttribute('active', 0);
-        $account->setAttribute('user_account_active', 0);
+        $account->setAttribute('login_active', 0);
         $account->update($input);
+        flash('Employee Updated!');
         return redirect('/cabinet/account-employee');
     }
 
@@ -91,6 +93,7 @@ class AccountEmployeeController extends Controller
     {
         $account = AccountEmployee::findOrFail($id);
         $account->delete();
+        flash('Employee Deleted!');
         return redirect('/cabinet/account-employee');
     }
 }

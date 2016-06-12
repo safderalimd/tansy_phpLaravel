@@ -51,11 +51,14 @@ class AccountEmployeeRepository extends Repository
                 postal_code,
                 department_id,
                 joining_date,
+                manager_entity_id,
                 login_name,
                 password,
-                login_user_account_status AS user_account_active,
-                group_entity_id,
-                manager_entity_id,
+                login_active,
+                default_facility_id AS view_default_facility_id,
+                group_entity_id AS security_group_entity_id,
+                document_type_id,
+                document_number,
                 account_entity_id
             FROM view_org_account_employee_detail
             WHERE account_entity_id = :id
@@ -74,14 +77,15 @@ class AccountEmployeeRepository extends Repository
         );
     }
 
-    public function getSecurityGroup()
+    public function getSecurityGroupForEmployees()
     {
         return $this->select(
             'SELECT
-                group_name,
-                group_entity_id
-             FROM view_org_lkp_sec_group_for_employee
-             ORDER BY group_name ASC;'
+                security_group,
+                security_group_entity_id,
+                system_value
+             FROM view_sec_lkp_security_group
+             WHERE system_value = :value;', ['value' => 9]
         );
     }
 
@@ -108,10 +112,13 @@ class AccountEmployeeRepository extends Repository
             ':iparam_department_id',
             ':iparam_manager_entity_id',
             ':iparam_joining_date',
+            ':iparam_document_type_id',
+            ':iparam_document_number',
             ':iparam_login_name',
             ':iparam_password',
-            ':iparam_user_account_active',
-            ':iparam_group_entity_id',
+            ':iparam_login_active',
+            ':iparam_view_default_facility_id',
+            ':iparam_security_group_entity_id',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
@@ -153,10 +160,13 @@ class AccountEmployeeRepository extends Repository
             ':iparam_department_id',
             ':iparam_manager_entity_id',
             ':iparam_joining_date',
+            ':iparam_document_type_id',
+            ':iparam_document_number',
             ':iparam_login_name',
             ':iparam_password',
-            ':iparam_user_account_active',
-            ':iparam_group_entity_id',
+            ':iparam_login_active',
+            ':iparam_view_default_facility_id',
+            ':iparam_security_group_entity_id',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
