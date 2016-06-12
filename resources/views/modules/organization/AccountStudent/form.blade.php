@@ -19,8 +19,8 @@
                     <form class="form-horizontal" accept-charset="UTF-8" action="{{ form_action() }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
-                        <hr/>
-                        <div class="row"><div class="col-md-3 pull-left"><h3>Header</h3></div></div>
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Header</h3></div></div>
 
                         @include('commons.select', [
                             'label'   => 'Facility' ,
@@ -57,8 +57,8 @@
                             </div>
                         </div>
 
-                        <hr/>
-                        <div class="row"><div class="col-md-3 pull-left"><h3>Student</h3></div></div>
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Student</h3></div></div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="student_first_name">First Name</label>
@@ -108,8 +108,8 @@
                             </div>
                         </div>
 
-                        <hr/>
-                        <div class="row"><div class="col-md-3 pull-left"><h3>Contact</h3></div></div>
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Contact</h3></div></div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="email">Email</label>
@@ -132,8 +132,8 @@
                             </div>
                         </div>
 
-                        <hr/>
-                        <div class="row"><div class="col-md-3 pull-left"><h3>Adress</h3></div></div>
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Adress</h3></div></div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="address1">Adress 1</label>
@@ -172,8 +172,8 @@
                             </div>
                         </div>
 
-                        <hr/>
-                        <div class="row"><div class="col-md-3 pull-left"><h3>Student Info</h3></div></div>
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Student Info</h3></div></div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="admission_number">Admission #</label>
@@ -207,11 +207,13 @@
                             <label class="col-md-4 control-label"">Current Class</label>
                             <div class="col-md-8">
                                 <label class="col-md-4 control-label">
+                                <?php $currentClass = '-'; ?>
                                 @foreach($account->classGroups() as $option)
                                     @if ($option['class_group_entity_id'] == $account->class_student_id)
-                                        {{$option['class_group']}}
+                                        <?php $currentClass = $option['class_group']; ?>
                                     @endif
                                 @endforeach
+                                {{$currentClass}}
                                 </label>
                             </div>
                         </div>
@@ -261,8 +263,8 @@
                             'keyName'  => 'language_name',
                         ])
 
-                        <hr/>
-                        <div class="row"><div class="col-md-3 pull-left"><h3>Parent</h3></div></div>
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Parent</h3></div></div>
 
                         @include('commons.select', [
                             'label'   => 'Relationship',
@@ -313,6 +315,70 @@
                             'options'  => $account->designations(),
                             'keyId'    => 'designation_id',
                             'keyName'  => 'designation_name',
+                        ])
+
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Identification</h3></div></div>
+
+                        @include('commons.select', [
+                            'label'    => 'Document Type',
+                            'name'     => 'document_type_id',
+                            'options'  => $account->documentType(),
+                            'keyId'    => 'document_type_id',
+                            'keyName'  => 'document_type',
+                        ])
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="document_number">Document Number</label>
+                            <div class="col-md-8">
+                                <input id="document_number" class="form-control" type="text" name="document_number" value="{{ v('document_number') }}" placeholder="Document Number">
+                            </div>
+                        </div>
+
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Login</h3></div></div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="login_name">Login Name</label>
+                            <div class="col-md-8">
+                                <input disabled="disabled" id="login_name" class="form-control" type="text" name="login_name" value="Student{{$account->student_entity_id}}" placeholder="Login Name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="password">Password</label>
+                            <div class="col-md-8">
+                                <input id="password" class="form-control" type="password" name="password" value="{{ v('password') }}" placeholder="Password">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-8">
+                                <div class="checkbox">
+                                    <label>
+                                        <input {{ c('login_active') }} name="login_active" type="checkbox"> Login Active
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="security_group_entity_id">Security Group</label>
+                            <div class="col-md-8">
+                                <select disabled="disabled" id="security_group_entity_id" class="form-control" name="security_group_entity_id">
+                                    @foreach($account->securityGroupForParent() as $option)
+                                        <option value="{{ $option['security_group_entity_id'] }}">{{ $option['security_group'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        @include('commons.select', [
+                            'label'    => 'Default Facility',
+                            'name'     => 'view_default_facility_id',
+                            'options'  => $account->facilitiesForOwner(),
+                            'keyId'    => 'facility_entity_id',
+                            'keyName'  => 'facility_name',
                         ])
 
                         <hr/>

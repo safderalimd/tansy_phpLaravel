@@ -77,11 +77,22 @@ class AccountStudentController extends Controller
 
         $account = new AccountStudent($request->input());
         $account->setAttribute('student_entity_id', $id);
+        $account->setAttribute('login_name', 'Student'.$id);
+
         if (empty($request->input('active'))) {
             $account->setActiveToFalse();
         }
+        if (empty($request->input('login_active'))) {
+            $account->setLoginActiveToFalse();
+        }
+
+        $group = $account->securityGroupForParent();
+        if (isset($group[0]['security_group_entity_id'])) {
+            $account->setAttribute('security_group_entity_id', $group[0]['security_group_entity_id']);
+        }
 
         $account->update();
+        flash('Student Updated!');
         return redirect('/cabinet/student-account');
     }
 
@@ -95,6 +106,7 @@ class AccountStudentController extends Controller
     {
         $account = AccountStudent::findOrFail($id);
         $account->delete();
+        flash('Student Deleted!');
         return redirect('/cabinet/student-account');
     }
 }

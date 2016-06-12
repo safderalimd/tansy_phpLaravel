@@ -594,4 +594,25 @@ class Repository
              WHERE entity_id = :id;', ['id' => $id]
         );
     }
+
+    public function getDocumentType()
+    {
+        return $this->select(
+            'SELECT
+                document_type_id,
+                document_type
+             FROM view_org_lkp_document_type;'
+        );
+    }
+
+    public function getSecurityGroup()
+    {
+        return $this->select(
+            'SELECT
+                security_group,
+                security_group_entity_id,
+                system_value
+             FROM view_sec_lkp_security_group;'
+        );
+    }
 }

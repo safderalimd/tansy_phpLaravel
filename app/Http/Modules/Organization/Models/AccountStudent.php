@@ -15,6 +15,11 @@ class AccountStudent extends Model
         $this->attributes['active'] = 0;
     }
 
+    public function setLoginActiveToFalse()
+    {
+        $this->attributes['login_active'] = 0;
+    }
+
     public function setActiveAttribute($value)
     {
         $value = (string)$value;
@@ -25,4 +30,13 @@ class AccountStudent extends Model
         return 0;
     }
 
+    public function setLoginActiveAttribute($value)
+    {
+        $value = (string)$value;
+        if (!empty($value) || $value == 'on') {
+            return 1;
+        }
+
+        return 0;
+    }
 }
