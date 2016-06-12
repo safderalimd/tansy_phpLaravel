@@ -13,7 +13,7 @@
                     <h4>
                         @foreach ($admin->boxes as $index => $box)
                             <a href="{{$admin->boxLink($index)}}">{{$admin->boxLabel($index)}}</a>
-                            &nbsp;&nbsp;
+                            <br/><br/>
                         @endforeach
                     </h4>
                 </div>
