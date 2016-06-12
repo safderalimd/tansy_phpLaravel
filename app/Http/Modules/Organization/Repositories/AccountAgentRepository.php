@@ -20,6 +20,19 @@ class AccountAgentRepository extends Repository
         );
     }
 
+    public function getSecurityGroupForAgent()
+    {
+        return $this->select(
+            'SELECT
+                security_group,
+                security_group_entity_id,
+                system_value
+             FROM view_sec_lkp_security_group
+             WHERE security_group = :group
+             LIMIT 1;', ['group' => 'Agent']
+        );
+    }
+
     public function getOrganizations()
     {
         return $this->select(
@@ -50,8 +63,12 @@ class AccountAgentRepository extends Repository
                 city_area,
                 postal_code,
                 login_name,
-                password AS field_password,
-                login_user_account_status AS user_account_active,
+                password,
+                login_active,
+                default_facility_id AS view_default_facility_id,
+                group_entity_id AS security_group_entity_id,
+                document_type_id,
+                document_number,
                 account_entity_id
             FROM view_org_account_agent_detail
             WHERE account_entity_id = :id
@@ -80,9 +97,13 @@ class AccountAgentRepository extends Repository
             ':iparam_city_area',
             ':iparam_city_id',
             ':iparam_postal_code',
+            ':iparam_document_type_id',
+            ':iparam_document_number',
             ':iparam_login_name',
             ':iparam_password',
-            ':iparam_user_account_active',
+            ':iparam_login_active',
+            ':iparam_view_default_facility_id',
+            ':iparam_security_group_entity_id',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
@@ -122,9 +143,13 @@ class AccountAgentRepository extends Repository
             ':iparam_city_area',
             ':iparam_city_id',
             ':iparam_postal_code',
+            ':iparam_document_type_id',
+            ':iparam_document_number',
             ':iparam_login_name',
             ':iparam_password',
-            ':iparam_user_account_active',
+            ':iparam_login_active',
+            ':iparam_view_default_facility_id',
+            ':iparam_security_group_entity_id',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

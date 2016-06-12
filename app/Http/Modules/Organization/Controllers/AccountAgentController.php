@@ -43,8 +43,17 @@ class AccountAgentController extends Controller
 
         $account = new AccountAgent;
         $account->setAttribute('active', 0);
-        $account->setAttribute('user_account_active', 0);
-        $account->save($input);
+        $account->setAttribute('login_active', 0);
+
+        $account->fill($input);
+
+        $group = $account->securityGroupForAgent();
+        if (isset($group[0]['security_group_entity_id'])) {
+            $account->setAttribute('security_group_entity_id', $group[0]['security_group_entity_id']);
+        }
+
+        $account->save();
+        flash('Agent Created!');
         return redirect('/cabinet/account-agent');
     }
 
@@ -76,8 +85,17 @@ class AccountAgentController extends Controller
         $account = new AccountAgent;
         $account->setAttribute('account_entity_id', $id);
         $account->setAttribute('active', 0);
-        $account->setAttribute('user_account_active', 0);
-        $account->update($input);
+        $account->setAttribute('login_active', 0);
+
+        $account->fill($input);
+
+        $group = $account->securityGroupForAgent();
+        if (isset($group[0]['security_group_entity_id'])) {
+            $account->setAttribute('security_group_entity_id', $group[0]['security_group_entity_id']);
+        }
+
+        $account->update();
+        flash('Agent Updated!');
         return redirect('/cabinet/account-agent');
     }
 
@@ -91,6 +109,7 @@ class AccountAgentController extends Controller
     {
         $account = AccountAgent::findOrFail($id);
         $account->delete();
+        flash('Agent Deleted!');
         return redirect('/cabinet/account-agent');
     }
 }

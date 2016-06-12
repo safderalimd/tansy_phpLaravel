@@ -22,7 +22,7 @@ class AccountAgent extends Model
         return 0;
     }
 
-    public function setUserAccountActiveAttribute($value)
+    public function setLoginActiveAttribute($value)
     {
         $value = (string)$value;
         if (!empty($value) || $value == 'on') {
@@ -30,12 +30,6 @@ class AccountAgent extends Model
         }
 
         return 0;
-    }
-
-    public function setFieldPasswordAttribute($value)
-    {
-        $this->setAttribute('password', $value);
-        return $value;
     }
 
     public function loadData()
