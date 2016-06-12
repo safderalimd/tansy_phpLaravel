@@ -16,7 +16,30 @@ class AdminController extends Controller
     public function home()
     {
         $admin = new Admin;
-        return view('modules.admin.Admin.home', compact('admin'));
+        $admin->loadData();
+
+        if ($admin->displayType == 'SQUARE BOX 4') {
+            return view('modules.admin.Admin.sysadmin', compact('admin'));
+
+        } elseif ($admin->displayType == 'SQUARE BOX 2') {
+            return view('modules.admin.Admin.employee', compact('admin'));
+
+        } elseif ($admin->displayType == 'URL') {
+            return view('modules.admin.Admin.student', compact('admin'));
+
+        } elseif ($admin->displayType == 'RE-DIRECT') {
+            $screenId = $admin->boxRawValue(0);
+            $menuInfo = session('dbMenuInfo');
+            foreach ($menuInfo as $row) {
+                if ($row['screen_id'] == $screenId) {
+                    $name = strtolower($row['screen_name']);
+                    $name = str_replace(' ', '-', $name);
+                    return redirect('/cabinet/' . $name);
+                }
+            }
+        }
+
+        return redirect('/');
     }
 
     public function debugReset()

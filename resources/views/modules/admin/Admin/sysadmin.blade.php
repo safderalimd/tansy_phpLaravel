@@ -21,10 +21,10 @@
                                     <div class="panel-body bk-info text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                {{nr($admin->employee_absentee)}}
+                                                {!! $admin->symbol(0) !!} {{$admin->boxValue(0)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
-                                                Employee Absence
+                                                {{$admin->boxLabel(0)}}
                                             </div>
                                         </div>
                                     </div>
@@ -35,10 +35,10 @@
                                     <div class="panel-body bk-danger text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                {{sms($admin->sms_send_count)}}
+                                                {!! $admin->symbol(1) !!} {{$admin->boxValue(1)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
-                                                Sms Send Count
+                                                {{$admin->boxLabel(1)}}
                                             </div>
                                         </div>
                                     </div>
@@ -52,10 +52,10 @@
                                     <div class="panel-body bk-warning text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> {{amount($admin->collection_amount)}}
+                                                {!! $admin->symbol(2) !!} {{$admin->boxValue(2)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
-                                                Collection Amount
+                                                {{$admin->boxLabel(2)}}
                                             </div>
                                         </div>
                                     </div>
@@ -67,10 +67,10 @@
                                     <div class="panel-body bk-success text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                <i class="fa fa-inr"></i> {{amount($admin->dueAmount)}}
+                                                {!! $admin->symbol(3) !!} {{$admin->boxValue(3)}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
-                                                Fee Due
+                                                {{$admin->boxLabel(3)}}
                                             </div>
                                         </div>
                                     </div>

@@ -10,40 +10,115 @@ class Admin extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\Admin\Repositories\AdminRepository';
 
-    public $dueAmount = 0;
+    protected $homeData;
 
-    public function __construct($arguments = [])
+    protected $boxes;
+
+    public function loadData()
     {
-        parent::__construct($arguments);
+        $this->homeData = $this->repository->homeDisplay($this);
 
-        // call procedure to load oparams to the model
-        $this->repository->homeData($this);
+        $this->boxes = $this->resultset(1);
+        $this->sortBoxes();
 
-        if (is_null($this->employee_absentee)) {
-            $this->employee_absentee = 0;
+        $this->displayType = $this->getDisplayType();
+
+        foreach ($this->boxes as &$box) {
+            if ($box['value'] == 'N/A') {
+                $box['display_value'] = $this->valueFromResultset($box['value_from_result_set']);
+            } else {
+                $box['display_value'] = $box['value'];
+            }
         }
-
-        if (is_null($this->sms_send_count)) {
-            $this->sms_send_count = 0;
-        }
-
-        if (is_null($this->collection_amount)) {
-            $this->collection_amount = 0;
-        }
-
-        $this->setDueAmount();
+        // clear reference
+        unset($box);
     }
 
-    public function setDueAmount()
+    public function boxLabel($nr)
     {
-        $this->setAttribute('filter_type', 'All Students');
-        $this->setAttribute('subject_entity_id', 0);
-        $this->setAttribute('return_type', 'Dashboard');
-        $dueList = $this->repository->dueList($this);
-
-        $dueAmount = first_resultset($dueList);
-        if (isset($dueAmount[0]['due_amount'])) {
-            $this->dueAmount = $dueAmount[0]['due_amount'];
+        if (isset($this->boxes[$nr]['label'])) {
+            return $this->boxes[$nr]['label'];
         }
+        return '-';
+    }
+
+    public function symbol($nr)
+    {
+        if (!isset($this->boxes[$nr]['value_data_type'])) {
+            return '';
+        }
+
+        if ($this->boxes[$nr]['value_data_type'] == 'MONEY') {
+            return '<i class="fa fa-inr"></i>';
+        }
+
+        return '';
+    }
+
+    public function boxRawValue($nr)
+    {
+        if (isset($this->boxes[$nr]['display_value'])) {
+            return $this->boxes[$nr]['display_value'];
+        }
+        return '-';
+    }
+
+    public function boxValue($nr)
+    {
+        if (isset($this->boxes[$nr]['display_value'])) {
+            $value = $this->boxes[$nr]['display_value'];
+            $format = $this->boxes[$nr]['value_data_type'];
+            if ($format == 'INT') {
+                return nr($value);
+            } elseif ($format == 'MONEY') {
+                return amount($value);
+            } elseif ($format == 'DATE') {
+                return style_date($value);
+            } else {
+                return $value;
+            }
+        }
+        return '-';
+    }
+
+    public function valueFromResultset($nr)
+    {
+        $nr = intval($nr);
+        $set = $this->resultset($nr);
+        if (isset($set[0][0])) {
+            return $set[0][0];
+        }
+        return '';
+    }
+
+    public function getDisplayType()
+    {
+        if (isset($this->boxes[0]['display_type'])) {
+            $type = $this->boxes[0]['display_type'];
+            $type = trim($type);
+            $type = strtoupper($type);
+            return $type;
+        }
+        return null;
+    }
+
+    public function sortBoxes()
+    {
+        usort($this->boxes, function($a, $b) {
+            return $a['position'] > $b['position'];
+        });
+    }
+
+    public function resultset($nr)
+    {
+        $nr = intval($nr);
+
+        // 0 index based
+        $nr = $nr - 1;
+
+        if (isset($this->homeData[$nr])) {
+            return $this->homeData[$nr];
+        }
+        return [];
     }
 }
