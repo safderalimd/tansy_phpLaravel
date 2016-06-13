@@ -13,7 +13,7 @@
             }
 
             .table {
-                font-size: 12px;
+                font-size: 11px;
             }
             .table>tbody>tr>td,
             .table>tbody>tr>th,
@@ -21,7 +21,7 @@
             .table>tfoot>tr>th,
             .table>thead>tr>td,
             .table>thead>tr>th {
-                padding: 4px;
+                padding: 3px;
             }
         </style>
     </head>
