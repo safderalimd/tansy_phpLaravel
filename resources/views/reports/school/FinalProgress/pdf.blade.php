@@ -11,6 +11,18 @@
             .signatures {
                 margin-top:20px;
             }
+
+            .table {
+                font-size: 12px;
+            }
+            .table>tbody>tr>td,
+            .table>tbody>tr>th,
+            .table>tfoot>tr>td,
+            .table>tfoot>tr>th,
+            .table>thead>tr>td,
+            .table>thead>tr>th {
+                padding: 4px;
+            }
         </style>
     </head>
     <body>
@@ -143,7 +155,7 @@
 
         <div class="row">
             <div class="col-md-12">
-            <table class="table table-bordered table-striped">
+            <table class="table attendance-table table-bordered table-striped">
                 <tr>
                     <td class="text-left"><strong>Name of the Month</strong></td>
                     <td class="text-left">Jun</td>
