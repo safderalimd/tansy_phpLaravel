@@ -12,7 +12,7 @@ return array(
      |
      */
 
-    'enabled' => false, //env('ENABLE_DEBUGBAR', false),
+    'enabled' => true, //env('ENABLE_DEBUGBAR', false),
 
     /*
      |--------------------------------------------------------------------------

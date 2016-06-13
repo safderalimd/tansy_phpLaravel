@@ -159,7 +159,8 @@ return [
         Lavary\Menu\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
+        // Barryvdh\Debugbar\ServiceProvider::class,
+        App\Providers\DebugServiceProvider::class,
     ],
 
     /*

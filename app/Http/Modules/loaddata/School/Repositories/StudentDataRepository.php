@@ -20,6 +20,8 @@ class StudentDataRepository extends Repository
 
     public function insert($row)
     {
+        $start = microtime(true);
+
         $pdo = $this->db()->getPdo();
 
         // get the table columns
@@ -43,5 +45,20 @@ class StudentDataRepository extends Repository
         }
 
         $stmt->execute();
+
+        $time = $this->getElapsedTime($start);
+        $this->db()->logQuery($sql, $row, $time);
+    }
+
+
+    /**
+     * Get the elapsed time since a given starting point.
+     *
+     * @param  int    $start
+     * @return float
+     */
+    protected function getElapsedTime($start)
+    {
+        return round((microtime(true) - $start) * 1000, 2);
     }
 }

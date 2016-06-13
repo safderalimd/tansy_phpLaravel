@@ -19,6 +19,12 @@ Route::get('/database-error', function () {
     return view('errors.db-error');
 });
 
+Route::get('/enable-debugbar', function () {
+    $response = new Illuminate\Http\Response('Debugbar Enabled!');
+    $response->withCookie('enable_debugbar', '1', 10000);
+    return $response;
+});
+
 Route::get('/phpinfo', function () {
     phpinfo();
 });
