@@ -193,6 +193,9 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('daily-attendance', 'School\Controllers\AttendanceController@index');
     Route::post('daily-attendance', 'School\Controllers\AttendanceController@update');
 
+    Route::get('holidays', 'School\Controllers\HolidaysController@index');
+    Route::post('holidays', 'School\Controllers\HolidaysController@update');
+
     Route::get('organizations', 'Organization\Controllers\OrganizationController@index');
     Route::get('organizations/create', 'Organization\Controllers\OrganizationController@create');
     Route::post('organizations/create', 'Organization\Controllers\OrganizationController@store');

@@ -222,6 +222,14 @@ function absent($value)
     return '0';
 }
 
+function holiday($value)
+{
+    if (!empty($value)) {
+        return '1';
+    }
+    return '0';
+}
+
 /**
  * Get the first resultset from the stored procedure results.
  * @param  array $data Stored procedure return.
