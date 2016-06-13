@@ -20,4 +20,27 @@ class Admission extends Model
         $this->setAttribute('designation_name', $value);
         return $value;
     }
+
+    public function setStudentGenderAttribute($value)
+    {
+        return $this->getGenderSymbol($value);
+    }
+
+    public function setParentGenderAttribute($value)
+    {
+        return $this->getGenderSymbol($value);
+    }
+
+    public function getGenderSymbol($value)
+    {
+        $value = strtolower($value);
+        $value = trim($value);
+        if ($value == 'male') {
+            return 'M';
+        }
+        if ($value == 'female') {
+            return 'F';
+        }
+        return $value;
+    }
 }

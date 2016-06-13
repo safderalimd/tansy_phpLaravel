@@ -3,6 +3,7 @@
 @section('title', 'Admission')
 
 @section('content')
+    {{d($admission)}}
     <div class="row">
         <div class="col-md-8 sch_class panel-group panel-bdr">
             <div class="panel panel-primary">
