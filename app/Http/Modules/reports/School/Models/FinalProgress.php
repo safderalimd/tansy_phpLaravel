@@ -88,6 +88,10 @@ class FinalProgress extends Model
             return $month == $item['calendar_month'];
         });
 
+        if (!is_numeric($key)) {
+            return '-';
+        }
+
         if (isset($this->studentAttendance[$key]['working_days'])) {
             return $this->studentAttendance[$key]['working_days'];
         }
@@ -100,6 +104,10 @@ class FinalProgress extends Model
         $key = $this->studentAttendance->search(function ($item, $key) use ($month) {
             return $month == $item['calendar_month'];
         });
+
+        if (!is_numeric($key)) {
+            return '-';
+        }
 
         if (isset($this->studentAttendance[$key]['present_days'])) {
             return $this->studentAttendance[$key]['present_days'];
