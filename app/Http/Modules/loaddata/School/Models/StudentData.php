@@ -16,4 +16,9 @@ class StudentData extends Model
             $this->repository->insert($row);
         }
     }
+
+    public function uploadComplete()
+    {
+        return $this->repository->uploadComplete($this);
+    }
 }

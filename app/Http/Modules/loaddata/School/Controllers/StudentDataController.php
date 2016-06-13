@@ -59,6 +59,9 @@ class StudentDataController extends Controller
         // delete the uploaded file
         unlink($savedFile->getRealPath());
 
+        $studentData->uploadComplete();
+
+        flash('Students Added!');
         return redirect('/cabinet/admission');
     }
 

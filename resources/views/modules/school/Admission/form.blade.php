@@ -3,7 +3,6 @@
 @section('title', 'Admission')
 
 @section('content')
-    {{d($admission)}}
     <div class="row">
         <div class="col-md-8 sch_class panel-group panel-bdr">
             <div class="panel panel-primary">
@@ -197,13 +196,16 @@
                             </div>
                         </div>
 
-                        @include('commons.select', [
-                            'label'   => 'Admitted To' ,
-                            'name'    => 'admitted_to_class_group_entity_id',
-                            'options' => $admission->classGroups(),
-                            'keyId'   => 'class_group_entity_id',
-                            'keyName' => 'class_group',
-                        ])
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="admitted_to_class_group_entity_id">Admitted To</label>
+                            <div class="col-md-8">
+                                <select id="admitted_to_class_group_entity_id" class="form-control" name="admitted_to_class_group_entity_id">
+                                    @foreach($admission->classGroups() as $option)
+                                        <option {{ s('admitted_to_class_group', $option['class_group']) }} value="{{ $option['class_group_entity_id'] }}">{{ $option['class_group'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
                         @include('commons.select', [
                             'label'   => 'Admitted To Class' ,
