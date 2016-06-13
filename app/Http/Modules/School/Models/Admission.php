@@ -21,6 +21,14 @@ class Admission extends Model
         return $value;
     }
 
+    public function setAdmittedToClassEntityIdAttribute($value)
+    {
+        if (!is_numeric($value)) {
+            return null;
+        }
+        return $value;
+    }
+
     public function setStudentGenderAttribute($value)
     {
         return $this->getGenderSymbol($value);
@@ -41,6 +49,6 @@ class Admission extends Model
         if ($value == 'female') {
             return 'F';
         }
-        return $value;
+        return strtoupper($value);
     }
 }

@@ -139,6 +139,10 @@ class Procedure
             $modelProperty = substr($iparam, 8);
         }
 
+        if ($this->model->{$modelProperty} === null) {
+            return 'null';
+        }
+
         return $this->pdo->quote($this->model->{$modelProperty});
     }
 

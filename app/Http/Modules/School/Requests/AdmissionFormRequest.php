@@ -52,7 +52,6 @@ class AdmissionFormRequest extends Request
             'admission_number' => 'required|string|max:128',
             'admission_date' => 'required|string|max:30|date',
             'admitted_to_class_group_entity_id' => 'required|integer',
-            'admitted_to_class_entity_id' => 'integer',
             'student_roll_number' => 'string|max:45',
             'identification1' => 'required|string|max:100',
             'identification2' => 'string|max:100',

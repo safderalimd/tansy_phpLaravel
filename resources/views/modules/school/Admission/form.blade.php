@@ -3,6 +3,7 @@
 @section('title', 'Admission')
 
 @section('content')
+    {{d($admission)}}
     <div class="row">
         <div class="col-md-8 sch_class panel-group panel-bdr">
             <div class="panel panel-primary">
@@ -213,6 +214,7 @@
                             'options' => $admission->classes(),
                             'keyId'   => 'class_entity_id',
                             'keyName' => 'class_name',
+                            'none'    => 'Select a class..',
                         ])
 
                         <div class="form-group">
