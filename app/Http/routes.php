@@ -138,11 +138,15 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('pdf---daily-collection', 'reports\School\Controllers\DailyCollectionController@index');
     Route::get('pdf---daily-collection/pdf', 'reports\School\Controllers\DailyCollectionController@report');
 
+    Route::get('pdf---student-final-progress', 'reports\School\Controllers\FinalProgressController@index');
+    Route::get('pdf---student-final-progress/pdf', 'reports\School\Controllers\FinalProgressController@report');
+
     Route::get('pdf---account-statement', 'reports\Accounting\Controllers\AccountStatementController@index');
     Route::get('pdf---account-statement/pdf', 'reports\Accounting\Controllers\AccountStatementController@report');
 
     Route::get('receipt-report/{id}', 'reports\Accounting\Controllers\ReceiptPrintController@index');
     Route::get('receipt-report/pdf/{id}', 'reports\Accounting\Controllers\ReceiptPrintController@report');
+
 
     Route::get('progress-print---student',
         'reports\School\Controllers\ProgressPrintStudentController@index');
