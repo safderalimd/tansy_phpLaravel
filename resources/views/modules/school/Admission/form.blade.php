@@ -200,6 +200,7 @@
                             <label class="col-md-4 control-label" for="admitted_to_class_group_entity_id">Admitted To</label>
                             <div class="col-md-8">
                                 <select id="admitted_to_class_group_entity_id" class="form-control" name="admitted_to_class_group_entity_id">
+                                    <option value="none">Select a class group..</option>
                                     @foreach($admission->classGroups() as $option)
                                         <option {{ s('admitted_to_class_group', $option['class_group']) }} value="{{ $option['class_group_entity_id'] }}">{{ $option['class_group'] }}</option>
                                     @endforeach

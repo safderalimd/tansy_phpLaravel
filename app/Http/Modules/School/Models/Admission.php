@@ -21,6 +21,14 @@ class Admission extends Model
         return $value;
     }
 
+    public function setAdmittedToClassGroupEntityIdAttribute($value)
+    {
+        if (!is_numeric($value)) {
+            return null;
+        }
+        return $value;
+    }
+
     public function setAdmittedToClassEntityIdAttribute($value)
     {
         if (!is_numeric($value)) {
