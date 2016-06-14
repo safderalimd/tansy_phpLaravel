@@ -19,6 +19,20 @@
                     <form class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-8">
+                                <div class="checkbox">
+                                    <label>
+                                        @if($account->isNewRecord())
+                                            <input checked="checked" name="active" type="checkbox" disabled readonly> Active
+                                        @else
+                                            <input {{ c('active') }} name="active" type="checkbox"> Active
+                                        @endif
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
 <hr/>
 <div class="row"><div class="col-md-3 pull-left"><h3>Header</h3></div></div>
 
@@ -35,20 +49,6 @@
                                         <option data-organizationId="{{$option['organization_entity_id']}}" @if(in_array($option['facility_entity_id'], $account->selectedFacilities)) selected @endif value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-offset-4 col-sm-8">
-                                <div class="checkbox">
-                                    <label>
-                                        @if($account->isNewRecord())
-                                            <input checked="checked" name="active" type="checkbox" disabled readonly> Active
-                                        @else
-                                            <input {{ c('active') }} name="active" type="checkbox"> Active
-                                        @endif
-                                    </label>
-                                </div>
                             </div>
                         </div>
 

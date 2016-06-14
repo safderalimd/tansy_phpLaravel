@@ -27,7 +27,7 @@ class AccountEmployeeFormRequest extends Request
     {
         return [
             'facility_ids'  => 'required|integer',
-            'first_name'    => 'string',
+            'first_name'    => 'required|string',
             'middle_name'   => 'string',
             'last_name'     => 'string',
             'gender'        => 'string|in:M,F',
