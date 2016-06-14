@@ -187,16 +187,16 @@ function activeSelect($value, $getKey, $isDefault = false)
     return '';
 }
 
-function activeSelectAccount($option)
+function activeSelectByTwo($firstValue, $secondValue, $firstKey, $secondKey)
 {
-    $aei = app('request')->input('aei');
-    $art = app('request')->input('art');
+    $firstKey = app('request')->input($firstKey);
+    $secondKey = app('request')->input($secondKey);
 
-    if (is_null($aei) || is_null($art)) {
+    if (is_null($firstKey) || is_null($secondKey)) {
         return '';
     }
 
-    if ($aei == $option['entity_id'] && $art == $option['row_type']) {
+    if ($firstKey == $firstValue && $secondKey == $secondValue) {
         return 'selected';
     }
 

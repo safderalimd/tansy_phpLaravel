@@ -36,7 +36,7 @@
                         <select id="account_types_entity_id" class="form-control" name="account_types_entity_id">
                             <option value="none">Select an account</option>
                             @foreach($attendance->absenteeAccountTypes() as $option)
-                                <option data-rowType="{{$option['row_type']}}" {{ activeSelectAccount($option) }} value="{{ $option['entity_id'] }}">{{ $option['drop_down_list_name'] }}</option>
+                                <option data-rowType="{{$option['row_type']}}" {{activeSelectByTwo($option['entity_id'], $option['row_type'], 'aei', 'art')}} value="{{ $option['entity_id'] }}">{{ $option['drop_down_list_name'] }}</option>
                             @endforeach
                         </select>
                     </div>

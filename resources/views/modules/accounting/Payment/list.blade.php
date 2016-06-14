@@ -21,7 +21,7 @@
                                     <label class="col-md-4 control-label" for="exam_account_type_4_receivable_id">Account Type</label>
                                     <div class="col-md-8">
                                         <select id="exam_account_type_4_receivable_id" class="form-control" name="exam_account_type_4_receivable_id">
-                                            <option data-rowtype="none" value="none">Select an account</option>
+                                            <option data-rowtype="none" value="none">Select an account..</option>
                                             <?php $accountType = 'Account Type'; ?>
                                             @foreach($payment->accountType4ReceivablePayment() as $option)
                                                 <?php
@@ -29,7 +29,7 @@
                                                         $accountType = $option['drop_down_list_name'];
                                                     }
                                                 ?>
-                                                <option data-rowtype="{{$option['row_type']}}" {{ ($accountKey == $option['primary_key_id']) ? 'selected' : ''}} value="{!! $option['primary_key_id'] !!}">{!! $option['drop_down_list_name'] !!}</option>
+                                                <option {{activeSelectByTwo($option['primary_key_id'], $option['row_type'], 'ak', 'rt')}} data-rowtype="{{$option['row_type']}}"  value="{{ $option['primary_key_id'] }}">{{ $option['drop_down_list_name'] }}</option>
                                             @endforeach
                                         </select>
                                     </div>
