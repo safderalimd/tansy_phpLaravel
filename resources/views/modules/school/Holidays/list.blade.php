@@ -1,6 +1,6 @@
 @extends('layout.cabinet')
 
-@section('title', 'Attendance')
+@section('title', 'Holidays')
 
 @section('content')
 
@@ -8,7 +8,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <i class="glyphicon glyphicon-th-list"></i>
-            <h3>Attendance</h3>
+            <h3>Holidays</h3>
         </div>
         <div class="panel-body">
 
@@ -21,7 +21,7 @@
                     <div class="col-sm-3 col-md-3">
                         <select id="facility_id" class="form-control" name="facility_id">
                             <option value="none">Select a facility..</option>
-                            @foreach($holidays->facilities() as $option)
+                            @foreach($holidays->facilitiesForOwner() as $option)
                                 <option value="{{ $option['facility_entity_id'] }}">{{ $option['facility_name'] }}</option>
                             @endforeach
                         </select>
