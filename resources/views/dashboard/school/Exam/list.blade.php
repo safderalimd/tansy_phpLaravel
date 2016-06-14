@@ -95,6 +95,31 @@
                     <div class="col-md-6">
                         <div class="panel panel-info">
                             <div class="panel-heading">
+                                Subject Performence Details
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <ul class="chart-dot-list">
+                                            <?php $i=1; ?>
+                                            @foreach($exam->subjectPerformanceDetailsChart as $row)
+                                                <li class="a{{$i++}}">{{$row['label']}}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="chart chart-doughnut">
+                                            <canvas height="900" id="exam-report-1" width= "1200"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
                                 Subject Performence
                             </div>
                             <div class="panel-body">
@@ -109,7 +134,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="chart chart-doughnut">
-                                            <canvas height="900" id="exam-report" width= "1200"></canvas>
+                                            <canvas height="900" id="exam-report-2" width= "1200"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -117,35 +142,6 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                Subject Performence Details
-                            </div>
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table id="table-exam-report" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Subject</th>
-                                                <th>Grade</th>
-                                                <th>Count</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($exam->examDonoughtGrid as $row)
-                                            <tr>
-                                                <td>{{$row['subject']}}</td>
-                                                <td>{{$row['grade']}}</td>
-                                                <td>{{$row['student_count']}}</td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="row">
@@ -224,8 +220,11 @@
 @if (!empty($exam->examId))
 <script type="text/javascript">
 
-    var donoughtData = <?php echo json_encode($exam->examDonoughtChart); ?>;
-    donoughtData = applyChartColors(donoughtData);
+    var donoughtData1 = <?php echo json_encode($exam->subjectPerformanceDetailsChart); ?>;
+    donoughtData1 = applyChartColors(donoughtData1);
+
+    var donoughtData2 = <?php echo json_encode($exam->examDonoughtChart); ?>;
+    donoughtData2 = applyChartColors(donoughtData2);
 
     var pieData = <?php echo json_encode($exam->classPerformancePieChart); ?>;
     pieData = applyChartColors(pieData);
@@ -233,14 +232,12 @@
     var pieData2 = <?php echo json_encode($exam->classSubjectPerformancePieChart); ?>;
     pieData2 = applyChartColors(pieData2);
 
-    $(document).ready(function() {
-        $('#table-exam-report').DataTable();
-        $('#table-subject-report').DataTable();
-    });
-
     window.onload = function() {
-        var doughnutContext = document.getElementById("exam-report").getContext("2d");
-        window.myDoughnut = new Chart(doughnutContext).Doughnut(donoughtData, {responsive : true});
+        var doughnutContext1 = document.getElementById("exam-report-1").getContext("2d");
+        window.myDoughnut1 = new Chart(doughnutContext1).Doughnut(donoughtData1, {responsive : true});
+
+        var doughnutContext2 = document.getElementById("exam-report-2").getContext("2d");
+        window.myDoughnut2 = new Chart(doughnutContext2).Doughnut(donoughtData2, {responsive : true});
 
         var pieContext = document.getElementById("subject-report").getContext("2d");
         window.myPie = new Chart(pieContext).Pie(pieData, {responsive : true});

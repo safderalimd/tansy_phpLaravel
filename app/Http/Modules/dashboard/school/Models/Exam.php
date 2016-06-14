@@ -14,7 +14,7 @@ class Exam extends Model
 
     public $examDonoughtChart;
 
-    public $examDonoughtGrid;
+    public $subjectPerformanceDetailsChart;
 
     public $classPerformancePieChart;
 
@@ -47,7 +47,6 @@ class Exam extends Model
 
         $this->examId = $this->exam_entity_id;
 
-        // data for first chart and grid
         $examInfo = $this->repository->examInfo($this);
 
         $this->examDonoughtChart = array_map(function($item) {
@@ -57,9 +56,13 @@ class Exam extends Model
             ];
         }, first_resultset($examInfo));
 
-        $this->examDonoughtGrid = second_resultset($examInfo);
+        $this->subjectPerformanceDetailsChart = array_map(function($item) {
+            return [
+                'value' => $item['student_count'],
+                'label' => $item['grade'],
+            ];
+        }, second_resultset($examInfo));
 
-        // data for second chart
         $this->setClassFilter();
         $classPerformance = $this->repository->classPerformance($this);
         $this->classPerformancePieChart = array_map(function($item) {
@@ -69,7 +72,6 @@ class Exam extends Model
             ];
         }, first_resultset($classPerformance));
 
-        // data for third chart
         $this->classSubjectPerformancePieChart = array_map(function($item) {
             return [
                 'value' => $item['subject_percent'],
