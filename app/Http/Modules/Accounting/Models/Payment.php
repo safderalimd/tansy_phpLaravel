@@ -29,7 +29,7 @@ class Payment extends Model
     {
         $payment = new static;
 
-        if (!empty($rowType) && !empty($primaryKey)) {
+        if (!is_null($rowType) && !is_null($primaryKey)) {
             $payment->setAttribute('return_type', 'Summary');
             $payment->setAttribute('filter_type', $rowType);
             $payment->setAttribute('subject_entity_id', $primaryKey);
