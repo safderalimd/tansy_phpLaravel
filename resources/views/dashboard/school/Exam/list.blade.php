@@ -95,7 +95,7 @@
                     <div class="col-md-6">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                Subject Performence Details
+                                School Performance
                             </div>
                             <div class="panel-body">
                                 <div class="row">
@@ -120,7 +120,7 @@
                     <div class="col-md-6">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                Subject Performence
+                                School Subject Performance
                             </div>
                             <div class="panel-body">
                                 <div class="row">
@@ -149,7 +149,7 @@
                         <div class="panel panel-info">
                             <div class="panel-heading">
                                 <div class="dropdown">
-                                    <label style="margin-right: 5px;"><h5>Class Performence:</h5></label>
+                                    <label style="margin-right: 5px;"><h5>Class Performance:</h5></label>
                                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{$exam->className}}
                                     <span class="caret"></span></button>
                                     <ul class="dropdown-menu">
@@ -182,7 +182,7 @@
                     <div class="col-md-6">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h5>Class Subject Performence</h5>
+                                <h5>Class Subject Performance</h5>
                             </div>
                             <div class="panel-body">
                                 <div class="row">
