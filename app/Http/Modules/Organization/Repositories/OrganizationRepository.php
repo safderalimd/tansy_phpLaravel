@@ -28,6 +28,17 @@ class OrganizationRepository extends Repository
         );
     }
 
+    public function getFacilityTypes()
+    {
+        return $this->select(
+            'SELECT
+                facility_type_id,
+                facility_type
+             FROM view_org_lkp_facility_type
+             ORDER BY facility_type ASC;'
+        );
+    }
+
     public function getOrganizations()
     {
         return $this->select(
@@ -68,6 +79,17 @@ class OrganizationRepository extends Repository
             ':iparam_city_area',
             ':iparam_city_id',
             ':iparam_postal_code',
+            ':iparam_create_new_facility',
+            ':iparam_facility_name',
+            ':iparam_facility_type_id',
+            ':iparam_facility_work_phone',
+            ':iparam_facility_mobile_phone',
+            ':iparam_facility_email',
+            ':iparam_facility_address1',
+            ':iparam_facility_address2',
+            ':iparam_facility_city_area',
+            ':iparam_facility_city_id',
+            ':iparam_facility_postal_code',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

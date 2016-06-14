@@ -26,11 +26,7 @@
                         <div class="col-sm-offset-4 col-sm-8">
                             <div class="checkbox">
                                 <label>
-                                    @if($organization->isNewRecord())
-                                        <input checked="checked" name="active" type="checkbox" disabled readonly> Active
-                                    @else
-                                        <input {{ c('active') }} name="active" type="checkbox"> Active
-                                    @endif
+                                    <input {{ c('active') }} name="active" type="checkbox"> Active
                                 </label>
                             </div>
                         </div>

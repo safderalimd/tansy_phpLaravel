@@ -19,4 +19,12 @@ class Organization extends Model
 
         return 0;
     }
+
+    public function setFacilityNewFlag()
+    {
+        $value = $this->create_new_facility;
+        $value = (!empty($value) || $value == 'on') ? 1 : 0;
+        $this->setAttribute('create_new_facility', $value);
+    }
+
 }

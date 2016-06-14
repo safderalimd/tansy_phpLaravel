@@ -27,7 +27,7 @@ class OrganizationController extends Controller
     public function create()
     {
         $organization = new Organization;
-        return view('modules.organization.Organization.form', compact('organization'));
+        return view('modules.organization.Organization.new-record', compact('organization'));
     }
 
     /**
@@ -40,9 +40,12 @@ class OrganizationController extends Controller
     {
         $input = $request->input();
         $input['city_area'] = $request->input('city_area_new');
+        $input['facility_city_area'] = $request->input('facility_city_area_new');
 
         $organization = new Organization($input);
+        $organization->setFacilityNewFlag();
         $organization->save();
+        flash('Organization Added!');
         return redirect('/cabinet/organizations');
     }
 
@@ -55,7 +58,7 @@ class OrganizationController extends Controller
     public function edit($id)
     {
         $organization = Organization::findOrFail($id);
-        return view('modules.organization.Organization.form', compact('organization'));
+        return view('modules.organization.Organization.edit-form', compact('organization'));
     }
 
     /**
@@ -73,6 +76,7 @@ class OrganizationController extends Controller
 
         $organization = new Organization($input);
         $organization->update();
+        flash('Organization Updated!');
         return redirect('/cabinet/organizations');
     }
 
@@ -86,6 +90,7 @@ class OrganizationController extends Controller
     {
         $organization = Organization::findOrFail($id);
         $organization->delete();
+        flash('Organization Deleted!');
         return redirect('/cabinet/organizations');
     }
 }
