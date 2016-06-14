@@ -71,4 +71,7 @@ a.selected {
 
 }
 
-
+.form-horizontal .checkbox.header-active-checkbox {
+    padding: 0px;
+    margin: 27px 0px 0px 0px;
+}

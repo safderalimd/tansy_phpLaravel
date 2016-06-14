@@ -9,5 +9,5 @@
 <link type="text/css" href="/bower_components/bootstrap-checkbox-x/css/checkbox-x.min.css" rel="stylesheet">
 
 <link href="/css/simple-sidebar.css" rel="stylesheet">
-<link href="/css/custom.css?v=2" rel="stylesheet" type="text/css">
+<link href="/css/custom.css?v=3" rel="stylesheet" type="text/css">
 

@@ -19,22 +19,21 @@
                     <form class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 
-                        <div class="form-group">
-                            <div class="col-sm-offset-4 col-sm-8">
-                                <div class="checkbox">
-                                    <label>
-                                        @if($account->isNewRecord())
-                                            <input checked="checked" name="active" type="checkbox" disabled readonly> Active
-                                        @else
-                                            <input {{ c('active') }} name="active" type="checkbox"> Active
-                                        @endif
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
 <hr/>
-<div class="row"><div class="col-md-3 pull-left"><h3>Header</h3></div></div>
+<div class="row">
+    <div class="col-md-4 pull-left"><h3>Header</h3></div>
+    <div class="col-md-4">
+        <div class="checkbox header-active-checkbox">
+            <label>
+                @if($account->isNewRecord())
+                    <input checked="checked" name="active" type="checkbox" disabled readonly> Active
+                @else
+                    <input {{ c('active') }} name="active" type="checkbox"> Active
+                @endif
+            </label>
+        </div>
+    </div>
+</div>
 
 
                         @include('commons.select', [
