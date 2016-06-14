@@ -38,6 +38,7 @@ class HolidaysRepository extends Repository
 
         $iparams = [
             ':iparam_facility_entity_id',
+            ':iparam_month_id',
             ':iparam_dateID_description_list',
             ':iparam_session_id',
             ':iparam_user_id',
