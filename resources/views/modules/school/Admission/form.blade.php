@@ -25,7 +25,7 @@
                         @include('commons.select', [
                             'label'   => 'Facility' ,
                             'name'    => 'facility_entity_id',
-                            'options' => $admission->facilities(),
+                            'options' => $admission->facilitiesForOwner(),
                             'keyId'   => 'facility_entity_id',
                             'keyName' => 'facility_name',
                         ])
