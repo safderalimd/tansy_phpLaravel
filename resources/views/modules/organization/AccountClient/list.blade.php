@@ -19,15 +19,20 @@
                 <thead>
                     <tr>
                         <th>Account Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Client Type <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Client Status <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>City Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Mobile Number <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+
                     @foreach($account->clients() as $item)
                     <tr>
                         <td>{{$item['account_name']}}</td>
+                        <td>{{$item['client_type']}}</td>
+                        <td>{{$item['client_satatus']}}</td>
                         <td>{{$item['city_name']}}</td>
                         <td>{{phone_number($item['mobile_phone'])}}</td>
                         <td>

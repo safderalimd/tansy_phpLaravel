@@ -13,7 +13,9 @@ class AccountClientRepository extends Repository
                 account_name,
                 city_name,
                 mobile_phone,
-                account_entity_id
+                account_entity_id,
+                client_type,
+                client_satatus
              FROM view_org_account_client_grid
              ORDER BY account_name ASC;'
         );
