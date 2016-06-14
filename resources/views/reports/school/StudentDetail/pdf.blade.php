@@ -23,6 +23,20 @@
             .table>tbody>tr>td.right-td {
                 padding: 0px 0px 0px 10px;
             }
+
+            body {
+                font-family: courier;
+                font-size: 14px;
+            }
+
+            .wrapper {
+                padding-left: 70px;
+                padding-bottom: 7px;
+                text-align: left;
+            }
+            td {
+                width: 300px;
+            }
         </style>
     </head>
     <body>
@@ -39,91 +53,98 @@
 
     <div class="container">
 
-        @include('reports.common.pdf-header', [
-            'school' => $export->schoolName,
-            'phone'  => $export->schoolWorkPhone,
-        ])
+        <strong>
 
-        @include('reports.common.report-name', ['report' => $export->reportName])
+            @include('reports.common.pdf-header', [
+                'school' => $export->schoolName,
+                'phone'  => $export->schoolWorkPhone,
+            ])
 
+            @include('reports.common.report-name', ['report' => $export->reportName])
+
+        </strong>
+
+        <div class="row"><div class="cold-md-12"><h4>Student Details</h4></div></div>
         <div class="row">
             <div class="col-md-12">
                 <table class="header-table">
                     <tr>
-                        <td class="text-left"><h4 class="">Date: {{current_date()}}</h4></td>
-                        <td class="text-right"><h4 class="">Time: {{current_time()}}</h4></td>
+                        <td class="text-left"><div class="wrapper"><strong>First Name:</strong><br/> {{$student['first_name']}}</div></td>
+                        <td class="text-right"><div class="wrapper"><strong>Last Name:</strong><br/> {{$student['last_name']}}</div></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left"><div class="wrapper"><strong>Date of Birth:</strong><br/> {{style_date($student['date_of_birth'])}}</div></td>
+                        <td class="text-right"><div class="wrapper"><strong>Gender:</strong><br/> {{$student['gender']}}</div></td>
                     </tr>
                 </table>
             </div>
         </div>
 
+        <div class="row"><div class="cold-md-12"><h4>Contact Details</h4></div></div>
         <div class="row">
             <div class="col-md-12">
-                <div class="well">
-                    <table class="table header-table">
-                        <tr>
-                            <td>
-                                <div class="">
-                                    <h2>Student</h2>
-                                    <h5><br/>Full Name: {{$student['student_full_name']}}
-                                    <br/>First Name: {{$student['first_name']}}
-                                    <br/>Middle Name: {{$student['middle_name']}}
-                                    <br/>Last Name: {{$student['last_name']}}
-                                    <br/>Gender: {{$student['gender']}}
-                                    <br/>Date of Birth: {{style_date($student['date_of_birth'])}}
-                                    <br/>Identification: {{$student['identification1']}} {{$student['identification2']}}
-                                    <br/>Caste Name: {{$student['caste_name']}}
-                                    <br/>Religion Name: {{$student['religion_name']}}
-                                    <br/>Mother Tongue: {{$student['mother_tounge']}}
-                                    </h5>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="">
-                                    <h2>Parent</h2>
-                                    <h5><br/>Full Name: {{$student['parent_full_name']}}
-                                    <br/>First Name: {{$student['parent_first_name']}}
-                                    <br/>Middle Name: {{$student['parent_middle_name']}}
-                                    <br/>Last Name: {{$student['parent_last_name']}}
-                                    <br/>Gender: {{$student['parent_gender']}}
-                                    <br/>Parent Relationship: {{$student['parent_relationship']}}
-                                    <br/>Designation: {{$student['parent_designation_name']}}
-                                    </h5>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                <table class="header-table">
+                    <tr>
+                        <td class="text-left"><div class="wrapper"><strong>Mobile Phone:</strong><br/>  {{phone_number($student['mobile_phone'])}}</div></td>
+                        <td class="text-right"><div class="wrapper"><strong>Home Phone:</strong><br/>  {{phone_number($student['home_phone'])}}</div></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left"><div class="wrapper"><strong>Email:</strong><br/> {{$student['email']}}</div></td>
+                        <td class="text-right"><div class="wrapper">&nbsp;</div></td>
+                    </tr>
+                </table>
             </div>
         </div>
 
+        <div class="row"><div class="cold-md-12"><h4>Home Address</h4></div></div>
         <div class="row">
             <div class="col-md-12">
-                <table class="table header-table">
+                <table class="header-table">
                     <tr>
-                        <td class="left-td">
-                            <div class="well">
-                                <h5>Class: {{$student['class_name']}}
-                                <br/><br/>Roll Number: {{$student['student_roll_number']}}
-                                <br/><br/>Admission Number: {{$student['admission_number']}}
-                                <br/><br/>Admission Date:  {{style_date($student['admission_date'])}}
-                                <br/><br/>Fiscal Year:  {{$student['fiscal_year']}}
-                                </h5>
-                            </div>
-                        </td>
-                        <td class="right-td">
-                            <div class="well">
-                                <h5>Address 1:   {{$student['address1']}}
-                                <br/><br/>Address 2:  {{$student['address2']}}
-                                <br/><br/>City:  {{$student['city_name']}}
-                                <br/><br/>City Area:  {{$student['city_area']}}
-                                <br/><br/>Postal:  {{$student['postal_code']}}
-                                <br/><br/>Mobile Phone:  {{phone_number($student['mobile_phone'])}}
-                                <br/><br/>Home Phone:  {{phone_number($student['home_phone'])}}
-                                <br/><br/>Email:  {{$student['email']}}
-                                </h5>
-                            </div>
-                        </td>
+                        <td class="text-left"><div class="wrapper"><strong>Address 1:</strong><br/> {{$student['address1']}}</div></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left"><div class="wrapper"><strong>Address 2:</strong><br/> {{$student['address2']}}</div></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="row"><div class="cold-md-12"><h4>Student Info</h4></div></div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="header-table">
+                    <tr>
+                        <td class="text-left"><div class="wrapper"><strong>Admission Number:</strong><br/> {{$student['admission_number']}}</div></td>
+                        <td class="text-right"><div class="wrapper"><strong>Admission Date:</strong><br/> {{style_date($student['admission_date'])}}</div></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left"><div class="wrapper"><strong>Admitted To:</strong><br/> {{$student['class_name']}}</div></td>
+                        <td class="text-right"><div class="wrapper"><strong>Current Class:</strong><br/> {{$student['class_name']}}</div></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left"><div class="wrapper"><strong>Roll Number:</strong><br/> {{$student['student_roll_number']}}</div></td>
+                        <td class="text-right"><div class="wrapper"><strong>Identification:</strong><br/> {{$student['identification1']}} {{$student['identification2']}}</div></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left"><div class="wrapper"><strong>Caste Name:</strong><br/> {{$student['caste_name']}}</div></td>
+                        <td class="text-right"><div class="wrapper"><strong>Religion Name:</strong><br/> {{$student['religion_name']}}</div></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left"><div class="wrapper"><strong>Communication Language:</strong><br/> {{$student['mother_tounge']}}</div></td>
+                        <td class="text-right"><div class="wrapper">&nbsp;</div></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="row"><div class="cold-md-12"><h4>Contact Details</h4></div></div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="header-table">
+                    <tr>
+                        <td class="text-left"><div class="wrapper"><strong>Parent Name:</strong><br/> {{$student['parent_full_name']}}</div></td>
+                        <td class="text-right"><div class="wrapper"><strong>Designation:</strong><br/> {{$student['parent_designation_name']}}</div></td>
                     </tr>
                 </table>
             </div>

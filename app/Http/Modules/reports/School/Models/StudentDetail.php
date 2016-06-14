@@ -12,7 +12,7 @@ class StudentDetail extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\reports\School\Repositories\StudentDetailRepository';
 
-    public $reportName = 'Student Detail';
+    public $reportName = 'Student Personal Detail Form';
 
     public $schoolName = '-';
 
