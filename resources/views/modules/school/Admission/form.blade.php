@@ -208,15 +208,6 @@
                             </div>
                         </div>
 
-                        @include('commons.select', [
-                            'label'   => 'Admitted To Class' ,
-                            'name'    => 'admitted_to_class_entity_id',
-                            'options' => $admission->classes(),
-                            'keyId'   => 'class_entity_id',
-                            'keyName' => 'class_name',
-                            'none'    => 'Select a class..',
-                        ])
-
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="student_roll_number">Roll Number</label>
                             <div class="col-md-8">
