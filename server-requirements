@@ -1,0 +1,9 @@
+Server Requirements - PHP 7.0 Packages:
+  - sudo apt-get install php7.0-zip (to load excels)
+  - sudo apt-get install php7.0-curl (for textlocal.in)
+  - sudo apt-get install php7.0-gd (for DOMPdf)
+  - sudo apt-get install php7.0-mbstring
+  - sudo apt-get install php-xml
+  - sudo apt-get install php-mysql
+  - sudo apt-get install php7.0-mysql
+  - sudo apt-get install php7.0-mcrypt
