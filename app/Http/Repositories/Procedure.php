@@ -133,11 +133,7 @@ class Procedure
 
     protected function getModelProperty($iparam)
     {
-        if (strpos($iparam, 'iparm_') !== false) {
-            $modelProperty = substr($iparam, 7);
-        } else {
-            $modelProperty = substr($iparam, 8);
-        }
+        $modelProperty = substr($iparam, 8);
 
         if ($this->model->{$modelProperty} === null) {
             return 'null';
