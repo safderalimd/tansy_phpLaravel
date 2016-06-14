@@ -219,14 +219,14 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="login_name">Login Name</label>
                             <div class="col-md-8">
-                                <input id="login_name" class="form-control" type="text" name="login_name" value="{{ v('login_name') }}" placeholder="Login Name">
+                                <input autocomplete="off" id="login_name" class="form-control" type="text" name="login_name" value="{{ v('login_name') }}" placeholder="Login Name">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="password">Password</label>
                             <div class="col-md-8">
-                                <input id="password" class="form-control" type="password" name="password" value="{{ v('password') }}" placeholder="Password">
+                                <input autocomplete="off" id="password" class="form-control" type="password" name="password" value="{{ v('password') }}" placeholder="Password">
                             </div>
                         </div>
 
