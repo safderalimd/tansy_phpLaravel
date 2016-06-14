@@ -134,12 +134,24 @@ class Procedure
     protected function getModelProperty($iparam)
     {
         $modelProperty = substr($iparam, 8);
+        $value = $this->model->{$modelProperty};
 
-        if ($this->model->{$modelProperty} === null) {
+        // send null to sproc if value is null
+        if ($value === null) {
             return 'null';
         }
 
-        return $this->pdo->quote($this->model->{$modelProperty});
+        // remove extra spaces
+        if (is_string($value)) {
+            $value = trim($value);
+        }
+
+        // convert empty strings to spaces
+        if ($value === '') {
+            return 'null';
+        }
+
+        return $this->pdo->quote($value);
     }
 
     protected function generateOparamsSelect()
