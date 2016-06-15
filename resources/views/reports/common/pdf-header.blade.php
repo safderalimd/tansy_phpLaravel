@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-4 logo-container">
-        <img src="{{storage_path('pdf/school-logo.png')}}" alt="School Image" class="school-logo text-right">
+        {{-- storage_path('pdf/school-logo.png') --}}
+        <img src="/images/school-logo.png" alt="School Image" class="school-logo text-right">
     </div>
     <div class="col-md-4 school-container">
         <h3 class="school-name text-center">{{$school}}</h3>
