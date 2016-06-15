@@ -42,6 +42,7 @@ class StudentDetailController extends Controller
         $dompdf->setPaper('A4', 'letter');
         $dompdf->render();
         $dompdf->stream('student-detail.pdf', ["Attachment" => false]);
+        exit(0);
 
         // $output = $dompdf->output();
         // return response($output)
