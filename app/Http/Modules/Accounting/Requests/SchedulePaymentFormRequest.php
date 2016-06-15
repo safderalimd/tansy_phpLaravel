@@ -24,17 +24,34 @@ class SchedulePaymentFormRequest extends Request
      */
     public function rules()
     {
-        return [
+        $rules = [
             'subject_entity_id' => 'required|integer',
             'product_entity_id' => 'required|integer',
             'frequency_id' => 'required|integer',
             'schedule_name' => 'required|string',
             'amount' => 'required|numeric',
             'start_date' => 'required|string|date',
-            'end_date' => 'required|string|date',
+            'end_date' => 'string|date',
             'due_date_days_value' => 'required|integer',
             'facility_ids' => 'required|integer',
         ];
+
+        if (!$this->isOneTimeFrequency()) {
+            $rules['end_date'] = 'required|' . $rules['end_date'];
+        }
+
+        return $rules;
+    }
+
+    public function isOneTimeFrequency()
+    {
+        $frequency = $this->input('hidden_frequency_text');
+        $frequency = trim($frequency);
+        $frequency = strtolower($frequency);
+        if ($frequency == 'onetime') {
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -16,7 +16,7 @@
 
                     @include('commons.errors')
 
-                    <form class="form-horizontal" action="{{ form_action() }}" method="POST">
+                    <form class="form-horizontal" id="payment-form" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 
                         <div class="form-group">
@@ -140,6 +140,8 @@
                             </div>
                         </div>
 
+                        <input type="hidden" name="hidden_frequency_text" id="hidden_frequency_text"/>
+
                         <div class="row">
                            <div class="col-md-12 text-center grid_footer">
                                 <button class="btn btn-primary grid_btn" type="submit">Save</button>
@@ -158,14 +160,21 @@
 @section('scripts')
 <script type="text/javascript">
 
-    // when Frequency is OneTime disable end time and populate it with start time
-    $('#frequency_id').change(function() {
-        var selectedOption = $("option:selected", this);
-        var frequency = $(selectedOption).text();
+    function isOneTimeFrequency() {
+        var frequency = $("#frequency_id option:selected").text();
         frequency = frequency.trim().split(' ').join('');
         frequency = frequency.toLowerCase();
 
         if (frequency == 'onetime') {
+            return true;
+        }
+
+        return false;
+    }
+
+    // when Frequency is OneTime disable end time and populate it with start time
+    $('#frequency_id').change(function() {
+        if (isOneTimeFrequency()) {
             $('#end_date').prop('disabled', true);
             $('#end-date-btn button').prop('disabled', true);
             $('#end_date').val($('#start_date').val());
@@ -184,6 +193,12 @@
     var allAccountOptions;
 
     function initAccountOptions() {
+        if (isOneTimeFrequency()) {
+            $('#end_date').prop('disabled', true);
+            $('#end-date-btn button').prop('disabled', true);
+            $('#end_date').val($('#start_date').val());
+        }
+
         allAccountOptions = $('#subject_entity_id option');
 
         var selectedAccountTypeId = $('#subject_entity_id option:selected').attr('data-entityTypeId');
@@ -237,6 +252,13 @@
 
     $(document).ready(function() {
         initAccountOptions();
+    });
+
+
+    // When submitting the form, prepend all selected checkboxes
+    $('#payment-form').submit(function() {
+        $('#hidden_frequency_text').val($("#frequency_id option:selected").text());
+        return true;
     });
 </script>
 @endsection
