@@ -16,21 +16,6 @@
 
             <form class="form-horizontal" action="" method="POST">
                 <div class="form-group">
-                    <label class="col-sm-3 col-md-2 control-label" for="">Date</label>
-                    <div class="col-sm-3 col-md-3">
-                        <div class="input-group date">
-                            <input id="absense_date" class="form-control" type="text" name="absense_date" value="{{$attendance->absense_date}}">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-md-2">
-                        <button id="update-date" type="button" class="btn btn-primary">Update Date</button>
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <label class="col-sm-3 col-md-2 control-label" for="account_types_entity_id">Account Types</label>
                     <div class="col-sm-3 col-md-3">
                         <select id="account_types_entity_id" class="form-control" name="account_types_entity_id">
@@ -39,6 +24,15 @@
                                 <option data-rowType="{{$option['row_type']}}" {{activeSelectByTwo($option['entity_id'], $option['row_type'], 'aei', 'art')}} value="{{ $option['entity_id'] }}">{{ $option['drop_down_list_name'] }}</option>
                             @endforeach
                         </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-2 control-label" for="">Date</label>
+                    <div class="col-md-8">
+                        <button type="button" class="btn button-circle btn-primary" id="previous-date-btn"><i class="glyphicon glyphicon-arrow-left"></i></button>
+                        <span id="absense_date" class="form-control">{{$attendance->absense_date}}</span>
+                        <button type="button" class="btn button-circle btn-primary" id="next-date-btn"><i class="glyphicon glyphicon-arrow-right"></i></button>
                     </div>
                 </div>
             </form>
@@ -107,8 +101,22 @@
         updateQueryString();
     });
 
+    function updateDateValue(days) {
+        var date = $('#absense_date').text();
+        date = new Date(date);
+        date.setDate(date.getDate() + parseInt(days));
+        var month = date.getMonth() + 1;
+        var newDate = date.getFullYear() + '-' + month + '-' + date.getDate();
+        $('#absense_date').text(newDate);
+    }
+
     // when the date changes redirect
-    $('#update-date').on('click', function() {
+    $('#previous-date-btn').on('click', function() {
+        updateDateValue(-1);
+        updateQueryString();
+    });
+    $('#next-date-btn').on('click', function() {
+        updateDateValue(1);
         updateQueryString();
     });
 
@@ -120,7 +128,7 @@
     function getQueryString() {
         var aei = $('#account_types_entity_id option:selected').val();
         var art = $('#account_types_entity_id option:selected').attr('data-rowType');
-        var dt = $('#absense_date').val();
+        var dt = $('#absense_date').text();
 
         var items = [];
         if (aei != "none") {
@@ -138,7 +146,7 @@
     }
 
     $('#update-attendance-form').submit(function() {
-        var date = $('#absense_date').val();
+        var date = $('#absense_date').text();
         $('#hidden_absense_date').val(date);
 
         var accountIds = $('.account_entity_id').map(function() {
