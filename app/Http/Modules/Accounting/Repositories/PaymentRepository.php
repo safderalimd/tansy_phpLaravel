@@ -17,6 +17,16 @@ class PaymentRepository extends Repository
         );
     }
 
+    public function getIsCashCounterClosed()
+    {
+        return $this->select(
+            'SELECT
+                closed_cash_counter_for_the_day
+             FROM view_act_rcv_lkp_closed_cash_counter_for_the_day
+             LIMIT 1;'
+        );
+    }
+
     public function getAllPayments($model)
     {
         $procedure = 'sproc_act_rcv_due_lst';

@@ -14,6 +14,8 @@
         $accountName = '-';
         $allRows = [];
     }
+
+    $isCashCounterClosed = $payment->isCashCounterClosed();
 ?>
 
 <div class="row">
@@ -28,6 +30,12 @@
                 <section class="form_panel">
 
                 @include('commons.errors')
+
+                @if ($isCashCounterClosed)
+                    <div class="alert alert-danger">
+                        <ul><li>The cash counter is closed!</li></ul>
+                    </div>
+                @endif
 
 <form class="form-horizontal" action="{{ form_action_full() }}" id="pay-now-form" method="POST">
     {{ csrf_field() }}
@@ -71,7 +79,7 @@
 
     <div class="row">
        <div class="col-md-6 col-md-offset-3 text-center">
-            <button style="margin:15px;" disabled="disabled" class="btn btn-primary btn-block btn-lg" id="pay-now-btn" type="submit">Pay Now</button>
+            <button style="margin:15px;" disabled="disabled" @if ($isCashCounterClosed) data-cashCounterClosed="1" @endif class="btn btn-primary btn-block btn-lg" id="pay-now-btn" type="submit">Pay Now</button>
         </div>
     </div>
 
@@ -134,6 +142,13 @@
 @section('scripts')
 <script type="text/javascript">
 
+    function enablePayNowButton() {
+        if ($('#pay-now-btn').attr('data-cashCounterClosed') == '1') {
+            return;
+        }
+        $('#pay-now-btn').prop('disabled', false);
+    }
+
     $('#pay-now-form').submit(function() {
         $('#pay-now-btn').prop('disabled', true);
         $('#id_new_balance').val(getNewBalance());
@@ -184,7 +199,7 @@
         if (newBalance < 0) {
             $('#pay-now-btn').prop('disabled', true);
         } else {
-            $('#pay-now-btn').prop('disabled', false);
+            enablePayNowButton();
         }
         $('#new-balance').text(addCommas(newBalance));
     }
@@ -219,7 +234,7 @@
         if (paidAmount <= 0) {
             $('#pay-now-btn').prop('disabled', true);
         } else {
-            $('#pay-now-btn').prop('disabled', false);
+            enablePayNowButton()
         }
     }
 

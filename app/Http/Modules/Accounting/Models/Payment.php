@@ -87,6 +87,18 @@ class Payment extends Model
         return (bool) $settings[0]['send_payment_sms'];
     }
 
+    // check if cash counter is closed
+    public function isCashCounterClosed()
+    {
+        $settings = $this->repository->getIsCashCounterClosed();
+
+        if (!isset($settings[0]['closed_cash_counter_for_the_day'])) {
+            return false;
+        }
+
+        return (bool) $settings[0]['closed_cash_counter_for_the_day'];
+    }
+
     public function getReceiptSmsTypeID()
     {
         $settings = $this->repository->getSmsReceiptSettings();
