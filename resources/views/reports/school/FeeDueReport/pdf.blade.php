@@ -42,6 +42,7 @@
                     <tr>
                         <th>Class</th>
                         <th>Student Name</th>
+                        <th>Parent Name</th>
                         <th>Mobile Phone</th>
                         <th>Due Amount</th>
                     </tr>
@@ -51,6 +52,7 @@
                     <tr>
                         <td>{{$row['class_name']}}</td>
                         <td>{{$row['student_full_name']}}</td>
+                        <td>{{$row['parent_full_name']}}</td>
                         <td>{{phone_number($row['mobile_phone'])}}</td>
                         <td>{{amount($row['due_amount'])}}</td>
                     </tr>
