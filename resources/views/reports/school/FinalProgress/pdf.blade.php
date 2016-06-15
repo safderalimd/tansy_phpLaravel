@@ -172,7 +172,7 @@
                 <tr>
                     <td class="text-left"><strong>No. of Working Days</strong></td>
                     <td class="text-left">{{$export->workingDays('Jun')}}</td>
-                    <td class="text-left">{{$export->workingDays('July')}}</td>
+                    <td class="text-left">{{$export->workingDays('Jul')}}</td>
                     <td class="text-left">{{$export->workingDays('Aug')}}</td>
                     <td class="text-left">{{$export->workingDays('Sep')}}</td>
                     <td class="text-left">{{$export->workingDays('Oct')}}</td>
@@ -186,7 +186,7 @@
                 <tr>
                     <td class="text-left"><strong>No. of Present Days</strong></td>
                     <td class="text-left"><strong>{{$export->presentDays('Jun')}}</strong></td>
-                    <td class="text-left"><strong>{{$export->presentDays('July')}}</strong></td>
+                    <td class="text-left"><strong>{{$export->presentDays('Jul')}}</strong></td>
                     <td class="text-left"><strong>{{$export->presentDays('Aug')}}</strong></td>
                     <td class="text-left"><strong>{{$export->presentDays('Sep')}}</strong></td>
                     <td class="text-left"><strong>{{$export->presentDays('Oct')}}</strong></td>

@@ -4,6 +4,11 @@
         <title>Fee Due Report</title>
         @include('reports.common.bootstrap')
         @include('reports.common.css')
+        <style type="text/css">
+            body {
+                font-size: 12px;
+            }
+        </style>
     </head>
     <body>
 
