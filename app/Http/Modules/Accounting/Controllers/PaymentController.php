@@ -136,6 +136,7 @@ class PaymentController extends Controller
         $accountIds = $messages[0]['account_entity_id'] . '-' . $messages[0]['mobile_phone'] . '-' . $messages[0]['api_status'];
 
         $data = [
+            'screen_id' => $payment->getScreenId(),
             'totalSmsInBatch' => $totalSmsInBatch,
             'accountIds' => $accountIds,
             'creditsUsed' => $creditsUsed,

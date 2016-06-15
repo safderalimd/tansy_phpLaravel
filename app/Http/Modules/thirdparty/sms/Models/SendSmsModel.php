@@ -52,6 +52,10 @@ class SendSmsModel extends Model
     {
         $model = new static;
 
+        if (isset($data['screen_id'])) {
+            $model->setAttribute('screen_id', $data['screen_id']);
+        }
+
         $model->setAttribute('send_datetime', date('Y-m-d'));
         $model->setAttribute('provider_name', 'Text Local');
 
