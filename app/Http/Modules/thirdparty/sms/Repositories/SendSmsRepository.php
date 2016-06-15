@@ -120,7 +120,7 @@ class SendSmsRepository extends Repository
 
     public function generalSmsResults($model)
     {
-        $procedure = 'sproc_sch_student_list';
+        $procedure = 'sproc_sms_send_list_for_generic_sms';
 
         $iparams = [
             ':iparam_filter_type',
