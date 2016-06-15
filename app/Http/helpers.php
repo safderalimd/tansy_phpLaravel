@@ -146,6 +146,11 @@ function nr($number)
     return number_format(floatval($number), 0);
 }
 
+function marks($marks)
+{
+    return intval($marks);
+}
+
 /**
  * Dump function
  */

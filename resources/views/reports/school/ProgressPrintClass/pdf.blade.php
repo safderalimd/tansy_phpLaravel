@@ -79,13 +79,13 @@
                         @foreach($export->subjectList as $subject)
                             <td class="text-left">
                                 @if (isset($row[$subject]))
-                                    {{$row[$subject]}}
+                                    {{marks($row[$subject])}}
                                 @else
                                     -
                                 @endif
                             </td>
                         @endforeach
-                        <td class="text-left">{{$row['student_total_marks']}}</td>
+                        <td class="text-left">{{marks($row['student_total_marks'])}}</td>
                         <td class="text-left">{{$row['grade']}}</td>
                         <td class="text-left">{{$row['pass_fail']}}</td>
                     </tr>

@@ -75,7 +75,7 @@
                             @foreach($export->exams as $exam)
                                 <td class="text-left">
                                     @if (isset($subject[$exam]))
-                                        {{$subject[$exam]}}
+                                        {{marks($subject[$exam])}}
                                     @else
                                         -
                                     @endif
@@ -90,7 +90,7 @@
                             @foreach($export->exams as $exam)
                                 <td class="text-left">
                                     @if (isset($export->subjectsTotal[$exam]))
-                                        <strong>{{$export->subjectsTotal[$exam]}}</strong>
+                                        <strong>{{marks($export->subjectsTotal[$exam])}}</strong>
                                     @else
                                         -
                                     @endif
@@ -137,7 +137,6 @@
                 <table class="header-table">
                     <tr>
                         <td class="text-left first-td"><h4>Overall Grade: <strong>{{$export->overallGrade}}</strong></h4></td>
-                        {{-- <td class="text-right first-td"><h4>Result: <strong>-</strong></h4></td> --}}
                     </tr>
                 </table>
             </div>

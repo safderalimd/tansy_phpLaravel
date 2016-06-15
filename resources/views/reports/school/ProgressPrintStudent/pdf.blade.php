@@ -64,8 +64,8 @@
                     @foreach($subjects as $subject)
                     <tr>
                         <td class="text-left">{{$subject['subject']}}</td>
-                        <td class="text-left">{{$subject['max_marks']}}</td>
-                        <td class="text-left">{{$subject['student_marks']}}</td>
+                        <td class="text-left">{{marks($subject['max_marks'])}}</td>
+                        <td class="text-left">{{marks($subject['student_marks'])}}</td>
                         <td class="text-left">{{$subject['pass_fail']}}</td>
                     </tr>
                     @endforeach
@@ -78,8 +78,8 @@
             <div class="col-md-12">
                 <table class="header-table">
                     <tr>
-                        <td class="text-left first-td"><h4>Max Total: <strong>{{$row['max_total_marks']}}</strong></h4></td>
-                        <td class="text-left"><h4>Student Total: <strong>{{$row['student_total_marks']}}</strong></h4></td>
+                        <td class="text-left first-td"><h4>Max Total: <strong>{{marks($row['max_total_marks'])}}</strong></h4></td>
+                        <td class="text-left"><h4>Student Total: <strong>{{marks($row['student_total_marks'])}}</strong></h4></td>
                     </tr>
                     <tr>
                         <td class="text-left first-td"><h4>Percentage: <strong>{{$row['score_percent']}}</strong></h4></td>
