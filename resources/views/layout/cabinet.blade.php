@@ -90,15 +90,15 @@
     $( document ).ready(function() {
 
         // show and remove flash message
-        // $('.flash-message').fadeIn(300).delay(2800)
-        //     .animate(
-        //         {marginRight: "-100%"},
-        //         300,
-        //         "swing",
-        //         function() {
-        //             $(this).remove();
-        //         }
-        //     );
+        $('.flash-message').fadeIn(300).delay(2800)
+            .animate(
+                {marginRight: "-100%"},
+                300,
+                "swing",
+                function() {
+                    $(this).remove();
+                }
+            );
 
 
         $('.date').datepicker({
