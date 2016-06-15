@@ -48,6 +48,7 @@ class ClientVisitController extends Controller
         $client->setFlags();
 
         $client->save();
+        flash('Client Visit Added!');
         return redirect('/cabinet/client-visit');
     }
 
@@ -74,6 +75,7 @@ class ClientVisitController extends Controller
     {
         $client = ClientVisit::findOrFail($id);
         $client->update($request->input());
+        flash('Client Visit Updated!');
         return redirect('/cabinet/client-visit');
     }
 
@@ -87,6 +89,7 @@ class ClientVisitController extends Controller
     {
         $client = ClientVisit::findOrFail($id);
         $client->delete();
+        flash('Client Visit Deleted!');
         return redirect('/cabinet/client-visit');
     }
 }

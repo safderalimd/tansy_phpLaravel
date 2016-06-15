@@ -33,6 +33,7 @@ class ClassSubjectMapController extends Controller
         $subject->setAttribute('class_entity_id', $classId);
         $subject->setAttribute('subject_entity_id', $subjectId);
         $subject->map();
+        flash('Subject Mapped!');
         return redirect('/cabinet/class-subject-map');
     }
 
@@ -50,6 +51,7 @@ class ClassSubjectMapController extends Controller
         $subject->setAttribute('class_entity_id', $classId);
         $subject->setAttribute('subject_entity_id', $subjectId);
         $subject->delete();
+        flash('Password Deleted!');
         return redirect('/cabinet/class-subject-map');
     }
 }

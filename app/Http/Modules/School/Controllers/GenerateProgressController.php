@@ -34,6 +34,7 @@ class GenerateProgressController extends Controller
         $progress = new GenerateProgress($request->input());
         $progress->setAttribute('class_entity_id', null);
         $progress->generate();
+        flash('Progress Generated!');
         return redirect('/cabinet/generate-progress');
     }
 
@@ -47,6 +48,7 @@ class GenerateProgressController extends Controller
     {
         $progress = new GenerateProgress($request->input());
         $progress->generate();
+        flash('Progress Generated!');
         return redirect('/cabinet/generate-progress');
     }
 
@@ -60,6 +62,7 @@ class GenerateProgressController extends Controller
     {
         $progress = new GenerateProgress($request->input());
         $progress->generate();
+        flash('Progress Regenerated!');
         return redirect('/cabinet/generate-progress');
     }
 }

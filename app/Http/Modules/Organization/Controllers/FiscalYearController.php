@@ -43,6 +43,7 @@ class FiscalYearController extends Controller
         $fiscalYear->setAttribute('current_fiscal_year', 0);
 
         $fiscalYear->save($request->input());
+        flash('Fiscal Year Added!');
         return redirect('/cabinet/fiscal-year');
     }
 
@@ -73,6 +74,7 @@ class FiscalYearController extends Controller
         $fiscalYear->setAttribute('current_fiscal_year', 0);
 
         $fiscalYear->update($request->input());
+        flash('Fiscal Year Updated!');
         return redirect('/cabinet/fiscal-year');
     }
 
@@ -85,8 +87,8 @@ class FiscalYearController extends Controller
     public function destroy($id)
     {
         $fiscalYear = FiscalYear::findOrFail($id);
-
         $fiscalYear->delete();
+        flash('Fiscal Year Deleted!');
         return redirect('/cabinet/fiscal-year');
     }
 }

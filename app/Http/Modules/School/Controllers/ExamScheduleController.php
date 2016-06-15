@@ -35,6 +35,7 @@ class ExamScheduleController extends Controller
     {
         $schedule = new ExamSchedule($request->input());
         $schedule->mapSubjects();
+        flash('Subjects Mapped!');
         return redirect('/cabinet/exam-schedule');
     }
 
@@ -48,6 +49,7 @@ class ExamScheduleController extends Controller
     {
         $schedule = new ExamSchedule($request->input());
         $schedule->scheduleRows();
+        flash('Exam Scheduled!');
         return redirect('/cabinet/exam-schedule');
     }
 
@@ -62,6 +64,7 @@ class ExamScheduleController extends Controller
     {
         $schedule = new ExamSchedule($request->input());
         $schedule->delete();
+        flash('Exam Deleted!');
         return redirect('/cabinet/exam-schedule');
     }
 }

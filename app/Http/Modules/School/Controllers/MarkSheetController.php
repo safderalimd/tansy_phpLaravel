@@ -46,6 +46,7 @@ class MarkSheetController extends Controller
     {
         $markSheet = new MarkSheet($request->input());
         $markSheet->lock();
+        flash('Marksheet Locked!');
         return redirect('/cabinet/mark-sheet');
     }
 
@@ -59,6 +60,7 @@ class MarkSheetController extends Controller
     {
         $markSheet = new MarkSheet($request->input());
         $markSheet->unlock();
+        flash('Marksheet Unlocked!');
         return redirect('/cabinet/mark-sheet');
     }
 
@@ -72,6 +74,7 @@ class MarkSheetController extends Controller
     {
         $markSheet = new MarkSheet($request->input());
         $markSheet->saveMarksheet();
+        flash('Marksheet Added!');
         return redirect('/cabinet/mark-sheet');
     }
 }

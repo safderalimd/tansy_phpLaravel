@@ -45,6 +45,7 @@ class AdmissionController extends Controller
 
         $admission = new Admission($input);
         $admission->save();
+        flash('Admission Added!');
         return redirect('/cabinet/admission');
     }
 
@@ -76,6 +77,7 @@ class AdmissionController extends Controller
         $admission = Admission::findOrFail($id);
         $admission->fill($input);
         $admission->update($input);
+        flash('Admission Updated!');
         return redirect('/cabinet/admission');
     }
 
@@ -89,6 +91,7 @@ class AdmissionController extends Controller
     {
         $admission = Admission::findOrFail($id);
         $admission->delete();
+        flash('Admission Deleted!');
         return redirect('/cabinet/admission');
     }
 
@@ -102,6 +105,7 @@ class AdmissionController extends Controller
     {
         $admission = new Admission($request->input());
         $admission->moveStudents();
+        flash('Students Moved!');
         return redirect('/cabinet/admission');
     }
 }

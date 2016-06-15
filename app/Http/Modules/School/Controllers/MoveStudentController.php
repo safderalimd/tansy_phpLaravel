@@ -29,6 +29,7 @@ class MoveStudentController extends Controller
     {
         $move = new MoveStudent($request->input());
         $move->move();
+        flash('Students Moved!');
         return redirect('/cabinet/move-student');
     }
 }

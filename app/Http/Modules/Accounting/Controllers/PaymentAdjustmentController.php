@@ -34,6 +34,24 @@ class PaymentAdjustmentController extends Controller
      */
     public function add(Request $request)
     {
+        flash('Payment Adjustment Added!');
+        return $this->process($request);
+    }
+
+    /**
+     * Edit form.
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request)
+    {
+        flash('Payment Adjustment Updated!');
+        return $this->process($request);
+    }
+
+    public function process(Request $request)
+    {
         $adjustment = new PaymentAdjustment($request->input());
         $processForm = $request->input('process_form');
 
@@ -64,17 +82,6 @@ class PaymentAdjustmentController extends Controller
     }
 
     /**
-     * Edit form.
-     *
-     * @param  Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request)
-    {
-        return $this->add($request);
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  Request $request
@@ -84,6 +91,7 @@ class PaymentAdjustmentController extends Controller
     {
         $adjustment = new PaymentAdjustment($request->input());
         $adjustment->delete();
+        flash('Payment Adjustment Deleted!');
         return \Redirect::back();
     }
 }

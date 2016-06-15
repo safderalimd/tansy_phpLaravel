@@ -45,7 +45,7 @@ class AccountEmployeeController extends Controller
         $account->setAttribute('active', 0);
         $account->setAttribute('login_active', 0);
         $account->save($input);
-        flash('Employee Created!');
+        flash('Employee Added!');
         return redirect('/cabinet/account-employee');
     }
 

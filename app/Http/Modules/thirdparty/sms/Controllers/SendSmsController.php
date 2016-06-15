@@ -48,14 +48,16 @@ class SendSmsController extends Controller
     {
         $this->validate($request, ['student_ids' => 'required|string']);
         $sms = new SendSmsFeeDue($request->input());
+        flash('Fee Due SMS Sent!');
         return $this->sendSmsToStudents($sms, $request->input('student_ids'));
     }
 
-    public function sendAttendence(Request $request)
+    public function sendAttendance(Request $request)
     {
         $this->validate($request, ['student_ids' => 'required|string']);
         $this->validate($request, ['hidden_absense_date' => 'required|string|max:20']);
         $sms = new SendSmsAttendance($request->input());
+        flash('Attendance SMS Sent!');
         return $this->sendSmsToStudents($sms, $request->input('student_ids'));
     }
 
@@ -63,6 +65,7 @@ class SendSmsController extends Controller
     {
         $this->validate($request, ['student_ids' => 'required|string']);
         $sms = new SendSmsExam($request->input());
+        flash('Exam Results SMS Sent!');
         return $this->sendSmsToStudents($sms, $request->input('student_ids'));
     }
 
@@ -70,6 +73,7 @@ class SendSmsController extends Controller
     {
         $this->validate($request, ['student_ids' => 'required|string']);
         $sms = new SendSmsExamSchedule($request->input());
+        flash('Exam Schedule SMS Sent!');
         return $this->sendSmsToStudents($sms, $request->input('student_ids'));
     }
 
@@ -80,6 +84,7 @@ class SendSmsController extends Controller
         $sms = new SendSmsGeneral($request->input());
 
         $text = $request->input('common_message');
+        flash('General SMS Sent!');
         return $this->sendSmsToStudents($sms, $request->input('student_ids'), true, $text);
     }
 
