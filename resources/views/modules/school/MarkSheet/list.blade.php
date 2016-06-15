@@ -56,8 +56,8 @@
                 <td>
                     @if (is_locked($item['locked']))
                         <a class="btn btn-default formConfirm" href="{{url("/cabinet/mark-sheet/unlock?eid={$item['exam_entity_id']}&cid={$item['class_entity_id']}&sid={$item['subject_entity_id']}")}}"
-                           title="Unclock"
-                           data-title="Unclock Mark Sheet"
+                           title="Unlock"
+                           data-title="Unlock Mark Sheet"
                            data-message="Are you sure to unlock the selected record?"
                         >Unlock
                         </a>
