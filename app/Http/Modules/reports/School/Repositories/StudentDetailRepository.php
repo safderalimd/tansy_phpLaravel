@@ -80,7 +80,8 @@ class StudentDetailRepository extends Repository
                 parent_designation_id,
                 parent_gender,
                 parent_designation_name,
-                class_reporting_order
+                class_reporting_order,
+                admitted_to_class_group
              FROM view_sch_student_detail
              WHERE student_entity_id = :id;',
              ['id' => $id]

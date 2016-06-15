@@ -119,7 +119,7 @@
                         <td class="text-right"><div class="wrapper"><strong>Admission Date:</strong><br/> {{style_date($student['admission_date'])}}</div></td>
                     </tr>
                     <tr>
-                        <td class="text-left"><div class="wrapper"><strong>Admitted To:</strong><br/> {{$student['class_name']}}</div></td>
+                        <td class="text-left"><div class="wrapper"><strong>Admitted To:</strong><br/> {{$student['admitted_to_class_group']}}</div></td>
                         <td class="text-right"><div class="wrapper"><strong>Current Class:</strong><br/> {{$student['class_name']}}</div></td>
                     </tr>
                     <tr>
