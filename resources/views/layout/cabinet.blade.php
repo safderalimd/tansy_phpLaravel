@@ -18,6 +18,7 @@
             line-height: 1.6em;
             font-family: Lato, sans-serif;
             display: none;
+            z-index: 10000;
         }
         .flash-message .material-icons {
             margin-right: 8px;
@@ -89,15 +90,15 @@
     $( document ).ready(function() {
 
         // show and remove flash message
-        $('.flash-message').fadeIn(300).delay(2800)
-            .animate(
-                {marginRight: "-100%"},
-                300,
-                "swing",
-                function() {
-                    $(this).remove();
-                }
-            );
+        // $('.flash-message').fadeIn(300).delay(2800)
+        //     .animate(
+        //         {marginRight: "-100%"},
+        //         300,
+        //         "swing",
+        //         function() {
+        //             $(this).remove();
+        //         }
+        //     );
 
 
         $('.date').datepicker({
