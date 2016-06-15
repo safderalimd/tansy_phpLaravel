@@ -14,8 +14,7 @@
 
             @include('commons.errors')
 
-            {{-- target="_blank" --}}
-            <form class="form-horizontal" id="generate-report-form" action="/cabinet/pdf---student-detail/student-detail.pdf" method="GET">
+            <form class="form-horizontal" target="_blank" id="generate-report-form" action="/cabinet/pdf---student-detail/student-detail.pdf" method="GET">
                 <input type="hidden" id="random_id" name="ri" value="">
 
                 <div class="form-group">
