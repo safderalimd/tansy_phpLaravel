@@ -128,7 +128,7 @@ function current_date()
 
 function current_time()
 {
-    return date('H:i A');
+    return date('h:i A');
 }
 
 function amount($amount)

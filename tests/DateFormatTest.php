@@ -10,6 +10,6 @@ class DateFormatTest extends TestCase
     public function it_styles_date()
     {
         $date = '2016-02-14';
-        $this->assertEquals('February 14th, 2016', style_date($date));
+        $this->assertEquals('Feb 14th, 2016', style_date($date));
     }
 }
