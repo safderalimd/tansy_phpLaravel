@@ -33,16 +33,8 @@
                             </div>
                         </div>
 
-                        @include('commons.select', [
-                            'label'   => 'Facility Type' ,
-                            'name'    => 'facility_ids',
-                            'options' => $payment->facilities(),
-                            'keyId'   => 'facility_entity_id',
-                            'keyName' => 'facility_name',
-                        ])
-
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="facility_ids">Facility</label>
+                            <label class="col-md-4 control-label" for="facility_ids">Facility Type</label>
                             <div class="col-md-8">
                                 <?php
                                     if (!is_array($payment->selectedFacilities)) {
