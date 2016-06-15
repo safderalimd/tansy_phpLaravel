@@ -73,7 +73,7 @@ class Payment extends Model
     public function setCollectionFilter($id)
     {
         if (empty($id)) {
-            $this->setAttribute('filter_type', 'Current week');
+            $this->setAttribute('filter_type', 'Today');
         } elseif ($id == 1) {
             $this->setAttribute('filter_type', 'Current week');
         } elseif ($id == 2) {
@@ -82,6 +82,8 @@ class Payment extends Model
             $this->setAttribute('filter_type', 'Current Quarter');
         } elseif ($id == 4) {
             $this->setAttribute('filter_type', 'Current Fiscal Year');
+        } elseif ($id == 5) {
+            $this->setAttribute('filter_type', 'Today');
         }
     }
 
