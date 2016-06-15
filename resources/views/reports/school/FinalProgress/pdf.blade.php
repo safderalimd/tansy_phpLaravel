@@ -158,7 +158,7 @@
                 <tr>
                     <td class="text-left"><strong>Name of the Month</strong></td>
                     <td class="text-left">Jun</td>
-                    <td class="text-left">July</td>
+                    <td class="text-left">Jul</td>
                     <td class="text-left">Aug</td>
                     <td class="text-left">Sep</td>
                     <td class="text-left">Oct</td>
