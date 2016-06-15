@@ -21,6 +21,7 @@
                     <label class="col-md-1 control-label">Class</label>
                     <div class="col-md-3">
                         <select id="class_entity_id" class="form-control" name="ci">
+                            <option value="none">Select a class..</option>
                             @foreach($export->classes() as $option)
                                 <option value="{{ $option['class_entity_id'] }}">{{ $option['class_name'] }}</option>
                             @endforeach
@@ -71,9 +72,11 @@
     }
 
     function populateStudentsSelectbox(accounts) {
+        $('#student_entity_id').prepend('<option value="none">Select a student...</option>');
         $(accounts).each(function() {
             $('#student_entity_id').append($(this));
         });
+        $('#student_entity_id option[value=none]').prop('selected', 'selected');
     }
 
     function updateStudents() {
@@ -99,6 +102,16 @@
     });
 
     $('#generate-report-form').submit(function() {
+        if ($('#class_entity_id option:selected').val() == 'none') {
+            alert('Select a class.');
+            return false;
+        }
+
+        if ($('#student_entity_id option:selected').val() == 'none') {
+            alert('Select a student.');
+            return false;
+        }
+
         $('#random_id').val(Date.now());
         return true;
     });
