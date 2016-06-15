@@ -17,18 +17,14 @@
         <form class="form-horizontal" action="{{form_action_full()}}" method="POST">
             {{ csrf_field() }}
             <div class="form-group">
+
                 <label class="col-xs-3 col-md-1 control-label" for="">Date</label>
-                <div class="col-xs-5 col-md-2">
-                    <div class="input-group date">
-                        <input id="absense_date" class="form-control" type="text" name="absense_date" value="{{$sms->absense_date}}">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>
-                        </span>
-                    </div>
+                <div class="col-xs-9 col-md-4">
+                    <button type="button" class="btn button-circle btn-primary" id="previous-date-btn"><i class="glyphicon glyphicon-arrow-left"></i></button>
+                    <span id="absense_date" class="next-prev-date-container form-control">{{$sms->absense_date}}</span>
+                    <button type="button" class="btn button-circle btn-primary" id="next-date-btn"><i class="glyphicon glyphicon-arrow-right"></i></button>
                 </div>
-                <div class="col-xs-4 col-md-2">
-                    <button id="update-date" type="submit" class="btn btn-primary">Update Results</button>
-                </div>
+
 
                 <div class="col-xs-4 col-xs-offset-0 col-sm-10 col-md-3 col-md-offset-3">
                     <h4 class="text-right">SMS Balance:</h4>
@@ -96,6 +92,34 @@
 @section('scripts')
 <script type="text/javascript">
 
+    function updateDateValue(days) {
+        var date = $('#absense_date').text();
+        date = new Date(date);
+        date.setDate(date.getDate() + parseInt(days));
+        var month = ('0' + (date.getMonth() + 1)).slice(-2)
+        var day = ('0' + date.getDate()).slice(-2);
+        var newDate = date.getFullYear() + '-' + month + '-' + day;
+        $('#absense_date').text(newDate);
+    }
+
+    function getQueryString() {
+        return '?dt='+encodeURIComponent($('#absense_date').text());
+    }
+
+    function updateQueryString() {
+        window.location.href = window.location.href.split('?')[0] + getQueryString();
+    }
+
+    // when the date changes redirect
+    $('#previous-date-btn').on('click', function() {
+        updateDateValue(-1);
+        updateQueryString();
+    });
+    $('#next-date-btn').on('click', function() {
+        updateDateValue(1);
+        updateQueryString();
+    });
+
     // create datatale with checkbox column unsortable
     $('#sms-table').DataTable( {
        "aoColumnDefs": [
@@ -147,7 +171,7 @@
     });
 
     $('#send-sms-form').submit(function() {
-        var date = $('#absense_date').val();
+        var date = $('#absense_date').text();
         $('#hidden_absense_date').val(date);
 
         var accountIds = $('.account-entity-id:checked').map(function() {

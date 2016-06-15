@@ -18,6 +18,10 @@ class SendSmsAttendance extends SendSmsModel
 
         $this->smsBalanceCount = $this->smsBalanceCount();
 
+        if (isset($this->dt)) {
+            $this->setAttribute('absense_date', $this->dt);
+        }
+
         if (!isset($this->absense_date)) {
             $this->setAttribute('absense_date', date('Y-m-j'));
         }

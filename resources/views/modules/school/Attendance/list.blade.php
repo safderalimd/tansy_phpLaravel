@@ -31,7 +31,7 @@
                     <label class="col-sm-3 col-md-2 control-label" for="">Date</label>
                     <div class="col-md-8">
                         <button type="button" class="btn button-circle btn-primary" id="previous-date-btn"><i class="glyphicon glyphicon-arrow-left"></i></button>
-                        <span id="absense_date" class="form-control">{{$attendance->absense_date}}</span>
+                        <span id="absense_date" class="next-prev-date-container form-control">{{$attendance->absense_date}}</span>
                         <button type="button" class="btn button-circle btn-primary" id="next-date-btn"><i class="glyphicon glyphicon-arrow-right"></i></button>
                     </div>
                 </div>
@@ -105,8 +105,9 @@
         var date = $('#absense_date').text();
         date = new Date(date);
         date.setDate(date.getDate() + parseInt(days));
-        var month = date.getMonth() + 1;
-        var newDate = date.getFullYear() + '-' + month + '-' + date.getDate();
+        var month = ('0' + (date.getMonth() + 1)).slice(-2)
+        var day = ('0' + date.getDate()).slice(-2);
+        var newDate = date.getFullYear() + '-' + month + '-' + day;
         $('#absense_date').text(newDate);
     }
 

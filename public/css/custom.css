@@ -87,7 +87,7 @@ a.selected {
     margin-bottom: 2px;
 }
 
-#absense_date {
+.next-prev-date-container {
     display: inline-block;
     width: 100px;
     margin-left: 10px;
