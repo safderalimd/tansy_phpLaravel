@@ -39,7 +39,7 @@
                     <select id="sms_account_entity_id" class="form-control" name="sms_account_entity_id">
                         <option value="none">Select an account</option>
                         @foreach($sms->smsAccountTypes as $option)
-                            <option data-rowType="{{$option['row_type']}}" {{ activeSelect($option['entity_id'], 'aei') }} value="{{ $option['entity_id'] }}">{{ $option['drop_down_list_name'] }}</option>
+                            <option data-rowType="{{$option['row_type']}}" {{activeSelectByTwo($option['entity_id'], $option['row_type'], 'aei', 'art')}} value="{{ $option['entity_id'] }}">{{ $option['drop_down_list_name'] }}</option>
                         @endforeach
                     </select>
                 </div>
