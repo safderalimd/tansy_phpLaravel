@@ -51,7 +51,7 @@ class ClassSubjectMapController extends Controller
         $subject->setAttribute('class_entity_id', $classId);
         $subject->setAttribute('subject_entity_id', $subjectId);
         $subject->delete();
-        flash('Password Deleted!');
+        flash('Subject Map Deleted!');
         return redirect('/cabinet/class-subject-map');
     }
 }
