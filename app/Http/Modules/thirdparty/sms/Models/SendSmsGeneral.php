@@ -31,7 +31,7 @@ class SendSmsGeneral extends SendSmsModel
 
         $this->generalSmsTypes = $this->generalSmsTypes();
         $this->smsBalanceCount = $this->smsBalanceCount();
-        $this->smsAccountTypes = $this->repository->getSmsAccountTypes();
+        $this->smsAccountTypes = $this->repository->getAccountTypeFilter();
     }
 
     public function rows()
