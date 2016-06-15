@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\School\Models\StudentDetail;
 use App\Http\PdfGenerator\Pdf;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 
 class StudentDetailController extends Controller
 {
@@ -32,17 +30,7 @@ class StudentDetailController extends Controller
     {
         $export = new StudentDetail($request->input());
         $export->loadPdfData();
-        return view('reports.school.StudentDetail.pdf', compact('export'));
-
-        // return Pdf::render($view);
-
-        // $html = $view->render();
-
-        // $dompdf = new Dompdf();
-        // $dompdf->loadHtml($html);
-        // $dompdf->setPaper('A4', 'letter');
-        // $dompdf->render();
-        // $dompdf->stream('student-detail'.uniqid().'.pdf', ["Attachment" => false]);
-        // exit(0);
+        $view = view('reports.school.StudentDetail.pdf', compact('export'));
+        return Pdf::render($view);
     }
 }
