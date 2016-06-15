@@ -23,7 +23,7 @@
                     <div class="col-md-12">
                         <div class="row">
 
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="panel panel-default">
                                     <div class="panel-body bk-info text-light">
                                         <div class="stat-panel text-center">
@@ -39,7 +39,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="panel panel-default">
                                     <div class="panel-body bk-danger text-light">
                                         <div class="stat-panel text-center">
@@ -54,13 +54,13 @@
                                     <a class="block-anchor panel-footer text-center" href="/cabinet/exam-dashboard/failed-students?eei={{$exam->exam_entity_id}}">Full Details &nbsp;<i class="fa fa-arrow-right"></i></a>
                                 </div>
                             </div>
-
+<!--
                             <div class="col-md-3">
                                 <div class="panel panel-default">
                                     <div class="panel-body bk-warning text-light">
                                         <div class="stat-panel text-center">
                                             <div class="stat-panel-number h1">
-                                                {{nr($exam->absentee_students)}}
+                                                {{-- nr($exam->absentee_students) --}}
                                             </div>
                                             <div class="stat-panel-title text-uppercase">
                                                 Absentees
@@ -70,8 +70,8 @@
                                     <a class="block-anchor panel-footer text-center" href="/cabinet/exam-dashboard/absentees?eei={{$exam->exam_entity_id}}">Full Details &nbsp;<i class="fa fa-arrow-right"></i></a>
                                 </div>
                             </div>
-
-                            <div class="col-md-3">
+-->
+                            <div class="col-md-4">
                                 <div class="panel panel-default">
                                     <div class="panel-body bk-success text-light">
                                         <div class="stat-panel text-center">
