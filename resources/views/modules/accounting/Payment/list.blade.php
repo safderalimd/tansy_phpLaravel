@@ -23,13 +23,13 @@
                                         <select id="exam_account_type_4_receivable_id" class="form-control" name="exam_account_type_4_receivable_id">
                                             <option data-rowtype="none" value="none">Select an account..</option>
                                             <?php $accountType = 'Account Type'; ?>
-                                            @foreach($payment->accountType4ReceivablePayment() as $option)
+                                            @foreach($payment->accountTypeFilter() as $option)
                                                 <?php
-                                                    if ($accountKey == $option['primary_key_id']) {
+                                                    if ($accountKey == $option['entity_id']) {
                                                         $accountType = $option['drop_down_list_name'];
                                                     }
                                                 ?>
-                                                <option {{activeSelectByTwo($option['primary_key_id'], $option['row_type'], 'ak', 'rt')}} data-rowtype="{{$option['row_type']}}"  value="{{ $option['primary_key_id'] }}">{{ $option['drop_down_list_name'] }}</option>
+                                                <option {{activeSelectByTwo($option['entity_id'], $option['row_type'], 'ak', 'rt')}} data-rowtype="{{$option['row_type']}}"  value="{{ $option['entity_id'] }}">{{ $option['drop_down_list_name'] }}</option>
                                             @endforeach
                                         </select>
                                     </div>
