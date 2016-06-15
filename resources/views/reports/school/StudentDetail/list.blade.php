@@ -40,6 +40,8 @@
                     </div>
                 </div>
 
+                <input type="hidden" id="pdf-extension" name="pdf" value="report.pdf">
+
                 <div class="row">
                     <div class="col-md-3 col-md-offset-1">
                         <button id="generate-report" class="btn btn-primary" type="submit">Generate Report</button>
