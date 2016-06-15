@@ -60,6 +60,7 @@ class SchedulePaymentController extends Controller
     public function edit($id)
     {
         $payment = SchedulePayment::findOrFail($id);
+        $payment->loadData();
         return view('modules.accounting.SchedulePayment.form', compact('payment'));
     }
 

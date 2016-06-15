@@ -591,7 +591,9 @@ class Repository
                 entity_id,
                 facility_entity_id
              FROM view_org_entity_scope
-             WHERE entity_id = :id;', ['id' => $id]
+             WHERE entity_id = :id
+             ORDER BY entity_id, facility_entity_id;',
+             ['id' => $id]
         );
     }
 

@@ -10,6 +10,8 @@ class SchedulePayment extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\Accounting\Repositories\SchedulePaymentRepository';
 
+    public $selectedFacilities;
+
     public function setActiveAttribute($value)
     {
         $value = (string)$value;
@@ -18,5 +20,14 @@ class SchedulePayment extends Model
         }
 
         return 0;
+    }
+
+    public function loadData()
+    {
+        $facilities = $this->repository->getSelectedFacilities($this->schedule_entity_id);
+        $this->selectedFacilities = array_column($facilities, 'facility_entity_id');
+        if (!is_array($this->selectedFacilities)) {
+            $this->selectedFacilities = [];
+        }
     }
 }

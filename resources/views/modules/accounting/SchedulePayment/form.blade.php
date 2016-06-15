@@ -42,6 +42,22 @@
                         ])
 
                         <div class="form-group">
+                            <label class="col-md-4 control-label" for="facility_ids">Facility</label>
+                            <div class="col-md-8">
+                                <?php
+                                    if (!is_array($payment->selectedFacilities)) {
+                                        $payment->selectedFacilities = [];
+                                    }
+                                ?>
+                                <select id="facility_ids" class="form-control" name="facility_ids">
+                                    @foreach($payment->facilities() as $option)
+                                        <option @if(in_array($option['facility_entity_id'], $payment->selectedFacilities)) selected @endif value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="col-md-4 control-label" for="product">Name</label>
                             <div class="col-md-8">
                                 <input id="product" class="form-control" type="text" name="schedule_name" value="{{ v('schedule_name') }}" placeholder="Name">
