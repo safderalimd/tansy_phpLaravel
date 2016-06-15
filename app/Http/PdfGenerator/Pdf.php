@@ -5,6 +5,7 @@ namespace App\Http\PdfGenerator;
 use Illuminate\View\View;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Http\DetectDevice\Device;
 
 class Pdf
 {
@@ -15,6 +16,10 @@ class Pdf
 
     public static function render(View $view, $orientation = 'letter')
     {
+        if (Device::isAndroidMobile()) {
+            return $view;
+        }
+
         $html = $view->render();
 
         $dompdf = new Dompdf();
