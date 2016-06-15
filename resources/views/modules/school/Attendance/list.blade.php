@@ -142,7 +142,7 @@
         $('#hidden_absense_date').val(date);
 
         var accountIds = $('.account_entity_id').map(function() {
-            if (this.checked) {
+            if ($(this).val() == 1) {
                 return $(this).attr('data-accountId') + '-1';
             } else {
                 return $(this).attr('data-accountId') + '-0';;
