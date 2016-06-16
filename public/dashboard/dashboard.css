@@ -517,36 +517,36 @@ li {
 .chart-dot-list li {
   margin-bottom: 4px;
 }
-.chart-dot-list li:before {
-  content: '';
-  height: 12px;
-  width: 12px;
-  margin-right: 6px;
-  display: inline-block;
-  background: #222;
-  border-radius: 50%;
-}
-.chart-dot-list li.a1:before {
-  background: #FFBB00;
-}
-.chart-dot-list li.a2:before {
-  background: #3cba54;
-}
-.chart-dot-list li.a3:before {
-  background: #d62d20;
-}
-.chart-dot-list li.a4:before {
-  background: #4885ed;
-}
-.chart-dot-list li.a5:before {
-  background: #FA8072;
-}
-.chart-dot-list li.a6:before {
-  background: #800080;
-}
-.chart-dot-list li.a7:before {
-  background: #808080;
-}
+// .chart-dot-list li:before {
+//   content: '';
+//   height: 12px;
+//   width: 12px;
+//   margin-right: 6px;
+//   display: inline-block;
+//   background: #222;
+//   border-radius: 50%;
+// }
+// .chart-dot-list li.a1:before {
+//   background: #FFBB00;
+// }
+// .chart-dot-list li.a2:before {
+//   background: #3cba54;
+// }
+// .chart-dot-list li.a3:before {
+//   background: #d62d20;
+// }
+// .chart-dot-list li.a4:before {
+//   background: #4885ed;
+// }
+// .chart-dot-list li.a5:before {
+//   background: #FA8072;
+// }
+// .chart-dot-list li.a6:before {
+//   background: #800080;
+// }
+// .chart-dot-list li.a7:before {
+//   background: #808080;
+// }
 .chart-doughnut {
   padding: 41px 0;
 }

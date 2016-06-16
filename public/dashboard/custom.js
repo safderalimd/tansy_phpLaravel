@@ -5,17 +5,17 @@ var chartJsColors = [
     {color: "#d62d20", highlight: "#db3236"},
     {color: "#4885ed", highlight: "#0057e7"},
     {color: "#00ffff", highlight: "#00ffff"},
-    {color: "#f0ffff", highlight: "#f0ffff"},
+    {color: "#bdb76b", highlight: "#bdb76b"},
     {color: "#f5f5dc", highlight: "#f5f5dc"},
     {color: "#000000", highlight: "#000000"},
     {color: "#0000ff", highlight: "#0000ff"},
+    {color: "#f0ffff", highlight: "#f0ffff"},
     {color: "#a52a2a", highlight: "#a52a2a"},
     {color: "#00ffff", highlight: "#00ffff"},
     {color: "#00008b", highlight: "#00008b"},
     {color: "#008b8b", highlight: "#008b8b"},
     {color: "#a9a9a9", highlight: "#a9a9a9"},
     {color: "#006400", highlight: "#006400"},
-    {color: "#bdb76b", highlight: "#bdb76b"},
     {color: "#8b008b", highlight: "#8b008b"},
     {color: "#556b2f", highlight: "#556b2f"},
     {color: "#ff8c00", highlight: "#ff8c00"},
@@ -56,13 +56,17 @@ function nextChartJsColor() {
     return chartJsColors[chartJsColorIndex++];
 }
 
-function applyChartColors(list) {
+function applyChartColors(list, labelContainer) {
     chartJsColorIndex = 0;
     var color;
+    var dotCircle;
     for (var i=0; i<list.length; i++) {
         color = nextChartJsColor();
         list[i].color = color.color;
         list[i].highlight = color.highlight;
+
+        dotCircle = $(labelContainer + ' .chart-label .chart-dot-circle').get(i);
+        $(dotCircle).css('background-color', color.color);
     }
     return list;
 }

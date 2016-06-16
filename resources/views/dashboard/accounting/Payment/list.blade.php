@@ -82,10 +82,9 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <ul class="chart-dot-list">
-                                            <?php $i=1; ?>
+                                        <ul class="chart-dot-list collection-report-chart">
                                             @foreach($payment->collectionChart as $row)
-                                                <li class="a{{$i++}}">{{$row['label']}}</li>
+                                                <li class="chart-label"><span class="chart-dot-circle"></span>{{$row['label']}}</li>
                                             @endforeach
                                         </ul>
                                     </div>
@@ -139,10 +138,9 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <ul class="chart-dot-list">
-                                            <?php $i=1; ?>
+                                        <ul class="chart-dot-list due-report-chart">
                                             @foreach($payment->dueDoughnutChart as $row)
-                                                <li class="a{{$i++}}">{{$row['label']}}</li>
+                                                <li class="chart-label"><span class="chart-dot-circle"></span>{{$row['label']}}</li>
                                             @endforeach
                                         </ul>
                                     </div>
@@ -196,10 +194,10 @@
 <script type="text/javascript">
 
     var dueDoughnut = <?php echo json_encode($payment->dueDoughnutChart); ?>;
-    dueDoughnut = applyChartColors(dueDoughnut);
+    dueDoughnut = applyChartColors(dueDoughnut, '.due-report-chart');
 
     var pieData = <?php echo json_encode($payment->collectionChart); ?>;
-    pieData = applyChartColors(pieData);
+    pieData = applyChartColors(pieData, '.collection-report-chart');
 
     $(document).ready(function() {
         $('#table-student').DataTable();

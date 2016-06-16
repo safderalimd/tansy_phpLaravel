@@ -110,10 +110,9 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <ul class="chart-dot-list">
-                                            <ul class="chart-dot-list">
-                                                <?php $i=1; ?>
+                                            <ul class="chart-dot-list sms-pie-chart">
                                                 @foreach($sms->smsPieChart as $row)
-                                                    <li class="a{{$i++}}">{{$row['label']}}</li>
+                                                    <li class="chart-label"><span class="chart-dot-circle"></span>{{$row['label']}}</li>
                                                 @endforeach
                                             </ul>
                                         </ul>
@@ -174,7 +173,7 @@
 <script type="text/javascript">
 
     var smsData = <?php echo json_encode($sms->smsPieChart); ?>;
-    smsData = applyChartColors(smsData);
+    smsData = applyChartColors(smsData, '.sms-pie-chart');
 
     $(document).ready(function() {
         $('#table-sms-grid').DataTable();

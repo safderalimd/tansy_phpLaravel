@@ -7,10 +7,10 @@
     <link type="text/css" href="/dashboard/dataTables.bootstrap.min.css" rel="stylesheet">
     <link type="text/css" href="/dashboard/bootstrap-select.css" rel="stylesheet">
     <link type="text/css" href="/dashboard/fileinput.min.css" rel="stylesheet">
-    <link type="text/css" href="/dashboard/dashboard.css" rel="stylesheet">
+    <link type="text/css" href="/dashboard/dashboard.css?v=1" rel="stylesheet">
     <link type="text/css" href="/bower_components/bootstrap-checkbox-x/css/checkbox-x.min.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
-    <link type="text/css" href="/dashboard/custom.css?v=3" rel="stylesheet">
+    <link type="text/css" href="/dashboard/custom.css?v=4" rel="stylesheet">
     @yield('styles')
     <style type="text/css">
         .flash-message {
@@ -31,6 +31,16 @@
         .flash-message .material-icons {
             margin-right: 8px;
             vertical-align: middle;
+        }
+
+        .chart-dot-circle {
+            content: '';
+            height: 12px;
+            width: 12px;
+            margin-right: 6px;
+            display: inline-block;
+            background: #222;
+            border-radius: 50%;
         }
     </style>
 </head>

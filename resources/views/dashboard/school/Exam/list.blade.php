@@ -100,10 +100,9 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <ul class="chart-dot-list">
-                                            <?php $i=1; ?>
+                                        <ul class="chart-dot-list subject-performance-details">
                                             @foreach($exam->subjectPerformanceDetailsChart as $row)
-                                                <li class="a{{$i++}}">{{$row['label']}}</li>
+                                                <li class="chart-label"><span class="chart-dot-circle"></span>{{$row['label']}}</li>
                                             @endforeach
                                         </ul>
                                     </div>
@@ -125,10 +124,9 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <ul class="chart-dot-list">
-                                            <?php $i=1; ?>
+                                        <ul class="chart-dot-list school-subject-performance">
                                             @foreach($exam->examDonoughtChart as $row)
-                                                <li class="a{{$i++}}">{{$row['label']}}</li>
+                                                <li class="chart-label"><span class="chart-dot-circle"></span>{{$row['label']}}</li>
                                             @endforeach
                                         </ul>
                                     </div>
@@ -162,10 +160,9 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <ul class="chart-dot-list">
-                                            <?php $i=1; ?>
+                                        <ul class="chart-dot-list class-performance-pie-chart">
                                             @foreach($exam->classPerformancePieChart as $row)
-                                                <li class="a{{$i++}}">{{$row['label']}}</li>
+                                                <li class="chart-label"><span class="chart-dot-circle"></span>{{$row['label']}}</li>
                                             @endforeach
                                         </ul>
                                     </div>
@@ -187,10 +184,9 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <ul class="chart-dot-list">
-                                            <?php $i=1; ?>
+                                        <ul class="chart-dot-list class-subject-performance">
                                             @foreach($exam->classSubjectPerformancePieChart as $row)
-                                                <li class="a{{$i++}}">{{$row['label']}}</li>
+                                                <li class="chart-label"><span class="chart-dot-circle"></span>{{$row['label']}}</li>
                                             @endforeach
                                         </ul>
                                     </div>
@@ -221,16 +217,16 @@
 <script type="text/javascript">
 
     var donoughtData1 = <?php echo json_encode($exam->subjectPerformanceDetailsChart); ?>;
-    donoughtData1 = applyChartColors(donoughtData1);
+    donoughtData1 = applyChartColors(donoughtData1, '.subject-performance-details');
 
     var donoughtData2 = <?php echo json_encode($exam->examDonoughtChart); ?>;
-    donoughtData2 = applyChartColors(donoughtData2);
+    donoughtData2 = applyChartColors(donoughtData2, '.school-subject-performance');
 
     var pieData = <?php echo json_encode($exam->classPerformancePieChart); ?>;
-    pieData = applyChartColors(pieData);
+    pieData = applyChartColors(pieData, '.class-performance-pie-chart');
 
     var pieData2 = <?php echo json_encode($exam->classSubjectPerformancePieChart); ?>;
-    pieData2 = applyChartColors(pieData2);
+    pieData2 = applyChartColors(pieData2, '.class-subject-performance');
 
     window.onload = function() {
         var doughnutContext1 = document.getElementById("exam-report-1").getContext("2d");
