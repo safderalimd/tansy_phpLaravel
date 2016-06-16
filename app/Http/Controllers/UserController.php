@@ -46,6 +46,7 @@ class UserController extends Controller
 
                 Session::put('user.sessionID', $user->session_id);
                 Session::put('user.userID', $user->user_id);
+                Session::put('user.userSecurityGroup', $user->user_sec_group);
                 Session::put('user.debugSproc', $user->debug_sproc);
                 Session::put('user.auditScreenVisit', $user->audit_screen_visit);
 
