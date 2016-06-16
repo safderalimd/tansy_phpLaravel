@@ -37,7 +37,7 @@
                     @include('commons.select', [
                         'label'   => 'Organization' ,
                         'name'    => 'organization_entity_id',
-                        'options' => $client->organizations(),
+                        'options' => $client->clientOrganizations(),
                         'keyId'   => 'organization_entity_id',
                         'keyName' => 'organization_name',
                     ])
