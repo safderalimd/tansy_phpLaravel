@@ -38,6 +38,8 @@ class SchedulePaymentFormRequest extends Request
 
         if (!$this->isOneTimeFrequency()) {
             $rules['end_date'] = 'required|' . $rules['end_date'];
+        } else {
+            $this['end_date'] = $this->input('start_date');
         }
 
         return $rules;
