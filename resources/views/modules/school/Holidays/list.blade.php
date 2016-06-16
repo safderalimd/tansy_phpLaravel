@@ -22,7 +22,7 @@
                         <select id="facility_id" class="form-control" name="facility_id">
                             <option value="none">Select a facility..</option>
                             @foreach($holidays->facilitiesForOwner() as $option)
-                                <option value="{{ $option['facility_entity_id'] }}">{{ $option['facility_name'] }}</option>
+                                <option {{ activeSelect($option['facility_entity_id'], 'fi') }} value="{{ $option['facility_entity_id'] }}">{{ $option['facility_name'] }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -113,8 +113,10 @@
         "bPaginate": false
     });
 
-    // when the account types dropdown changes redirect
     $('#month_id').change(function() {
+        updateQueryString();
+    });
+    $('#facility_id').change(function() {
         updateQueryString();
     });
 
@@ -125,10 +127,14 @@
     // get the query string
     function getQueryString() {
         var mi = $('#month_id option:selected').val();
+        var fi = $('#facility_id option:selected').val();
 
         var items = [];
         if (mi != "none") {
             items.push('mi='+mi);
+        }
+        if (fi != "none") {
+            items.push('fi='+fi);
         }
 
         var queryString = items.join('&');
