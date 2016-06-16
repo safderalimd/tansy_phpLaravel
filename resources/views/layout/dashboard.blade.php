@@ -88,7 +88,7 @@
 <script src="/dashboard/Chart.min.js"></script>
 <script src="/dashboard/fileinput.js"></script>
 <script type="text/javascript" src="/bower_components/bootstrap-checkbox-x/js/checkbox-x.min.js"></script>
-<script src="/dashboard/custom.js"></script>
+<script src="/dashboard/custom.js?v=1"></script>
 <script type="text/javascript">
 
     $("#sidebar-toggle").click(function(e) {
