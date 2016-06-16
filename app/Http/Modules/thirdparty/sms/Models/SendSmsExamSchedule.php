@@ -30,7 +30,7 @@ class SendSmsExamSchedule extends SendSmsModel
         parent::__construct($arguments);
 
         $this->smsBalanceCount = $this->smsBalanceCount();
-        $this->smsAccountTypes = $this->repository->getSmsAccountTypes();
+        $this->smsAccountTypes = $this->repository->getAccountTypeFilter();
         $this->exam = $this->repository->getExam();
     }
 
