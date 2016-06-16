@@ -42,6 +42,35 @@
             background: #222;
             border-radius: 50%;
         }
+
+        .img-thumbnail-container {
+            display: inline-block;
+        }
+
+        .img-thumbnail {
+            text-align: center;
+            display: block;
+            background-color: #29d08a;
+/*            width: 340px;
+            height: 340px;
+*/
+            padding: 0px;
+            margin-bottom: 20px;
+            border: solid 10px #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .helper-img {
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        .img-thumbnail img {
+            vertical-align: middle;
+        }
+
     </style>
 </head>
 <body style="padding:0px;">

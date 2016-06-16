@@ -10,24 +10,38 @@
             <div class="col-md-12">
                 <h2><div class="page-title">{{$student->info['student_full_name']}}</h2>
 
+                <?php
+                    $hasPicture = file_exists(storage_path('uploads/student-images/'. domain() . "/{$student->student_entity_id}"));
+                    $columns = 'col-md-3';
+                    if ($hasPicture) {
+                        $columns = 'col-md-4';
+                    }
+                ?>
+
+                @if ($hasPicture)
+                    <div class="row">
+                        <div class="col-md-12" style="text-align:center;">
+                            <div class="img-thumbnail-container">
+                                <div class="img-thumbnail">
+                                    <span class="helper-img"></span><img src="/cabinet/img/student/{{$student->student_entity_id}}?w=260&h=260&ri=<?php echo time().uniqid(); ?>" alt="Student Image" class="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
 
-                            @if (file_exists(storage_path('uploads/student-images/'. domain() . "/{$student->student_entity_id}")))
-                                <div class="" style="float:left;">
-                                    <div class="img-thumbnail" style="width:270px;height:270px;text-align:center;    margin-bottom:10px;margin-left:15px;">
-                                    <img src="/cabinet/img/student/{{$student->student_entity_id}}?w=260&h=260&ri=<?php echo time().uniqid(); ?>" alt="Student Image" class="">
-                                    </div>
-                                </div>
-                            @else
+                            @if (!$hasPicture)
                                 <div class="col-md-2 placeholder text-center">
                                     <img src="/dashboard/student.jpg" class="center-block img-responsive img-circle" alt="Image">
                                     <div class="stat-panel-title text-uppercase">Student</div>
                                 </div>
                             @endif
 
-                            <div class="col-md-3">
+                            <div class="{{$columns}}">
                                 <div class="panel panel-default">
                                     <div class="panel-body bk-success text-light">
                                         <div class="stat-panel text-center">
@@ -47,7 +61,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="{{$columns}}">
                                 <div class="panel panel-default">
                                     <div class="panel-body bk-warning text-light">
                                         <div class="stat-panel text-center">
@@ -63,7 +77,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="{{$columns}}">
                                 <div class="panel panel-default">
                                     <div class="panel-body bk-info text-light">
                                         <div class="stat-panel text-center">
