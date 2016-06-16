@@ -64,15 +64,14 @@ class AccountStudentFormRequest extends Request
             'religion_id' => 'required|integer',
             'mother_language_id' => 'required|integer',
             'parent_relationship_type_id' => 'required|integer',
-            'parent_gender' => 'required|string|in:M,F',
+            'parent_gender' => 'string|in:M,F',
             'parent_first_name' => 'required|string|max:100',
             'parent_middle_name' => 'string|max:100',
-            'parent_last_name' => 'required|string|max:100',
+            'parent_last_name' => 'string|max:100',
             'parent_designation_id' => 'required|integer',
 
             'attachment' => 'image|dimensions:min_width=100,min_height=200|max:10000',
 
-            'document_number' => 'integer',
             'password' => 'min:8',
         ];
     }
