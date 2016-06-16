@@ -34,7 +34,6 @@ class PaymentAdjustmentController extends Controller
      */
     public function add(Request $request)
     {
-        flash('Payment Adjustment Added!');
         return $this->process($request);
     }
 
@@ -45,6 +44,11 @@ class PaymentAdjustmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request)
+    {
+        return $this->process($request);
+    }
+
+    public function update(Request $request)
     {
         flash('Payment Adjustment Updated!');
         return $this->process($request);

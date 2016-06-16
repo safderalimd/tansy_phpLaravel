@@ -24,7 +24,7 @@
                         </div>
                     @endif
 
-                    <form class="form-horizontal" action="{{ url("/cabinet/payment-adjustment/add") }}" method="POST">
+                    <form class="form-horizontal" action="{{ url("/cabinet/payment-adjustment/update") }}" method="POST">
                         {{ csrf_field() }}
 
 
