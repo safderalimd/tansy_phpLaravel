@@ -41,6 +41,7 @@
                             <th class="text-center"><h4 class=""><strong>Student Name</strong> <br/> {{$export->header['paid_by_name']}}</h4></th>
                             <th class="text-center"><h4 class=""><strong>Mobile No.</strong> <br/> {{phone_number($export->header['mobile_phone'])}}</h4></th>
                             <th class="text-center"><h4 class=""><strong>Receipt No.</strong> <br/> {{$export->header['receipt_number']}}</h4></th>
+                            <th class="text-center"><h4 class=""><strong>Receipt Date</strong> <br/> {{style_date($export->header['receipt_date'])}}</h4></th>
                         </tr>
                     </thead>
                 </table>
