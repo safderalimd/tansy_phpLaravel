@@ -5,6 +5,7 @@ namespace App\Http\Models;
 use App\Http\Models\Model;
 use App\Http\Repositories\MasterDBRepository;
 use Config;
+use App\Http\DetectDevice\Device;
 
 class User extends Model
 {
@@ -41,6 +42,7 @@ class User extends Model
 
     public function login()
     {
+        $this->setAttribute('login_media', Device::type());
         $this->setAttribute('login_name', $this->user_name);
         $this->setAttribute('ipaddress', userIp());
         $data = $this->repository->login($this);

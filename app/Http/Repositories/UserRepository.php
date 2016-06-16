@@ -14,9 +14,11 @@ class UserRepository extends Repository
             ':iparam_login_name',
             ':iparam_password',
             ':iparam_ipaddress',
+            ':iparam_login_media',
         ];
 
         $oparams = [
+            '@oparam_user_sec_group',
             '@oparam_default_facility_id',
             '@oparam_session_id',
             '@oparam_user_id',
