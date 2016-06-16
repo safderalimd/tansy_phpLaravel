@@ -35,7 +35,7 @@ class ClientVisitEditFormRequest extends Request
             'agent_entity_id'        => 'required|integer',
             'notes'                  => 'string',
             'visit_date'             => 'required|string|max:20|date',
-            'next_visit_date'        => 'required|string|max:20|date',
+            'next_visit_date'        => 'string|max:20|date',
         ];
     }
 
