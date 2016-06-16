@@ -212,9 +212,9 @@ Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], funct
     Route::get('client-visit', 'CRM\Controllers\ClientVisitController@index');
     Route::get('client-visit/create', 'CRM\Controllers\ClientVisitController@create');
     Route::post('client-visit/create', 'CRM\Controllers\ClientVisitController@store');
-    Route::get('client-visit/edit/{id}', 'CRM\Controllers\ClientVisitController@edit');
-    Route::post('client-visit/edit/{id}', 'CRM\Controllers\ClientVisitController@update');
-    Route::get('client-visit/delete/{id}', 'CRM\Controllers\ClientVisitController@destroy');
+    // Route::get('client-visit/edit/{id}', 'CRM\Controllers\ClientVisitController@edit');
+    // Route::post('client-visit/edit/{id}', 'CRM\Controllers\ClientVisitController@update');
+    // Route::get('client-visit/delete/{id}', 'CRM\Controllers\ClientVisitController@destroy');
 
     Route::get('home-v1', 'Admin\Controllers\AdminController@home');
     Route::get('reset-dupe', 'Admin\Controllers\AdminController@debugReset');

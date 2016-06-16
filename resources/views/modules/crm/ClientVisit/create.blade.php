@@ -78,6 +78,13 @@
                     <hr/>
                     <div class="row"><div class="col-md-3 pull-left"><h3>Visit</h3></div></div>
 
+                    @include('commons.select', [
+                        'label'   => 'Agent Organization' ,
+                        'name'    => 'agent_organization_entity_id',
+                        'options' => $client->agentOrganizations(),
+                        'keyId'   => 'organization_entity_id',
+                        'keyName' => 'organization_name',
+                    ])
 
                     @include('commons.select', [
                         'label'   => 'Agent' ,
@@ -87,37 +94,104 @@
                         'keyName' => 'agent_name',
                     ])
 
-                    @include('commons.select', [
-                        'label'   => 'Status' ,
-                        'name'    => 'client_status_id',
-                        'options' => $client->statuses(),
-                        'keyId'   => 'client_status_id',
-                        'keyName' => 'client_status',
-                    ])
+                    <div class="row">
+                        <div class="col-md-6">
+                            @include('commons.select', [
+                                'label'   => 'Client Status' ,
+                                'name'    => 'client_status_id',
+                                'options' => $client->statuses(),
+                                'keyId'   => 'client_status_id',
+                                'keyName' => 'client_status',
+                            ])
+                        </div>
+                        <div class="col-md-6">
+                            @include('commons.select', [
+                                'label'   => 'Product' ,
+                                'name'    => 'product_entity_id',
+                                'options' => $client->products(),
+                                'keyId'   => 'product_entity_id',
+                                'keyName' => 'product',
+                            ])
+                        </div>
+                    </div>
 
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="visit_date">Visit Date</label>
-                        <div class="col-md-8">
-                            <div class="input-group date">
-                                <input id="visit_date" class="form-control" type="text" name="visit_date" value="{{ v('visit_date') }}" placeholder="Visit Date">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><span
-                                                class="glyphicon glyphicon-calendar"></span></button>
-                                </span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            @include('commons.select', [
+                                'label'   => 'Unit Type' ,
+                                'name'    => 'unit_type_id',
+                                'options' => $client->unitTypes(),
+                                'keyId'   => 'unit_type_id',
+                                'keyName' => 'unit_type',
+                            ])
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="expected_units">Expected Units</label>
+                                <div class="col-md-8">
+                                    <input id="expected_units" class="form-control" type="text" name="expected_units" value="{{ v('expected_units') }}" placeholder="Expected Units">
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="next_visit_date">Next Visit Date</label>
+                        <label class="col-md-4 control-label" for="commited_price">Commited Price</label>
                         <div class="col-md-8">
-                            <div class="input-group date">
-                                <input id="next_visit_date" class="form-control" type="text" name="next_visit_date" value="{{ v('next_visit_date') }}" placeholder="Next Visit Date">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><span
-                                                class="glyphicon glyphicon-calendar"></span></button>
-                                </span>
-                            </div>
+                            <input id="commited_price" class="form-control" type="text" name="commited_price" value="{{ v('commited_price') }}" placeholder="Commited Price">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                           <div class="form-group">
+                               <label class="col-md-4 control-label" for="visit_date">Visit Date</label>
+                               <div class="col-md-8">
+                                   <div class="input-group date">
+                                       <input id="visit_date" class="form-control" type="text" name="visit_date" value="{{ v('visit_date') }}" placeholder="Visit Date">
+                                       <span class="input-group-btn">
+                                           <button class="btn btn-default" type="button"><span
+                                                       class="glyphicon glyphicon-calendar"></span></button>
+                                       </span>
+                                   </div>
+                               </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                            @include('commons.select', [
+                                'label'   => 'Visit Type' ,
+                                'name'    => 'visit_type_id',
+                                'options' => $client->visitType(),
+                                'keyId'   => 'visit_type_id',
+                                'keyName' => 'visit_type',
+                            ])
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                           <div class="form-group">
+                               <label class="col-md-4 control-label" for="next_visit_date">Next Visit Date</label>
+                               <div class="col-md-8">
+                                   <div class="input-group date">
+                                       <input id="next_visit_date" class="form-control" type="text" name="next_visit_date" value="{{ v('next_visit_date') }}" placeholder="Next Visit Date">
+                                       <span class="input-group-btn">
+                                           <button class="btn btn-default" type="button"><span
+                                                       class="glyphicon glyphicon-calendar"></span></button>
+                                       </span>
+                                   </div>
+                               </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                            @include('commons.select', [
+                                'label'   => 'Next Visit Type' ,
+                                'name'    => 'next_visit_type_id',
+                                'options' => $client->visitType(),
+                                'keyId'   => 'visit_type_id',
+                                'keyName' => 'visit_type',
+                            ])
                         </div>
                     </div>
 
