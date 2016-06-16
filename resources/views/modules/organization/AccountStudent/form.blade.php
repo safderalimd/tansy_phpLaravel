@@ -341,7 +341,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="login_name">Login Name</label>
                             <div class="col-md-8">
-                                <input disabled="disabled" id="login_name" class="form-control" type="text" name="login_name" value="Student{{$account->student_entity_id}}" placeholder="Login Name">
+                                <input disabled="disabled" id="login_name" class="form-control" type="text" name="login_name" value="{{ v('mobile_phone') }}" placeholder="Login Name">
                             </div>
                         </div>
 
@@ -411,6 +411,15 @@
     });
 
     $(document).ready( function() {
+
+        $("#mobile_phone").keyup(function() {
+            $('#login_name').val($(this).val());
+        });
+
+        $("#mobile_phone").keypress(function() {
+            $('#login_name').val($(this).val());
+        });
+
         $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
             $('.file-name').text(label);
         });

@@ -77,7 +77,7 @@ class AccountStudentController extends Controller
 
         $account = new AccountStudent($request->input());
         $account->setAttribute('student_entity_id', $id);
-        $account->setAttribute('login_name', 'Student'.$id);
+        $account->setAttribute('login_name', $account->mobile_phone);
 
         if (empty($request->input('active'))) {
             $account->setActiveToFalse();
