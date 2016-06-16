@@ -47,10 +47,6 @@
 
     <div id="watermark"><div id="watermark-text">{{$export->schoolName}}</div></div>
 
-    <div class="footer text-right">
-        Page: <span class="pagenum"></span>
-    </div>
-
     <div class="container">
 
         <strong>
@@ -101,10 +97,13 @@
             <div class="col-md-12">
                 <table class="header-table">
                     <tr>
-                        <td class="text-left"><div class="wrapper"><strong>Address 1:</strong><br/> {{$student['address1']}}</div></td>
+                        <td class="text-left"><div class="wrapper">{{$student['address1']}}</div></td>
                     </tr>
                     <tr>
-                        <td class="text-left"><div class="wrapper"><strong>Address 2:</strong><br/> {{$student['address2']}}</div></td>
+                        <td class="text-left"><div class="wrapper">{{$student['address2']}}</div></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left"><div class="wrapper">{{$student['city_name']}}</div></td>
                     </tr>
                 </table>
             </div>
