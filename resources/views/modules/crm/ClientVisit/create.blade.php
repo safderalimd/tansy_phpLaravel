@@ -40,6 +40,7 @@
                         'options' => $client->clientOrganizations(),
                         'keyId'   => 'organization_entity_id',
                         'keyName' => 'organization_name',
+                        'none'    => 'Select an organization..',
                     ])
 
                     @include('modules.crm.ClientVisit.new-organization')
@@ -48,13 +49,15 @@
                     <hr/>
                     <div class="row"><div class="col-md-3 pull-left"><h3>Facility</h3></div></div>
 
-
                     @include('commons.select', [
-                        'label'   => 'Facility' ,
-                        'name'    => 'facility_entity_id',
-                        'options' => $client->facilities(),
-                        'keyId'   => 'facility_entity_id',
-                        'keyName' => 'facility_name',
+                        'label'    => 'Facility',
+                        'name'     => 'facility_entity_id',
+                        'options'  => $client->facilities(),
+                        'keyId'    => 'facility_entity_id',
+                        'keyName'  => 'facility_name',
+                        'data'     => 'organization_entity_id',
+                        'dataName' => 'organizationId',
+                        'none'     => 'Select a facility..',
                     ])
 
                     @include('modules.crm.ClientVisit.new-facility')
@@ -65,11 +68,14 @@
 
 
                     @include('commons.select', [
-                        'label'   => 'Contact Person' ,
-                        'name'    => 'contact_entity_id',
-                        'options' => $client->contacts(),
-                        'keyId'   => 'contact_entity_id',
-                        'keyName' => 'contact_name',
+                        'label'    => 'Contact Person' ,
+                        'name'     => 'contact_entity_id',
+                        'options'  => $client->contacts(),
+                        'keyId'    => 'contact_entity_id',
+                        'keyName'  => 'contact_name',
+                        'data'     => 'organization_entity_id',
+                        'dataName' => 'organizationId',
+                        'none'     => 'Select a contact..',
                     ])
 
                     @include('modules.crm.ClientVisit.new-contact')
@@ -87,11 +93,14 @@
                     ])
 
                     @include('commons.select', [
-                        'label'   => 'Agent' ,
-                        'name'    => 'agent_entity_id',
-                        'options' => $client->agents(),
-                        'keyId'   => 'individual_entity_id',
-                        'keyName' => 'agent_name',
+                        'label'    => 'Agent' ,
+                        'name'     => 'agent_entity_id',
+                        'options'  => $client->agents(),
+                        'keyId'    => 'individual_entity_id',
+                        'keyName'  => 'agent_name',
+                        'data'     => 'organization_entity_id',
+                        'dataName' => 'organizationId',
+                        'none'     => 'Select an agent..',
                     ])
 
                     <div class="row">
@@ -222,20 +231,35 @@
 
     $(document).ready(function(){
 
+        filterSelect({
+            firstId: '#organization_entity_id',
+            firstFilter: 'value',
+            secondId: '#facility_entity_id',
+            secondFilter: 'data-organizationId'
+        });
+
+        filterSelect({
+            firstId: '#organization_entity_id',
+            firstFilter: 'value',
+            secondId: '#contact_entity_id',
+            secondFilter: 'data-organizationId'
+        });
+
+        filterSelect({
+            firstId: '#agent_organization_entity_id',
+            firstFilter: 'value',
+            secondId: '#agent_entity_id',
+            secondFilter: 'data-organizationId'
+        });
+
         $('.new-checkbox').change(function() {
             var selectId = '#' + $(this).attr('data-selectid');
             if($(this).is(":checked")) {
                 $(this).closest('.new-checkbox-group').find('.new-checkbox-inputs').fadeIn();
-
-                if (! $(selectId + ' option[value="none"]').length) {
-                    $(selectId).append($('<option value="none">Select an option</option>'));
-                }
                 $(selectId + ' option[value="none"]').prop('selected', true)
-
                 $(selectId).prop('disabled', true);
             } else {
                 $(this).closest('.new-checkbox-group').find('.new-checkbox-inputs').fadeOut();
-                $(selectId + ' option[value="none"]').remove();
                 $(selectId).prop('disabled', false);
             }
         });

@@ -22,7 +22,7 @@
                         <th>Organization <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Status <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Visit Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                        {{-- <th>Actions</th> --}}
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,7 +32,10 @@
                         <td>{{$item['entity_name']}}</td>
                         <td>{{$item['client_status']}}</td>
                         <td>{{style_date($item['visit_date'])}}</td>
-                      {{--   <td>
+                        <td>
+                            <a class="btn btn-default" href="{{url("/cabinet/client-visit/detail/{$item['visit_id']}")}}" title="Detail">View Details</a>
+
+{{--
                             <a class="btn btn-default" href="{{url("/cabinet/client-visit/edit/{$item['visit_id']}")}}" title="Edit">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </a>
@@ -43,7 +46,8 @@
                             >
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </a>
-                        </td> --}}
+ --}}
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

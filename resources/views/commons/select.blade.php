@@ -6,7 +6,13 @@
                 <option value="none">{{$none}}</option>
             @endif
             @foreach($options as $option)
-                <option {{ s($name, $option[$keyId]) }} value="{{ $option[$keyId] }}">{{ $option[$keyName] }}</option>
+                <?php
+                    $dataAttribute = '';
+                    if (isset($data) && isset($dataName)) {
+                        $dataAttribute = 'data-' . $dataName . '="' . $option[$data] . '"';
+                    }
+                ?>
+                <option {!! $dataAttribute !!} {{ s($name, $option[$keyId]) }} value="{{ $option[$keyId] }}">{{ $option[$keyName] }}</option>
             @endforeach
         </select>
     </div>

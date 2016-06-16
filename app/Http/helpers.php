@@ -302,3 +302,13 @@ function userIp()
 {
     return app('request')->ip();
 }
+
+function selected_dropdown($name, $options, $keyId, $keyName)
+{
+    foreach($options as $option) {
+        if (old($name) == $option[$keyId]) {
+            return $option[$keyName];
+        }
+    }
+    return '-';
+}

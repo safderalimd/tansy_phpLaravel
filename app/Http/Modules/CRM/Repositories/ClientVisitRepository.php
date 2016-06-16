@@ -157,49 +157,6 @@ class ClientVisitRepository extends Repository
         );
     }
 
-    // set @iparam_organization_entity_id  = 136;
-    // set @iparam_facility_entity_id  = 138;
-    // set @iparam_contact_entity_id  = 137;
-
-    // set @iparam_campaign_entity_id = 87;
-    // set @iparam_agent_entity_id= 135;
-    // set @iparam_product_entity_id= 58;
-    // set @iparam_unit_type_id= 1;
-    // set @iparam_expected_units= 100;
-    // set @iparam_commited_price= 10000;
-    // set @iparam_visit_date= '2016-6-1';
-    // set @iparam_visit_type_id= 1;
-    // set @iparam_next_visit_date= '2016-6-2';
-    // set @iparam_next_visit_type_id= 1;
-    // set @iparam_client_status_id= 1;
-    // set @iparam_notes= 'Ok';
-
-    // set @iparam_new_organization_flag = 1;
-    // set @iparam_organization_name = 'Patel 66';
-    // set @iparam_organization_address1 = 'Bustand';
-    // set @iparam_organization_address2 = 'MM';
-    // set @iparam_organization_city_area = 'Yapal';
-    // set @iparam_organization_city_id = 1;
-    // set @iparam_organization_work_phone  = 8801933344;
-    // set @iparam_organization_mobile_phone = 8801933344;
-
-    // set @iparam_new_facility_flag = 1;
-    // set @iparam_facility_name = 'High School66';
-    // set @iparam_facility_type_id  = 1;
-    // set @iparam_facility_address1 = 'Depo';
-    // set @iparam_facility_address2 = 'Main Raod';
-    // set @iparam_facility_city_area = 'MNCL';
-    // set @iparam_facility_city_id = 1;
-    // set @iparam_facility_work_phone = 8801933344;
-    // set @iparam_facility_mobile_phone  = 8801933344;
-
-    // set @iparam_new_organization_contact_flag = 1;
-    // set @iparam_organization_contact_frist_name = 'Yadav66';
-    // set @iparam_organization_contact_last_name = 'Reddy';
-    // set @iparam_organization_contact_email = 'test@t.com';
-    // set @iparam_organization_contact_work_phone  = 8801933344;
-    // set @iparam_organization_contact_mobile_phone  = 8801933344;
-
     public function insert($model)
     {
         $procedure = 'sproc_crm_client_visit_dml_ins';
@@ -246,6 +203,12 @@ class ClientVisitRepository extends Repository
             ':iparam_organization_contact_email',
             ':iparam_organization_contact_work_phone',
             ':iparam_organization_contact_mobile_phone',
+
+            ':iparam_session_id',
+            ':iparam_user_id',
+            ':iparam_screen_id',
+            ':iparam_debug_sproc',
+            ':iparam_audit_screen_visit',
         ];
 
         $oparams = [

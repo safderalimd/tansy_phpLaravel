@@ -52,6 +52,12 @@ class ClientVisitController extends Controller
         return redirect('/cabinet/client-visit');
     }
 
+    public function detail($id)
+    {
+        $client = ClientVisit::findOrFail($id);
+        return view('modules.crm.ClientVisit.detail', compact('client'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
