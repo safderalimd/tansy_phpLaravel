@@ -96,6 +96,7 @@
                             <a href="{{ url("/cabinet/client-visit")}}" class="btn btn-default cancle_btn">Back</a>
                         </div>
                     </div>
+                    <br/>
                 </form>
 
                 </section>
