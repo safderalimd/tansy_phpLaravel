@@ -50,5 +50,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'menu' => \App\Http\Middleware\MenuMiddleware::class,
         'cabinet' => \App\Http\Middleware\Cabinet::class,
+        'owner' => \App\Http\Middleware\OwnerGroup::class,
     ];
 }

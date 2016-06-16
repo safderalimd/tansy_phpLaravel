@@ -217,6 +217,7 @@ return [
         'Flash' => Laracasts\Flash\Flash::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Device' => App\Http\DetectDevice\Device::class,
+        'Group' => App\Http\UserGroups\Group::class,
     ],
 
 ];
