@@ -90,6 +90,7 @@
                         'options' => $client->agentOrganizations(),
                         'keyId'   => 'organization_entity_id',
                         'keyName' => 'organization_name',
+                        'none'    => 'Select an agent organization..',
                     ])
 
                     @include('commons.select', [
