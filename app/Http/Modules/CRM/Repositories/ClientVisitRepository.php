@@ -10,16 +10,31 @@ class ClientVisitRepository extends Repository
     {
         return $this->select(
             'SELECT
-                campaign_entity_id,
+                campaign_name,
+                organization_name,
+                facility_name,
+                facility_city_name,
+                contact_first_name,
+                contact_mobile_phone,
+                agent_name,
+                agent_mobile_phone,
+                product_name,
+                unit_type,
+                expected_units,
+                commited_price,
+                visit_date,
+                visit_type,
+                next_visit_date,
+                next_visit_type,
+                client_status,
+                notes,
+                visit_id,
+                client_status_id,
                 organization_entity_id,
                 facility_entity_id,
                 contact_entity_id,
-                agent_entity_id,
-                visit_date,
-                notes,
-                next_visit_date,
-                client_status_id,
-                visit_id
+                campaign_entity_id,
+                agent_entity_id
              FROM view_crm_client_visit_detail
              WHERE visit_id = :id
              LIMIT 1;', ['id' => $id]

@@ -18,76 +18,150 @@
 
                 <form class="form-horizontal" action="{{ form_action() }}" method="POST">
 
-                    <hr/>
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Campaign</h3></div></div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="">Campaign</label>
                         <div class="col-md-8">
-                            <span class="form-control">{{ selected_dropdown('campaign_entity_id', $client->campaigns(), 'campaign_entity_id', 'campaign_name') }}</span>
+                            <span class="form-control">{{ $client->campaign_name }}</span>
                         </div>
                     </div>
 
-                    <hr/>
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Organization</h3></div></div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="">Organization</label>
                         <div class="col-md-8">
-                            <span class="form-control">{{ selected_dropdown('organization_entity_id', $client->organizations(), 'organization_entity_id', 'organization_name') }}</span>
+                            <span class="form-control">{{ $client->organization_name }}</span>
                         </div>
                     </div>
 
-                    <hr/>
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Facility</h3></div></div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="">Facility</label>
                         <div class="col-md-8">
-                            <span class="form-control">{{ selected_dropdown('facility_entity_id', $client->facilities(), 'facility_entity_id', 'facility_name') }}</span>
+                            <span class="form-control">{{ $client->facility_name }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="">Facility City</label>
+                        <div class="col-md-8">
+                            <span class="form-control">{{ $client->facility_city_name }}</span>
+                        </div>
+                    </div>
+
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Contact Person</h3></div></div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="">Contact First Name</label>
+                        <div class="col-md-8">
+                            <span class="form-control">{{ $client->contact_first_name }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="">Contact Mobile Phone</label>
+                        <div class="col-md-8">
+                            <span class="form-control">{{ phone_number($client->contact_mobile_phone) }}</span>
+                        </div>
+                    </div>
+
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>Visit</h3></div></div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="">Agent Name</label>
+                        <div class="col-md-8">
+                            <span class="form-control">{{ $client->agent_name }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="">Agent Mobile Phone</label>
+                        <div class="col-md-8">
+                            <span class="form-control">{{ phone_number($client->agent_mobile_phone) }}</span>
                         </div>
                     </div>
 
                     <hr/>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="">Contact Person</label>
+                        <label class="col-md-4 control-label" for="">Product Name</label>
                         <div class="col-md-8">
-                            <span class="form-control">{{ selected_dropdown('contact_entity_id', $client->contacts(), 'contact_entity_id', 'contact_name') }}</span>
+                            <span class="form-control">{{ $client->product_name }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="">Unit Type</label>
+                        <div class="col-md-8">
+                            <span class="form-control">{{ $client->unit_type }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="">Expeced Units</label>
+                        <div class="col-md-8">
+                            <span class="form-control">{{ $client->expected_units }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="">Commited Price</label>
+                        <div class="col-md-8">
+                            <span class="form-control">&#x20b9; {{ amount($client->commited_price) }}</span>
                         </div>
                     </div>
 
                     <hr/>
-
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="">Agent</label>
-                        <div class="col-md-8">
-                            <span class="form-control">{{ selected_dropdown('agent_entity_id', $client->agents(), 'individual_entity_id', 'agent_name') }}</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="">Status</label>
-                        <div class="col-md-8">
-                            <span class="form-control">{{ selected_dropdown('client_status_id', $client->statuses(), 'client_status_id', 'client_status') }}</span>
-                        </div>
-                    </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="">Visit Date</label>
                         <div class="col-md-8">
-                            <span class="form-control">{{ v('visit_date') }}</span>
+                            <span class="form-control">{{ style_date($client->visit_date) }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="">Visit Type</label>
+                        <div class="col-md-8">
+                            <span class="form-control">{{ $client->visit_type }}</span>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="">Next Visit Date</label>
                         <div class="col-md-8">
-                            <span class="form-control">{{ v('next_visit_date') }}</span>
+                            <span class="form-control">{{ style_date($client->next_visit_date) }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="">Next Visit Type</label>
+                        <div class="col-md-8">
+                            <span class="form-control">{{ $client->next_visit_type }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="">Client Status</label>
+                        <div class="col-md-8">
+                            <span class="form-control">{{ $client->client_status }}</span>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="">Notes</label>
                         <div class="col-md-8">
-                            <span class="form-control">{{ v('notes') }}</span>
+                            <span class="form-control">{{ $client->notes }}</span>
                         </div>
                     </div>
 
