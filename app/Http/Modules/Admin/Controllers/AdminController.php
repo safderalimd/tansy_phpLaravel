@@ -9,6 +9,16 @@ use App\Http\Modules\Admin\Requests\AdminFormRequest;
 class AdminController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.Admin::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

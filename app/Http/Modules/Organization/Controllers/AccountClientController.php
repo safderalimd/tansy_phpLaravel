@@ -9,6 +9,16 @@ use App\Http\Modules\Organization\Requests\AccountClientFormRequest;
 class AccountClientController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.AccountClient::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

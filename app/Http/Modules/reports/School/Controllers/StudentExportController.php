@@ -10,6 +10,16 @@ use App\Http\PdfGenerator\Pdf;
 class StudentExportController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.StudentExport::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

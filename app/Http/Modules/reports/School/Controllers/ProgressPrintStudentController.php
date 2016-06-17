@@ -10,6 +10,16 @@ use App\Http\PdfGenerator\Pdf;
 class ProgressPrintStudentController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.ProgressPrintStudent::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

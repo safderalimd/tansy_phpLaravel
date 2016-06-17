@@ -9,6 +9,16 @@ use App\Http\Modules\dashboard\school\Models\Exam;
 class ExamController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.Exam::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param  Request $request

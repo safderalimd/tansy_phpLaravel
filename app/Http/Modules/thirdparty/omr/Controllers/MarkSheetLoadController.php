@@ -9,6 +9,16 @@ use App\Http\Modules\thirdparty\omr\Requests\MarkSheetLoadFormRequest;
 class MarkSheetLoadController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.MarkSheetLoad::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

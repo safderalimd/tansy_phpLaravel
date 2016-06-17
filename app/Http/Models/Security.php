@@ -12,7 +12,7 @@ class Security extends Model
 
     public function __construct($screenId, $studentEntityId)
     {
-        parent::__construct([]);
+        parent::__construct();
 
         $this->setAttribute('screen_id', $screenId);
         $this->setAttribute('student_entity_id', $studentEntityId);
@@ -22,6 +22,10 @@ class Security extends Model
 
     public function hasScreenPermission()
     {
+        if (is_null($this->screen_id)) {
+            return false;
+        }
+
         if ($this->valid_access !== 1) {
             return false;
         }

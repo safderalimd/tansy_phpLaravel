@@ -12,6 +12,16 @@ use App\Http\Modules\School\Requests\ExamScheduleDeleteFormRequest;
 class ExamScheduleController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.ExamSchedule::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request

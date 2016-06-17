@@ -9,6 +9,16 @@ use App\Http\Modules\Accounting\Models\CashCounter;
 class CashCounterController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.CashCounter::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request

@@ -9,6 +9,16 @@ use App\Http\Modules\Organization\Requests\AccountEmployeeFormRequest;
 class AccountEmployeeController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.AccountEmployee::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

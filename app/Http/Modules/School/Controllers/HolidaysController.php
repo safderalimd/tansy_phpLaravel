@@ -9,6 +9,16 @@ use App\Http\Modules\School\Models\Holidays;
 class HolidaysController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.Holidays::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param  Request $request

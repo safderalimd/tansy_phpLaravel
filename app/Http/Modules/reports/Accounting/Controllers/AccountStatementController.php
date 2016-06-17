@@ -11,6 +11,16 @@ use App\Http\PdfGenerator\Pdf;
 class AccountStatementController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.AccountStatement::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param int $id

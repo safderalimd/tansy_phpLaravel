@@ -10,6 +10,16 @@ use App\Http\Modules\Accounting\Requests\SchedulePaymentFormRequest;
 class SchedulePaymentController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.SchedulePayment::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

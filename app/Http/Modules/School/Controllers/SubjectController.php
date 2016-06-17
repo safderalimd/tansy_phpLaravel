@@ -9,6 +9,16 @@ use App\Http\Modules\School\Requests\SubjectFormRequest;
 class SubjectController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.Subject::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

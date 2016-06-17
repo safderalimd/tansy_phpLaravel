@@ -11,6 +11,16 @@ use App\Http\Modules\School\Requests\MarkSheetDeleteFormRequest;
 class MarkSheetController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.MarkSheet::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request

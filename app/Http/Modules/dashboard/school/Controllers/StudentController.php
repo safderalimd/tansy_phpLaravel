@@ -9,6 +9,16 @@ use App\Http\Modules\dashboard\school\Models\Student;
 class StudentController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.Student::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param  Request $request

@@ -4,7 +4,9 @@ namespace App\Http\Modules\thirdparty\sms\Models;
 
 class SendSmsGeneral extends SendSmsModel
 {
+    // todo: fix duplication
     protected $screenId = 2007;
+    public static $screenId = 2007;
 
     public $generalSmsTypes;
 

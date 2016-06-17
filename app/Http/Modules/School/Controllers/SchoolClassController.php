@@ -11,6 +11,16 @@ use App\Http\Modules\School\Repositories\SchoolClassRepository;
 class SchoolClassController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.SchoolClass::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

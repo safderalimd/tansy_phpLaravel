@@ -10,6 +10,16 @@ use App\Http\Modules\CRM\Requests\ClientVisitCreateFormRequest;
 class ClientVisitController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.ClientVisit::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

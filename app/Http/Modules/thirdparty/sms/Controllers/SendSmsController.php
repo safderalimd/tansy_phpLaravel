@@ -14,6 +14,39 @@ use App\Http\Modules\thirdparty\sms\SmsSender;
 
 class SendSmsController extends Controller
 {
+    /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:' . SendSmsGeneral::$screenId, ['only' => [
+            'general',
+            'sendGeneral',
+        ]]);
+
+        $this->middleware('screen:' . SendSmsExam::$screenId, ['only' => [
+            'examResults',
+            'sendExamResults',
+        ]]);
+
+        $this->middleware('screen:' . SendSmsExamSchedule::$screenId, ['only' => [
+            'examSchedule',
+            'sendExamSchedule',
+        ]]);
+
+        $this->middleware('screen:' . SendSmsAttendance::$screenId, ['only' => [
+            'attendence',
+            'sendAttendance',
+        ]]);
+
+        $this->middleware('screen:' . SendSmsFeeDue::$screenId, ['only' => [
+            'feeDue',
+            'sendFeeDue',
+        ]]);
+    }
+
     public function feeDue(Request $request)
     {
         $sms = new SendSmsFeeDue($request->input());
@@ -88,7 +121,7 @@ class SendSmsController extends Controller
         return $this->sendSmsToStudents($sms, $request->input('student_ids'), true, $text);
     }
 
-    public function sendSmsToStudents(SendSmsModel $sms, $ids, $commonMessage = false, $text = '')
+    protected function sendSmsToStudents(SendSmsModel $sms, $ids, $commonMessage = false, $text = '')
     {
         // clear the sms balance from the session
         session()->put('smsBalance', null);

@@ -11,6 +11,16 @@ use App\Http\PdfGenerator\Pdf;
 class FeeDueReportController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.FeeDueReport::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

@@ -10,6 +10,16 @@ use App\Http\Modules\Organization\Requests\FiscalYearFormRequest;
 class FiscalYearController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.FiscalYear::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

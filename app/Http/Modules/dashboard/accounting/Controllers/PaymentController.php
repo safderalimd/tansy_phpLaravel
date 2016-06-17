@@ -10,6 +10,16 @@ use App\Http\Modules\dashboard\accounting\Requests\PaymentFormRequest;
 class PaymentController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.Payment::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param  Request $request

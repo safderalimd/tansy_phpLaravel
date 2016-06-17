@@ -9,6 +9,16 @@ use App\Http\Modules\School\Requests\MoveStudentFormRequest;
 class MoveStudentController extends Controller
 {
     /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:'.MoveStudent::screenId());
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

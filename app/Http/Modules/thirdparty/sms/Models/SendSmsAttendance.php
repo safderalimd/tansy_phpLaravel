@@ -4,7 +4,9 @@ namespace App\Http\Modules\thirdparty\sms\Models;
 
 class SendSmsAttendance extends SendSmsModel
 {
+    // todo: fix duplication
     protected $screenId = 2006;
+    public static $screenId = 2006;
 
     public function setHiddenAbsenseDateAttribute($value)
     {
