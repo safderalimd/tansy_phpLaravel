@@ -28,6 +28,7 @@
                             'options' => $account->facilities(),
                             'keyId'   => 'facility_entity_id',
                             'keyName' => 'facility_name',
+                            'none'    => 'Select a facility..',
                         ])
 
                         @if (file_exists(storage_path('uploads/student-images/'. domain() . "/{$account->student_entity_id}")))
@@ -155,6 +156,7 @@
                             'options' => $account->cities(),
                             'keyId'   => 'city_id',
                             'keyName' => 'city_name',
+                            'none'    => 'Select a city..',
                         ])
 
                         @include('commons.select', [
@@ -163,6 +165,7 @@
                             'options'  => $account->cityAreas(),
                             'keyId'    => 'city_area',
                             'keyName'  => 'city_area',
+                            'none'     => 'Select a city area..',
                         ])
 
                         <div class="form-group">
@@ -201,6 +204,7 @@
                             'options' => $account->classes(),
                             'keyId'   => 'class_entity_id',
                             'keyName' => 'class_name',
+                            'none'    => 'Select a class group',
                         ])
 
                         <div class="form-group">
@@ -245,6 +249,7 @@
                             'options'  => $account->castes(),
                             'keyId'    => 'caste_id',
                             'keyName'  => 'caste_name',
+                            'none'     => 'Select a caste..',
                         ])
 
                         @include('commons.select', [
@@ -253,6 +258,7 @@
                             'options'  => $account->religions(),
                             'keyId'    => 'religion_id',
                             'keyName'  => 'religion_name',
+                            'none'     => 'Select a religion..',
                         ])
 
                         @include('commons.select', [
@@ -261,6 +267,7 @@
                             'options'  => $account->languages(),
                             'keyId'    => 'language_id',
                             'keyName'  => 'language_name',
+                            'none'     => 'Select a language..',
                         ])
 
 <hr/>
@@ -272,6 +279,7 @@
                             'options' => $account->relationships(),
                             'keyId'   => 'relationship_type_id',
                             'keyName' => 'relationship_name',
+                            'none'    => 'Select a relationship type..',
                         ])
 
                         <div class="form-group">
@@ -315,6 +323,7 @@
                             'options'  => $account->designations(),
                             'keyId'    => 'designation_id',
                             'keyName'  => 'designation_name',
+                            'none'     => 'Select a designation..',
                         ])
 
 <hr/>
@@ -326,6 +335,7 @@
                             'options'  => $account->documentType(),
                             'keyId'    => 'document_type_id',
                             'keyName'  => 'document_type',
+                            'none'     => 'Select a document type..',
                         ])
 
                         <div class="form-group">
@@ -379,6 +389,7 @@
                             'options'  => $account->facilitiesForOwner(),
                             'keyId'    => 'facility_entity_id',
                             'keyName'  => 'facility_name',
+                            'none'     => 'Select a facility..',
                         ])
 
                         <hr/>
