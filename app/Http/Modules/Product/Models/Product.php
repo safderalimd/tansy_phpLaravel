@@ -10,6 +10,11 @@ class Product extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\Product\Repositories\ProductRepository';
 
+    protected $selects = [
+        'product_type_entity_id',
+        'facility_ids',
+    ];
+
     public $selectedFacilities;
 
     public function setActiveAttribute($value)

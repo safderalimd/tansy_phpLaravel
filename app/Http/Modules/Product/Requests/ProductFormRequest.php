@@ -25,7 +25,6 @@ class ProductFormRequest extends Request
     public function rules()
     {
         return [
-            // 'active'    => 'boolean',
             'product_name'           => 'required|string|max:120',
             'product_type_entity_id' => 'required|integer',
             'facility_ids'           => 'required|integer',

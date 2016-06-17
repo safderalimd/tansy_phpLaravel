@@ -46,6 +46,7 @@
                             'options' => $product->productTypes(),
                             'keyId'   => 'product_type_entity_id',
                             'keyName' => 'product_type',
+                            'none'    => 'Select a product type..',
                         ])
 
                         <div class="form-group">
@@ -57,6 +58,7 @@
                                     }
                                 ?>
                                 <select id="facility_ids" class="form-control" name="facility_ids">
+                                    <option value="none">Select a facility..</option>
                                     @foreach($product->facilities() as $option)
                                         <option @if(in_array($option['facility_entity_id'], $product->selectedFacilities)) selected @endif value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
                                     @endforeach
