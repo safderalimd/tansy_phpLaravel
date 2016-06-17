@@ -13,9 +13,11 @@ class StudentController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $this->middleware('screen:'.Student::screenId());
+        $studentEntityId = $request->input('sei');
+        $screenId = Student::screenId();
+        $this->middleware('screen:' . $screenId . ',' . $studentEntityId);
     }
 
     /**
