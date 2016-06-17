@@ -112,7 +112,8 @@
         });
 
         $('table[data-datatable]').DataTable({
-            "aaSorting": []
+            "aaSorting": [],
+            "autoWidth": false
         });
     });
 </script>

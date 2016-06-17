@@ -200,8 +200,12 @@
     pieData = applyChartColors(pieData, '.collection-report-chart');
 
     $(document).ready(function() {
-        $('#table-student').DataTable();
-        $('#table-collection').DataTable();
+        $('#table-student').DataTable({
+            "autoWidth": false
+        });
+        $('#table-collection').DataTable({
+            "autoWidth": false
+        });
     });
 
     window.onload = function() {

@@ -160,9 +160,10 @@
 
     // create datatale with checkbox column unsortable
     $('#exam-schedule-table').DataTable( {
-          "aoColumnDefs": [
-              { 'bSortable': false, 'aTargets': [ 0 ] }
-           ]
+        "aoColumnDefs": [
+            { 'bSortable': false, 'aTargets': [ 0 ] }
+        ],
+        "autoWidth": false
     });
 
     // check/uncheck all checkboxes

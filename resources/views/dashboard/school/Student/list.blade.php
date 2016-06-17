@@ -246,7 +246,9 @@
     pieData = applyChartColors(pieData);
 
     $(document).ready(function() {
-        $('#table-receipts').DataTable();
+        $('#table-receipts').DataTable({
+            "autoWidth": false
+        });
     });
 
     window.onload = function() {

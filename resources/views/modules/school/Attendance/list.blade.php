@@ -93,7 +93,8 @@
        "aoColumnDefs": [
            { 'bSortable': false, 'aTargets': [ 0 ] }
         ],
-        "bPaginate": false
+        "bPaginate": false,
+        "autoWidth": false
     });
 
     // when the account types dropdown changes redirect

@@ -110,7 +110,8 @@
        "aoColumnDefs": [
            { 'bSortable': false, 'aTargets': [ 0 ] }
         ],
-        "bPaginate": false
+        "bPaginate": false,
+        "autoWidth": false
     });
 
     $('#month_id').change(function() {

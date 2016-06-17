@@ -176,7 +176,9 @@
     smsData = applyChartColors(smsData, '.sms-pie-chart');
 
     $(document).ready(function() {
-        $('#table-sms-grid').DataTable();
+        $('#table-sms-grid').DataTable({
+            "autoWidth": false
+        });
     });
 
     window.onload = function() {
