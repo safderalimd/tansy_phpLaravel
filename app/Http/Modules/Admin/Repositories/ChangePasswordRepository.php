@@ -11,8 +11,8 @@ class ChangePasswordRepository extends Repository
         $procedure = 'sproc_sec_change_password';
 
         $iparams = [
-            ':iparam_old_password',
-            ':iparam_new_password',
+            '-iparam_old_password',
+            '-iparam_new_password',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

@@ -50,10 +50,10 @@ class SubjectRepository extends Repository
         $procedure = 'sproc_sch_subject_dml_ins';
 
         $iparams = [
-            ':iparam_subject_name',
-            ':iparam_subject_short_code',
+            '-iparam_subject_name',
+            '-iparam_subject_short_code',
             ':iparam_subject_type_id',
-            ':iparam_reporting_order',
+            '-iparam_reporting_order',
             ':iparam_facility_ids',
             ':iparam_session_id',
             ':iparam_user_id',
@@ -78,10 +78,10 @@ class SubjectRepository extends Repository
 
         $iparams = [
             ':iparam_subject_entity_id',
-            ':iparam_subject_name',
-            ':iparam_subject_short_code',
+            '-iparam_subject_name',
+            '-iparam_subject_short_code',
             ':iparam_subject_type_id',
-            ':iparam_reporting_order',
+            '-iparam_reporting_order',
             ':iparam_active',
             ':iparam_facility_ids',
             ':iparam_session_id',

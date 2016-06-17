@@ -48,9 +48,9 @@ class SendSmsRepository extends Repository
         $procedure = 'sproc_act_rcv_due_lst';
 
         $iparams = [
-            ':iparam_filter_type',
+            '-iparam_filter_type',
             ':iparam_subject_entity_id',
-            ':iparam_return_type',
+            '-iparam_return_type',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
@@ -73,7 +73,7 @@ class SendSmsRepository extends Repository
         $procedure = 'sproc_sch_sms_exam_schedule';
 
         $iparams = [
-            ':iparam_filter_type',
+            '-iparam_filter_type',
             ':iparam_filter_entity_id',
             ':iparam_exam_entity_id',
             ':iparam_session_id',
@@ -98,7 +98,7 @@ class SendSmsRepository extends Repository
         $procedure = 'sproc_sch_sms_exam_result';
 
         $iparams = [
-            ':iparam_filter_type',
+            '-iparam_filter_type',
             ':iparam_filter_entity_id',
             ':iparam_exam_entity_id',
             ':iparam_session_id',
@@ -123,7 +123,7 @@ class SendSmsRepository extends Repository
         $procedure = 'sproc_sms_send_list_for_generic_sms';
 
         $iparams = [
-            ':iparam_filter_type',
+            '-iparam_filter_type',
             ':iparam_filter_entity_id',
             ':iparam_session_id',
             ':iparam_user_id',
@@ -147,9 +147,9 @@ class SendSmsRepository extends Repository
         $procedure = 'sproc_sch_sms_attendance';
 
         $iparams = [
-            ':iparam_filter_type',
+            '-iparam_filter_type',
             ':iparam_filter_entity_id',
-            ':iparam_absense_date',
+            '-iparam_absense_date',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
@@ -172,26 +172,26 @@ class SendSmsRepository extends Repository
         $procedure = 'sproc_sms_batch_dml_ins';
 
         $iparams = [
-            ':iparam_send_datetime',
-            ':iparam_provider_name',
-            ':iparam_provider_batch_id',
-            ':iparam_provider_batch_status',
-            ':iparam_provider_batch_credits',
-            ':iparam_provider_batch_error',
-            ':iparam_sms_type_id',
-            ':iparam_account_filter_row_type',
-            ':iparam_account_filter_entity_id',
-            ':iparam_filter2_id',
+            '-iparam_send_datetime',
+            '-iparam_provider_name',
+            '-iparam_provider_batch_id',
+            '-iparam_provider_batch_status',
+            '-iparam_provider_batch_credits',
+            '-iparam_provider_batch_error',
+            '-iparam_sms_type_id',
+            '-iparam_account_filter_row_type',
+            '-iparam_account_filter_entity_id',
+            '-iparam_filter2_id',
             ':iparam_total_sms_in_batch',
             ':iparam_success_count',
             ':iparam_failure_count',
             ':iparam_common_message_flag',
-            ':iparam_common_message',
-            ':iparam_entityID_smsMobile_PrvStatus_details',
-            ':iparam_log_json_sms_sent',
-            ':iparam_log_json_sms_received',
-            ':iparam_log_json_batch_sent',
-            ':iparam_log_json_batch_received',
+            '-iparam_common_message',
+            '-iparam_entityID_smsMobile_PrvStatus_details',
+            '-iparam_log_json_sms_sent',
+            '-iparam_log_json_sms_received',
+            '-iparam_log_json_batch_sent',
+            '-iparam_log_json_batch_received',
             ':iparam_balance_count',
             ':iparam_session_id',
             ':iparam_user_id',

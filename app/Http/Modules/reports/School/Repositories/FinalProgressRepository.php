@@ -25,7 +25,7 @@ class FinalProgressRepository extends Repository
         $procedure = 'sproc_sch_generate_progress_final';
 
         $iparams = [
-            ':iparam_filter_type',
+            '-iparam_filter_type',
             ':iparam_subject_entity_id',
             ':iparam_session_id',
             ':iparam_user_id',

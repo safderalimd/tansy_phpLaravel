@@ -40,7 +40,7 @@ class ProductRepository extends Repository
         $procedure = 'sproc_prd_product_dml_ins';
 
         $iparams = [
-            ':iparam_product_name',
+            '-iparam_product_name',
             ':iparam_product_type_entity_id',
             ':iparam_unit_rate',
             ':iparam_facility_ids',
@@ -67,7 +67,7 @@ class ProductRepository extends Repository
 
         $iparams = [
             ':iparam_product_entity_id',
-            ':iparam_product_name',
+            '-iparam_product_name',
             ':iparam_product_type_entity_id',
             ':iparam_unit_rate',
             ':iparam_active',

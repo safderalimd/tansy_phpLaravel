@@ -20,10 +20,10 @@ class MarkSheetRepository extends Repository
                 subject_entity_id,
                 class_reporting_order,
                 subject_reporting_order
-                FROM view_sch_mark_sheet_grid
-                WHERE exam_entity_id = :id
-                ORDER BY class_reporting_order, subject_reporting_order ASC;',
-                ['id' => $id]
+             FROM view_sch_mark_sheet_grid
+             WHERE exam_entity_id = :id
+             ORDER BY class_reporting_order, subject_reporting_order ASC;',
+             ['id' => $id]
         );
     }
 
@@ -110,7 +110,7 @@ class MarkSheetRepository extends Repository
             ':iparam_exam_entity_id',
             ':iparam_class_entity_id',
             ':iparam_subject_entity_id',
-            ':iparam_clsStudIDs_marks',
+            '-iparam_clsStudIDs_marks',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

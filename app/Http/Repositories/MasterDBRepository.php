@@ -20,7 +20,7 @@ class MasterDBRepository extends Repository
         $procedure = 'sproc_sama_get_client_db_connnection_info';
 
         $iparams = [
-            ':iparam_domain_name',
+            '-iparam_domain_name',
             ':iparam_debug_sproc',
             ':iparam_audit_screen_visit',
         ];

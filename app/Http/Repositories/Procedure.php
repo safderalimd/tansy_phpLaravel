@@ -38,6 +38,7 @@ class Procedure
         $this->procedure  = $procedure;
         $this->iparams    = $this->normalize($iparams);
         $this->oparams    = $this->normalize($oparams);
+        $this->rawIparams = $iparams;
 
         $this->pdo = $this->repository->db()->getPdo();
     }
@@ -63,10 +64,11 @@ class Procedure
 
     protected function runSetIparamsQuery()
     {
-        foreach ($this->iparams as $iparam) {
+        foreach ($this->rawIparams as $iparam) {
             $value = $this->getModelProperty($iparam);
-            $this->pdo->query("set {$iparam} = {$value};");
-            $this->setParamsSql .= "set {$iparam} = {$value};" . PHP_EOL;
+            $normalizedIparam = $this->normalizeIparam($iparam);
+            $this->pdo->query("set {$normalizedIparam} = {$value};");
+            $this->setParamsSql .= "set {$normalizedIparam} = {$value};" . PHP_EOL;
         }
     }
 
@@ -131,6 +133,12 @@ class Procedure
         $this->repository->db()->logQuery($query, $bindings, $time);
     }
 
+    /**
+     * Iparams are converted to a type:
+     * ':' are converted to int
+     * '+' are converted to floats
+     * '-' are escaped string values
+     */
     protected function getModelProperty($iparam)
     {
         $modelProperty = substr($iparam, 8);
@@ -139,6 +147,16 @@ class Procedure
         // send null to sproc if value is null
         if ($value === null) {
             return 'null';
+        }
+
+        // if the type is integer convert it to integer
+        if ($this->isTypeInteger($iparam)) {
+            return intval($value);
+        }
+
+        // if the type is float convert it to float
+        if ($this->isTypeFloat($iparam)) {
+            return floatval($value);
         }
 
         // remove extra spaces
@@ -152,6 +170,16 @@ class Procedure
         }
 
         return $this->pdo->quote($value);
+    }
+
+    public function isTypeInteger($iparam)
+    {
+        return ':' === substr($iparam, 0, 1);
+    }
+
+    public function isTypeFloat($iparam)
+    {
+        return '+' === substr($iparam, 0, 1);
     }
 
     protected function generateOparamsSelect()
@@ -173,6 +201,11 @@ class Procedure
         return array_map(function($param) {
             return '@' . substr($param, 1);
         }, $params);
+    }
+
+    public function normalizeIparam($iparam)
+    {
+        return '@' . substr($iparam, 1);
     }
 
     /**

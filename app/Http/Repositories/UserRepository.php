@@ -11,10 +11,10 @@ class UserRepository extends Repository
         $procedure = 'sproc_sec_login';
 
         $iparams = [
-            ':iparam_login_name',
-            ':iparam_password',
-            ':iparam_ipaddress',
-            ':iparam_login_media',
+            '-iparam_login_name',
+            '-iparam_password',
+            '-iparam_ipaddress',
+            '-iparam_login_media',
         ];
 
         $oparams = [

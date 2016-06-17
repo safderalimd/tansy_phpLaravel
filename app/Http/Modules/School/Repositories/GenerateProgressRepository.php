@@ -6,7 +6,6 @@ use App\Http\Repositories\Repository;
 
 class GenerateProgressRepository extends Repository
 {
-
     public function generateFilteredProgressGrid($id)
     {
         return $this->select(
@@ -17,10 +16,10 @@ class GenerateProgressRepository extends Repository
                 exam_entity_id,
                 class_entity_id,
                 class_reporting_order
-            FROM view_sch_generate_progress_grid
-            WHERE exam_entity_id = :id
-            ORDER BY class_reporting_order ASC',
-            ['id' => $id]
+             FROM view_sch_generate_progress_grid
+             WHERE exam_entity_id = :id
+             ORDER BY class_reporting_order ASC',
+             ['id' => $id]
         );
     }
 

@@ -32,9 +32,9 @@ class PaymentRepository extends Repository
         $procedure = 'sproc_act_rcv_due_lst';
 
         $iparams = [
-            ':iparam_filter_type',
+            '-iparam_filter_type',
             ':iparam_subject_entity_id',
-            ':iparam_return_type',
+            '-iparam_return_type',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
@@ -57,10 +57,10 @@ class PaymentRepository extends Repository
         $procedure = 'sproc_act_rcv_generate_receipt_dml';
 
         $iparams = [
-            ':iparam_schEntID_dateID_schAmnt_PaidAmnt_list',
+            '-iparam_schEntID_dateID_schAmnt_PaidAmnt_list',
             ':iparam_credited_to_entity_id',
-            ':iparam_total_paid_amount',
-            ':iparam_new_balance',
+            '+iparam_total_paid_amount',
+            '+iparam_new_balance',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

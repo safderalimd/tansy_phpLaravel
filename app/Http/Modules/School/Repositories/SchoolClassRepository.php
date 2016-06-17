@@ -86,11 +86,11 @@ class SchoolClassRepository extends Repository
         $procedure = 'sproc_sch_class_dml_ins';
 
         $iparams = [
-            ':iparam_class_name',
+            '-iparam_class_name',
             ':iparam_class_group_entity_id',
             ':iparam_class_category_entity_id',
-            ':iparam_reporting_order',
-            ':iparam_facility_ids',
+            '-iparam_reporting_order',
+            '-iparam_facility_ids',
             ':iparam_class_teacher_entity_id',
             ':iparam_session_id',
             ':iparam_user_id',
@@ -115,11 +115,11 @@ class SchoolClassRepository extends Repository
 
         $iparams = [
             ':iparam_class_entity_id',
-            ':iparam_class_name',
+            '-iparam_class_name',
             ':iparam_class_group_entity_id',
             ':iparam_class_category_entity_id',
-            ':iparam_reporting_order',
-            ':iparam_facility_ids',
+            '-iparam_reporting_order',
+            '-iparam_facility_ids',
             ':iparam_active',
             ':iparam_class_teacher_entity_id',
             ':iparam_session_id',

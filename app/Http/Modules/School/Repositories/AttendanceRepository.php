@@ -26,9 +26,9 @@ class AttendanceRepository extends Repository
         $procedure = 'sproc_org_individual_absentee_grid';
 
         $iparams = [
-            ':iparam_filter_type',
+            '-iparam_filter_type',
             ':iparam_filter_entity_id',
-            ':iparam_absense_date',
+            '-iparam_absense_date',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
@@ -51,8 +51,8 @@ class AttendanceRepository extends Repository
         $procedure = 'sproc_org_individual_absentee_dml';
 
         $iparams = [
-            ':iparam_absense_date',
-            ':iparam_IndvEntityIDs_absent_list',
+            '-iparam_absense_date',
+            '-iparam_IndvEntityIDs_absent_list',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

@@ -46,9 +46,9 @@ class PaymentRepository extends Repository
         $procedure = 'sproc_act_rcv_due_lst';
 
         $iparams = [
-            ':iparam_filter_type',
+            '-iparam_filter_type',
             ':iparam_subject_entity_id',
-            ':iparam_return_type',
+            '-iparam_return_type',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
@@ -95,7 +95,7 @@ class PaymentRepository extends Repository
         $procedure = 'sproc_dsh_sch_fee_payment_collection_v1';
 
         $iparams = [
-            ':iparam_filter_type',
+            '-iparam_filter_type',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

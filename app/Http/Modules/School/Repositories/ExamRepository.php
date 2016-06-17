@@ -50,10 +50,10 @@ class ExamRepository extends Repository
         $procedure = 'sproc_sch_exam_dml_ins';
 
         $iparams = [
-            ':iparam_exam_name',
+            '-iparam_exam_name',
             ':iparam_exam_type_id',
-            ':iparam_reporting_order',
-            ':iparam_progress_card_reporting_order',
+            '-iparam_reporting_order',
+            '-iparam_progress_card_reporting_order',
             ':iparam_facility_ids',
             ':iparam_session_id',
             ':iparam_user_id',
@@ -78,10 +78,10 @@ class ExamRepository extends Repository
 
         $iparams = [
             ':iparam_exam_entity_id',
-            ':iparam_exam_name',
+            '-iparam_exam_name',
             ':iparam_exam_type_id',
-            ':iparam_reporting_order',
-            ':iparam_progress_card_reporting_order',
+            '-iparam_reporting_order',
+            '-iparam_progress_card_reporting_order',
             ':iparam_active',
             ':iparam_facility_ids',
             ':iparam_session_id',
