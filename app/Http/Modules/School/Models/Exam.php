@@ -10,6 +10,11 @@ class Exam extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\ExamRepository';
 
+    protected $selects = [
+        'exam_type_id',
+        'facility_ids',
+    ];
+
     public $selectedFacilities;
 
     public function setActiveAttribute($value)

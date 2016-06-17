@@ -27,6 +27,7 @@ class ExamFormRequest extends Request
         return [
             'exam_name'                     => 'required|string|max:100',
             'exam_type_id'                  => 'required|integer',
+            'facility_ids'                  => 'required|integer',
             'reporting_order'               => 'required|integer',
             'progress_card_reporting_order' => 'required|integer|max:999',
         ];

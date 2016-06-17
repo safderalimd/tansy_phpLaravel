@@ -46,6 +46,7 @@
                             'options' => $exam->examTypes(),
                             'keyId'   => 'exam_type_id',
                             'keyName' => 'exam_type',
+                            'none'    => 'Select an exam type..',
                         ])
 
                         <div class="form-group">
@@ -57,6 +58,7 @@
                                     }
                                 ?>
                                 <select id="facility_ids" class="form-control" name="facility_ids">
+                                    <option value="none">Select a facility..</option>
                                     @foreach($exam->facilities() as $option)
                                         <option @if(in_array($option['facility_entity_id'], $exam->selectedFacilities)) selected @endif value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
                                     @endforeach
