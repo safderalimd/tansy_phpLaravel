@@ -273,4 +273,15 @@ class Model
     {
         return count($this->attributes);
     }
+
+    public function getScreenId()
+    {
+        return $this->screenId;
+    }
+
+    public static function screenId()
+    {
+        $instance = new static;
+        return $instance->getScreenId();
+    }
 }

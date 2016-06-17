@@ -51,5 +51,6 @@ class Kernel extends HttpKernel
         'menu' => \App\Http\Middleware\MenuMiddleware::class,
         'cabinet' => \App\Http\Middleware\Cabinet::class,
         'owner' => \App\Http\Middleware\OwnerGroup::class,
+        'screen' => \App\Http\Middleware\ScreenPermission::class,
     ];
 }
