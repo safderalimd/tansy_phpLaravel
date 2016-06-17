@@ -30,6 +30,14 @@ class Model
     ];
 
     /**
+     * The attributes that are values from selectboxes.
+     * If the value is not numeric, convert it to a string.
+     *
+     * @var array
+     */
+    protected $selects = [];
+
+    /**
      * Is this a new model record.
      *
      * @var boolean
@@ -283,5 +291,18 @@ class Model
     {
         $instance = new static;
         return $instance->getScreenId();
+    }
+
+    public function isSelectNoneOption($param)
+    {
+        if (!in_array($param, $this->selects)) {
+            return false;
+        }
+
+        if ($this->{$param} == 'none') {
+            return true;
+        }
+
+        return false;
     }
 }

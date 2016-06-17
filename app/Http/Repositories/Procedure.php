@@ -149,6 +149,11 @@ class Procedure
             return 'null';
         }
 
+        // if the parameters is from a selectbox, convert 'none' value to null
+        if ($this->model->isSelectNoneOption($modelProperty)) {
+            return 'null';
+        }
+
         // if the type is integer convert it to integer
         if ($this->isTypeInteger($iparam)) {
             return intval($value);

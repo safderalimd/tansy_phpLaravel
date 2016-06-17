@@ -46,6 +46,7 @@
                         'options' => $class->classGroups(),
                         'keyId'   => 'class_group_entity_id',
                         'keyName' => 'class_group',
+                        'none'    => 'Select a class group..',
                     ])
 
                     @include('commons.select', [
@@ -54,6 +55,7 @@
                         'options' => $class->classCategories(),
                         'keyId'   => 'class_category_entity_id',
                         'keyName' => 'class_category',
+                        'none'    => 'Select a class category..',
                     ])
 
                     @include('commons.select', [
@@ -62,6 +64,7 @@
                         'options' => $class->teachers(),
                         'keyId'   => 'employee_entity_id',
                         'keyName' => 'employee_name',
+                        'none'    => 'Select a teacher..',
                     ])
 
                     <div class="form-group">
@@ -77,6 +80,7 @@
                         'options' => $class->facilities(),
                         'keyId'   => 'facility_entity_id',
                         'keyName' => 'facility_name',
+                        'none'    => 'Select a facility..',
                     ])
 
                     <div class="row_footer">
