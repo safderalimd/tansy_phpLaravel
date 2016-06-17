@@ -146,7 +146,7 @@ class AdmissionRepository extends Repository
             '-iparam_parent_last_name',
             '-iparam_parent_middle_name',
             '-iparam_parent_gender',
-            '-iparam_designation_name',
+            '-iparam_parent_designation_name',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

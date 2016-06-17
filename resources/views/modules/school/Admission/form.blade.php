@@ -28,6 +28,7 @@
                             'options' => $admission->facilitiesForOwner(),
                             'keyId'   => 'facility_entity_id',
                             'keyName' => 'facility_name',
+                            'none'    => 'Select a facility..',
                         ])
 
                         @if (!$admission->isNewRecord())
@@ -143,6 +144,7 @@
                             'options' => $admission->cities(),
                             'keyId'   => 'city_name',
                             'keyName' => 'city_name',
+                            'none'    => 'Select a city..',
                         ])
 
                         <div class="form-group">
@@ -235,6 +237,7 @@
                             'options'  => $admission->castes(),
                             'keyId'    => 'caste_name',
                             'keyName'  => 'caste_name',
+                            'none'     => 'Select a caste..',
                         ])
 
                         @include('commons.select', [
@@ -243,6 +246,7 @@
                             'options'  => $admission->religions(),
                             'keyId'    => 'religion_name',
                             'keyName'  => 'religion_name',
+                            'none'     => 'Select a religion..',
                         ])
 
                         @include('commons.select', [
@@ -251,6 +255,7 @@
                             'options'  => $admission->languages(),
                             'keyId'    => 'language_name',
                             'keyName'  => 'language_name',
+                            'none'     => 'Select a communication language..',
                         ])
 
                         <hr/>
@@ -262,6 +267,7 @@
                             'options' => $admission->relationships(),
                             'keyId'   => 'relationship_name',
                             'keyName' => 'relationship_name',
+                            'none'    => 'Select a relationship type..',
                         ])
 
                         <div class="form-group">
@@ -305,6 +311,7 @@
                             'options'  => $admission->designations(),
                             'keyId'    => 'designation_name',
                             'keyName'  => 'designation_name',
+                            'none'     => 'Select a designation..',
                         ])
 
                         <hr/>

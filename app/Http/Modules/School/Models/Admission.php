@@ -10,23 +10,23 @@ class Admission extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\AdmissionRepository';
 
+    protected $selects = [
+        'facility_entity_id',
+        'city_name',
+        'admitted_to_class_group_entity_id',
+        'caste_name',
+        'religion_name',
+        'mother_language_name',
+        'parent_relationship_type',
+        'parent_designation_name',
+
+        'move_to_fiscal_year_entity_id',
+        'move_to_class_entity_id',
+    ];
+
     public function moveStudents()
     {
         return $this->repository->moveStudents($this);
-    }
-
-    public function setParentDesignationNameAttribute($value)
-    {
-        $this->setAttribute('designation_name', $value);
-        return $value;
-    }
-
-    public function setAdmittedToClassGroupEntityIdAttribute($value)
-    {
-        if (!is_numeric($value)) {
-            return null;
-        }
-        return $value;
     }
 
     public function setStudentGenderAttribute($value)

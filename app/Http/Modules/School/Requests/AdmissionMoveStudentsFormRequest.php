@@ -25,9 +25,9 @@ class AdmissionMoveStudentsFormRequest extends Request
     public function rules()
     {
         return [
-            'move_to_class_entity_id' => 'required|integer',
+            'move_to_class_entity_id'       => 'required|integer',
             'move_to_fiscal_year_entity_id' => 'required|integer',
-            'admission_ids' => 'required|string',
+            'admission_ids'                 => 'required|string',
         ];
     }
 

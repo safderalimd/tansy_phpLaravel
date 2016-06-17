@@ -74,8 +74,9 @@
             <label class="col-md-2 control-label" for="fiscal_years">Move to Fiscal Year</label>
             <div class="col-md-4">
                 <select id="fiscal_years" class="form-control" name="move_to_fiscal_year_entity_id">
+                    <option value="none">Select a fiscal year..</option>
                     @foreach($admission->fiscalYears() as $year)
-                        <option value="{!!$year['fiscal_year_entity_id']!!}">{!!$year['fiscal_year']!!}</option>
+                        <option value="{{$year['fiscal_year_entity_id']}}">{{$year['fiscal_year']}}</option>
                     @endforeach
                 </select>
             </div>
@@ -85,8 +86,9 @@
             <label class="col-md-2 control-label" for="move_to_class">Move to class</label>
             <div class="col-md-4">
                 <select id="move_to_class" class="form-control" name="move_to_class_entity_id">
+                    <option value="none">Select a class..</option>
                     @foreach($admission->classes() as $class)
-                        <option value="{!!$class['class_entity_id']!!}">{!!$class['class_name']!!}</option>
+                        <option value="{{$class['class_entity_id']}}">{{$class['class_name']}}</option>
                     @endforeach
                 </select>
             </div>
