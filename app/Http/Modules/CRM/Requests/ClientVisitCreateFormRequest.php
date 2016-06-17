@@ -70,7 +70,6 @@ class ClientVisitCreateFormRequest extends Request
 
         if ($this->has('contact_new')) {
             $rules['organization_contact_frist_name'] = 'required|' . $rules['organization_contact_frist_name'];
-            $rules['organization_contact_last_name'] = 'required|' . $rules['organization_contact_last_name'];
         }
 
         return $rules;
