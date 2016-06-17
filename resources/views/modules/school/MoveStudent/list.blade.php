@@ -22,7 +22,7 @@
                             <label class="col-md-2 control-label" for="class-entity-id-filter">Class</label>
                             <div class="col-md-8">
                                 <select id="class-entity-id-filter" class="form-control" name="class-entity-id-filter">
-                                    <option value="none">Select a class</option>
+                                    <option value="none">Select a class..</option>
                                     @foreach($move->classes() as $option)
                                         <option {{ s('class-entity-id-filter', $option['class_entity_id']) }} value="{{ $option['class_entity_id'] }}">{{ $option['class_name'] }}</option>
                                     @endforeach
@@ -80,6 +80,7 @@
             <label class="col-md-2 control-label" for="move_to_fiscal_year_entity_id">Move to Fiscal Year</label>
             <div class="col-md-4">
                 <select id="move_to_fiscal_year_entity_id" class="form-control" name="move_to_fiscal_year_entity_id">
+                    <option value="none">Select a fiscal year..</option>
                     @foreach($move->fiscalYears() as $year)
                         <option value="{!!$year['fiscal_year_entity_id']!!}">{!!$year['fiscal_year']!!}</option>
                     @endforeach
@@ -91,6 +92,7 @@
             <label class="col-md-2 control-label" for="move_to_class_entity_id">Move to class</label>
             <div class="col-md-4">
                 <select id="move_to_class_entity_id" class="form-control" name="move_to_class_entity_id">
+                    <option value="none">Select a class..</option>
                     @foreach($move->classes() as $class)
                         <option value="{!!$class['class_entity_id']!!}">{!!$class['class_name']!!}</option>
                     @endforeach

@@ -25,9 +25,9 @@ class MoveStudentFormRequest extends Request
     public function rules()
     {
         return [
-            'move_to_class_entity_id' => 'required|integer',
+            'move_to_class_entity_id'       => 'required|integer',
             'move_to_fiscal_year_entity_id' => 'required|integer',
-            'class_student_ids' => 'required|string',
+            'class_student_ids'             => 'required|string',
         ];
     }
 
