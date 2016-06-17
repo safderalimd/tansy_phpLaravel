@@ -27,6 +27,7 @@ class SubjectFormRequest extends Request
         return [
             'subject_name'       => 'required|string|max:100',
             'subject_type_id'    => 'required|integer',
+            'facility_ids'       => 'required|integer',
             'reporting_order'    => 'required|integer',
             'subject_short_code' => 'required|string|max:15',
         ];

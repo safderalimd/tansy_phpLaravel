@@ -46,6 +46,7 @@
                             'options' => $subject->subjectTypes(),
                             'keyId'   => 'subject_type_id',
                             'keyName' => 'subject_type',
+                            'none'    => 'Select a subject type..',
                         ])
 
                         <div class="form-group">
@@ -57,6 +58,7 @@
                                     }
                                 ?>
                                 <select id="facility_ids" class="form-control" name="facility_ids">
+                                    <option value="none">Select a facility..</option>
                                     @foreach($subject->facilities() as $option)
                                         <option @if(in_array($option['facility_entity_id'], $subject->selectedFacilities)) selected @endif value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
                                     @endforeach

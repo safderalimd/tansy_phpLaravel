@@ -10,6 +10,11 @@ class Subject extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\SubjectRepository';
 
+    protected $selects = [
+        'subject_type_id',
+        'facility_ids',
+    ];
+
     public $selectedFacilities;
 
     public function setActiveAttribute($value)
