@@ -16,7 +16,7 @@ class ChangePasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.ChangePassword::screenId());
+        $this->middleware('screen:' . ChangePassword::screenId());
     }
 
     public function index()

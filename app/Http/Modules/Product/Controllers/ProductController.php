@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.Product::screenId());
+        $this->middleware('screen:' . Product::screenId());
     }
 
     /**

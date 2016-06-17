@@ -16,7 +16,7 @@ class ProgressPrintStudentController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.ProgressPrintStudent::screenId());
+        $this->middleware('screen:' . ProgressPrintStudent::screenId());
     }
 
     /**

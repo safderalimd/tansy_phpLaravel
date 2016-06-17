@@ -16,7 +16,7 @@ class StudentExportController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.StudentExport::screenId());
+        $this->middleware('screen:' . StudentExport::screenId());
     }
 
     /**

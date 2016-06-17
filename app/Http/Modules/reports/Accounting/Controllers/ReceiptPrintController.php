@@ -16,7 +16,7 @@ class ReceiptPrintController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.ReceiptPrint::screenId());
+        $this->middleware('screen:' . ReceiptPrint::screenId());
     }
 
     /**

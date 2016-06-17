@@ -16,7 +16,7 @@ class FiscalYearController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.FiscalYear::screenId());
+        $this->middleware('screen:' . FiscalYear::screenId());
     }
 
     /**

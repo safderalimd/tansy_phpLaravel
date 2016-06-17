@@ -15,7 +15,7 @@ class HolidaysController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.Holidays::screenId());
+        $this->middleware('screen:' . Holidays::screenId());
     }
 
     /**

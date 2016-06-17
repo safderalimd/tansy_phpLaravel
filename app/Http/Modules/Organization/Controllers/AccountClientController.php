@@ -15,7 +15,7 @@ class AccountClientController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.AccountClient::screenId());
+        $this->middleware('screen:' . AccountClient::screenId());
     }
 
     /**

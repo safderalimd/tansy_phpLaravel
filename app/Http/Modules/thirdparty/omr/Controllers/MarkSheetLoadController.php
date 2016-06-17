@@ -15,7 +15,7 @@ class MarkSheetLoadController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.MarkSheetLoad::screenId());
+        $this->middleware('screen:' . MarkSheetLoad::screenId());
     }
 
     /**

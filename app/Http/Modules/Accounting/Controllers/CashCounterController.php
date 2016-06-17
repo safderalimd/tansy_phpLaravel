@@ -15,7 +15,7 @@ class CashCounterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.CashCounter::screenId());
+        $this->middleware('screen:' . CashCounter::screenId());
     }
 
     /**

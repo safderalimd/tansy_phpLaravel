@@ -15,7 +15,7 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.Admin::screenId());
+        $this->middleware('screen:' . Admin::screenId());
     }
 
     /**

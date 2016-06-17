@@ -16,7 +16,7 @@ class PaymentAdjustmentController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.PaymentAdjustment::screenId());
+        $this->middleware('screen:' . PaymentAdjustment::screenId());
     }
 
     /**

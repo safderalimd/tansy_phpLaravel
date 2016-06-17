@@ -15,7 +15,7 @@ class ExamController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.Exam::screenId());
+        $this->middleware('screen:' . Exam::screenId());
     }
 
     /**

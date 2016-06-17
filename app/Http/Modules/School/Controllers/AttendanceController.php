@@ -15,7 +15,7 @@ class AttendanceController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.Attendance::screenId());
+        $this->middleware('screen:' . Attendance::screenId());
     }
 
     /**

@@ -15,7 +15,7 @@ class AccountEmployeeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.AccountEmployee::screenId());
+        $this->middleware('screen:' . AccountEmployee::screenId());
     }
 
     /**

@@ -16,7 +16,7 @@ class ClassSubjectMapController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.ClassSubjectMap::screenId());
+        $this->middleware('screen:' . ClassSubjectMap::screenId());
     }
 
     /**

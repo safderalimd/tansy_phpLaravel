@@ -17,7 +17,7 @@ class AccountStatementController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.AccountStatement::screenId());
+        $this->middleware('screen:' . AccountStatement::screenId());
     }
 
     /**

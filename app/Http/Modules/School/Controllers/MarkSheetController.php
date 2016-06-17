@@ -17,7 +17,7 @@ class MarkSheetController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.MarkSheet::screenId());
+        $this->middleware('screen:' . MarkSheet::screenId());
     }
 
     /**

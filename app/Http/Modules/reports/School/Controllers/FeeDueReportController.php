@@ -17,7 +17,7 @@ class FeeDueReportController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.FeeDueReport::screenId());
+        $this->middleware('screen:' . FeeDueReport::screenId());
     }
 
     /**

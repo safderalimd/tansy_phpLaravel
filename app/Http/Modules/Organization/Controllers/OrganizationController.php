@@ -15,7 +15,7 @@ class OrganizationController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.Organization::screenId());
+        $this->middleware('screen:' . Organization::screenId());
     }
 
     /**

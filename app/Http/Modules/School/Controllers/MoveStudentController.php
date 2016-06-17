@@ -15,7 +15,7 @@ class MoveStudentController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.MoveStudent::screenId());
+        $this->middleware('screen:' . MoveStudent::screenId());
     }
 
     /**

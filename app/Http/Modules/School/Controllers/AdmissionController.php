@@ -16,7 +16,7 @@ class AdmissionController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.Admission::screenId());
+        $this->middleware('screen:' . Admission::screenId());
     }
 
     /**

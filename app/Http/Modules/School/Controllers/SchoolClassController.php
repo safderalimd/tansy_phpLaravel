@@ -17,7 +17,7 @@ class SchoolClassController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.SchoolClass::screenId());
+        $this->middleware('screen:' . SchoolClass::screenId());
     }
 
     /**

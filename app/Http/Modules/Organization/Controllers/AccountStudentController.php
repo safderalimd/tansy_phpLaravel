@@ -17,7 +17,7 @@ class AccountStudentController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.AccountStudent::screenId());
+        $this->middleware('screen:' . AccountStudent::screenId());
     }
 
     /**

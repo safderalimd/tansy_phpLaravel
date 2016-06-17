@@ -16,7 +16,7 @@ class GenerateProgressController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.GenerateProgress::screenId());
+        $this->middleware('screen:' . GenerateProgress::screenId());
     }
 
     /**

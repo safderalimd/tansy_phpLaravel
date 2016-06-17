@@ -16,7 +16,7 @@ class FinalProgressController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.FinalProgress::screenId());
+        $this->middleware('screen:' . FinalProgress::screenId());
     }
 
     /**

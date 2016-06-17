@@ -16,7 +16,7 @@ class ProgressPrintClassController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.ProgressPrintClass::screenId());
+        $this->middleware('screen:' . ProgressPrintClass::screenId());
     }
 
     /**

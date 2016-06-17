@@ -15,7 +15,7 @@ class SmsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.Sms::screenId());
+        $this->middleware('screen:' . Sms::screenId());
     }
 
     /**

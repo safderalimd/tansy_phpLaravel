@@ -15,7 +15,7 @@ class AccountAgentController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.AccountAgent::screenId());
+        $this->middleware('screen:' . AccountAgent::screenId());
     }
 
     /**

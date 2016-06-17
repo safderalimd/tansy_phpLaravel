@@ -16,7 +16,7 @@ class DailyCollectionController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.DailyCollection::screenId());
+        $this->middleware('screen:' . DailyCollection::screenId());
     }
 
     /**

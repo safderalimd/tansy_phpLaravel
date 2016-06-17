@@ -16,7 +16,7 @@ class StudentDetailController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.StudentDetail::screenId());
+        $this->middleware('screen:' . StudentDetail::screenId());
     }
 
     /**

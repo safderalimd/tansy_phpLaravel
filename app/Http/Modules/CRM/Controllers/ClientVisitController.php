@@ -16,7 +16,7 @@ class ClientVisitController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.ClientVisit::screenId());
+        $this->middleware('screen:' . ClientVisit::screenId());
     }
 
     /**

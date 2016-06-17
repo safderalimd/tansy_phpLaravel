@@ -16,7 +16,7 @@ class SchedulePaymentController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.SchedulePayment::screenId());
+        $this->middleware('screen:' . SchedulePayment::screenId());
     }
 
     /**

@@ -18,7 +18,7 @@ class ExamScheduleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:'.ExamSchedule::screenId());
+        $this->middleware('screen:' . ExamSchedule::screenId());
     }
 
     /**
