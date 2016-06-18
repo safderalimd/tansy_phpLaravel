@@ -21,6 +21,7 @@
                 <div class="form-group">
                     <div class="col-md-3 col-md-offset-1">
                         <select id="primary_key_id" class="form-control" name="pk">
+                            <option value="none">Select an option..</option>
                             @foreach($export->dropdown() as $option)
                                 <option data-rowType="{{ $option['row_type'] }}" value="{{ $option['primary_key_id'] }}">{{ $option['drop_down_list_name'] }}</option>
                             @endforeach
@@ -113,6 +114,11 @@
 <script type="text/javascript">
 
     $('#generate-report-form').submit(function() {
+
+        if ($('#primary_key_id option:selected').val() == 'none') {
+            alert('Please select an option.');
+            return false;
+        }
 
         if ($('.pdf-column:checked').length == 0) {
             alert('No checkboxes are selected.');
