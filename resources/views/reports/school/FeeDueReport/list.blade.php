@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <label class="control-label" for="primary_key_id">Account Type</label>
                     <select id="primary_key_id" class="form-control" name="pk">
-                        <option data-rowType="none" value="none">Select an account</option>
+                        <option data-rowType="none" value="none">Select an account..</option>
                         @foreach($report->accountsDropdown() as $option)
                             <option data-rowType="{{$option['row_type']}}" value="{{ $option['primary_key_id'] }}">{{ $option['drop_down_list_name'] }}</option>
                         @endforeach
