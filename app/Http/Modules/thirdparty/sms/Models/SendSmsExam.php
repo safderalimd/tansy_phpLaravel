@@ -6,7 +6,7 @@ class SendSmsExam extends SendSmsModel
 {
     // todo: fix duplication
     protected $screenId = 2005;
-    public static $screenId = 2005;
+    public static $staticScreenId = 2005;
 
     public $smsAccountTypes;
 

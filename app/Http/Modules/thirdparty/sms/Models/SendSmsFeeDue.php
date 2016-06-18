@@ -6,7 +6,7 @@ class SendSmsFeeDue extends SendSmsModel
 {
     // todo: fix duplication
     protected $screenId = 2004;
-    public static $screenId = 2004;
+    public static $staticScreenId = 2004;
 
     public $smsAccountTypes;
 

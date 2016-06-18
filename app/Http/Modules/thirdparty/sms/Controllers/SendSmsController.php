@@ -21,27 +21,27 @@ class SendSmsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:' . SendSmsGeneral::$screenId, ['only' => [
+        $this->middleware('screen:' . SendSmsGeneral::$staticScreenId, ['only' => [
             'general',
             'sendGeneral',
         ]]);
 
-        $this->middleware('screen:' . SendSmsExam::$screenId, ['only' => [
+        $this->middleware('screen:' . SendSmsExam::$staticScreenId, ['only' => [
             'examResults',
             'sendExamResults',
         ]]);
 
-        $this->middleware('screen:' . SendSmsExamSchedule::$screenId, ['only' => [
+        $this->middleware('screen:' . SendSmsExamSchedule::$staticScreenId, ['only' => [
             'examSchedule',
             'sendExamSchedule',
         ]]);
 
-        $this->middleware('screen:' . SendSmsAttendance::$screenId, ['only' => [
+        $this->middleware('screen:' . SendSmsAttendance::$staticScreenId, ['only' => [
             'attendence',
             'sendAttendance',
         ]]);
 
-        $this->middleware('screen:' . SendSmsFeeDue::$screenId, ['only' => [
+        $this->middleware('screen:' . SendSmsFeeDue::$staticScreenId, ['only' => [
             'feeDue',
             'sendFeeDue',
         ]]);

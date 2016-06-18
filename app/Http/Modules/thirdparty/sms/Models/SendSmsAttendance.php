@@ -6,7 +6,7 @@ class SendSmsAttendance extends SendSmsModel
 {
     // todo: fix duplication
     protected $screenId = 2006;
-    public static $screenId = 2006;
+    public static $staticScreenId = 2006;
 
     public function setHiddenAbsenseDateAttribute($value)
     {

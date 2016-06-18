@@ -6,7 +6,7 @@ class SendSmsGeneral extends SendSmsModel
 {
     // todo: fix duplication
     protected $screenId = 2007;
-    public static $screenId = 2007;
+    public static $staticScreenId = 2007;
 
     public $generalSmsTypes;
 
