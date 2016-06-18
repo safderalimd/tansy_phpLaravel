@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class ReceiptPrint extends Model
 {
-    protected $screenId = null;
+    protected $screenId = 2016;
 
     public $reportName = 'Receipt';
 
