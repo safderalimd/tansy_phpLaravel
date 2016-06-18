@@ -20,6 +20,7 @@
                 <div class="form-group" style="margin:0px 10px;">
                     <label class="" for="exam_entity_id">Exam</label>
                     <select id="exam_entity_id" class="form-control" name="ei">
+                        <option value="none">Select an exam..</option>
                         @foreach($progress->exam() as $option)
                             <option value="{{ $option['exam_entity_id'] }}">{{ $option['exam'] }}</option>
                         @endforeach
@@ -28,6 +29,7 @@
                 <div class="form-group" style="margin:0px 10px;">
                     <label class="" for="class_entity_id">Class</label>
                     <select id="class_entity_id" class="form-control" name="ci">
+                        <option value="none">Select a class..</option>
                         @foreach($progress->classes() as $option)
                             <option value="{{ $option['class_entity_id'] }}">{{ $option['class_name'] }}</option>
                         @endforeach
@@ -46,6 +48,16 @@
 <script type="text/javascript">
 
     $('#generate-report-form').submit(function() {
+        if ($('#exam_entity_id option:selected').val() == 'none') {
+            alert('Please select an exam.');
+            return false;
+        }
+
+        if ($('#class_entity_id option:selected').val() == 'none') {
+            alert('Please select a class.');
+            return false;
+        }
+
         $('#random_id').val(Date.now());
         return true;
     });
