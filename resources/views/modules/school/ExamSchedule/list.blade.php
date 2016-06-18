@@ -23,7 +23,7 @@
                                     <label class="col-md-2 control-label" for="exam_entity_id">Exam</label>
                                     <div class="col-md-4">
                                         <select id="exam_entity_id" class="form-control" name="exam_entity_id">
-                                            <option value="none">Select an exam</option>
+                                            <option value="none">Select an exam..</option>
                                             @foreach($schedule->exam() as $option)
                                                 <option {{ ($examId == $option['exam_entity_id']) ? 'selected' : ''}} value="{!! $option['exam_entity_id'] !!}">{!! $option['exam'] !!}</option>
                                             @endforeach
