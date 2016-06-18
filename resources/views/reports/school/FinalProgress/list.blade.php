@@ -22,6 +22,7 @@
                     <label class="col-md-1 control-label">Account</label>
                     <div class="col-md-3">
                         <select id="class_entity_id" class="form-control" name="ei">
+                            <option value="none">Select an account..</option>
                             @foreach($export->accountsDropdown() as $option)
                                 <option data-rowType="{{$option['row_type']}}" value="{{ $option['entity_id'] }}">{{ $option['drop_down_list_name'] }}</option>
                             @endforeach
@@ -45,6 +46,12 @@
 <script type="text/javascript">
 
     $('#generate-report-form').submit(function() {
+
+        if ($('#class_entity_id option:selected').val() == 'none') {
+            alert('Please select an option.');
+            return false;
+        }
+
         $('#random_id').val(Date.now());
         $('#row_type').val($('#class_entity_id option:selected').attr('data-rowType'));
         return true;
