@@ -19,7 +19,7 @@
                 <label class="col-xs-3 col-md-2 control-label" for="exam_entity_id">Exam Name</label>
                 <div class="col-xs-9 col-md-3">
                     <select id="exam_entity_id" class="form-control" name="exam_entity_id">
-                        <option value="none">Select an exam</option>
+                        <option value="none">Select an exam..</option>
                         @foreach($sms->exam as $option)
                             <option {{ activeSelect($option['exam_entity_id'], 'eei') }} value="{{ $option['exam_entity_id'] }}">{{ $option['exam'] }}</option>
                         @endforeach
@@ -37,7 +37,7 @@
                 <label class="col-xs-3 col-md-2 control-label" for="sms_account_entity_id">Filter Accounts</label>
                 <div class="col-xs-9 col-md-3">
                     <select id="sms_account_entity_id" class="form-control" name="sms_account_entity_id">
-                        <option value="none">Select an account</option>
+                        <option value="none">Select an account..</option>
                         @foreach($sms->smsAccountTypes as $option)
                             <option data-rowType="{{$option['row_type']}}" {{ activeSelect($option['entity_id'], 'aei') }} value="{{ $option['entity_id'] }}">{{ $option['drop_down_list_name'] }}</option>
                         @endforeach
