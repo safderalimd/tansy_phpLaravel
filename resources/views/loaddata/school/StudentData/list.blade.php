@@ -13,13 +13,14 @@
         <div class="panel-body">
             @include('commons.errors')
 
-            <form class="form-horizontal" accept-charset="UTF-8" action="{{ form_action() }}" method="POST" enctype="multipart/form-data">
+            <form class="form-horizontal" id="laod-data-form" accept-charset="UTF-8" action="{{ form_action() }}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
 
                 <div class="form-group">
                     <label class="col-md-1 control-label" for="facility_entity_id">Facility</label>
                     <div class="col-md-4">
                         <select id="facility_entity_id" class="form-control" name="facility_entity_id">
+                            <option value="none">Select a facility..</option>
                             @foreach($studentData->facilities() as $option)
                                 <option value="{{ $option['facility_entity_id'] }}">{{ $option['facility_name'] }}</option>
                             @endforeach
@@ -66,6 +67,16 @@
         $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
             $('.file-name').text(label);
         });
+    });
+
+    $('#laod-data-form').submit(function() {
+
+        if ($('#facility_entity_id option:selected').val() == 'none') {
+            alert('Please select a facility.');
+            return false;
+        }
+
+        return true;
     });
 
 </script>
