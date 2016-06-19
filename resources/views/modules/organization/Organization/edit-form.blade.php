@@ -45,6 +45,7 @@
                         'options' => $organization->organizationTypes(),
                         'keyId'   => 'organization_type_id',
                         'keyName' => 'organization_type',
+                        'none'    => 'Select an organization type..',
                     ])
 
                     <hr/>
@@ -94,6 +95,7 @@
                         'options' => $organization->cities(),
                         'keyId'   => 'city_id',
                         'keyName' => 'city_name',
+                        'none'    => 'Select a city..',
                     ])
 
                     <div class="form-group">

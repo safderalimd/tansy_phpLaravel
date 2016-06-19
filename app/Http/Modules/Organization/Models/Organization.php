@@ -10,6 +10,14 @@ class Organization extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\Organization\Repositories\OrganizationRepository';
 
+    protected $selects = [
+        'organization_type_id',
+        'city_id',
+
+        'facility_type_id',
+        'facility_city_id',
+    ];
+
     public function setActiveAttribute($value)
     {
         $value = (string)$value;
