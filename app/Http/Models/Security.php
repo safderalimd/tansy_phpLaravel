@@ -3,6 +3,7 @@
 namespace App\Http\Models;
 
 use App\Http\Models\Model;
+use Group;
 
 class Security extends Model
 {
@@ -30,9 +31,12 @@ class Security extends Model
             return false;
         }
 
-        // if ($this->valid_dashboard !== 0) {
-        //     return false;
-        // }
+        // if its a parent group accessing a student dashboard, verify access
+        if (!is_null($this->student_entity_id) && Group::isParent()) {
+            if ($this->valid_dashboard !== 1) {
+                return false;
+            }
+        }
 
         return true;
     }

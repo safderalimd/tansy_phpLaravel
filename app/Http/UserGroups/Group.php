@@ -15,4 +15,16 @@ class Group
 
         return false;
     }
+
+    public static function isParent()
+    {
+        $group = session()->get('user.userSecurityGroup');
+        $group = trim($group);
+
+        if ($group == 'Parent') {
+            return true;
+        }
+
+        return false;
+    }
 }
