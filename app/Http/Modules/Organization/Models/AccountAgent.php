@@ -10,6 +10,15 @@ class AccountAgent extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\Organization\Repositories\AccountAgentRepository';
 
+    protected $selects = [
+        'organization_entity_id',
+        'facility_ids',
+        'city_id',
+        'document_type_id',
+        'security_group_entity_id',
+        'view_default_facility_id',
+    ];
+
     public $selectedFacilities;
 
     public function setActiveAttribute($value)

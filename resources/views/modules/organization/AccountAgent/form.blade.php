@@ -42,6 +42,7 @@
                             'options' => $account->organizations(),
                             'keyId'   => 'organization_entity_id',
                             'keyName' => 'organization_name',
+                            'none'    => 'Select an organization..',
                         ])
 
                         <div class="form-group">
@@ -53,6 +54,7 @@
                                     }
                                 ?>
                                 <select id="facility_ids" class="form-control" name="facility_ids">
+                                    <option value="none">Select a facility..</option>
                                     @if ($account->isNewRecord())
                                         @foreach($account->facilities() as $option)
                                             <option {{ s('facility_ids', $option['facility_entity_id']) }} data-organizationId="{{$option['organization_entity_id']}}" value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
@@ -164,6 +166,7 @@
                             'options' => $account->cities(),
                             'keyId'   => 'city_id',
                             'keyName' => 'city_name',
+                            'none'    => 'Select a city..',
                         ])
 
                         <div class="form-group">
@@ -203,6 +206,7 @@
                             'options'  => $account->documentType(),
                             'keyId'    => 'document_type_id',
                             'keyName'  => 'document_type',
+                            'none'     => 'Select a document type..',
                         ])
 
                         <div class="form-group">
@@ -243,6 +247,7 @@
                             <label class="col-md-4 control-label" for="security_group_entity_id">Security Group</label>
                             <div class="col-md-8">
                                 <select disabled="disabled" id="security_group_entity_id" class="form-control" name="security_group_entity_id">
+                                    <option value="none">Select a security group..</option>
                                     @foreach($account->securityGroupForAgent() as $option)
                                         <option value="{{ $option['security_group_entity_id'] }}">{{ $option['security_group'] }}</option>
                                     @endforeach
@@ -256,6 +261,7 @@
                             'options'  => $account->facilities(),
                             'keyId'    => 'facility_entity_id',
                             'keyName'  => 'facility_name',
+                            'none'     => 'Select a default facility..',
                         ])
 
                         <div class="row">
