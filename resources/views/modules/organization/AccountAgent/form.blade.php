@@ -247,7 +247,6 @@
                             <label class="col-md-4 control-label" for="security_group_entity_id">Security Group</label>
                             <div class="col-md-8">
                                 <select disabled="disabled" id="security_group_entity_id" class="form-control" name="security_group_entity_id">
-                                    <option value="none">Select a security group..</option>
                                     @foreach($account->securityGroupForAgent() as $option)
                                         <option value="{{ $option['security_group_entity_id'] }}">{{ $option['security_group'] }}</option>
                                     @endforeach
