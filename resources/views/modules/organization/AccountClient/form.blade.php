@@ -50,6 +50,7 @@
                                     }
                                 ?>
                                 <select id="facility_ids" class="form-control" name="facility_ids">
+                                    <option value="none">Select a facility..</option>
                                     @foreach($account->facilitiesForOwner() as $option)
                                         <option @if(in_array($option['facility_entity_id'], $account->selectedFacilities)) selected @endif value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
                                     @endforeach
@@ -61,6 +62,7 @@
                             <label class="col-md-4 control-label" for="unique_key_id">Identification</label>
                             <div class="col-md-8">
                                 <select id="unique_key_id" class="form-control" name="unique_key_id">
+                                    <option value="none">Select an identification..</option>
                                     @foreach($account->identifications() as $option)
                                         @if ($account->isNewRecord())
                                             <option @if($option['default_value']) selected @endif value="{{ $option['unique_key_id'] }}">{{ $option['unique_key'] }}</option>
@@ -171,6 +173,7 @@
                             'options' => $account->cities(),
                             'keyId'   => 'city_id',
                             'keyName' => 'city_name',
+                            'none'    => 'Select a city..',
                         ])
 
                         <div class="form-group">
@@ -210,6 +213,7 @@
                             'options'  => $account->documentType(),
                             'keyId'    => 'document_type_id',
                             'keyName'  => 'document_type',
+                            'none'     => 'Select a document type..',
                         ])
 
                         <div class="form-group">

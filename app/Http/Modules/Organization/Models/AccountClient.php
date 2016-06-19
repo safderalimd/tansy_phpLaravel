@@ -10,6 +10,13 @@ class AccountClient extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\Organization\Repositories\AccountClientRepository';
 
+    protected $selects = [
+        'facility_ids',
+        'unique_key_id',
+        'city_id',
+        'document_type_id',
+    ];
+
     public $selectedFacilities;
 
     public function setActiveAttribute($value)

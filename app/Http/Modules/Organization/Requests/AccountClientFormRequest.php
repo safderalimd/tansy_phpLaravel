@@ -43,7 +43,6 @@ class AccountClientFormRequest extends Request
             'address2'      => 'string|max:128',
             'city_area'     => 'string|max:100',
             'city_area_new' => 'string|max:100',
-            'city_id'       => 'integer',
             'postal_code'   => 'string|max:30',
         ];
 
