@@ -10,6 +10,15 @@ class AccountEmployee extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\Organization\Repositories\AccountEmployeeRepository';
 
+    protected $selects = [
+        'facility_ids',
+        'city_id',
+        'department_id',
+        'manager_entity_id',
+        'security_group_entity_id',
+        'view_default_facility_id',
+    ];
+
     public $selectedFacilities;
 
     public function setActiveAttribute($value)

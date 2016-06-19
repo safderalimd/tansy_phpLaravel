@@ -44,6 +44,7 @@
                                     }
                                 ?>
                                 <select id="facility_ids" class="form-control" name="facility_ids">
+                                    <option value="none">Select a facility..</option>
                                     @foreach($account->facilitiesForOwner() as $option)
                                         <option data-organizationId="{{$option['organization_entity_id']}}" @if(in_array($option['facility_entity_id'], $account->selectedFacilities)) selected @endif value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
                                     @endforeach
@@ -149,6 +150,7 @@
                             'options' => $account->cities(),
                             'keyId'   => 'city_id',
                             'keyName' => 'city_name',
+                            'none'    => 'Select a city..',
                         ])
 
                         <div class="form-group">
@@ -188,6 +190,7 @@
                             'options' => $account->departments(),
                             'keyId'   => 'department_id',
                             'keyName' => 'department_name',
+                            'none'    => 'Select a department..',
                         ])
 
                         <div class="form-group">
@@ -216,6 +219,7 @@
                             'options' => $account->managers(),
                             'keyId'   => 'employee_entity_id',
                             'keyName' => 'employee_name',
+                            'none'    => 'Select a manager..',
                         ])
 
 
@@ -228,6 +232,7 @@
                             'options'  => $account->documentType(),
                             'keyId'    => 'document_type_id',
                             'keyName'  => 'document_type',
+                            'none'     => 'Select a document type..',
                         ])
 
                         <div class="form-group">
@@ -270,6 +275,7 @@
                             'options' => $account->securityGroupForEmployees(),
                             'keyId'   => 'security_group_entity_id',
                             'keyName' => 'security_group',
+                            'none'    => 'Select a group..',
                         ])
 
                         @include('commons.select', [
@@ -278,6 +284,7 @@
                             'options'  => $account->facilitiesForOwner(),
                             'keyId'    => 'facility_entity_id',
                             'keyName'  => 'facility_name',
+                            'none'     => 'Select a default facility..',
                         ])
 
                         <hr/>
