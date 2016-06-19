@@ -58,7 +58,7 @@ class PaymentAdjustmentController extends Controller
         return $this->process($request);
     }
 
-    public function update(Request $request)
+    public function update(PaymentAdjustmentFormRequest $request)
     {
         flash('Payment Adjustment Updated!');
         return $this->process($request);

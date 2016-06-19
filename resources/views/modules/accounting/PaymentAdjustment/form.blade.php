@@ -84,6 +84,7 @@
                             'options' => $adjustment->adjustmentType(),
                             'keyId'   => 'payment_type_id',
                             'keyName' => 'payment_type',
+                            'none'    => 'Select an adjustment type..',
                         ])
 
                         <div class="form-group">

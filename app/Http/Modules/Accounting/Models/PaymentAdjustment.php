@@ -10,6 +10,10 @@ class PaymentAdjustment extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\Accounting\Repositories\PaymentAdjustmentRepository';
 
+    protected $selects = [
+        'payment_type_id',
+    ];
+
     public function getAll()
     {
         return $this->repository->getAll($this);

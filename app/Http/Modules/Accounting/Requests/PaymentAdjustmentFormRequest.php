@@ -25,10 +25,7 @@ class PaymentAdjustmentFormRequest extends Request
     public function rules()
     {
         return [
-            // 'product_name'           => 'required|string|max:120',
-            // 'product_type_entity_id' => 'required|integer',
-            // 'facility_ids'           => 'required|integer',
-            // 'unit_rate'              => 'required|numeric|min:0',
+            'payment_type_id' => 'required|integer',
         ];
     }
 
