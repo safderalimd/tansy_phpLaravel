@@ -42,6 +42,7 @@
                                     }
                                 ?>
                                 <select id="facility_ids" class="form-control" name="facility_ids">
+                                    <option value="none">Select a facility type..</option>
                                     @foreach($payment->facilities() as $option)
                                         <option @if(in_array($option['facility_entity_id'], $payment->selectedFacilities)) selected @endif value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
                                     @endforeach
@@ -62,6 +63,7 @@
                             'options' => $payment->products(),
                             'keyId'   => 'product_entity_id',
                             'keyName' => 'product',
+                            'none'    => 'Select a product..',
                         ])
 
                         @include('commons.select', [
@@ -70,12 +72,14 @@
                             'options' => $payment->accountType(),
                             'keyId'   => 'entity_type_id',
                             'keyName' => 'entity_type',
+                            'none'    => 'Select an account type..',
                         ])
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="subject_entity_id">Subject Account</label>
                             <div class="col-md-8">
                                 <select id="subject_entity_id" class="form-control" name="subject_entity_id">
+                                    <option value="none">Select a subject account..</option>
                                     @if (!$payment->isNewRecord())
                                         @foreach($payment->entityName() as $option)
                                             <option data-entityTypeId="{{$option['entity_type_id']}}" {{ s('subject_entity_id', $option['entity_id']) }} value="{!! $option['entity_id'] !!}">{!! $option['entity_name'] !!}</option>
@@ -95,6 +99,7 @@
                             'options' => $payment->frequency(),
                             'keyId'   => 'frequency_id',
                             'keyName' => 'description',
+                            'none'    => 'Select a frequency..',
                         ])
 
 

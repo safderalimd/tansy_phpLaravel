@@ -35,6 +35,7 @@
                             'options' => $payment->facilities(),
                             'keyId'   => 'facility_entity_id',
                             'keyName' => 'facility_name',
+                            'none'    => 'Select a facility..',
                         ])
 
                         <div class="form-group">
@@ -50,6 +51,7 @@
                             'options' => $payment->products(),
                             'keyId'   => 'product_entity_id',
                             'keyName' => 'product',
+                            'none'    => 'Select a product..',
                         ])
 
                         <?php
@@ -97,6 +99,7 @@
                             'options' => $payment->frequency(),
                             'keyId'   => 'frequency_id',
                             'keyName' => 'description',
+                            'none'    => 'Select a frequency..',
                         ])
 
                         <div class="row">

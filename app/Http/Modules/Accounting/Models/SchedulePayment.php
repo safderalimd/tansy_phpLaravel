@@ -12,6 +12,14 @@ class SchedulePayment extends Model
 
     public $selectedFacilities;
 
+    protected $selects = [
+        'facility_ids',
+        'product_entity_id',
+        'account_type_id',
+        'subject_entity_id',
+        'frequency_id',
+    ];
+
     public function setActiveAttribute($value)
     {
         $value = (string)$value;
