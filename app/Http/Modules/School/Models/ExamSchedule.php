@@ -39,7 +39,7 @@ class ExamSchedule extends Model
     public function setHiddenClassSubjectIdsAttribute($value)
     {
         $this->setAttribute('class_subject_ids', $value);
-        return intval($value);
+        return $value;
     }
 
     public function setHiddenExamEntityIdAttribute($value)
