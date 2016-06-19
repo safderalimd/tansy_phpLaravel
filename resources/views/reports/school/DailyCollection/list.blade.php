@@ -59,6 +59,19 @@
 <script type="text/javascript">
 
     $('#generate-report-form').submit(function() {
+        var start = $('#start').datepicker('getDate');
+        var end = $('#end').datepicker('getDate');
+
+        if (start == null) {
+            alert('Please select a start date.');
+            return false;
+        }
+
+        if (end == null) {
+            alert('Please select an end date.');
+            return false;
+        }
+
         $('#random_id').val(Date.now());
         return true;
     });
