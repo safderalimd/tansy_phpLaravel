@@ -24,6 +24,7 @@
             'options' => $client->facilityTypes(),
             'keyId'   => 'facility_type_id',
             'keyName' => 'facility_type',
+            'none'    => 'Select a facility type..',
         ])
 
         <div class="form-group">
@@ -53,6 +54,7 @@
             'options' => $client->cities,
             'keyId'   => 'city_id',
             'keyName' => 'city_name',
+            'none'    => 'Select a city..',
         ])
 
         <div class="form-group">

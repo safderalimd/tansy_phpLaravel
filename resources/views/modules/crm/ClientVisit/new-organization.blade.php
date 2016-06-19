@@ -37,6 +37,7 @@
             'options' => $client->cities,
             'keyId'   => 'city_id',
             'keyName' => 'city_name',
+            'none'    => 'Select a city..',
         ])
 
         <div class="form-group">

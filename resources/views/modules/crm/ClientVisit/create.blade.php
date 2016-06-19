@@ -27,6 +27,7 @@
                         'options' => $client->campaigns(),
                         'keyId'   => 'campaign_entity_id',
                         'keyName' => 'campaign_name',
+                        'none'    => 'Select a campaign..',
                     ])
 
 
@@ -110,6 +111,7 @@
                         'options' => $client->statuses(),
                         'keyId'   => 'client_status_id',
                         'keyName' => 'client_status',
+                        'none'    => 'Select a status..',
                     ])
 
                     @include('commons.select', [
@@ -118,6 +120,7 @@
                         'options' => $client->products(),
                         'keyId'   => 'product_entity_id',
                         'keyName' => 'product',
+                        'none'    => 'Select a product..',
                     ])
 
                     @include('commons.select', [
@@ -126,6 +129,7 @@
                         'options' => $client->unitTypes(),
                         'keyId'   => 'unit_type_id',
                         'keyName' => 'unit_type',
+                        'none'    => 'Select an unit type..',
                     ])
 
                     <div class="form-group">
@@ -161,6 +165,7 @@
                         'options' => $client->visitType(),
                         'keyId'   => 'visit_type_id',
                         'keyName' => 'visit_type',
+                        'none'    => 'Select a visit type..',
                     ])
 
 
@@ -183,6 +188,7 @@
                         'options' => $client->visitType(),
                         'keyId'   => 'visit_type_id',
                         'keyName' => 'visit_type',
+                        'none'    => 'Select a visit type..',
                     ])
 
                     <div class="row">

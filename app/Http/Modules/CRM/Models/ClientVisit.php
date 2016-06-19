@@ -10,6 +10,23 @@ class ClientVisit extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\CRM\Repositories\ClientVisitRepository';
 
+    protected $selects = [
+        'campaign_entity_id',
+        'organization_entity_id',
+        'facility_entity_id',
+        'contact_entity_id',
+        'agent_organization_entity_id',
+        'agent_entity_id',
+        'client_status_id',
+        'product_entity_id',
+        'unit_type_id',
+        'visit_type_id',
+        'next_visit_type_id',
+        'facility_type_id',
+        'facility_city_id',
+        'organization_city_id',
+    ];
+
     public $cities = [];
 
     public $cityAreas = [];
