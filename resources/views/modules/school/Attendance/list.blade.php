@@ -30,9 +30,9 @@
                 <div class="form-group">
                     <label class="col-sm-3 col-md-2 control-label" for="">Date</label>
                     <div class="col-md-8">
-                        <button type="button" class="btn button-circle btn-primary" id="previous-date-btn"><i class="glyphicon glyphicon-arrow-left"></i></button>
+                        <button type="button" class="btn btn-primary" id="previous-date-btn"><i class="glyphicon glyphicon-arrow-left"></i></button>
                         <span id="absense_date" class="next-prev-date-container form-control">{{$attendance->absense_date}}</span>
-                        <button type="button" class="btn button-circle btn-primary" id="next-date-btn"><i class="glyphicon glyphicon-arrow-right"></i></button>
+                        <button type="button" class="btn btn-primary" id="next-date-btn"><i class="glyphicon glyphicon-arrow-right"></i></button>
                     </div>
                 </div>
             </form>
