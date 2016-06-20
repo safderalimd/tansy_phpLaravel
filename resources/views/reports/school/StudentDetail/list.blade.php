@@ -103,6 +103,10 @@
 
 
     $('#generate-report-form').submit(function() {
+        if (! $('#generate-report-form').valid()) {
+            return false;
+        }
+
         if ($('#class_entity_id option:selected').val() == 'none') {
             alert('Select a class.');
             return false;
@@ -115,6 +119,17 @@
 
         $('#random_id').val(Date.now());
         return true;
+    });
+
+    $('#generate-report-form').validate({
+        rules: {
+            ci: {
+                requiredSelect: true
+            },
+            si: {
+                requiredSelect: true
+            }
+        }
     });
 
 </script>
