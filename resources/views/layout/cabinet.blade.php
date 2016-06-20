@@ -70,6 +70,8 @@
 <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="/bower_components/bootstrap-combobox/js/bootstrap-combobox-custom.js"></script>
 <script type="text/javascript" src="/bower_components/bootstrap-checkbox-x/js/checkbox-x.min.js"></script>
+<script type="text/javascript" src="/bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/bower_components/jquery-validation/dist/additional-methods.min.js"></script>
 <script type="text/javascript" src="/js/custom.js"></script>
 
 <script>
@@ -100,7 +102,6 @@
                     $(this).remove();
                 }
             );
-
 
         $('.date').datepicker({
             format: 'yyyy-mm-dd',
@@ -133,6 +134,25 @@
                 .end().modal('show');
 
         $('#formConfirm').find('#frm_submit').attr('href', dataForm);
+    });
+
+    // override jquery validate plugin defaults
+    $.validator.setDefaults({
+        highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
     });
 </script>
 

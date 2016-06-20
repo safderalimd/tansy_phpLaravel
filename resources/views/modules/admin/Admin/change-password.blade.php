@@ -16,25 +16,25 @@
 
                     @include('commons.errors')
 
-                    <form class="form-horizontal" action="{{ form_action() }}" method="POST">
+                    <form id="change-password-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="old_password">Current Password</label>
+                            <label class="col-md-4 control-label required" for="old_password">Current Password</label>
                             <div class="col-md-8">
                                 <input id="old_password" class="form-control" type="password" name="old_password" value="{{ v('old_password') }}" placeholder="Current Password">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="new_password">New Password</label>
+                            <label class="col-md-4 control-label required" for="new_password">New Password</label>
                             <div class="col-md-8">
                                 <input id="new_password" class="form-control" type="password" name="new_password" value="{{ v('new_password') }}" placeholder="New Password">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="new_password_confirmation">Retype Password</label>
+                            <label class="col-md-4 control-label required" for="new_password_confirmation">Retype Password</label>
                             <div class="col-md-8">
                                 <input id="new_password_confirmation" class="form-control" type="password" name="new_password_confirmation" value="{{ v('new_password_confirmation') }}" placeholder="Retype Password">
                             </div>
@@ -52,4 +52,39 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+
+    $('#change-password-form').validate({
+        rules: {
+            old_password: {
+                required: true,
+                minlength: 8
+            },
+            new_password: {
+                required: true,
+                minlength: 8,
+                notEqualTo: "#old_password"
+            },
+            new_password_confirmation: {
+                required: true,
+                minlength: 8,
+                equalTo: "#new_password",
+                notEqualTo: "#old_password"
+            }
+        },
+        messages: {
+            new_password: {
+                notEqualTo: "Your new password must be different than your old password."
+            },
+            new_password_confirmation: {
+                notEqualTo: "Your new password must be different than your old password."
+            }
+        }
+    });
+
+</script>
 @endsection

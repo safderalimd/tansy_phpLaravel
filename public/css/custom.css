@@ -93,3 +93,8 @@ a.selected {
     margin-left: 10px;
     margin-right: 10px;
 }
+
+label.required:after {
+    content: " *";
+    color: red;
+}
