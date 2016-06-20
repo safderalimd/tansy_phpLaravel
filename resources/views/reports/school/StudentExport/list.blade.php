@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="checkbox col-md-offset-1">
-                    <label><input type="checkbox" id="toggle-subjects" name="toggle-checkbox" value=""> Check All</label>
+                    <label><input type="checkbox" id="toggle-subjects" name="toggle_checkbox" value=""> Check All</label>
                 </div>
 
                 <br/>
@@ -114,6 +114,9 @@
 <script type="text/javascript">
 
     $('#generate-report-form').submit(function() {
+        if (! $('#generate-report-form').valid()) {
+            return false;
+        }
 
         if ($('#primary_key_id option:selected').val() == 'none') {
             alert('Please select an option.');
@@ -140,6 +143,24 @@
         $('.pdf-column').prop('checked', false);
         if($(this).is(":checked")) {
             $('.pdf-column').prop('checked', true)
+        }
+    });
+
+    $('#generate-report-form').validate({
+        rules: {
+            pk: {
+                requiredSelect: true
+            },
+            toggle_checkbox: {
+                required: function(elem) {
+                    return $("input.pdf-column:checked").length == 0;
+                }
+            }
+        },
+        messages: {
+            toggle_checkbox: {
+                required: "Please select at least 1 checkbox."
+            }
         }
     });
 
