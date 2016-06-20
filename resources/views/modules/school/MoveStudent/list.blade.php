@@ -185,5 +185,16 @@
 
         return true;
     });
+
+    $('#move-students-form').validate({
+        rules: {
+            move_to_fiscal_year_entity_id: {
+                requiredSelect: true
+            },
+            move_to_class_entity_id: {
+                requiredSelect: true
+            }
+        }
+    });
 </script>
 @endsection
