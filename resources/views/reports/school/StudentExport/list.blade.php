@@ -144,6 +144,11 @@
         if($(this).is(":checked")) {
             $('.pdf-column').prop('checked', true)
         }
+        $('#generate-report-form').valid();
+    });
+
+    $('.pdf-column').change(function() {
+        $('#generate-report-form').valid();
     });
 
     $('#generate-report-form').validate({
