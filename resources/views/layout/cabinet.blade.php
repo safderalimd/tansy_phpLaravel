@@ -154,6 +154,11 @@
             }
         }
     });
+
+    $.validator.addMethod('requiredSelect', function(value, element) {
+        return value != 'none';
+    }, 'This field is required.');
+
 </script>
 
 @yield('scripts')

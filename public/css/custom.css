@@ -98,3 +98,10 @@ label.required:after {
     content: " *";
     color: red;
 }
+
+.checkbox label {
+    padding-left: 20px;
+}
+.help-block {
+    margin-bottom: 0px;
+}

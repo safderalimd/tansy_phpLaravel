@@ -40,8 +40,8 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                           <div class="col-md-12 text-center grid_footer">
+                        <div class="row grid_footer">
+                           <div class="col-md-offset-4 col-md-8">
                                 <button class="btn btn-primary grid_btn" type="submit">Save</button>
                                 <a href="{{ url("/cabinet")}}" class="btn btn-default cancle_btn">Cancel</a>
                             </div>

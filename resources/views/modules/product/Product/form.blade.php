@@ -16,11 +16,11 @@
 
                     @include('commons.errors')
 
-                    <form class="form-horizontal" action="{{ form_action() }}" method="POST">
+                    <form id="product-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 
                         <div class="form-group">
-                            <div class="col-sm-offset-4 col-sm-8">
+                            <div class="col-md-offset-4 col-md-8">
                                 <div class="checkbox">
                                     <label>
                                         @if($product->isNewRecord())
@@ -34,23 +34,24 @@
                         </div>
 
                			<div class="form-group">
-                            <label class="col-md-4 control-label" for="product">Product Name</label>
+                            <label class="col-md-4 control-label required" for="product">Product Name</label>
                             <div class="col-md-8">
                                 <input id="product" class="form-control" type="text" name="product_name" value="{{ v('product_name') }}" placeholder="Product Name">
                             </div>
                         </div>
 
                         @include('commons.select', [
-                            'label'   => 'Product Type' ,
-                            'name'    => 'product_type_entity_id',
-                            'options' => $product->productTypes(),
-                            'keyId'   => 'product_type_entity_id',
-                            'keyName' => 'product_type',
-                            'none'    => 'Select a product type..',
+                            'label'    => 'Product Type' ,
+                            'name'     => 'product_type_entity_id',
+                            'options'  => $product->productTypes(),
+                            'keyId'    => 'product_type_entity_id',
+                            'keyName'  => 'product_type',
+                            'none'     => 'Select a product type..',
+                            'required' => true,
                         ])
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="facility_ids">Facility</label>
+                            <label class="col-md-4 control-label required" for="facility_ids">Facility</label>
                             <div class="col-md-8">
                                 <?php
                                     if (!is_array($product->selectedFacilities)) {
@@ -67,14 +68,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="unit-rate">Unit Rate</label>
+                            <label class="col-md-4 control-label required" for="unit-rate">Unit Rate</label>
                             <div class="col-md-8">
                                 <input id="unit-rate" class="form-control" type="text" name="unit_rate" value="{{ v('unit_rate') }}" placeholder="Unit Rate">
                             </div>
                          </div>
 
-                        <div class="row">
-                           <div class="col-md-12 text-center grid_footer">
+                        <div class="row grid_footer">
+                           <div class="col-md-offset-4 col-md-8">
                                 <button class="btn btn-primary grid_btn" type="submit">Save</button>
                                 <a href="{{ url("/cabinet/product")}}" class="btn btn-default cancle_btn">Cancel</a>
                             </div>
@@ -85,4 +86,31 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+
+    $('#product-form').validate({
+        rules: {
+            product_name: {
+                required: true,
+                minlength: 3,
+                maxlength: 120
+            },
+            product_type_entity_id: {
+                requiredSelect: true
+            },
+            facility_ids: {
+                requiredSelect: true
+            },
+            unit_rate: {
+                required: true,
+                number: true,
+                min: 0
+            }
+        }
+    });
+
+</script>
 @endsection
