@@ -46,6 +46,9 @@
 <script type="text/javascript">
 
     $('#generate-report-form').submit(function() {
+        if (! $('#generate-report-form').valid()) {
+            return false;
+        }
 
         if ($('#class_entity_id option:selected').val() == 'none') {
             alert('Please select an option.');
@@ -55,6 +58,14 @@
         $('#random_id').val(Date.now());
         $('#row_type').val($('#class_entity_id option:selected').attr('data-rowType'));
         return true;
+    });
+
+    $('#generate-report-form').validate({
+        rules: {
+            ei: {
+                requiredSelect: true
+            }
+        }
     });
 
 </script>
