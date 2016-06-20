@@ -117,8 +117,7 @@
             },
             start_date: {
                 required: true,
-                dateISO: true,
-                lessThan: '#end_date'
+                dateISO: true
             },
             end_date: {
                 required: true,
@@ -130,9 +129,6 @@
             }
         },
         messages: {
-            start_date: {
-                lessThan: "The start date must be before the end date."
-            },
             end_date: {
                 greaterThan: "The end date must be after the start date."
             }
