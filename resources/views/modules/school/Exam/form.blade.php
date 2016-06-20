@@ -16,7 +16,7 @@
 
                     @include('commons.errors')
 
-                    <form class="form-horizontal" action="{{ form_action() }}" method="POST">
+                    <form id="exam-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 
                         <div class="form-group">
@@ -34,23 +34,24 @@
                         </div>
 
                			<div class="form-group">
-                            <label class="col-md-4 control-label" for="exam_name">Exam</label>
+                            <label class="col-md-4 control-label required" for="exam_name">Exam</label>
                             <div class="col-md-8">
                                 <input id="exam_name" class="form-control" type="text" name="exam_name" value="{{ v('exam_name') }}" placeholder="Exam">
                             </div>
                         </div>
 
                         @include('commons.select', [
-                            'label'   => 'Exam Type' ,
-                            'name'    => 'exam_type_id',
-                            'options' => $exam->examTypes(),
-                            'keyId'   => 'exam_type_id',
-                            'keyName' => 'exam_type',
-                            'none'    => 'Select an exam type..',
+                            'label'    => 'Exam Type' ,
+                            'name'     => 'exam_type_id',
+                            'options'  => $exam->examTypes(),
+                            'keyId'    => 'exam_type_id',
+                            'keyName'  => 'exam_type',
+                            'none'     => 'Select an exam type..',
+                            'required' => true,
                         ])
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="facility_ids">Facility</label>
+                            <label class="col-md-4 control-label required" for="facility_ids">Facility</label>
                             <div class="col-md-8">
                                 <?php
                                     if (!is_array($exam->selectedFacilities)) {
@@ -67,21 +68,21 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="reporting_order">Reporting Order</label>
+                            <label class="col-md-4 control-label required" for="reporting_order">Reporting Order</label>
                             <div class="col-md-8">
                                 <input id="reporting_order" class="form-control" type="text" name="reporting_order" value="{{ v('reporting_order') }}" placeholder="Reporting Order">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="progress_card_reporting_order">Card Reporting Order</label>
+                            <label class="col-md-4 control-label required" for="progress_card_reporting_order">Card Reporting Order</label>
                             <div class="col-md-8">
                                 <input id="progress_card_reporting_order" class="form-control" type="text" name="progress_card_reporting_order" value="{{ v('progress_card_reporting_order') }}" placeholder="Card Reporting Order">
                             </div>
                         </div>
 
-                        <div class="row">
-                           <div class="col-md-12 text-center grid_footer">
+                        <div class="row grid_footer">
+                           <div class="col-md-8 col-md-offset-4">
                                 <button class="btn btn-primary grid_btn" type="submit">Save</button>
                                 <a href="{{ url("/cabinet/exam")}}" class="btn btn-default cancle_btn">Cancel</a>
                             </div>
@@ -92,4 +93,38 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+
+    $('#exam-form').validate({
+        rules: {
+            exam_name: {
+                required: true,
+                minlength: 3,
+                maxlength: 100
+            },
+            exam_type_id: {
+                requiredSelect: true
+            },
+            facility_ids: {
+                requiredSelect: true
+            },
+            reporting_order: {
+                required: true,
+                number: true,
+                min: 0
+            },
+            progress_card_reporting_order: {
+                required: true,
+                number: true,
+                min: 0,
+                max:999
+            }
+        }
+    });
+
+</script>
 @endsection
