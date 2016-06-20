@@ -16,7 +16,7 @@
 
                     @include('commons.errors')
 
-                    <form class="form-horizontal" action="{{ form_action() }}" method="POST">
+                    <form id="class-subject-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 
                         <div class="form-group">
@@ -34,23 +34,24 @@
                         </div>
 
                			<div class="form-group">
-                            <label class="col-md-4 control-label" for="subject_name">Subject</label>
+                            <label class="col-md-4 control-label required" for="subject_name">Subject</label>
                             <div class="col-md-8">
                                 <input id="subject_name" class="form-control" type="text" name="subject_name" value="{{ v('subject_name') }}" placeholder="Subject">
                             </div>
                         </div>
 
                         @include('commons.select', [
-                            'label'   => 'Subject Type' ,
-                            'name'    => 'subject_type_id',
-                            'options' => $subject->subjectTypes(),
-                            'keyId'   => 'subject_type_id',
-                            'keyName' => 'subject_type',
-                            'none'    => 'Select a subject type..',
+                            'label'    => 'Subject Type' ,
+                            'name'     => 'subject_type_id',
+                            'options'  => $subject->subjectTypes(),
+                            'keyId'    => 'subject_type_id',
+                            'keyName'  => 'subject_type',
+                            'none'     => 'Select a subject type..',
+                            'required' => true,
                         ])
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="facility_ids">Facility</label>
+                            <label class="col-md-4 control-label required" for="facility_ids">Facility</label>
                             <div class="col-md-8">
                                 <?php
                                     if (!is_array($subject->selectedFacilities)) {
@@ -67,21 +68,21 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="reporting_order">Reporting Order</label>
+                            <label class="col-md-4 control-label required" for="reporting_order">Reporting Order</label>
                             <div class="col-md-8">
                                 <input id="reporting_order" class="form-control" type="text" name="reporting_order" value="{{ v('reporting_order') }}" placeholder="Reporting Order">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="subject_short_code">Short Code</label>
+                            <label class="col-md-4 control-label required" for="subject_short_code">Short Code</label>
                             <div class="col-md-8">
                                 <input id="subject_short_code" class="form-control" type="text" name="subject_short_code" value="{{ v('subject_short_code') }}" placeholder="Short Code">
                             </div>
                         </div>
 
-                        <div class="row">
-                           <div class="col-md-12 text-center grid_footer">
+                        <div class="row grid_footer">
+                           <div class="col-md-8 col-md-offset-4">
                                 <button class="btn btn-primary grid_btn" type="submit">Save</button>
                                 <a href="{{ url("/cabinet/subject")}}" class="btn btn-default cancle_btn">Cancel</a>
                             </div>
@@ -92,4 +93,36 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+
+    $('#class-subject-form').validate({
+        rules: {
+            subject_name: {
+                required: true,
+                minlength: 3,
+                maxlength: 100
+            },
+            subject_type_id: {
+                requiredSelect: true
+            },
+            facility_ids: {
+                requiredSelect: true
+            },
+            reporting_order: {
+                required: true,
+                number: true,
+                min: 0
+            },
+            subject_short_code: {
+                required: true,
+                maxlength: 15
+            }
+        }
+    });
+
+</script>
 @endsection
