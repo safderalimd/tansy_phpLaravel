@@ -45,6 +45,7 @@
                     @endif
                     <hr style="margin-top:0px;" />
 
+                    <form id="marks-table" class="form-horizontal" method="POST">
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
@@ -54,17 +55,19 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $i = 1; ?>
                             @foreach($allItems as $item)
                                 <tr>
                                     <td>{{$item['student_roll_number']}}</td>
                                     <td>{{$item['student_full_name']}}</td>
                                     <td style="max-width:150px;width:150px;">
-                                        <input data-studentId="{{$item['class_student_id']}}" class="input-mark-value form-control" type="text" name="product_name" value="{{marks($item['student_marks'])}}">
+                                        <input data-rule-required="true" data-rule-number="true" data-rule-min="0" data-studentId="{{$item['class_student_id']}}" class="input-mark-value form-control" type="text" name="product_name_{{$i++}}" value="{{marks($item['student_marks'])}}">
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    </form>
 
                     <hr/>
                     <div class="row">
@@ -98,6 +101,10 @@
 
     // When submitting the form, prepend all selected checkboxes
     $('#save-marks-form').submit(function() {
+        if (! $('#marks-table').valid()) {
+            return false;
+        }
+
         var marksIds = $('.input-mark-value').map(function() {
             return $(this).attr('data-studentId') + '-' + this.value;
         }).get();
@@ -111,5 +118,8 @@
 
         return true;
     });
+
+    $('#marks-table').validate();
+
 </script>
 @endsection
