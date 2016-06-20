@@ -59,6 +59,10 @@
 <script type="text/javascript">
 
     $('#generate-report-form').submit(function() {
+        if (! $('#generate-report-form').valid()) {
+            return false;
+        }
+
         var start = $('#start').datepicker('getDate');
         var end = $('#end').datepicker('getDate');
 
@@ -74,6 +78,30 @@
 
         $('#random_id').val(Date.now());
         return true;
+    });
+
+    $('#generate-report-form').validate({
+        rules: {
+            start: {
+                required: true,
+                dateISO: true
+            },
+            end: {
+                required: true,
+                dateISO: true,
+                greaterThan: '#start'
+            }
+        },
+        messages: {
+            end: {
+                greaterThan: "The end date must be after the start date."
+            }
+        }
+    });
+
+    $('#start, #end').change(function() {
+        $('#start').valid();
+        $('#end').valid();
     });
 
 </script>
