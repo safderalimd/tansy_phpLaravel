@@ -77,7 +77,7 @@
                         <div class="col-md-offset-3 col-sm-5">
                             <div class="checkbox">
                                 <label>
-                                    <input {{ c('current_fiscal_year') }} type="checkbox" name="current_fiscal_year" value="1"> Current year?
+                                    <input {{ c('current_fiscal_year') }} type="checkbox" name="current_fiscal_year" value="1"> Current year ?
                                 </label>
                             </div>
                         </div>
@@ -102,11 +102,6 @@
 
 @section('scripts')
 <script type="text/javascript">
-
-    // 'start_date'          => 'required|date',
-    // 'end_date'            => 'required|date|after:start_date',
-    // 'name'                => 'required|string',
-    // 'facility_ids'        => 'required|array',
 
     $('#fiscal-year-form').validate({
         rules: {
