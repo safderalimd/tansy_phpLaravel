@@ -108,3 +108,6 @@ label.required:after {
 .form-group.has-error .input-group.date .input-group-btn .btn {
     border-color: #a94442;
 }
+.edit_form_wrapper label.radio-inline {
+    padding-left: 20px;
+}

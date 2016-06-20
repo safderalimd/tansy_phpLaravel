@@ -150,7 +150,9 @@
         errorElement: 'span',
         errorClass: 'help-block',
         errorPlacement: function(error, element) {
-            if(element.parent('.input-group').length) {
+            if(element.parent('.radio-inline').length) {
+                error.insertAfter(element.closest('.form-group').find('.radio-inline').last());
+            } else if(element.parent('.input-group').length) {
                 error.insertAfter(element.parent());
             } else {
                 error.insertAfter(element);
@@ -172,6 +174,10 @@
         }
         return isNaN(value) && isNaN($(params).val()) || (Number(value) > Number($(params).val()));
     },'Must be greater than {0}.');
+
+    $.validator.addMethod('phoneNumber', function(phone_number, element) {
+        return this.optional(element) || phone_number.match(/^\d{5,12}$/);
+    }, "Please specify a valid phone number" );
 
 </script>
 

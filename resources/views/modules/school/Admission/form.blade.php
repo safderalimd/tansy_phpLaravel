@@ -16,19 +16,20 @@
 
                     @include('commons.errors')
 
-                    <form class="form-horizontal" action="{{ form_action() }}" method="POST">
+                    <form id="admission-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 
                         <hr/>
                         <div class="row"><div class="col-md-3 pull-left"><h3>Header</h3></div></div>
 
                         @include('commons.select', [
-                            'label'   => 'Facility' ,
-                            'name'    => 'facility_entity_id',
-                            'options' => $admission->facilitiesForOwner(),
-                            'keyId'   => 'facility_entity_id',
-                            'keyName' => 'facility_name',
-                            'none'    => 'Select a facility..',
+                            'label'    => 'Facility' ,
+                            'name'     => 'facility_entity_id',
+                            'options'  => $admission->facilitiesForOwner(),
+                            'keyId'    => 'facility_entity_id',
+                            'keyName'  => 'facility_name',
+                            'none'     => 'Select a facility..',
+                            'required' => true,
                         ])
 
                         @if (!$admission->isNewRecord())
@@ -50,7 +51,7 @@
                         <div class="row"><div class="col-md-3 pull-left"><h3>Student</h3></div></div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="student_first_name">First Name</label>
+                            <label class="col-md-4 control-label required" for="student_first_name">First Name</label>
                             <div class="col-md-8">
                                 <input id="student_first_name" class="form-control" type="text" name="student_first_name" value="{{ v('student_first_name') }}" placeholder="First Name">
                             </div>
@@ -64,14 +65,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="student_last_name">Last Name</label>
+                            <label class="col-md-4 control-label required" for="student_last_name">Last Name</label>
                             <div class="col-md-8">
                                 <input id="student_last_name" class="form-control" type="text" name="student_last_name" value="{{ v('student_last_name') }}" placeholder="Last Name">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="student_date_of_birth">Date of Birth</label>
+                            <label class="col-md-4 control-label required" for="student_date_of_birth">Date of Birth</label>
                             <div class="col-md-8">
                                 <div class="input-group date">
                                     <input id="student_date_of_birth" class="form-control" type="text" name="student_date_of_birth" value="{{ v('student_date_of_birth') }}" placeholder="Date of Birth">
@@ -84,7 +85,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="student_gender">Gender</label>
+                            <label class="col-md-4 control-label required" for="student_gender">Gender</label>
                             <div class="col-md-8">
                                 <label class="radio-inline">
                                     <input type="radio" name="student_gender" {{ r('student_gender', 'M') }} id="gender1" value="M">
@@ -125,7 +126,7 @@
                         <div class="row"><div class="col-md-3 pull-left"><h3>Adress</h3></div></div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="address1">Adress 1</label>
+                            <label class="col-md-4 control-label required" for="address1">Adress 1</label>
                             <div class="col-md-8">
                                 <input id="address1" class="form-control" type="text" name="address1" value="{{ v('address1') }}" placeholder="Adress 1">
                             </div>
@@ -139,12 +140,13 @@
                         </div>
 
                         @include('commons.select', [
-                            'label'   => 'City',
-                            'name'    => 'city_name',
-                            'options' => $admission->cities(),
-                            'keyId'   => 'city_name',
-                            'keyName' => 'city_name',
-                            'none'    => 'Select a city..',
+                            'label'    => 'City',
+                            'name'     => 'city_name',
+                            'options'  => $admission->cities(),
+                            'keyId'    => 'city_name',
+                            'keyName'  => 'city_name',
+                            'none'     => 'Select a city..',
+                            'required' => true,
                         ])
 
                         <div class="form-group">
@@ -179,14 +181,14 @@
                         <div class="row"><div class="col-md-3 pull-left"><h3>Student Info</h3></div></div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="admission_number">Admission #</label>
+                            <label class="col-md-4 control-label required" for="admission_number">Admission #</label>
                             <div class="col-md-8">
                                 <input id="admission_number" class="form-control" type="text" name="admission_number" value="{{ v('admission_number') }}" placeholder="Admission #">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="admission_date">Admission Date</label>
+                            <label class="col-md-4 control-label required" for="admission_date">Admission Date</label>
                             <div class="col-md-8">
                                 <div class="input-group date">
                                     <input id="admission_date" class="form-control" type="text" name="admission_date" value="{{ v('admission_date') }}" placeholder="Admission Date">
@@ -218,7 +220,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="identification1">Identification 1</label>
+                            <label class="col-md-4 control-label required" for="identification1">Identification 1</label>
                             <div class="col-md-8">
                                 <input id="identification1" class="form-control" type="text" name="identification1" value="{{ v('identification1') }}" placeholder="Identification 1">
                             </div>
@@ -262,16 +264,17 @@
                         <div class="row"><div class="col-md-3 pull-left"><h3>Parent</h3></div></div>
 
                         @include('commons.select', [
-                            'label'   => 'Relationship',
-                            'name'    => 'parent_relationship_type',
-                            'options' => $admission->relationships(),
-                            'keyId'   => 'relationship_name',
-                            'keyName' => 'relationship_name',
-                            'none'    => 'Select a relationship type..',
+                            'label'    => 'Relationship',
+                            'name'     => 'parent_relationship_type',
+                            'options'  => $admission->relationships(),
+                            'keyId'    => 'relationship_name',
+                            'keyName'  => 'relationship_name',
+                            'none'     => 'Select a relationship type..',
+                            'required' => true,
                         ])
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="parent_gender">Gender</label>
+                            <label class="col-md-4 control-label required" for="parent_gender">Gender</label>
                             <div class="col-md-8">
                                 <label class="radio-inline">
                                     <input type="radio" name="parent_gender" {{ r('parent_gender', 'M') }} id="parent_gender1" value="M">
@@ -285,7 +288,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="parent_first_name">First Name</label>
+                            <label class="col-md-4 control-label required" for="parent_first_name">First Name</label>
                             <div class="col-md-8">
                                 <input id="parent_first_name" class="form-control" type="text" name="parent_first_name" value="{{ v('parent_first_name') }}" placeholder="First Name">
                             </div>
@@ -316,13 +319,12 @@
 
                         <hr/>
 
-                        <div class="row_footer">
-                           <div class="col-md-12 text-center grid_footer">
+                        <div class="row grid_footer">
+                           <div class="col-md-8 col-md-offset-4">
                                 <button class="btn btn-primary grid_btn" type="submit">Save</button>
                                 <a href="{{ url("/cabinet/admission")}}" class="btn btn-default cancle_btn">Cancel</a>
                             </div>
                         </div>
-                        <br/><br/>
 
                     </form>
                     </section>
@@ -339,6 +341,109 @@
         $('#city_area').combobox({
             bsVersion: '3'
         });
+    });
+
+    $('#admission-form').validate({
+        rules: {
+            facility_entity_id: {
+                requiredSelect: true
+            },
+            student_first_name: {
+                required: true,
+                maxlength: 30
+            },
+            student_middle_name: {
+                maxlength: 30
+            },
+            student_last_name: {
+                required: true,
+                maxlength: 30
+            },
+            student_date_of_birth: {
+                required: true,
+                dateISO: true
+            },
+            student_gender: {
+                required: true
+            },
+            email: {
+                email: true,
+                maxlength: 100
+            },
+            home_phone: {
+                phoneNumber: true
+            },
+            mobile_phone: {
+                phoneNumber: true
+            },
+            address1: {
+                required: true,
+                maxlength: 128
+            },
+            address2: {
+                maxlength: 128
+            },
+            city_name: {
+                requiredSelect: true
+            },
+            postal_code: {
+                maxlength: 30
+            },
+            admission_number: {
+                required: true,
+                maxlength: 128
+            },
+            admission_date: {
+                required: true,
+                dateISO: true
+            },
+            admitted_to_class_group_entity_id: {
+                requiredSelect: true
+            },
+            student_roll_number: {
+                maxlength: 45
+            },
+            identification1: {
+                required: true,
+                maxlength: 100
+            },
+            identification2: {
+                maxlength: 100
+            },
+            caste_name: {
+
+            },
+            religion_name: {
+
+            },
+            mother_language_name: {
+
+            },
+            parent_relationship_type: {
+                requiredSelect: true
+            },
+            parent_gender: {
+                required: true
+            },
+            parent_first_name: {
+                required: true,
+                maxlength: 100
+            },
+            parent_middle_name: {
+                maxlength: 100
+            },
+            parent_last_name: {
+                maxlength: 100
+            },
+            parent_designation_name: {
+                maxlength: 100
+            }
+        }
+    });
+
+    $('#student_date_of_birth, #admission_date').change(function() {
+        $('#student_date_of_birth').valid();
+        $('#admission_date').valid();
     });
 
 </script>

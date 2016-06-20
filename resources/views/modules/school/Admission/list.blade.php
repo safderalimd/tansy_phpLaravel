@@ -71,7 +71,7 @@
         <input type="hidden" name="admission_ids" id="admission_ids" value="">
 
         <div class="form-group">
-            <label class="col-md-2 control-label" for="fiscal_years">Move to Fiscal Year</label>
+            <label class="col-md-2 control-label required" for="fiscal_years">Move to Fiscal Year</label>
             <div class="col-md-4">
                 <select id="fiscal_years" class="form-control" name="move_to_fiscal_year_entity_id">
                     <option value="none">Select a fiscal year..</option>
@@ -83,7 +83,7 @@
         </div>
 
         <div class="form-group">
-            <label class="col-md-2 control-label" for="move_to_class">Move to class</label>
+            <label class="col-md-2 control-label required" for="move_to_class">Move to class</label>
             <div class="col-md-4">
                 <select id="move_to_class" class="form-control" name="move_to_class_entity_id">
                     <option value="none">Select a class..</option>
@@ -152,6 +152,17 @@
         $('#admission_ids').val(admissionIds.join(','));
 
         return true;
+    });
+
+    $('#move-students-form').validate({
+        rules: {
+            move_to_fiscal_year_entity_id: {
+                requiredSelect: true
+            },
+            move_to_class_entity_id: {
+                requiredSelect: true
+            }
+        }
     });
 </script>
 @endsection
