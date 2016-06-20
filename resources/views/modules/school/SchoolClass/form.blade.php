@@ -16,7 +16,7 @@
 
                 @include('commons.errors')
 
-                <form class="form-horizontal" action="{{ form_action() }}" method="POST">
+                <form id="school-class-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
                     {{ csrf_field() }}
 
                     <div class="form-group">
@@ -84,7 +84,7 @@
                     ])
 
                     <div class="row_footer">
-                       <div class="col-md-12 text-center grid_footer">
+                       <div class="col-md-8 col-md-offset-4 text-center grid_footer">
                             <button class="btn btn-primary grid_btn" type="submit">Save</button>
                             <a href="{{ url("/cabinet/class")}}" class="btn btn-default cancle_btn">Cancel</a>
                         </div>
@@ -96,3 +96,37 @@
     </div>
 </div>
 @endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+
+    $('#school-class-form').validate({
+        rules: {
+            class_name: {
+                required: true,
+                maxlength: 100
+            },
+            class_group_entity_id: {
+                requiredSelect: true
+            },
+            class_category_entity_id: {
+                requiredSelect: true
+            },
+            class_teacher_entity_id: {
+                requiredSelect: true
+            },
+            reporting_order: {
+                required: true,
+                number: true,
+                min: 0
+            },
+            facility_ids: {
+                requiredSelect: true
+            }
+        }
+    });
+
+</script>
+@endsection
+

@@ -105,7 +105,10 @@
 
         $('.date').datepicker({
             format: 'yyyy-mm-dd',
-            autoclose: true
+            autoclose: true,
+            onSelect: function(dateText) {
+                $(this).change();
+            }
         });
 
         $('.datetimepicker').datetimepicker({
@@ -158,6 +161,24 @@
     $.validator.addMethod('requiredSelect', function(value, element) {
         return value != 'none';
     }, 'This field is required.');
+
+    $.validator.addMethod('requiredMultiSelect', function(value, element) {
+        return value != null;
+    }, 'This field is required.');
+
+    $.validator.addMethod('greaterThan', function(value, element, params) {
+        if (!/Invalid|NaN/.test(new Date(value))) {
+            return new Date(value) > new Date($(params).val());
+        }
+        return isNaN(value) && isNaN($(params).val()) || (Number(value) > Number($(params).val()));
+    },'Must be greater than {0}.');
+
+    $.validator.addMethod('lessThan', function(value, element, params) {
+        if (!/Invalid|NaN/.test(new Date(value))) {
+            return new Date(value) < new Date($(params).val());
+        }
+        return isNaN(value) && isNaN($(params).val()) || (Number(value) < Number($(params).val()));
+    },'Must be less than {0}.');
 
 </script>
 

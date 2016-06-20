@@ -17,18 +17,18 @@
 
                 @include('commons.errors')
 
-                <form class="form-horizontal" action="{{ form_action() }}" method="POST">
+                <form id="fiscal-year-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
                     {{ csrf_field() }}
 
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="name">Fiscal Year</label>
+                        <label class="col-md-3 control-label required" for="name">Fiscal Year</label>
                         <div class="col-md-6">
                             <input id="name" class="form-control" type="text" name="name" value="{{ v('name') }}" placeholder="Name">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="start_date">Start Date</label>
+                        <label class="col-md-3 control-label required" for="start_date">Start Date</label>
                         <div class="col-md-6">
                             <div class="input-group date">
                                 <input id="start_date" class="form-control" type="text" name="start_date"
@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="end_date">End Date</label>
+                        <label class="col-md-3 control-label required" for="end_date">End Date</label>
                         <div class="col-md-6">
                             <div class="input-group date">
                                 <input id="end_date" class="form-control" type="text" name="end_date"
@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="facility_ids">Facility</label>
+                        <label class="col-md-3 control-label required" for="facility_ids">Facility</label>
                         <div class="col-md-8">
                             <select id="facility_ids" multiple class="form-control" name="facility_ids[]">
                                 <?php
@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-offset-2 col-sm-5">
+                        <div class="col-md-offset-3 col-sm-5">
                             <div class="checkbox">
                                 <label>
                                     <input {{ c('current_fiscal_year') }} type="checkbox" name="current_fiscal_year" value="1"> Current year?
@@ -83,8 +83,8 @@
                         </div>
                     </div>
 
-                    <div class="row_footer">
-                       <div class="col-md-12 text-center grid_footer">
+                    <div class="row grid_footer">
+                       <div class="col-md-offset-3 col-sm-5">
                             <button class="btn btn-primary grid_btn" type="submit">Save</button>
                             <a href="{{ url("/cabinet/fiscal-year")}}" class="btn btn-default cancle_btn">Cancel</a>
                         </div>
@@ -97,4 +97,52 @@
     </div>
 </div>
 
+@endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+
+    // 'start_date'          => 'required|date',
+    // 'end_date'            => 'required|date|after:start_date',
+    // 'name'                => 'required|string',
+    // 'facility_ids'        => 'required|array',
+
+    $('#fiscal-year-form').validate({
+        rules: {
+            name: {
+                required: true,
+                minlength: 3,
+                maxlength: 100
+            },
+            start_date: {
+                required: true,
+                dateISO: true,
+                lessThan: '#end_date'
+            },
+            end_date: {
+                required: true,
+                dateISO: true,
+                greaterThan: '#start_date'
+            },
+            "facility_ids[]": {
+                requiredMultiSelect: true
+            }
+        },
+        messages: {
+            start_date: {
+                lessThan: "The start date must be before the end date."
+            },
+            end_date: {
+                greaterThan: "The end date must be after the start date."
+            }
+        }
+    });
+
+    $('#start_date, #end_date').change(function() {
+        $('#start_date').valid();
+        $('#end_date').valid();
+    });
+
+</script>
 @endsection

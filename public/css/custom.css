@@ -105,3 +105,6 @@ label.required:after {
 .help-block {
     margin-bottom: 0px;
 }
+.form-group.has-error .input-group.date .input-group-btn .btn {
+    border-color: #a94442;
+}
