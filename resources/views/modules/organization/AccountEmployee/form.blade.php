@@ -16,7 +16,7 @@
 
                     @include('commons.errors')
 
-                    <form class="form-horizontal" action="{{ form_action() }}" method="POST">
+                    <form id="accoutn-employee-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 
 <hr/>
@@ -194,13 +194,6 @@
                         ])
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="login_name">Login Name</label>
-                            <div class="col-md-8">
-                                <input id="login_name" class="form-control" type="text" name="login_name" value="{{ v('login_name') }}" placeholder="Login Name">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
                             <label class="col-md-4 control-label" for="joining_date">Join Date</label>
                             <div class="col-md-8">
                                 <div class="input-group date">
@@ -310,6 +303,87 @@
         $('#city_area').combobox({
             bsVersion: '3'
         });
+    });
+
+    $('#accoutn-employee-form').validate({
+        rules: {
+            facility_ids: {
+                requiredSelect: true
+            },
+            first_name: {
+                required: true,
+                maxlength: 30
+            },
+            middle_name: {
+                maxlength: 30
+            },
+            last_name: {
+                maxlength: 30
+            },
+            date_of_birth: {
+                dateISO: true
+            },
+            gender: {
+
+            },
+            email: {
+                email: true
+            },
+            home_phone: {
+                phoneNumber: true
+            },
+            mobile_phone: {
+                phoneNumber: true
+            },
+            address1: {
+                maxlength: 128
+            },
+            address2: {
+                maxlength: 128
+            },
+            city_id: {
+
+            },
+            city_area: {
+
+            },
+            postal_code: {
+                maxlength: 30
+            },
+            department_id: {
+
+            },
+            joining_date: {
+                dateISO: true
+            },
+            manager_entity_id: {
+
+            },
+            document_type_id: {
+
+            },
+            document_number: {
+
+            },
+            login_name: {
+                maxlength: 128
+            },
+            password: {
+                minlength: 8,
+                maxlength: 128
+            },
+            security_group_entity_id: {
+
+            },
+            view_default_facility_id: {
+
+            },
+        }
+    });
+
+    $('#date_of_birth, #joining_date').change(function() {
+        $('#date_of_birth').valid();
+        $('#joining_date').valid();
     });
 
 </script>
