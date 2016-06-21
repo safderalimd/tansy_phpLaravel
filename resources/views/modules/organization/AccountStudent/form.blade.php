@@ -16,7 +16,7 @@
 
                     @include('commons.errors')
 
-                    <form class="form-horizontal" accept-charset="UTF-8" action="{{ form_action() }}" method="POST" enctype="multipart/form-data">
+                    <form id="account-student-form" class="form-horizontal" accept-charset="UTF-8" action="{{ form_action() }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
 <hr/>
@@ -434,6 +434,114 @@
         $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
             $('.file-name').text(label);
         });
+    });
+
+
+    $('#account-student-form').validate({
+        rules: {
+            facility_entity_id: {
+                requiredSelect: true
+            },
+            student_first_name: {
+                required: true,
+                maxlength: 30
+            },
+            student_middle_name: {
+                maxlength: 30
+            },
+            student_last_name: {
+                required: true,
+                maxlength: 30
+            },
+            student_date_of_birth: {
+                required: true,
+                dateISO: true
+            },
+            student_gender: {
+                required: true
+            },
+            email: {
+                email: true,
+                maxlength: 100
+            },
+            home_phone: {
+                phoneNumber: true,
+                maxlength: 100
+            },
+            mobile_phone: {
+                phoneNumber: true,
+                maxlength: 100
+            },
+            address1: {
+                required: true,
+                maxlength: 128
+            },
+            address2: {
+                maxlength: 128
+            },
+            city_id: {
+                requiredSelect: true
+            },
+            postal_code: {
+                maxlength: 30
+            },
+            admission_number: {
+                required: true,
+                maxlength: 128
+            },
+            admission_date: {
+                required: true,
+                dateISO: true
+            },
+            admitted_class_entity_id: {
+                requiredSelect: true
+            },
+            student_roll_number: {
+                maxlength: 45
+            },
+            identification1: {
+                required: true,
+                maxlength: 100
+            },
+            identification2: {
+                maxlength: 100
+            },
+            caste_id: {
+                requiredSelect: true
+            },
+            religion_id: {
+                requiredSelect: true
+            },
+            mother_language_id: {
+                requiredSelect: true
+            },
+            parent_relationship_type_id: {
+                requiredSelect: true
+            },
+            parent_first_name: {
+                required: true,
+                maxlength: 100
+            },
+            parent_middle_name: {
+                maxlength: 100
+            },
+            parent_last_name: {
+                maxlength: 100
+            },
+            parent_designation_id: {
+                requiredSelect: true
+            },
+            password: {
+                minlength:8
+            }
+        }
+    });
+
+    $('#student_date_of_birth').change(function() {
+        $('#student_date_of_birth').valid();
+    });
+    $('#admission_date').change(function() {
+        $('#admission_date').valid();
     });
 
 </script>
