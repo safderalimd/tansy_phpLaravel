@@ -51,7 +51,7 @@ class AccountClientFormRequest extends Request
                 $rules['first_name'] = 'required|' . $rules['first_name'];
                 $rules['last_name'] = 'required|' . $rules['last_name'];
                 break;
-            case 'name and date of birth ':
+            case 'name and date of birth':
                 $rules['first_name'] = 'required|' . $rules['first_name'];
                 $rules['last_name'] = 'required|' . $rules['last_name'];
                 $rules['date_of_birth'] = 'required|' . $rules['date_of_birth'];

@@ -16,14 +16,9 @@
 
                     @include('commons.errors')
 
-                    <form class="form-horizontal" action="{{ form_action() }}" method="POST">
+                    <form id="client-visit-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 
-                        <div class="form-group">
-                            <div class="col-sm-offset-4 col-sm-8">
-
-                            </div>
-                        </div>
 
 <hr/>
 <div class="row">
@@ -42,7 +37,7 @@
 </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="facility_ids">Facility</label>
+                            <label class="col-md-4 control-label required" for="facility_ids">Facility</label>
                             <div class="col-md-8">
                                 <?php
                                     if (!is_array($account->selectedFacilities)) {
@@ -59,7 +54,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="unique_key_id">Identification</label>
+                            <label class="col-md-4 control-label required" for="unique_key_id">Identification</label>
                             <div class="col-md-8">
                                 <select id="unique_key_id" class="form-control" name="unique_key_id">
                                     <option value="none">Select an identification..</option>
@@ -241,10 +236,126 @@
 @section('scripts')
 <script type="text/javascript">
 
+    var rules = {
+        facility_ids: {
+            requiredSelect: true
+        },
+        unique_key_id: {
+            requiredSelect: true
+        },
+        first_name: {
+            maxlength: 30
+        },
+        middle_name: {
+            maxlength: 30
+        },
+        last_name: {
+            maxlength: 30
+        },
+        date_of_birth: {
+            dateISO: true
+        },
+        gender: {
+
+        },
+        email: {
+            email: true
+        },
+        work_phone: {
+            phoneNumber: true
+        },
+        mobile_phone: {
+            phoneNumber: true
+        },
+        address1: {
+            maxlength: 128
+        },
+        address2: {
+            maxlength: 128
+        },
+        city_id: {
+
+        },
+        postal_code: {
+            maxlength: 30
+        },
+        document_type_id: {
+
+        },
+        document_number: {
+
+        }
+    };
+
+    $('#client-visit-form').validate({
+        rules: rules
+    });
+
+    $('#date_of_birth').change(function() {
+        $('#date_of_birth').valid();
+    });
+
+    $('#unique_key_id').change(function() {
+        updateRules();
+        $('#client-visit-form').valid();
+    });
+
+    function makeRequired(elem) {
+        $(elem).closest('.form-group').find('.control-label').addClass('required');
+    }
+
+    function notRequired(elem) {
+        $(elem).closest('.form-group').find('.control-label').removeClass('required');
+    }
+
+    function removeRequired() {
+        notRequired('#first_name');
+        $('#first_name').rules('remove', 'required');
+        notRequired('#last_name');
+        $('#last_name').rules('remove', 'required');
+        notRequired('#date_of_birth');
+        $('#date_of_birth').rules('remove', 'required');
+        notRequired('#mobile_phone');
+        $('#mobile_phone').rules('remove', 'required');
+        notRequired('#address1');
+        $('#address1').rules('remove', 'required');
+        notRequired('#email');
+        $('#email').rules('remove', 'required');
+    }
+
+    function updateRules() {
+        var type = $('#unique_key_id option:selected').text();
+        type = type.toLowerCase().trim();
+
+        removeRequired();
+
+        if (type == 'first and last name') {
+            $('#first_name').rules('add', 'required'); makeRequired('#first_name');
+            $('#last_name').rules('add', 'required'); makeRequired('#last_name');
+
+        } else if (type == 'name and date of birth') {
+            $('#first_name').rules('add', 'required'); makeRequired('#first_name');
+            $('#last_name').rules('add', 'required'); makeRequired('#last_name');
+            $('#date_of_birth').rules('add', 'required'); makeRequired('#date_of_birth');
+
+        } else if (type == 'mobile number') {
+            $('#mobile_phone').rules('add', 'required'); makeRequired('#mobile_phone');
+
+        } else if (type == 'address line1') {
+            $('#address1').rules('add', 'required'); makeRequired('#address1');
+
+        } else if (type == 'email') {
+            $('#email').rules('add', 'required'); makeRequired('#email');
+        }
+    }
+
     $(document).ready(function(){
         $('#city_area').combobox({
             bsVersion: '3'
         });
+
+        // init identification rules
+        updateRules();
     });
 
 </script>
