@@ -16,7 +16,7 @@
 
                 @include('commons.errors')
 
-                <form class="form-horizontal" action="{{ form_action() }}" method="POST">
+                <form id="organizationi-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
                     {{ csrf_field() }}
 
 <hr/>
@@ -33,19 +33,20 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="product">Organization Name</label>
+                        <label class="col-md-4 control-label required" for="product">Organization Name</label>
                         <div class="col-md-8">
                             <input id="organization_name" class="form-control" type="text" name="organization_name" value="{{ v('organization_name') }}" placeholder="Organization Name">
                         </div>
                     </div>
 
                     @include('commons.select', [
-                        'label'   => 'Organization Type' ,
-                        'name'    => 'organization_type_id',
-                        'options' => $organization->organizationTypes(),
-                        'keyId'   => 'organization_type_id',
-                        'keyName' => 'organization_type',
-                        'none'    => 'Select an organization type..',
+                        'label'    => 'Organization Type' ,
+                        'name'     => 'organization_type_id',
+                        'options'  => $organization->organizationTypes(),
+                        'keyId'    => 'organization_type_id',
+                        'keyName'  => 'organization_type',
+                        'none'     => 'Select an organization type..',
+                        'required' => true,
                     ])
 
 <hr/>
@@ -59,14 +60,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="work_phone">Work Phone</label>
+                        <label class="col-md-4 control-label required" for="work_phone">Work Phone</label>
                         <div class="col-md-8">
                             <input id="work_phone" class="form-control" type="text" name="work_phone" value="{{ v('work_phone') }}" placeholder="Work Phone">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="mobile_phone">Mobile Phone</label>
+                        <label class="col-md-4 control-label required" for="mobile_phone">Mobile Phone</label>
                         <div class="col-md-8">
                             <input id="mobile_phone" class="form-control" type="text" name="mobile_phone" value="{{ v('mobile_phone') }}" placeholder="Mobile Phone">
                         </div>
@@ -76,7 +77,7 @@
 <div class="row"><div class="col-md-4 pull-left"><h3>Organization Adress</h3></div></div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="address1">Adress 1</label>
+                        <label class="col-md-4 control-label required" for="address1">Adress 1</label>
                         <div class="col-md-8">
                             <input id="address1" class="form-control" type="text" name="address1" value="{{ v('address1') }}" placeholder="Adress 1">
                         </div>
@@ -90,12 +91,13 @@
                     </div>
 
                     @include('commons.select', [
-                        'label'   => 'City',
-                        'name'    => 'city_id',
-                        'options' => $organization->cities(),
-                        'keyId'   => 'city_id',
-                        'keyName' => 'city_name',
-                        'none'    => 'Select a city..',
+                        'label'    => 'City',
+                        'name'     => 'city_id',
+                        'options'  => $organization->cities(),
+                        'keyId'    => 'city_id',
+                        'keyName'  => 'city_name',
+                        'none'     => 'Select a city..',
+                        'required' => true,
                     ])
 
                     <div class="form-group">
@@ -323,6 +325,43 @@
             newTarget: '#facility_city_area_new'
         });
 
+    });
+
+    $('#organizationi-form').validate({
+        rules: {
+            organization_name: {
+                required: true,
+                maxlength: 128
+            },
+            organization_type_id: {
+                requiredSelect: true
+            },
+            email: {
+                email: true,
+                maxlength: 100
+            },
+            work_phone: {
+                required: true,
+                phoneNumber: true
+            },
+            mobile_phone: {
+                required: true,
+                phoneNumber: true
+            },
+            address1: {
+                required: true,
+                maxlength: 128
+            },
+            address2: {
+                maxlength: 128
+            },
+            city_id: {
+                requiredSelect: true
+            },
+            postal_code: {
+                maxlength: 30
+            }
+        }
     });
 
 </script>
