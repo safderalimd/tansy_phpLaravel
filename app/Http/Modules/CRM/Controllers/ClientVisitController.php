@@ -16,7 +16,15 @@ class ClientVisitController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:' . ClientVisit::screenId());
+        $this->middleware('screen:' . ClientVisit::screenId(), ['only' => [
+            'index',
+            'create',
+            'store',
+        ]]);
+
+        $this->middleware('screen:13001', ['only' => [
+            'detail',
+        ]]);
     }
 
     /**
