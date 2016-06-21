@@ -165,6 +165,9 @@
     });
 
     $.validator.addMethod('requiredSelect', function(value, element) {
+        if (value == null) {
+            return false;
+        }
         return value != 'none';
     }, 'This field is required.');
 

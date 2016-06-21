@@ -16,7 +16,7 @@
 
                     @include('commons.errors')
 
-                    <form class="form-horizontal" action="{{ form_action() }}" method="POST">
+                    <form id="account-agent-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 
 <hr/>
@@ -334,6 +334,59 @@
 
     $('#organization_entity_id').change(function() {
         updateFacilities();
+    });
+
+    $('#account-agent-form').validate({
+        rules: {
+            facility_ids: {
+                requiredSelect: true
+            },
+            organization_entity_id: {
+                requiredSelect: true
+            },
+            first_name: {
+                required: true,
+                maxlength: 30
+            },
+            middle_name: {
+                maxlength: 30
+            },
+            last_name: {
+                maxlength: 30
+            },
+            date_of_birth: {
+                dateISO: true
+            },
+            email: {
+                email: true
+            },
+            work_phone: {
+                phoneNumber: true
+            },
+            mobile_phone: {
+                phoneNumber: true
+            },
+            address1: {
+                maxlength: 128
+            },
+            address2: {
+                maxlength: 128
+            },
+            postal_code: {
+                maxlength: 30
+            },
+            login_name: {
+                maxlength: 128
+            },
+            password: {
+                minlength: 8,
+                maxlength: 128
+            }
+        }
+    });
+
+    $('#date_of_birth').change(function() {
+        $('#date_of_birth').valid();
     });
 
 </script>

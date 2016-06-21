@@ -16,7 +16,7 @@
 
                     @include('commons.errors')
 
-                    <form id="accoutn-employee-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
+                    <form id="account-employee-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 
 <hr/>
@@ -305,7 +305,7 @@
         });
     });
 
-    $('#accoutn-employee-form').validate({
+    $('#account-employee-form').validate({
         rules: {
             facility_ids: {
                 requiredSelect: true
