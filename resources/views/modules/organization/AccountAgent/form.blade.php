@@ -313,9 +313,11 @@
     }
 
     function populateFacilitiesSelectbox(facilities) {
+        $('#facility_ids').prepend('<option value="none">Select a facility...</option>');
         $(facilities).each(function() {
             $('#facility_ids').append($(this));
         });
+        $('#facility_ids option[value=none]').prop('selected', 'selected');
     }
 
     function updateFacilities() {
