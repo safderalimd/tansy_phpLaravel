@@ -13,12 +13,12 @@
         <div class="panel-body">
             @include('commons.errors')
 
-            <form class="form-horizontal" id="laod-data-form" accept-charset="UTF-8" action="{{ form_action() }}" method="POST" enctype="multipart/form-data">
+            <form class="form-horizontal" id="load-data-form" accept-charset="UTF-8" action="{{ form_action() }}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
 
                 <div class="form-group">
                     <label class="col-md-1 control-label" for="facility_entity_id">Facility</label>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <select id="facility_entity_id" class="form-control" name="facility_entity_id">
                             <option value="none">Select a facility..</option>
                             @foreach($studentData->facilities() as $option)
@@ -66,10 +66,14 @@
     $(document).ready( function() {
         $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
             $('.file-name').text(label);
+            $('#load-data-form').valid();
         });
     });
 
-    $('#laod-data-form').submit(function() {
+    $('#load-data-form').submit(function() {
+        if (! $('#load-data-form').valid()) {
+            return false;
+        }
 
         if ($('#facility_entity_id option:selected').val() == 'none') {
             alert('Please select a facility.');
@@ -79,6 +83,16 @@
         return true;
     });
 
+    $('#load-data-form').validate({
+        rules: {
+            facility_entity_id: {
+                requiredSelect: true
+            },
+            attachment: {
+                required: true
+            }
+        }
+    });
 </script>
 @endsection
 

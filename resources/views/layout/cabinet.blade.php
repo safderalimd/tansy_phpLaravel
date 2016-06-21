@@ -156,6 +156,8 @@
                 error.insertAfter(element.parent());
             } else if(element.parent('.input-group').length) {
                 error.insertAfter(element.parent());
+            } else if(element.parent('.btn-file').length) {
+                error.insertAfter(element.parent());
             } else {
                 error.insertAfter(element);
             }
