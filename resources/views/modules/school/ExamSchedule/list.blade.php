@@ -194,6 +194,10 @@
     });
 
     $('#schedule-rows-form').submit(function() {
+        if (! $('#schedule-rows-form').valid()) {
+            return false;
+        }
+
         var exam_entity_id = $('#exam_entity_id').val();
         $('#hidden_exam_entity_id').val(exam_entity_id);
 
@@ -212,5 +216,30 @@
 
         return true;
     });
+
+    $('#schedule-rows-form').validate({
+        rules: {
+            exam_date: {
+                required: true,
+                dateISO: true
+            },
+            max_marks: {
+                required: true,
+                number: true,
+                min: 0
+            },
+            exam_start_time: {
+                required: true
+            },
+            exam_end_time: {
+                required: true
+            }
+        }
+    });
+
+    $('#exam_date').change(function() {
+        $('#exam_date').valid();
+    });
+
 </script>
 @endsection

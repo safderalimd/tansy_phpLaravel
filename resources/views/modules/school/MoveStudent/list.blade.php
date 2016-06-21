@@ -167,6 +167,10 @@
 
     // When submitting the form, prepend all selected checkboxes
     $('#move-students-form').submit(function() {
+        if (! $('#move-students-form').valid()) {
+            return false;
+        }
+
         var studentIds = $('.student-entity-id:checked').filter(function() {
             if ($(this).parents('tr.student-tr').is(":hidden")) {
                 return false;

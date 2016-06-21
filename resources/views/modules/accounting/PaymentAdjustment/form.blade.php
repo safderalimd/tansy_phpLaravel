@@ -24,7 +24,7 @@
                         </div>
                     @endif
 
-                    <form class="form-horizontal" action="{{ url("/cabinet/payment-adjustment/update") }}" method="POST">
+                    <form id="payment-adjustment-form" class="form-horizontal" action="{{ url("/cabinet/payment-adjustment/update") }}" method="POST">
                         {{ csrf_field() }}
 
 
@@ -125,4 +125,23 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+
+    $('#payment-adjustment-form').validate({
+        rules: {
+            payment_type_id: {
+                requiredSelect: true
+            },
+            adjustment_amount: {
+                required: true,
+                number: true,
+                min: 0
+            }
+        }
+    });
+
+</script>
 @endsection
