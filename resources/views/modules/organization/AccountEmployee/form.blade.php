@@ -36,7 +36,7 @@
 </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="facility_ids">Facility</label>
+                            <label class="col-md-4 control-label required" for="facility_ids">Facility</label>
                             <div class="col-md-8">
                                 <?php
                                     if (!is_array($account->selectedFacilities)) {
@@ -56,7 +56,7 @@
 <div class="row"><div class="col-md-3 pull-left"><h3>Employee</h3></div></div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="first_name">First Name</label>
+                            <label class="col-md-4 control-label required" for="first_name">First Name</label>
                             <div class="col-md-8">
                                 <input id="first_name" class="form-control" type="text" name="first_name" value="{{ v('first_name') }}" placeholder="First Name">
                             </div>

@@ -16,7 +16,7 @@
 
                     @include('commons.errors')
 
-                    <form id="client-visit-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
+                    <form id="account-client-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 
 
@@ -287,7 +287,7 @@
         }
     };
 
-    $('#client-visit-form').validate({
+    $('#account-client-form').validate({
         rules: rules
     });
 
@@ -297,7 +297,7 @@
 
     $('#unique_key_id').change(function() {
         updateRules();
-        $('#client-visit-form').valid();
+        $('#account-client-form').valid();
     });
 
     function makeRequired(elem) {
