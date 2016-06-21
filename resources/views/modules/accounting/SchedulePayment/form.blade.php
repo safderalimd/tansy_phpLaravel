@@ -34,7 +34,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="facility_ids">Facility Type</label>
+                            <label class="col-md-4 control-label required" for="facility_ids">Facility Type</label>
                             <div class="col-md-8">
                                 <?php
                                     if (!is_array($payment->selectedFacilities)) {
@@ -51,32 +51,34 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="product">Name</label>
+                            <label class="col-md-4 control-label required" for="product">Name</label>
                             <div class="col-md-8">
                                 <input id="product" class="form-control" type="text" name="schedule_name" value="{{ v('schedule_name') }}" placeholder="Name">
                             </div>
                         </div>
 
                         @include('commons.select', [
-                            'label'   => 'Product' ,
-                            'name'    => 'product_entity_id',
-                            'options' => $payment->products(),
-                            'keyId'   => 'product_entity_id',
-                            'keyName' => 'product',
-                            'none'    => 'Select a product..',
+                            'label'    => 'Product' ,
+                            'name'     => 'product_entity_id',
+                            'options'  => $payment->products(),
+                            'keyId'    => 'product_entity_id',
+                            'keyName'  => 'product',
+                            'none'     => 'Select a product..',
+                            'required' => true,
                         ])
 
                         @include('commons.select', [
-                            'label'   => 'Account Type' ,
-                            'name'    => 'account_type_id',
-                            'options' => $payment->accountType(),
-                            'keyId'   => 'entity_type_id',
-                            'keyName' => 'entity_type',
-                            'none'    => 'Select an account type..',
+                            'label'    => 'Account Type' ,
+                            'name'     => 'account_type_id',
+                            'options'  => $payment->accountType(),
+                            'keyId'    => 'entity_type_id',
+                            'keyName'  => 'entity_type',
+                            'none'     => 'Select an account type..',
+                            'required' => true,
                         ])
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="subject_entity_id">Subject Account</label>
+                            <label class="col-md-4 control-label required" for="subject_entity_id">Subject Account</label>
                             <div class="col-md-8">
                                 <select id="subject_entity_id" class="form-control" name="subject_entity_id">
                                     <option value="none">Select a subject account..</option>
@@ -94,19 +96,20 @@
                         </div>
 
                         @include('commons.select', [
-                            'label'   => 'Frequency' ,
-                            'name'    => 'frequency_id',
-                            'options' => $payment->frequency(),
-                            'keyId'   => 'frequency_id',
-                            'keyName' => 'description',
-                            'none'    => 'Select a frequency..',
+                            'label'    => 'Frequency' ,
+                            'name'     => 'frequency_id',
+                            'options'  => $payment->frequency(),
+                            'keyId'    => 'frequency_id',
+                            'keyName'  => 'description',
+                            'none'     => 'Select a frequency..',
+                            'required' => true,
                         ])
 
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="start_date">Start Date</label>
+                                    <label class="col-md-4 control-label required" for="start_date">Start Date</label>
                                     <div class="col-md-8">
                                         <div class="input-group date">
                                             <input id="start_date" class="form-control" type="text" name="start_date" value="{{ v('start_date') }}" placeholder="Start Date">
@@ -120,7 +123,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="end_date">End Date</label>
+                                    <label class="col-md-4 control-label required" for="end_date">End Date</label>
                                     <div class="col-md-8">
                                         <div class="input-group date">
                                             <input id="end_date" class="form-control" type="text" name="end_date" value="{{ v('end_date') }}" placeholder="End Date">
@@ -137,7 +140,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="amount">Amount</label>
+                                    <label class="col-md-4 control-label required" for="amount">Amount</label>
                                     <div class="col-md-8">
                                         <input id="amount" class="form-control" type="text" name="amount" value="{{ v('amount') }}" placeholder="Amount">
                                     </div>
@@ -145,7 +148,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="due_date_days_value">Due Days</label>
+                                    <label class="col-md-4 control-label required" for="due_date_days_value">Due Days</label>
                                     <div class="col-md-8">
                                         <input id="due_date_days_value" class="form-control" type="text" name="due_date_days_value" value="{{ v('due_date_days_value') }}" placeholder="Due Days">
                                     </div>
@@ -270,8 +273,60 @@
 
     // When submitting the form, prepend all selected checkboxes
     $('#payment-form').submit(function() {
+        if (!$('#payment-form').valid()) {
+            return false;
+        }
+
         $('#hidden_frequency_text').val($("#frequency_id option:selected").text());
         return true;
     });
+
+    $('#payment-form').validate({
+        rules: {
+            subject_entity_id: {
+                requiredSelect: true
+            },
+            product_entity_id: {
+                requiredSelect: true
+            },
+            frequency_id: {
+                requiredSelect: true
+            },
+            schedule_name: {
+                required: true
+            },
+            amount: {
+                required: true,
+                number: true,
+                min: 0
+            },
+            start_date: {
+                required: true,
+                dateISO: true
+            },
+            end_date: {
+                required: true,
+                dateISO: true
+            },
+            due_date_days_value: {
+                required: true,
+                number: true,
+                min: 0
+            },
+            facility_ids: {
+                requiredSelect: true
+            }
+        }
+    });
+
+    $('#frequency_id').change(function() {
+        $('#end_date').valid();
+    });
+
+    $('#start_date, #end_date').change(function() {
+        $('#start_date').valid();
+        $('#end_date').valid();
+    });
+
 </script>
 @endsection

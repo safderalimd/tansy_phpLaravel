@@ -23,12 +23,13 @@
 <div class="row"><div class="col-md-3 pull-left"><h3>Header</h3></div></div>
 
                         @include('commons.select', [
-                            'label'   => 'Facility' ,
-                            'name'    => 'facility_entity_id',
-                            'options' => $account->facilities(),
-                            'keyId'   => 'facility_entity_id',
-                            'keyName' => 'facility_name',
-                            'none'    => 'Select a facility..',
+                            'label'    => 'Facility' ,
+                            'name'     => 'facility_entity_id',
+                            'options'  => $account->facilities(),
+                            'keyId'    => 'facility_entity_id',
+                            'keyName'  => 'facility_name',
+                            'none'     => 'Select a facility..',
+                            'required' => true,
                         ])
 
                         @if (file_exists(storage_path('uploads/student-images/'. domain() . "/{$account->student_entity_id}")))
@@ -62,7 +63,7 @@
 <div class="row"><div class="col-md-3 pull-left"><h3>Student</h3></div></div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="student_first_name">First Name</label>
+                            <label class="col-md-4 control-label required" for="student_first_name">First Name</label>
                             <div class="col-md-8">
                                 <input id="student_first_name" class="form-control" type="text" name="student_first_name" value="{{ v('student_first_name') }}" placeholder="First Name">
                             </div>
@@ -83,7 +84,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="student_date_of_birth">Date of Birth</label>
+                            <label class="col-md-4 control-label required" for="student_date_of_birth">Date of Birth</label>
                             <div class="col-md-8">
                                 <div class="input-group date">
                                     <input id="student_date_of_birth" class="form-control" type="text" name="student_date_of_birth" value="{{ v('student_date_of_birth') }}" placeholder="Date of Birth">
@@ -96,7 +97,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="student_gender">Gender</label>
+                            <label class="col-md-4 control-label required" for="student_gender">Gender</label>
                             <div class="col-md-8">
                                 <label class="radio-inline">
                                     <input type="radio" name="student_gender" {{ r('student_gender', 'M') }} id="gender1" value="M">
@@ -137,7 +138,7 @@
 <div class="row"><div class="col-md-3 pull-left"><h3>Adress</h3></div></div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="address1">Adress 1</label>
+                            <label class="col-md-4 control-label required" for="address1">Adress 1</label>
                             <div class="col-md-8">
                                 <input id="address1" class="form-control" type="text" name="address1" value="{{ v('address1') }}" placeholder="Adress 1">
                             </div>
@@ -151,12 +152,13 @@
                         </div>
 
                         @include('commons.select', [
-                            'label'   => 'City',
-                            'name'    => 'city_id',
-                            'options' => $account->cities(),
-                            'keyId'   => 'city_id',
-                            'keyName' => 'city_name',
-                            'none'    => 'Select a city..',
+                            'label'    => 'City',
+                            'name'     => 'city_id',
+                            'options'  => $account->cities(),
+                            'keyId'    => 'city_id',
+                            'keyName'  => 'city_name',
+                            'none'     => 'Select a city..',
+                            'required' => true,
                         ])
 
                         @include('commons.select', [
@@ -179,14 +181,14 @@
 <div class="row"><div class="col-md-3 pull-left"><h3>Student Info</h3></div></div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="admission_number">Admission #</label>
+                            <label class="col-md-4 control-label required" for="admission_number">Admission #</label>
                             <div class="col-md-8">
                                 <input id="admission_number" class="form-control" type="text" name="admission_number" value="{{ v('admission_number') }}" placeholder="Admission #">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="admission_date">Admission Date</label>
+                            <label class="col-md-4 control-label required" for="admission_date">Admission Date</label>
                             <div class="col-md-8">
                                 <div class="input-group date">
                                     <input id="admission_date" class="form-control" type="text" name="admission_date" value="{{ v('admission_date') }}" placeholder="Admission Date">
@@ -199,12 +201,13 @@
                         </div>
 
                         @include('commons.select', [
-                            'label'   => 'Admitted To' ,
-                            'name'    => 'admitted_class_entity_id',
-                            'options' => $account->classes(),
-                            'keyId'   => 'class_entity_id',
-                            'keyName' => 'class_name',
-                            'none'    => 'Select a class group',
+                            'label'    => 'Admitted To' ,
+                            'name'     => 'admitted_class_entity_id',
+                            'options'  => $account->classes(),
+                            'keyId'    => 'class_entity_id',
+                            'keyName'  => 'class_name',
+                            'none'     => 'Select a class group',
+                            'required' => true,
                         ])
 
                         <div class="form-group">
@@ -230,7 +233,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="identification1">Identification 1</label>
+                            <label class="col-md-4 control-label required" for="identification1">Identification 1</label>
                             <div class="col-md-8">
                                 <input id="identification1" class="form-control" type="text" name="identification1" value="{{ v('identification1') }}" placeholder="Identification 1">
                             </div>
@@ -250,6 +253,7 @@
                             'keyId'    => 'caste_id',
                             'keyName'  => 'caste_name',
                             'none'     => 'Select a caste..',
+                            'required' => true,
                         ])
 
                         @include('commons.select', [
@@ -259,6 +263,7 @@
                             'keyId'    => 'religion_id',
                             'keyName'  => 'religion_name',
                             'none'     => 'Select a religion..',
+                            'required' => true,
                         ])
 
                         @include('commons.select', [
@@ -268,18 +273,20 @@
                             'keyId'    => 'language_id',
                             'keyName'  => 'language_name',
                             'none'     => 'Select a language..',
+                            'required' => true,
                         ])
 
 <hr/>
 <div class="row"><div class="col-md-3 pull-left"><h3>Parent</h3></div></div>
 
                         @include('commons.select', [
-                            'label'   => 'Relationship',
-                            'name'    => 'parent_relationship_type_id',
-                            'options' => $account->relationships(),
-                            'keyId'   => 'relationship_type_id',
-                            'keyName' => 'relationship_name',
-                            'none'    => 'Select a relationship type..',
+                            'label'    => 'Relationship',
+                            'name'     => 'parent_relationship_type_id',
+                            'options'  => $account->relationships(),
+                            'keyId'    => 'relationship_type_id',
+                            'keyName'  => 'relationship_name',
+                            'none'     => 'Select a relationship type..',
+                            'required' => true,
                         ])
 
                         <div class="form-group">
@@ -297,7 +304,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="parent_first_name">First Name</label>
+                            <label class="col-md-4 control-label required" for="parent_first_name">First Name</label>
                             <div class="col-md-8">
                                 <input id="parent_first_name" class="form-control" type="text" name="parent_first_name" value="{{ v('parent_first_name') }}" placeholder="First Name">
                             </div>
@@ -324,6 +331,7 @@
                             'keyId'    => 'designation_id',
                             'keyName'  => 'designation_name',
                             'none'     => 'Select a designation..',
+                            'required' => true,
                         ])
 
 <hr/>
