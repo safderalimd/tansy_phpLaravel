@@ -52,5 +52,6 @@ class Kernel extends HttpKernel
         'cabinet' => \App\Http\Middleware\Cabinet::class,
         'owner' => \App\Http\Middleware\OwnerGroup::class,
         'screen' => \App\Http\Middleware\ScreenPermission::class,
+        'no-cache' => \App\Http\Middleware\NoHttpCache::class,
     ];
 }

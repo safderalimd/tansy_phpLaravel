@@ -32,7 +32,7 @@ Route::get('/phpinfo', function () {
 Route::get('/login', '\App\Http\Controllers\UserController@index')->middleware('guest');
 Route::post('/login', '\App\Http\Controllers\UserController@login')->middleware('guest');
 
-Route::group(['middleware' => ['cabinet', 'menu'], 'prefix' => 'cabinet'], function() {
+Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabinet'], function() {
 
     Route::get('fiscal-year', 'Organization\Controllers\FiscalYearController@index');
     Route::get('fiscal-year/create', 'Organization\Controllers\FiscalYearController@create');
