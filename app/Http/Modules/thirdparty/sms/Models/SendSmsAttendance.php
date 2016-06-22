@@ -60,7 +60,7 @@ class SendSmsAttendance extends SendSmsModel
 
     public function allStudentsAccountId()
     {
-        $accountTypes = $this->repository->getSmsAccountTypes();
+        $accountTypes = $this->repository->getAccountTypeFilter();
 
         foreach ($accountTypes as $item) {
             $type = trim($item['row_type']);

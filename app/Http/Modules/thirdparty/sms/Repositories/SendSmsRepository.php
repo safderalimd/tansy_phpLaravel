@@ -29,20 +29,6 @@ class SendSmsRepository extends Repository
         );
     }
 
-    public function getSmsAccountTypes()
-    {
-        return $this->select(
-            'SELECT
-                row_type,
-                entity_id,
-                drop_down_list_name,
-                sequence_id,
-                reporting_order
-            FROM view_sms_lkp_account_type
-            ORDER BY sequence_id, reporting_order ASC;'
-        );
-    }
-
     public function feeReminders($model)
     {
         $procedure = 'sproc_act_rcv_due_lst';
