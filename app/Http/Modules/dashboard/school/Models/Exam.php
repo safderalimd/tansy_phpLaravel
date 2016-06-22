@@ -20,7 +20,7 @@ class Exam extends Model
 
     public $classSubjectPerformancePieChart;
 
-    public $clasess;
+    public $classess;
 
     public $className;
 
