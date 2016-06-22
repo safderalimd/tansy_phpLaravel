@@ -6,21 +6,6 @@ use App\Http\Repositories\Repository;
 
 class AttendanceRepository extends Repository
 {
-
-    public function getAbsenteeAccountTypes()
-    {
-        return $this->select(
-            'SELECT
-                row_type,
-                entity_id,
-                drop_down_list_name,
-                sequence_id,
-                reporting_order
-             FROM view_org_lkp_account_type_for_absentee
-             ORDER BY sequence_id, reporting_order ASC;'
-        );
-    }
-
     public function attendance($model)
     {
         $procedure = 'sproc_org_individual_absentee_grid';
