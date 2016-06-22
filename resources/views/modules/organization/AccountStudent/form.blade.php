@@ -206,7 +206,7 @@
                             'options'  => $account->classes(),
                             'keyId'    => 'class_entity_id',
                             'keyName'  => 'class_name',
-                            'none'     => 'Select a class group',
+                            'none'     => 'Select a class group..',
                             'required' => true,
                         ])
 
