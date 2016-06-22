@@ -4,6 +4,7 @@ namespace App\Http\Modules\thirdparty\sms\Models;
 
 use App\Http\Models\Model;
 use App\Http\Modules\thirdparty\sms\SmsSender;
+use Exception;
 
 class SendSmsModel extends Model
 {
@@ -34,18 +35,23 @@ class SendSmsModel extends Model
             return $balance;
         }
 
-        // make an api call to get the balance
-        $api = $this->smsCredentials();
-        $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
-        $balance = $sender->getBalance();
-        if (!is_numeric($balance)) {
-            $balance = 0;
+        try {
+            // make an api call to get the balance
+            $api = $this->smsCredentials();
+            $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
+            $balance = $sender->getBalance();
+            if (!is_numeric($balance)) {
+                $balance = 0;
+            }
+
+            // store the balance in the session
+            session()->put('smsBalance', $balance);
+
+            return $balance;
+        } catch (Exception $e) {
+            // todo: log error and mail admin
+            return 0;
         }
-
-        // store the balance in the session
-        session()->put('smsBalance', $balance);
-
-        return $balance;
     }
 
     public function storeBatchStatus($data)
