@@ -18,7 +18,7 @@
             line-height: 1.6em;
             font-family: Lato, sans-serif;
             display: none;
-            z-index: 10000;
+            z-index: 9998;
         }
         .flash-message .material-icons {
             margin-right: 8px;
