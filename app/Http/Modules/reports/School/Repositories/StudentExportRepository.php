@@ -95,12 +95,11 @@ class StudentExportRepository extends Repository
         return $this->select(
             'SELECT
                 row_type,
-                entity_id AS primary_key_id,
+                primary_key_id,
                 drop_down_list_name,
-                sequence_id,
-                reporting_order
-             FROM view_lkp_account_type_filter
-             ORDER BY sequence_id, reporting_order ASC;'
+                sequence_id
+            FROM view_org_lkp_class_type_4_student_pdf_report
+            ORDER BY drop_down_list_name;'
         );
     }
 
@@ -109,13 +108,12 @@ class StudentExportRepository extends Repository
         return $this->select(
             'SELECT
                 row_type,
-                entity_id AS primary_key_id,
+                primary_key_id,
                 drop_down_list_name,
-                sequence_id,
-                reporting_order
-            FROM view_lkp_account_type_filter
-            WHERE entity_id = :id
-            ORDER BY sequence_id, reporting_order ASC
+                sequence_id
+            FROM view_org_lkp_class_type_4_student_pdf_report
+            WHERE primary_key_id = :id
+            ORDER BY drop_down_list_name
             LIMIT 1;', ['id' => $id]
         );
     }
