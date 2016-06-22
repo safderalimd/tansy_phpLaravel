@@ -108,7 +108,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="chart chart-doughnut">
-                                            <canvas height="900" id="exam-report-1" width= "1200"></canvas>
+                                            <canvas height="900" id="exam-report-1" width="1200"></canvas>
                                         </div>
                                     </div>
                                 </div>
