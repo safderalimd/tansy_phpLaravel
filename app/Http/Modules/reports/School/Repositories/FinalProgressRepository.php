@@ -6,20 +6,6 @@ use App\Http\Repositories\Repository;
 
 class FinalProgressRepository extends Repository
 {
-    public function getAccountsDropdown()
-    {
-        return $this->select(
-            'SELECT
-                row_type,
-                entity_id,
-                drop_down_list_name,
-                sequence_id,
-                reporting_order
-             FROM view_lkp_account_type_filter
-             ORDER BY sequence_id, reporting_order ASC;'
-        );
-    }
-
     public function generateProgressFinal($model)
     {
         $procedure = 'sproc_sch_generate_progress_final';

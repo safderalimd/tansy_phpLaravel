@@ -23,7 +23,7 @@
                     <div class="col-md-3">
                         <select id="class_entity_id" class="form-control" name="ei">
                             <option value="none">Select an account..</option>
-                            @foreach($export->accountsDropdown() as $option)
+                            @foreach($export->accountTypeFilter() as $option)
                                 <option data-rowType="{{$option['row_type']}}" value="{{ $option['entity_id'] }}">{{ $option['drop_down_list_name'] }}</option>
                             @endforeach
                         </select>
