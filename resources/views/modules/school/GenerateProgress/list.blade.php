@@ -15,7 +15,7 @@
                 @include('commons.errors')
 
                 <!-- filter the rows -->
-                <form class="form-horizontal" style="margin-bottom:-15px;" action="{{url("/cabinet/generate-progress/generate-progress-for-all-classes")}}" method="POST">
+                <form class="form-horizontal" style="margin-bottom:-15px;" action="{{url_with_query("/cabinet/generate-progress/generate-progress-for-all-classes")}}" method="POST">
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-5">
@@ -25,7 +25,7 @@
                                     <select id="exam_entity_id" class="form-control" name="exam_entity_id">
                                         <option value="none">Select an exam..</option>
                                         @foreach($progress->exam() as $option)
-                                            <option {{ ($examId == $option['exam_entity_id']) ? 'selected' : ''}} value="{!! $option['exam_entity_id'] !!}">{!! $option['exam'] !!}</option>
+                                            <option {{ activeSelect($option['exam_entity_id'], 'eid') }} value="{{ $option['exam_entity_id'] }}">{{ $option['exam'] }}</option>
                                         @endforeach
                                     </select>
                                 </div>
