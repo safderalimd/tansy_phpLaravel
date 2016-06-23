@@ -11,7 +11,7 @@ class DebugController extends Controller
 {
     public function mail()
     {
-        Mail::send([], [], function ($m) use ($user) {
+        Mail::send([], [], function ($m) {
             $m->from('no-reply@tansycloud.dev', 'tansycloud');
             $m->to('ludovic_tm@yahoo.com', 'Adam')->subject('Error Message!');
             $m->setBody('error messsage content');
