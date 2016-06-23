@@ -11,7 +11,7 @@
                 <h2><div class="page-title">{{$student->info['student_full_name']}}</h2>
 
                 <?php
-                    $hasPicture = file_exists(storage_path('uploads/student-images/'. domain() . "/{$student->student_entity_id}"));
+                    $hasPicture = file_exists(storage_path('uploads/'. domain() . "/student-images/{$student->student_entity_id}"));
                     $columns = 'col-md-3';
                     if ($hasPicture) {
                         $columns = 'col-md-4';

@@ -32,7 +32,7 @@
                             'required' => true,
                         ])
 
-                        @if (file_exists(storage_path('uploads/student-images/'. domain() . "/{$account->student_entity_id}")))
+                        @if (file_exists(storage_path("uploads/".domain()."/student-images/{$account->student_entity_id}")))
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Image</label>
                                 <div class="col-md-8">

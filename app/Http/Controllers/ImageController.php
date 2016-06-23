@@ -15,16 +15,16 @@ class ImageController extends Controller
         $height = $request->input('h');
 
         $server = ServerFactory::create([
-            'source'   => storage_path('uploads/student-images'),
-            'cache'    => storage_path('uploads/student-images-cache'),
+            'source'   => storage_path('uploads/'.domain().'/student-images'),
+            'cache'    => storage_path('uploads/'.domain().'/student-images-cache'),
             'response' => new LaravelResponseFactory()
         ]);
 
-        $extensionFile = storage_path('uploads/student-images/'. domain() . "/{$id}");
+        $extensionFile = storage_path('uploads/'.domain()."/student-images/{$id}");
         $extension = file_get_contents($extensionFile);
         $extension = trim($extension);
 
-        $image = domain() . "/{$id}.{$extension}";
+        $image = "/{$id}.{$extension}";
         $server->outputImage($image, ['w' => $width, 'h' => $height]);
     }
 }

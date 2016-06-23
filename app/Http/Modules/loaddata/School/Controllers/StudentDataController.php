@@ -41,7 +41,7 @@ class StudentDataController extends Controller
         // save the uploaded file
         $file = $request->file('attachment');
         $newName = time().uniqid().'.'.$file->clientExtension();
-        $savedFile = $file->move(storage_path('uploads/student-data'), $newName);
+        $savedFile = $file->move(storage_path('uploads/'.domain().'/student-data'), $newName);
 
         $insertRows = [];
 

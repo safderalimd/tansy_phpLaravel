@@ -56,13 +56,13 @@ class AccountStudentController extends Controller
 
             // clear cache for older images
             $server = ServerFactory::create([
-                'source'   => storage_path('uploads/student-images'),
-                'cache'    => storage_path('uploads/student-images-cache'),
+                'source'   => storage_path('uploads/'.domain().'/student-images'),
+                'cache'    => storage_path('uploads/'.domain().'/student-images-cache'),
                 'response' => new LaravelResponseFactory()
             ]);
 
             // get old image extension
-            $extensionPath = storage_path('uploads/student-images/'. domain() . "/{$id}");
+            $extensionPath = storage_path('uploads/'.domain()."/student-images/{$id}");
 
             if (file_exists($extensionPath)) {
                 $extension = file_get_contents($extensionPath);
@@ -78,7 +78,7 @@ class AccountStudentController extends Controller
             // store the uploaded file
             $file = $request->file('attachment');
             $newName = $id.'.'.$file->clientExtension();
-            $savedFile = $file->move(storage_path('uploads/student-images/'.domain()), $newName);
+            $savedFile = $file->move(storage_path('uploads/'.domain().'/student-images'), $newName);
 
             // save the file extension info
             file_put_contents($extensionPath, $file->clientExtension());
