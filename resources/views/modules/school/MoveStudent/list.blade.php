@@ -71,7 +71,7 @@
 <div class="row">
 <div class="col-md-12">
 
-<form class="form-horizontal" id="move-students-form" action="{{url("/cabinet/move-student/move")}}" method="POST">
+<form class="form-horizontal" id="move-students-form" action="{{form_action_full()}}" method="POST">
     {{ csrf_field() }}
 
     <input type="hidden" name="class_student_ids" id="class_student_ids" value="">

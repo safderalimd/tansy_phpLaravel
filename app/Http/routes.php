@@ -81,7 +81,7 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('student-account/delete/{id}', 'Organization\Controllers\AccountStudentController@destroy');
 
     Route::get('move-student', 'School\Controllers\MoveStudentController@index');
-    Route::post('move-student/move', 'School\Controllers\MoveStudentController@move');
+    Route::post('move-student', 'School\Controllers\MoveStudentController@move');
 
     Route::get('schedule-payment', 'Accounting\Controllers\SchedulePaymentController@index');
     Route::get('schedule-payment/create', 'Accounting\Controllers\SchedulePaymentController@create');

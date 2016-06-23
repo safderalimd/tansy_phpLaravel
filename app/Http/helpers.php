@@ -312,3 +312,8 @@ function selected_dropdown($name, $options, $keyId, $keyName)
     }
     return '-';
 }
+
+function redirect_back()
+{
+    return app('redirect')->back();
+}
