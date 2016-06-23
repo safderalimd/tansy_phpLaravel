@@ -178,13 +178,12 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('send-sms---exam-results', 'thirdparty\sms\Controllers\SendSmsController@examResults');
     Route::get('send-sms---exam-schedule', 'thirdparty\sms\Controllers\SendSmsController@examSchedule');
     Route::get('send-sms---attendence', 'thirdparty\sms\Controllers\SendSmsController@attendence');
-    Route::post('send-sms---attendence', 'thirdparty\sms\Controllers\SendSmsController@attendence');
     Route::get('send-sms---fee-due', 'thirdparty\sms\Controllers\SendSmsController@feeDue');
 
     Route::post('send-sms---general', 'thirdparty\sms\Controllers\SendSmsController@sendGeneral');
     Route::post('send-sms---exam-results', 'thirdparty\sms\Controllers\SendSmsController@sendExamResults');
     Route::post('send-sms---exam-schedule', 'thirdparty\sms\Controllers\SendSmsController@sendExamSchedule');
-    Route::post('send-sms---attendence/send', 'thirdparty\sms\Controllers\SendSmsController@sendAttendance');
+    Route::post('send-sms---attendence', 'thirdparty\sms\Controllers\SendSmsController@sendAttendance');
     Route::post('send-sms---fee-due', 'thirdparty\sms\Controllers\SendSmsController@sendFeeDue');
 
     Route::get('daily-attendance', 'School\Controllers\AttendanceController@index');
