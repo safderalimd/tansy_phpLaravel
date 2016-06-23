@@ -150,17 +150,23 @@
         errorElement: 'span',
         errorClass: 'help-block',
         errorPlacement: function(error, element) {
-            if(element.parent('.radio-inline').length) {
-                error.insertAfter(element.closest('.form-group').find('.radio-inline').last());
-            } else if($(element).attr('type') == 'checkbox') {
-                error.insertAfter(element.parent());
-            } else if(element.parent('.input-group').length) {
-                error.insertAfter(element.parent());
-            } else if(element.parent('.btn-file').length) {
-                error.insertAfter(element.parent());
-            } else {
-                error.insertAfter(element);
-            }
+            // if ($( window ).width() < 350) {
+            //     var label = element.closest('.form-group').find('.control-label');
+            //     $(label).find('.help-block').remove();
+            //     error.appendTo(label);
+            // } else {
+                if(element.parent('.radio-inline').length) {
+                    error.insertAfter(element.closest('.form-group').find('.radio-inline').last());
+                } else if($(element).attr('type') == 'checkbox') {
+                    error.insertAfter(element.parent());
+                } else if(element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else if(element.parent('.btn-file').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            // }
         }
     });
 

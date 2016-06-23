@@ -34,53 +34,57 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="class_name">Class Name</label>
+                        <label class="col-md-4 control-label required" for="class_name">Class Name</label>
                         <div class="col-md-8">
                             <input id="class_name" class="form-control" type="text" name="class_name" value="{{ v('class_name') }}" placeholder="Class Name">
                         </div>
                     </div>
 
                     @include('commons.select', [
-                        'label'   => 'Class Group' ,
-                        'name'    => 'class_group_entity_id',
-                        'options' => $class->classGroups(),
-                        'keyId'   => 'class_group_entity_id',
-                        'keyName' => 'class_group',
-                        'none'    => 'Select a class group..',
+                        'label'    => 'Class Group' ,
+                        'name'     => 'class_group_entity_id',
+                        'options'  => $class->classGroups(),
+                        'keyId'    => 'class_group_entity_id',
+                        'keyName'  => 'class_group',
+                        'none'     => 'Select a class group..',
+                        'required' => true,
                     ])
 
                     @include('commons.select', [
-                        'label'   => 'Class Category' ,
-                        'name'    => 'class_category_entity_id',
-                        'options' => $class->classCategories(),
-                        'keyId'   => 'class_category_entity_id',
-                        'keyName' => 'class_category',
-                        'none'    => 'Select a class category..',
+                        'label'    => 'Class Category' ,
+                        'name'     => 'class_category_entity_id',
+                        'options'  => $class->classCategories(),
+                        'keyId'    => 'class_category_entity_id',
+                        'keyName'  => 'class_category',
+                        'none'     => 'Select a class category..',
+                        'required' => true,
                     ])
 
                     @include('commons.select', [
-                        'label'   => 'Teacher' ,
-                        'name'    => 'class_teacher_entity_id',
-                        'options' => $class->teachers(),
-                        'keyId'   => 'employee_entity_id',
-                        'keyName' => 'employee_name',
-                        'none'    => 'Select a teacher..',
+                        'label'    => 'Teacher' ,
+                        'name'     => 'class_teacher_entity_id',
+                        'options'  => $class->teachers(),
+                        'keyId'    => 'employee_entity_id',
+                        'keyName'  => 'employee_name',
+                        'none'     => 'Select a teacher..',
+                        'required' => true,
                     ])
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="reporting_order">Reporting Order</label>
+                        <label class="col-md-4 control-label required" for="reporting_order">Reporting Order</label>
                         <div class="col-md-8">
                             <input id="reporting_order" class="form-control" type="text" name="reporting_order" value="{{ v('reporting_order') }}" placeholder="Reporting Order">
                         </div>
                     </div>
 
                     @include('commons.select', [
-                        'label'   => 'Facility' ,
-                        'name'    => 'facility_ids',
-                        'options' => $class->facilities(),
-                        'keyId'   => 'facility_entity_id',
-                        'keyName' => 'facility_name',
-                        'none'    => 'Select a facility..',
+                        'label'    => 'Facility' ,
+                        'name'     => 'facility_ids',
+                        'options'  => $class->facilities(),
+                        'keyId'    => 'facility_entity_id',
+                        'keyName'  => 'facility_name',
+                        'none'     => 'Select a facility..',
+                        'required' => true,
                     ])
 
                     <div class="row_footer">

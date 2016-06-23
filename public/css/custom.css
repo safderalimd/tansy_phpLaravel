@@ -111,3 +111,10 @@ label.required:after {
 .edit_form_wrapper label.radio-inline {
     padding-left: 20px;
 }
+
+@media (max-width: 350px) {
+    .help-block {
+        margin-top: 1px;
+        font-size: 12px;
+    }
+}
