@@ -73,7 +73,7 @@
                     <div class="row">
                         <div class="col-md-7 text-left col-md-offset-5">
 
-                        <form class="form-horizontal" id="save-marks-form" action="{{url("/cabinet/mark-sheet/save")}}" method="POST">
+                        <form class="form-horizontal" id="save-marks-form" action="{{url("/cabinet/mark-sheet/save?eid={$examEntityId}")}}" method="POST">
                             {{ csrf_field() }}
 
                             <input type="hidden" name="clsStudIDs_marks" id="clsStudIDs_marks" value="">

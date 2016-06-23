@@ -10,13 +10,6 @@ class MarkSheet extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\MarkSheetRepository';
 
-    protected $examId;
-
-    public function setExamId($examId)
-    {
-        $this->examId = $examId;
-    }
-
     public function saveMarksheet()
     {
         return $this->repository->save($this);
@@ -29,7 +22,11 @@ class MarkSheet extends Model
 
     public function markSheetGrid()
     {
-        return $this->repository->markSheetGrid($this->examId);
+        if (is_null($this->eid)) {
+            return [];
+        }
+
+        return $this->repository->markSheetGrid($this->eid);
     }
 
     public function setEidAttribute($value)

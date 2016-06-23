@@ -28,10 +28,8 @@ class MarkSheetController extends Controller
      */
     public function index(Request $request)
     {
-        $examId = $request->input('eid');
-        $markSheet = new MarkSheet;
-        $markSheet->setExamId($examId);
-        return view('modules.school.MarkSheet.list', compact('markSheet', 'examId'));
+        $markSheet = new MarkSheet($request->input());
+        return view('modules.school.MarkSheet.list', compact('markSheet'));
     }
 
     /**
@@ -57,7 +55,7 @@ class MarkSheetController extends Controller
         $markSheet = new MarkSheet($request->input());
         $markSheet->lock();
         flash('Marksheet Locked!');
-        return redirect('/cabinet/mark-sheet');
+        return redirect('/cabinet/mark-sheet?eid='.$request->input('eid'));
     }
 
     /**
@@ -71,7 +69,7 @@ class MarkSheetController extends Controller
         $markSheet = new MarkSheet($request->input());
         $markSheet->unlock();
         flash('Marksheet Unlocked!');
-        return redirect('/cabinet/mark-sheet');
+        return redirect('/cabinet/mark-sheet?eid='.$request->input('eid'));
     }
 
     /**
@@ -85,6 +83,6 @@ class MarkSheetController extends Controller
         $markSheet = new MarkSheet($request->input());
         $markSheet->saveMarksheet();
         flash('Marksheet Added!');
-        return redirect('/cabinet/mark-sheet');
+        return redirect('/cabinet/mark-sheet?eid='.$request->input('eid'));
     }
 }
