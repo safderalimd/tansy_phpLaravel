@@ -176,10 +176,9 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <ul class="chart-dot-list">
-                                            <?php $i=1; ?>
+                                        <ul class="chart-dot-list student-exam-performance">
                                             @foreach($student->examPieChart as $row)
-                                                <li class="a{{$i++}}">{{$row['label']}}</li>
+                                                <li class="chart-label"><span class="chart-dot-circle"></span>{{$row['label']}}</li>
                                             @endforeach
                                         </ul>
                                     </div>
@@ -243,7 +242,7 @@
 <script type="text/javascript">
 
     var pieData = <?php echo json_encode($student->examPieChart); ?>;
-    pieData = applyChartColors(pieData);
+    pieData = applyChartColors(pieData, '.student-exam-performance');
 
     $(document).ready(function() {
         $('#table-receipts').DataTable({
