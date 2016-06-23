@@ -1,9 +1,14 @@
 <div class="row">
     <div class="col-md-4 logo-container">
         @if (Device::isAndroidMobile())
-            <img src="/images/school-logo.png" alt="School Image" class="school-logo text-right">
+            <img src="/cabinet/img/school-logo/logo.png" alt="School Image" class="school-logo text-right">
         @else
-            <img src="{{storage_path('pdf/school-logo.png')}}" alt="School Image" class="school-logo text-right">
+            <?php $logo = storage_path('uploads/'.domain().'/school-logo/logo.png'); ?>
+            @if (file_exists($logo))
+                <img src="{{$logo}}" alt="School Image" class="school-logo text-right">
+            @else
+                <img src="{{storage_path('pdf/school-logo.png')}}" alt="School Image" class="school-logo text-right">
+            @endif
         @endif
     </div>
     <div class="col-md-4 school-container">

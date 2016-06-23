@@ -27,4 +27,18 @@ class ImageController extends Controller
         $image = "/{$id}.{$extension}";
         $server->outputImage($image, ['w' => $width, 'h' => $height]);
     }
+
+    public function schoolLogo(Request $request)
+    {
+        $width = 150;
+        $height = 130;
+
+        $server = ServerFactory::create([
+            'source'   => storage_path('uploads/'.domain().'/school-logo'),
+            'cache'    => storage_path('uploads/'.domain().'/school-logo-cache'),
+            'response' => new LaravelResponseFactory()
+        ]);
+
+        $server->outputImage('logo.png', ['w' => $width, 'h' => $height]);
+    }
 }
