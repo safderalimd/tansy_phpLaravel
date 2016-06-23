@@ -54,7 +54,10 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => [
+        'address' => env('FROM_ADDRESS', 'tansycloud.com'),
+        'name' => env('FROM_NAME', 'TansyCloud')
+    ],
 
     /*
     |--------------------------------------------------------------------------

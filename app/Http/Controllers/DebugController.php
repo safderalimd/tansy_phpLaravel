@@ -13,11 +13,6 @@ class DebugController extends Controller
     public function debug()
     {
         throw new Exception("Debug test error exception.");
-        // try {
-
-        // } catch(Exception $e) {
-        //     dd($e);
-        // }
     }
 
     public function phpinfo()

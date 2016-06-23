@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/debug', '\App\Http\Controllers\DebugController@debug');
+Route::get('/debug-exception', '\App\Http\Controllers\DebugController@debug');
 Route::get('/debug-phpinfo', '\App\Http\Controllers\DebugController@phpinfo');
 Route::get('/enable-debugbar', '\App\Http\Controllers\DebugController@enableDebugbar');
 
