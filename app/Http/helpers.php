@@ -279,7 +279,7 @@ function third_resultset($data)
 
 function domain()
 {
-    return session()->get('dbConnectionData.login_domain');
+    return session()->get('user.domain_name');
 }
 
 function currentMenuLink($item)

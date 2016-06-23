@@ -1,6 +1,6 @@
 <br/>
 
-Domain: {{session()->get('dbConnectionData.login_domain')}}
+Domain: {{domain()}}
 
 <hr/>
 
@@ -18,6 +18,10 @@ Debug Sproc: {{session()->get('user.debugSproc')}} <br/>
 Audit Screen Visit: {{session()->get('user.auditScreenVisit')}} <br/>
 Company Name: {{session()->get('user.companyName')}} <br/>
 Default Facility Id: {{session()->get('user.defaultFacilityId')}} <br/>
+
+<br/>
+User Ip: {{userIp()}} <br/>
+Device Type: {{Device::type()}} <br/>
 
 <hr/>
 

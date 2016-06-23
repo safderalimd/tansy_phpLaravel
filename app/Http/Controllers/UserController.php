@@ -36,11 +36,15 @@ class UserController extends Controller
 
             // read and set the second database credentials from the master database
             $secondDBCredentials = $user->getConnectionDataForSecondDB();
+
             Session::put('dbConnectionData', $secondDBCredentials);
             User::setSecondDBCredentials($secondDBCredentials);
 
             // try to log in the user
             if ($user->login()) {
+
+                Session::put('user.user_name', $user->user_name);
+                Session::put('user.domain_name', $user->domain_name);
 
                 Session::put('user.defaultFacilityId', $user->default_facility_id);
 
