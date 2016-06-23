@@ -15,7 +15,7 @@
                     @include('commons.errors')
 
                     <!-- filter the exams -->
-                    <form class="form-horizontal" style="margin-bottom:-15px;" action="{{url("/cabinet/exam-schedule/map-subjects/")}}" method="POST">
+                    <form class="form-horizontal" style="margin-bottom:-15px;" action="{{url_with_query("/cabinet/exam-schedule/map-subjects/")}}" method="POST">
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col-md-5">
@@ -25,7 +25,7 @@
                                         <select id="exam_entity_id" class="form-control" name="exam_entity_id">
                                             <option value="none">Select an exam..</option>
                                             @foreach($schedule->exam() as $option)
-                                                <option {{ ($examId == $option['exam_entity_id']) ? 'selected' : ''}} value="{!! $option['exam_entity_id'] !!}">{!! $option['exam'] !!}</option>
+                                                <option {{activeSelect($option['exam_entity_id'], 'eid')}} value="{{$option['exam_entity_id']}}">{{$option['exam']}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -78,7 +78,7 @@
                     </table>
 
 
-                <form class="form-horizontal" id="schedule-rows-form" action="{{url("/cabinet/exam-schedule/schedule-rows/")}}" method="POST">
+                <form class="form-horizontal" id="schedule-rows-form" action="{{url_with_query("/cabinet/exam-schedule/schedule-rows/")}}" method="POST">
                     {{ csrf_field() }}
 
                     <input type="hidden" name="hidden_exam_entity_id" id="hidden_exam_entity_id" value="">

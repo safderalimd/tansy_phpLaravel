@@ -10,20 +10,13 @@ class ExamSchedule extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\ExamScheduleRepository';
 
-    protected $examId;
-
-    public function setExamId($examId)
-    {
-        $this->examId = $examId;
-    }
-
     public function getExamGrid()
     {
-        if (empty($this->examId)) {
+        if (is_null($this->eid)) {
             return [];
         }
 
-        return $this->repository->getExamGrid($this->examId);
+        return $this->repository->getExamGrid($this->eid);
     }
 
     public function scheduleRows()

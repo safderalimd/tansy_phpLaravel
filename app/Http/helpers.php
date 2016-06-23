@@ -70,6 +70,12 @@ function form_action_full()
     return app('request')->fullUrl();
 }
 
+function url_with_query($url)
+{
+    $url = url($url);
+    return $url . '?' . app('request')->getQueryString();
+}
+
 function is_locked($value)
 {
     $value = strtolower($value);

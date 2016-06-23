@@ -29,10 +29,8 @@ class ExamScheduleController extends Controller
      */
     public function index(Request $request)
     {
-        $examId = $request->input('eid');
-        $schedule = new ExamSchedule;
-        $schedule->setExamId($examId);
-        return view('modules.school.ExamSchedule.list', compact('schedule', 'examId'));
+        $schedule = new ExamSchedule($request->input());
+        return view('modules.school.ExamSchedule.list', compact('schedule'));
     }
 
     /**
@@ -46,7 +44,7 @@ class ExamScheduleController extends Controller
         $schedule = new ExamSchedule($request->input());
         $schedule->mapSubjects();
         flash('Subjects Mapped!');
-        return redirect('/cabinet/exam-schedule');
+        return redirect_back();
     }
 
     /**
@@ -60,7 +58,7 @@ class ExamScheduleController extends Controller
         $schedule = new ExamSchedule($request->input());
         $schedule->scheduleRows();
         flash('Exam Scheduled!');
-        return redirect('/cabinet/exam-schedule');
+        return redirect_back();
     }
 
     /**
@@ -75,6 +73,6 @@ class ExamScheduleController extends Controller
         $schedule = new ExamSchedule($request->input());
         $schedule->delete();
         flash('Exam Deleted!');
-        return redirect('/cabinet/exam-schedule');
+        return redirect('/cabinet/exam-schedule?eid='.$request->input('eid'));
     }
 }
