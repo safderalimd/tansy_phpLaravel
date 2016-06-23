@@ -41,6 +41,6 @@ class HolidaysController extends Controller
         $holidays = new Holidays($request->input());
         $holidays->update();
         flash('Holidays Updated!');
-        return \Redirect::back();
+        return redirect_back();
     }
 }
