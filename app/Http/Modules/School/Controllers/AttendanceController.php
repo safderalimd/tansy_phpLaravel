@@ -42,6 +42,6 @@ class AttendanceController extends Controller
         $attendance = new Attendance;
         $attendance->update($request->input());
         flash('Attendance Updated!');
-        return \Redirect::back();
+        return redirect_back();
     }
 }
