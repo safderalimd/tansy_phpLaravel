@@ -6,7 +6,7 @@ use App\Http\Repositories\Repository;
 
 class MoveStudentRepository extends Repository
 {
-    public function getStudentsGrid()
+    public function getStudentsGrid($id)
     {
         return $this->select(
             'SELECT
@@ -27,7 +27,8 @@ class MoveStudentRepository extends Repository
                 fiscal_year_entity_id,
                 class_reporting_order
             FROM view_sch_lkp_student
-            ORDER BY student_roll_number ASC;'
+            WHERE class_entity_id = :id
+            ORDER BY student_roll_number ASC;', ['id' => $id]
         );
     }
 

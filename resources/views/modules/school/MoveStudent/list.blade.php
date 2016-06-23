@@ -24,7 +24,7 @@
                                 <select id="class-entity-id-filter" class="form-control" name="class-entity-id-filter">
                                     <option value="none">Select a class..</option>
                                     @foreach($move->classes() as $option)
-                                        <option {{ s('class-entity-id-filter', $option['class_entity_id']) }} value="{{ $option['class_entity_id'] }}">{{ $option['class_name'] }}</option>
+                                        <option {{ activeSelect($option['class_entity_id'], 'cei') }} value="{{ $option['class_entity_id'] }}">{{ $option['class_name'] }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -47,7 +47,7 @@
             <tbody>
 
     @foreach($move->studentsGrid() as $student)
-    <tr style="display:none;" class="student-tr">
+    <tr class="student-tr">
         <td class="text-center">
             <input type="checkbox" data-classid="{{$student['class_entity_id']}}" class="student-entity-id" name="class_student_id" value="{{$student['class_student_id']}}">
         </td>
@@ -82,7 +82,7 @@
                 <select id="move_to_fiscal_year_entity_id" class="form-control" name="move_to_fiscal_year_entity_id">
                     <option value="none">Select a fiscal year..</option>
                     @foreach($move->fiscalYears() as $year)
-                        <option value="{!!$year['fiscal_year_entity_id']!!}">{!!$year['fiscal_year']!!}</option>
+                        <option value="{{$year['fiscal_year_entity_id']}}">{{$year['fiscal_year']}}</option>
                     @endforeach
                 </select>
             </div>
@@ -94,7 +94,7 @@
                 <select id="move_to_class_entity_id" class="form-control" name="move_to_class_entity_id">
                     <option value="none">Select a class..</option>
                     @foreach($move->classes() as $class)
-                        <option value="{!!$class['class_entity_id']!!}">{!!$class['class_name']!!}</option>
+                        <option value="{{$class['class_entity_id']}}">{{$class['class_name']}}</option>
                     @endforeach
                 </select>
             </div>
@@ -102,7 +102,7 @@
 
         <div class="form-group">
            <div class="col-md-4 col-md-offset-2">
-                <button type="button" id="uncheck-all-checkboxes" class="btn btn-default">Cancel</button>
+                <a href="{{ url("/cabinet/move-student")}}" class="btn btn-default">Cancel</a>
                 <button type="submit" id="move-students-submit" disabled="disabled" class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     Move Selected Students
@@ -120,40 +120,37 @@
 @section('scripts')
 <script type="text/javascript">
 
-    // When selecting a class, uncheck all checkboxes, then display students only from one class
     $('#class-entity-id-filter').change(function() {
-        $('.student-entity-id').prop('checked', false);
-        $('#toggle-subjects').prop('checked', false);
-        $('.student-entity-id').parents('tr.student-tr').hide();
-        var classId = this.value;
-        if (classId != "none") {
-            $('.student-entity-id').each(function() {
-                if ($(this).attr('data-classid') == classId) {
-                    $(this).parents('tr.student-tr').show();
-                }
-            });
-        }
+        updateQueryString();
     });
+
+    function updateQueryString() {
+        window.location.href = window.location.href.split('?')[0] + getQueryString();
+    }
+
+    // get the query string
+    function getQueryString() {
+        var cei = $('#class-entity-id-filter option:selected').val();
+
+        var items = [];
+        if (cei != "none") {
+            items.push('cei='+cei);
+        }
+
+        var queryString = items.join('&');
+        if (queryString.length > 1) {
+            return '?' + queryString;
+        }
+        return '';
+    }
 
     // Checkbox table header - for this page, toggle all checkboxes
     $('#toggle-subjects').change(function() {
         if($(this).is(":checked")) {
-            var classId = $('#class-entity-id-filter').val();
-            $('.student-entity-id').each(function() {
-                if ($(this).attr('data-classid') == classId) {
-                    $(this).prop('checked', true);
-                }
-            });
+            $('.student-entity-id').prop('checked', true);
         } else {
             $('.student-entity-id').prop('checked', false);
         }
-    });
-
-    // Cancel Button - deselect all checkboxes
-    $('#uncheck-all-checkboxes').on('click', function() {
-        $('.student-entity-id').prop('checked', false);
-        $('#toggle-subjects').prop('checked', false);
-        $('#move-students-submit').prop('disabled', true);
     });
 
     // Disable/Enable Move Button depending if checkboxes are selected
@@ -171,12 +168,7 @@
             return false;
         }
 
-        var studentIds = $('.student-entity-id:checked').filter(function() {
-            if ($(this).parents('tr.student-tr').is(":hidden")) {
-                return false;
-            }
-            return true;
-        }).map(function() {
+        var studentIds = $('.student-entity-id:checked').map(function() {
             return this.value;
         }).get();
 
@@ -200,5 +192,6 @@
             }
         }
     });
+
 </script>
 @endsection
