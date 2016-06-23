@@ -11,22 +11,16 @@
 |
 */
 
+Route::get('/debug-mail', '\App\Http\Controllers\DebugController@mail');
+Route::get('/debug-phpinfo', '\App\Http\Controllers\DebugController@phpinfo');
+Route::get('/enable-debugbar', '\App\Http\Controllers\DebugController@enableDebugbar');
+
 Route::get('/', function () {
     return view('tansycloud');
 });
 
 Route::get('/database-error', function () {
     return view('errors.db-error');
-});
-
-Route::get('/enable-debugbar', function () {
-    $response = new Illuminate\Http\Response('Debugbar Enabled!');
-    $response->withCookie('enable_debugbar', '1', 10000);
-    return $response;
-});
-
-Route::get('/phpinfo', function () {
-    phpinfo();
 });
 
 Route::get('/login', '\App\Http\Controllers\UserController@index')->middleware('guest');
@@ -249,10 +243,6 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('/img/student/{id}', '\App\Http\Controllers\ImageController@studentImage');
 
     Route::get('/{module?}', ['as' => 'cabinet', 'uses' => 'Admin\Controllers\AdminController@home']);
-
-    // Route::get('/{module?}', ['as' => 'cabinet', function ($module = null) {
-    //     return view('cabinet.main');
-    // }]);
 
 });
 
