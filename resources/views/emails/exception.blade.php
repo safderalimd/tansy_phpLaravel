@@ -1,5 +1,7 @@
 <br/>
 
+Environment: {{App::environment()}} <br/>
+
 Domain: {{domain()}}
 
 <hr/>

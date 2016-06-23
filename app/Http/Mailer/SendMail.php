@@ -10,7 +10,7 @@ class SendMail
 {
     public static function exception(Exception $exception)
     {
-        if (! App::environment('production')) {
+        if (App::environment('local')) {
             return;
         }
 
