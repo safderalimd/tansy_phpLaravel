@@ -44,7 +44,7 @@ class UserController extends Controller
             if ($user->login()) {
 
                 Session::put('user.user_name', $user->user_name);
-                Session::put('user.domain_name', $user->domain_name);
+                Session::put('user.domain_name', trim($user->domain_name));
 
                 Session::put('user.defaultFacilityId', $user->default_facility_id);
 
