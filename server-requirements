@@ -8,3 +8,6 @@ Server Requirements - PHP 7.0 Packages:
   - sudo apt-get install php-mysql
   - sudo apt-get install php7.0-mysql
   - sudo apt-get install php7.0-mcrypt
+
+Install postfix for mails:
+https://www.digitalocean.com/community/tutorials/how-to-install-and-setup-postfix-on-ubuntu-14-04

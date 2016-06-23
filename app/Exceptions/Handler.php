@@ -10,6 +10,7 @@ use Illuminate\Foundation\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use App\Exceptions\DbErrorException;
+use App\Http\Mailer\SendMail;
 
 class Handler extends ExceptionHandler
 {
@@ -39,6 +40,10 @@ class Handler extends ExceptionHandler
             if ($e instanceof NotFoundHttpException) {
                 return view('errors.404');
             }
+        }
+
+        if ($e instanceof Exception) {
+            SendMail::exception($e);
         }
 
         return parent::report($e);
