@@ -21,7 +21,7 @@
                 <label class="col-xs-3 col-md-1 control-label" for="">Date</label>
                 <div class="col-xs-9 col-md-4">
                     <button type="button" class="btn btn-primary" id="previous-date-btn"><i class="glyphicon glyphicon-arrow-left"></i></button>
-                    <span id="absense_date" class="next-prev-date-container form-control">{{$sms->absense_date}}</span>
+                    <span id="absense_date" data-date="" class="next-prev-date-container form-control">{{$sms->absense_date}}</span>
                     <button type="button" class="btn btn-primary" id="next-date-btn"><i class="glyphicon glyphicon-arrow-right"></i></button>
                 </div>
 
@@ -99,11 +99,11 @@
         var month = ('0' + (date.getMonth() + 1)).slice(-2)
         var day = ('0' + date.getDate()).slice(-2);
         var newDate = date.getFullYear() + '-' + month + '-' + day;
-        $('#absense_date').text(newDate);
+        $('#absense_date').attr('data-date', newDate);
     }
 
     function getQueryString() {
-        return '?dt='+encodeURIComponent($('#absense_date').text());
+        return '?dt='+encodeURIComponent($('#absense_date').attr('data-date'));
     }
 
     function updateQueryString() {

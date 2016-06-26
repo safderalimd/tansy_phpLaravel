@@ -296,13 +296,13 @@
             initFirstSelect: true
         });
 
-        // filterSelectbox({
-        //     firstId: '#organization_entity_id',
-        //     firstFilter: 'value',
-        //     secondId: '#view_default_facility_id',
-        //     secondFilter: 'data-organizationId',
-        //     initAgain: true
-        // });
+        filterSelectbox({
+            firstId: '#organization_entity_id',
+            firstFilter: 'value',
+            secondId: '#view_default_facility_id',
+            secondFilter: 'data-organizationId',
+            initAgain: true
+        });
 
     });
 

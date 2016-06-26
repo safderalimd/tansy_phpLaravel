@@ -31,7 +31,7 @@
                     <label class="col-sm-3 col-md-2 control-label" for="">Date</label>
                     <div class="col-md-8">
                         <button type="button" class="btn btn-primary" id="previous-date-btn"><i class="glyphicon glyphicon-arrow-left"></i></button>
-                        <span id="absense_date" class="next-prev-date-container form-control">{{$attendance->absense_date}}</span>
+                        <span id="absense_date" data-date="{{$attendance->absense_date}}" class="next-prev-date-container form-control">{{$attendance->absense_date}}</span>
                         <button type="button" class="btn btn-primary" id="next-date-btn"><i class="glyphicon glyphicon-arrow-right"></i></button>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
         var month = ('0' + (date.getMonth() + 1)).slice(-2)
         var day = ('0' + date.getDate()).slice(-2);
         var newDate = date.getFullYear() + '-' + month + '-' + day;
-        $('#absense_date').text(newDate);
+        $('#absense_date').attr('data-date', newDate);
     }
 
     // when the date changes redirect
@@ -130,7 +130,7 @@
     function getQueryString() {
         var aei = $('#account_types_entity_id option:selected').val();
         var art = $('#account_types_entity_id option:selected').attr('data-rowType');
-        var dt = $('#absense_date').text();
+        var dt = $('#absense_date').attr('data-date');
 
         var items = [];
         if (aei != "none") {
