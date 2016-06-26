@@ -261,6 +261,8 @@
                             'options'  => $account->facilities(),
                             'keyId'    => 'facility_entity_id',
                             'keyName'  => 'facility_name',
+                            'data'     => 'organization_entity_id',
+                            'dataName' => 'organizationId',
                             'none'     => 'Select a default facility..',
                         ])
 
@@ -286,57 +288,22 @@
             bsVersion: '3'
         });
 
-        initOrganizationOptions();
-    });
-
-    var allFacilityOptions;
-
-    function initOrganizationOptions() {
-        allFacilityOptions = $('#facility_ids option');
-
-        var selectedOrganizationId = $('#facility_ids option:selected').attr('data-organizationId');
-
-        $('#organization_entity_id option').each(function() {
-            if (this.value == selectedOrganizationId) {
-                $(this).prop('selected',true);
-            }
+        filterSelectbox({
+            firstId: '#organization_entity_id',
+            firstFilter: 'value',
+            secondId: '#facility_ids',
+            secondFilter: 'data-organizationId',
+            initFirstSelect: true
         });
 
-        updateFacilities();
-    }
+        // filterSelectbox({
+        //     firstId: '#organization_entity_id',
+        //     firstFilter: 'value',
+        //     secondId: '#view_default_facility_id',
+        //     secondFilter: 'data-organizationId',
+        //     initAgain: true
+        // });
 
-    function getOrganizationId() {
-        return $('#organization_entity_id option:selected').val();
-    }
-
-    function removeAllFacilityOptions() {
-        $('#facility_ids option').remove();
-    }
-
-    function populateFacilitiesSelectbox(facilities) {
-        $('#facility_ids').prepend('<option value="none">Select a facility...</option>');
-        $(facilities).each(function() {
-            $('#facility_ids').append($(this));
-        });
-        $('#facility_ids option[value=none]').prop('selected', 'selected');
-    }
-
-    function updateFacilities() {
-        removeAllFacilityOptions();
-
-        var orgId = getOrganizationId();
-        var filteredFacilities = $(allFacilityOptions).filter(function() {
-            if ($(this).attr('data-organizationId') == orgId) {
-                return true;
-            }
-            return false;
-        }).get();
-
-        populateFacilitiesSelectbox(filteredFacilities);
-    }
-
-    $('#organization_entity_id').change(function() {
-        updateFacilities();
     });
 
     $('#account-agent-form').validate({

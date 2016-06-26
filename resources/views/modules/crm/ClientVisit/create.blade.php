@@ -221,21 +221,21 @@
 
     $(document).ready(function(){
 
-        filterSelect({
+        filterSelectbox({
             firstId: '#organization_entity_id',
             firstFilter: 'value',
             secondId: '#facility_entity_id',
             secondFilter: 'data-organizationId'
         });
 
-        filterSelect({
+        filterSelectbox({
             firstId: '#organization_entity_id',
             firstFilter: 'value',
             secondId: '#contact_entity_id',
             secondFilter: 'data-organizationId'
         });
 
-        filterSelect({
+        filterSelectbox({
             firstId: '#agent_organization_entity_id',
             firstFilter: 'value',
             secondId: '#agent_entity_id',
