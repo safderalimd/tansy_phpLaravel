@@ -71,6 +71,9 @@
             vertical-align: middle;
         }
 
+        #page-content-wrapper {
+            width: 100%;
+        }
     </style>
 </head>
 <body style="padding:0px;">
