@@ -39,7 +39,7 @@ class AccountEmployeeFormRequest extends Request
             'address2'      => 'string|max:128',
             'city_area'     => 'string|max:100',
             'city_area_new' => 'string|max:100',
-            'city_id'       => 'integer',
+            // 'city_id'       => 'integer',
             'postal_code'   => 'string|max:30',
             'login_name'    => 'string|max:128',
             'password'      => 'string|max:128',
