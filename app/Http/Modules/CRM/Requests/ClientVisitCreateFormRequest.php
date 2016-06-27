@@ -64,7 +64,7 @@ class ClientVisitCreateFormRequest extends Request
         ];
 
         if ($this->has('facility_new')) {
-            $rules['facility_type_id'] = 'required|' . $rules['facility_type_id'];
+            $rules['facility_type_id'] = 'required|integer';
             $rules['facility_name'] = 'required|' . $rules['facility_name'];
         }
 
