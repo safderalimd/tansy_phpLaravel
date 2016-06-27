@@ -14,6 +14,7 @@ class AccountEmployee extends Model
         'facility_ids',
         'city_id',
         'department_id',
+        'document_type_id',
         'manager_entity_id',
         'security_group_entity_id',
         'view_default_facility_id',
