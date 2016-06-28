@@ -56,7 +56,11 @@
                 @foreach($sms->rows() as $row)
                 <tr>
                     <td class="text-center">
-                        <input type="checkbox" data-id="{{$row['account_entity_id']}}" class="account-entity-id" name="account_entity_id" value="{{$row['account_entity_id']}}">
+                        @if (empty($row['mobile_phone'])))
+                            <input disabled="disabled" type="checkbox" data-id="{{$row['account_entity_id']}}" class="account-entity-id" name="account_entity_id" value="">
+                        @else
+                            <input type="checkbox" data-id="{{$row['account_entity_id']}}" class="account-entity-id" name="account_entity_id" value="{{$row['account_entity_id']}}">
+                        @endif
                     </td>
                     <td>{{$row['account_name']}}</td>
                     <td>{{phone_number($row['mobile_phone'])}}</td>
@@ -169,7 +173,7 @@
     // check/uncheck all checkboxes
     $('#toggle-subjects').change(function() {
         if($(this).is(":checked")) {
-            $('.account-entity-id').prop('checked', true)
+            $('.account-entity-id').each(function() { if(this.value) {$(this).prop('checked', true);} });
         } else {
             $('.account-entity-id').prop('checked', false);
         }
