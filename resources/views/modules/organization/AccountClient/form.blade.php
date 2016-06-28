@@ -163,12 +163,13 @@
                         </div>
 
                         @include('commons.select', [
-                            'label'   => 'City',
-                            'name'    => 'city_id',
-                            'options' => $account->cities(),
-                            'keyId'   => 'city_id',
-                            'keyName' => 'city_name',
-                            'none'    => 'Select a city..',
+                            'label'    => 'City',
+                            'name'     => 'city_id',
+                            'options'  => $account->cities(),
+                            'keyId'    => 'city_id',
+                            'keyName'  => 'city_name',
+                            'none'     => 'Select a city..',
+                            'required' => true,
                         ])
 
                         <div class="form-group">
@@ -274,7 +275,7 @@
             maxlength: 128
         },
         city_id: {
-
+            requiredSelect: true
         },
         postal_code: {
             maxlength: 30

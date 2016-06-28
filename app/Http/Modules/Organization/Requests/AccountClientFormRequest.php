@@ -41,6 +41,7 @@ class AccountClientFormRequest extends Request
             'mobile_phone'  => 'regex:/^\d{3,12}$/',
             'address1'      => 'string|max:128',
             'address2'      => 'string|max:128',
+            'city_id'       => 'required|integer',
             'city_area'     => 'string|max:100',
             'city_area_new' => 'string|max:100',
             'postal_code'   => 'string|max:30',
