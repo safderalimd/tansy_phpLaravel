@@ -17,6 +17,11 @@
                     @include('commons.errors')
 
                     <?php $allItems = $markSheet->getMarkSheetDetail(); ?>
+                    <?php
+                        $examEntityId = 0;
+                        $classEntityId = 0;
+                        $subjectEntityId = 0;
+                    ?>
 
                     @if (count($allItems))
                         <?php
@@ -61,7 +66,7 @@
                                     <td>{{$item['student_roll_number']}}</td>
                                     <td>{{$item['student_full_name']}}</td>
                                     <td style="max-width:150px;width:150px;">
-                                        <input data-rule-required="true" data-rule-number="true" data-rule-min="0" data-studentId="{{$item['class_student_id']}}" class="input-mark-value form-control" type="text" name="product_name_{{$i++}}" value="{{marks($item['student_marks'])}}">
+                                        <input data-rule-number="true" data-rule-min="0" data-studentId="{{$item['class_student_id']}}" class="input-mark-value form-control" type="text" name="product_name_{{$i++}}" value="{{marks($item['student_marks'])}}">
                                     </td>
                                 </tr>
                             @endforeach
