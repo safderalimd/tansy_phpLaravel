@@ -33,14 +33,16 @@ class AccountAgentRepository extends Repository
         );
     }
 
-    public function getOrganizations()
+    public function getOrganizationsForBrokers()
     {
         return $this->select(
             'SELECT
                 organization_name,
-                organization_entity_id
+                organization_entity_id,
+                organization_type
              FROM view_org_lkp_organization
-             ORDER BY organization_name ASC;'
+             WHERE organization_type = :type
+             ORDER BY organization_name ASC;', ['type' => 'Broker']
         );
     }
 
