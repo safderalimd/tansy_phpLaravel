@@ -24,6 +24,9 @@ class Holidays extends Model
 
     public function rows()
     {
+        if (is_null($this->fi)) {
+            return [];
+        }
         return $this->repository->getHolidays($this->month_id);
     }
 }
