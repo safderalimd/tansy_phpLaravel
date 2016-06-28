@@ -188,7 +188,13 @@
                 requiredSelect: true
             },
             move_to_class_entity_id: {
-                requiredSelect: true
+                requiredSelect: true,
+                notEqualTo: '#class-entity-id-filter'
+            }
+        },
+        messages: {
+            move_to_class_entity_id: {
+                notEqualTo: "Please select a different class."
             }
         }
     });
