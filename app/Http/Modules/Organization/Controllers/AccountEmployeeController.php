@@ -48,7 +48,6 @@ class AccountEmployeeController extends Controller
      */
     public function store(AccountEmployeeFormRequest $request)
     {
-        dd($request);
         $input = $request->input();
         $input['city_area'] = $request->input('city_area_new');
 
