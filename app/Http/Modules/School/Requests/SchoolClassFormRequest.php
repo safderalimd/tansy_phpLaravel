@@ -28,7 +28,6 @@ class SchoolClassFormRequest extends Request
             'class_name'               => 'required|string|max:100',
             'class_group_entity_id'    => 'required|integer',
             'class_category_entity_id' => 'required|integer',
-            'class_teacher_entity_id'  => 'required|integer',
             'reporting_order'          => 'required|integer',
             'facility_ids'             => 'required|integer',
         ];

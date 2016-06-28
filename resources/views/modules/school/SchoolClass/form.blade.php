@@ -67,7 +67,6 @@
                         'keyId'    => 'employee_entity_id',
                         'keyName'  => 'employee_name',
                         'none'     => 'Select a teacher..',
-                        'required' => true,
                     ])
 
                     <div class="form-group">
@@ -115,9 +114,6 @@
                 requiredSelect: true
             },
             class_category_entity_id: {
-                requiredSelect: true
-            },
-            class_teacher_entity_id: {
                 requiredSelect: true
             },
             reporting_order: {
