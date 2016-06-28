@@ -42,7 +42,7 @@ class Handler extends ExceptionHandler
             }
         }
 
-        if ($e instanceof Exception) {
+        if ($e instanceof Exception && ! $e instanceof ValidationException) {
             SendMail::exception($e);
         }
 

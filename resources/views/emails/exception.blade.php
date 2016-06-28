@@ -10,6 +10,8 @@ Error message: "{{$exception->getMessage()}}" <br/>
 Error Line: "{{$exception->getLine()}}" <br/>
 Error File: "{{$exception->getFile()}}" <br/>
 Error Code: "{{$exception->getCode()}}" <br/>
+Request URL:  "{{form_action_full()}}" <br/>
+Request Method: "{{app('request')->method()}}"
 
 <hr/>
 
