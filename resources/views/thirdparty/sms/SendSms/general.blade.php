@@ -81,8 +81,10 @@
 
         <div class="row">
             <div class="col-md-12">
-                <textarea maxlength="160" id="sms-message" class="form-control" rows="4"></textarea>
-                <span class="pull-right text-muted"><span id="total-chars-used">160</span> used out of 160 characters</span>
+                <form id="sms-textarea-form" class="form-horizontal" action="" method="POST">
+                    <textarea maxlength="160" name="sms_common_message" id="sms-message" class="form-control" rows="4"></textarea>
+                    <span class="pull-right text-muted"><span id="total-chars-used">160</span> used out of 160 characters</span>
+                </form>
             </div>
         </div>
 
@@ -208,6 +210,9 @@
     });
 
     $('#send-sms-form').submit(function() {
+        if (! $('#sms-textarea-form').valid()) {
+            return false;
+        }
 
         var message = $('#sms-message').val();
         $('#common_message').val(message);
@@ -225,5 +230,14 @@
 
         return true;
     });
+
+    $('#sms-textarea-form').validate({
+        rules: {
+            sms_common_message: {
+                required: true
+            }
+        }
+    });
+
 </script>
 @endsection
