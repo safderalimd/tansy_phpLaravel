@@ -1,0 +1,24 @@
+How to upload school logos for different schools:
+
+1. The name of the image must be 'logo.png'.
+2. The type of the image must be 'png'.
+3. The image size must be set to 150px width and 130px height, otherwise it will be resized to these dimentions.
+
+4. The location on the server is:
+    - the site path is: '/vaw/www/tansycloud.com' or '/vaw/www/tansycloud.dev'
+    - the logo path in the site is: '/storage/uploads/DOMAIN_FOLDER/school-logo/logo.png'
+
+5. The folder and file permissions:
+    - the user and user group should be 'www-data:www-data' (The apache web server user)
+    - the permissions should be 775
+
+    When uploading you will be root user, so the web server may not have access to uploaded files. You can change user group with these commands:
+
+        chown www-data:www-data logo.png
+        chown www-data:www-data DOMAIN_FOLDER
+
+        chmod 775 logo.png
+        chmod 775 DOMAIN_FOLDER
+
+
+
