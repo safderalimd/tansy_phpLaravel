@@ -304,9 +304,6 @@
             bsVersion: '3'
         });
         updateDocumentNumberRules();
-    });
-
-    $('#login_active').change(function() {
         updateRules();
     });
 
@@ -325,6 +322,12 @@
         $('#document_number').valid();
     });
 
+    $('#login_active').change(function() {
+        updateRules();
+        $('#security_group_entity_id').valid();
+        $('#view_default_facility_id').valid();
+    });
+
     function updateRules() {
         notRequired('#security_group_entity_id');
         $('#security_group_entity_id').rules('remove', 'requiredSelect');
@@ -338,9 +341,6 @@
             $('#view_default_facility_id').rules('add', 'requiredSelect');
             makeRequired('#view_default_facility_id');
         }
-
-        $('#security_group_entity_id').valid();
-        $('#view_default_facility_id').valid();
     }
 
     var rules = {

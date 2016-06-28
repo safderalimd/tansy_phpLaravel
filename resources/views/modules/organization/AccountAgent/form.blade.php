@@ -138,7 +138,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="mobile_phone">Mobile Phone</label>
+                            <label class="col-md-4 control-label required" for="mobile_phone">Mobile Phone</label>
                             <div class="col-md-8">
                                 <input id="mobile_phone" class="form-control" type="text" name="mobile_phone" value="{{ v('mobile_phone') }}" placeholder="Mobile Phone">
                             </div>
@@ -162,12 +162,13 @@
                         </div>
 
                         @include('commons.select', [
-                            'label'   => 'City',
-                            'name'    => 'city_id',
-                            'options' => $account->cities(),
-                            'keyId'   => 'city_id',
-                            'keyName' => 'city_name',
-                            'none'    => 'Select a city..',
+                            'label'    => 'City',
+                            'name'     => 'city_id',
+                            'options'  => $account->cities(),
+                            'keyId'    => 'city_id',
+                            'keyName'  => 'city_name',
+                            'none'     => 'Select a city..',
+                            'required' => true,
                         ])
 
                         <div class="form-group">
@@ -238,7 +239,7 @@
                             <div class="col-sm-offset-4 col-sm-8">
                                 <div class="checkbox">
                                     <label>
-                                        <input {{ c('login_active') }} name="login_active" type="checkbox"> Login Active
+                                        <input {{ c('login_active') }} id="login_active" name="login_active" type="checkbox"> Login Active
                                     </label>
                                 </div>
                             </div>
@@ -304,56 +305,110 @@
             initAgain: true
         });
 
+        updateDocumentNumberRules();
+        updateRules();
     });
 
-    $('#account-agent-form').validate({
-        rules: {
-            facility_ids: {
-                requiredSelect: true
-            },
-            organization_entity_id: {
-                requiredSelect: true
-            },
-            first_name: {
-                required: true,
-                maxlength: 30
-            },
-            middle_name: {
-                maxlength: 30
-            },
-            last_name: {
-                maxlength: 30
-            },
-            date_of_birth: {
-                dateISO: true
-            },
-            email: {
-                email: true
-            },
-            work_phone: {
-                phoneNumber: true
-            },
-            mobile_phone: {
-                phoneNumber: true
-            },
-            address1: {
-                maxlength: 128
-            },
-            address2: {
-                maxlength: 128
-            },
-            postal_code: {
-                maxlength: 30
-            },
-            login_name: {
-                maxlength: 128
-            },
-            password: {
-                minlength: 8,
-                maxlength: 128
-            }
+
+    function updateDocumentNumberRules() {
+        notRequired('#document_number');
+        $('#document_number').rules('remove', 'required');
+
+        if ($('#document_type_id option:selected').val() != 'none') {
+            $('#document_number').rules('add', 'required');
+            makeRequired('#document_number');
         }
+    }
+
+    $('#document_type_id').change(function() {
+        updateDocumentNumberRules();
+        $('#document_number').valid();
     });
+
+    $('#login_active').change(function() {
+        updateRules();
+        $('#security_group_entity_id').valid();
+        $('#view_default_facility_id').valid();
+    });
+
+    function updateRules() {
+        notRequired('#security_group_entity_id');
+        $('#security_group_entity_id').rules('remove', 'requiredSelect');
+        notRequired('#view_default_facility_id');
+        $('#view_default_facility_id').rules('remove', 'requiredSelect');
+
+        if ($('#login_active').is(':checked')) {
+            $('#security_group_entity_id').rules('add', 'requiredSelect');
+            makeRequired('#security_group_entity_id');
+
+            $('#view_default_facility_id').rules('add', 'requiredSelect');
+            makeRequired('#view_default_facility_id');
+        }
+    }
+
+    var rules = {
+        facility_ids: {
+            requiredSelect: true
+        },
+        organization_entity_id: {
+            requiredSelect: true
+        },
+        first_name: {
+            required: true,
+            maxlength: 30
+        },
+        middle_name: {
+            maxlength: 30
+        },
+        last_name: {
+            maxlength: 30
+        },
+        date_of_birth: {
+            dateISO: true
+        },
+        email: {
+            email: true
+        },
+        work_phone: {
+            phoneNumber: true
+        },
+        mobile_phone: {
+            required: true,
+            phoneNumber: true
+        },
+        address1: {
+            maxlength: 128
+        },
+        address2: {
+            maxlength: 128
+        },
+        postal_code: {
+            maxlength: 30
+        },
+        login_name: {
+            maxlength: 128,
+            notAtSymbol: true
+        },
+        password: {
+            minlength: 8,
+            maxlength: 128
+        },
+        city_id: {
+            requiredSelect: true
+        }
+    };
+
+    $('#account-agent-form').validate({
+        rules: rules
+    });
+
+    function makeRequired(elem) {
+        $(elem).closest('.form-group').find('.control-label').addClass('required');
+    }
+
+    function notRequired(elem) {
+        $(elem).closest('.form-group').find('.control-label').removeClass('required');
+    }
 
     $('#date_of_birth').change(function() {
         $('#date_of_birth').valid();
