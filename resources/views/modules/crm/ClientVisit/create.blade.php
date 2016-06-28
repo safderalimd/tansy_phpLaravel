@@ -396,7 +396,6 @@
         }
 
         if ($('#contact_new').is(':checked')) {
-            console.log('-contact new-');
             $('#organization_contact_frist_name').rules('add', 'required');
             makeRequired('#organization_contact_frist_name');
         }

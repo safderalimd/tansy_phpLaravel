@@ -61,8 +61,7 @@
     $('#change-password-form').validate({
         rules: {
             old_password: {
-                required: true,
-                minlength: 8
+                required: true
             },
             new_password: {
                 required: true,

@@ -24,7 +24,7 @@ class OrganizationFormRequest extends Request
      */
     public function rules()
     {
-        return [
+        $rules = [
             // header
             'organization_name' => 'required|string|max:128',
             'organization_type_id' => 'required|integer',
@@ -42,6 +42,12 @@ class OrganizationFormRequest extends Request
             'city_area_new' => 'string|max:100',
             'postal_code' => 'string|max:30',
         ];
+
+        if (isset($this->create_new_facility)) {
+            $rules['facility_type_id'] = 'required|integer';
+        }
+
+        return $rules;
     }
 
     /**

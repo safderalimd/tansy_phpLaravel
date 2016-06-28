@@ -16,7 +16,7 @@
 
                 @include('commons.errors')
 
-                <form id="organizationi-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
+                <form id="organization-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
                     {{ csrf_field() }}
 
 <hr/>
@@ -267,6 +267,7 @@
     $(document).ready(function(){
 
         $('#create_new_facility').change(function() {
+            updateRules();
             if($(this).is(":checked")) {
                 copyOrganizationInfoToFacility();
                 $(this).closest('.new-checkbox-group').find('.new-checkbox-inputs').fadeIn();
@@ -327,42 +328,64 @@
 
     });
 
-    $('#organizationi-form').validate({
-        rules: {
-            organization_name: {
-                required: true,
-                maxlength: 128
-            },
-            organization_type_id: {
-                requiredSelect: true
-            },
-            email: {
-                email: true,
-                maxlength: 100
-            },
-            work_phone: {
-                required: true,
-                phoneNumber: true
-            },
-            mobile_phone: {
-                required: true,
-                phoneNumber: true
-            },
-            address1: {
-                required: true,
-                maxlength: 128
-            },
-            address2: {
-                maxlength: 128
-            },
-            city_id: {
-                requiredSelect: true
-            },
-            postal_code: {
-                maxlength: 30
-            }
+    function updateRules() {
+        notRequired('#facility_type_id');
+        $('#facility_type_id').rules('remove', 'requiredSelect');
+
+        if ($('#create_new_facility').is(':checked')) {
+            $('#facility_type_id').rules('add', 'requiredSelect');
+            makeRequired('#facility_type_id');
         }
+
+        $('#facility_type_id').valid();
+    }
+
+    var rules = {
+        organization_name: {
+            required: true,
+            maxlength: 128
+        },
+        organization_type_id: {
+            requiredSelect: true
+        },
+        email: {
+            email: true,
+            maxlength: 100
+        },
+        work_phone: {
+            required: true,
+            phoneNumber: true
+        },
+        mobile_phone: {
+            required: true,
+            phoneNumber: true
+        },
+        address1: {
+            required: true,
+            maxlength: 128
+        },
+        address2: {
+            maxlength: 128
+        },
+        city_id: {
+            requiredSelect: true
+        },
+        postal_code: {
+            maxlength: 30
+        }
+    };
+
+    $('#organization-form').validate({
+        rules: rules
     });
+
+    function makeRequired(elem) {
+        $(elem).closest('.form-group').find('.control-label').addClass('required');
+    }
+
+    function notRequired(elem) {
+        $(elem).closest('.form-group').find('.control-label').removeClass('required');
+    }
 
 </script>
 @endsection
