@@ -303,20 +303,29 @@
         $('#city_area').combobox({
             bsVersion: '3'
         });
+        updateDocumentNumberRules();
     });
 
     $('#login_active').change(function() {
         updateRules();
     });
 
-    $('#document_type_id').change(function() {
-        updateRules();
-    });
-
-    function updateRules() {
+    function updateDocumentNumberRules() {
         notRequired('#document_number');
         $('#document_number').rules('remove', 'required');
 
+        if ($('#document_type_id option:selected').val() != 'none') {
+            $('#document_number').rules('add', 'required');
+            makeRequired('#document_number');
+        }
+    }
+
+    $('#document_type_id').change(function() {
+        updateDocumentNumberRules();
+        $('#document_number').valid();
+    });
+
+    function updateRules() {
         notRequired('#security_group_entity_id');
         $('#security_group_entity_id').rules('remove', 'requiredSelect');
         notRequired('#view_default_facility_id');
@@ -330,12 +339,6 @@
             makeRequired('#view_default_facility_id');
         }
 
-        if ($('#document_type_id option:selected').val() != 'none') {
-            $('#document_number').rules('add', 'required');
-            makeRequired('#document_number');
-        }
-
-        $('#document_number').valid();
         $('#security_group_entity_id').valid();
         $('#view_default_facility_id').valid();
     }

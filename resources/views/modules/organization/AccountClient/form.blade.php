@@ -301,6 +301,22 @@
         $('#account-client-form').valid();
     });
 
+
+    function updateDocumentNumberRules() {
+        notRequired('#document_number');
+        $('#document_number').rules('remove', 'required');
+
+        if ($('#document_type_id option:selected').val() != 'none') {
+            $('#document_number').rules('add', 'required');
+            makeRequired('#document_number');
+        }
+    }
+
+    $('#document_type_id').change(function() {
+        updateDocumentNumberRules();
+        $('#document_number').valid();
+    });
+
     function makeRequired(elem) {
         $(elem).closest('.form-group').find('.control-label').addClass('required');
     }
@@ -357,6 +373,7 @@
 
         // init identification rules
         updateRules();
+        updateDocumentNumberRules();
     });
 
 </script>

@@ -70,6 +70,10 @@ class AccountClientFormRequest extends Request
                 break;
         }
 
+        if (isset($this->document_type_id) && $this->document_type_id != 'none') {
+            $rules['document_number'] = 'required';
+        }
+
         return $rules;
     }
 
