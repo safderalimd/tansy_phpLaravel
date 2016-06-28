@@ -256,7 +256,7 @@
                             <div class="col-sm-offset-4 col-sm-8">
                                 <div class="checkbox">
                                     <label>
-                                        <input {{ c('login_active') }} name="login_active" type="checkbox"> Login Active
+                                        <input {{ c('login_active') }} id="login_active" name="login_active" type="checkbox"> Login Active
                                     </label>
                                 </div>
                             </div>
@@ -305,81 +305,127 @@
         });
     });
 
-    $('#account-employee-form').validate({
-        rules: {
-            facility_ids: {
-                requiredSelect: true
-            },
-            first_name: {
-                required: true,
-                maxlength: 30
-            },
-            middle_name: {
-                maxlength: 30
-            },
-            last_name: {
-                maxlength: 30
-            },
-            date_of_birth: {
-                dateISO: true
-            },
-            gender: {
-
-            },
-            email: {
-                email: true
-            },
-            home_phone: {
-                phoneNumber: true
-            },
-            mobile_phone: {
-                phoneNumber: true
-            },
-            address1: {
-                maxlength: 128
-            },
-            address2: {
-                maxlength: 128
-            },
-            city_id: {
-
-            },
-            city_area: {
-
-            },
-            postal_code: {
-                maxlength: 30
-            },
-            department_id: {
-
-            },
-            joining_date: {
-                dateISO: true
-            },
-            manager_entity_id: {
-
-            },
-            document_type_id: {
-
-            },
-            document_number: {
-
-            },
-            login_name: {
-                maxlength: 128
-            },
-            password: {
-                minlength: 8,
-                maxlength: 128
-            },
-            security_group_entity_id: {
-
-            },
-            view_default_facility_id: {
-
-            },
-        }
+    $('#login_active').change(function() {
+        updateRules();
     });
+
+    $('#document_type_id').change(function() {
+        updateRules();
+    });
+
+    function updateRules() {
+        notRequired('#document_number');
+        $('#document_number').rules('remove', 'required');
+
+        notRequired('#security_group_entity_id');
+        $('#security_group_entity_id').rules('remove', 'requiredSelect');
+        notRequired('#view_default_facility_id');
+        $('#view_default_facility_id').rules('remove', 'requiredSelect');
+
+        if ($('#login_active').is(':checked')) {
+            $('#security_group_entity_id').rules('add', 'requiredSelect');
+            makeRequired('#security_group_entity_id');
+
+            $('#view_default_facility_id').rules('add', 'requiredSelect');
+            makeRequired('#view_default_facility_id');
+        }
+
+        if ($('#document_type_id option:selected').val() != 'none') {
+            $('#document_number').rules('add', 'required');
+            makeRequired('#document_number');
+        }
+
+        $('#document_number').valid();
+        $('#security_group_entity_id').valid();
+        $('#view_default_facility_id').valid();
+    }
+
+    var rules = {
+        facility_ids: {
+            requiredSelect: true
+        },
+        first_name: {
+            required: true,
+            maxlength: 30
+        },
+        middle_name: {
+            maxlength: 30
+        },
+        last_name: {
+            maxlength: 30
+        },
+        date_of_birth: {
+            dateISO: true
+        },
+        gender: {
+
+        },
+        email: {
+            email: true
+        },
+        home_phone: {
+            phoneNumber: true
+        },
+        mobile_phone: {
+            phoneNumber: true
+        },
+        address1: {
+            maxlength: 128
+        },
+        address2: {
+            maxlength: 128
+        },
+        city_id: {
+
+        },
+        city_area: {
+
+        },
+        postal_code: {
+            maxlength: 30
+        },
+        department_id: {
+
+        },
+        joining_date: {
+            dateISO: true
+        },
+        manager_entity_id: {
+
+        },
+        document_type_id: {
+
+        },
+        document_number: {
+
+        },
+        login_name: {
+            maxlength: 128,
+            notAtSymbol: true
+        },
+        password: {
+            minlength: 8,
+            maxlength: 128
+        },
+        security_group_entity_id: {
+
+        },
+        view_default_facility_id: {
+
+        },
+    };
+
+    $('#account-employee-form').validate({
+        rules: rules
+    });
+
+    function makeRequired(elem) {
+        $(elem).closest('.form-group').find('.control-label').addClass('required');
+    }
+
+    function notRequired(elem) {
+        $(elem).closest('.form-group').find('.control-label').removeClass('required');
+    }
 
     $('#date_of_birth, #joining_date').change(function() {
         $('#date_of_birth').valid();

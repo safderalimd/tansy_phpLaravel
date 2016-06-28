@@ -25,7 +25,7 @@ class AccountEmployeeFormRequest extends Request
      */
     public function rules()
     {
-        return [
+        $rules = [
             'facility_ids'  => 'required|integer',
             'first_name'    => 'required|string',
             'middle_name'   => 'string',
@@ -41,8 +41,32 @@ class AccountEmployeeFormRequest extends Request
             'city_area_new' => 'string|max:100',
             // 'city_id'       => 'integer',
             'postal_code'   => 'string|max:30',
-            'login_name'    => 'string|max:128',
+            'login_name'    => 'not_at_symbol|string|max:128',
             'password'      => 'string|max:128',
+        ];
+
+        if (isset($this->login_active)) {
+            $rules['security_group_entity_id'] = 'required|integer';
+            $rules['view_default_facility_id'] = 'required|integer';
+        }
+
+        if (isset($this->document_type_id) && $this->document_type_id != 'none') {
+            $rules['document_number'] = 'required';
+        }
+
+        return $rules;
+
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'not_at_symbol' => 'The @ symbol is not allowed in login name.',
         ];
     }
 

@@ -192,6 +192,10 @@
         return this.optional(element) || phone_number.match(/^\d{5,12}$/);
     }, "Please specify a valid phone number" );
 
+    $.validator.addMethod('notAtSymbol', function(value, element) {
+        return this.optional(element) || !(value.indexOf('@') > -1);
+    }, "The @ symbol is not allowed." );
+
 </script>
 
 @yield('scripts')

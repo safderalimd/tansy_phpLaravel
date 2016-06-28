@@ -18,6 +18,11 @@ class AppServiceProvider extends ServiceProvider
             $extension = $file->clientExtension();
             return in_array(strtolower($extension), ['xls', 'xlsx', 'csv', 'ods']);
         });
+
+        Validator::extend('not_at_symbol', function($attribute, $value)
+        {
+            return (strpos($value, '@') === false);
+        });
     }
 
     /**
