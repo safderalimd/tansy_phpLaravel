@@ -141,7 +141,7 @@ class AdmissionRepository extends Repository
             '-iparam_city_name',
             '-iparam_city_area',
             '-iparam_postal_code',
-            ':iparam_parent_relationship_type',
+            '-iparam_parent_relationship_type',
             '-iparam_parent_first_name',
             '-iparam_parent_last_name',
             '-iparam_parent_middle_name',

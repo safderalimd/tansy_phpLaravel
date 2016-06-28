@@ -181,14 +181,14 @@
                         <div class="row"><div class="col-md-3 pull-left"><h3>Student Info</h3></div></div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label required" for="admission_number">Admission #</label>
+                            <label class="col-md-4 control-label" for="admission_number">Admission #</label>
                             <div class="col-md-8">
                                 <input id="admission_number" class="form-control" type="text" name="admission_number" value="{{ v('admission_number') }}" placeholder="Admission #">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label required" for="admission_date">Admission Date</label>
+                            <label class="col-md-4 control-label" for="admission_date">Admission Date</label>
                             <div class="col-md-8">
                                 <div class="input-group date">
                                     <input id="admission_date" class="form-control" type="text" name="admission_date" value="{{ v('admission_date') }}" placeholder="Admission Date">
@@ -390,11 +390,9 @@
                 maxlength: 30
             },
             admission_number: {
-                required: true,
                 maxlength: 128
             },
             admission_date: {
-                required: true,
                 dateISO: true
             },
             admitted_to_class_group_entity_id: {

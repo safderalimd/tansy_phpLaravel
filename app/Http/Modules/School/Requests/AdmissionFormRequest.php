@@ -49,8 +49,8 @@ class AdmissionFormRequest extends Request
             'postal_code' => 'string|max:30',
 
             // student info'
-            'admission_number' => 'required|string|max:128',
-            'admission_date' => 'required|string|max:30|date',
+            'admission_number' => 'string|max:128',
+            'admission_date' => 'string|max:30|date',
             'admitted_to_class_group_entity_id' => 'required|integer',
             'student_roll_number' => 'string|max:45',
             'identification1' => 'required|string|max:100',
