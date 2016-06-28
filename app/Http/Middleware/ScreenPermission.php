@@ -14,9 +14,9 @@ class ScreenPermission
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $screenId = null, $studentEntityId = null)
+    public function handle($request, Closure $next, $screenId = null, $studentEntityId = null, $classStudentId = null)
     {
-        $security = new Security($screenId, $studentEntityId);
+        $security = new Security($screenId, $studentEntityId, $classStudentId);
 
         if (! $security->hasScreenPermission()) {
             return response("Unauthorized. You don't have permission to access this screen.", 401);

@@ -16,8 +16,9 @@ class StudentController extends Controller
     public function __construct(Request $request)
     {
         $studentEntityId = $request->input('sei');
+        $classStudentId = $request->input('csi');
         $screenId = Student::screenId();
-        $this->middleware('screen:' . $screenId . ',' . $studentEntityId);
+        $this->middleware('screen:' . $screenId . ',' . $studentEntityId . ',' . $classStudentId);
     }
 
     /**
