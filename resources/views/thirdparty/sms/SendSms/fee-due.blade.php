@@ -56,7 +56,7 @@
                 @foreach($sms->rows() as $row)
                 <tr>
                     <td class="text-center">
-                        @if (empty($row['mobile_phone'])))
+                        @if (empty($row['mobile_phone']))
                             <input disabled="disabled" type="checkbox" data-id="{{$row['account_entity_id']}}" class="account-entity-id" name="account_entity_id" value="">
                         @else
                             <input type="checkbox" data-id="{{$row['account_entity_id']}}" class="account-entity-id" name="account_entity_id" value="{{$row['account_entity_id']}}">
