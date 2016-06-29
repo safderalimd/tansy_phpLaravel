@@ -16,6 +16,7 @@ class DebugController extends Controller
     {
         // send mail to developer admin
         $admin = env('ADMIN_EMAIL');
+        $exception = new Exception('test');
         if ($admin) {
             Mail::send('emails.exception', ['exception' => $exception], function ($m) use ($admin) {
                 $m->to($admin, 'Admin');
