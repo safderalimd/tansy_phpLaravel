@@ -154,7 +154,10 @@ function nr($number)
 
 function marks($marks)
 {
-    return intval($marks);
+    if (is_numeric($marks)) {
+        return intval($marks);
+    }
+    return '';
 }
 
 /**
