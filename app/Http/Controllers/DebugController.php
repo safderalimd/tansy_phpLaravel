@@ -12,7 +12,15 @@ class DebugController extends Controller
 {
     public function debug()
     {
-        throw new Exception("Debug test error exception.");
+        // send mail to developer admin
+        $admin = env('ADMIN_EMAIL');
+        if ($admin) {
+            Mail::send('emails.exception', ['exception' => $exception], function ($m) use ($admin) {
+                $m->to($admin, 'Admin');
+                $m->subject("TansyCloud TEST Error Message!");
+            });
+        }
+        // throw new Exception("Debug test error exception.");
     }
 
     public function phpinfo()
