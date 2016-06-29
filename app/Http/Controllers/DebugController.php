@@ -7,6 +7,8 @@ use Illuminate\Http\Response;
 use App\Http\Requests;
 use App\Http\Mailer\SendMail;
 use Exception;
+use Mail;
+use App;
 
 class DebugController extends Controller
 {
