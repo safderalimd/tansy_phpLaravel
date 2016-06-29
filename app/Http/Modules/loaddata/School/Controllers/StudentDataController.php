@@ -61,6 +61,7 @@ class StudentDataController extends Controller
             }
 
             $insertRow['facility_entity_id'] = $studentData->facility_entity_id;
+            $insertRow['current_class_entity_id'] = $studentData->class_entity_id;
             $insertRows[] = $insertRow;
         }
 

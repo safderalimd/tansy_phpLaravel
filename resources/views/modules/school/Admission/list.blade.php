@@ -23,6 +23,7 @@
                     <th>Admission # <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                     <th>Admission Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                     <th>Admitted <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                    <th>Current Class <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                     <th>Status <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                     <th>Actions</th>
                 </tr>
@@ -38,6 +39,7 @@
         <td>{{$student['admission_number']}}</td>
         <td>{{style_date($student['admission_date'])}}</td>
         <td>{{$student['admitted_to']}}</td>
+        <td>{{$student['current_class_name']}}</td>
         <td>{{$student['admission_status']}}</td>
         <td>
             <a class="btn btn-default" href="{{url("/cabinet/admission/edit/{$student['admission_id']}")}}" title="Edit">

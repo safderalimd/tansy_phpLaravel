@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Validator::extend('excel_file', function($attribute, $file, $parameters, $validator) {
-            $extension = $file->clientExtension();
+            $extension = $file->getClientOriginalExtension();
             return in_array(strtolower($extension), ['xls', 'xlsx', 'csv', 'ods']);
         });
 

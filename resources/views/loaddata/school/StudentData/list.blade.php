@@ -29,6 +29,18 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="col-md-1 control-label" for="class_entity_id">Class</label>
+                    <div class="col-md-3">
+                        <select id="class_entity_id" class="form-control" name="class_entity_id">
+                            <option value="none">Select a class..</option>
+                            @foreach($studentData->classes() as $option)
+                                <option value="{{ $option['class_entity_id'] }}">{{ $option['class_name'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label class="col-md-1 control-label">Excel File</label>
                     <div class="col-md-10">
                         <label class="btn btn-default btn-file">
@@ -86,6 +98,9 @@
     $('#load-data-form').validate({
         rules: {
             facility_entity_id: {
+                requiredSelect: true
+            },
+            class_entity_id: {
                 requiredSelect: true
             },
             attachment: {

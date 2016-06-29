@@ -30,7 +30,7 @@ class Repository
     public function getAdmissionGrid()
     {
         return $this->select(
-            'SELECT student_full_name, admission_number, admission_date, admitted_to, admission_status, admission_id, admission_status_id
+            'SELECT student_full_name, admission_number, admission_date, admitted_to, current_class_name, admission_status, admission_id, admission_status_id
              FROM view_sch_admission_grid
              ORDER BY student_full_name ASC;'
         );

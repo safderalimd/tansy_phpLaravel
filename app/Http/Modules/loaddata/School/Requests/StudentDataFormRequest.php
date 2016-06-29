@@ -26,6 +26,7 @@ class StudentDataFormRequest extends Request
     {
         return [
             'facility_entity_id' => 'required|integer',
+            'class_entity_id' => 'required|integer',
             'attachment' => 'required|excel_file',
         ];
     }
