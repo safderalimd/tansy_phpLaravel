@@ -118,3 +118,10 @@ label.required:after {
         font-size: 12px;
     }
 }
+
+#sms-textarea-form .help-block {
+    color: #f00;
+}
+#marks-table .help-block {
+    color: #f00;
+}
