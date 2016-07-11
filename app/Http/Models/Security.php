@@ -33,13 +33,13 @@ class Security extends Model
             return false;
         }
 
-        if ($this->valid_access !== 1) {
+        if ($this->valid_access != 1) {
             return false;
         }
 
         // if its a parent group accessing a student dashboard, verify access
         if ($this->parentAccessingDashboard()) {
-            if ($this->valid_dashboard !== 1) {
+            if ($this->valid_dashboard != 1) {
                 return false;
             }
         }
