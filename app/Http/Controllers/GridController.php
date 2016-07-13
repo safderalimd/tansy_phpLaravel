@@ -13,15 +13,16 @@ class GridController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        // $this->middleware(screen_id_for_current_url());
-        // $this->middleware('screen:' . AccountStudent::screenId());
+        $grid = new Grid('/' . $request->path());
+        $this->middleware('screen:' . $grid->getScreenId());
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $grid = new Grid;
+        $grid = new Grid('/' . $request->path());
+        $grid->loadData();
         $columns = $grid->columns();
         return view('grid.list', compact('grid', 'columns'));
     }

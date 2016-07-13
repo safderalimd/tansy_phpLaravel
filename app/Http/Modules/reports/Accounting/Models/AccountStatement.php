@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class AccountStatement extends Model
 {
-    protected $screenId = 2021;
+    protected $screenId = '/cabinet/pdf---account-statement';
 
     public $reportName = 'Account Statement';
 

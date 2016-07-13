@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class FiscalYear extends Model
 {
-    protected $screenId = 2001;
+    protected $screenId = '/cabinet/fiscal-year';
 
     protected $repositoryNamespace = 'App\Http\Modules\Organization\Repositories\FiscalYearRepository';
 

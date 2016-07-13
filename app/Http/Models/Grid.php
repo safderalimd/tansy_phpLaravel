@@ -7,7 +7,7 @@ use App\Http\Grid\Header;
 
 class Grid extends Model
 {
-    protected $screenId = 3005;
+    protected $screenId = null;
 
     protected $repositoryNamespace = 'App\Http\Repositories\GridRepository';
 
@@ -15,10 +15,14 @@ class Grid extends Model
 
     protected $rows;
 
-    public function __construct()
+    public function __construct($screenId)
     {
+        $this->screenId = $screenId;
         parent::__construct();
+    }
 
+    public function loadData()
+    {
         $data = $this->repository->grid($this);
         $this->header = new Header(first_resultset($data));
         $this->settings = second_resultset($data);

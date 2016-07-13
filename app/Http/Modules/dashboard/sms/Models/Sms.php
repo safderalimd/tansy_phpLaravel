@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class Sms extends Model
 {
-    protected $screenId = 2015;
+    protected $screenId = '/cabinet/sms-dashboard';
 
     protected $repositoryNamespace = 'App\Http\Modules\dashboard\sms\Repositories\SmsRepository';
 

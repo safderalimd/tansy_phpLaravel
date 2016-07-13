@@ -326,3 +326,20 @@ function redirect_back()
 {
     return app('redirect')->back();
 }
+
+function screen_id($screenId)
+{
+    if (is_null($screenId)) {
+        return null;
+
+    } else {
+        $urls = session()->get('siteUrls');
+        foreach ((array) $urls as $url) {
+            if (isset($url['url']) && isset($url['screen_id']) && $screenId == $url['url']) {
+                return $url['screen_id'];
+            }
+        }
+    }
+
+    return null;
+}

@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class Subject extends Model
 {
-    protected $screenId = 3018;
+    protected $screenId = '/cabinet/subject';
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\SubjectRepository';
 

@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class GenerateProgress extends Model
 {
-    protected $screenId = 3010;
+    protected $screenId = '/cabinet/generate-progress';
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\GenerateProgressRepository';
 

@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class Holidays extends Model
 {
-    protected $screenId = 2022;
+    protected $screenId = '/cabinet/holidays';
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\HolidaysRepository';
 

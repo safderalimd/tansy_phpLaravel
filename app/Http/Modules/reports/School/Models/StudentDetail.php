@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class StudentDetail extends Model
 {
-    protected $screenId = 3020;
+    protected $screenId = '/cabinet/pdf---student-detail';
 
     public $pdfData = [];
 

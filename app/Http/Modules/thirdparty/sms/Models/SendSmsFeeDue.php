@@ -5,8 +5,8 @@ namespace App\Http\Modules\thirdparty\sms\Models;
 class SendSmsFeeDue extends SendSmsModel
 {
     // todo: fix duplication
-    protected $screenId = 2004;
-    public static $staticScreenId = 2004;
+    protected $screenId = '/cabinet/send-sms---fee-due';
+    public static $staticScreenId = '/cabinet/send-sms---fee-due';
 
     public $smsAccountTypes;
 

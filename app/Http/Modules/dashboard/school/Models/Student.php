@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class Student extends Model
 {
-    protected $screenId = 3011;
+    protected $screenId = '/cabinet/student-dashboard';
 
     protected $repositoryNamespace = 'App\Http\Modules\dashboard\school\Repositories\StudentRepository';
 

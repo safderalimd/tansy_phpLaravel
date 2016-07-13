@@ -211,7 +211,8 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     // Route::post('client-visit/edit/{id}', 'CRM\Controllers\ClientVisitController@update');
     // Route::get('client-visit/delete/{id}', 'CRM\Controllers\ClientVisitController@destroy');
 
-    Route::get('home-v1', 'Admin\Controllers\AdminController@home');
+    Route::get('/', 'Admin\Controllers\AdminController@home');
+    Route::get('home', 'Admin\Controllers\AdminController@home');
     Route::get('reset-dupe', 'Admin\Controllers\AdminController@debugReset');
     Route::get('change-password', 'Admin\Controllers\ChangePasswordController@index');
     Route::post('change-password', 'Admin\Controllers\ChangePasswordController@updatePassword');
@@ -243,9 +244,9 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('/img/school-logo/logo.png', '\App\Http\Controllers\ImageController@schoolLogo');
 
     // dynamic grid
-    Route::get('student-account', '\App\Http\Controllers\GridController@index');
+    // Route::get('student-account', '\App\Http\Controllers\GridController@index');
+    Route::get('/{module}', '\App\Http\Controllers\GridController@index');
 
-    Route::get('/{module?}', 'Admin\Controllers\AdminController@home');
 
 });
 
