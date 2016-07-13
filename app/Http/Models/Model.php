@@ -290,7 +290,20 @@ class Model
     public static function screenId()
     {
         $instance = new static;
-        return $instance->getScreenId();
+        $screenId = $instance->getScreenId();
+        if (is_numeric($screenId)) {
+            return $screenId;
+
+        } else {
+            $urls = session('siteUrls');
+            foreach ($urls as $url) {
+                if ($screenId == $url['url']) {
+                    return $url['screen_id'];
+                }
+            }
+        }
+
+        return null;
     }
 
     public function isSelectNoneOption($param)

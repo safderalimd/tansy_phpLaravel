@@ -4,6 +4,7 @@ namespace app\Http\Middleware;
 
 use Closure;
 use Menu;
+use Session;
 
 class MenuMiddleware
 {
@@ -46,11 +47,19 @@ class MenuMiddleware
             }
         });
 
+        $siteUrls = [];
         foreach ($this->menuInfo as $item) {
             $module = camel_case($item['module_name']);
             $url = "cabinet/" . $this->link($item['screen_name']);
+            $siteUrls[] = [
+                'url'         => '/' . $url,
+                'screen_id'   => $item['screen_id'],
+                'screen_name' => $item['screen_name'],
+            ];
             $sideMenu->$module->add($item['link_name'], $url);
         }
+
+        Session::put('siteUrls', $siteUrls);
 
         $sideMenu->add('Logout', 'cabinet/logout');
 

@@ -242,11 +242,10 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('/img/student/{id}', '\App\Http\Controllers\ImageController@studentImage');
     Route::get('/img/school-logo/logo.png', '\App\Http\Controllers\ImageController@schoolLogo');
 
+    // dynamic grid
     Route::get('student-account', '\App\Http\Controllers\GridController@index');
-    // Route::get('/cabinet', ['as' => 'cabinet', 'uses' => 'Admin\Controllers\AdminController@home']);
-    Route::get('/{module?}', 'Admin\Controllers\AdminController@home');
-    // Route::get('/{module?}', ['as' => 'cabinet', 'uses' => 'Admin\Controllers\AdminController@home']);
 
+    Route::get('/{module?}', 'Admin\Controllers\AdminController@home');
 
 });
 

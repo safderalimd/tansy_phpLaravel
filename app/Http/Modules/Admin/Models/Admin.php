@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class Admin extends Model
 {
-    protected $screenId = 1003;
+    protected $screenId = '/cabinet/home';
 
     protected $repositoryNamespace = 'App\Http\Modules\Admin\Repositories\AdminRepository';
 
