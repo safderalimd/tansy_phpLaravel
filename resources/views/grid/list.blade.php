@@ -65,7 +65,7 @@
                         @foreach ($buttons as $buttonColumn)
                         @foreach ($buttonColumn->getButtons() as $button)
                             <?php
-                                $rowLabel = isset($row[$button['label']]) ? $row[$button['label']] : null;
+                                $rowLabel = isset($button['label']) ? $button['label'] : null;
                                 $rowLink  = isset($row[$button['link']]) ? $row[$button['link']] : null;
                                 $rowLabel = trim(ucfirst(strtolower($rowLabel)));
                                 $rowLink = '/' . ltrim($rowLink, '/');
