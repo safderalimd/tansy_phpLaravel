@@ -25,13 +25,18 @@ class Grid extends Model
     {
         $data = $this->repository->grid($this);
         $this->header = new Header(first_resultset($data));
-        $this->settings = second_resultset($data);
-        $this->rows = third_resultset($data);
+        $this->rows = second_resultset($data);
+        // $this->settings = second_resultset($data);
     }
 
     public function columns()
     {
         return $this->header->columns();
+    }
+
+    public function buttons()
+    {
+        return $this->header->buttons();
     }
 
     public function rows()

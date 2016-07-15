@@ -35,7 +35,7 @@ class Column
 
     public function name()
     {
-        return isset($this->column['db_clumn_name']) ? $this->column['db_clumn_name'] : null;
+        return isset($this->column['db_column_name']) ? $this->column['db_column_name'] : null;
     }
 
     public function format()

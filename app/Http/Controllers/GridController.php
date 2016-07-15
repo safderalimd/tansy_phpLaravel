@@ -24,7 +24,8 @@ class GridController extends Controller
         $grid = new Grid('/' . $request->path());
         $grid->loadData();
         $columns = $grid->columns();
-        return view('grid.list', compact('grid', 'columns'));
+        $buttons = $grid->buttons();
+        return view('grid.list', compact('grid', 'columns', 'buttons'));
     }
 
 }

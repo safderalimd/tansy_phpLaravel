@@ -8,6 +8,8 @@ class Header
 
     protected $visibleColumns;
 
+    protected $buttonColumns;
+
     public function __construct($columns)
     {
         foreach ($columns as $column) {
@@ -17,11 +19,17 @@ class Header
         $this->sortColumns();
 
         $this->visibleColumns = $this->getVisibleColumns();
+        $this->buttonColumns  = $this->getButtonColumns();
     }
 
     public function columns()
     {
         return $this->visibleColumns;
+    }
+
+    public function buttons()
+    {
+        return $this->buttonColumns;
     }
 
     public function sortColumns()
@@ -35,10 +43,23 @@ class Header
     {
         $visible = [];
         foreach ($this->columns as $column) {
-            if ($column->isVisible()) {
+            if ($column->isVisible() && !$column->hasButtonFormat()) {
                 $visible[] = $column;
             }
         }
+
+        return $visible;
+    }
+
+    public function getButtonColumns()
+    {
+        $visible = [];
+        foreach ($this->columns as $column) {
+            if ($column->isVisible() && $column->hasButtonFormat()) {
+                $visible[] = $column;
+            }
+        }
+
         return $visible;
     }
 }

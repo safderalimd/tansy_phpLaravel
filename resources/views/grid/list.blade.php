@@ -17,14 +17,18 @@
             <table class="table table-striped table-bordered table-hover" data-datatable>
                 <thead>
                     <tr>
-                    @foreach ($columns as $column)
-                        <th>
-                            {{ $column->label() }}
-                            @if ($column->isSortable())
-                                <i class="sorting-icon glyphicon glyphicon-chevron-down"></i>
-                            @endif
-                        </th>
-                    @endforeach
+                        @foreach ($columns as $column)
+                            <th>
+                                {{ $column->label() }}
+                                @if ($column->isSortable())
+                                    <i class="sorting-icon glyphicon glyphicon-chevron-down"></i>
+                                @endif
+                            </th>
+                        @endforeach
+
+                        @if (count($buttons))
+                            <th>Actions</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -52,38 +56,44 @@
                                 {{ $row[$column->name()] }}
 
                             @endif
-
-                        @elseif ($column->hasButtonFormat())
-                            @foreach ($column->getButtons() as $button)
-                                <?php
-                                    $rowLabel = isset($row[$button['label']]) ? $row[$button['label']] : null;
-                                    $rowLink  = isset($row[$button['link']]) ? $row[$button['link']] : null;
-                                    $rowLabel = trim(ucfirst(strtolower($rowLabel)));
-                                    $rowLink = '/' . ltrim($rowLink, '/');
-                                ?>
-                                @if ($rowLabel == 'Edit')
-                                    <a class="btn btn-default" href="{{url($rowLink)}}" title="Edit">
-                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                    </a>
-
-                                @elseif ($rowLabel == 'Delete')
-                                    <a class="btn btn-default formConfirm" href="{{url($rowLink)}}"
-                                       title="Delete"
-                                       data-title="Delete Record"
-                                       data-message="Are you sure to delete the selected record?"
-                                    >
-                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                    </a>
-                                @else
-                                    <a class="btn btn-default" href="{{url($rowLink)}}" title="{{$rowLabel}}">{{$rowLabel}}</a>
-
-                                @endif
-                            @endforeach
-
                         @endif
                         </td>
                     @endforeach
+
+                    @if (count($buttons))
+                    <td>
+                        @foreach ($buttons as $buttonColumn)
+                        @foreach ($buttonColumn->getButtons() as $button)
+                            <?php
+                                $rowLabel = isset($row[$button['label']]) ? $row[$button['label']] : null;
+                                $rowLink  = isset($row[$button['link']]) ? $row[$button['link']] : null;
+                                $rowLabel = trim(ucfirst(strtolower($rowLabel)));
+                                $rowLink = '/' . ltrim($rowLink, '/');
+                            ?>
+                            @if ($rowLabel == 'Edit')
+                                <a class="btn btn-default" href="{{url($rowLink)}}" title="Edit">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </a>
+
+                            @elseif ($rowLabel == 'Delete')
+                                <a class="btn btn-default formConfirm" href="{{url($rowLink)}}"
+                                   title="Delete"
+                                   data-title="Delete Record"
+                                   data-message="Are you sure to delete the selected record?"
+                                >
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </a>
+                            @else
+                                <a class="btn btn-default" href="{{url($rowLink)}}" title="{{$rowLabel}}">{{$rowLabel}}</a>
+
+                            @endif
+                        @endforeach
+                        @endforeach
+                    </td>
+                    @endif
+
                     </tr>
+
                 @endforeach
                 </tbody>
             </table>
