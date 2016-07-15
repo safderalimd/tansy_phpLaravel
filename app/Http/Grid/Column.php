@@ -118,10 +118,10 @@ class Column
         //     }
         // }
 
-        $this->buttons = [
+        $this->buttons = [[
             'link'  => trim($buttonsList[1]),
             'label' => $this->label(),
-        ];
+        ]];
 
         // $this->buttons = $buttons;
         return $this->buttons;
