@@ -105,19 +105,25 @@ class Column
             return [];
         }
 
-        $buttons = [];
-        $buttonsList = $buttonsList[1];
-        $buttonsList = explode('|', $buttonsList);
-        foreach ($buttonsList as $button) {
-            $tmp = explode(',', $button);
-            if (isset($tmp[0]) && isset($tmp[1])) {
-                $buttons[] = [
-                    'link'  => trim($tmp[0]),
-                    'label' => trim($tmp[1]),
-                ];
-            }
-        }
-        $this->buttons = $buttons;
+        // $buttons = [];
+        // $buttonsList = $buttonsList[1];
+        // $buttonsList = explode('|', $buttonsList);
+        // foreach ($buttonsList as $button) {
+        //     $tmp = explode(',', $button);
+        //     if (isset($tmp[0]) && isset($tmp[1])) {
+        //         $buttons[] = [
+        //             'link'  => trim($tmp[0]),
+        //             'label' => trim($tmp[1]),
+        //         ];
+        //     }
+        // }
+
+        $this->buttons = [
+            'link'  => trim($buttonsList[1]),
+            'label' => $this->label(),
+        ];
+
+        // $this->buttons = $buttons;
         return $this->buttons;
     }
 }
