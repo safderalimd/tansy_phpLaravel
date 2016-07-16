@@ -4,7 +4,7 @@ namespace App\Http\Modules\System\Repositories;
 
 use App\Http\Repositories\Repository;
 
-class GridPermissionRepository extends Repository
+class GridSetupRepository extends Repository
 {
     public function customGrids($model)
     {
@@ -28,31 +28,9 @@ class GridPermissionRepository extends Repository
         return first_resultset($data);
     }
 
-    public function securityGroup($model)
+    public function gridSetup($model)
     {
-        $procedure = 'sproc_sec_lkp_securiy_group';
-
-        $iparams = [
-            ':iparam_session_id',
-            ':iparam_user_id',
-            ':iparam_screen_id',
-            ':iparam_debug_sproc',
-            ':iparam_audit_screen_visit',
-        ];
-
-        $oparams = [
-            '@oparam_err_flag',
-            '@oparam_err_step',
-            '@oparam_err_msg',
-        ];
-
-        $data = $this->procedure($model, $procedure, $iparams, $oparams);
-        return first_resultset($data);
-    }
-
-    public function gridPermission($model)
-    {
-        $procedure = 'sproc_sys_grid_grid_permission';
+        $procedure = 'sproc_sys_grid_grid_setup';
 
         $iparams = [
             ':iparam_filter_screen_id',
@@ -73,14 +51,13 @@ class GridPermissionRepository extends Repository
         return first_resultset($data);
     }
 
-    public function updatePermissions($model)
+    public function updateGridSetup($model)
     {
-        $procedure = 'sproc_sys_grid_permission_dml';
+        $procedure = 'sproc_sys_grid_setup_dml';
 
         $iparams = [
             ':iparam_filter_screen_id',
-            ':iparam_group_entity_id',
-            '+iparam_uiLabel_visible_list',
+            ':iparam_uiLabel_order_visible_list',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

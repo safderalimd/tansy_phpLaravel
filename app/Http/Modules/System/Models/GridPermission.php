@@ -34,6 +34,6 @@ class GridPermission extends Model
     {
         $this->setAttribute('filter_screen_id', $this->gsi);
         $this->setAttribute('group_entity_id', $this->gei);
-        return $this->repository->securityGroup($this);
+        return $this->repository->updatePermissions($this);
     }
 }
