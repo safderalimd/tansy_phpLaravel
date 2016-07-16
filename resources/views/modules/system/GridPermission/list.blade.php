@@ -14,14 +14,15 @@
 
             @include('commons.errors')
 
-            <form class="form-horizontal" action="" method="POST">
+            <form class="form-horizontal" id="grid-permission-form" action="/cabinet/grid-permission" method="POST">
+
                 <div class="row">
                     <div class="col-md-12">
 
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="grid-filter">Grid</label>
                             <div class="col-md-3">
-                                <select id="grid-filter" class="form-control" name="grid-filter">
+                                <select id="grid-filter" class="form-control" name="filter_screen_id">
                                     <option value="none">Select a grid..</option>
                                     @foreach($grid->customGrids() as $option)
                                         <option {{ activeSelect($option['screen_id'], 'gsi') }} value="{{ $option['screen_id'] }}">{{ $option['screen_name'] }}</option>
@@ -33,7 +34,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="security-account">Security Account</label>
                             <div class="col-md-3">
-                                <select id="security-account" class="form-control" name="security-account">
+                                <select id="security-account" class="form-control" name="group_entity_id">
                                     <option value="none">Select a security account..</option>
                                     @foreach($grid->securityGroup() as $option)
                                         <option {{ activeSelect($option['group_entity_id'], 'gei') }} value="{{ $option['group_entity_id'] }}">{{ $option['group_name'] }}</option>
@@ -44,39 +45,43 @@
 
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Field Name</th>
+                                    <th>Visible</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($grid->rows() as $item)
+                                <tr>
+                                    <td>{{$item['ui_label']}}</td>
+                                    <td class="text-center">
+                                        <input type="checkbox" data-label="{{$item['ui_label']}}" data-screenid="{{$item['screen_id']}}" class="checkbox-screen-id" name="checkbox_screen_id" value="">
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                   <div class="col-md-2 col-md-offset-4 text-right">
+
+                        <input type="hidden" id="uiLabel-visible-list" name="uiLabel_visible_list" value="">
+
+                        <button type="submit" id="save-grid-permission-submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            Save Permissions
+                        </button>
+                    </div>
+                </div>
+
             </form>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Field Name</th>
-                                <th>Visible</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($grid->rows() as $item)
-                            <tr>
-                                <td>{{$item['ui_label']}}</td>
-                                <td class="text-center">
-                                    <input type="checkbox" data-screenid="{{$item['screen_id']}}" class="checkbox-screen-id" name="checkbox_screen_id" value="{{$item['screen_id']}}">
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="row">
-               <div class="col-md-2 col-md-offset-4 text-right">
-                    <button type="submit" id="save-grid-permission-submit" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                        Save Permissions
-                    </button>
-                </div>
-            </div>
 
 		    @include('commons.modal')
 
@@ -118,60 +123,35 @@
         return '';
     }
 
-    // // Checkbox table header - for this page, toggle all checkboxes
-    // $('#toggle-subjects').change(function() {
-    //     if($(this).is(":checked")) {
-    //         $('.student-entity-id').prop('checked', true);
-    //     } else {
-    //         $('.student-entity-id').prop('checked', false);
-    //     }
-    // });
+    // When submitting the form, prepend all selected checkboxes
+    $('#grid-permission-form').submit(function() {
+        if (! $('#grid-permission-form').valid()) {
+            return false;
+        }
 
-    // // Disable/Enable Move Button depending if checkboxes are selected
-    // $('.student-entity-id, #toggle-subjects').change(function() {
-    //     if ($('.student-entity-id:checked').length > 0) {
-    //         $('#move-students-submit').prop('disabled', false);
-    //     } else {
-    //         $('#move-students-submit').prop('disabled', true);
-    //     }
-    // });
+        var checkboxes = $('.checkbox-screen-id').map(function() {
+            var checked = 0;
+            if ($(this).is(":checked")) {
+                checked = 1;
+            }
+            return $(this).attr('data-label') + '|' + checked;
+        }).get();
 
-    // // When submitting the form, prepend all selected checkboxes
-    // $('#move-students-form').submit(function() {
-    //     if (! $('#move-students-form').valid()) {
-    //         return false;
-    //     }
+        $('#uiLabel-visible-list').val(checkboxes.join(','));
 
-    //     var studentIds = $('.student-entity-id:checked').map(function() {
-    //         return this.value;
-    //     }).get();
+        return true;
+    });
 
-    //     if (studentIds.length == 0) {
-    //         alert("No students are selected.");
-    //         return false;
-    //     }
-
-    //     $('#class_student_ids').val(studentIds.join(','));
-
-    //     return true;
-    // });
-
-    // $('#move-students-form').validate({
-    //     rules: {
-    //         move_to_fiscal_year_entity_id: {
-    //             requiredSelect: true
-    //         },
-    //         move_to_class_entity_id: {
-    //             requiredSelect: true,
-    //             notEqualTo: '#grid-filter'
-    //         }
-    //     },
-    //     messages: {
-    //         move_to_class_entity_id: {
-    //             notEqualTo: "Please select a different class."
-    //         }
-    //     }
-    // });
+    $('#grid-permission-form').validate({
+        rules: {
+            filter_screen_id: {
+                requiredSelect: true
+            },
+            group_entity_id: {
+                requiredSelect: true
+            }
+        }
+    });
 
 </script>
 @endsection

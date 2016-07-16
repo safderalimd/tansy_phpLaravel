@@ -30,20 +30,17 @@ class GridPermissionController extends Controller
         return view('modules.system.GridPermission.list', compact('grid'));
     }
 
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param ProductFormRequest $request
-    //  * @param  int $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(ProductFormRequest $request, $id)
-    // {
-    //     $product = new Product;
-    //     $product->setAttribute('product_entity_id', $id);
-    //     $product->setAttribute('active', 0);
-    //     $product->update($request->input());
-    //     flash('Product Updated!');
-    //     return redirect('/cabinet/product');
-    // }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        $grid = new GridPermission($request->input());
+        $grid->updatePermissions();
+        flash('Grid Permission Updated!');
+        return redirect_back();
+    }
 }

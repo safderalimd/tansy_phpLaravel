@@ -239,6 +239,7 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('account-employee/delete/{id}', 'Organization\Controllers\AccountEmployeeController@destroy');
 
     Route::get('grid-permission', 'System\Controllers\GridPermissionController@index');
+    Route::post('grid-permission', 'System\Controllers\GridPermissionController@update');
 
     Route::get('/logout', '\App\Http\Controllers\UserController@logout');
 
