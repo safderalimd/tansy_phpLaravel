@@ -45,12 +45,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{d($grid->rows())}}
-                                @foreach([] as $item)
-                                <tr>
-                                    <td>{{$item['ui_label']}}</td>
+                                @foreach($grid->rows() as $item)
+                                <tr class="grid-setup-row">
+                                    <td class="row-ui-label">{{$item['ui_label']}}</td>
+                                    <td style="max-width:150px;width:150px;">
+                                        <input data-rule-number="true" data-rule-min="0" class="input-column-position form-control" type="text" name="" value="{{$item['column_position']}}">
+                                    </td>
                                     <td class="text-center">
-                                        <input type="checkbox" data-label="{{$item['ui_label']}}" data-screenid="{{$item['screen_id']}}" class="checkbox-screen-id" name="checkbox_screen_id" value="">
+                                        <input type="checkbox" @if($item['visible'] == 1) checked="checked" @endif class="checkbox-visible-id" name="checkbox_visible_id" value="">
                                     </td>
                                 </tr>
                                 @endforeach
@@ -116,12 +118,19 @@
             return false;
         }
 
-        var checkboxes = $('.checkbox-screen-id').map(function() {
+        var checkboxes = $('.grid-setup-row').map(function() {
+
+            var label = $('.row-ui-label', $(this)).text();
+
+            var checkbox = $('.checkbox-visible-id', $(this));
             var checked = 0;
-            if ($(this).is(":checked")) {
+            if ($(checkbox).is(":checked")) {
                 checked = 1;
             }
-            return $(this).attr('data-label') + '|' + checked;
+
+            var position = $('.input-column-position', $(this)).val();
+
+            return label + '|' + position + '|' + checked;
         }).get();
 
         $('#uiLabel-order-visible-list').val(checkboxes.join(','));
@@ -129,13 +138,7 @@
         return true;
     });
 
-    $('#grid-setup-form').validate({
-        rules: {
-            filter_screen_id: {
-                requiredSelect: true
-            }
-        }
-    });
+    $('#grid-setup-form').validate();
 
 </script>
 @endsection
