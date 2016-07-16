@@ -238,6 +238,8 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('account-employee/edit/{id}', 'Organization\Controllers\AccountEmployeeController@update');
     Route::get('account-employee/delete/{id}', 'Organization\Controllers\AccountEmployeeController@destroy');
 
+    Route::get('grid-permission', 'System\Controllers\GridPermissionController@index');
+
     Route::get('/logout', '\App\Http\Controllers\UserController@logout');
 
     Route::get('/img/student/{id}', '\App\Http\Controllers\ImageController@studentImage');
