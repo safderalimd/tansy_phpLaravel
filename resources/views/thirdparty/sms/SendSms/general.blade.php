@@ -1,6 +1,6 @@
 @extends('layout.cabinet')
 
-@section('title', 'Send General SMS')
+@section('title', 'Send SMS v1')
 
 @section('content')
 
@@ -8,7 +8,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <i class="glyphicon glyphicon-th-list"></i>
-            <h3>Send General SMS</h3>
+            <h3>Send SMS v1</h3>
         </div>
         <div class="panel-body">
 
@@ -101,7 +101,7 @@
                     <input type="hidden" name="student_ids" id="student_ids" value="">
                     <input type="hidden" name="common_message" id="common_message" value="">
 
-                    <a class="btn btn-default" href="/cabinet/send-sms---general">Cancel</a>
+                    <a class="btn btn-default" href="/cabinet/send-sms-v1">Cancel</a>
                     <button disabled="disabled" id="send-sms-button" type="submit" class="btn btn-primary">Send Sms</button>
                 </form>
             </div>

@@ -1,6 +1,6 @@
 @extends('layout.cabinet')
 
-@section('title', 'Daily Collection')
+@section('title', 'PDF - Daily Balance')
 
 @section('content')
 
@@ -8,13 +8,13 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <i class="glyphicon glyphicon-th-list"></i>
-            <h3>Daily Collection</h3>
+            <h3>PDF - Daily Balance</h3>
         </div>
         <div class="panel-body">
 
             @include('commons.errors')
 
-            <form class="form-horizontal" id="generate-report-form" action="/cabinet/pdf---daily-collection/pdf" target="_blank" method="GET">
+            <form class="form-horizontal" id="generate-report-form" action="/cabinet/pdf---daily-balance/pdf" target="_blank" method="GET">
                 <input type="hidden" id="random_id" name="ri" value="">
 
                 <div class="form-group">

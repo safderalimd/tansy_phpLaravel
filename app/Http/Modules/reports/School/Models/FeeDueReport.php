@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class FeeDueReport extends Model
 {
-    protected $screenId = '/cabinet/fee-due-report';
+    protected $screenId = '/cabinet/pdf---due-report';
 
     public $pdfData;
 

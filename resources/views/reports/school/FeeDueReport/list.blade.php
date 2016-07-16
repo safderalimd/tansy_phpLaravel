@@ -1,6 +1,6 @@
 @extends('layout.cabinet')
 
-@section('title', 'Fee Due Report')
+@section('title', 'PDF - Due Report')
 
 @section('content')
 
@@ -8,13 +8,13 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <i class="glyphicon glyphicon-th-list"></i>
-            <h3>Fee Due Report</h3>
+            <h3>PDF - Due Report</h3>
         </div>
         <div class="panel-body">
 
             @include('commons.errors')
 
-            <form id="generate-report-form" class="form-horizontal" action="/cabinet/fee-due-report/pdf" target="_blank" method="GET">
+            <form id="generate-report-form" class="form-horizontal" action="/cabinet/pdf---due-report/pdf" target="_blank" method="GET">
                 <input type="hidden" id="row_type" name="rt" value="">
                 <input type="hidden" id="random_id" name="ri" value="">
 

@@ -126,17 +126,17 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('generate-progress/generate', 'School\Controllers\GenerateProgressController@generate');
     Route::get('generate-progress/re-generate', 'School\Controllers\GenerateProgressController@regenerate');
 
-    Route::get('student-export', 'reports\School\Controllers\StudentExportController@index');
-    Route::get('student-export/pdf', 'reports\School\Controllers\StudentExportController@report');
+    Route::get('pdf---student-export', 'reports\School\Controllers\StudentExportController@index');
+    Route::get('pdf---student-export/pdf', 'reports\School\Controllers\StudentExportController@report');
 
     Route::get('pdf---student-detail', 'reports\School\Controllers\StudentDetailController@index');
     Route::get('pdf---student-detail/pdf', 'reports\School\Controllers\StudentDetailController@report');
 
-    Route::get('pdf---daily-collection', 'reports\School\Controllers\DailyCollectionController@index');
-    Route::get('pdf---daily-collection/pdf', 'reports\School\Controllers\DailyCollectionController@report');
+    Route::get('pdf---daily-balance', 'reports\School\Controllers\DailyCollectionController@index');
+    Route::get('pdf---daily-balance/pdf', 'reports\School\Controllers\DailyCollectionController@report');
 
-    Route::get('pdf---student-final-progress', 'reports\School\Controllers\FinalProgressController@index');
-    Route::get('pdf---student-final-progress/pdf', 'reports\School\Controllers\FinalProgressController@report');
+    Route::get('pdf---final-progress', 'reports\School\Controllers\FinalProgressController@index');
+    Route::get('pdf---final-progress/pdf', 'reports\School\Controllers\FinalProgressController@report');
 
     Route::get('pdf---account-statement', 'reports\Accounting\Controllers\AccountStatementController@index');
     Route::get('pdf---account-statement/pdf', 'reports\Accounting\Controllers\AccountStatementController@report');
@@ -174,13 +174,13 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('load-student-data', 'loaddata\School\Controllers\StudentDataController@index');
     Route::post('load-student-data', 'loaddata\School\Controllers\StudentDataController@store');
 
-    Route::get('send-sms---general', 'thirdparty\sms\Controllers\SendSmsController@general');
+    Route::get('send-sms-v1', 'thirdparty\sms\Controllers\SendSmsController@general');
     Route::get('send-sms---exam-results', 'thirdparty\sms\Controllers\SendSmsController@examResults');
     Route::get('send-sms---exam-schedule', 'thirdparty\sms\Controllers\SendSmsController@examSchedule');
     Route::get('send-sms---attendence', 'thirdparty\sms\Controllers\SendSmsController@attendence');
     Route::get('send-sms---fee-due', 'thirdparty\sms\Controllers\SendSmsController@feeDue');
 
-    Route::post('send-sms---general', 'thirdparty\sms\Controllers\SendSmsController@sendGeneral');
+    Route::post('send-sms-v1', 'thirdparty\sms\Controllers\SendSmsController@sendGeneral');
     Route::post('send-sms---exam-results', 'thirdparty\sms\Controllers\SendSmsController@sendExamResults');
     Route::post('send-sms---exam-schedule', 'thirdparty\sms\Controllers\SendSmsController@sendExamSchedule');
     Route::post('send-sms---attendence', 'thirdparty\sms\Controllers\SendSmsController@sendAttendance');
@@ -199,8 +199,8 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('organizations/edit/{id}', 'Organization\Controllers\OrganizationController@update');
     Route::get('organizations/delete/{id}', 'Organization\Controllers\OrganizationController@destroy');
 
-    Route::get('fee-due-report', 'reports\School\Controllers\FeeDueReportController@index');
-    Route::get('fee-due-report/pdf', 'reports\School\Controllers\FeeDueReportController@report');
+    Route::get('pdf---due-report', 'reports\School\Controllers\FeeDueReportController@index');
+    Route::get('pdf---due-report/pdf', 'reports\School\Controllers\FeeDueReportController@report');
 
     Route::get('client-visit', 'CRM\Controllers\ClientVisitController@index');
     Route::get('client-visit/create', 'CRM\Controllers\ClientVisitController@create');

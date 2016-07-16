@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class DailyCollection extends Model
 {
-    protected $screenId = '/cabinet/pdf---daily-collection';
+    protected $screenId = '/cabinet/pdf---daily-balance';
 
     public $pdfData = [];
 
