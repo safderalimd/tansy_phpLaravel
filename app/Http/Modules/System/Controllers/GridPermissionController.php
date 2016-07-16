@@ -38,7 +38,6 @@ class GridPermissionController extends Controller
      */
     public function update(Request $request)
     {
-        dd($request->input());
         $grid = new GridPermission($request->input());
         $grid->updatePermissions();
         flash('Grid Permission Updated!');
