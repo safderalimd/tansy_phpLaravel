@@ -39,8 +39,8 @@ class GridSetupController extends Controller
     public function update(Request $request)
     {
         $grid = new GridSetup($request->input());
-        $grid->updatePermissions();
-        flash('Grid Permission Updated!');
+        $grid->updateGridSetup();
+        flash('Grid Setup Updated!');
         return redirect_back();
     }
 }

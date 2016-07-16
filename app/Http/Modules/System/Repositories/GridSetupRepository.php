@@ -57,7 +57,7 @@ class GridSetupRepository extends Repository
 
         $iparams = [
             ':iparam_filter_screen_id',
-            ':iparam_uiLabel_order_visible_list',
+            '-iparam_uiLabel_order_visible_list',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

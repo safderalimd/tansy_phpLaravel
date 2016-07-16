@@ -40,11 +40,13 @@
                             <thead>
                                 <tr>
                                     <th>Field Name</th>
+                                    <th>Order</th>
                                     <th>Visible</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($grid->rows() as $item)
+                                {{d($grid->rows())}}
+                                @foreach([] as $item)
                                 <tr>
                                     <td>{{$item['ui_label']}}</td>
                                     <td class="text-center">
@@ -60,11 +62,11 @@
                 <div class="row">
                    <div class="col-md-2 col-md-offset-4 text-right">
 
-                        <input type="hidden" id="uiLabel-visible-list" name="uiLabel_visible_list" value="">
+                        <input type="hidden" id="uiLabel-order-visible-list" name="uiLabel_order_visible_list" value="">
 
-                        <button type="submit" id="save-grid-permission-submit" class="btn btn-primary">
+                        <button type="submit" id="save-grid-setup-submit" class="btn btn-primary">
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                            Save Permissions
+                            Save Setup
                         </button>
                     </div>
                 </div>
@@ -83,7 +85,7 @@
 @section('scripts')
 <script type="text/javascript">
 
-    $('#grid-filter, #security-account').change(function() {
+    $('#grid-filter').change(function() {
         updateQueryString();
     });
 
@@ -99,9 +101,6 @@
         var items = [];
         if (gsi != "none") {
             items.push('gsi='+gsi);
-        }
-        if (gei != "none") {
-            items.push('gei='+gei);
         }
 
         var queryString = items.join('&');
@@ -125,7 +124,7 @@
             return $(this).attr('data-label') + '|' + checked;
         }).get();
 
-        $('#uiLabel-visible-list').val(checkboxes.join(','));
+        $('#uiLabel-order-visible-list').val(checkboxes.join(','));
 
         return true;
     });
@@ -133,9 +132,6 @@
     $('#grid-setup-form').validate({
         rules: {
             filter_screen_id: {
-                requiredSelect: true
-            },
-            group_entity_id: {
                 requiredSelect: true
             }
         }
