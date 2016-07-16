@@ -8,7 +8,7 @@ class GridRepository extends Repository
 {
     public function grid($model)
     {
-        $procedure = 'sproc_sys_generic_grid';
+        $procedure = 'sproc_sys_dynamic_grid';
 
         $iparams = [
             ':iparam_session_id',
