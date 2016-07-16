@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class Payment extends Model
 {
-    protected $screenId = '/cabinet/fee-dashboard-v1';
+    protected $screenId = '/cabinet/payment-dashboard';
 
     public $dueDoughnutDetails = [];
 

@@ -155,9 +155,9 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('progress-print--class/pdf',
         'reports\School\Controllers\ProgressPrintClassController@report');
 
-    Route::get('fee-dashboard-v1', 'dashboard\accounting\Controllers\PaymentController@index');
-    Route::get('fee-dashboard-v1/schedule-fee', 'dashboard\accounting\Controllers\PaymentController@scheduleFee');
-    Route::get('fee-dashboard-v1/discount', 'dashboard\accounting\Controllers\PaymentController@discount');
+    Route::get('payment-dashboard', 'dashboard\accounting\Controllers\PaymentController@index');
+    Route::get('payment-dashboard/schedule-fee', 'dashboard\accounting\Controllers\PaymentController@scheduleFee');
+    Route::get('payment-dashboard/discount', 'dashboard\accounting\Controllers\PaymentController@discount');
 
     Route::get('sms-dashboard', 'dashboard\sms\Controllers\SmsController@index');
 
