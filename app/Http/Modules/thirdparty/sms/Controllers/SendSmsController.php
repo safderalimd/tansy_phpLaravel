@@ -12,6 +12,7 @@ use App\Http\Modules\thirdparty\sms\Models\SendSmsAttendance;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsFeeDue;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
 use App\Http\Modules\thirdparty\sms\SmsSender;
+use Exception;
 
 class SendSmsController extends Controller
 {
@@ -135,18 +136,43 @@ class SendSmsController extends Controller
 
     public function sendGeneralV2(Request $request)
     {
-        dd($request->input());
-        // validate each row to 160chars
-        // $this->validate($request, ['common_message' => 'required|string|max:160']);
-        $this->validate($request, ['student_ids' => 'required|string']);
-        $sms = new SendSmsGeneralV2($request->input());
+        $ids = [];
+        $messages = json_decode($request->input('text_messages'));
 
-        $text = $request->input('common_message');
+        // validate message lenght
+        foreach ($messages as $message) {
+            $ids[] = $message->id;
+            if (strlen($message->message) > 160) {
+                throw new Exception("Message is too long. Max size is 160 chars.");
+            }
+        }
+
+        $sms = new SendSmsGeneralV2($request->input());
+        $dbRows = $sms->rows();
+
+        // get only rows selected
+        $validRows = array_filter($dbRows, function($row) use ($ids) {
+            return in_array($row['account_entity_id'], $ids);
+        });
+
+        // apply the message to the rows
+        $validRows = array_map(function($row) use ($messages) {
+            $row['sms_text'] = '';
+            $row['api_status'] = '';
+            foreach ($messages as $message) {
+                if ($row['account_entity_id'] == $message->id) {
+                    $row['sms_text'] = $message->message;
+                    break;
+                }
+            }
+            return $row;
+        }, $validRows);
+
         flash('SMS Sent!');
-        return $this->sendSmsToStudents($sms, $request->input('student_ids'), true, $text);
+        return $this->sendSmsToStudents($sms, $validRows, false, '', true);
     }
 
-    protected function sendSmsToStudents(SendSmsModel $sms, $ids, $commonMessage = false, $text = '')
+    protected function sendSmsToStudents(SendSmsModel $sms, $ids, $commonMessage = false, $text = '', $useV2 = false)
     {
         // clear the sms balance from the session
         session()->put('smsBalance', null);
@@ -160,41 +186,48 @@ class SendSmsController extends Controller
         // set request properties on the model
         $sms->setSmsBatchAttributes();
 
-        // get rows from db with all students
-        $dbRows = $sms->rows();
+        if ($useV2) {
+            $validRows = $ids;
+        } else {
+            // get rows from db with all students
+            $dbRows = $sms->rows();
 
-        // get only rows selected
-        $ids = explode(',', $ids);
-        $validRows = array_filter($dbRows, function($row) use ($ids) {
-            return in_array($row['account_entity_id'], $ids);
-        });
+            // get only rows selected
+            $ids = explode(',', $ids);
+            $validRows = array_filter($dbRows, function($row) use ($ids) {
+                return in_array($row['account_entity_id'], $ids);
+            });
+        }
 
         // validate that valid row count is less than balance
         $smsBalanceCount = $sender->getBalance();
         if (!is_numeric($smsBalanceCount)) {
             $smsBalanceCount = 0;
         }
+
         if (count($validRows) > $smsBalanceCount) {
-            throw new \Exception("You do not have enought sms credits.");
+            throw new Exception("You do not have enought sms credits.");
         }
 
-        // apply the message to the rows
-        $validRows = array_map(function($row) use ($commonMessage, $text) {
-            if ($commonMessage) {
-                $row['sms_text'] = $text;
-            } elseif (isset($row['due_amount'])) {
-                $row['sms_text'] = $row['first_name'] . ': ' . 'Your current fee due amount is ' . amount($row['due_amount']);
-            } else {
-                $row['sms_text'] = $row['first_name'] . ': ' . $row['sms_text'];
-            }
-            $row['api_status'] = '';
-            return $row;
-        }, $validRows);
+        if (! $useV2) {
+            // apply the message to the rows
+            $validRows = array_map(function($row) use ($commonMessage, $text) {
+                if ($commonMessage) {
+                    $row['sms_text'] = $text;
+                } elseif (isset($row['due_amount'])) {
+                    $row['sms_text'] = $row['first_name'] . ': ' . 'Your current fee due amount is ' . amount($row['due_amount']);
+                } else {
+                    $row['sms_text'] = $row['first_name'] . ': ' . $row['sms_text'];
+                }
+                $row['api_status'] = '';
+                return $row;
+            }, $validRows);
+        }
 
         // send the sms messages
         try {
             $sender->send($validRows);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // todo: log exception
             return \Redirect::back()->withErrors([$e->getMessage()]);
         }
@@ -250,9 +283,27 @@ class SendSmsController extends Controller
             }
         }
 
-        $accountIds = array_map(function($item) {
-            return $item['account_entity_id'] . '-' . $item['mobile_phone'] . '-' . $item['api_status'];
-        }, $validRows);
+        if ($useV2) {
+            $accountIds = array_map(function($item) {
+                $text = $item['sms_text'];
+                $text = str_replace(',', ' ', $text);
+                $text = str_replace('|', ' ', $text);
+                if (strlen($text) == 0) {
+                    $text = '-';
+                }
+                if (empty($item['api_status'])) {
+                    $item['api_status'] = 'failure';
+                }
+                return $item['account_entity_id'].'|'.$item['mobile_phone'].'|'.$item['api_status'].'|'.$text;
+            }, $validRows);
+        } else {
+            $accountIds = array_map(function($item) {
+                if (empty($item['api_status'])) {
+                    $item['api_status'] = 'failure';
+                }
+                return $item['account_entity_id'] . '-' . $item['mobile_phone'] . '-' . $item['api_status'];
+            }, $validRows);
+        }
 
         $data = [
             'totalSmsInBatch' => $totalSmsInBatch,
@@ -267,7 +318,11 @@ class SendSmsController extends Controller
             'balanceCount' => $sender->getBalance(),
         ];
 
-        $sms->storeBatchStatus($data);
+        if ($useV2) {
+            $sms->storeBatchStatusV2($data);
+        } else {
+            $sms->storeBatchStatus($data);
+        }
 
         return \Redirect::back();
     }

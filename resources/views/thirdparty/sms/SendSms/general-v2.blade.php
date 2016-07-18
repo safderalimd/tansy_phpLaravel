@@ -95,7 +95,7 @@
             <div class="container-fluid">
                 <form class="navbar-form navbar-right" id="send-sms-form" action="{{form_action_full()}}" method="POST">
                     {{ csrf_field() }}
-                    <input type="hidden" name="student_ids" id="student_ids" value="">
+                    <input type="hidden" name="text_messages" id="text-messages" value="">
 
                     <a class="btn btn-default" href="/cabinet/send-sms-v2">Cancel</a>
                     <button disabled="disabled" id="send-sms-button" type="submit" class="btn btn-primary">Send Sms</button>
@@ -204,16 +204,20 @@
 
     $('#send-sms-form').submit(function() {
 
-        var accountIds = $('.account-entity-id:checked').map(function() {
-            return this.value;
-        }).get();
+        var messages = [];
+        var accountIds = $('.account-entity-id:checked').each(function() {
+            var currentRow = $(this).closest('.account-row');
+            var id = this.value;
+            var message = $('.custom-message-text', currentRow).val();
+            messages.push({id: id, message: message});
+        });
 
-        if (accountIds.length == 0) {
+        if (messages.length == 0) {
             alert("No accounts are selected.");
             return false;
         }
 
-        $('#student_ids').val(accountIds.join(','));
+        $('#text-messages').val(JSON.stringify(messages));
 
         return true;
     });
