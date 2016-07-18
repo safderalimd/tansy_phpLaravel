@@ -198,7 +198,7 @@ class SendSmsRepository extends Repository
 
     public function storeBatchStatusV2($model)
     {
-        $procedure = 'sproc_sms_batch_dml_ins';
+        $procedure = 'sproc_sms_batch_dml_ins_v2';
 
         $iparams = [
             '-iparam_send_datetime',
