@@ -19,7 +19,7 @@ class SmsSender
      *
      * @var integer
      */
-    private $test = 0;
+    private $test = 1;
 
     private $rawResponse;
 

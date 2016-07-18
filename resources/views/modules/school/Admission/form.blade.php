@@ -201,7 +201,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="admitted_to_class_group_entity_id">Admitted Class Group</label>
+                            <label class="col-md-4 control-label required" for="admitted_to_class_group_entity_id">Admitted Class Group</label>
                             <div class="col-md-8">
                                 <select id="admitted_to_class_group_entity_id" class="form-control" name="admitted_to_class_group_entity_id">
                                     <option value="none">Select a class group..</option>

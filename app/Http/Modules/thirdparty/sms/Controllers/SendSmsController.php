@@ -5,6 +5,7 @@ namespace App\Http\Modules\thirdparty\sms\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsGeneral;
+use App\Http\Modules\thirdparty\sms\Models\SendSmsGeneralV2;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsExam;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsExamSchedule;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsAttendance;
@@ -24,6 +25,11 @@ class SendSmsController extends Controller
         $this->middleware('screen:' . SendSmsGeneral::staticScreenId(), ['only' => [
             'general',
             'sendGeneral',
+        ]]);
+
+        $this->middleware('screen:' . SendSmsGeneralV2::staticScreenId(), ['only' => [
+            'generalV2',
+            'sendGeneralV2',
         ]]);
 
         $this->middleware('screen:' . SendSmsExam::staticScreenId(), ['only' => [
@@ -77,6 +83,12 @@ class SendSmsController extends Controller
         return view('thirdparty.sms.SendSms.general', compact('sms'));
     }
 
+    public function generalV2(Request $request)
+    {
+        $sms = new SendSmsGeneralV2($request->input());
+        return view('thirdparty.sms.SendSms.general-v2', compact('sms'));
+    }
+
     public function sendFeeDue(Request $request)
     {
         $this->validate($request, ['student_ids' => 'required|string']);
@@ -118,6 +130,19 @@ class SendSmsController extends Controller
 
         $text = $request->input('common_message');
         flash('General SMS Sent!');
+        return $this->sendSmsToStudents($sms, $request->input('student_ids'), true, $text);
+    }
+
+    public function sendGeneralV2(Request $request)
+    {
+        dd($request->input());
+        // validate each row to 160chars
+        // $this->validate($request, ['common_message' => 'required|string|max:160']);
+        $this->validate($request, ['student_ids' => 'required|string']);
+        $sms = new SendSmsGeneralV2($request->input());
+
+        $text = $request->input('common_message');
+        flash('SMS Sent!');
         return $this->sendSmsToStudents($sms, $request->input('student_ids'), true, $text);
     }
 
