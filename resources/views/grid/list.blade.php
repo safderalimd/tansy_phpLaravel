@@ -78,7 +78,7 @@
                             @elseif ($rowLabel == 'Delete')
                                 <a class="btn btn-default formConfirm" href="{{url($rowLink)}}"
                                    title="Delete"
-                                   data-title="Delete Record"
+                                   data-title="Delete {{$grid->screenName}}"
                                    data-message="Are you sure to delete the selected record?"
                                 >
                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
