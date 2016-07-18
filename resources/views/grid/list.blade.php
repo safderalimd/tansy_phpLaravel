@@ -1,6 +1,6 @@
 @extends('layout.cabinet')
 
-@section('title', 'Student Accounts')
+@section('title', $grid->screenName)
 
 @section('content')
 
@@ -8,7 +8,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <i class="glyphicon glyphicon-th-list"></i>
-            <h3>Student Accounts</h3>
+            <h3>{{$grid->screenName}}</h3>
         </div>
         <div class="panel-body">
 

@@ -15,6 +15,8 @@ class Grid extends Model
 
     protected $rows;
 
+    public $screenName;
+
     public function __construct($screenId)
     {
         $this->screenId = $screenId;
@@ -27,6 +29,8 @@ class Grid extends Model
         $this->header = new Header(first_resultset($data));
         $this->rows = second_resultset($data);
         // $this->settings = second_resultset($data);
+
+        $this->screenName = screen_name($this->screenId);
     }
 
     public function columns()
