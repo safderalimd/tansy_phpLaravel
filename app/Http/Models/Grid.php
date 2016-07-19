@@ -5,6 +5,7 @@ namespace App\Http\Models;
 use App\Http\Models\Model;
 use App\Http\Grid\Header;
 use App\Http\Grid\Filter;
+use App\Http\Grid\Settings;
 
 class Grid extends Model
 {
@@ -19,6 +20,8 @@ class Grid extends Model
     public $screenName;
 
     public $filters;
+
+    public $settings;
 
     public function __construct($screenId)
     {
@@ -47,7 +50,7 @@ class Grid extends Model
         $gridData = $this->repository->grid($this);
         $this->header = new Header(first_resultset($gridData));
         $this->rows = second_resultset($gridData);
-        // $this->settings = third_resultset($gridData);
+        $this->settings = new Settings(third_resultset($gridData));
     }
 
     public function columns()

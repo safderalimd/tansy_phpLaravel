@@ -9,6 +9,9 @@
         <div class="panel-heading">
             <i class="glyphicon glyphicon-th-list"></i>
             <h3>{{$grid->screenName}}</h3>
+            @if ($grid->settings->hasInsertButton())
+                <a href="{{url(app('request')->path() . '/create')}}" class="btn pull-right btn-default">Add new record</a>
+            @endif
         </div>
         <div class="panel-body">
 
@@ -35,7 +38,7 @@
     </div>
 @endforeach
 
-            <table class="table table-striped table-bordered table-hover" data-datatable>
+            <table class="table table-striped table-bordered table-hover" data-dynamicgrid>
                 <thead>
                     <tr>
                         @foreach ($columns as $column)
@@ -129,6 +132,13 @@
 
 @section('scripts')
 <script type="text/javascript">
+
+    @if ($grid->settings->showSearchBox())
+        $('table[data-dynamicgrid]').DataTable({
+            "aaSorting": [],
+            "autoWidth": false
+        });
+    @endif
 
     $('.dynamic-filter-input').change(function() {
         updateQueryString();
