@@ -74,7 +74,7 @@ class MenuMiddleware
     public function generateHiddenUrls()
     {
         $hiddenSiteUrls = [];
-        foreach ($this->hiddenMenuInfo as $item) {
+        foreach ((array)$this->hiddenMenuInfo as $item) {
             $url = "cabinet/" . $this->link($item['screen_name']);
             $hiddenSiteUrls[] = [
                 'url'         => '/' . $url,
