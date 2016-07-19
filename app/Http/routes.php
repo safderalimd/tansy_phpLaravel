@@ -251,8 +251,8 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('/img/student/{id}', '\App\Http\Controllers\ImageController@studentImage');
     Route::get('/img/school-logo/logo.png', '\App\Http\Controllers\ImageController@schoolLogo');
 
-    Route::get('/{module}', '\App\Http\Controllers\GridController@index');
     Route::get('/sms-batch-details', '\App\Http\Controllers\GridController@smsBatchDetails');
+    Route::get('/{module}', '\App\Http\Controllers\GridController@index');
 
 });
 
