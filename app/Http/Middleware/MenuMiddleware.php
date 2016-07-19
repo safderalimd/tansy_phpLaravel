@@ -14,6 +14,11 @@ class MenuMiddleware
     private $menuInfo;
 
     /**
+     * @var array;
+     */
+    private $hiddenMenuInfo;
+
+    /**
      * The list of modules.
      *
      * @var array
@@ -28,8 +33,10 @@ class MenuMiddleware
     public function handle($request, Closure $next)
     {
         $this->menuInfo = session('dbMenuInfo');
+        $this->hiddenMenuInfo = session('dbHiddenMenuInfo');
 
         $this->generateSideBar();
+        $this->generateHiddenUrls();
 
         return $next($request);
     }
@@ -38,9 +45,7 @@ class MenuMiddleware
     {
         $this->orderSidebarLinks();
 
-        $menuList = collect($this->menuInfo);
         $modules = $this->getModules();
-
         $sideMenu = Menu::make('sidebar', function ($menu) use ($modules) {
             foreach ($modules as $module) {
                 $menu->add(studly_case($module), '#');
@@ -64,6 +69,21 @@ class MenuMiddleware
         $sideMenu->add('Logout', 'cabinet/logout');
 
         return $sideMenu;
+    }
+
+    public function generateHiddenUrls()
+    {
+        $hiddenSiteUrls = [];
+        foreach ($this->hiddenMenuInfo as $item) {
+            $url = "cabinet/" . $this->link($item['screen_name']);
+            $hiddenSiteUrls[] = [
+                'url'         => '/' . $url,
+                'screen_id'   => $item['screen_id'],
+                'screen_name' => $item['screen_name'],
+            ];
+        }
+
+        Session::put('hiddenSiteUrls', $hiddenSiteUrls);
     }
 
     private function getModules()

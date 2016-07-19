@@ -56,6 +56,7 @@ class UserController extends Controller
 
                 Session::put('user.companyName', $user->company_name);
                 Session::put('dbMenuInfo', $user->menuInfo);
+                Session::put('dbHiddenMenuInfo', $user->hiddenMenuInfo);
 
                 return redirect('/cabinet');
             }

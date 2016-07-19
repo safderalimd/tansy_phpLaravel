@@ -340,7 +340,13 @@ function screen_id($screenId)
 
     } else {
         $urls = session()->get('siteUrls');
+        $hiddenUrls = session()->get('hiddenSiteUrls');
         foreach ((array) $urls as $url) {
+            if (isset($url['url']) && isset($url['screen_id']) && $screenId == $url['url']) {
+                return $url['screen_id'];
+            }
+        }
+        foreach ((array) $hiddenUrls as $url) {
             if (isset($url['url']) && isset($url['screen_id']) && $screenId == $url['url']) {
                 return $url['screen_id'];
             }
