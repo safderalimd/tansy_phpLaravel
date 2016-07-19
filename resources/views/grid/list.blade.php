@@ -14,6 +14,27 @@
 
             @include('commons.errors')
 
+@foreach ($grid->filters as $filter)
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group dynamic-filter">
+                <label class="control-label dynamic-filter-label" for="filter_{{$filter->id()}}">{{$filter->label()}}</label>
+                <div class="dynamic-filter-item">
+                    @if ($filter->isDateInput())
+                    <div class="input-group date">
+                        <input id="filter_{{$filter->id()}}" data-type="value" data-filterId="f{{$filter->id()}}" class="dynamic-filter-input form-control" type="text" name="filter_{{$filter->id()}}" value="{{queryStringValue('f'.$filter->id())}}" placeholder="{{$filter->label()}}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><span
+                                        class="glyphicon glyphicon-calendar"></span></button>
+                        </span>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+
             <table class="table table-striped table-bordered table-hover" data-datatable>
                 <thead>
                     <tr>
@@ -104,4 +125,37 @@
     </div>
 </div>
 
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+
+    $('.dynamic-filter-input').change(function() {
+        updateQueryString();
+    });
+
+    function updateQueryString() {
+        window.location.href = window.location.href.split('?')[0] + getQueryString();
+    }
+
+    // get the query string
+    function getQueryString() {
+
+        var items = [];
+
+        $('.dynamic-filter-input').each(function() {
+            var filter = $(this).attr('data-filterId') + '=';
+            if ($(this).attr('data-type') == 'value' && $(this).val()) {
+                items.push(filter+$(this).val());
+            }
+        });
+
+        var queryString = items.join('&');
+        if (queryString.length > 1) {
+            return '?' + queryString;
+        }
+        return '';
+    }
+
+</script>
 @endsection

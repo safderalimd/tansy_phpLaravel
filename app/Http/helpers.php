@@ -201,6 +201,12 @@ function activeSelect($value, $getKey, $isDefault = false)
     return '';
 }
 
+function queryStringValue($key)
+{
+    $input = app('request')->input($key);
+    return !is_null($input) ? $input : '';
+}
+
 function activeSelectByTwo($firstValue, $secondValue, $firstKey, $secondKey)
 {
     $firstKey = app('request')->input($firstKey);

@@ -24,6 +24,23 @@
             margin-right: 8px;
             vertical-align: middle;
         }
+        .dynamic-filter {
+
+        }
+        .dynamic-filter-label {
+            width: 200px;
+            float: left;
+            margin-bottom: 10px;
+            height: 34px;
+            line-height: 34px;
+            text-align: right;
+            padding-right: 15px;
+        }
+        .dynamic-filter-item {
+            margin-bottom: 10px;
+            width: 250px;
+            float: left;
+        }
     </style>
 </head>
 <body style="padding:0px;">

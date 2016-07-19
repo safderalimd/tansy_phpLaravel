@@ -22,6 +22,8 @@ class GridController extends Controller
     public function index(Request $request)
     {
         $grid = new Grid('/' . $request->path());
+        $grid->fill($request->input());
+
         $grid->loadData();
         $columns = $grid->columns();
         $buttons = $grid->buttons();

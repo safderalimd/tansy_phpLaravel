@@ -4,6 +4,7 @@ namespace App\Http\Models;
 
 use App\Http\Models\Model;
 use App\Http\Grid\Header;
+use App\Http\Grid\Filter;
 
 class Grid extends Model
 {
@@ -17,6 +18,8 @@ class Grid extends Model
 
     public $screenName;
 
+    public $filters;
+
     public function __construct($screenId)
     {
         $this->screenId = $screenId;
@@ -25,12 +28,26 @@ class Grid extends Model
 
     public function loadData()
     {
-        $data = $this->repository->grid($this);
-        $this->header = new Header(first_resultset($data));
-        $this->rows = second_resultset($data);
-        // $this->settings = second_resultset($data);
-
         $this->screenName = screen_name($this->screenId);
+        $this->loadFilters();
+
+        // set the filters to load grid data
+        foreach ($this->filters as $filter) {
+            $filterId = 'f' . $filter->id();
+            if (isset($this->{$filterId}) && !is_null($this->{$filterId})) {
+                $this->setAttribute('data_type_filter' . $filter->id(), $filter->get('data_type'));
+                $this->setAttribute('db_column_filter' . $filter->id(), $filter->get('db_column'));
+                $this->setAttribute('input_value_filter' . $filter->id(), $this->{$filterId});
+                $this->setAttribute('sql_operator_filter' . $filter->id(), $filter->get('sql_operator'));
+                $this->setAttribute('drop_down_pk_filter' . $filter->id(), $filter->get('drop_down_pk'));
+                $this->setAttribute('drop_down_parent_filter' . $filter->id(), $filter->get('drop_down_parent'));
+            }
+        }
+
+        $gridData = $this->repository->grid($this);
+        $this->header = new Header(first_resultset($gridData));
+        $this->rows = second_resultset($gridData);
+        // $this->settings = third_resultset($gridData);
     }
 
     public function columns()
@@ -46,5 +63,11 @@ class Grid extends Model
     public function rows()
     {
         return $this->rows;
+    }
+
+    public function loadFilters()
+    {
+        $data = $this->repository->gridFilters($this);
+        $this->filters = Filter::make($data);
     }
 }
