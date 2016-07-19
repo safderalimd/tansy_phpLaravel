@@ -14,10 +14,8 @@ class Filter
         $this->filterId = $filterId;
     }
 
-    public static function make($data)
+    public static function make($items)
     {
-        $items = first_resultset($data);
-
         $id = 1;
         $filters = [];
         foreach ($items as $item) {

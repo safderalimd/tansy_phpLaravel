@@ -6,6 +6,7 @@ use App\Http\Models\Model;
 use App\Http\Grid\Header;
 use App\Http\Grid\Filter;
 use App\Http\Grid\Settings;
+use App\Http\Grid\Params;
 
 class Grid extends Model
 {
@@ -16,6 +17,8 @@ class Grid extends Model
     protected $header;
 
     protected $rows;
+
+    protected $params;
 
     public $screenName;
 
@@ -47,7 +50,7 @@ class Grid extends Model
             }
         }
 
-        $gridData = $this->repository->grid($this);
+        $gridData = $this->repository->dynamicGrid($this->params, $this);
         $this->header = new Header(first_resultset($gridData));
         $this->rows = second_resultset($gridData);
         $this->settings = new Settings(third_resultset($gridData));
@@ -71,6 +74,8 @@ class Grid extends Model
     public function loadFilters()
     {
         $data = $this->repository->gridFilters($this);
-        $this->filters = Filter::make($data);
+        $this->filters = Filter::make(first_resultset($data));
+
+        $this->params = new Params(second_resultset($data));
     }
 }
