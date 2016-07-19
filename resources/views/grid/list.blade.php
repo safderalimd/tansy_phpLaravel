@@ -4,6 +4,13 @@
 
 @section('content')
 
+<?php
+
+    $columns = $grid->columns();
+    $buttons = $grid->buttons();
+
+?>
+
 <div class="panel-group sch_class">
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -18,6 +25,9 @@
             @include('commons.errors')
 
 @foreach ($grid->filters as $filter)
+    {{-- todo: check not hidden filter --}}
+    @if ($filter->isDateInput())
+
     <div class="row">
         <div class="col-md-12">
             <div class="form-group dynamic-filter">
@@ -36,6 +46,8 @@
             </div>
         </div>
     </div>
+
+    @endif
 @endforeach
 
             <table class="table table-striped table-bordered table-hover" data-dynamicgrid>

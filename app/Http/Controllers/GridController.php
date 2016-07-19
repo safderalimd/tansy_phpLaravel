@@ -23,11 +23,15 @@ class GridController extends Controller
     {
         $grid = new Grid('/' . $request->path());
         $grid->fill($request->input());
-
         $grid->loadData();
-        $columns = $grid->columns();
-        $buttons = $grid->buttons();
-        return view('grid.list', compact('grid', 'columns', 'buttons'));
+        return view('grid.list', compact('grid'));
     }
 
+    public function smsBatchDetails(Request $request)
+    {
+        $grid = new Grid('/' . $request->path());
+        $grid->setAttribute('f1', $request->input('id'));
+        $grid->loadData();
+        return view('grid.list', compact('grid'));
+    }
 }
