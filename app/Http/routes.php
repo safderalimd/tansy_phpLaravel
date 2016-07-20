@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/debug-exception', '\App\Http\Controllers\DebugController@debug');
+Route::get('/debug-exception', '\App\Http\Controllers\DebugController@debugException');
 Route::get('/debug-phpinfo', '\App\Http\Controllers\DebugController@phpinfo');
 Route::get('/enable-debugbar', '\App\Http\Controllers\DebugController@enableDebugbar');
 
@@ -27,6 +27,8 @@ Route::get('/login', '\App\Http\Controllers\UserController@index')->middleware('
 Route::post('/login', '\App\Http\Controllers\UserController@login')->middleware('guest');
 
 Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabinet'], function() {
+
+    Route::get('/debug-sms', '\App\Http\Controllers\DebugController@debugSMS');
 
     Route::get('fiscal-year', 'Organization\Controllers\FiscalYearController@index');
     Route::get('fiscal-year/create', 'Organization\Controllers\FiscalYearController@create');
