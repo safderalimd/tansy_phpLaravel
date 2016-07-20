@@ -8,7 +8,7 @@ class ReceiptPrintPDF extends Model
 {
     protected $screenId = '/cabinet/pdf---receipt-v1';
 
-    public $reportName = 'Receipt';
+    public $reportName = 'Payment Receipt';
 
     public $schoolName = '-';
 

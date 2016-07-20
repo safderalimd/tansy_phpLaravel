@@ -350,7 +350,7 @@ a {
                                                 <td>
                                                     <table class="invoice-items" cellpadding="0" cellspacing="0">
                                                         <tr>
-                                                            <td>Student Name</td>
+                                                            <td>Account Name</td>
                                                             <td class="alignright">{{$receipt->header['paid_by_name']}}</td>
                                                         </tr>
                                                         <tr>
