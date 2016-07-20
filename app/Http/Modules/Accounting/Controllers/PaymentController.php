@@ -63,13 +63,23 @@ class PaymentController extends Controller
         // todo: ask client what php validations to be made for payment
 
         $payment->payNow();
-        $this->sendSms($payment);
+        $this->sendReceiptSms($payment);
+        $this->sendReceiptEmail($payment);
         flash('Amount Paid!');
         return redirect("/cabinet/payment?ak={$accountKey}&rt={$rowType}");
     }
 
+    public function sendReceiptEmail($payment)
+    {
+        // send receipt email if checkbox is on
+        if (!isset($payment->send_receipt_email)) {
+            return false;
+        }
+
+    }
+
     // todo: refactor this
-    public function sendSms($payment)
+    public function sendReceiptSms($payment)
     {
         // send receipt sms if checkbox is on
         if (!isset($payment->send_receipt_sms)) {

@@ -141,9 +141,8 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('pdf---account-statement', 'reports\Accounting\Controllers\AccountStatementController@index');
     Route::get('pdf---account-statement/pdf', 'reports\Accounting\Controllers\AccountStatementController@report');
 
-    Route::get('receipt-report/{id}', 'reports\Accounting\Controllers\ReceiptPrintController@index');
-    Route::get('receipt-report/pdf/{id}', 'reports\Accounting\Controllers\ReceiptPrintController@report');
-
+    Route::get('receipts-listing', 'reports\Accounting\Controllers\ReceiptPrintController@index');
+    Route::get('pdf---receipt-v1/pdf', 'reports\Accounting\Controllers\ReceiptPrintPDFController@report');
 
     Route::get('progress-print---student',
         'reports\School\Controllers\ProgressPrintStudentController@index');
