@@ -58,6 +58,9 @@ class UserController extends Controller
                 Session::put('dbMenuInfo', $user->menuInfo);
                 Session::put('dbHiddenMenuInfo', $user->hiddenMenuInfo);
 
+                // clear the sms balance from the session
+                session()->put('smsBalance', null);
+
                 return redirect('/cabinet');
             }
 
