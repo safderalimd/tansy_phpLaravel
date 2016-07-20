@@ -8,9 +8,21 @@ use App\Http\Modules\Accounting\Models\Payment;
 use App\Http\Modules\Accounting\Requests\PaymentFormRequest;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
 use App\Http\Modules\thirdparty\sms\SmsSender;
+use App\Http\Modules\reports\Accounting\Models\ReceiptPrintPDF;
+use App\Http\Mailer\SendMail;
 
 class PaymentController extends Controller
 {
+    protected $payment;
+
+    protected $receipt;
+
+    protected $phone = null;
+
+    protected $accountEntityId = null;
+
+    protected $email = null;
+
     /**
      * Instantiate a new Controller instance.
      *
@@ -63,57 +75,67 @@ class PaymentController extends Controller
         // todo: ask client what php validations to be made for payment
 
         $payment->payNow();
-        $this->sendReceiptSms($payment);
-        $this->sendReceiptEmail($payment);
+
+        $this->setReceiptDetails($payment);
+        $this->sendReceiptSms();
+        $this->sendReceiptEmail();
         flash('Amount Paid!');
         return redirect("/cabinet/payment?ak={$accountKey}&rt={$rowType}");
     }
 
-    public function sendReceiptEmail($payment)
+    public function setReceiptDetails($payment)
     {
-        // send receipt email if checkbox is on
-        if (!isset($payment->send_receipt_email)) {
-            return false;
+        $this->payment = $payment;
+
+        $this->receipt = new ReceiptPrintPDF;
+        $this->receipt->setAttribute('report_id', $this->payment->receipt_id);
+        $this->receipt->loadPdfData();
+
+        $paymentDetail = Payment::details($this->payment->pk);
+        $rows = $paymentDetail->rows();
+
+        if (isset($rows[0]['mobile_phone'])) {
+            $this->phone = $rows[0]['mobile_phone'];
+        }
+        if (isset($rows[0]['account_entity_id'])) {
+            $this->accountEntityId = $rows[0]['account_entity_id'];
+        }
+        if (isset($rows[0]['email'])) {
+            $this->email = $rows[0]['email'];
         }
 
     }
 
+    public function sendReceiptEmail()
+    {
+        // send receipt email if checkbox is on
+        if (!isset($this->payment->send_receipt_email) || empty($this->email)) {
+            return false;
+        }
+
+        SendMail::receipt($this->email, $this->receipt);
+    }
+
     // todo: refactor this
-    public function sendReceiptSms($payment)
+    public function sendReceiptSms()
     {
         // send receipt sms if checkbox is on
-        if (!isset($payment->send_receipt_sms)) {
+        if (!isset($this->payment->send_receipt_sms) || empty($this->phone)) {
             return false;
         }
 
-        // get phone number
-        $paymentDetail = Payment::details($payment->pk);
-        $rows = $paymentDetail->rows();
-        $phone = null;
-        $accountEntityId = null;
-        if (isset($rows[0]['mobile_phone'])) {
-            $phone = $rows[0]['mobile_phone'];
-        }
-        if (isset($rows[0]['account_entity_id'])) {
-            $accountEntityId = $rows[0]['account_entity_id'];
-        }
-        if (empty($phone)) {
+        $receiptHeader = $this->receipt->header;
+        if (empty($receiptHeader) || !isset($receiptHeader['paid_by_name'])) {
             return false;
         }
 
-        $receiptHeader = $payment->repository->getReceiptHeader($payment->receipt_id);
-        if (!isset($receiptHeader[0])) {
-            return false;
-        }
-        $receiptHeader = $receiptHeader[0];
-
-        $text = 'Received ' . $receiptHeader['paid_by_name'] . ' payment on '. style_date($receiptHeader['receipt_date']) .': Receipt #' . $receiptHeader['receipt_number'] . ', Paid Amount ' . amount($payment->total_paid_amount) . ', New Balance ' . amount($receiptHeader['new_balance']);
+        $text = 'Received ' . $receiptHeader['paid_by_name'] . ' payment on '. style_date($receiptHeader['receipt_date']) .': Receipt #' . $receiptHeader['receipt_number'] . ', Paid Amount ' . amount($this->payment->total_paid_amount) . ', New Balance ' . amount($receiptHeader['new_balance']);
 
         $sms = new SendSmsModel;
-        $sms->setAttribute('screen_id', $payment->getScreenId());
-        $sms->setAttribute('sms_type_id', $payment->getReceiptSmsTypeID());
+        $sms->setAttribute('screen_id', $this->payment->getScreenId());
+        $sms->setAttribute('sms_type_id', $this->payment->getReceiptSmsTypeID());
         $sms->setAttribute('sms_account_row_type', null);
-        $sms->setAttribute('sms_account_entity_id', $accountEntityId);
+        $sms->setAttribute('sms_account_entity_id', $this->accountEntityId);
         $sms->setAttribute('exam_entity_id', null);
 
         $api = $sms->smsCredentials();
@@ -122,8 +144,8 @@ class PaymentController extends Controller
         $messages = [[
             'sms_text'   => $text,
             'api_status' => '',
-            'account_entity_id' => $accountEntityId,
-            'mobile_phone' => $phone,
+            'account_entity_id' => $this->accountEntityId,
+            'mobile_phone' => $this->phone,
         ]];
 
         try {
@@ -156,7 +178,7 @@ class PaymentController extends Controller
         $accountIds = $messages[0]['account_entity_id'] . '-' . $messages[0]['mobile_phone'] . '-' . $messages[0]['api_status'];
 
         $data = [
-            'screen_id' => $payment->getScreenId(),
+            'screen_id' => $this->payment->getScreenId(),
             'totalSmsInBatch' => $totalSmsInBatch,
             'accountIds' => $accountIds,
             'creditsUsed' => $creditsUsed,

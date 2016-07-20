@@ -39,4 +39,23 @@ class SendMail
 
         }
     }
+
+    public static function receipt($email, $receipt)
+    {
+        try {
+
+            $email = trim($email);
+            $name = isset($receipt->header['paid_by_name']) ? $receipt->header['paid_by_name'] : 'Receipt';
+            $schoolName = isset($receipt->schoolName) ? $receipt->schoolName : 'School';
+
+            Mail::send('emails.receipt', ['receipt' => $receipt], function ($m) use ($email, $name, $schoolName) {
+                $m->from(config('mail.from.address'), $schoolName);
+                $m->to($email, $name);
+                $m->subject($schoolName . ' Receipt');
+            });
+
+        } catch (Exception $e) {
+
+        }
+    }
 }
