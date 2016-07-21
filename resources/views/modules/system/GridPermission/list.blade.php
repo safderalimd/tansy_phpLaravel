@@ -70,10 +70,11 @@
                 </div>
 
                 <div class="row">
-                   <div class="col-md-2 col-md-offset-4 text-right">
+                   <div class="col-md-6 text-right">
 
                         <input type="hidden" id="uiLabel-visible-list" name="uiLabel_visible_list" value="">
 
+                        <a href="{{ url("/cabinet/grid-permission")}}" class="btn btn-default cancle_btn">Cancel</a>
                         <button type="submit" id="save-grid-permission-submit" class="btn btn-primary">
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             Save Permissions

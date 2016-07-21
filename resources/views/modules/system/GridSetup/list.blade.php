@@ -62,10 +62,11 @@
                 </div>
 
                 <div class="row">
-                   <div class="col-md-2 col-md-offset-4 text-right">
+                   <div class="col-md-6 text-right">
 
                         <input type="hidden" id="uiLabel-order-visible-list" name="uiLabel_order_visible_list" value="">
 
+                        <a href="{{ url("/cabinet/grid-setup")}}" class="btn btn-default cancle_btn">Cancel</a>
                         <button type="submit" id="save-grid-setup-submit" class="btn btn-primary">
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             Save Setup
