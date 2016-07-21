@@ -6,34 +6,54 @@ use App\Http\Repositories\Repository;
 
 class DailyExpenseRepository extends Repository
 {
-    // view_act_lkp_expense_type
-    // expense_type    varchar(128)
-    // expense_type_id tinyint(3) UN
+    public function getExpenseTypes()
+    {
+        return $this->select(
+            'SELECT
+                expense_type,
+                expense_type_id
+             FROM view_act_lkp_expense_type
+             ORDER BY expense_type ASC;'
+        );
+    }
 
+    public function getOrganizationSupplier()
+    {
+        return $this->select(
+            'SELECT
+                organization_name,
+                organization_entity_id,
+                organization_type
+             FROM view_org_lkp_organization_supplier
+             ORDER BY organization_name ASC;'
+        );
+    }
 
-    // view_org_lkp_organization_supplier
-    // organization_name   varchar(259)
-    // organization_entity_id  bigint(12)
-    // organization_type   varchar(128)
-
-
-    // view_act_lkp_payment_type
-    // payment_type_id tinyint(3) UN
-    // payment_type    varchar(128)
-
+    public function getPaymentTypes()
+    {
+        return $this->select(
+            'SELECT
+                payment_type_id,
+                payment_type
+             FROM view_act_lkp_payment_type
+             ORDER BY payment_type ASC;'
+        );
+    }
 
     public function getModelById($id)
     {
         return $this->select(
             'SELECT
-                product AS product_name,
-                product_type,
-                unit_rate,
-                product_type_entity_id,
-                product_entity_id,
-                active
-             FROM view_prd_lkp_product
-             WHERE product_entity_id = :id
+                expense_id,
+                facility_entity_id,
+                expense_type_id,
+                supplier_organization_entity_id,
+                expense_date,
+                payment_type_id,
+                amount,
+                notes
+             FROM view_act_exp_daily_expense
+             WHERE expense_id = :id
              LIMIT 1;', ['id' => $id]
         );
     }

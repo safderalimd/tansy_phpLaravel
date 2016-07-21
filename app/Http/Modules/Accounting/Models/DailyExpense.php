@@ -11,8 +11,9 @@ class DailyExpense extends Model
     protected $repositoryNamespace = 'App\Http\Modules\Accounting\Repositories\DailyExpenseRepository';
 
     protected $selects = [
-        'product_type_entity_id',
-        'facility_ids',
+        'expense_type_id',
+        'supplier_organization_entity_id',
+        'payment_type_id',
     ];
 
 }

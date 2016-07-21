@@ -27,17 +27,6 @@ class ClientVisitController extends Controller
         ]]);
     }
 
-    // /**
-    //  * Display a listing of the resource.
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function index()
-    // {
-    //     $client = new ClientVisit;
-    //     return view('modules.crm.ClientVisit.list', compact('client'));
-    // }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -75,45 +64,4 @@ class ClientVisitController extends Controller
         $client = ClientVisit::findOrFail($id);
         return view('modules.crm.ClientVisit.detail', compact('client'));
     }
-
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  *
-    //  * @param  int $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function edit($id)
-    // {
-    //     $client = ClientVisit::findOrFail($id);
-    //     return view('modules.crm.ClientVisit.form', compact('client'));
-    // }
-
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param ClientVisitEditFormRequest $request
-    //  * @param  int $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(ClientVisitEditFormRequest $request, $id)
-    // {
-    //     $client = ClientVisit::findOrFail($id);
-    //     $client->update($request->input());
-    //     flash('Client Visit Updated!');
-    //     return redirect('/cabinet/client-visit');
-    // }
-
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  int $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy($id)
-    // {
-    //     $client = ClientVisit::findOrFail($id);
-    //     $client->delete();
-    //     flash('Client Visit Deleted!');
-    //     return redirect('/cabinet/client-visit');
-    // }
 }

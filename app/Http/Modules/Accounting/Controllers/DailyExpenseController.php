@@ -37,9 +37,8 @@ class DailyExpenseController extends Controller
      */
     public function store(DailyExpenseFormRequest $request)
     {
-        $expense = new DailyExpense;
-        $expense->setAttribute('active', 0);
-        $expense->save($request->input());
+        $expense = new DailyExpense($request->input());
+        $expense->save();
         flash('Daily Expense Added!');
         return redirect('/cabinet/daily-expense');
     }
@@ -53,7 +52,6 @@ class DailyExpenseController extends Controller
     public function edit($id)
     {
         $expense = DailyExpense::findOrFail($id);
-        $expense->loadData();
         return view('modules.accounting.DailyExpense.form', compact('expense'));
     }
 
@@ -66,10 +64,9 @@ class DailyExpenseController extends Controller
      */
     public function update(DailyExpenseFormRequest $request, $id)
     {
-        $expense = new DailyExpense;
-        $expense->setAttribute('product_entity_id', $id);
-        $expense->setAttribute('active', 0);
-        $expense->update($request->input());
+        $expense = new DailyExpense($request->input());
+        $expense->setAttribute('expense_id', $id);
+        $expense->update();
         flash('Daily Expense Updated!');
         return redirect('/cabinet/daily-expense');
     }
