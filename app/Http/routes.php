@@ -98,6 +98,10 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('payment/create', 'Accounting\Controllers\PaymentController@create');
     Route::post('payment/create', 'Accounting\Controllers\PaymentController@payNow');
 
+    Route::get('daily-expense/create', 'Accounting\Controllers\DailyExpenseController@index');
+    // Route::get('payment/create', 'Accounting\Controllers\PaymentController@create');
+    // Route::post('payment/create', 'Accounting\Controllers\PaymentController@payNow');
+
     Route::get('close-cash-counter', 'Accounting\Controllers\CashCounterController@index');
     Route::post('close-cash-counter', 'Accounting\Controllers\CashCounterController@closeCashCounter');
 
