@@ -1,5 +1,3 @@
-<br/>
-
 <div class="row">
     <div class="col-md-12">
         <form id="sms-textarea-form" class="form-horizontal" action="" method="POST">

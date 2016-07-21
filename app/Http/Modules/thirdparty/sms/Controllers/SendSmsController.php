@@ -82,6 +82,8 @@ class SendSmsController extends Controller
     public function general(Request $request)
     {
         $grid = new Grid('/' . $request->path());
+        $grid->setAttribute('input_value_filter2', $request->input('aei'));
+        $grid->setAttribute('input_value_filter1', $request->input('art'));
         $grid->fill($request->input());
         $grid->loadData();
 
@@ -142,11 +144,33 @@ class SendSmsController extends Controller
     {
         $this->validate($request, ['student_ids' => 'required|string']);
         $this->validate($request, ['common_message' => 'required|string|max:160']);
-        $sms = new SendSmsGeneral($request->input());
 
+        $grid = new Grid('/' . $request->path());
+        $grid->setAttribute('input_value_filter2', $request->input('aei'));
+        $grid->setAttribute('input_value_filter1', $request->input('art'));
+        $grid->fill($request->input());
+        $grid->loadData();
+
+        $sms = new SendSmsGeneral($request->input());
+        $dbRows = $grid->rows();
+        $ids = $request->input('student_ids');
+        $ids = explode(',', $ids);
         $text = $request->input('common_message');
+
+        // get only rows selected
+        $validRows = array_filter($dbRows, function($row) use ($ids) {
+            return in_array($row['account_entity_id'], $ids);
+        });
+
+        // apply the message to the rows
+        $validRows = array_map(function($row) use ($text) {
+            $row['sms_text'] = $text;
+            $row['api_status'] = '';
+            return $row;
+        }, $validRows);
+
         flash('General SMS Sent!');
-        return $this->sendSmsToStudents($sms, $request->input('student_ids'), true, $text);
+        return $this->sendSmsToStudents($sms, $validRows, true, $text, true);
     }
 
     public function sendGeneralV2(Request $request)
@@ -187,7 +211,7 @@ class SendSmsController extends Controller
         return $this->sendSmsToStudents($sms, $validRows, false, '', true);
     }
 
-    protected function sendSmsToStudents(SendSmsModel $sms, $ids, $commonMessage = false, $text = '', $useV2 = false)
+    protected function sendSmsToStudents(SendSmsModel $sms, $ids, $commonMessage = false, $text = '', $skipRows = false)
     {
         // clear the sms balance from the session
         session()->put('smsBalance', null);
@@ -201,7 +225,7 @@ class SendSmsController extends Controller
         // set request properties on the model
         $sms->setSmsBatchAttributes();
 
-        if ($useV2) {
+        if ($skipRows) {
             $validRows = $ids;
         } else {
             // get rows from db with all students
@@ -224,7 +248,7 @@ class SendSmsController extends Controller
             throw new Exception("You do not have enought sms credits.");
         }
 
-        if (! $useV2) {
+        if (! $skipRows) {
             // apply the message to the rows
             $validRows = array_map(function($row) use ($commonMessage, $text) {
                 if ($commonMessage) {
@@ -298,7 +322,7 @@ class SendSmsController extends Controller
             }
         }
 
-        if ($useV2) {
+        if ($skipRows) {
             $accountIds = array_map(function($item) {
                 $text = $item['sms_text'];
                 $text = str_replace(',', ' ', $text);
@@ -333,7 +357,7 @@ class SendSmsController extends Controller
             'balanceCount' => $sender->getBalance(),
         ];
 
-        if ($useV2) {
+        if ($skipRows) {
             $sms->storeBatchStatusV2($data);
         } else {
             $sms->storeBatchStatus($data);
