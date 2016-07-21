@@ -2,10 +2,12 @@
 
 namespace App\Http\Modules\School\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\School\Models\Admission;
 use App\Http\Modules\School\Requests\AdmissionFormRequest;
 use App\Http\Modules\School\Requests\AdmissionMoveStudentsFormRequest;
+use App\Http\Models\Grid;
 
 class AdmissionController extends Controller
 {
@@ -24,10 +26,18 @@ class AdmissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $admission = new Admission;
-        return view('modules.school.Admission.list', compact('admission'));
+        $grid = new Grid('/' . $request->path());
+        $grid->fill($request->input());
+        $grid->loadData();
+
+        $headerFirstInclude = 'modules.school.Admission.header-first-include';
+        $rowFirstInclude = 'modules.school.Admission.row-first-include';
+        $afterGridInclude = 'modules.school.Admission.after-grid-include';
+        $scriptsInclude = 'modules.school.Admission.scripts-include';
+
+        return view('grid.list', compact('grid', 'headerFirstInclude', 'rowFirstInclude', 'afterGridInclude', 'scriptsInclude'));
     }
 
     /**

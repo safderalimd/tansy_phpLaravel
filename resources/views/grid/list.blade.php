@@ -53,6 +53,7 @@
             <table class="table table-striped table-bordered table-hover" data-dynamicgrid>
                 <thead>
                     <tr>
+                        @if (isset($headerFirstInclude)) @include($headerFirstInclude) @endif
                         @foreach ($columns as $column)
                             <th>
                                 {{ $column->label() }}
@@ -70,6 +71,9 @@
                 <tbody>
                 @foreach($grid->rows() as $row)
                     <tr>
+
+                    @if (isset($rowFirstInclude)) @include($rowFirstInclude, ['row' => $row]) @endif
+
                     @foreach($columns as $column)
                         <td>
                         @if (isset($row[$column->name()]))
@@ -139,10 +143,11 @@
         </div>
     </div>
 </div>
-
+@if (isset($afterGridInclude)) @include($afterGridInclude) @endif
 @endsection
 
 @section('scripts')
+@if (isset($scriptsInclude)) @include($scriptsInclude) @endif
 <script type="text/javascript">
 
     @if ($grid->settings->showSearchBox())
