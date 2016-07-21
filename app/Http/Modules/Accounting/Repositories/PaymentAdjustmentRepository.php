@@ -14,6 +14,7 @@ class PaymentAdjustmentRepository extends Repository
             '-iparam_filter_type',
             ':iparam_subject_entity_id',
             '-iparam_return_type',
+            ':iparam_product_entity_id',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
