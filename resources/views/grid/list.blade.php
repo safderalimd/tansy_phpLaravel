@@ -69,6 +69,7 @@
                         @if (count($buttons))
                             <th>Actions</th>
                         @endif
+                        @if (isset($options['headerLastInclude'])) @include($options['headerLastInclude']) @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -134,6 +135,8 @@
                         @endforeach
                     </td>
                     @endif
+
+                    @if (isset($options['rowLastInclude'])) @include($options['rowLastInclude'], ['row' => $row]) @endif
 
                     </tr>
 
