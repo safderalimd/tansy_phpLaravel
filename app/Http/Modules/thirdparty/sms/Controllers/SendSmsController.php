@@ -12,6 +12,7 @@ use App\Http\Modules\thirdparty\sms\Models\SendSmsAttendance;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsFeeDue;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
 use App\Http\Modules\thirdparty\sms\SmsSender;
+use App\Http\Models\Grid;
 use Exception;
 
 class SendSmsController extends Controller
@@ -80,8 +81,22 @@ class SendSmsController extends Controller
 
     public function general(Request $request)
     {
+        $grid = new Grid('/' . $request->path());
+        $grid->fill($request->input());
+        $grid->loadData();
+
         $sms = new SendSmsGeneral($request->input());
-        return view('thirdparty.sms.SendSms.general', compact('sms'));
+
+        $options = [
+            'beforeGridInclude'  => 'thirdparty.sms.SendSms.GeneralV1.before-grid-include',
+            'headerFirstInclude' => 'thirdparty.sms.SendSms.GeneralV1.header-first-include',
+            'rowFirstInclude'    => 'thirdparty.sms.SendSms.GeneralV1.row-first-include',
+            'afterGridInclude'   => 'thirdparty.sms.SendSms.GeneralV1.after-grid-include',
+            'scriptsInclude'     => 'thirdparty.sms.SendSms.GeneralV1.scripts-include',
+            'datatableOff'       => true,
+        ];
+
+        return view('grid.list', compact('grid', 'options', 'sms'));
     }
 
     public function generalV2(Request $request)

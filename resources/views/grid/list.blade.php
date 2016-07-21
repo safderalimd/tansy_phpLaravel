@@ -24,6 +24,9 @@
 
             @include('commons.errors')
 
+            @if (isset($options['beforeGridInclude'])) @include($options['beforeGridInclude']) @endif
+
+
 @foreach ($grid->filters as $filter)
     {{-- todo: check not hidden filter --}}
     @if ($filter->isDateInput())
@@ -50,10 +53,10 @@
     @endif
 @endforeach
 
-            <table class="table table-striped table-bordered table-hover" data-dynamicgrid>
+            <table id="grid-table" class="table table-striped table-bordered table-hover" @if (!isset($options['datatableOff'])) data-dynamicgrid @endif>
                 <thead>
                     <tr>
-                        @if (isset($headerFirstInclude)) @include($headerFirstInclude) @endif
+                        @if (isset($options['headerFirstInclude'])) @include($options['headerFirstInclude']) @endif
                         @foreach ($columns as $column)
                             <th>
                                 {{ $column->label() }}
@@ -72,7 +75,7 @@
                 @foreach($grid->rows() as $row)
                     <tr>
 
-                    @if (isset($rowFirstInclude)) @include($rowFirstInclude, ['row' => $row]) @endif
+                    @if (isset($options['rowFirstInclude'])) @include($options['rowFirstInclude'], ['row' => $row]) @endif
 
                     @foreach($columns as $column)
                         <td>
@@ -143,14 +146,14 @@
         </div>
     </div>
 </div>
-@if (isset($afterGridInclude)) @include($afterGridInclude) @endif
+@if (isset($options['afterGridInclude'])) @include($options['afterGridInclude']) @endif
 @endsection
 
 @section('scripts')
-@if (isset($scriptsInclude)) @include($scriptsInclude) @endif
+@if (isset($options['scriptsInclude'])) @include($options['scriptsInclude']) @endif
 <script type="text/javascript">
 
-    @if ($grid->settings->showSearchBox())
+    @if ($grid->settings->showSearchBox() && !isset($options['datatableOff']))
         $('table[data-dynamicgrid]').DataTable({
             "aaSorting": [],
             "autoWidth": false
@@ -158,15 +161,15 @@
     @endif
 
     $('.dynamic-filter-input').change(function() {
-        updateQueryString();
+        updateDynamicFilterQueryString();
     });
 
-    function updateQueryString() {
-        window.location.href = window.location.href.split('?')[0] + getQueryString();
+    function updateDynamicFilterQueryString() {
+        window.location.href = window.location.href.split('?')[0] + getDynamicFilterQueryString();
     }
 
     // get the query string
-    function getQueryString() {
+    function getDynamicFilterQueryString() {
 
         var items = [];
 

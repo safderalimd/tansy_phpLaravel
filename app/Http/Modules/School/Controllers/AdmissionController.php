@@ -32,12 +32,14 @@ class AdmissionController extends Controller
         $grid->fill($request->input());
         $grid->loadData();
 
-        $headerFirstInclude = 'modules.school.Admission.header-first-include';
-        $rowFirstInclude = 'modules.school.Admission.row-first-include';
-        $afterGridInclude = 'modules.school.Admission.after-grid-include';
-        $scriptsInclude = 'modules.school.Admission.scripts-include';
+        $options = [
+            'headerFirstInclude' => 'modules.school.Admission.header-first-include',
+            'rowFirstInclude'    => 'modules.school.Admission.row-first-include',
+            'afterGridInclude'   => 'modules.school.Admission.after-grid-include',
+            'scriptsInclude'     => 'modules.school.Admission.scripts-include',
+        ];
 
-        return view('grid.list', compact('grid', 'headerFirstInclude', 'rowFirstInclude', 'afterGridInclude', 'scriptsInclude'));
+        return view('grid.list', compact('grid', 'options'));
     }
 
     /**
