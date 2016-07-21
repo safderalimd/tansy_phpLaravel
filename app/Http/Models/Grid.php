@@ -37,6 +37,8 @@ class Grid extends Model
         $this->screenName = screen_name($this->screenId);
         $this->loadFilters();
 
+        $returnRows = true;
+
         // set the filters to load grid data
         foreach ($this->filters as $filter) {
             $filterId = 'f' . $filter->id();
@@ -47,13 +49,22 @@ class Grid extends Model
                 $this->setAttribute('sql_operator_filter' . $filter->id(), $filter->get('sql_operator'));
                 $this->setAttribute('drop_down_pk_filter' . $filter->id(), $filter->get('drop_down_pk'));
                 $this->setAttribute('drop_down_parent_filter' . $filter->id(), $filter->get('drop_down_parent'));
+            } else {
+                // only return rows if all filters are set; allow default_facility_id filter to not be set
+                if ($filter->get('db_column') != 'iparam_default_facility_id') {
+                    $returnRows = false;
+                }
             }
         }
 
         $gridData = $this->repository->dynamicGrid($this->params, $this);
         $this->header = new Header(first_resultset($gridData));
         $this->settings = new Settings(second_resultset($gridData));
-        $this->rows = third_resultset($gridData);
+        if ($returnRows) {
+            $this->rows = third_resultset($gridData);
+        } else {
+            $this->rows = [];
+        }
     }
 
     public function columns()
