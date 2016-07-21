@@ -2,8 +2,10 @@
 
 namespace App\Http\Modules\CRM\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\CRM\Models\ClientVisit;
+use App\Http\Modules\CRM\Models\ClientVisitDetail;
 use App\Http\Modules\CRM\Requests\ClientVisitEditFormRequest;
 use App\Http\Modules\CRM\Requests\ClientVisitCreateFormRequest;
 
@@ -22,7 +24,7 @@ class ClientVisitController extends Controller
             'store',
         ]]);
 
-        $this->middleware('screen:13001', ['only' => [
+        $this->middleware('screen:' . ClientVisitDetail::screenId(), ['only' => [
             'detail',
         ]]);
     }
@@ -59,9 +61,9 @@ class ClientVisitController extends Controller
         return redirect('/cabinet/client-visit');
     }
 
-    public function detail($id)
+    public function detail(Request $request)
     {
-        $client = ClientVisit::findOrFail($id);
+        $client = ClientVisitDetail::findOrFail($request->input('id'));
         return view('modules.crm.ClientVisit.detail', compact('client'));
     }
 }
