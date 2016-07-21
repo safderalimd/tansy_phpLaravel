@@ -27,16 +27,16 @@ class ClientVisitController extends Controller
         ]]);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $client = new ClientVisit;
-        return view('modules.crm.ClientVisit.list', compact('client'));
-    }
+    // /**
+    //  * Display a listing of the resource.
+    //  *
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function index()
+    // {
+    //     $client = new ClientVisit;
+    //     return view('modules.crm.ClientVisit.list', compact('client'));
+    // }
 
     /**
      * Show the form for creating a new resource.

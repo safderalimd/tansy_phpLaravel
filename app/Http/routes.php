@@ -205,7 +205,7 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('pdf---due-report', 'reports\School\Controllers\FeeDueReportController@index');
     Route::get('pdf---due-report/pdf', 'reports\School\Controllers\FeeDueReportController@report');
 
-    Route::get('client-visit', 'CRM\Controllers\ClientVisitController@index');
+    // Route::get('client-visit', 'CRM\Controllers\ClientVisitController@index');
     Route::get('client-visit/create', 'CRM\Controllers\ClientVisitController@create');
     Route::post('client-visit/create', 'CRM\Controllers\ClientVisitController@store');
     Route::get('client-visit/detail/{id}', 'CRM\Controllers\ClientVisitController@detail');
