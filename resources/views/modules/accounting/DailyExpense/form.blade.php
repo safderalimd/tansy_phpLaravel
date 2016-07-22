@@ -36,7 +36,6 @@
                             'keyId'    => 'organization_entity_id',
                             'keyName'  => 'organization_name',
                             'none'     => 'Select a supplier..',
-                            'required' => true,
                         ])
 
                         <div class="form-group">
@@ -96,9 +95,6 @@
     $('#daily-expense-form').validate({
         rules: {
             expense_type_id: {
-                requiredSelect: true
-            },
-            supplier_organization_entity_id: {
                 requiredSelect: true
             },
             expense_date: {

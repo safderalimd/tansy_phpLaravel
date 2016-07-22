@@ -26,7 +26,6 @@ class DailyExpenseFormRequest extends Request
     {
         return [
             'expense_type_id'                 => 'required|integer',
-            'supplier_organization_entity_id' => 'required|integer',
             'expense_date'                    => 'required|string',
             'payment_type_id'                 => 'required|integer',
             'amount'                          => 'required|numeric',
