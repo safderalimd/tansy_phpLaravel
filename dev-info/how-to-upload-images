@@ -1,0 +1,23 @@
+How to upload photos:
+
+1. The location on the server is:
+    - PRODUCTION site path is: '/var/www/tansycloud.com/public/photos'
+    - DEV site path is: '/var/www/dev.tansycloud.com/public/photos'
+
+2. The folder and file permissions:
+    - the user and user group should be 'www-data:www-data' (The apache web server user)
+    - the permissions should be 775
+
+    Example commands to upload photos:
+
+        cd /var/www/dev.tansycloud.com/public
+        mkdir photos
+
+        chown www-data:www-data photos
+        chmod 775 photos
+
+        chown www-data:www-data image.png
+        chmod 775 image.png
+
+
+
