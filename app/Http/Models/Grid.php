@@ -82,6 +82,11 @@ class Grid extends Model
         return $this->rows;
     }
 
+    public function emptyRows()
+    {
+        $this->rows = [];
+    }
+
     public function loadFilters()
     {
         $data = $this->repository->gridFilters($this);

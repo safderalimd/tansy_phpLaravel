@@ -87,6 +87,10 @@ class SendSmsController extends Controller
         $grid->fill($request->input());
         $grid->loadData();
 
+        if (is_null($request->input('aei')) || is_null($request->input('art')) || is_null($request->input('sti'))) {
+            $grid->emptyRows();
+        }
+
         $sms = new SendSmsGeneral($request->input());
 
         $options = [
@@ -103,8 +107,30 @@ class SendSmsController extends Controller
 
     public function generalV2(Request $request)
     {
+        $grid = new Grid('/' . $request->path());
+        $grid->setAttribute('input_value_filter2', $request->input('aei'));
+        $grid->setAttribute('input_value_filter1', $request->input('art'));
+        $grid->fill($request->input());
+        $grid->loadData();
+
+        if (is_null($request->input('aei')) || is_null($request->input('art')) || is_null($request->input('sti'))) {
+            $grid->emptyRows();
+        }
+
         $sms = new SendSmsGeneralV2($request->input());
-        return view('thirdparty.sms.SendSms.general-v2', compact('sms'));
+
+        $options = [
+            'beforeGridInclude'  => 'thirdparty.sms.SendSms.GeneralV2.before-grid-include',
+            'headerFirstInclude' => 'thirdparty.sms.SendSms.GeneralV2.header-first-include',
+            'headerLastInclude'  => 'thirdparty.sms.SendSms.GeneralV2.header-last-include',
+            'rowFirstInclude'    => 'thirdparty.sms.SendSms.GeneralV2.row-first-include',
+            'rowLastInclude'     => 'thirdparty.sms.SendSms.GeneralV2.row-last-include',
+            'afterGridInclude'   => 'thirdparty.sms.SendSms.GeneralV2.after-grid-include',
+            'scriptsInclude'     => 'thirdparty.sms.SendSms.GeneralV2.scripts-include',
+            'datatableOff'       => true,
+        ];
+
+        return view('grid.list', compact('grid', 'options', 'sms'));
     }
 
     public function sendFeeDue(Request $request)
@@ -186,8 +212,14 @@ class SendSmsController extends Controller
             }
         }
 
+        $grid = new Grid('/' . $request->path());
+        $grid->setAttribute('input_value_filter2', $request->input('aei'));
+        $grid->setAttribute('input_value_filter1', $request->input('art'));
+        $grid->fill($request->input());
+        $grid->loadData();
+
         $sms = new SendSmsGeneralV2($request->input());
-        $dbRows = $sms->rows();
+        $dbRows = $grid->rows();
 
         // get only rows selected
         $validRows = array_filter($dbRows, function($row) use ($ids) {
