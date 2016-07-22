@@ -77,7 +77,6 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('admission/delete/{id}', 'School\Controllers\AdmissionController@destroy');
     Route::post('admission/move-students', 'School\Controllers\AdmissionController@moveStudents');
 
-    // Route::get('student-account', 'Organization\Controllers\AccountStudentController@index');
     Route::get('student-account/edit/{id}', 'Organization\Controllers\AccountStudentController@edit');
     Route::post('student-account/edit/{id}', 'Organization\Controllers\AccountStudentController@update');
     Route::get('student-account/delete/{id}', 'Organization\Controllers\AccountStudentController@destroy');
@@ -210,7 +209,6 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('pdf---due-report', 'reports\School\Controllers\FeeDueReportController@index');
     Route::get('pdf---due-report/pdf', 'reports\School\Controllers\FeeDueReportController@report');
 
-    // Route::get('client-visit', 'CRM\Controllers\ClientVisitController@index');
     Route::get('client-visit/create', 'CRM\Controllers\ClientVisitController@create');
     Route::post('client-visit/create', 'CRM\Controllers\ClientVisitController@store');
     Route::get('client-visit-details', 'CRM\Controllers\ClientVisitController@detail');

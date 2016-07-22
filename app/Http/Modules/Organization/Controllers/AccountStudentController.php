@@ -21,17 +21,6 @@ class AccountStudentController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $account = new AccountStudent;
-        return view('modules.organization.AccountStudent.list', compact('account'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int $id
