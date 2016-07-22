@@ -5,7 +5,6 @@ namespace App\Http\Modules\Accounting\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Accounting\Models\FeeReimbursement;
-use App\Http\Modules\Accounting\Requests\FeeReimbursementFormRequest;
 
 class FeeReimbursementController extends Controller
 {
@@ -33,15 +32,15 @@ class FeeReimbursementController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param FeeReimbursementFormRequest $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function update(FeeReimbursementFormRequest $request)
+    public function update(Request $request)
     {
         $reimbursement = new FeeReimbursement($request->input());
-        $reimbursement->update();
+        $reimbursement->updateRows();
         flash('Fee Reimbursement Updated!');
-        return redirect('/cabinet/fee-reimbursement');
+        return redirect_back();
     }
 
 }

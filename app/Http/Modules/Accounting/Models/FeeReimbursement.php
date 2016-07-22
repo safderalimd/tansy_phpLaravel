@@ -22,4 +22,11 @@ class FeeReimbursement extends Model
 
         return [];
     }
+
+    public function updateRows()
+    {
+        $this->setAttribute('actEID_schEntID_dateID_totAmnt_PaidAmnt_list', $this->hidden_amounts);
+        $this->setAttribute('product_entity_id', $this->pi);
+        return $this->repository->update($this);
+    }
 }

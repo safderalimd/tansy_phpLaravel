@@ -47,6 +47,7 @@
                 </div>
             </form>
 
+            <form id="amounts-table" class="form-horizontal" method="POST">
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -54,20 +55,37 @@
                         <th>Total <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Paid <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Balance <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                        <th>Reimbursement Amount</th>
+                        <th style="width:250px">Reimbursement Amount</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{d($reimbursement->rows())}}
-                    @foreach([] as $item)
+
+                @foreach($reimbursement->rows() as $item)
                     <tr>
-                        <td>{{$item['product']}}</td>
-                        <td>{{$item['product_type']}}</td>
+                        <td>{{$item['student_full_name']}}</td>
+                        <td>&#x20b9; {{amount($item['total_amount'])}}</td>
+                        <td>&#x20b9; {{amount($item['total_paid_amount'])}}</td>
+                        <td>&#x20b9; {{amount($item['due_amount'])}}</td>
+                        <td>
+                            <input data-rule-number="true" data-rule-min="0" data-aei="{{$item['account_entity_id']}}" data-sei="{{$item['schedule_entity_id']}}" data-dateid="{{$item['date_id']}}" data-totalamount="{{$item['total_amount']}}" type="text" name="reinbursement-amount" class="reinbursement-amount form-control">
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
+            </form>
 
+            <nav class="nav-footer navbar navbar-default">
+                <div class="container-fluid">
+                    <form class="navbar-form navbar-right" id="update-reinbursement-form" action="{{form_action_full()}}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="hidden_amounts" id="hidden_amounts" value="">
+
+                        <a class="btn btn-default" href="/cabinet/fee-reimbursement">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </nav>
             @include('commons.modal')
 
         </div>
@@ -110,5 +128,28 @@
         return '';
     }
 
+    $('#update-reinbursement-form').submit(function() {
+        if (! $('#amounts-table').valid()) {
+            return false;
+        }
+
+        var accountIds = $('.reinbursement-amount').map(function() {
+            var aei = $(this).attr('data-aei');
+            var sei = $(this).attr('data-sei');
+            var dateid = $(this).attr('data-dateid');
+            var totalamount = $(this).attr('data-totalamount');
+            var reinbursement = parseFloat(this.value);
+            if (isNaN(reinbursement)) {
+                reinbursement = 0;
+            }
+            return aei + '-' + sei + '-' + dateid + '-' + totalamount + '-' + reinbursement;
+        }).get();
+
+        $('#hidden_amounts').val(accountIds.join(','));
+
+        return true;
+    });
+
+    $('#amounts-table').validate();
 </script>
 @endsection
