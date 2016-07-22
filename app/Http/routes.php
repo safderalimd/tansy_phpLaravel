@@ -253,6 +253,8 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('grid-setup', 'System\Controllers\GridSetupController@index');
     Route::post('grid-setup', 'System\Controllers\GridSetupController@update');
 
+    Route::get('help', 'System\Controllers\HelpController@index');
+
     Route::get('/logout', '\App\Http\Controllers\UserController@logout');
 
     Route::get('/img/student/{id}', '\App\Http\Controllers\ImageController@studentImage');

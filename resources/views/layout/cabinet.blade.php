@@ -41,6 +41,20 @@
             width: 250px;
             float: left;
         }
+        #help-search-box {
+            width: 300px;
+            margin-left: 20px;
+        }
+        .highlight {
+            background-color: #FFFF88;
+        }
+        .help-screen-name {
+            margin-top: 0px;
+            display: inline-block;
+        }
+        iframe {
+            border: none;
+        }
     </style>
 </head>
 <body style="padding:0px;">
