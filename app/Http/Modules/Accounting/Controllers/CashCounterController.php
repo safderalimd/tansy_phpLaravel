@@ -40,9 +40,6 @@ class CashCounterController extends Controller
         ];
 
         return view('grid.list', compact('grid', 'options'));
-
-        // $cash = new CashCounter;
-        // return view('modules.accounting.CashCounter.list', compact('cash'));
     }
 
     public function closeCashCounter(Request $request)

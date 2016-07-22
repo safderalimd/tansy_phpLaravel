@@ -19,7 +19,7 @@
         var totalAmount = 0;
 
         $('.cache-row-id:checked').each(function () {
-            totalAmount += parseFloat(this.value);
+            totalAmount += parseFloat($(this).attr('data-balanceAmount'));
         });
 
         $('#selected-total-amount').text(addCommas(totalAmount));
