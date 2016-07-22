@@ -26,6 +26,10 @@ class Grid extends Model
 
     public $settings;
 
+    public $schoolName = '-';
+
+    public $schoolWorkPhone = '-';
+
     public function __construct($screenId)
     {
         $this->screenId = $screenId;
@@ -34,7 +38,6 @@ class Grid extends Model
 
     public function loadData()
     {
-        $this->screenName = screen_name($this->screenId);
         $this->loadFilters();
 
         $returnRows = true;
@@ -65,6 +68,19 @@ class Grid extends Model
         } else {
             $this->rows = [];
         }
+
+        $this->screenName = $this->getScreenName();
+    }
+
+    public function setSchoolNameAndPhone()
+    {
+        $name = $this->repository->getSchoolName();
+        if (isset($name[0]) && isset($name[0]['organization_name'])) {
+            $this->schoolName = $name[0]['organization_name'];
+        }
+        if (isset($name[0]) && isset($name[0]['work_phone'])) {
+            $this->schoolWorkPhone = $name[0]['work_phone'];
+        }
     }
 
     public function columns()
@@ -85,6 +101,15 @@ class Grid extends Model
     public function emptyRows()
     {
         $this->rows = [];
+    }
+
+    public function getScreenName()
+    {
+        $name = screen_name($this->screenId);
+        if ($this->settings->showPdf()) {
+            $name = str_replace('PDF - ', '', $name);
+        }
+        return $name;
     }
 
     public function loadFilters()

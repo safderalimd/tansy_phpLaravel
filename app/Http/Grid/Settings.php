@@ -10,6 +10,8 @@ class Settings
 
     protected $showSearchBox = false;
 
+    protected $showPdf = false;
+
     public function __construct($settings)
     {
         $this->settings = $settings;
@@ -26,6 +28,9 @@ class Settings
                 $this->showSearchBox = true;
             }
 
+            if ($option['ui_label'] == 'show_pdf') {
+                $this->showPdf = true;
+            }
         }
     }
 
@@ -37,5 +42,10 @@ class Settings
     public function hasInsertButton()
     {
         return $this->hasInsertButton;
+    }
+
+    public function showPdf()
+    {
+        return $this->showPdf;
     }
 }

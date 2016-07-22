@@ -141,8 +141,8 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('pdf---student-detail', 'reports\School\Controllers\StudentDetailController@index');
     Route::get('pdf---student-detail/pdf', 'reports\School\Controllers\StudentDetailController@report');
 
-    Route::get('pdf---daily-balance', 'reports\School\Controllers\DailyCollectionController@index');
-    Route::get('pdf---daily-balance/pdf', 'reports\School\Controllers\DailyCollectionController@report');
+    // Route::get('pdf---daily-balance', 'reports\School\Controllers\DailyCollectionController@index');
+    // Route::get('pdf---daily-balance/pdf', 'reports\School\Controllers\DailyCollectionController@report');
 
     Route::get('pdf---final-progress', 'reports\School\Controllers\FinalProgressController@index');
     Route::get('pdf---final-progress/pdf', 'reports\School\Controllers\FinalProgressController@report');

@@ -5,8 +5,10 @@
 @section('content')
 
 <?php
+
     $columns = $grid->columns();
     $buttons = $grid->buttons();
+
 ?>
 
 <div class="panel-group sch_class">
@@ -24,9 +26,18 @@
 
             @if (isset($options['beforeGridInclude'])) @include($options['beforeGridInclude']) @endif
 
-            @include('grid.filters')
+            <form class="form-inline" id="generate-report-form" action="{{form_action_full()}}" target="_blank" method="GET">
+                <input type="hidden" id="random_id" name="ri" value="">
+                <input type="hidden" id="pdf_flag" name="pdf" value="1">
 
-            @include('grid.table')
+                @include('grid.filters')
+
+                <div class="row">
+                    <div class="" style="max-width: 450px; padding-left: 215px;">
+                        <button id="generate-report" class="btn btn-primary" type="submit">Generate Report</button>
+                    </div>
+                </div>
+            </form>
 
             @include('commons.modal')
 
@@ -40,39 +51,16 @@
 @if (isset($options['scriptsInclude'])) @include($options['scriptsInclude']) @endif
 <script type="text/javascript">
 
-    @if ($grid->settings->showSearchBox() && !isset($options['datatableOff']))
-        $('table[data-dynamicgrid]').DataTable({
-            "aaSorting": [],
-            "autoWidth": false
-        });
-    @endif
+    $('#generate-report-form').submit(function() {
+        if (! $('#generate-report-form').valid()) {
+            return false;
+        }
 
-    $('.dynamic-filter-input').change(function() {
-        updateDynamicFilterQueryString();
+        $('#random_id').val(Date.now());
+        return true;
     });
 
-    function updateDynamicFilterQueryString() {
-        window.location.href = window.location.href.split('?')[0] + getDynamicFilterQueryString();
-    }
-
-    // get the query string
-    function getDynamicFilterQueryString() {
-
-        var items = [];
-
-        $('.dynamic-filter-input').each(function() {
-            var filter = $(this).attr('data-filterId') + '=';
-            if ($(this).attr('data-type') == 'value' && $(this).val()) {
-                items.push(filter+$(this).val());
-            }
-        });
-
-        var queryString = items.join('&');
-        if (queryString.length > 1) {
-            return '?' + queryString;
-        }
-        return '';
-    }
+    $('#generate-report-form').validate();
 
 </script>
 @endsection
