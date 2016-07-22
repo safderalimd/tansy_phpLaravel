@@ -46,7 +46,7 @@
                 <p>
                     <strong>Video:</strong>
                     @foreach ($row['videos'] as $video)
-                        <a href="{{$video['video_url_value']}}">{{$video['video_link_name']}}</a><br/>
+                        <a class="help-video" href="{{$video['video_url_value']}}">{{$video['video_link_name']}}</a><br/>
                     @endforeach
                 </p>
                 @endif
@@ -91,12 +91,16 @@ $(document).ready(function() {
     })
 
     $('.help-image').magnificPopup({type:'image'});
+    $('.help-video').magnificPopup({
+        disableOn: 700,
+        type: 'iframe',
+        mainClass: 'mfp-fade',
+        removalDelay: 160,
+        preloader: false,
+        fixedContentPos: false
+    });
 
-    // $('.help-image').on('click', function() {
-    //     var href = $(this).attr('href');
 
-    //     return false;
-    // });
 
 });
 
