@@ -102,6 +102,9 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('daily-expense/edit/{id}', 'Accounting\Controllers\DailyExpenseController@edit');
     Route::post('daily-expense/edit/{id}', 'Accounting\Controllers\DailyExpenseController@update');
 
+    Route::get('fee-reimbursement', 'Accounting\Controllers\FeeReimbursementController@index');
+    Route::post('fee-reimbursement', 'Accounting\Controllers\FeeReimbursementController@update');
+
     Route::get('close-cash-counter', 'Accounting\Controllers\CashCounterController@index');
     Route::post('close-cash-counter', 'Accounting\Controllers\CashCounterController@closeCashCounter');
 
