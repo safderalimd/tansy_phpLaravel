@@ -99,11 +99,7 @@ $(document).ready(function() {
         preloader: false,
         fixedContentPos: false
     });
-
-
-
 });
-
 
 </script>
 @endsection
