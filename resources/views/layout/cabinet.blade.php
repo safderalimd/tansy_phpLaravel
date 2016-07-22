@@ -4,6 +4,7 @@
     @include('include.head')
     @yield('styles')
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/bower_components/magnific-popup/dist/magnific-popup.css">
     <style type="text/css">
         .flash-message {
             background-color: #99c93d;
@@ -103,6 +104,7 @@
 <script type="text/javascript" src="/bower_components/bootstrap-checkbox-x/js/checkbox-x.min.js"></script>
 <script type="text/javascript" src="/bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/bower_components/jquery-validation/dist/additional-methods.min.js"></script>
+<script type="text/javascript" src="/bower_components/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
 <script type="text/javascript" src="/js/custom.js?v=12"></script>
 
 <script>

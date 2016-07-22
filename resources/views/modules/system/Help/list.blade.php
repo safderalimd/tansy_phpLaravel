@@ -90,11 +90,13 @@ $(document).ready(function() {
         return false;
     })
 
-    $('.help-image').on('click', function() {
-        var href = $(this).attr('href');
+    $('.help-image').magnificPopup({type:'image'});
 
-        return false;
-    });
+    // $('.help-image').on('click', function() {
+    //     var href = $(this).attr('href');
+
+    //     return false;
+    // });
 
 });
 
