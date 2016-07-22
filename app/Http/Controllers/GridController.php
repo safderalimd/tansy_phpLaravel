@@ -43,8 +43,8 @@ class GridController extends Controller
         $grid->loadData();
         $grid->setSchoolNameAndPhone();
 
-        return view('grid.PDF.pdf', compact('grid'));
-        // $view =
+        $options = ['isPdf' => true];
+        $view = view('grid.PDF.pdf', compact('grid', 'options'));
         return Pdf::render($view);
     }
 

@@ -30,13 +30,17 @@
 
         @include('reports.common.report-name', ['report' => $grid->screenName])
 
-        {{-- add filterd values here dynamically --}}
-        <div class="row">
-            <div class="col-md-12"><h4>Start Date: {{style_date('')}} </h4></div>
-        </div>
-        <div class="row">
-            <div class="col-md-12"><h4>End Date: {{style_date('')}} </h4></div>
-        </div>
+        @foreach ($grid->filters as $filter)
+            @if ($filter->isDateInput())
+                <div class="row">
+                    <?php
+                        $filterName = 'f' . $filter->id();
+                        $filterValue = isset($grid->{$filterName}) ? $grid->{$filterName} : '';
+                    ?>
+                    <div class="col-md-12"><h4>{{$filter->label()}}: {{style_date($filterValue)}} </h4></div>
+                </div>
+            @endif
+        @endforeach
 
         <div class="row">
             <div class="col-md-12">

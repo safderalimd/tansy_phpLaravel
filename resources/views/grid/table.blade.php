@@ -5,7 +5,7 @@
             @foreach ($columns as $column)
                 <th>
                     {{ $column->label() }}
-                    @if ($column->isSortable())
+                    @if ($column->isSortable() && !isset($options['isPdf']))
                         <i class="sorting-icon glyphicon glyphicon-chevron-down"></i>
                     @endif
                 </th>
@@ -33,7 +33,7 @@
                     {{ style_date($row[$column->name()]) }}
 
                 @elseif ($column->hasCurrencyFormat())
-                    &#x20b9; {{ amount($row[$column->name()]) }}
+                    @if (!isset($options['isPdf'])) &#x20b9; @endif {{ amount($row[$column->name()]) }}
 
                 @elseif ($column->hasNumberFormat())
                     {{ nr($row[$column->name()]) }}
