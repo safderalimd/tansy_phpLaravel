@@ -18,10 +18,10 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="payment-type-id">Payment Type</label>
+                            <label class="col-md-4 control-label" for="payment-type-id">Product</label>
                             <div class="col-md-8">
                                 <select id="payment-type-id" class="form-control" name="payment-type-id">
-                                    <option data-rowtype="none" value="none">Select a payment type..</option>
+                                    <option data-rowtype="none" value="none">Select a product..</option>
                                     @foreach($reimbursement->products() as $option)
                                         <option {{activeSelect($option['product_entity_id'], 'pi')}} value="{{ $option['product_entity_id'] }}">{{ $option['product'] }}</option>
                                     @endforeach
