@@ -104,7 +104,7 @@
                 <tr>
                     <td>
                         <div class="checkbox">
-                            <label class="checkbox-inline" style="margin-top: 25px; margin-bottom: 10px;">
+                            <label class="checkbox" style="margin-top: 25px;">
                                 @if (empty($phoneNumber))
                                     <input type="checkbox" disabled="disabled" name="send_receipt_sms">
                                 @else
@@ -117,7 +117,7 @@
                                 <h5 style="margin:2px;"><small>Send Receipt SMS ({{phone_number($phoneNumber)}})</small></h5>
                             </label>
 
-                            <label class="checkbox-inline" style="margin-left:30px;margin-top:25px;margin-bottom:10px;">
+                            <label class="checkbox" style="padding-top:0px;">
                                 @if (empty($email))
                                     <input type="checkbox" disabled="disabled" name="send_receipt_email">
                                 @else
