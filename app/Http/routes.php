@@ -255,6 +255,9 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
 
     Route::get('help', 'System\Controllers\HelpController@index');
 
+    Route::get('my-org', 'System\Controllers\OwnerOrganizationController@edit');
+    Route::post('my-org', 'System\Controllers\OwnerOrganizationController@update');
+
     Route::get('/logout', '\App\Http\Controllers\UserController@logout');
 
     Route::get('/img/student/{id}', '\App\Http\Controllers\ImageController@studentImage');
