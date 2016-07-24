@@ -258,6 +258,8 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('my-org', 'System\Controllers\OwnerOrganizationController@edit');
     Route::post('my-org', 'System\Controllers\OwnerOrganizationController@update');
 
+    Route::get('manage-lookups', 'System\Controllers\ManageLookupsController@index');
+
     Route::get('/logout', '\App\Http\Controllers\UserController@logout');
 
     Route::get('/img/student/{id}', '\App\Http\Controllers\ImageController@studentImage');
@@ -267,5 +269,4 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('/{module}', '\App\Http\Controllers\GridController@index');
 
 });
-
 
