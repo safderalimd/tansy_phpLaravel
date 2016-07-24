@@ -10,7 +10,7 @@
                                 <li>{{style_date($row['event_date'])}} - {{$row['event_type']}} - {{$row['event_text']}}</li>
                             @endforeach
                         </ul>
-                        <ul class="pagination"></ul>
+                        <ul @if(count($admin->events()) <= 10) style="display:none" @endif class="pagination"></ul>
                     </div>
                 @else
                     There are no events.
