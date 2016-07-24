@@ -19,6 +19,10 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            @include('modules.admin.Admin.events')
+        </div>
     </div>
 </div>
 

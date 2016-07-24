@@ -10,7 +10,7 @@
     <link type="text/css" href="/dashboard/dashboard.css?v=1" rel="stylesheet">
     <link type="text/css" href="/bower_components/bootstrap-checkbox-x/css/checkbox-x.min.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
-    <link type="text/css" href="/dashboard/custom.css?v=4" rel="stylesheet">
+    <link type="text/css" href="/dashboard/custom.css?v=5" rel="stylesheet">
     @yield('styles')
     <style type="text/css">
         .flash-message {
@@ -120,6 +120,8 @@
 <script src="/dashboard/Chart.min.js"></script>
 <script src="/dashboard/fileinput.js"></script>
 <script type="text/javascript" src="/bower_components/bootstrap-checkbox-x/js/checkbox-x.min.js"></script>
+<script type="text/javascript" src="/bower_components/list.js/dist/list.min.js"></script>
+<script type="text/javascript" src="/bower_components/list.pagination.js/dist/list.pagination.min.js"></script>
 <script src="/dashboard/custom.js?v=1"></script>
 <script type="text/javascript">
 

@@ -14,10 +14,13 @@ class Admin extends Model
 
     public $boxes;
 
+    protected $events;
+
     public function loadData()
     {
         $this->homeData = $this->repository->homeDisplay($this);
 
+        $this->events = $this->lastResultset();
         $this->boxes = $this->resultset(1);
         $this->sortBoxes();
 
@@ -130,6 +133,21 @@ class Admin extends Model
         if (isset($this->homeData[$nr])) {
             return $this->homeData[$nr];
         }
+        return [];
+    }
+
+    public function lastResultset()
+    {
+        $nr = count($this->homeData);
+        return $this->resultset($nr);
+    }
+
+    public function events()
+    {
+        if (is_array($this->events)) {
+            return $this->events;
+        }
+
         return [];
     }
 }
