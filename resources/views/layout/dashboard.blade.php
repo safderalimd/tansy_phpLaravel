@@ -10,7 +10,7 @@
     <link type="text/css" href="/dashboard/dashboard.css?v=1" rel="stylesheet">
     <link type="text/css" href="/bower_components/bootstrap-checkbox-x/css/checkbox-x.min.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
-    <link type="text/css" href="/dashboard/custom.css?v=6" rel="stylesheet">
+    <link type="text/css" href="/dashboard/custom.css?v=7" rel="stylesheet">
     @yield('styles')
     <style type="text/css">
         .flash-message {

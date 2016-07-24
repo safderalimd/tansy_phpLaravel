@@ -156,14 +156,14 @@ a.selected {
     border: 0px;
     border-radius: 0px;
     color: #fff;
-    background-color: #37a6c4;
+    background-color: #0B71B5;
     text-decoration: none;
 }
 .panel-body.home-events-panel .pagination a:hover {
     text-decoration: underline;
 }
 .panel-body.home-events-panel .pagination li.active a {
-    background-color: #37a6c4;
+    background-color: #0B71B5;
     text-decoration: underline;
 }
 .home-events-panel.bk-brand {
