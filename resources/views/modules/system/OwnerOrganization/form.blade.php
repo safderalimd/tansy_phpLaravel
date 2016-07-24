@@ -30,7 +30,7 @@
                         </div>
 
                         <?php $logo = storage_path('uploads/'.domain().'/school-logo/logo.png'); ?>
-                        @if (file_exists($logo)))
+                        @if (file_exists($logo))
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Logo</label>
                                 <div class="col-md-8">
