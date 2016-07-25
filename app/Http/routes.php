@@ -259,6 +259,8 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('my-org', 'System\Controllers\OwnerOrganizationController@update');
 
     Route::get('manage-lookups', 'System\Controllers\ManageLookupsController@index');
+    Route::post('manage-lookups/store', 'System\Controllers\ManageLookupsController@store');
+    Route::post('manage-lookups/update', 'System\Controllers\ManageLookupsController@update');
 
     Route::get('/logout', '\App\Http\Controllers\UserController@logout');
 
