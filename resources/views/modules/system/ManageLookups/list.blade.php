@@ -241,7 +241,7 @@
             reportingOrder = '';
         }
 
-        var saveButton = '<td><button type="button" data-newrecord="true" data-loading-text="Saving..." class="save-button btn btn-default">Save</button></td>';
+        var saveButton = '<td><button type="button" data-newrecord="true" data-loading-text="Saving..." class="save-button btn btn-default">Save</button><button type="button" style="display:none;" class="edit-button btn btn-default">Edit</button></td>';
 
         var html = description + active + reportingOrder + saveButton;
 
