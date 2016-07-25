@@ -20,7 +20,7 @@ class ManageLookups extends Model
 
     public function setActiveAttribute($value)
     {
-        if ($value == 'ture') {
+        if ($value == 'true') {
             return 1;
         }
         return 0;

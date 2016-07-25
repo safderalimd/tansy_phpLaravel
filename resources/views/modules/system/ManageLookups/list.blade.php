@@ -64,7 +64,11 @@
                                         <td class="td-description">{{$row['description']}}</td>
                                     @endif
                                     @if (isset($header['active']))
-                                        <td class="td-active">{{$row['active']}}</td>
+                                        @if ($row['active'] == 1)
+                                            <td class="td-active">Yes</td>
+                                        @else
+                                            <td class="td-active">No</td>
+                                        @endif
                                     @endif
                                     @if (isset($header['reporting_order']))
                                         <td class="td-reporting_order">{{$row['reporting_order']}}</td>
@@ -148,7 +152,7 @@
 
         $('.td-description', row).html($('<input class="form-control" type="text" value="">').val(description));
 
-        if (active == '1') {
+        if (active == 'Yes') {
             $('.td-active', row).html($('<input class="checkbox" checked="checked" type="checkbox">'));
         } else {
             $('.td-active', row).html($('<input class="checkbox" type="checkbox">'));
@@ -167,9 +171,9 @@
 
         $('.td-description', row).html(description);
         if (active == true) {
-            active = 1;
+            active = 'Yes';
         } else {
-            active = 0;
+            active = 'No';
         }
         $('.td-active', row).html(active);
         $('.td-reporting_order', row).html(reporting_order);
