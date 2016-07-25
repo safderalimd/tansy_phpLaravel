@@ -166,7 +166,7 @@
         $('.edit-button', row).show();
 
         var description = $('.td-description input', row).val();
-        var active = $('.td-active', row).is(':checked');
+        var active = $('.td-active input', row).is(':checked');
         var reporting_order = $('.td-reporting_order input', row).val();
 
         $('.td-description', row).html(description);
