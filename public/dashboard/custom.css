@@ -168,4 +168,5 @@ a.selected {
 }
 .home-events-panel.bk-brand {
     background-color: #0B71B5;
+    max-height: 275px;
 }
