@@ -77,7 +77,7 @@ class ManageLookupsController extends Controller
         $validator = Validator::make($request->all(), [
             'description'     => 'required',
             'active'          => 'required',
-            'reporting_order' => 'required|integer',
+            'reporting_order' => 'integer',
         ]);
 
         if ($validator->fails()) {
