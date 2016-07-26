@@ -19,6 +19,8 @@
                     <form id="daily-expense-form" class="form-horizontal" action="{{ form_action_full() }}" method="POST">
                         {{ csrf_field() }}
 
+                        <input type="hidden" name="grid_filter_value" value="{{$queryString}}">
+
                         @include('commons.select', [
                             'label'    => 'Expense Type' ,
                             'name'     => 'expense_type_id',

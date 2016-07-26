@@ -5,6 +5,7 @@ namespace App\Http\Modules\Accounting\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Accounting\Models\DailyExpense;
 use App\Http\Modules\Accounting\Requests\DailyExpenseFormRequest;
+use URL;
 
 class DailyExpenseController extends Controller
 {
@@ -25,8 +26,9 @@ class DailyExpenseController extends Controller
      */
     public function create()
     {
+        $queryString = $this->getGridFilters();
         $expense = new DailyExpense;
-        return view('modules.accounting.DailyExpense.form', compact('expense'));
+        return view('modules.accounting.DailyExpense.form', compact('expense', 'queryString'));
     }
 
     /**
@@ -40,7 +42,7 @@ class DailyExpenseController extends Controller
         $expense = new DailyExpense($request->input());
         $expense->save();
         flash('Daily Expense Added!');
-        return redirect('/cabinet/daily-expense');
+        return redirect('/cabinet/daily-expense'.$expense->grid_filter_value);
     }
 
     /**
@@ -51,8 +53,9 @@ class DailyExpenseController extends Controller
      */
     public function edit($id)
     {
+        $queryString = $this->getGridFilters();
         $expense = DailyExpense::findOrFail($id);
-        return view('modules.accounting.DailyExpense.form', compact('expense'));
+        return view('modules.accounting.DailyExpense.form', compact('expense', 'queryString'));
     }
 
     /**
@@ -68,6 +71,19 @@ class DailyExpenseController extends Controller
         $expense->setAttribute('expense_id', $id);
         $expense->update();
         flash('Daily Expense Updated!');
-        return redirect('/cabinet/daily-expense');
+        return redirect('/cabinet/daily-expense'.$expense->grid_filter_value);
+    }
+
+    public function getGridFilters()
+    {
+        $previousUrl = URL::previous();
+
+        $poz = strpos($previousUrl, '/daily-expense?');
+        $filter = '';
+        if ($poz !== false) {
+            $filter = substr($previousUrl, $poz + 14);
+        }
+
+        return $filter;
     }
 }
