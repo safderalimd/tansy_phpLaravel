@@ -69,9 +69,10 @@
                     </li>
                     <li>
                         @if (session()->has('user'))
-                            <a class="page-scroll" href="/cabinet/logout">Logout</a>
+                        <a class="page-scroll" href="/cabinet">Cabinet</a>
+                        <a class="page-scroll" href="/cabinet/logout">Logout</a>
                         @else
-                            <a class="page-scroll" href="/login">login</a>
+                            <a class="page-scroll" href="/login">Login</a>
                         @endif
                     </li>
 
