@@ -84,7 +84,7 @@
                                     @endif
                                 @endforeach
                             </td>
-                            <td>{{$row['order_sequence']}}</td>
+                            <td>{{$row['column_sequence']}}</td>
                             <td>
                                 <a class="btn btn-default" href="{{url("/cabinet/custom-fields/edit/{$row['custom_field_id']}")}}?gsi={{$fields->gsi}}" title="Edit">
                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
