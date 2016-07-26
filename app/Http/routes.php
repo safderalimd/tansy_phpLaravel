@@ -262,6 +262,12 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('manage-lookups/store', 'System\Controllers\ManageLookupsController@store');
     Route::post('manage-lookups/update', 'System\Controllers\ManageLookupsController@update');
 
+    Route::get('custom-fields', 'System\Controllers\CustomFieldsController@index');
+    Route::get('custom-fields/create', 'System\Controllers\CustomFieldsController@create');
+    Route::post('custom-fields/create', 'System\Controllers\CustomFieldsController@store');
+    Route::get('custom-fields/edit/{id}', 'System\Controllers\CustomFieldsController@edit');
+    Route::post('custom-fields/edit/{id}', 'System\Controllers\CustomFieldsController@update');
+
     Route::get('/logout', '\App\Http\Controllers\UserController@logout');
 
     Route::get('/img/student/{id}', '\App\Http\Controllers\ImageController@studentImage');

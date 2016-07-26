@@ -1,7 +1,7 @@
 <div class="form-group">
     <label class="col-md-4 @if (isset($required) && $required) required @endif control-label" for="{{ $name }}">{{ $label }}</label>
     <div class="col-md-8">
-        <select id="{{ $name }}" class="form-control" name="{{ $name }}">
+        <select id="{{ $name }}" @if(isset($disabled)) disabled="disabled" @endif class="form-control" name="{{ $name }}">
             @if (isset($none))
                 <option value="none">{{$none}}</option>
             @endif
