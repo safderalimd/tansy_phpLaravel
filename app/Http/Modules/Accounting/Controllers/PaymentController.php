@@ -80,7 +80,7 @@ class PaymentController extends Controller
         $this->sendReceiptSms();
         $this->sendReceiptEmail();
         flash('Amount Paid!');
-        return redirect("/cabinet/payment?ak={$accountKey}&rt={$rowType}");
+        return redirect("/cabinet/payment-v1?ak={$accountKey}&rt={$rowType}");
     }
 
     public function setReceiptDetails($payment)

@@ -8,7 +8,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <i class="glyphicon glyphicon-th-list"></i>
-                    <h3>Payment</h3>
+                    <h3>Payment v1</h3>
                 </div>
                 <div class="panel-body">
 
@@ -60,7 +60,7 @@
             <td>-</td>
         @endif
         <td>
-            <a class="btn btn-default btn-sm" href="{{url("/cabinet/payment/create/?ak={$accountKey}&rt={$rowType}&pk={$row['account_entity_id']}")}}" title="Payment">Payment</a>
+            <a class="btn btn-default btn-sm" href="{{url("/cabinet/payment-v1/create/?ak={$accountKey}&rt={$rowType}&pk={$row['account_entity_id']}")}}" title="Payment">Payment</a>
             @if (Group::isOwner())
                 <a class="btn btn-default btn-sm" href="{{url("/cabinet/payment-adjustment/{$row['account_entity_id']}")}}" title="Adjustment">Adjustment</a>
             @endif
@@ -88,11 +88,11 @@
 
     $('#exam_account_type_4_receivable_id').change(function() {
         if (this.value == 'none') {
-            window.location.href = "/cabinet/payment";
+            window.location.href = "/cabinet/payment-v1";
         } else {
             var rowType = $(this).find(':selected').attr('data-rowtype');
             rowType = encodeURIComponent(rowType);
-            window.location.href = "/cabinet/payment?ak=" + this.value + "&rt=" + rowType;
+            window.location.href = "/cabinet/payment-v1?ak=" + this.value + "&rt=" + rowType;
         }
     });
 

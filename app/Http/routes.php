@@ -93,9 +93,9 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('schedule-payment/create/student', 'Accounting\Controllers\SchedulePaymentController@createStudent');
     Route::post('schedule-payment/create/student', 'Accounting\Controllers\SchedulePaymentController@storeStudent');
 
-    Route::get('payment', 'Accounting\Controllers\PaymentController@index');
-    Route::get('payment/create', 'Accounting\Controllers\PaymentController@create');
-    Route::post('payment/create', 'Accounting\Controllers\PaymentController@payNow');
+    Route::get('payment-v1', 'Accounting\Controllers\PaymentController@index');
+    Route::get('payment-v1/create', 'Accounting\Controllers\PaymentController@create');
+    Route::post('payment-v1/create', 'Accounting\Controllers\PaymentController@payNow');
 
     Route::get('daily-expense/create', 'Accounting\Controllers\DailyExpenseController@create');
     Route::post('daily-expense/create', 'Accounting\Controllers\DailyExpenseController@store');

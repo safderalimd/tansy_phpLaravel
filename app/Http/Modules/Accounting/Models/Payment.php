@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class Payment extends Model
 {
-    protected $screenId = '/cabinet/payment';
+    protected $screenId = '/cabinet/payment-v1';
 
     protected $repositoryNamespace = 'App\Http\Modules\Accounting\Repositories\PaymentRepository';
 
