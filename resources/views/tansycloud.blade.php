@@ -67,15 +67,12 @@
                     <li>
                         <a class="page-scroll" href="#contact">Contact</a>
                     </li>
-                    <li>
-                        @if (session()->has('user'))
-                        <a class="page-scroll" href="/cabinet">Cabinet</a>
-                        <a class="page-scroll" href="/cabinet/logout">Logout</a>
-                        @else
-                            <a class="page-scroll" href="/login">Login</a>
-                        @endif
-                    </li>
-
+                    @if (session()->has('user'))
+                        <li><a class="page-scroll" href="/cabinet">Cabinet</a></li>
+                        <li><a class="page-scroll" href="/cabinet/logout">Logout</a></li>
+                    @else
+                        <li><a class="page-scroll" href="/login">Login</a></li>
+                    @endif
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
