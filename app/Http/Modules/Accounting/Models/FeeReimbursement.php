@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class FeeReimbursement extends Model
 {
-    protected $screenId = '/cabinet/fee-reimbursement';
+    protected $screenId = '/cabinet/payment-v2';
 
     protected $repositoryNamespace = 'App\Http\Modules\Accounting\Repositories\FeeReimbursementRepository';
 

@@ -81,7 +81,7 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="hidden_amounts" id="hidden_amounts" value="">
 
-                        <a class="btn btn-default" href="/cabinet/fee-reimbursement">Cancel</a>
+                        <a class="btn btn-default" href="/cabinet/payment-v2">Cancel</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>
                 </div>
