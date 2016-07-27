@@ -80,6 +80,9 @@ class AdmissionController extends Controller
     public function edit($id)
     {
         $admission = Admission::findOrFail($id);
+        // $admission->setAttribute('addmision_id', $id);
+        // d($admission->detail());
+        // dd($admission);
         return view('modules.school.Admission.form', compact('admission'));
     }
 

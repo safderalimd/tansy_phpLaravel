@@ -57,6 +57,18 @@ class CustomFields extends Model
 
     public function saveField()
     {
+        $this->setAttributes();
+        return $this->repository->insert($this);
+    }
+
+    public function updateField()
+    {
+        $this->setAttributes();
+        return $this->repository->update($this);
+    }
+
+    public function setAttributes()
+    {
         if ($this->existing == 1) {
             $this->setAttribute('custom_field_list', null);
             if ($this->row_type == 'system') {
@@ -65,7 +77,5 @@ class CustomFields extends Model
                 $this->setAttribute('map_to_existing_custom_lookup_id', $this->primary_key_id);
             }
         }
-
-        return $this->repository->insert($this);
     }
 }

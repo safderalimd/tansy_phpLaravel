@@ -19,6 +19,12 @@
                     <form id="fields-form" class="form-horizontal" action="{{ form_action_full() }}" method="POST">
                         {{ csrf_field() }}
 
+                        <?php
+                            $disabled = false;
+                            if (!$fields->isNewRecord()) {
+                                $disabled = true;
+                            }
+                        ?>
                         <div class="form-group">
                             <div class="col-md-offset-4 col-md-8">
                                 <div class="checkbox">
@@ -49,7 +55,7 @@
                             <div class="col-md-offset-4 col-md-8">
                                 <div class="checkbox">
                                     <label>
-                                        <input {{ c('visible_in_grid') }} name="visible_in_grid" type="checkbox">
+                                        <input @if($disabled) disabled="disabled" @endif {{ c('visible_in_grid') }} name="visible_in_grid" type="checkbox">
                                         Show custom field in Grid screen?
                                     </label>
                                 </div>
@@ -70,6 +76,7 @@
                             'keyId'    => 'data_type_id',
                             'keyName'  => 'data_type',
                             'none'     => 'Select a data type..',
+                            'disabled' => $disabled,
                             'required' => true,
                         ])
 
@@ -80,6 +87,7 @@
                             'keyId'    => 'input_type_id',
                             'keyName'  => 'input_type',
                             'none'     => 'Select an input type..',
+                            'disabled' => $disabled,
                             'required' => true,
                         ])
 
@@ -97,40 +105,45 @@
                             </div>
                         </div>
 
-                        @if($fields->isNewRecord())
-                            <div class="form-group">
-                                <div class="col-md-offset-4 col-md-8">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input {{ c('existing') }} name="existing" id="existing" type="checkbox">
-                                            Existing Dropdown?
-                                        </label>
-                                    </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-md-8">
+                                <div class="checkbox">
+                                    <label>
+                                        <input {{ c('existing') }} name="existing" id="existing" type="checkbox">
+                                        Existing Dropdown?
+                                    </label>
                                 </div>
                             </div>
-                        @endif
+                        </div>
 
+                        <?php
+                            if ($fields->isNewRecord()) {
+                                $disabledDropdown = true;
+                            } elseif (!$fields->isNewRecord() && old('existing')) {
+                                $disabledDropdown = false;
+                            } else {
+                                $disabledDropdown = true;
+                            }
+                        ?>
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="custom_field_list">Drop down values</label>
                             <div class="col-md-8">
-                                <input id="custom_field_list" class="form-control" type="text" name="custom_field_list" value="{{ v('custom_field_list') }}" placeholder="Drop down values">
+                                <input id="custom_field_list" @if(!$disabledDropdown) disabled="disabled" @endif class="form-control" type="text" name="custom_field_list" value="{{ v('custom_field_list') }}" placeholder="Drop down values">
                                 (Note: Separate each item with a comma.)
                             </div>
                         </div>
 
-                        @if($fields->isNewRecord())
-                            @include('commons.select', [
-                                'label'    => 'Existing Dropdowns',
-                                'name'     => 'primary_key_id',
-                                'options'  => $fields->existingDropDown(),
-                                'keyId'    => 'primary_key_id',
-                                'keyName'  => 'list_name',
-                                'data'     => 'row_type',
-                                'dataName' => 'rowType',
-                                'disabled' => true,
-                                'none'     => 'Select a dropdown..',
-                            ])
-                        @endif
+                        @include('commons.select', [
+                            'label'    => 'Existing Dropdowns',
+                            'name'     => 'primary_key_id',
+                            'options'  => $fields->existingDropDown(),
+                            'keyId'    => 'primary_key_id',
+                            'keyName'  => 'list_name',
+                            'data'     => 'row_type',
+                            'dataName' => 'rowType',
+                            'disabled' => $disabledDropdown,
+                            'none'     => 'Select a dropdown..',
+                        ])
 
                         <input type="hidden" name="row_type" id="row_type" value="">
 
@@ -150,6 +163,7 @@
 
 @section('scripts')
 <script type="text/javascript">
+
 
     $('#existing').change(function() {
         if ($(this).is(':checked')) {
@@ -185,7 +199,9 @@
                 requiredSelect: true,
             },
             input_length: {
-                number: true
+                number: true,
+                min: 1,
+                max: 50
             },
             order_sequence: {
                 number: true

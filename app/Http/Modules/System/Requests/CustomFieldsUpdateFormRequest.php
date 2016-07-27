@@ -5,7 +5,7 @@ namespace App\Http\Modules\System\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Contracts\Validation\Validator;
 
-class CustomFieldsFormRequest extends Request
+class CustomFieldsUpdateFormRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,6 @@ class CustomFieldsFormRequest extends Request
     {
         $rules = [
             'ui_label'      => 'required',
-            'data_type_id'  => 'required|integer',
-            'input_type_id' => 'required|integer',
             'input_length'  => 'integer|max:50,min:1',
         ];
 

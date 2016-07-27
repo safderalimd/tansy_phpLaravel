@@ -95,6 +95,7 @@ class AdmissionRepository extends Repository
             '-iparam_parent_middle_name',
             '-iparam_parent_gender',
             '-iparam_parent_designation_name',
+            '-iparam_custom_fields_list',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
@@ -147,6 +148,7 @@ class AdmissionRepository extends Repository
             '-iparam_parent_middle_name',
             '-iparam_parent_gender',
             '-iparam_parent_designation_name',
+            '-iparam_custom_fields_list',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
@@ -193,6 +195,28 @@ class AdmissionRepository extends Repository
             ':iparam_move_to_class_entity_id',
             ':iparam_move_to_fiscal_year_entity_id',
             '-iparam_admission_ids',
+            ':iparam_session_id',
+            ':iparam_user_id',
+            ':iparam_screen_id',
+            ':iparam_debug_sproc',
+            ':iparam_audit_screen_visit',
+        ];
+
+        $oparams = [
+            '@oparam_err_flag',
+            '@oparam_err_step',
+            '@oparam_err_msg',
+        ];
+
+        return $this->procedure($model, $procedure, $iparams, $oparams);
+    }
+
+    public function detail($model)
+    {
+        $procedure = 'sproc_sch_lst_admission_detail';
+
+        $iparams = [
+            ':iparam_admission_id',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

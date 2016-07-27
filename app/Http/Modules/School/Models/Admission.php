@@ -51,4 +51,9 @@ class Admission extends Model
         }
         return strtoupper($value);
     }
+
+    public function detail()
+    {
+        return $this->repository->detail($this);
+    }
 }

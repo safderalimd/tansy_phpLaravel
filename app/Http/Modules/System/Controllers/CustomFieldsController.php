@@ -5,6 +5,7 @@ namespace App\Http\Modules\System\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\System\Models\CustomFields;
 use App\Http\Modules\System\Requests\CustomFieldsFormRequest;
+use App\Http\Modules\System\Requests\CustomFieldsUpdateFormRequest;
 use Illuminate\Http\Request;
 
 class CustomFieldsController extends Controller
@@ -75,14 +76,17 @@ class CustomFieldsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CustomFieldsFormRequest $request
+     * @param CustomFieldsUpdateFormRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function update(CustomFieldsFormRequest $request, $id)
+    public function update(CustomFieldsUpdateFormRequest $request, $id)
     {
-        $fields = new CustomFields($request->input());
-        $fields->setAttribute('custom_field_id', $id);
-        $fields->update();
+        $fields = CustomFields::findOrFail($id);
+        $fields->setAttribute('active', 0);
+        $fields->setAttribute('mandatory_input', 0);
+        $fields->setAttribute('existing', 0);
+        $fields->fill($request->input());
+        $fields->updateField();
         flash('Custom Field Updated!');
         return redirect('/cabinet/custom-fields?gsi='.$fields->gsi);
     }
