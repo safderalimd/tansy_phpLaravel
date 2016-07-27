@@ -131,7 +131,7 @@ class CustomFieldsRepository extends Repository
         $procedure = 'sproc_sys_custom_fields_dml_ins';
 
         $iparams = [
-            ':iparam_custom_field_id',
+            ':iparam_custom_field_screen_id',
             '-iparam_ui_label',
             ':iparam_input_length',
             ':iparam_input_type_id',

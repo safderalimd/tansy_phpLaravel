@@ -12,7 +12,7 @@ class CustomFields extends Model
 
     public function setGsiAttribute($value)
     {
-        $this->setAttribute('custom_field_id', $value);
+        $this->setAttribute('custom_field_screen_id', $value);
         return $value;
     }
 
@@ -48,11 +48,11 @@ class CustomFields extends Model
 
     public function rows()
     {
-        if (is_null($this->custom_field_id)) {
+        if (is_null($this->custom_field_screen_id)) {
             return [];
         }
 
-        return $this->repository->getGrid($this->custom_field_id);
+        return $this->repository->getGrid($this->custom_field_screen_id);
     }
 
     public function saveField()
