@@ -39,7 +39,7 @@ class FeeReimbursementController extends Controller
     {
         $reimbursement = new FeeReimbursement($request->input());
         $reimbursement->updateRows();
-        flash('Fee Reimbursement Updated!');
+        flash('Payment Updated!');
         return redirect_back();
     }
 }
