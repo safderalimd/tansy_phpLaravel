@@ -42,13 +42,14 @@ class FeeReimbursementRepository extends Repository
 
     public function getAllReimbursements($model)
     {
-        $procedure = 'sproc_act_rcv_due_lst';
+        $procedure = 'sproc_act_rcv_due_lst_reimbursement';
 
         $iparams = [
             '-iparam_filter_type',
             ':iparam_subject_entity_id',
             '-iparam_return_type',
             ':iparam_product_entity_id',
+            ':iparam_fiscal_year_entity_id',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
@@ -73,6 +74,8 @@ class FeeReimbursementRepository extends Repository
         $iparams = [
             '-iparam_actEID_schEntID_dateID_totAmnt_PaidAmnt_list',
             ':iparam_product_entity_id',
+            ':iparam_fiscal_year_entity_id',
+            ':iparam_payment_type_id',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

@@ -10,13 +10,18 @@ class FeeReimbursement extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\Accounting\Repositories\FeeReimbursementRepository';
 
+    protected $selects = [
+        'payment_type_id',
+    ];
+
     public function rows()
     {
-        if (!is_null($this->rt) && !is_null($this->ak) || !is_null($this->pi)) {
+        if (is_null($this->fi) || !is_null($this->pi)) {
             $this->setAttribute('return_type', 'Reimbursement');
-            $this->setAttribute('filter_type', $this->rt);
-            $this->setAttribute('subject_entity_id', $this->ak);
+            $this->setAttribute('filter_type', 'All Students');
+            $this->setAttribute('subject_entity_id', 0);
             $this->setAttribute('product_entity_id', $this->pi);
+            $this->setAttribute('fiscal_year_entity_id', $this->fi);
             return $this->repository->getAllReimbursements($this);
         }
 
@@ -27,6 +32,7 @@ class FeeReimbursement extends Model
     {
         $this->setAttribute('actEID_schEntID_dateID_totAmnt_PaidAmnt_list', $this->hidden_amounts);
         $this->setAttribute('product_entity_id', $this->pi);
+        $this->setAttribute('fiscal_year_entity_id', $this->fi);
         return $this->repository->update($this);
     }
 }

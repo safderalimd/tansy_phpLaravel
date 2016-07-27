@@ -1,6 +1,6 @@
 @extends('layout.cabinet')
 
-@section('title', 'Fee Reimbursement')
+@section('title', 'Payment v2')
 
 @section('content')
 
@@ -8,7 +8,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <i class="glyphicon glyphicon-th-list"></i>
-            <h3>Fee Reimbursement</h3>
+            <h3>Payment v2</h3>
         </div>
         <div class="panel-body">
 
@@ -18,9 +18,9 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="payment-type-id">Product</label>
+                            <label class="col-md-4 control-label" for="product_type_id">Product</label>
                             <div class="col-md-8">
-                                <select id="payment-type-id" class="form-control" name="payment-type-id">
+                                <select id="product_type_id" class="form-control" name="product_type_id">
                                     <option data-rowtype="none" value="none">Select a product..</option>
                                     @foreach($reimbursement->products() as $option)
                                         <option {{activeSelect($option['product_entity_id'], 'pi')}} value="{{ $option['product_entity_id'] }}">{{ $option['product'] }}</option>
@@ -30,15 +30,16 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="account-type-id">Account Type</label>
+                            <label class="col-md-4 control-label" for="fiscal_years">Fiscal Year</label>
                             <div class="col-md-8">
-                                <select id="account-type-id" class="form-control" name="account-type-id">
-                                    <option data-rowtype="none" value="none">Select an account..</option>
-                                    @foreach($reimbursement->accountTypeFilter() as $option)
-                                        <option {{activeSelectByTwo($option['entity_id'], $option['row_type'], 'ak', 'rt')}} data-rowtype="{{$option['row_type']}}"  value="{{ $option['entity_id'] }}">{{ $option['drop_down_list_name'] }}</option>
+                                <select id="fiscal_years" class="form-control" name="fiscal_year_entity_id">
+                                    <option value="none">Select a fiscal year..</option>
+                                    @foreach($reimbursement->fiscalYears() as $year)
+                                        <option {{activeSelect($year['fiscal_year_entity_id'], 'fi')}} value="{{$year['fiscal_year_entity_id']}}">{{$year['fiscal_year']}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -55,6 +56,7 @@
                         <th>Total <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Paid <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Balance <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Due Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th style="width:250px">Reimbursement Amount</th>
                     </tr>
                 </thead>
@@ -66,6 +68,7 @@
                         <td>&#x20b9; {{amount($item['total_amount'])}}</td>
                         <td>&#x20b9; {{amount($item['total_paid_amount'])}}</td>
                         <td>&#x20b9; {{amount($item['due_amount'])}}</td>
+                        <td>{{style_date($item['due_start_date'])}}</td>
                         <td>
                             <input data-rule-number="true" data-rule-min="0" data-aei="{{$item['account_entity_id']}}" data-sei="{{$item['schedule_entity_id']}}" data-dateid="{{$item['date_id']}}" data-totalamount="{{$item['total_amount']}}" type="text" name="reinbursement-amount" class="reinbursement-amount form-control">
                         </td>
@@ -75,17 +78,32 @@
             </table>
             </form>
 
-            <nav class="nav-footer navbar navbar-default">
-                <div class="container-fluid">
-                    <form class="navbar-form navbar-right" id="update-reinbursement-form" action="{{form_action_full()}}" method="POST">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="hidden_amounts" id="hidden_amounts" value="">
-
-                        <a class="btn btn-default" href="/cabinet/payment-v2">Cancel</a>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
+            <form class="form-horizontal" id="update-reinbursement-form" action="{{form_action_full()}}" method="POST">
+                {{ csrf_field() }}
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-8">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label required" for="payment_type_id">Payment Type</label>
+                            <div class="col-md-8">
+                                <select id="payment_type_id" class="form-control" name="payment_type_id">
+                                    <option data-rowtype="none" value="none">Select a product..</option>
+                                    @foreach($reimbursement->paymentType() as $option)
+                                        <option value="{{ $option['payment_type_id'] }}">{{ $option['payment_type'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </nav>
+
+                <nav class="nav-footer navbar navbar-default">
+
+                    <input type="hidden" name="hidden_amounts" id="hidden_amounts" value="">
+
+                    <button style="margin-top:8px;" type="submit" class="pull-right btn btn-primary">Save</button>
+                    <a style="margin-top:8px; margin-right:10px;" class="pull-right btn btn-default" href="/cabinet/payment-v2">Cancel</a>
+               </nav>
+            </form>
             @include('commons.modal')
 
         </div>
@@ -98,7 +116,12 @@
 @section('scripts')
 <script type="text/javascript">
 
-    $('#account-type-id, #payment-type-id').change(function() {
+    $('#amounts-table table').DataTable({
+        "aaSorting": [],
+        "autoWidth": false
+    });
+
+    $('#fiscal_years, #product_type_id').change(function() {
         updateQueryString();
     });
 
@@ -108,14 +131,12 @@
 
     // get the query string
     function getQueryString() {
-        var ak = $('#account-type-id option:selected').val();
-        var rt = $('#account-type-id option:selected').attr('data-rowtype');
-        var pi = $('#payment-type-id option:selected').val();
+        var fi = $('#fiscal_years option:selected').val();
+        var pi = $('#product_type_id option:selected').val();
 
         var items = [];
-        if (ak != "none") {
-            items.push('ak='+ak);
-            items.push('rt='+rt);
+        if (fi != "none") {
+            items.push('fi='+fi);
         }
         if (pi != "none") {
             items.push('pi='+pi);
@@ -130,6 +151,9 @@
 
     $('#update-reinbursement-form').submit(function() {
         if (! $('#amounts-table').valid()) {
+            return false;
+        }
+        if (! $('#update-reinbursement-form').valid()) {
             return false;
         }
 
@@ -150,6 +174,13 @@
         return true;
     });
 
+    $('#update-reinbursement-form').validate({
+        rules: {
+            payment_type_id: {
+                requiredSelect: true
+            }
+        }
+    });
     $('#amounts-table').validate();
 </script>
 @endsection

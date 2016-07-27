@@ -42,5 +42,4 @@ class FeeReimbursementController extends Controller
         flash('Fee Reimbursement Updated!');
         return redirect_back();
     }
-
 }
