@@ -319,80 +319,11 @@
 
                         <hr/>
 
-@if (count($admission->customFields()))
-
-<div class="row"><div class="col-md-3 pull-left"><h3>Custom Fields</h3></div></div>
-    @foreach ($admission->customFields() as $field)
-
-        @if (isset($field['ui_label']) && isset($field['db_column_name']) && isset($field['input_type']))
-            <?php
-                $validationRules = [];
-                $isMandatory = false;
-                if (isset($field['mandatory_input']) && $field['mandatory_input'] == 1) {
-                    $isMandatory = true;
-                }
-
-                if ($isMandatory) {
-                    if ($field['input_type'] == 'Free Text') {
-                        $validationRules[] = $field['db_column_name'] . ': {required:true}';
-                    } elseif ($field['input_type'] == 'Date Picker') {
-                        $validationRules[] = $field['db_column_name'] . ': {required:true, dateISO: true}';
-
-                    } elseif ($field['input_type'] == 'Drop Down') {
-
-                    }
-                }
-            ?>
-
-            @if ($field['input_type'] == 'Free Text')
-                <div class="form-group">
-                    <label class="col-md-4 control-label @if($isMandatory) required @endif" for="{{$field['db_column_name']}}">{{$field['ui_label']}}</label>
-                    <div class="col-md-8">
-                        <input id="{{$field['db_column_name']}}" data-type="text" class="custom-field-input form-control" type="text" name="{{$field['db_column_name']}}" value="{{ v($field['db_column_name']) }}" placeholder="{{$field['ui_label']}}">
-                    </div>
-                </div>
-
-            @elseif ($field['input_type'] == 'Date Picker')
-                <div class="form-group">
-                    <label class="col-md-4 control-label @if($isMandatory) required @endif" for="{{$field['db_column_name']}}">{{$field['ui_label']}}</label>
-                    <div class="col-md-8">
-                        <div class="input-group date">
-                            <input onchange="$(this).valid()" id="{{$field['db_column_name']}}" data-type="date" class="custom-field-input form-control" type="text" name="{{$field['db_column_name']}}" value="{{ v($field['db_column_name']) }}" placeholder="{{$field['ui_label']}}">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><span
-                                            class="glyphicon glyphicon-calendar"></span></button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-            @elseif ($field['input_type'] == 'Drop Down')
-                <?php $values = $admission->getDropdownValues($field['drop_down_sql']); ?>
-                @if (isset($values[0]))
-                    <?php $keyId = key($values[0]); ?>
-                    @include('commons.select', [
-                        'label'    => $field['ui_label'],
-                        'name'     => $field['db_column_name'],
-                        'options'  => $values,
-                        'keyId'    => $keyId,
-                        'keyName'  => $keyId,
-                        'required' => $isMandatory,
-                        'cssClass' => 'custom-field-input',
-                        'selectDataAttr' => 'data-type="select"',
-                    ])
-                @endif
-
-            @elseif ($field['input_type'] == 'Checkbox')
-                <?php //$values = $admission->getDropdownValues($field['drop_down_sql']); ?>
-                - checkbox -
-
-            @endif
-
-        @endif
-
-    @endforeach
-@endif
-                        <input type="hidden" name="custom_fields_list" id="custom_fields_list" value="">
+                        @include('modules.custom-fields.fields', [
+                            'fields' => $admission->customFields(),
+                            'model'  => $admission,
+                        ])
+                        @yield('custom-fields')
 
                         <div class="row grid_footer">
                            <div class="col-md-8 col-md-offset-4">
@@ -410,6 +341,9 @@
 @endsection
 
 @section('scripts')
+
+@yield('custom-fields-scripts')
+
 <script type="text/javascript">
 
     $(document).ready(function(){
@@ -424,27 +358,7 @@
             return false;
         }
 
-        var customFields = $('.custom-field-input').map(function() {
-            var value = '';
-            var name = $(this).attr('name');
-            var type = $(this).attr('data-type');
-
-            if (type == 'text') {
-                value = $(this).val();
-            } else if (type == 'date') {
-                value = $(this).val();
-            } else if (type == 'select') {
-                value = $(this).find('option:selected').text();
-            }
-
-            if (typeof value == 'string') {
-                value = value.trim();
-            }
-
-            return name + '$<>$' + value;
-        }).get();
-
-        $('#custom_fields_list').val(customFields.join('|'));
+        append_custom_fields();
 
         return true;
     });
@@ -542,10 +456,7 @@
             parent_designation_name: {
                 maxlength: 100
             }
-            @if (!empty($validationRules))
-                ,
-                {!! implode(',', $validationRules) !!}
-            @endif
+            @yield('validation-rules')
         }
     });
 

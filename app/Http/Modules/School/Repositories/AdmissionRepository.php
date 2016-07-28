@@ -137,6 +137,7 @@ class AdmissionRepository extends Repository
             '-iparam_admission_number',
             '-iparam_admission_date',
             ':iparam_admitted_to_class_group_entity_id',
+            ':iparam_admitted_to_class_entity_id',
             '-iparam_student_roll_number',
             '-iparam_identification1',
             '-iparam_identification2',

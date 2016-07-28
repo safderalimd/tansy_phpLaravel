@@ -50,6 +50,7 @@ class AdmissionController extends Controller
     public function create()
     {
         $admission = new Admission;
+        $admission->loadDetail();
         return view('modules.school.Admission.form', compact('admission'));
     }
 

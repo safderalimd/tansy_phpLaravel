@@ -25,10 +25,11 @@ class CustomFieldsFormRequest extends Request
     public function rules()
     {
         $rules = [
-            'ui_label'      => 'required',
-            'data_type_id'  => 'required|integer',
-            'input_type_id' => 'required|integer',
-            'input_length'  => 'integer|max:50,min:1',
+            'ui_label'          => 'required',
+            'data_type_id'      => 'required|integer',
+            'input_type_id'     => 'required|integer',
+            'input_length'      => 'integer|max:50,min:1',
+            'custom_field_list' => 'custom_field',
         ];
 
         if (isset($this->existing)) {
@@ -36,6 +37,18 @@ class CustomFieldsFormRequest extends Request
         }
 
         return $rules;
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'custom_field' => 'Characters "|" and "$<>$" are not allowed.',
+        ];
     }
 
     /**
