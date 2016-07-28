@@ -28,15 +28,24 @@ class DebugController extends Controller
 
         // Send the POST request with cURL
         $ch = curl_init('http://api.textlocal.in/balance/');
+        $f = fopen('request.txt', 'w');
+
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($ch, CURLOPT_STDERR, $f);
+
         $response = curl_exec($ch);
-        curl_close($ch);
 
         // Process your response here
-        echo $response;
+        d(curl_getinfo($ch));
+        d($response);
 
+        fclose($f);
+        curl_close($ch);
+
+        die();
         // try {
 
         //     $model = new SendSmsModel;
