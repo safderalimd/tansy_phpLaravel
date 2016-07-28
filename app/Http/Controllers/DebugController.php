@@ -19,21 +19,39 @@ class DebugController extends Controller
 
     public function debugSMS()
     {
-        try {
+        // Textlocal account details
+        $username = "md.salmancse@gmail.com";
+        $hash = "be80f85f7139ac89623c35cd6f25316261148dda";
 
-            $model = new SendSmsModel;
-            $api = $model->smsCredentials();
-            d($api);
+        // Prepare data for POST request
+        $data = array('username' => $username, 'hash' => $hash);
 
-            $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
-            d($sender);
+        // Send the POST request with cURL
+        $ch = curl_init('http://api.textlocal.in/balance/');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
 
-            $balance = $sender->getBalance();
-            dd($balance);
+        // Process your response here
+        echo $response;
 
-        } catch (Exception $e) {
-            dd($e);
-        }
+        // try {
+
+        //     $model = new SendSmsModel;
+        //     $api = $model->smsCredentials();
+        //     d($api);
+
+        //     $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
+        //     d($sender);
+
+        //     $balance = $sender->getBalance();
+        //     dd($balance);
+
+        // } catch (Exception $e) {
+        //     dd($e);
+        // }
     }
 
     public function phpinfo()
