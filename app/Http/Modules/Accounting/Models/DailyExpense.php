@@ -16,4 +16,8 @@ class DailyExpense extends Model
         'payment_type_id',
     ];
 
+    public function setAmountAttribute($value)
+    {
+        return intval($value);
+    }
 }

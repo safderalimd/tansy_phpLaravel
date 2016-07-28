@@ -70,7 +70,7 @@
                         <div class="form-group">
                              <label class="col-md-4 control-label required" for="amount">Amount</label>
                              <div class="col-md-8">
-                                 <input id="amount" class="form-control" type="text" name="amount" value="{{ amount(v('amount')) }}" placeholder="Amount">
+                                 <input id="amount" class="form-control" type="text" name="amount" value="{{ v('amount') }}" placeholder="Amount">
                              </div>
                         </div>
 
