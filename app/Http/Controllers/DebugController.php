@@ -19,6 +19,9 @@ class DebugController extends Controller
 
     public function debugSMS()
     {
+
+        // curl --data "username=md.salmancse@gmail.com&hash=be80f85f7139ac89623c35cd6f25316261148dda" http://api.textlocal.in/balance/
+
         // Textlocal account details
         $username = "md.salmancse@gmail.com";
         $hash = "be80f85f7139ac89623c35cd6f25316261148dda";
