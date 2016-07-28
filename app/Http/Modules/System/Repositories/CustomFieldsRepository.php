@@ -65,8 +65,7 @@ class CustomFieldsRepository extends Repository
                 mandatory_input,
                 visible_in_grid,
                 custom_field_id,
-                screen_id,
-                drop_down_primary_key_id AS primary_key_id
+                screen_id
              FROM view_sys_custom_fields_grid
              WHERE screen_id = :id
              ORDER BY ui_label ASC;', ['id' => $id]
@@ -88,7 +87,8 @@ class CustomFieldsRepository extends Repository
                 mandatory_input,
                 visible_in_grid,
                 custom_field_id,
-                screen_id
+                screen_id,
+                drop_down_primary_key_id AS primary_key_id
              FROM view_sys_custom_fields_grid
              WHERE custom_field_id = :id;', ['id' => $id]
         );
