@@ -106,6 +106,20 @@ class SmsSender
             'hash' => $this->hash,
         ];
 
+        if (isset($_GET['test'])) {
+            $path = app_path('Http/Modules/thirdparty/sms/vendor/textlocal/textlocal.class.php');
+            require $path;
+
+            $textlocal = new \Textlocal($params['username'], $params['hash']);
+
+            try {
+                $result = $textlocal->getBalance();
+                dd($result);
+            } catch (Exception $e) {
+                dd($e);
+            }
+        }
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -120,10 +134,6 @@ class SmsSender
             throw new Exception('Failed to connect to the Textlocal service: ' . $error);
         } elseif ($httpCode != 200) {
             throw new Exception('Bad response from the Textlocal service: HTTP code ' . $httpCode);
-        }
-
-        if (isset($_GET['test'])) {
-            d($rawResponse);
         }
 
         $result = json_decode($rawResponse);

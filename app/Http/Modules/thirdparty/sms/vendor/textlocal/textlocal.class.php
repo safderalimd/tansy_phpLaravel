@@ -497,6 +497,7 @@ class Textlocal
 	public function getBalance()
 	{
 		$result = $this->_sendRequest('balance');
+		return $result;
 		return array('sms' => $result->balance->sms, 'mms' => $result->balance->mms);
 	}
 
