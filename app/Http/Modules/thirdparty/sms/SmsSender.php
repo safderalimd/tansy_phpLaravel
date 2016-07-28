@@ -122,6 +122,10 @@ class SmsSender
             throw new Exception('Bad response from the Textlocal service: HTTP code ' . $httpCode);
         }
 
+        if (isset($_GET['test'])) {
+            d($rawResponse);
+        }
+
         $result = json_decode($rawResponse);
         if (isset($result->errors)) {
             if (count($result->errors) > 0) {
