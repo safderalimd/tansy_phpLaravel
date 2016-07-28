@@ -25,16 +25,15 @@ class DebugController extends Controller
 
         // Prepare data for POST request
         $data = array('username' => $username, 'hash' => $hash);
+        d($data);
 
         // Send the POST request with cURL
         $ch = curl_init('http://api.textlocal.in/balance/');
-        $f = fopen('request.txt', 'w');
 
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        curl_setopt($ch, CURLOPT_STDERR, $f);
+        curl_setopt($ch, CURLOPT_HEADER, true);
 
         $response = curl_exec($ch);
 
@@ -42,7 +41,6 @@ class DebugController extends Controller
         d(curl_getinfo($ch));
         d($response);
 
-        fclose($f);
         curl_close($ch);
 
         die();
