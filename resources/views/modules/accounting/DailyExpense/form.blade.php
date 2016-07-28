@@ -44,7 +44,11 @@
                             <label class="col-md-4 control-label required" for="expense_date">Expense Date</label>
                             <div class="col-md-8">
                                 <div class="input-group date">
-                                    <input id="expense_date" class="form-control" type="text" name="expense_date" value="{{ v('expense_date') }}" placeholder="Expense Date">
+                                    @if ($expense->isNewRecord())
+                                        <input id="expense_date" class="form-control" type="text" name="expense_date" value="{{ date('Y-m-d') }}" placeholder="Expense Date">
+                                    @else
+                                        <input id="expense_date" class="form-control" type="text" name="expense_date" value="{{ v('expense_date') }}" placeholder="Expense Date">
+                                    @endif
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button"><span
                                                     class="glyphicon glyphicon-calendar"></span></button>
