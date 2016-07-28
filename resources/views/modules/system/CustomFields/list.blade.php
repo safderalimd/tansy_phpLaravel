@@ -58,40 +58,38 @@
                     $dataTypes = $fields->fieldDataType();
                 ?>
                 @foreach($fields->rows() as $row)
-                    @if ($row['visible_in_grid'] == 1)
-                        <tr>
-                            <td>{{$row['ui_label']}}</td>
-                            <td>
-                                @if ($row['active'] == 1)
-                                    Yes
-                                @else
-                                    No
+                    <tr>
+                        <td>{{$row['ui_label']}}</td>
+                        <td>
+                            @if ($row['active'] == 1)
+                                Yes
+                            @else
+                                No
+                            @endif
+                        </td>
+                        <td>
+                            @foreach ($inputTypes as $type)
+                                @if ($type['input_type_id'] == $row['input_type_id'])
+                                    {{$type['input_type']}}
+                                    <?php break; ?>
                                 @endif
-                            </td>
-                            <td>
-                                @foreach ($inputTypes as $type)
-                                    @if ($type['input_type_id'] == $row['input_type_id'])
-                                        {{$type['input_type']}}
-                                        <?php break; ?>
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>
-                                @foreach ($dataTypes as $type)
-                                    @if ($type['data_type_id'] == $row['data_type_id'])
-                                        {{$type['data_type']}}
-                                        <?php break; ?>
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>{{$row['column_sequence']}}</td>
-                            <td>
-                                <a class="btn btn-default" href="{{url("/cabinet/custom-fields/edit/{$row['custom_field_id']}")}}?gsi={{$fields->gsi}}" title="Edit">
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                </a>
-                            </td>
-                        </tr>
-                    @endif
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach ($dataTypes as $type)
+                                @if ($type['data_type_id'] == $row['data_type_id'])
+                                    {{$type['data_type']}}
+                                    <?php break; ?>
+                                @endif
+                            @endforeach
+                        </td>
+                        <td>{{$row['column_sequence']}}</td>
+                        <td>
+                            <a class="btn btn-default" href="{{url("/cabinet/custom-fields/edit/{$row['custom_field_id']}")}}?gsi={{$fields->gsi}}" title="Edit">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </a>
+                        </td>
+                    </tr>
                 @endforeach
 
 
