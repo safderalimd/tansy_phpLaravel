@@ -75,7 +75,9 @@
                                     @endif
                                     <td>
                                         <button type="button" class="edit-button btn btn-default">Edit</button>
+                                        @if (isset($row['primary_key_id']))
                                         <button data-loading-text="Saving..." data-keyid="{{$row['primary_key_id']}}" type="button" style="display:none;" class="save-button btn btn-default">Save</button>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
