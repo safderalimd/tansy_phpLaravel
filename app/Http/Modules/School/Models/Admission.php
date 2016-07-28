@@ -3,12 +3,15 @@
 namespace App\Http\Modules\School\Models;
 
 use App\Http\Models\Model;
+use Session;
 
 class Admission extends Model
 {
     protected $screenId = '/cabinet/admission';
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\AdmissionRepository';
+
+    protected $customFields;
 
     protected $selects = [
         'facility_entity_id',
@@ -52,8 +55,38 @@ class Admission extends Model
         return strtoupper($value);
     }
 
-    public function detail()
+    public function loadDetail()
     {
-        return $this->repository->detail($this);
+        $data = $this->repository->detail($this);
+
+        // load the edit form details
+        $attributes = first_resultset($data);
+        if (isset($attributes[0])) {
+            $attributes = $attributes[0];
+        }
+
+        foreach ((array) $attributes as $key => $value) {
+            if (!is_numeric($key)) {
+                $this->setAttribute($key, $value);
+            }
+        }
+
+        // flash data to the session to populate edit forms
+        Session::flashInput($attributes);
+
+        // mark this model as not a new record
+        $this->isNewRecord = false;
+
+        $this->customFields = second_resultset($data);
+    }
+
+    public function customFields()
+    {
+        return $this->customFields;
+    }
+
+    public function getDropdownValues($sql)
+    {
+        return $this->repository->getDropdownValues($sql);
     }
 }

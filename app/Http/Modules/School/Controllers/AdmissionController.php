@@ -79,10 +79,9 @@ class AdmissionController extends Controller
      */
     public function edit($id)
     {
-        $admission = Admission::findOrFail($id);
-        // $admission->setAttribute('addmision_id', $id);
-        // d($admission->detail());
-        // dd($admission);
+        $admission = new Admission;
+        $admission->setAttribute('admission_id', $id);
+        $admission->loadDetail();
         return view('modules.school.Admission.form', compact('admission'));
     }
 
@@ -99,8 +98,9 @@ class AdmissionController extends Controller
         $cityAreaNew = $request->input('city_area_new');
         $input['city_area'] = $cityAreaNew;
 
-        $admission = Admission::findOrFail($id);
-        $admission->fill($input);
+        $admission = new Admission;
+        $admission->setAttribute('admission_id', $id);
+        $admission->loadDetail();
         $admission->update($input);
         flash('Admission Updated!');
         return redirect('/cabinet/admission');
@@ -114,7 +114,8 @@ class AdmissionController extends Controller
      */
     public function destroy($id)
     {
-        $admission = Admission::findOrFail($id);
+        $admission = new Admission;
+        $admission->setAttribute('admission_id', $id);
         $admission->delete();
         flash('Admission Deleted!');
         return redirect('/cabinet/admission');
