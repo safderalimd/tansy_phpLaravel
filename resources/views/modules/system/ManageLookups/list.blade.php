@@ -230,7 +230,7 @@
 
     $('#add-new-row').on('click', function() {
         var description = '<td class="td-description"><input class="form-control" type="text" value=""></td>';
-        var active = '<td class="td-active"><input class="checkbox" type="checkbox"></td>';
+        var active = '<td class="td-active"><input class="checkbox" checked="checked" type="checkbox"></td>';
         var reportingOrder = '<td class="td-reporting_order"><input class="form-control" type="text" value=""></td>';
 
         if ($('.td-description').length == 0) {
