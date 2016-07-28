@@ -83,13 +83,19 @@ class AccountStudent extends Model
             }
         }
 
+        $this->customFields = second_resultset($data);
+
+        foreach ((array) $this->customFields as $field) {
+            if (isset($field['column_value']) && isset($field['db_column_name'])) {
+                $this->setAttribute($field['db_column_name'], $field['column_value']);
+            }
+        }
+
         // flash data to the session to populate edit forms
         Session::flashInput($atr);
 
         // mark this model as not a new record
         $this->isNewRecord = false;
-
-        $this->customFields = second_resultset($data);
     }
 
     public function customFields()
