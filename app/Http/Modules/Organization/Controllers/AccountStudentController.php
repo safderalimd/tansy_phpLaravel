@@ -28,7 +28,9 @@ class AccountStudentController extends Controller
      */
     public function edit($id)
     {
-        $account = AccountStudent::findOrFail($id);
+        $account = new AccountStudent;
+        $account->setAttribute('student_entity_id', $id);
+        $account->loadDetail();
         return view('modules.organization.AccountStudent.form', compact('account'));
     }
 
@@ -103,7 +105,8 @@ class AccountStudentController extends Controller
      */
     public function destroy($id)
     {
-        $account = AccountStudent::findOrFail($id);
+        $account = new AccountStudent;
+        $account->setAttribute('student_entity_id', $id);
         $account->delete();
         flash('Student Deleted!');
         return redirect('/cabinet/student-account');

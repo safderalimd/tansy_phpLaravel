@@ -402,6 +402,12 @@
 
                         <hr/>
 
+                        @include('modules.custom-fields.fields', [
+                            'fields' => $account->customFields(),
+                            'model'  => $account,
+                        ])
+                        @yield('custom-fields')
+
                         <div class="row_footer">
                            <div class="col-md-12 text-center grid_footer">
                                 <button class="btn btn-primary grid_btn" type="submit">Save</button>
@@ -420,6 +426,9 @@
 
 
 @section('scripts')
+
+@yield('custom-fields-scripts')
+
 <script type="text/javascript">
 
     $(document).on('change', '.btn-file :file', function() {
@@ -444,6 +453,16 @@
         });
     });
 
+    // When submitting the form, prepend all selected checkboxes
+    $('#account-student-form').submit(function() {
+        if (! $('#account-student-form').valid()) {
+            return false;
+        }
+
+        append_custom_fields();
+
+        return true;
+    });
 
     $('#account-student-form').validate({
         rules: {
@@ -542,6 +561,7 @@
             password: {
                 minlength:8
             }
+            @yield('validation-rules')
         }
     });
 
