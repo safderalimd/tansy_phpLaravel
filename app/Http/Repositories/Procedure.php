@@ -41,7 +41,7 @@ class Procedure
         $this->rawIparams = $iparams;
 
         $this->pdo = $this->repository->db()->getPdo();
-        // $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, 0);
+        $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, 0);
     }
 
     public function run()
