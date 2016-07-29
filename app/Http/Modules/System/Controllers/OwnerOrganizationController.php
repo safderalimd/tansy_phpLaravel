@@ -45,35 +45,23 @@ class OwnerOrganizationController extends Controller
 
             // clear cache for older images
             $server = ServerFactory::create([
-                'source'   => storage_path('uploads/'.domain().'/student-images'),
-                'cache'    => storage_path('uploads/'.domain().'/student-images-cache'),
+                'source'   => storage_path('uploads/'.domain().'/school-logo'),
+                'cache'    => storage_path('uploads/'.domain().'/school-logo-cache'),
                 'response' => new LaravelResponseFactory()
             ]);
 
-            // get old image extension
-            $extensionPath = storage_path('uploads/'.domain()."/student-images/{$id}");
-
-            if (file_exists($extensionPath)) {
-                $extension = file_get_contents($extensionPath);
-                $extension = trim($extension);
-
-                // clear previous image cache
-                $server->deleteCache(domain().'/'.$id.'.'.$extension);
-
-                // clear previous image extension info
-                unlink($extensionPath);
-            }
+            $server->deleteCache('logo.png');
 
             // store the uploaded file
             $file = $request->file('attachment');
-            $newName = $id.'.'.$file->clientExtension();
-            $savedFile = $file->move(storage_path('uploads/'.domain().'/student-images'), $newName);
 
-            // save the file extension info
-            file_put_contents($extensionPath, $file->clientExtension());
-
+            if ($file->clientExtension() != 'png') {
+                $path = storage_path('uploads/'.domain().'/school-logo/logo.png');
+                imagepng(imagecreatefromstring(file_get_contents($file->getRealPath())), $path);
+            } else {
+                $file->move(storage_path('uploads/'.domain().'/school-logo'), 'logo.png');
+            }
         }
-
 
         $input = $request->input();
         $input['city_area'] = $request->input('city_area_new');
