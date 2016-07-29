@@ -155,6 +155,15 @@ class Repository
         );
     }
 
+    public function getQualifications()
+    {
+        return $this->select(
+            'SELECT qualification_id, qualification_name
+             FROM view_org_lkp_qualification
+             ORDER BY qualification_name ASC;'
+        );
+    }
+
     public function getProducts()
     {
         return $this->select(

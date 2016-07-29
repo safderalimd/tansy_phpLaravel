@@ -263,59 +263,97 @@
 <hr/>
 <div class="row"><div class="col-md-3 pull-left"><h3>Parent</h3></div></div>
 
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="father_name">Father Name</label>
+                            <div class="col-md-8">
+                                <input id="father_name" class="form-control" type="text" name="father_name" value="{{ v('father_name') }}" placeholder="Father Name">
+                            </div>
+                        </div>
+
                         @include('commons.select', [
-                            'label'    => 'Relationship',
-                            'name'     => 'parent_relationship_type',
-                            'options'  => $admission->relationships(),
-                            'keyId'    => 'relationship_name',
-                            'keyName'  => 'relationship_name',
-                            'none'     => 'Select a relationship type..',
-                            'required' => true,
+                            'label'    => 'Father Qualification',
+                            'name'     => 'father_qualification',
+                            'options'  => $admission->qualifications(),
+                            'keyId'    => 'qualification_name',
+                            'keyName'  => 'qualification_name',
+                            'none'     => 'Select a qualification..',
                         ])
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label required" for="parent_gender">Gender</label>
-                            <div class="col-md-8">
-                                <label class="radio-inline">
-                                    <input type="radio" name="parent_gender" {{ r('parent_gender', 'M') }} id="parent_gender1" value="M">
-                                    Male
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="parent_gender" {{ r('parent_gender', 'F') }} id="parent_gender2" value="F">
-                                    Female
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label required" for="parent_first_name">First Name</label>
-                            <div class="col-md-8">
-                                <input id="parent_first_name" class="form-control" type="text" name="parent_first_name" value="{{ v('parent_first_name') }}" placeholder="First Name">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="parent_middle_name">Middle Name</label>
-                            <div class="col-md-8">
-                                <input id="parent_middle_name" class="form-control" type="text" name="parent_middle_name" value="{{ v('parent_middle_name') }}" placeholder="Middle Name">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="parent_last_name">Last Name</label>
-                            <div class="col-md-8">
-                                <input id="parent_last_name" class="form-control" type="text" name="parent_last_name" value="{{ v('parent_last_name') }}" placeholder="Last Name">
-                            </div>
-                        </div>
-
                         @include('commons.select', [
-                            'label'    => 'Designation',
-                            'name'     => 'parent_designation_name',
+                            'label'    => 'Father Designation',
+                            'name'     => 'father_designation',
                             'options'  => $admission->designations(),
                             'keyId'    => 'designation_name',
                             'keyName'  => 'designation_name',
                             'none'     => 'Select a designation..',
                         ])
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="mother_name">Mother Name</label>
+                            <div class="col-md-8">
+                                <input id="mother_name" class="form-control" type="text" name="mother_name" value="{{ v('mother_name') }}" placeholder="Mother Name">
+                            </div>
+                        </div>
+
+                        @include('commons.select', [
+                            'label'    => 'Mother Qualification',
+                            'name'     => 'mother_qualification',
+                            'options'  => $admission->qualifications(),
+                            'keyId'    => 'qualification_name',
+                            'keyName'  => 'qualification_name',
+                            'none'     => 'Select a qualification..',
+                        ])
+
+                        @include('commons.select', [
+                            'label'    => 'Mother Designation',
+                            'name'     => 'mother_designation',
+                            'options'  => $admission->designations(),
+                            'keyId'    => 'designation_name',
+                            'keyName'  => 'designation_name',
+                            'none'     => 'Select a designation..',
+                        ])
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="guardian_name">Gaurdian Name</label>
+                            <div class="col-md-8">
+                                <input id="guardian_name" class="form-control" type="text" name="guardian_name" value="{{ v('guardian_name') }}" placeholder="Gaurdian Name">
+                            </div>
+                        </div>
+
+                        @include('commons.select', [
+                            'label'    => 'Gaurdian Qualification',
+                            'name'     => 'guardian_qualification',
+                            'options'  => $admission->qualifications(),
+                            'keyId'    => 'qualification_name',
+                            'keyName'  => 'qualification_name',
+                            'none'     => 'Select a qualification..',
+                        ])
+
+                        @include('commons.select', [
+                            'label'    => 'Gaurdian Designation',
+                            'name'     => 'guardian_designation',
+                            'options'  => $admission->designations(),
+                            'keyId'    => 'designation_name',
+                            'keyName'  => 'designation_name',
+                            'none'     => 'Select a designation..',
+                        ])
+
+<hr/>
+<div class="row"><div class="col-md-3 pull-left"><h3>ID Card</h3></div></div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="aadhar_card_number">Aadhar Card</label>
+                            <div class="col-md-8">
+                                <input id="aadhar_card_number" class="form-control" type="text" name="aadhar_card_number" value="{{ v('aadhar_card_number') }}" placeholder="Aadhar Card">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="pan_card_number">Pan Card</label>
+                            <div class="col-md-8">
+                                <input id="pan_card_number" class="form-control" type="text" name="pan_card_number" value="{{ v('pan_card_number') }}" placeholder="Pan Card">
+                            </div>
+                        </div>
 
                         <hr/>
 
@@ -436,25 +474,6 @@
             },
             mother_language_name: {
 
-            },
-            parent_relationship_type: {
-                requiredSelect: true
-            },
-            parent_gender: {
-                required: true
-            },
-            parent_first_name: {
-                required: true,
-                maxlength: 100
-            },
-            parent_middle_name: {
-                maxlength: 100
-            },
-            parent_last_name: {
-                maxlength: 100
-            },
-            parent_designation_name: {
-                maxlength: 100
             }
             @yield('validation-rules')
         }

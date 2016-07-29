@@ -20,11 +20,16 @@ class Admission extends Model
         'caste_name',
         'religion_name',
         'mother_language_name',
-        'parent_relationship_type',
-        'parent_designation_name',
 
         'move_to_fiscal_year_entity_id',
         'move_to_class_entity_id',
+
+        'father_qualification',
+        'father_designation',
+        'mother_qualification',
+        'mother_designation',
+        'guardian_qualification',
+        'guardian_designation',
     ];
 
     public function moveStudents()
