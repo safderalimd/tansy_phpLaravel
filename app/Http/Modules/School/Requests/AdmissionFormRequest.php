@@ -59,14 +59,6 @@ class AdmissionFormRequest extends Request
             'religion_name' => 'string|max:100',
             'mother_language_name' => 'string|max:100',
 
-            // parent'
-            'parent_relationship_type' => 'required|string',
-            'parent_gender' => 'required|string|in:M,F',
-            'parent_first_name' => 'required|string|max:100',
-            'parent_middle_name' => 'string|max:100',
-            'parent_last_name' => 'string|max:100',
-            'parent_designation_name' => 'string|max:100',
-            'designation_name' => 'string|max:100',
         ];
     }
 
