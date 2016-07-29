@@ -60,7 +60,7 @@ class AccountStudentController extends Controller
                 $extension = trim($extension);
 
                 // clear previous image cache
-                $server->deleteCache(domain().'/'.$id.'.'.$extension);
+                $server->deleteCache($id.'.'.$extension);
 
                 // clear previous image extension info
                 unlink($extensionPath);
