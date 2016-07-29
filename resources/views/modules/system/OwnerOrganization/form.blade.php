@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Logo</label>
                                 <div class="col-md-8">
-                                    <img src="/cabinet/img/school-logo/logo.png" alt="Logo" class="img-thumbnail">
+                                    <img src="/cabinet/img/school-logo/logo.png?ri=<?php echo time().uniqid(); ?>" alt="Logo" class="img-thumbnail">
                                 </div>
                             </div>
                         @endif
