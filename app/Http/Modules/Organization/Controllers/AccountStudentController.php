@@ -91,7 +91,6 @@ class AccountStudentController extends Controller
         if (isset($group[0]['security_group_entity_id'])) {
             $account->setAttribute('security_group_entity_id', $group[0]['security_group_entity_id']);
         }
-
         $account->update();
         flash('Student Updated!');
         return redirect('/cabinet/student-account');

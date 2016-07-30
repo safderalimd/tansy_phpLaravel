@@ -292,6 +292,20 @@ function third_resultset($data)
     return [];
 }
 
+/**
+ * Get the fourth resultset from the stored procedure results.
+ * @param  array $data Stored procedure return.
+ * @return array
+ */
+function fourth_resultset($data)
+{
+    if (isset($data[3])) {
+        return $data[3];
+    }
+
+    return [];
+}
+
 function domain()
 {
     return session()->get('user.domain_name');

@@ -279,79 +279,126 @@
 <hr/>
 <div class="row"><div class="col-md-3 pull-left"><h3>Parent</h3></div></div>
 
-                        @include('commons.select', [
-                            'label'    => 'Relationship',
-                            'name'     => 'parent_relationship_type_id',
-                            'options'  => $account->relationships(),
-                            'keyId'    => 'relationship_type_id',
-                            'keyName'  => 'relationship_name',
-                            'none'     => 'Select a relationship type..',
-                            'required' => true,
-                        ])
+                    <?php
+                        $parentCount = count($account->relationshipRows());
+                    ?>
+                    @for ($i=1; $i<=3; $i++)
+                        <div class="parent-set" @if($i!=1 && $i>$parentCount) style="display:none;" @endif>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="parent_gender">Gender</label>
-                            <div class="col-md-8">
-                                <label class="radio-inline">
-                                    <input type="radio" name="parent_gender" {{ r('parent_gender', 'M') }} id="parent_gender1" value="M">
-                                    Male
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="parent_gender" {{ r('parent_gender', 'F') }} id="parent_gender2" value="F">
-                                    Female
-                                </label>
+                            <?php
+                                $relationshipLabel = 'Relationship Type ' . $i;
+                                $relationshipName = 'relationship_type_id_' . $i;
+
+                                $parentLabel = 'Name ' . $i;
+                                $parentName = 'parent_name_' . $i;
+
+                                $designationLabel = 'Designation ' . $i;
+                                $designationName = 'designation_id_' . $i;
+
+                                $qualificationLabel = 'Qualification ' . $i;
+                                $qualificationName = 'qualification_id_' . $i;
+                            ?>
+
+                            @include('commons.select', [
+                                'label'    => $relationshipLabel,
+                                'name'     => $relationshipName,
+                                'options'  => $account->relationships(),
+                                'keyId'    => 'relationship_type_id',
+                                'keyName'  => 'relationship_name',
+                                'none'     => 'Select a relationship type..',
+                            ])
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="{{$parentName}}">{{$parentLabel}}</label>
+                                <div class="col-md-8">
+                                    <input id="{{$parentName}}" class="form-control" type="text" name="{{$parentName}}" value="{{ v($parentName) }}" placeholder="{{$parentLabel}}">
+                                </div>
                             </div>
+
+                            @include('commons.select', [
+                                'label'    => $designationLabel,
+                                'name'     => $designationName,
+                                'options'  => $account->designations(),
+                                'keyId'    => 'designation_id',
+                                'keyName'  => 'designation_name',
+                                'none'     => 'Select a designation..',
+                            ])
+
+                            @include('commons.select', [
+                                'label'    => $qualificationLabel,
+                                'name'     => $qualificationName,
+                                'options'  => $account->qualifications(),
+                                'keyId'    => 'qualification_id',
+                                'keyName'  => 'qualification_name',
+                                'none'     => 'Select a qualification..',
+                            ])
+
+                            @if($i!=3) <hr/> @endif
+
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label required" for="parent_first_name">First Name</label>
-                            <div class="col-md-8">
-                                <input id="parent_first_name" class="form-control" type="text" name="parent_first_name" value="{{ v('parent_first_name') }}" placeholder="First Name">
+
+                    @endfor
+
+                    @if ($parentCount < 3)
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-4">
+                                <button class="add-parent-btn btn btn-default" type="button">Add Parent</button>
                             </div>
                         </div>
+                    @endif
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="parent_middle_name">Middle Name</label>
-                            <div class="col-md-8">
-                                <input id="parent_middle_name" class="form-control" type="text" name="parent_middle_name" value="{{ v('parent_middle_name') }}" placeholder="Middle Name">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="parent_last_name">Last Name</label>
-                            <div class="col-md-8">
-                                <input id="parent_last_name" class="form-control" type="text" name="parent_last_name" value="{{ v('parent_last_name') }}" placeholder="Last Name">
-                            </div>
-                        </div>
-
-                        @include('commons.select', [
-                            'label'    => 'Designation',
-                            'name'     => 'parent_designation_id',
-                            'options'  => $account->designations(),
-                            'keyId'    => 'designation_id',
-                            'keyName'  => 'designation_name',
-                            'none'     => 'Select a designation..',
-                            'required' => true,
-                        ])
+                    <input type="hidden" id="parent_info_list" name="parent_info_list" value="">
 
 <hr/>
-<div class="row"><div class="col-md-3 pull-left"><h3>Identification</h3></div></div>
+<div class="row"><div class="col-md-3 pull-left"><h3>ID Card</h3></div></div>
 
-                        @include('commons.select', [
-                            'label'    => 'Document Type',
-                            'name'     => 'document_type_id',
-                            'options'  => $account->documentType(),
-                            'keyId'    => 'document_type_id',
-                            'keyName'  => 'document_type',
-                            'none'     => 'Select a document type..',
-                        ])
+                    <?php
+                        $documentCount = count($account->documentRows());
+                    ?>
+                    @for ($i=1; $i<=5; $i++)
+                        <div class="document-set" @if($i!=1 && $i>$documentCount) style="display:none;" @endif>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="document_number">Document Number</label>
-                            <div class="col-md-8">
-                                <input id="document_number" class="form-control" type="text" name="document_number" value="{{ v('document_number') }}" placeholder="Document Number">
+                            <?php
+                                $documentTypeLabel = 'Document Type ' . $i;
+                                $documentTypeName = 'document_type_id_' . $i;
+
+                                $documentLabel = 'Document Number ' . $i;
+                                $documentNumber = 'document_number_' . $i;
+                            ?>
+
+                            @include('commons.select', [
+                                'label'    => $documentTypeLabel,
+                                'name'     => $documentTypeName,
+                                'options'  => $account->documentType(),
+                                'keyId'    => 'document_type_id',
+                                'keyName'  => 'document_type',
+                                'none'     => 'Select a document type..',
+                            ])
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="{{$documentNumber}}">{{$documentLabel}}</label>
+                                <div class="col-md-8">
+                                    <input id="{{$documentNumber}}" class="form-control" type="text" name="{{$documentNumber}}" value="{{ v($documentNumber) }}" placeholder="{{$documentLabel}}">
+                                </div>
+                            </div>
+
+                            @if($i!=5) <hr/> @endif
+
+                        </div>
+
+                    @endfor
+
+                    @if ($documentCount < 5)
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-4">
+                                <button class="add-document-btn btn btn-default" type="button">Add Document</button>
                             </div>
                         </div>
+                    @endif
+
+                    <input type="hidden" id="document_info_list" name="document_info_list" value="">
+
 
 <hr/>
 <div class="row"><div class="col-md-3 pull-left"><h3>Login</h3></div></div>
@@ -451,6 +498,36 @@
         $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
             $('.file-name').text(label);
         });
+
+        $('.add-parent-btn').on('click', function() {
+            var count = 0;
+            $('.parent-set').each(function() {
+                count++;
+                if ($(this).is(':hidden')) {
+
+                    $(this).show();
+                    return false;
+                };
+            });
+            if (count == 3) {
+                $(this).prop('disabled', true);
+            }
+        });
+
+        $('.add-document-btn').on('click', function() {
+            var count = 0;
+            $('.document-set').each(function() {
+                count++;
+                if ($(this).is(':hidden')) {
+
+                    $(this).show();
+                    return false;
+                };
+            });
+            if (count == 5) {
+                $(this).prop('disabled', true);
+            }
+        });
     });
 
     // When submitting the form, prepend all selected checkboxes
@@ -460,6 +537,54 @@
         }
 
         append_custom_fields();
+
+        var parent_info_list = [];
+        for (var i = 1; i<=3; i++) {
+            var relationshipName = '#relationship_type_id_' + i;
+            var parentName = '#parent_name_' + i;
+            var designationName = '#designation_id_' + i;
+            var qualificationName = '#qualification_id_' + i;
+            if (! $(relationshipName).closest('.parent-set').is(':hidden')) {
+
+                var relationship = $(relationshipName + ' option:selected').val();
+                var parent = $(parentName).val();
+                if (typeof parent == 'string') {
+                    parent = parent.trim();
+                    parent = parent.replace(/\|/g, '');
+                    parent = parent.replace(/\$<>\$/g, '');
+                }
+
+                var designation = $(designationName + ' option:selected').val();
+                var qualification = $(qualificationName + ' option:selected').val();
+                var row = relationship + '$<>$' + parent + '$<>$' + designation + '$<>$' + qualification;
+                parent_info_list.push(row);
+            }
+        };
+
+        $('#parent_info_list').val(parent_info_list.join('|'));
+
+
+        var document_info_list = [];
+        for (var i = 1; i<=3; i++) {
+            var documentTypeName = '#document_type_id_' + i;
+            var documentNumber = '#document_number_' + i;
+
+            if (! $(documentTypeName).closest('.document-set').is(':hidden')) {
+
+                var documentType = $(documentTypeName + ' option:selected').val();
+                var documentNr = $(documentNumber).val();
+                if (typeof documentNr == 'string') {
+                    documentNr = documentNr.trim();
+                    documentNr = documentNr.replace(/\|/g, '');
+                    documentNr = documentNr.replace(/\$<>\$/g, '');
+                }
+
+                var row = documentType + '$<>$' + documentNr;
+                document_info_list.push(row);
+            }
+        };
+
+        $('#document_info_list').val(document_info_list.join('|'));
 
         return true;
     });
@@ -540,22 +665,6 @@
                 requiredSelect: true
             },
             mother_language_id: {
-                requiredSelect: true
-            },
-            parent_relationship_type_id: {
-                requiredSelect: true
-            },
-            parent_first_name: {
-                required: true,
-                maxlength: 100
-            },
-            parent_middle_name: {
-                maxlength: 100
-            },
-            parent_last_name: {
-                maxlength: 100
-            },
-            parent_designation_id: {
                 requiredSelect: true
             },
             password: {

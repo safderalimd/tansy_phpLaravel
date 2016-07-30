@@ -13,6 +13,10 @@ class AccountStudent extends Model
 
     protected $customFields;
 
+    protected $relationshipRows;
+
+    protected $documentRows;
+
     protected $selects = [
         'facility_entity_id',
         'city_id',
@@ -62,6 +66,8 @@ class AccountStudent extends Model
     {
         $data = $this->repository->detail($this);
 
+        $flash = [];
+
         // load the edit form details
         $atr = first_resultset($data);
         if (isset($atr[0])) {
@@ -72,6 +78,7 @@ class AccountStudent extends Model
             if (!is_numeric($key)) {
                 $this->setAttribute($key, $value);
             }
+            $flash[$key] = $value;
         }
 
         $this->customFields = second_resultset($data);
@@ -82,16 +89,64 @@ class AccountStudent extends Model
             }
         }
 
-        // flash data to the session to populate edit forms
-        Session::flashInput($atr);
-
         // mark this model as not a new record
         $this->isNewRecord = false;
+
+        $this->relationshipRows = third_resultset($data);
+        $relationshipRows = [];
+        $i = 1;
+        foreach ((array) $this->relationshipRows as $field) {
+
+            if (isset($field['relationship_type_id'])) {
+                $relationshipRows['relationship_type_id_' . $i] = $field['relationship_type_id'];
+            }
+            if (isset($field['parent_name'])) {
+                $relationshipRows['parent_name_' . $i] = $field['parent_name'];
+            }
+            if (isset($field['designation_id'])) {
+                $relationshipRows['designation_id_' . $i] = $field['designation_id'];
+            }
+            if (isset($field['qualification_id'])) {
+                $relationshipRows['qualification_id_' . $i] = $field['qualification_id'];
+            }
+
+            $i++;
+        }
+
+        $this->documentRows = fourth_resultset($data);
+        $documentRows = [];
+        $i = 1;
+        foreach ((array) $this->documentRows as $field) {
+
+            if (isset($field['document_type_id'])) {
+                $documentRows['document_type_id_' . $i] = $field['document_type_id'];
+            }
+            if (isset($field['document_number'])) {
+                $documentRows['document_number_' . $i] = $field['document_number'];
+            }
+
+            $i++;
+        }
+
+        // flash data to session to populate field
+        $flash = array_merge($flash, $relationshipRows);
+        $flash = array_merge($flash, $documentRows);
+        Session::flashInput($flash);
     }
 
     public function customFields()
     {
         return $this->customFields;
+    }
+
+    public function relationshipRows()
+    {
+        return $this->relationshipRows;
+    }
+
+    public function documentRows()
+    {
+        return $this->documentRows;
     }
 
     public function getDropdownValues($sql)
