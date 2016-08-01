@@ -268,6 +268,9 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('custom-fields/edit/{id}', 'System\Controllers\CustomFieldsController@edit');
     Route::post('custom-fields/edit/{id}', 'System\Controllers\CustomFieldsController@update');
 
+    Route::get('inbox', 'Communication\Controllers\InboxController@index');
+
+
     Route::get('/logout', '\App\Http\Controllers\UserController@logout');
 
     Route::get('/img/student/{id}', '\App\Http\Controllers\ImageController@studentImage');
