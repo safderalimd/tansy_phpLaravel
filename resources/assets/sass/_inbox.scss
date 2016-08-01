@@ -1,0 +1,50 @@
+.table-inbox {
+    tr {
+        td.select-circle {
+            cursor: default;
+        }
+        &:hover {
+            cursor: pointer;
+        }
+        &.unread {
+            font-weight: bold;
+        }
+        &.selected {
+            background-color: #f5f5f5;
+        }
+    }
+}
+
+.select-circle {
+    span {
+        cursor: pointer;
+    }
+    .fa {
+        color: #089de3;
+    }
+}
+
+.search-box {
+    width: 265px;
+    .search-submit {
+        font-size: 16px;
+        width: 34px;
+        height: 34px;
+        margin: 0px;
+        border: 0px;
+        background-color: #fff;
+        display: inline-block;
+        float: left;
+    }
+    .search-input {
+        display: inline-block;
+        width: 225px;
+        float: right;
+    }
+}
+
+.panel-header-text {
+    display: inline-block;
+    float: left;
+    margin-top: 10px;
+}

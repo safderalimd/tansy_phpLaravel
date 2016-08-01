@@ -12,11 +12,16 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    var bootstrapPath = 'node_modules/bootstrap-sass/assets';
-    mix.sass('app.scss')
-        .browserify('app.js')
-        .copy(bootstrapPath + '/fonts', 'public/fonts')
-        .copy('node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.css', 'public/css/datapicker.css')
-        .copy('node_modules/datatables-bootstrap3-plugin/example/css/datatables-bootstrap3.css', 'public/css/datatables-bootstrap3.css')
-        .styles('layout.css');
+    mix.sass('elixir.scss')
+       .version('css/elixir.css');
 });
+
+// elixir(function(mix) {
+//     var bootstrapPath = 'node_modules/bootstrap-sass/assets';
+//     mix.sass('app.scss')
+//         .browserify('app.js')
+//         .copy(bootstrapPath + '/fonts', 'public/fonts')
+//         .copy('node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.css', 'public/css/datapicker.css')
+//         .copy('node_modules/datatables-bootstrap3-plugin/example/css/datatables-bootstrap3.css', 'public/css/datatables-bootstrap3.css')
+//         .styles('layout.css');
+// });

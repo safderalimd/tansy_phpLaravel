@@ -5,6 +5,8 @@
     @yield('styles')
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/bower_components/magnific-popup/dist/magnific-popup.css">
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ elixir('css/elixir.css') }}">
     <style type="text/css">
         .flash-message {
             background-color: #99c93d;
