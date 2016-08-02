@@ -12,7 +12,7 @@ class CashCounter extends Model
 
     public function closeCounter()
     {
-        $this->setAttribute('dateIDs_collections', $this->collection_ids);
+        $this->setAttribute('dateID_paymentTypeID_balanceAmount_list', $this->collection_ids);
         return $this->repository->closeCounter($this);
     }
 }

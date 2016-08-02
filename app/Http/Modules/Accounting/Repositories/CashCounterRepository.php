@@ -22,7 +22,7 @@ class CashCounterRepository extends Repository
         $procedure = 'sproc_act_rcv_close_cash_counter_dml';
 
         $iparams = [
-            '-iparam_dateIDs_collections',
+            '-iparam_dateID_paymentTypeID_balanceAmount_list',
             ':iparam_default_facility_id',
             ':iparam_session_id',
             ':iparam_user_id',
