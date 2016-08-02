@@ -15,14 +15,21 @@
         updateTotalAmount();
     });
 
+    // calculate total amounts based on payment types
     function updateTotalAmount() {
-        var totalAmount = 0;
 
-        $('.cache-row-id:checked').each(function () {
-            totalAmount += parseFloat($(this).attr('data-balanceAmount'));
+        $('.payment-type').each(function() {
+            var paymentType = $(this).attr('data-paymentType');
+
+            var totalAmount = 0;
+            $('.cache-row-id:checked').each(function () {
+                if ($(this).attr('data-paymentType') == paymentType) {
+                    totalAmount += parseFloat($(this).attr('data-balanceAmount'));
+                }
+            });
+
+            $(this).html("&#x20b9; " + addCommas(totalAmount));
         });
-
-        $('#selected-total-amount').text(addCommas(totalAmount));
     }
 
     // format numbers
@@ -41,7 +48,7 @@
     $('#close-cash-counter-form').submit(function() {
 
         var collectionIds = $('.cache-row-id:checked').map(function() {
-            return $(this).attr('data-dateid') + '-' + this.value;
+            return $(this).attr('data-dateid') + '$<>$' + $(this).attr('data-paymentTypeId') + '$<>$' + this.value;
         }).get();
 
         if (collectionIds.length == 0) {
@@ -49,7 +56,7 @@
             return false;
         }
 
-        $('#collection_ids').val(collectionIds.join(','));
+        $('#collection_ids').val(collectionIds.join('|'));
 
         return true;
     });

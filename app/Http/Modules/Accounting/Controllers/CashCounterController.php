@@ -34,7 +34,6 @@ class CashCounterController extends Controller
         $options = [
             'headerLastInclude' => 'modules.accounting.CashCounter.header-last-include',
             'rowLastInclude'    => 'modules.accounting.CashCounter.row-last-include',
-            'beforeGridInclude'   => 'modules.accounting.CashCounter.before-grid-include',
             'afterGridInclude'   => 'modules.accounting.CashCounter.after-grid-include',
             'scriptsInclude'     => 'modules.accounting.CashCounter.scripts-include',
         ];
