@@ -56,7 +56,7 @@
             return false;
         }
 
-        $('#collection_ids').val(collectionIds.join(','));
+        $('#collection_ids').val(collectionIds.join('|'));
 
         return true;
     });
