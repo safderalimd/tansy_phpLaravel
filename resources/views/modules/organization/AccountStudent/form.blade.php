@@ -213,7 +213,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label"">Current Class</label>
                             <div class="col-md-8">
-                                <label class="col-md-4 control-label">
+                                <label style="padding-left:3px;" class="col-md-4 control-label">
                                 <?php $currentClass = '-'; ?>
                                 @foreach($account->classGroups() as $option)
                                     @if ($option['class_group_entity_id'] == $account->class_student_id)
