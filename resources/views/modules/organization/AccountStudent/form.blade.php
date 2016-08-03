@@ -556,6 +556,17 @@
 
                 var designation = $(designationName + ' option:selected').val();
                 var qualification = $(qualificationName + ' option:selected').val();
+
+                if (relationship == 'none') {
+                    relationship = 'null';
+                }
+                if (designation == 'none') {
+                    designation = 'null';
+                }
+                if (qualification == 'none') {
+                    qualification = 'null';
+                }
+
                 var row = relationship + '$<>$' + parent + '$<>$' + designation + '$<>$' + qualification;
                 parent_info_list.push(row);
             }
@@ -572,6 +583,9 @@
             if (! $(documentTypeName).closest('.document-set').is(':hidden')) {
 
                 var documentType = $(documentTypeName + ' option:selected').val();
+                if (documentType == 'none') {
+                    documentType = 'null';
+                }
                 var documentNr = $(documentNumber).val();
                 if (typeof documentNr == 'string') {
                     documentNr = documentNr.trim();
