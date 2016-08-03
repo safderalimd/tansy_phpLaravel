@@ -135,8 +135,8 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('generate-progress/generate', 'School\Controllers\GenerateProgressController@generate');
     Route::get('generate-progress/re-generate', 'School\Controllers\GenerateProgressController@regenerate');
 
-    Route::get('pdf---student-export', 'reports\School\Controllers\StudentExportController@index');
-    Route::get('pdf---student-export/pdf', 'reports\School\Controllers\StudentExportController@report');
+    // Route::get('pdf---student-export', 'reports\School\Controllers\StudentExportController@index');
+    // Route::get('pdf---student-export/pdf', 'reports\School\Controllers\StudentExportController@report');
 
     Route::get('pdf---student-detail', 'reports\School\Controllers\StudentDetailController@index');
     Route::get('pdf---student-detail/pdf', 'reports\School\Controllers\StudentDetailController@report');

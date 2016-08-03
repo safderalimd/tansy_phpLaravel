@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\School\Models\StudentDetail;
 use App\Http\PdfGenerator\Pdf;
+use App\Http\Models\Grid;
 
 class StudentDetailController extends Controller
 {
@@ -24,10 +25,12 @@ class StudentDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $export = new StudentDetail;
-        return view('reports.school.StudentDetail.list', compact('export'));
+        $grid = new Grid('/' . $request->path());
+        $grid->fill($request->input());
+        $grid->loadData();
+        return view('reports.school.StudentDetail.list', compact('grid'));
     }
 
     /**
@@ -39,8 +42,49 @@ class StudentDetailController extends Controller
     public function report(Request $request)
     {
         $export = new StudentDetail($request->input());
-        $export->loadPdfData();
-        $view = view('reports.school.StudentDetail.pdf', compact('export'));
-        return Pdf::render($view);
+        if ($export->rt == 'pdf') {
+
+            $grid = new Grid($export->getScreenIdProperty());
+            $grid->fill($request->input());
+            $grid->loadData();
+            $grid->setSchoolNameAndPhone();
+            $grid->removeUnsetColumns($export);
+
+            $options = ['isPdf' => true];
+            $view = view('grid.PDF.pdf', compact('grid', 'options'));
+            return Pdf::render($view);
+
+        } else {
+
+            $grid = new Grid($export->getScreenIdProperty());
+            $grid->fill($request->input());
+            $grid->loadData();
+            $grid->removeUnsetColumns($export);
+
+            $columnRow = [];
+            $columns = $grid->columns();
+            foreach ($columns as $column) {
+                $columnRow[] = $column->label();
+            }
+
+            $csv = \League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
+            $csv->insertOne($columnRow);
+
+            foreach ($grid->rows() as $row) {
+                $rowData = [];
+                foreach($columns as $column) {
+                    if (isset($row[$column->name()])) {
+                        $rowData[] = $row[$column->name()];
+                    } else {
+                        $rowData[] = '';
+                    }
+                }
+
+                $csv->insertOne($rowData);
+            }
+
+            $csv->output('report.csv');
+            die();
+        }
     }
 }

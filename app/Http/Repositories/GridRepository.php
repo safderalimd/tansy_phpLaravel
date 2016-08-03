@@ -6,6 +6,11 @@ use App\Http\Repositories\Repository;
 
 class GridRepository extends Repository
 {
+    public function filterDropdownValues($sql)
+    {
+        return $this->select($sql);
+    }
+
     public function dynamicGrid($params, $model)
     {
         $procedure = $params->procedure();
