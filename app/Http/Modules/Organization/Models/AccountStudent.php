@@ -86,6 +86,7 @@ class AccountStudent extends Model
         foreach ((array) $this->customFields as $field) {
             if (isset($field['column_value']) && isset($field['db_column_name'])) {
                 $this->setAttribute($field['db_column_name'], $field['column_value']);
+                $flash[$field['db_column_name']] = $field['column_value'];
             }
         }
 
