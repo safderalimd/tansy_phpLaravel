@@ -54,7 +54,7 @@
                         <div class="form-group">
                             <div class="col-sm-offset-4 col-sm-8">
                                 <div class="checkbox">
-                                    <label><input {{ c('active') }} name="active" type="checkbox"> Active</label>
+                                    <label><input autocomplete="off" {{ c('active') }} name="active" type="checkbox"> Active</label>
                                 </div>
                             </div>
                         </div>
@@ -65,21 +65,21 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label required" for="student_first_name">First Name</label>
                             <div class="col-md-8">
-                                <input id="student_first_name" class="form-control" type="text" name="student_first_name" value="{{ v('student_first_name') }}" placeholder="First Name">
+                                <input autocomplete="off" id="student_first_name" class="form-control" type="text" name="student_first_name" value="{{ v('student_first_name') }}" placeholder="First Name">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="student_middle_name">Middle Name</label>
                             <div class="col-md-8">
-                                <input id="student_middle_name" class="form-control" type="text" name="student_middle_name" value="{{ v('student_middle_name') }}" placeholder="Middle Name">
+                                <input autocomplete="off" id="student_middle_name" class="form-control" type="text" name="student_middle_name" value="{{ v('student_middle_name') }}" placeholder="Middle Name">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="student_last_name">Last Name</label>
                             <div class="col-md-8">
-                                <input id="student_last_name" class="form-control" type="text" name="student_last_name" value="{{ v('student_last_name') }}" placeholder="Last Name">
+                                <input autocomplete="off" id="student_last_name" class="form-control" type="text" name="student_last_name" value="{{ v('student_last_name') }}" placeholder="Last Name">
                             </div>
                         </div>
 
@@ -87,7 +87,7 @@
                             <label class="col-md-4 control-label required" for="student_date_of_birth">Date of Birth</label>
                             <div class="col-md-8">
                                 <div class="input-group date">
-                                    <input id="student_date_of_birth" class="form-control" type="text" name="student_date_of_birth" value="{{ v('student_date_of_birth') }}" placeholder="Date of Birth">
+                                    <input autocomplete="off" id="student_date_of_birth" class="form-control" type="text" name="student_date_of_birth" value="{{ v('student_date_of_birth') }}" placeholder="Date of Birth">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button"><span
                                                     class="glyphicon glyphicon-calendar"></span></button>
@@ -100,11 +100,11 @@
                             <label class="col-md-4 control-label required" for="student_gender">Gender</label>
                             <div class="col-md-8">
                                 <label class="radio-inline">
-                                    <input type="radio" name="student_gender" {{ r('student_gender', 'M') }} id="gender1" value="M">
+                                    <input autocomplete="off" type="radio" name="student_gender" {{ r('student_gender', 'M') }} id="gender1" value="M">
                                     Male
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="student_gender" {{ r('student_gender', 'F') }} id="gender2" value="F">
+                                    <input autocomplete="off" type="radio" name="student_gender" {{ r('student_gender', 'F') }} id="gender2" value="F">
                                     Female
                                 </label>
                             </div>
@@ -116,21 +116,21 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="email">Email</label>
                             <div class="col-md-8">
-                                <input id="email" class="form-control" type="email" name="email" value="{{ v('email') }}" placeholder="Email">
+                                <input autocomplete="off" id="email" class="form-control" type="email" name="email" value="{{ v('email') }}" placeholder="Email">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="home_phone">Home Phone</label>
                             <div class="col-md-8">
-                                <input id="home_phone" class="form-control" type="text" name="home_phone" value="{{ v('home_phone') }}" placeholder="Home Phone">
+                                <input autocomplete="off" id="home_phone" class="form-control" type="text" name="home_phone" value="{{ v('home_phone') }}" placeholder="Home Phone">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="mobile_phone">Mobile Phone</label>
                             <div class="col-md-8">
-                                <input id="mobile_phone" class="form-control" type="text" name="mobile_phone" value="{{ v('mobile_phone') }}" placeholder="Mobile Phone">
+                                <input autocomplete="off" id="mobile_phone" class="form-control" type="text" name="mobile_phone" value="{{ v('mobile_phone') }}" placeholder="Mobile Phone">
                             </div>
                         </div>
 
@@ -140,14 +140,14 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label required" for="address1">Adress 1</label>
                             <div class="col-md-8">
-                                <input id="address1" class="form-control" type="text" name="address1" value="{{ v('address1') }}" placeholder="Adress 1">
+                                <input autocomplete="off" id="address1" class="form-control" type="text" name="address1" value="{{ v('address1') }}" placeholder="Adress 1">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="address2">Adress 2</label>
                             <div class="col-md-8">
-                                <input id="address2" class="form-control" type="text" name="address2" value="{{ v('address2') }}" placeholder="Adress 2">
+                                <input autocomplete="off" id="address2" class="form-control" type="text" name="address2" value="{{ v('address2') }}" placeholder="Adress 2">
                             </div>
                         </div>
 
@@ -173,7 +173,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="postal_code">Postal Code</label>
                             <div class="col-md-8">
-                                <input id="postal_code" class="form-control" type="text" name="postal_code" value="{{ v('postal_code') }}" placeholder="Postal Code">
+                                <input autocomplete="off" id="postal_code" class="form-control" type="text" name="postal_code" value="{{ v('postal_code') }}" placeholder="Postal Code">
                             </div>
                         </div>
 
@@ -183,7 +183,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label required" for="admission_number">Admission #</label>
                             <div class="col-md-8">
-                                <input id="admission_number" class="form-control" type="text" name="admission_number" value="{{ v('admission_number') }}" placeholder="Admission #">
+                                <input autocomplete="off" id="admission_number" class="form-control" type="text" name="admission_number" value="{{ v('admission_number') }}" placeholder="Admission #">
                             </div>
                         </div>
 
@@ -191,7 +191,7 @@
                             <label class="col-md-4 control-label required" for="admission_date">Admission Date</label>
                             <div class="col-md-8">
                                 <div class="input-group date">
-                                    <input id="admission_date" class="form-control" type="text" name="admission_date" value="{{ v('admission_date') }}" placeholder="Admission Date">
+                                    <input autocomplete="off" id="admission_date" class="form-control" type="text" name="admission_date" value="{{ v('admission_date') }}" placeholder="Admission Date">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button"><span
                                                     class="glyphicon glyphicon-calendar"></span></button>
@@ -228,21 +228,21 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="student_roll_number">Roll Number</label>
                             <div class="col-md-8">
-                                <input id="student_roll_number" class="form-control" type="text" name="student_roll_number" value="{{ v('student_roll_number') }}" placeholder="Roll Number">
+                                <input autocomplete="off" id="student_roll_number" class="form-control" type="text" name="student_roll_number" value="{{ v('student_roll_number') }}" placeholder="Roll Number">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label required" for="identification1">Identification 1</label>
                             <div class="col-md-8">
-                                <input id="identification1" class="form-control" type="text" name="identification1" value="{{ v('identification1') }}" placeholder="Identification 1">
+                                <input autocomplete="off" id="identification1" class="form-control" type="text" name="identification1" value="{{ v('identification1') }}" placeholder="Identification 1">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="identification2">Identification 2</label>
                             <div class="col-md-8">
-                                <input id="identification2" class="form-control" type="text" name="identification2" value="{{ v('identification2') }}" placeholder="Identification 2">
+                                <input autocomplete="off" id="identification2" class="form-control" type="text" name="identification2" value="{{ v('identification2') }}" placeholder="Identification 2">
                             </div>
                         </div>
 
@@ -308,7 +308,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="{{$parentName}}">{{$parentLabel}}</label>
                                 <div class="col-md-8">
-                                    <input id="{{$parentName}}" class="form-control" type="text" name="{{$parentName}}" value="{{ v($parentName) }}" placeholder="{{$parentLabel}}">
+                                    <input autocomplete="off" id="{{$parentName}}" class="form-control" type="text" name="{{$parentName}}" value="{{ v($parentName) }}" placeholder="{{$parentLabel}}">
                                 </div>
                             </div>
 
@@ -345,7 +345,7 @@
                         </div>
                     @endif
 
-                    <input type="hidden" id="parent_info_list" name="parent_info_list" value="">
+                    <input autocomplete="off" type="hidden" id="parent_info_list" name="parent_info_list" value="">
 
 <hr/>
 <div class="row"><div class="col-md-3 pull-left"><h3>ID Card</h3></div></div>
@@ -376,7 +376,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="{{$documentNumber}}">{{$documentLabel}}</label>
                                 <div class="col-md-8">
-                                    <input id="{{$documentNumber}}" class="form-control" type="text" name="{{$documentNumber}}" value="{{ v($documentNumber) }}" placeholder="{{$documentLabel}}">
+                                    <input autocomplete="off" id="{{$documentNumber}}" class="form-control" type="text" name="{{$documentNumber}}" value="{{ v($documentNumber) }}" placeholder="{{$documentLabel}}">
                                 </div>
                             </div>
 
@@ -394,7 +394,7 @@
                         </div>
                     @endif
 
-                    <input type="hidden" id="document_info_list" name="document_info_list" value="">
+                    <input autocomplete="off" type="hidden" id="document_info_list" name="document_info_list" value="">
 
 
 <hr/>
@@ -403,14 +403,14 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="login_name">Login Name</label>
                             <div class="col-md-8">
-                                <input disabled="disabled" id="login_name" class="form-control" type="text" name="login_name" value="{{ v('mobile_phone') }}" placeholder="Login Name">
+                                <input autocomplete="off" disabled="disabled" id="login_name" class="form-control" type="text" name="login_name" value="{{ v('mobile_phone') }}" placeholder="Login Name">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="password">Password</label>
                             <div class="col-md-8">
-                                <input id="password" class="form-control" type="password" name="password" value="{{ v('password') }}" placeholder="Password">
+                                <input autocomplete="off" id="password" class="form-control" type="password" name="password" value="{{ v('password') }}" placeholder="Password">
                             </div>
                         </div>
 
@@ -418,7 +418,7 @@
                             <div class="col-sm-offset-4 col-sm-8">
                                 <div class="checkbox">
                                     <label>
-                                        <input {{ c('login_active') }} name="login_active" type="checkbox"> Login Active
+                                        <input autocomplete="off" {{ c('login_active') }} name="login_active" type="checkbox"> Login Active
                                     </label>
                                 </div>
                             </div>
