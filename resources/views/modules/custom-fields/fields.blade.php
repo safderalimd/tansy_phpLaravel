@@ -102,7 +102,11 @@
             } else if (type == 'date') {
                 value = $(this).val();
             } else if (type == 'select') {
-                value = $(this).find('option:selected').text();
+                if ($(this).find('option:selected').val() == 'none') {
+                    value = 'null';
+                } else {
+                    value = $(this).find('option:selected').text();
+                }
             } else if (type == 'checkbox') {
                 value = '0';
                 if ($(this).is(':checked')) {
