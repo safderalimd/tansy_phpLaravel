@@ -154,4 +154,22 @@ class AccountStudent extends Model
     {
         return $this->repository->getDropdownValues($sql);
     }
+
+    public function update($attributes = null)
+    {
+        if (!is_null($attributes)) {
+            $this->fill($attributes);
+        }
+
+        $selects = [];
+        for ($i=1; $i<=5; $i++) {
+            $selects[] = 'relationship_type_id_' . $i;
+            $selects[] = 'designation_id_' . $i;
+            $selects[] = 'qualification_id_' . $i;
+            $selects[] = 'document_type_id_' . $i;
+        }
+        $this->selects = array_merge($this->selects, $selects);
+
+        return $this->repository->update($this);
+    }
 }
