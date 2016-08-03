@@ -253,7 +253,6 @@
                             'keyId'    => 'caste_id',
                             'keyName'  => 'caste_name',
                             'none'     => 'Select a caste..',
-                            'required' => true,
                         ])
 
                         @include('commons.select', [
@@ -263,7 +262,6 @@
                             'keyId'    => 'religion_id',
                             'keyName'  => 'religion_name',
                             'none'     => 'Select a religion..',
-                            'required' => true,
                         ])
 
                         @include('commons.select', [
@@ -273,7 +271,6 @@
                             'keyId'    => 'language_id',
                             'keyName'  => 'language_name',
                             'none'     => 'Select a language..',
-                            'required' => true,
                         ])
 
 <hr/>
@@ -671,15 +668,6 @@
             },
             identification2: {
                 maxlength: 100
-            },
-            caste_id: {
-                requiredSelect: true
-            },
-            religion_id: {
-                requiredSelect: true
-            },
-            mother_language_id: {
-                requiredSelect: true
             },
             password: {
                 minlength:8

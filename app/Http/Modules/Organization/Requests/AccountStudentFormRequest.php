@@ -59,11 +59,6 @@ class AccountStudentFormRequest extends Request
             'religion_name' => 'string|max:100',
             'mother_language_name' => 'string|max:100',
 
-            // parent
-            'caste_id' => 'required|integer',
-            'religion_id' => 'required|integer',
-            'mother_language_id' => 'required|integer',
-
             'attachment' => 'image|dimensions:min_width=100,min_height=200|max:10000',
 
             'password' => 'min:8',
