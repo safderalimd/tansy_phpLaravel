@@ -117,7 +117,7 @@
                                 <h5 style="margin:2px;"><small>Send Receipt SMS ({{phone_number($phoneNumber)}})</small></h5>
                             </label>
 
-                            <label class="checkbox" style="padding-top:0px;">
+                            <label class="checkbox" style="padding-top:1px;margin-top:-3px;">
                                 @if (empty($email))
                                     <input type="checkbox" disabled="disabled" name="send_receipt_email">
                                 @else
