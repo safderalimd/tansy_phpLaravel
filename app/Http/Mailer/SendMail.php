@@ -12,7 +12,7 @@ class SendMail
     {
         try {
 
-            if (App::environment('local')) {
+            if (App::environment('production')) {
                 return;
             }
 
