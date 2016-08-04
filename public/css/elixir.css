@@ -1,3 +1,26 @@
+.navbar.navbar-inverse {
+  padding-top: 8px;
+  padding-bottom: 7px;
+  text-align: left;
+  font-size: 0px; }
+
+.navbar-toggle {
+  margin: 0px 0px 0px 15px;
+  display: inline-block;
+  float: none; }
+
+.navbar-school-name {
+  display: inline-block;
+  color: #9d9d9d;
+  font-size: 18px;
+  line-height: 20px;
+  word-wrap: break-word;
+  padding: 7px 15px 7px 15px; }
+  .navbar-school-name:hover, .navbar-school-name:focus {
+    color: #fff;
+    background-color: transparent;
+    text-decoration: none; }
+
 .table-inbox tr td.select-circle {
   cursor: default; }
 
