@@ -1,2 +1,2 @@
-<th>Description</th>
-<th class="text-center"><input type="checkbox" checked="checked" id="toggle-subjects" name="toggle-checkbox" value=""></th>
+<th>Amount</th>
+<th class="text-center"><input type="checkbox" id="toggle-subjects" name="toggle-checkbox" value=""></th>

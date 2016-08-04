@@ -33,10 +33,11 @@ class SchedulePaymentV2Controller extends Controller
         $grid->loadData();
 
         $options = [
-            'headerLastInclude' => 'modules.accounting.SchedulePayment.header-last-include',
-            'rowLastInclude'    => 'modules.accounting.SchedulePayment.row-last-include',
-            'afterGridInclude'   => 'modules.accounting.SchedulePayment.after-grid-include',
-            'scriptsInclude'     => 'modules.accounting.SchedulePayment.scripts-include',
+            'headerLastInclude'  => 'modules.accounting.SchedulePaymentV2.header-last-include',
+            'rowLastInclude'     => 'modules.accounting.SchedulePaymentV2.row-last-include',
+            'beforeGridInclude'  => 'modules.accounting.SchedulePaymentV2.before-grid-include',
+            'afterGridInclude'   => 'modules.accounting.SchedulePaymentV2.after-grid-include',
+            'scriptsInclude'     => 'modules.accounting.SchedulePaymentV2.scripts-include',
         ];
 
         return view('grid.list', compact('grid', 'options'));
@@ -45,18 +46,16 @@ class SchedulePaymentV2Controller extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param SchedulePaymentV2FormRequest $request
+     * @param Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SchedulePaymentV2FormRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $payment = new SchedulePaymentV2;
-        $payment->setAttribute('schedule_entity_id', $id);
-        $payment->setAttribute('active', 0);
-
-        $payment->update($request->input());
-        flash('Schedule Payment Updated!');
+        $payment = new SchedulePaymentV2($request->input());
+        dd($payment);
+        $payment->update();
+        flash('Schedule Payments Updated!');
         return redirect('/cabinet/schedule-payment-v2');
     }
 }

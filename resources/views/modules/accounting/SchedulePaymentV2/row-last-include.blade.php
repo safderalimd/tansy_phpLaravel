@@ -1,7 +1,16 @@
+<?php
+    if (!isset($amountIndex)) {
+        $amountIndex = 0;
+    }
+    $amountIndex++;
+?>
+<td style="width:178px;">
+    <input data-rule-number="true" data-rule-min="0" class="input-amount-value form-control" type="text" name="" value="am{{$amountIndex}}">
+</td>
 <td class="text-center">
-    @if (isset($row['collection_amount']) && isset($row['date_id']) && isset($row['balance_amount']) && isset($row['payment_type_id']))
-        <input type="checkbox" data-paymentTypeId="{{$row['payment_type_id']}}" checked="checked" class="payment-row-id" name="cache_row_id" value="{{$row['collection_amount']}}" @if (isset($row['payment_type'])) data-paymentType="{{$row['payment_type']}}" @endif data-balanceAmount="{{$row['balance_amount']}}" data-dateid="{{$row['date_id']}}">
+    @if (isset($row['student_entity_id']))
+        <input type="checkbox" class="payment-row-id" name="payment_row_id" value="{{$row['student_entity_id']}}">
     @else
-        <input type="checkbox" disabled="disabled" class="payment-row-id" name="cache_row_id" value="" data-dateid="">
+        <input type="checkbox" disabled="disabled" class="payment-row-id" name="payment_row_id" value="">
     @endif
 </td>
