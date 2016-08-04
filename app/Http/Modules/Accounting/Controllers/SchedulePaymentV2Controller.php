@@ -47,13 +47,11 @@ class SchedulePaymentV2Controller extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $payment = new SchedulePaymentV2($request->input());
-        dd($payment);
         $payment->update();
         flash('Schedule Payments Updated!');
         return redirect('/cabinet/schedule-payment-v2');

@@ -18,6 +18,9 @@
 
         var rowIds = $('.payment-row-id:checked').map(function() {
             amount = $(this).closest('tr').find('.input-amount-value').val();
+            if (!amount) {
+                amount = 'null';
+            }
             return this.value + '$<>$' + amount;
         }).get();
 
@@ -44,5 +47,9 @@
     });
 
     $('#schedule-payment-v2-grid-form').validate();
+
+    $('#start_date').change(function() {
+        $('#start_date').valid();
+    });
 
 </script>

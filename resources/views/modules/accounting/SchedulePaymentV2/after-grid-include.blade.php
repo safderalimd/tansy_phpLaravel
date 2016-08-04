@@ -10,7 +10,7 @@
         <div class="form-group">
             <label class="col-md-6 control-label" for="product_entity_id">Product</label>
             <div class="col-md-6">
-                <select id="product_entity_id" class="form-control" name="move_to_fiscal_year_entity_id">
+                <select id="product_entity_id" class="form-control" name="product_entity_id">
                     <option value="none">Select a product..</option>
                     @foreach($grid->paymentType() as $option)
                         <option value="{{ $option['payment_type_id'] }}">{{ $option['payment_type'] }}</option>
