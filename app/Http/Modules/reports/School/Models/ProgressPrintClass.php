@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class ProgressPrintClass extends Model
 {
-    protected $screenId = '/cabinet/progress-print---class';
+    protected $screenId = '/cabinet/pdf---class-progress';
 
     public $reportName = 'Progress Report';
 
