@@ -8,8 +8,8 @@
         <input type="hidden" name="actEID_schAmnt_list" id="row_ids" value="">
 
         <div class="form-group">
-            <label class="col-md-2 control-label" for="product_entity_id">Move to Fiscal Year</label>
-            <div class="col-md-4">
+            <label class="col-md-6 control-label" for="product_entity_id">Product</label>
+            <div class="col-md-6">
                 <select id="product_entity_id" class="form-control" name="move_to_fiscal_year_entity_id">
                     <option value="none">Select a product..</option>
                     @foreach($grid->paymentType() as $option)
@@ -20,8 +20,8 @@
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label required" for="start_date">Start Date</label>
-            <div class="col-md-8">
+            <label class="col-md-6 control-label" for="start_date">Start Date</label>
+            <div class="col-md-6">
                 <div class="input-group date">
                     <input id="start_date" class="form-control" type="text" name="start_date" value="{{ v('start_date') }}" placeholder="Start Date">
                     <span class="input-group-btn">
@@ -33,9 +33,9 @@
         </div>
 
         <div class="form-group">
-           <div class="col-md-4 col-md-offset-2">
-                <a href="{{ url("/cabinet/schedule-payment-v2")}}" class="btn btn-default cancle_btn">Cancel</a>
-                <button id="schedule-btn" type="submit" class="btn btn-primary">Schedule</button>
+           <div class="col-md-12">
+                <a href="{{ url("/cabinet/schedule-payment-v2")}}" class="pull-right btn btn-default cancle_btn">Cancel</a>
+                <button id="schedule-btn" type="submit" class="pull-right btn btn-primary" style="margin-right: 10px;">Schedule Payments</button>
             </div>
         </div>
     </form>

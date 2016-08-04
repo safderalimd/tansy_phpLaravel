@@ -17,7 +17,8 @@
         }
 
         var rowIds = $('.payment-row-id:checked').map(function() {
-            return $(this).attr('data-dateid') + '$<>$' + $(this).attr('data-paymentTypeId') + '$<>$' + this.value;
+            amount = $(this).closest('tr').find('.input-amount-value').val();
+            return this.value + '$<>$' + amount;
         }).get();
 
         if (rowIds.length == 0) {
@@ -25,7 +26,7 @@
             return false;
         }
 
-        $('#collection_ids').val(rowIds.join('|'));
+        $('#row_ids').val(rowIds.join('|'));
 
         return true;
     });

@@ -5,7 +5,7 @@
     $amountIndex++;
 ?>
 <td style="width:178px;">
-    <input data-rule-number="true" data-rule-min="0" class="input-amount-value form-control" type="text" name="" value="am{{$amountIndex}}">
+    <input data-rule-number="true" data-rule-min="0" class="input-amount-value form-control" type="text" name="amount{{$amountIndex}}" value="">
 </td>
 <td class="text-center">
     @if (isset($row['student_entity_id']))
