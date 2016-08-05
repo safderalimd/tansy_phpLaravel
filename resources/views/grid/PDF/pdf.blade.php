@@ -4,17 +4,42 @@
     <title>{{$grid->screenName}} Report</title>
     @include('reports.common.bootstrap')
     @include('reports.common.css')
-    <style type="text/css">
-
-    </style>
-</head>
-<body>
-
     <?php
         $columns = $grid->columns();
         $buttons = $grid->buttons();
     ?>
+    <style type="text/css">
+        @if (count($columns) > 25)
+            body {
+                font-size: 8px;
+            }
 
+            .table>tbody>tr>td,
+            .table>tbody>tr>th,
+            .table>tfoot>tr>td,
+            .table>tfoot>tr>th,
+            .table>thead>tr>td,
+            .table>thead>tr>th {
+                padding: 3px;
+            }
+        @elseif (count($columns) > 20)
+            body {
+                font-size: 9px;
+            }
+
+            .table>tbody>tr>td,
+            .table>tbody>tr>th,
+            .table>tfoot>tr>td,
+            .table>tfoot>tr>th,
+            .table>thead>tr>td,
+            .table>thead>tr>th {
+                padding: 4px;
+            }
+        @endif
+
+    </style>
+</head>
+<body>
     <div id="watermark"><div id="watermark-text">{{$grid->schoolName}}</div></div>
 
     <div class="footer text-right">
