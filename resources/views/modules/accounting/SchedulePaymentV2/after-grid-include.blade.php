@@ -8,7 +8,7 @@
         <input type="hidden" name="actEID_schAmnt_list" id="row_ids" value="">
 
         <div class="form-group">
-            <label class="col-md-3 col-md-offset-5 control-label" for="frequency_id">Frequency</label>
+            <label class="col-md-2 control-label" for="frequency_id">Frequency</label>
             <div class="col-md-4">
                 <select id="frequency_id" class="form-control" name="frequency_id">
                     <option value="none">Select a frequency..</option>
@@ -17,10 +17,8 @@
                     @endforeach
                 </select>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label class="col-md-3 col-md-offset-5 control-label" for="product_entity_id">Product</label>
+            <label class="col-md-2 control-label" for="product_entity_id">Product</label>
             <div class="col-md-4">
                 <select id="product_entity_id" class="form-control" name="product_entity_id">
                     <option value="none">Select a product..</option>
@@ -32,7 +30,7 @@
         </div>
 
         <div class="form-group">
-            <label class="col-md-3 col-md-offset-5 control-label" for="start_date">Start Date</label>
+            <label class="col-md-2 control-label" for="start_date">Start Date</label>
             <div class="col-md-4">
                 <div class="input-group date">
                     <input id="start_date" class="form-control" type="text" name="start_date" value="{{ v('start_date') }}" placeholder="Start Date">
@@ -42,10 +40,8 @@
                     </span>
                 </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label class="col-md-3 col-md-offset-5 control-label" for="end_date">End Date</label>
+            <label class="col-md-2 control-label" for="end_date">End Date</label>
             <div class="col-md-4">
                 <div class="input-group date">
                     <input id="end_date" class="form-control" type="text" name="end_date" value="{{ v('end_date') }}" placeholder="End Date">
