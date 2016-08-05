@@ -32,10 +32,10 @@
         </div>
 
         <div class="form-group">
-            <label class="col-md-3 col-md-offset-5 control-label" for="end_date">Start Date</label>
+            <label class="col-md-3 col-md-offset-5 control-label" for="start_date">Start Date</label>
             <div class="col-md-4">
                 <div class="input-group date">
-                    <input id="end_date" class="form-control" type="text" name="start_date" value="{{ v('start_date') }}" placeholder="Start Date">
+                    <input id="start_date" class="form-control" type="text" name="start_date" value="{{ v('start_date') }}" placeholder="Start Date">
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button"><span
                                     class="glyphicon glyphicon-calendar"></span></button>
