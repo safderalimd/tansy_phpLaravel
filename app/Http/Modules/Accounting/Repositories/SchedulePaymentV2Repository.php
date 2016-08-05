@@ -12,8 +12,10 @@ class SchedulePaymentV2Repository extends Repository
 
         $iparams = [
             '-iparam_actEID_schAmnt_list',
+            ':iparam_frequency_id',
             ':iparam_product_entity_id',
             '-iparam_start_date',
+            '-iparam_end_date',
             ':iparam_default_facility_id', // iparam_default_facility_entity_id
             ':iparam_session_id',
             ':iparam_user_id',

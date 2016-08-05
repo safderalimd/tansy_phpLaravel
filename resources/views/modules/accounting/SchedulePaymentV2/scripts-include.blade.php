@@ -39,7 +39,14 @@
             product_entity_id: {
                 requiredSelect: true
             },
+            frequency_id: {
+                requiredSelect: true
+            },
             start_date: {
+                required: true,
+                dateISO: true
+            },
+            end_date: {
                 required: true,
                 dateISO: true
             }
