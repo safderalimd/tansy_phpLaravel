@@ -201,6 +201,12 @@ function activeSelect($value, $getKey, $isDefault = false)
     return '';
 }
 
+function queryStringValue($key)
+{
+    $input = app('request')->input($key);
+    return !is_null($input) ? $input : '';
+}
+
 function activeSelectByTwo($firstValue, $secondValue, $firstKey, $secondKey)
 {
     $firstKey = app('request')->input($firstKey);
@@ -286,6 +292,20 @@ function third_resultset($data)
     return [];
 }
 
+/**
+ * Get the fourth resultset from the stored procedure results.
+ * @param  array $data Stored procedure return.
+ * @return array
+ */
+function fourth_resultset($data)
+{
+    if (isset($data[3])) {
+        return $data[3];
+    }
+
+    return [];
+}
+
 function domain()
 {
     return session()->get('user.domain_name');
@@ -325,4 +345,50 @@ function selected_dropdown($name, $options, $keyId, $keyName)
 function redirect_back()
 {
     return app('redirect')->back();
+}
+
+function screen_id($screenId)
+{
+    if (is_null($screenId)) {
+        return null;
+
+    } else {
+        $urls = session()->get('siteUrls');
+        $hiddenUrls = session()->get('hiddenSiteUrls');
+        foreach ((array) $urls as $url) {
+            if (isset($url['url']) && isset($url['screen_id']) && $screenId == $url['url']) {
+                return $url['screen_id'];
+            }
+        }
+        foreach ((array) $hiddenUrls as $url) {
+            if (isset($url['url']) && isset($url['screen_id']) && $screenId == $url['url']) {
+                return $url['screen_id'];
+            }
+        }
+    }
+
+    return null;
+}
+
+function screen_name($screenId)
+{
+    if (is_null($screenId)) {
+        return '';
+
+    } else {
+        $urls = session()->get('siteUrls');
+        $hiddenUrls = session()->get('hiddenSiteUrls');
+        foreach ((array) $urls as $url) {
+            if (isset($url['url']) && isset($url['screen_name']) && $screenId == $url['url']) {
+                return $url['screen_name'];
+            }
+        }
+        foreach ((array) $hiddenUrls as $url) {
+            if (isset($url['url']) && isset($url['screen_name']) && $screenId == $url['url']) {
+                return $url['screen_name'];
+            }
+        }
+    }
+
+    return '';
 }

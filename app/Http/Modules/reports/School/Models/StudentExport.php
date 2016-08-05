@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class StudentExport extends Model
 {
-    protected $screenId = 3013;
+    protected $screenId = '/cabinet/pdf---student-export';
 
     public $pdfData = [];
 

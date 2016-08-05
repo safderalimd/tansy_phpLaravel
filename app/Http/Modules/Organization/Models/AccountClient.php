@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class AccountClient extends Model
 {
-    protected $screenId = 2005;
+    protected $screenId = '/cabinet/account-client';
 
     protected $repositoryNamespace = 'App\Http\Modules\Organization\Repositories\AccountClientRepository';
 

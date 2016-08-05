@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class MoveStudent extends Model
 {
-    protected $screenId = 3006;
+    protected $screenId = '/cabinet/move-student';
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\MoveStudentRepository';
 

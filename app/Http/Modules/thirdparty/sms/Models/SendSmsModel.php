@@ -54,7 +54,12 @@ class SendSmsModel extends Model
         }
     }
 
-    public function storeBatchStatus($data)
+    public function storeBatchStatusV2($data)
+    {
+        return $this->storeBatchStatus($data, true);
+    }
+
+    public function storeBatchStatus($data, $useV2 = false)
     {
         $model = new static;
 
@@ -111,6 +116,10 @@ class SendSmsModel extends Model
 
         $model->setAttribute('balance_count', $data['balanceCount']);
 
-        return $model->repository->storeBatchStatus($model);
+        if ($useV2) {
+            return $model->repository->storeBatchStatusV2($model);
+        } else {
+            return $model->repository->storeBatchStatus($model);
+        }
     }
 }

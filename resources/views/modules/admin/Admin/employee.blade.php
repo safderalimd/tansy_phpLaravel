@@ -44,6 +44,8 @@
                                     </div>
                                 </div>
                             </div>
+
+                            @include('modules.admin.Admin.events')
                         </div>
 
                     </div>

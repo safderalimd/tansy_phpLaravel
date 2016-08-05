@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class Organization extends Model
 {
-    protected $screenId = 2002;
+    protected $screenId = '/cabinet/organizations';
 
     protected $repositoryNamespace = 'App\Http\Modules\Organization\Repositories\OrganizationRepository';
 

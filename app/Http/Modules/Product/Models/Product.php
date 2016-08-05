@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class Product extends Model
 {
-    protected $screenId = 2003;
+    protected $screenId = '/cabinet/product';
 
     protected $repositoryNamespace = 'App\Http\Modules\Product\Repositories\ProductRepository';
 

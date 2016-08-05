@@ -16,6 +16,9 @@ class ProgressPrintClassController extends Controller
      */
     public function __construct()
     {
+        d(session('dbMenuInfo'));
+        dd(session('dbHiddenMenuInfo'));
+        dd(ProgressPrintClass::screenId());
         $this->middleware('screen:' . ProgressPrintClass::screenId());
     }
 

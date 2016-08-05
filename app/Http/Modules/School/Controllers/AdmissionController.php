@@ -2,10 +2,12 @@
 
 namespace App\Http\Modules\School\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\School\Models\Admission;
 use App\Http\Modules\School\Requests\AdmissionFormRequest;
 use App\Http\Modules\School\Requests\AdmissionMoveStudentsFormRequest;
+use App\Http\Models\Grid;
 
 class AdmissionController extends Controller
 {
@@ -24,10 +26,20 @@ class AdmissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $admission = new Admission;
-        return view('modules.school.Admission.list', compact('admission'));
+        $grid = new Grid('/' . $request->path());
+        $grid->fill($request->input());
+        $grid->loadData();
+
+        $options = [
+            'headerFirstInclude' => 'modules.school.Admission.header-first-include',
+            'rowFirstInclude'    => 'modules.school.Admission.row-first-include',
+            'afterGridInclude'   => 'modules.school.Admission.after-grid-include',
+            'scriptsInclude'     => 'modules.school.Admission.scripts-include',
+        ];
+
+        return view('grid.list', compact('grid', 'options'));
     }
 
     /**
@@ -38,6 +50,7 @@ class AdmissionController extends Controller
     public function create()
     {
         $admission = new Admission;
+        $admission->loadDetail();
         return view('modules.school.Admission.form', compact('admission'));
     }
 
@@ -67,7 +80,9 @@ class AdmissionController extends Controller
      */
     public function edit($id)
     {
-        $admission = Admission::findOrFail($id);
+        $admission = new Admission;
+        $admission->setAttribute('admission_id', $id);
+        $admission->loadDetail();
         return view('modules.school.Admission.form', compact('admission'));
     }
 
@@ -84,8 +99,9 @@ class AdmissionController extends Controller
         $cityAreaNew = $request->input('city_area_new');
         $input['city_area'] = $cityAreaNew;
 
-        $admission = Admission::findOrFail($id);
-        $admission->fill($input);
+        $admission = new Admission;
+        $admission->setAttribute('admission_id', $id);
+        $admission->loadDetail();
         $admission->update($input);
         flash('Admission Updated!');
         return redirect('/cabinet/admission');
@@ -99,7 +115,8 @@ class AdmissionController extends Controller
      */
     public function destroy($id)
     {
-        $admission = Admission::findOrFail($id);
+        $admission = new Admission;
+        $admission->setAttribute('admission_id', $id);
         $admission->delete();
         flash('Admission Deleted!');
         return redirect('/cabinet/admission');

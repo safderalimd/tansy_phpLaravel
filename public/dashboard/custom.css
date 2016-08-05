@@ -131,3 +131,42 @@ a.selected {
 .navbar-inverse .navbar-toggle .icon-bar {
     background-color: #fff;
 }
+
+.stat-panel.home-events {
+    margin-top: 0px;
+}
+
+.home-events .events-text {
+    font-size: 25px;
+}
+
+.panel-body.home-events-panel {
+    height: initial;
+}
+
+.panel-body.home-events-panel .pagination {
+    margin-top: 15px;
+    margin-bottom: 0px;
+}
+.panel-body.home-events-panel .pagination a {
+    margin: 0px;
+    margin-right: 5px;
+    font-size: 14px;
+    padding: 0px;
+    border: 0px;
+    border-radius: 0px;
+    color: #fff;
+    background-color: #0B71B5;
+    text-decoration: none;
+}
+.panel-body.home-events-panel .pagination a:hover {
+    text-decoration: underline;
+}
+.panel-body.home-events-panel .pagination li.active a {
+    background-color: #0B71B5;
+    text-decoration: underline;
+}
+.home-events-panel.bk-brand {
+    background-color: #0B71B5;
+    max-height: 305px;
+}

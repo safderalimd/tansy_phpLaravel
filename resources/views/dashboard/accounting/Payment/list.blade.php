@@ -1,6 +1,6 @@
 @extends('layout.dashboard')
 
-@section('title', 'Fee Dashboard-v1')
+@section('title', 'Payment Dashboard')
 
 @section('content')
 
@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <h2><div class="page-title">Fee Dashboard-v1</h2>
+                <h2><div class="page-title">Payment Dashboard</h2>
 
                 <div class="row">
                     <div class="col-md-12">
@@ -58,7 +58,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a class="block-anchor panel-footer text-center" href="/cabinet/fee-dashboard-v1/discount">Full Details &nbsp; <i class="fa fa-arrow-right"></i></a>
+                                    <a class="block-anchor panel-footer text-center" href="/cabinet/payment-dashboard/discount">Full Details &nbsp; <i class="fa fa-arrow-right"></i></a>
                                 </div>
                             </div>
 
@@ -72,11 +72,11 @@
                             <div class="panel-heading">
                                 <span style="margin-right: 5px;">Collection Report</span>
                                 <div class="btn-group">
-                                    <a class="btn btn-info {{activeLink(5, 'fi', true)}}" href="/cabinet/fee-dashboard-v1?fi=5">Today</a>
-                                    <a class="btn btn-info {{activeLink(1, 'fi')}}" href="/cabinet/fee-dashboard-v1?fi=1">Current Week</a>
-                                    <a class="btn btn-info {{activeLink(2, 'fi')}}" href="/cabinet/fee-dashboard-v1?fi=2">Current Month</a>
-                                    <a class="btn btn-info {{activeLink(3, 'fi')}}" href="/cabinet/fee-dashboard-v1?fi=3">Current Quater</a>
-                                    <a class="btn btn-info {{activeLink(4, 'fi')}}" href="/cabinet/fee-dashboard-v1?fi=4">All</a>
+                                    <a class="btn btn-info {{activeLink(5, 'fi', true)}}" href="/cabinet/payment-dashboard?fi=5">Today</a>
+                                    <a class="btn btn-info {{activeLink(1, 'fi')}}" href="/cabinet/payment-dashboard?fi=1">Current Week</a>
+                                    <a class="btn btn-info {{activeLink(2, 'fi')}}" href="/cabinet/payment-dashboard?fi=2">Current Month</a>
+                                    <a class="btn btn-info {{activeLink(3, 'fi')}}" href="/cabinet/payment-dashboard?fi=3">Current Quater</a>
+                                    <a class="btn btn-info {{activeLink(4, 'fi')}}" href="/cabinet/payment-dashboard?fi=4">All</a>
                                 </div>
                             </div>
                             <div class="panel-body">

@@ -7,11 +7,13 @@
 <?php
     $allRows = $payment->rows();
     $phoneNumber = null;
+    $accountName = '-';
+    $email = '-';
     if (count($allRows)) {
-        $accountName = $allRows[0]['account_name'];
-        $phoneNumber = $allRows[0]['mobile_phone'];
+        $accountName = isset($allRows[0]['account_name']) ? $allRows[0]['account_name'] : '-';
+        $phoneNumber = isset($allRows[0]['mobile_phone']) ? $allRows[0]['mobile_phone'] : null;
+        $email = (isset($allRows[0]['email']) && !empty($allRows[0]['email'])) ? $allRows[0]['email'] : '-';
     } else {
-        $accountName = '-';
         $allRows = [];
     }
 
@@ -102,7 +104,7 @@
                 <tr>
                     <td>
                         <div class="checkbox">
-                            <label class="checkbox-inline" style="margin-top: 25px; margin-bottom: 10px;">
+                            <label class="checkbox" style="margin-top: 25px;">
                                 @if (empty($phoneNumber))
                                     <input type="checkbox" disabled="disabled" name="send_receipt_sms">
                                 @else
@@ -112,9 +114,16 @@
                                         <input type="checkbox" name="send_receipt_sms">
                                     @endif
                                 @endif
-
                                 <h5 style="margin:2px;"><small>Send Receipt SMS ({{phone_number($phoneNumber)}})</small></h5>
+                            </label>
 
+                            <label class="checkbox" style="padding-top:1px;margin-top:-3px;">
+                                @if (empty($email))
+                                    <input type="checkbox" disabled="disabled" name="send_receipt_email">
+                                @else
+                                    <input type="checkbox" name="send_receipt_email" checked="checked">
+                                @endif
+                                <h5 style="margin:2px;"><small>Send Receipt Email ({{$email}})</small></h5>
                             </label>
                         </div>
                     </td>

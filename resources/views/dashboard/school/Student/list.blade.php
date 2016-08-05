@@ -217,7 +217,7 @@
                                         <tbody>
                                             @foreach($student->receipts as $row)
                                             <tr>
-                                                <td><a target="_blank" href="/cabinet/receipt-report/pdf/{{$row['receipt_id']}}">{{$row['receipt_number']}}</a></td>
+                                                <td><a target="_blank" href="/cabinet/pdf---receipt-v1/pdf?id={{$row['receipt_id']}}">{{$row['receipt_number']}}</a></td>
                                                 <td>{{style_date($row['receipt_date'])}}</td>
                                                 <td>&#x20b9; {{amount($row['receipt_amount'])}}</td>
                                                 <td>&#x20b9; {{amount($row['new_balance'])}}</td>

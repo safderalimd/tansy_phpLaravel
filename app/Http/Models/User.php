@@ -15,6 +15,8 @@ class User extends Model
 
     public $menuInfo;
 
+    public $hiddenMenuInfo;
+
     public function setLoginAttribute($login)
     {
         $tmp = explode('@', $login);
@@ -47,6 +49,7 @@ class User extends Model
         $this->setAttribute('ipaddress', userIp());
         $data = $this->repository->login($this);
         $this->menuInfo = first_resultset($data);
+        $this->hiddenMenuInfo = second_resultset($data);
 
         if ($this->err_flag == 1) {
             return false;

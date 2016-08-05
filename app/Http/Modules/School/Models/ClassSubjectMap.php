@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class ClassSubjectMap extends Model
 {
-    protected $screenId = 3002;
+    protected $screenId = '/cabinet/class-subject-map';
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\ClassSubjectMapRepository';
 

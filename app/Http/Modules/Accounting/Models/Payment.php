@@ -6,18 +6,13 @@ use App\Http\Models\Model;
 
 class Payment extends Model
 {
-    protected $screenId = 2013;
+    protected $screenId = '/cabinet/payment-v1';
 
     protected $repositoryNamespace = 'App\Http\Modules\Accounting\Repositories\PaymentRepository';
 
     protected $rows = [];
 
     public $totalDue = 0;
-
-    public function getScreenId()
-    {
-        return $this->screenId;
-    }
 
     public function getAllPayments()
     {

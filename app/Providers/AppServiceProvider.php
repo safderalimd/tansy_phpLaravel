@@ -23,6 +23,19 @@ class AppServiceProvider extends ServiceProvider
         {
             return (strpos($value, '@') === false);
         });
+
+        Validator::extend('custom_field', function($attribute, $value)
+        {
+            if (strpos($value, '|') !== false) {
+                return false;
+            }
+
+            if (strpos($value, '$<>$') !== false) {
+                return false;
+            }
+
+            return true;
+        });
     }
 
     /**

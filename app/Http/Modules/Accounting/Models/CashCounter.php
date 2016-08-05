@@ -6,13 +6,13 @@ use App\Http\Models\Model;
 
 class CashCounter extends Model
 {
-    protected $screenId = 2019;
+    protected $screenId = '/cabinet/close-cash-counter';
 
     protected $repositoryNamespace = 'App\Http\Modules\Accounting\Repositories\CashCounterRepository';
 
     public function closeCounter()
     {
-        $this->setAttribute('dateIDs_collections', $this->collection_ids);
+        $this->setAttribute('dateID_paymentTypeID_balanceAmount_list', $this->collection_ids);
         return $this->repository->closeCounter($this);
     }
 }

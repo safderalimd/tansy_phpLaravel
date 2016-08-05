@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class FinalProgress extends Model
 {
-    protected $screenId = 3021;
+    protected $screenId = '/cabinet/pdf---final-progress';
 
     protected $repositoryNamespace = 'App\Http\Modules\reports\School\Repositories\FinalProgressRepository';
 

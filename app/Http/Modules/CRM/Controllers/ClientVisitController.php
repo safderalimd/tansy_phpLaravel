@@ -2,8 +2,10 @@
 
 namespace App\Http\Modules\CRM\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\CRM\Models\ClientVisit;
+use App\Http\Modules\CRM\Models\ClientVisitDetail;
 use App\Http\Modules\CRM\Requests\ClientVisitEditFormRequest;
 use App\Http\Modules\CRM\Requests\ClientVisitCreateFormRequest;
 
@@ -22,20 +24,9 @@ class ClientVisitController extends Controller
             'store',
         ]]);
 
-        $this->middleware('screen:13001', ['only' => [
+        $this->middleware('screen:' . ClientVisitDetail::screenId(), ['only' => [
             'detail',
         ]]);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $client = new ClientVisit;
-        return view('modules.crm.ClientVisit.list', compact('client'));
     }
 
     /**
@@ -70,50 +61,9 @@ class ClientVisitController extends Controller
         return redirect('/cabinet/client-visit');
     }
 
-    public function detail($id)
+    public function detail(Request $request)
     {
-        $client = ClientVisit::findOrFail($id);
+        $client = ClientVisitDetail::findOrFail($request->input('id'));
         return view('modules.crm.ClientVisit.detail', compact('client'));
     }
-
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  *
-    //  * @param  int $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function edit($id)
-    // {
-    //     $client = ClientVisit::findOrFail($id);
-    //     return view('modules.crm.ClientVisit.form', compact('client'));
-    // }
-
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param ClientVisitEditFormRequest $request
-    //  * @param  int $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(ClientVisitEditFormRequest $request, $id)
-    // {
-    //     $client = ClientVisit::findOrFail($id);
-    //     $client->update($request->input());
-    //     flash('Client Visit Updated!');
-    //     return redirect('/cabinet/client-visit');
-    // }
-
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  int $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy($id)
-    // {
-    //     $client = ClientVisit::findOrFail($id);
-    //     $client->delete();
-    //     flash('Client Visit Deleted!');
-    //     return redirect('/cabinet/client-visit');
-    // }
 }

@@ -2,10 +2,9 @@
 
 namespace App\Http\Modules\reports\Accounting\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\Accounting\Models\ReceiptPrint;
-use App\Http\Modules\reports\Accounting\Requests\ReceiptPrintFormRequest;
-use App\Http\PdfGenerator\Pdf;
 
 class ReceiptPrintController extends Controller
 {
@@ -25,25 +24,10 @@ class ReceiptPrintController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Request $request)
     {
         $receipt = new ReceiptPrint;
-        $receipt->setAttribute('account_entity_id', $id);
+        $receipt->setAttribute('account_entity_id', $request->input('id'));
         return view('reports.accounting.ReceiptPrint.list', compact('receipt'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function report($id)
-    {
-        $export = new ReceiptPrint;
-        $export->setAttribute('report_id', $id);
-        $export->loadPdfData();
-        $view = view('reports.accounting.ReceiptPrint.pdf', compact('export'));
-        return Pdf::render($view);
     }
 }

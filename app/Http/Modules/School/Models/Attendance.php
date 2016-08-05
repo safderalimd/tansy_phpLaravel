@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class Attendance extends Model
 {
-    protected $screenId = 2017;
+    protected $screenId = '/cabinet/daily-attendance';
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\AttendanceRepository';
 

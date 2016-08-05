@@ -21,17 +21,6 @@ class AccountStudentController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $account = new AccountStudent;
-        return view('modules.organization.AccountStudent.list', compact('account'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int $id
@@ -39,7 +28,9 @@ class AccountStudentController extends Controller
      */
     public function edit($id)
     {
-        $account = AccountStudent::findOrFail($id);
+        $account = new AccountStudent;
+        $account->setAttribute('student_entity_id', $id);
+        $account->loadDetail();
         return view('modules.organization.AccountStudent.form', compact('account'));
     }
 
@@ -69,7 +60,7 @@ class AccountStudentController extends Controller
                 $extension = trim($extension);
 
                 // clear previous image cache
-                $server->deleteCache(domain().'/'.$id.'.'.$extension);
+                $server->deleteCache($id.'.'.$extension);
 
                 // clear previous image extension info
                 unlink($extensionPath);
@@ -100,7 +91,6 @@ class AccountStudentController extends Controller
         if (isset($group[0]['security_group_entity_id'])) {
             $account->setAttribute('security_group_entity_id', $group[0]['security_group_entity_id']);
         }
-
         $account->update();
         flash('Student Updated!');
         return redirect('/cabinet/student-account');
@@ -114,7 +104,8 @@ class AccountStudentController extends Controller
      */
     public function destroy($id)
     {
-        $account = AccountStudent::findOrFail($id);
+        $account = new AccountStudent;
+        $account->setAttribute('student_entity_id', $id);
         $account->delete();
         flash('Student Deleted!');
         return redirect('/cabinet/student-account');

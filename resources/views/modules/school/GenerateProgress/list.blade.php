@@ -63,12 +63,12 @@
             <td>{{$item['progress_status']}}</td>
             <td>
                 @if ($generated)
-                    <a class="btn btn-default" target="_blank" href="{{url("/cabinet/progress-print--class/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="Print">Print</a>
+                    <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---class-progress/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="Print">Print</a>
                 @endif
             </td>
             <td>
                 @if ($generated)
-                    <a class="btn btn-default" target="_blank" href="{{url("/cabinet/progress-print--student/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="Print">Print</a>
+                    <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v1/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="Print">Print</a>
                 @endif
             </td>
             <td>

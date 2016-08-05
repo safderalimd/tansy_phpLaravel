@@ -67,7 +67,7 @@ class Model
         $this->setAttribute('session_id', Session::get('user.sessionID'));
         $this->setAttribute('debug_sproc', Session::get('user.debugSproc'));
         $this->setAttribute('audit_screen_visit', Session::get('user.auditScreenVisit'));
-        $this->setAttribute('screen_id', $this->screenId);
+        $this->setAttribute('screen_id', $this->getScreenId());
 
         $class = $this->repositoryNamespace;
         $this->repository = new $class();
@@ -284,13 +284,24 @@ class Model
 
     public function getScreenId()
     {
+        return screen_id($this->getScreenIdProperty());
+    }
+
+    public function getScreenIdProperty()
+    {
         return $this->screenId;
     }
 
     public static function screenId()
     {
         $instance = new static;
-        return $instance->getScreenId();
+        $screenId = $instance->getScreenIdProperty();
+        return screen_id($screenId);
+    }
+
+    public static function staticScreenId()
+    {
+        return screen_id(static::$staticScreenId);
     }
 
     public function isSelectNoneOption($param)

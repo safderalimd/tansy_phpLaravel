@@ -1,6 +1,6 @@
 @extends('layout.cabinet')
 
-@section('title', 'Final Progress')
+@section('title', 'PDF - Final Progress')
 
 @section('content')
 
@@ -8,13 +8,13 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <i class="glyphicon glyphicon-th-list"></i>
-            <h3>Final Progress</h3>
+            <h3>PDF - Final Progress</h3>
         </div>
         <div class="panel-body">
 
             @include('commons.errors')
 
-            <form class="form-horizontal" id="generate-report-form" action="/cabinet/pdf---student-final-progress/pdf" target="_blank" method="GET">
+            <form class="form-horizontal" id="generate-report-form" action="/cabinet/pdf---final-progress/pdf" target="_blank" method="GET">
                 <input type="hidden" id="random_id" name="ri" value="">
                 <input type="hidden" id="row_type" name="rt" value="">
 

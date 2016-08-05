@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/debug-exception', '\App\Http\Controllers\DebugController@debug');
+Route::get('/debug-exception', '\App\Http\Controllers\DebugController@debugException');
 Route::get('/debug-phpinfo', '\App\Http\Controllers\DebugController@phpinfo');
 Route::get('/enable-debugbar', '\App\Http\Controllers\DebugController@enableDebugbar');
 
@@ -27,6 +27,8 @@ Route::get('/login', '\App\Http\Controllers\UserController@index')->middleware('
 Route::post('/login', '\App\Http\Controllers\UserController@login')->middleware('guest');
 
 Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabinet'], function() {
+
+    Route::get('/debug-sms', '\App\Http\Controllers\DebugController@debugSMS');
 
     Route::get('fiscal-year', 'Organization\Controllers\FiscalYearController@index');
     Route::get('fiscal-year/create', 'Organization\Controllers\FiscalYearController@create');
@@ -75,7 +77,6 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('admission/delete/{id}', 'School\Controllers\AdmissionController@destroy');
     Route::post('admission/move-students', 'School\Controllers\AdmissionController@moveStudents');
 
-    Route::get('student-account', 'Organization\Controllers\AccountStudentController@index');
     Route::get('student-account/edit/{id}', 'Organization\Controllers\AccountStudentController@edit');
     Route::post('student-account/edit/{id}', 'Organization\Controllers\AccountStudentController@update');
     Route::get('student-account/delete/{id}', 'Organization\Controllers\AccountStudentController@destroy');
@@ -92,9 +93,20 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('schedule-payment/create/student', 'Accounting\Controllers\SchedulePaymentController@createStudent');
     Route::post('schedule-payment/create/student', 'Accounting\Controllers\SchedulePaymentController@storeStudent');
 
-    Route::get('payment', 'Accounting\Controllers\PaymentController@index');
-    Route::get('payment/create', 'Accounting\Controllers\PaymentController@create');
-    Route::post('payment/create', 'Accounting\Controllers\PaymentController@payNow');
+    Route::get('schedule-payment-v2', 'Accounting\Controllers\SchedulePaymentV2Controller@index');
+    Route::post('schedule-payment-v2', 'Accounting\Controllers\SchedulePaymentV2Controller@update');
+
+    Route::get('payment-v1', 'Accounting\Controllers\PaymentController@index');
+    Route::get('payment-v1/create', 'Accounting\Controllers\PaymentController@create');
+    Route::post('payment-v1/create', 'Accounting\Controllers\PaymentController@payNow');
+
+    Route::get('daily-expense/create', 'Accounting\Controllers\DailyExpenseController@create');
+    Route::post('daily-expense/create', 'Accounting\Controllers\DailyExpenseController@store');
+    Route::get('daily-expense/edit/{id}', 'Accounting\Controllers\DailyExpenseController@edit');
+    Route::post('daily-expense/edit/{id}', 'Accounting\Controllers\DailyExpenseController@update');
+
+    Route::get('payment-v2', 'Accounting\Controllers\FeeReimbursementController@index');
+    Route::post('payment-v2', 'Accounting\Controllers\FeeReimbursementController@update');
 
     Route::get('close-cash-counter', 'Accounting\Controllers\CashCounterController@index');
     Route::post('close-cash-counter', 'Accounting\Controllers\CashCounterController@closeCashCounter');
@@ -126,38 +138,37 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('generate-progress/generate', 'School\Controllers\GenerateProgressController@generate');
     Route::get('generate-progress/re-generate', 'School\Controllers\GenerateProgressController@regenerate');
 
-    Route::get('student-export', 'reports\School\Controllers\StudentExportController@index');
-    Route::get('student-export/pdf', 'reports\School\Controllers\StudentExportController@report');
+    // Route::get('pdf---student-export', 'reports\School\Controllers\StudentExportController@index');
+    // Route::get('pdf---student-export/pdf', 'reports\School\Controllers\StudentExportController@report');
 
     Route::get('pdf---student-detail', 'reports\School\Controllers\StudentDetailController@index');
     Route::get('pdf---student-detail/pdf', 'reports\School\Controllers\StudentDetailController@report');
 
-    Route::get('pdf---daily-collection', 'reports\School\Controllers\DailyCollectionController@index');
-    Route::get('pdf---daily-collection/pdf', 'reports\School\Controllers\DailyCollectionController@report');
+    // Route::get('pdf---daily-balance', 'reports\School\Controllers\DailyCollectionController@index');
+    // Route::get('pdf---daily-balance/pdf', 'reports\School\Controllers\DailyCollectionController@report');
 
-    Route::get('pdf---student-final-progress', 'reports\School\Controllers\FinalProgressController@index');
-    Route::get('pdf---student-final-progress/pdf', 'reports\School\Controllers\FinalProgressController@report');
+    Route::get('pdf---final-progress', 'reports\School\Controllers\FinalProgressController@index');
+    Route::get('pdf---final-progress/pdf', 'reports\School\Controllers\FinalProgressController@report');
 
     Route::get('pdf---account-statement', 'reports\Accounting\Controllers\AccountStatementController@index');
     Route::get('pdf---account-statement/pdf', 'reports\Accounting\Controllers\AccountStatementController@report');
 
-    Route::get('receipt-report/{id}', 'reports\Accounting\Controllers\ReceiptPrintController@index');
-    Route::get('receipt-report/pdf/{id}', 'reports\Accounting\Controllers\ReceiptPrintController@report');
+    Route::get('receipts-listing', 'reports\Accounting\Controllers\ReceiptPrintController@index');
+    Route::get('pdf---receipt-v1/pdf', 'reports\Accounting\Controllers\ReceiptPrintPDFController@report');
 
-
-    Route::get('progress-print---student',
+    Route::get('pdf---student-progress-v1',
         'reports\School\Controllers\ProgressPrintStudentController@index');
-    Route::get('progress-print--student/pdf',
+    Route::get('pdf---student-progress-v1/pdf',
         'reports\School\Controllers\ProgressPrintStudentController@report');
 
-    Route::get('progress-print---class',
+    Route::get('pdf---class-progress',
         'reports\School\Controllers\ProgressPrintClassController@index');
-    Route::get('progress-print--class/pdf',
+    Route::get('pdf---class-progress/pdf',
         'reports\School\Controllers\ProgressPrintClassController@report');
 
-    Route::get('fee-dashboard-v1', 'dashboard\accounting\Controllers\PaymentController@index');
-    Route::get('fee-dashboard-v1/schedule-fee', 'dashboard\accounting\Controllers\PaymentController@scheduleFee');
-    Route::get('fee-dashboard-v1/discount', 'dashboard\accounting\Controllers\PaymentController@discount');
+    Route::get('payment-dashboard', 'dashboard\accounting\Controllers\PaymentController@index');
+    Route::get('payment-dashboard/schedule-fee', 'dashboard\accounting\Controllers\PaymentController@scheduleFee');
+    Route::get('payment-dashboard/discount', 'dashboard\accounting\Controllers\PaymentController@discount');
 
     Route::get('sms-dashboard', 'dashboard\sms\Controllers\SmsController@index');
 
@@ -174,13 +185,15 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('load-student-data', 'loaddata\School\Controllers\StudentDataController@index');
     Route::post('load-student-data', 'loaddata\School\Controllers\StudentDataController@store');
 
-    Route::get('send-sms---general', 'thirdparty\sms\Controllers\SendSmsController@general');
+    Route::get('send-sms-v1', 'thirdparty\sms\Controllers\SendSmsController@general');
+    Route::get('send-sms-v2', 'thirdparty\sms\Controllers\SendSmsController@generalV2');
     Route::get('send-sms---exam-results', 'thirdparty\sms\Controllers\SendSmsController@examResults');
     Route::get('send-sms---exam-schedule', 'thirdparty\sms\Controllers\SendSmsController@examSchedule');
     Route::get('send-sms---attendence', 'thirdparty\sms\Controllers\SendSmsController@attendence');
     Route::get('send-sms---fee-due', 'thirdparty\sms\Controllers\SendSmsController@feeDue');
 
-    Route::post('send-sms---general', 'thirdparty\sms\Controllers\SendSmsController@sendGeneral');
+    Route::post('send-sms-v1', 'thirdparty\sms\Controllers\SendSmsController@sendGeneral');
+    Route::post('send-sms-v2', 'thirdparty\sms\Controllers\SendSmsController@sendGeneralV2');
     Route::post('send-sms---exam-results', 'thirdparty\sms\Controllers\SendSmsController@sendExamResults');
     Route::post('send-sms---exam-schedule', 'thirdparty\sms\Controllers\SendSmsController@sendExamSchedule');
     Route::post('send-sms---attendence', 'thirdparty\sms\Controllers\SendSmsController@sendAttendance');
@@ -199,19 +212,19 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('organizations/edit/{id}', 'Organization\Controllers\OrganizationController@update');
     Route::get('organizations/delete/{id}', 'Organization\Controllers\OrganizationController@destroy');
 
-    Route::get('fee-due-report', 'reports\School\Controllers\FeeDueReportController@index');
-    Route::get('fee-due-report/pdf', 'reports\School\Controllers\FeeDueReportController@report');
+    Route::get('pdf---due-report', 'reports\School\Controllers\FeeDueReportController@index');
+    Route::get('pdf---due-report/pdf', 'reports\School\Controllers\FeeDueReportController@report');
 
-    Route::get('client-visit', 'CRM\Controllers\ClientVisitController@index');
     Route::get('client-visit/create', 'CRM\Controllers\ClientVisitController@create');
     Route::post('client-visit/create', 'CRM\Controllers\ClientVisitController@store');
-    Route::get('client-visit/detail/{id}', 'CRM\Controllers\ClientVisitController@detail');
+    Route::get('client-visit-details', 'CRM\Controllers\ClientVisitController@detail');
 
     // Route::get('client-visit/edit/{id}', 'CRM\Controllers\ClientVisitController@edit');
     // Route::post('client-visit/edit/{id}', 'CRM\Controllers\ClientVisitController@update');
     // Route::get('client-visit/delete/{id}', 'CRM\Controllers\ClientVisitController@destroy');
 
-    Route::get('home-v1', 'Admin\Controllers\AdminController@home');
+    Route::get('/', 'Admin\Controllers\AdminController@home');
+    Route::get('home', 'Admin\Controllers\AdminController@home');
     Route::get('reset-dupe', 'Admin\Controllers\AdminController@debugReset');
     Route::get('change-password', 'Admin\Controllers\ChangePasswordController@index');
     Route::post('change-password', 'Admin\Controllers\ChangePasswordController@updatePassword');
@@ -237,13 +250,34 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('account-employee/edit/{id}', 'Organization\Controllers\AccountEmployeeController@update');
     Route::get('account-employee/delete/{id}', 'Organization\Controllers\AccountEmployeeController@destroy');
 
+    Route::get('grid-permission', 'System\Controllers\GridPermissionController@index');
+    Route::post('grid-permission', 'System\Controllers\GridPermissionController@update');
+
+    Route::get('grid-setup', 'System\Controllers\GridSetupController@index');
+    Route::post('grid-setup', 'System\Controllers\GridSetupController@update');
+
+    Route::get('help', 'System\Controllers\HelpController@index');
+
+    Route::get('my-org', 'System\Controllers\OwnerOrganizationController@edit');
+    Route::post('my-org', 'System\Controllers\OwnerOrganizationController@update');
+
+    Route::get('manage-lookups', 'System\Controllers\ManageLookupsController@index');
+    Route::post('manage-lookups/store', 'System\Controllers\ManageLookupsController@store');
+    Route::post('manage-lookups/update', 'System\Controllers\ManageLookupsController@update');
+
+    Route::get('custom-fields', 'System\Controllers\CustomFieldsController@index');
+    Route::get('custom-fields/create', 'System\Controllers\CustomFieldsController@create');
+    Route::post('custom-fields/create', 'System\Controllers\CustomFieldsController@store');
+    Route::get('custom-fields/edit/{id}', 'System\Controllers\CustomFieldsController@edit');
+    Route::post('custom-fields/edit/{id}', 'System\Controllers\CustomFieldsController@update');
+
     Route::get('/logout', '\App\Http\Controllers\UserController@logout');
 
     Route::get('/img/student/{id}', '\App\Http\Controllers\ImageController@studentImage');
     Route::get('/img/school-logo/logo.png', '\App\Http\Controllers\ImageController@schoolLogo');
 
-    Route::get('/{module?}', ['as' => 'cabinet', 'uses' => 'Admin\Controllers\AdminController@home']);
+    Route::get('/sms-batch-details', '\App\Http\Controllers\GridController@smsBatchDetails');
+    Route::get('/{module}', '\App\Http\Controllers\GridController@index');
 
 });
-
 

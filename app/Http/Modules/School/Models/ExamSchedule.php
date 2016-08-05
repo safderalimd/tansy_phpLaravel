@@ -6,7 +6,7 @@ use App\Http\Models\Model;
 
 class ExamSchedule extends Model
 {
-    protected $screenId = 3007;
+    protected $screenId = '/cabinet/exam-schedule';
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\ExamScheduleRepository';
 

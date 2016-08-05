@@ -4,6 +4,7 @@
     @include('include.head')
     @yield('styles')
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/bower_components/magnific-popup/dist/magnific-popup.css">
     <style type="text/css">
         .flash-message {
             background-color: #99c93d;
@@ -23,6 +24,37 @@
         .flash-message .material-icons {
             margin-right: 8px;
             vertical-align: middle;
+        }
+        .dynamic-filter {
+
+        }
+        .dynamic-filter-label {
+            width: 200px;
+            float: left;
+            margin-bottom: 10px;
+            height: 34px;
+            line-height: 34px;
+            text-align: right;
+            padding-right: 15px;
+        }
+        .dynamic-filter-item {
+            margin-bottom: 10px;
+            width: 250px;
+            float: left;
+        }
+        #help-search-box {
+            width: 300px;
+            margin-left: 20px;
+        }
+        .highlight {
+            background-color: #FFFF88;
+        }
+        .help-screen-name {
+            margin-top: 0px;
+            display: inline-block;
+        }
+        iframe {
+            border: none;
         }
     </style>
 </head>
@@ -72,6 +104,7 @@
 <script type="text/javascript" src="/bower_components/bootstrap-checkbox-x/js/checkbox-x.min.js"></script>
 <script type="text/javascript" src="/bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/bower_components/jquery-validation/dist/additional-methods.min.js"></script>
+<script type="text/javascript" src="/bower_components/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
 <script type="text/javascript" src="/js/custom.js?v=12"></script>
 
 <script>
