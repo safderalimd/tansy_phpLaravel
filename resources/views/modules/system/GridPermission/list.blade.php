@@ -53,7 +53,7 @@
                                 <tr>
                                     <th>Field Name</th>
                                     <th class="text-center">
-                                        <label>
+                                        <label class="checkbox">
                                             <input type="checkbox" id="toggle-subjects" name="toggle-checkbox" value="">
                                             Visible
                                         </label>
