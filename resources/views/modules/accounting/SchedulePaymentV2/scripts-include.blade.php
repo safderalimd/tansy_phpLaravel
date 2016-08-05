@@ -59,4 +59,8 @@
         $('#start_date').valid();
     });
 
+    $('#end_date').change(function() {
+        $('#end_date').valid();
+    });
+
 </script>
