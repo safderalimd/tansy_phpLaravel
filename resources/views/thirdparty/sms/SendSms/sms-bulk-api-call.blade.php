@@ -4,7 +4,7 @@
         <Messages>
             @foreach ($messages as $message)
                 <Msg ID="{{$message['account_entity_id']}}" Number="{{$message['mobile_phone']}}">
-                    <Text>{{$message['sms_text']}}</Text>
+                    <Text>{{$prefix}}{{$message['sms_text']}}</Text>
                 </Msg>
             @endforeach
         </Messages>

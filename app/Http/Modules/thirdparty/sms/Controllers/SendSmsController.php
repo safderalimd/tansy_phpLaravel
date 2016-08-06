@@ -253,6 +253,7 @@ class SendSmsController extends Controller
 
         // create sms sender object
         $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
+        $sender->setMessagePrefix($sms->smsMessagePrefix());
 
         // set request properties on the model
         $sms->setSmsBatchAttributes();

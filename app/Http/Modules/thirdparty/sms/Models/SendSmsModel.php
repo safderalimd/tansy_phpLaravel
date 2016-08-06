@@ -17,6 +17,12 @@ class SendSmsModel extends Model
         parent::__construct($arguments);
     }
 
+    public function smsMessagePrefix()
+    {
+        $prefix = $this->repository->smsMessagePrefix();
+        return isset($prefix[0]['prefix_text']) ? $prefix[0]['prefix_text'] : 'Dear sir/madam, ';
+    }
+
     public function smsCredentials()
     {
         $credentials = $this->repository->smsCredentials();

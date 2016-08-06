@@ -140,6 +140,7 @@ class PaymentController extends Controller
 
         $api = $sms->smsCredentials();
         $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
+        $sender->setMessagePrefix($sms->smsMessagePrefix());
 
         $messages = [[
             'sms_text'   => $text,
