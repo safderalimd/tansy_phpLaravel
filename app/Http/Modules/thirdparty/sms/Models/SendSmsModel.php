@@ -20,7 +20,7 @@ class SendSmsModel extends Model
     public function smsMessagePrefix()
     {
         $prefix = $this->repository->smsMessagePrefix();
-        return isset($prefix[0]['prefix_text']) ? $prefix[0]['prefix_text'] : 'Dear sir/madam, ';
+        return isset($prefix[0]['prefix_text']) ? $prefix[0]['prefix_text'] : 'Dear sir/madam,';
     }
 
     public function smsCredentials()

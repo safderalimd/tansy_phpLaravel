@@ -85,7 +85,7 @@ class SmsSender
             'senderId' => $this->senderId,
             'test'     => $this->test,
             'messages' => $this->messages,
-            'prefix'   => $this->messagePrefix,
+            'prefix'   => $this->messagePrefix . ' ',
         ]);
 
         $this->xmlData = $view->render();
