@@ -250,6 +250,9 @@ class SendSmsController extends Controller
 
         // get the textlocal.in credentials for this domain from the database
         $api = $sms->smsCredentials();
+        if ($api['active'] != 1) {
+            return \Redirect::back();
+        }
 
         // create sms sender object
         $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);

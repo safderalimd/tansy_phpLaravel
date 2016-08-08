@@ -13,6 +13,7 @@
         <div class="panel-body">
 
         @include('commons.errors')
+        @include('commons.sms-inactive')
 
         <form class="form-horizontal" action="" method="POST">
             <div class="form-group">

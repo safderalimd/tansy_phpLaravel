@@ -33,6 +33,10 @@ class DebugController extends Controller
 
             $model = new SendSmsModel;
             $api = $model->smsCredentials();
+            if ($api['active'] != 1) {
+                return dd($api);
+            }
+
             d($api);
 
             $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);

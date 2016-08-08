@@ -30,6 +30,7 @@ class SendSmsModel extends Model
             'username' => isset($credentials[0]['sender_user_name']) ? $credentials[0]['sender_user_name'] : '',
             'hash'     => isset($credentials[0]['sender_hash']) ? $credentials[0]['sender_hash'] : '',
             'senderId' => isset($credentials[0]['sender_id']) ? $credentials[0]['sender_id'] : '',
+            'active'   => isset($credentials[0]['active']) ? $credentials[0]['active'] : '',
         ];
     }
 
@@ -42,12 +43,19 @@ class SendSmsModel extends Model
         }
 
         try {
-            // make an api call to get the balance
             $api = $this->smsCredentials();
-            $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
-            $balance = $sender->getBalance();
-            if (!is_numeric($balance)) {
+
+            if ($api['active'] != 1) {
                 $balance = 0;
+                session()->put('smsAccountInactive', true);
+
+            } else {
+                // make an api call to get the balance
+                $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
+                $balance = $sender->getBalance();
+                if (!is_numeric($balance)) {
+                    $balance = 0;
+                }
             }
 
             // store the balance in the session

@@ -23,7 +23,8 @@ class SendSmsRepository extends Repository
                 provider_entity_id,
                 sender_user_name,
                 sender_hash,
-                sender_id
+                sender_id,
+                active
              FROM view_sms_lkp_credentials LIMIT 1;'
         );
     }

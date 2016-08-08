@@ -57,7 +57,11 @@ class PaymentController extends Controller
     {
         $primaryKey = $request->input('pk');
         $payment = Payment::details($primaryKey);
-        return view('modules.accounting.Payment.form', compact('payment', 'primaryKey'));
+
+        $sms = new SendSmsModel;
+        $smsBalanceCount = $sms->smsBalanceCount();
+
+        return view('modules.accounting.Payment.form', compact('payment', 'primaryKey', 'smsBalanceCount'));
     }
 
     /**
@@ -139,6 +143,10 @@ class PaymentController extends Controller
         $sms->setAttribute('exam_entity_id', null);
 
         $api = $sms->smsCredentials();
+        if ($api['active'] != 1) {
+            return false;
+        }
+
         $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
         $sender->setMessagePrefix($sms->smsMessagePrefix());
 
