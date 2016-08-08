@@ -29,49 +29,51 @@ class DebugController extends Controller
 
     public function debugSMS()
     {
+        try {
 
-        // curl --data "username=md.salmancse@gmail.com&hash=be80f85f7139ac89623c35cd6f25316261148dda" http://api.textlocal.in/balance/
+            $model = new SendSmsModel;
+            $api = $model->smsCredentials();
+            d($api);
 
-        // Textlocal account details
-        $username = "md.salmancse@gmail.com";
-        $hash = "be80f85f7139ac89623c35cd6f25316261148dda";
+            $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
+            d($sender);
 
-        // Prepare data for POST request
-        $data = array('username' => $username, 'hash' => $hash);
-        d($data);
+            $balance = $sender->getBalance();
+            dd($balance);
 
-        // Send the POST request with cURL
-        $ch = curl_init('http://api.textlocal.in/balance/');
+        } catch (Exception $e) {
+            dd($e);
+        }
 
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, true);
+        dd('--');
 
-        $response = curl_exec($ch);
+        // // curl --data "username=md.salmancse@gmail.com&hash=be80f85f7139ac89623c35cd6f25316261148dda" http://api.textlocal.in/balance/
 
-        // Process your response here
-        d(curl_getinfo($ch));
-        d($response);
+        // // Textlocal account details
+        // $username = "md.salmancse@gmail.com";
+        // $hash = "be80f85f7139ac89623c35cd6f25316261148dda";
 
-        curl_close($ch);
+        // // Prepare data for POST request
+        // $data = array('username' => $username, 'hash' => $hash);
+        // d($data);
 
-        die();
-        // try {
+        // // Send the POST request with cURL
+        // $ch = curl_init('http://api.textlocal.in/balance/');
 
-        //     $model = new SendSmsModel;
-        //     $api = $model->smsCredentials();
-        //     d($api);
+        // curl_setopt($ch, CURLOPT_POST, true);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_HEADER, true);
 
-        //     $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
-        //     d($sender);
+        // $response = curl_exec($ch);
 
-        //     $balance = $sender->getBalance();
-        //     dd($balance);
+        // // Process your response here
+        // d(curl_getinfo($ch));
+        // d($response);
 
-        // } catch (Exception $e) {
-        //     dd($e);
-        // }
+        // curl_close($ch);
+
+        // die();
     }
 
     public function phpinfo()
