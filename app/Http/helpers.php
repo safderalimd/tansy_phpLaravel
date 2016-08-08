@@ -76,6 +76,11 @@ function url_with_query($url)
     return $url . '?' . app('request')->getQueryString();
 }
 
+function query_string()
+{
+    return '?' . app('request')->getQueryString();
+}
+
 function is_locked($value)
 {
     $value = strtolower($value);

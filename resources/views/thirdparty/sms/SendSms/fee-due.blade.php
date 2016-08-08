@@ -80,6 +80,7 @@
                     <input type="hidden" name="student_ids" id="student_ids" value="">
 
                     <a class="btn btn-default" href="/cabinet/send-sms---fee-due">Cancel</a>
+                    <a class="btn btn-success" target="_blank" href="/cabinet/send-sms---fee-due/csv{{query_string()}}">Export CSV</a>
                     <button disabled="disabled" id="send-sms-button" type="submit" class="btn btn-primary">Send Sms</button>
                 </form>
             </div>

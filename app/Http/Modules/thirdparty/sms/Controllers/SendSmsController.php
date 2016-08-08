@@ -14,6 +14,7 @@ use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
 use App\Http\Modules\thirdparty\sms\SmsSender;
 use App\Http\Models\Grid;
 use Exception;
+use App\Http\CSVGenerator\CSV;
 
 class SendSmsController extends Controller
 {
@@ -52,7 +53,28 @@ class SendSmsController extends Controller
         $this->middleware('screen:' . SendSmsFeeDue::staticScreenId(), ['only' => [
             'feeDue',
             'sendFeeDue',
+            'feeDueCSV',
         ]]);
+    }
+
+    public function feeDueCSV(Request $request)
+    {
+        $feeDue = new SendSmsFeeDue($request->input());
+
+        $header = ['Account', 'Mobile', 'SMS Text'];
+        $rows = [];
+
+        foreach ($feeDue->rows() as $row) {
+            $rowData = [
+                $row['account_name'],
+                phone_number($row['mobile_phone']),
+                'Your current fee due amount is ' . amount($row['due_amount']),
+            ];
+
+            $rows[] = $rowData;
+        }
+
+        return CSV::make($header, $rows);
     }
 
     public function feeDue(Request $request)
