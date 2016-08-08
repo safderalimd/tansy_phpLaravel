@@ -200,6 +200,8 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('send-sms---fee-due', 'thirdparty\sms\Controllers\SendSmsController@sendFeeDue');
 
     Route::get('send-sms---fee-due/csv', 'thirdparty\sms\Controllers\SendSmsController@feeDueCSV');
+    Route::get('send-sms---exam-schedule/csv', 'thirdparty\sms\Controllers\SendSmsController@examScheduleCSV');
+    Route::get('send-sms---exam-results/csv', 'thirdparty\sms\Controllers\SendSmsController@examResultsCSV');
 
     Route::get('daily-attendance', 'School\Controllers\AttendanceController@index');
     Route::post('daily-attendance', 'School\Controllers\AttendanceController@update');
