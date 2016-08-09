@@ -26,7 +26,7 @@ class InboxController extends Controller
     public function index()
     {
         $inbox = new Inbox;
-        // d($inbox->messages());
+        // dd($inbox->messages());
         // dd($inbox);
         return view('modules.communication.Inbox.list', compact('inbox'));
     }

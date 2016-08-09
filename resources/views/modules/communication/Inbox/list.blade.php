@@ -9,166 +9,156 @@
     $totalMessages = $inbox->totalMessages();
 ?>
 
-<div class="panel-group">
-    <div class="panel">
+<div id="inbox-panel" class="panel-group">
+    <section class="panel">
 
-        <div class="row">
-            <div class="col-md-12">
-                <section class="panel">
+    {{--                     <header class="panel-heading">
+            <h3 class="panel-header-text">Inbox</h3>
+            <form action="/cabinet/inbox" class="pull-right" method="POST">
+                <div class="search-box">
+                    <button class="search-submit" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    <input type="text" class="search-input form-control" placeholder="Search">
+                </div>
+            </form>
+        </header>
+    --}}
+        <div class="panel-body">
 
-                    <header class="panel-heading">
-                        <h3 class="panel-header-text">Inbox</h3>
-                        <form action="/cabinet/inbox" class="pull-right" method="POST">
-                            <div class="search-box">
-                                <button class="search-submit" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                <input type="text" class="search-input form-control" placeholder="Search">
-                            </div>
-                        </form>
-                    </header>
+            <div class="inbox-list">
 
-                    <div class="panel-body">
-
-                        <div class="table-inbox-wrap">
-                            <table class="table table-inbox table-hover">
-                                <tr class="unread">
-                                    <td class="select-circle">
-                                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td>Google Inc.</td>
-                                    <td>Your new account is ready.</td>
-                                    <td class="text-right">08:10 AM</td>
-                                </tr>
-                                <tr class="unread">
-                                    <td class="select-circle">
-                                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td>Mark Thompson</td>
-                                    <td>Last project updates</td>
-                                    <td class="text-right">March 15</td>
-                                </tr>
-                                <tr class="unread">
-                                    <td class="select-circle">
-                                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td>Wonder Corp.</td>
-                                    <td>Thanks for your registration</td>
-                                    <td class="text-right">March 15</td>
-                                </tr>
-                                <tr class="">
-                                    <td class="select-circle">
-                                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td>Facebook</td>
-                                    <td>New Friendship Request</td>
-                                    <td class="text-right">March 13</td>
-                                </tr>
-                                <tr class="">
-                                    <td class="select-circle">
-                                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td>Mark Webber</td>
-                                    <td>The server is down</td>
-                                    <td class="text-right">March 09</td>
-                                </tr>
-                                <tr class="">
-                                    <td class="select-circle">
-                                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td>Facebook</td>
-                                    <td>New message from Patrick S.</td>
-                                    <td class="text-right">March 08</td>
-                                </tr>
-                                <tr class="">
-                                    <td class="select-circle">
-                                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td>Paypal inc.</td>
-                                    <td>New payment received</td>
-                                    <td class="text-right">March 04</td>
-                                </tr>
-                                <tr class="">
-                                    <td class="select-circle">
-                                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td>Andrea</td>
-                                    <td class="view-message view-message">Weekend plans</td>
-                                    <td class="text-right">March 04</td>
-                                </tr>
-                                <tr class="">
-                                    <td class="select-circle">
-                                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td>David Green</td>
-                                    <td class="view-message view-message">Soccer tickets</td>
-                                    <td class="text-right">February 22</td>
-                                </tr>
-                                <tr class="">
-                                    <td class="select-circle">
-                                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td>Evelyn</td>
-                                    <td class="view-message view-message">Surprise party</td>
-                                    <td class="text-right">February 19</td>
-                                </tr>
-                                <tr class="">
-                                    <td class="select-circle">
-                                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td>Martin Moore</td>
-                                    <td>Hey mate!</td>
-                                    <td class="text-right">February 17</td>
-                                </tr>
-                                <tr class="">
-                                    <td class="select-circle">
-                                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td class="dont-show">Facebook</td>
-                                    <td>Paul published on your wall</td>
-                                    <td class="text-right">February 14</td>
-                                </tr>
-                                <tr class="">
-                                    <td class="select-circle">
-                                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td>Steve Stoll</td>
-                                    <td>Update developed</td>
-                                    <td class="text-right">February 11</td>
-                                </tr>
-                                <tr class="">
-                                    <td class="select-circle">
-                                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td class="dont-show">Laura Anton</td>
-                                    <td class="view-message view-message">New subscription</td>
-                                    <td class="text-right">January 14</td>
-                                </tr>
-                                <tr class="">
-                                    <td class="select-circle">
-                                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td>Ryanair</td>
-                                    <td>Your flight tickets</td>
-                                    <td class="text-right">January 07</td>
-                                </tr>
-                                <tr class="">
-                                    <td class="select-circle">
-                                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                                    </td>
-                                    <td>Twitter</td>
-                                    <td>Password reset</td>
-                                    <td class="text-right">January 04</td>
-                                </tr>
-                            </table>
+                    <div class="inbox-row unread">
+                        <div class="select-circle">
+                            <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
                         </div>
+                        <div class="message-sender">Google Inc.</div>
+                        <div class="message-subject">Your new account is ready.</div>
+                        <div class="message-date">08:10 AM</div>
                     </div>
-                </section>
+                    <div class="inbox-row unread">
+                        <div class="select-circle">
+                            <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="message-sender">Mark Thompson</div>
+                        <div class="message-subject">Last project updates</div>
+                        <div class="message-date">March 15</div>
+                    </div>
+                    <div class="inbox-row unread">
+                        <div class="select-circle">
+                            <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="message-sender">Wonder Corp.</div>
+                        <div class="message-subject">Thanks for your registration</div>
+                        <div class="message-date">March 15</div>
+                    </div>
+                    <div class="inbox-row">
+                        <div class="select-circle">
+                            <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="message-sender">Facebook</div>
+                        <div class="message-subject">New Friendship Request</div>
+                        <div class="message-date">March 13</div>
+                    </div>
+                    <div class="inbox-row">
+                        <div class="select-circle">
+                            <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="message-sender">Mark Webber</div>
+                        <div class="message-subject">The server is down</div>
+                        <div class="message-date">March 09</div>
+                    </div>
+                    <div class="inbox-row">
+                        <div class="select-circle">
+                            <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="message-sender">Facebook</div>
+                        <div class="message-subject">New message from Patrick S.</div>
+                        <div class="message-date">March 08</div>
+                    </div>
+                    <div class="inbox-row">
+                        <div class="select-circle">
+                            <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="message-sender">Paypal inc.</div>
+                        <div class="message-subject">New payment received</div>
+                        <div class="message-date">March 04</div>
+                    </div>
+                    <div class="inbox-row">
+                        <div class="select-circle">
+                            <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="message-sender">Andrea</div>
+                        <div class="message-subject">Weekend plans</div>
+                        <div class="message-date">March 04</div>
+                    </div>
+                    <div class="inbox-row">
+                        <div class="select-circle">
+                            <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="message-sender">David Green</div>
+                        <div class="message-subject">Soccer tickets</div>
+                        <div class="message-date">February 22</div>
+                    </div>
+                    <div class="inbox-row">
+                        <div class="select-circle">
+                            <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="message-sender">Evelyn</div>
+                        <div class="message-subject">Surprise party</div>
+                        <div class="message-date">February 19</div>
+                    </div>
+                    <div class="inbox-row">
+                        <div class="select-circle">
+                            <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="message-sender">Martin Moore</div>
+                        <div class="message-subject">Hey mate!</div>
+                        <div class="message-date">February 17</div>
+                    </div>
+                    <div class="inbox-row">
+                        <div class="select-circle">
+                            <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="message-sender">Facebook</div>
+                        <div class="message-subject">Paul published on your wall</div>
+                        <div class="message-date">February 14</div>
+                    </div>
+                    <div class="inbox-row">
+                        <div class="select-circle">
+                            <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="message-sender">Steve Stoll</div>
+                        <div class="message-subject">Update developed</div>
+                        <div class="message-date">February 11</div>
+                    </div>
+                    <div class="inbox-row">
+                        <div class="select-circle">
+                            <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="message-sender">Laura Anton</div>
+                        <div class="message-subject">New subscription</div>
+                        <div class="message-date">January 14</div>
+                    </div>
+                    <div class="inbox-row">
+                        <div class="select-circle">
+                            <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="message-sender">Ryanair</div>
+                        <div class="message-subject">Your flight tickets</div>
+                        <div class="message-date">January 07</div>
+                    </div>
+                    <div class="inbox-row">
+                        <div class="select-circle">
+                            <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="message-sender">Twitter</div>
+                        <div class="message-subject">Password reset</div>
+                        <div class="message-date">January 04</div>
+                    </div>
+
             </div>
         </div>
-
-
-    </div>
+    </section>
 </div>
-
 
 @endsection
 
