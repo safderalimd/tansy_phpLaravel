@@ -46,7 +46,8 @@ class MarkSheetRepository extends Repository
             FROM view_sch_mark_sheet_detail
             WHERE class_entity_id = :class_entity_id
             AND subject_entity_id = :subject_entity_id
-            AND exam_entity_id = :exam_entity_id', [
+            AND exam_entity_id = :exam_entity_id
+            ORDER BY CONVERT(student_roll_number, UNSIGNED INTEGER)', [
                 'class_entity_id' => $model->class_entity_id,
                 'subject_entity_id' => $model->subject_entity_id,
                 'exam_entity_id' => $model->exam_entity_id,
