@@ -1,6 +1,7 @@
 @extends('layout.cabinet')
 
 @section('title', 'Inbox')
+@section('screen-name', 'inbox-screen')
 
 @section('content')
 

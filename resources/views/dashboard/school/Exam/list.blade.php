@@ -1,6 +1,7 @@
-@extends('layout.dashboard')
+@extends('layout.cabinet')
 
 @section('title', 'Exam Dashboard')
+@section('screen-name', 'dashboard')
 
 @section('content')
 

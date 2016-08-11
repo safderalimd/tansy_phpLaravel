@@ -3,64 +3,8 @@
 <head>
     @include('include.head')
     @yield('styles')
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="/bower_components/magnific-popup/dist/magnific-popup.css">
-    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ elixir('css/elixir.css') }}">
-    <style type="text/css">
-        .flash-message {
-            background-color: #99c93d;
-            display: inline-block;
-            padding: 12px 30px;
-            color: #fff;
-            border-radius: 4px;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            font-size: 15px;
-            line-height: 1.6em;
-            font-family: Lato, sans-serif;
-            display: none;
-            z-index: 9998;
-        }
-        .flash-message .material-icons {
-            margin-right: 8px;
-            vertical-align: middle;
-        }
-        .dynamic-filter {
-
-        }
-        .dynamic-filter-label {
-            width: 200px;
-            float: left;
-            margin-bottom: 10px;
-            height: 34px;
-            line-height: 34px;
-            text-align: right;
-            padding-right: 15px;
-        }
-        .dynamic-filter-item {
-            margin-bottom: 10px;
-            width: 250px;
-            float: left;
-        }
-        #help-search-box {
-            width: 300px;
-            margin-left: 20px;
-        }
-        .highlight {
-            background-color: #FFFF88;
-        }
-        .help-screen-name {
-            margin-top: 0px;
-            display: inline-block;
-        }
-        iframe {
-            border: none;
-        }
-    </style>
 </head>
-<body style="padding:0px;">
+<body class="@yield('screen-name')">
 
 <div class="loader"></div>
 
@@ -107,6 +51,19 @@
 <script type="text/javascript" src="/bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/bower_components/jquery-validation/dist/additional-methods.min.js"></script>
 <script type="text/javascript" src="/bower_components/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+
+{{-- <script src="/dashboard/jquery.min.js"></script> --}}
+{{-- <script src="/dashboard/bootstrap-select.min.js"></script> --}}
+{{-- <script src="/dashboard/bootstrap.min.js"></script> --}}
+{{-- <script src="/dashboard/jquery.dataTables.min.js"></script> --}}
+{{-- <script src="/dashboard/dataTables.bootstrap.min.js"></script> --}}
+<script src="/dashboard/Chart.min.js"></script>
+{{-- <script src="/dashboard/fileinput.js"></script> --}}
+{{-- <script type="text/javascript" src="/bower_components/bootstrap-checkbox-x/js/checkbox-x.min.js"></script> --}}
+<script type="text/javascript" src="/bower_components/list.js/dist/list.min.js"></script>
+<script type="text/javascript" src="/bower_components/list.pagination.js/dist/list.pagination.min.js"></script>
+<script src="/dashboard/charts.js"></script>
+
 <script type="text/javascript" src="/js/custom.js?v=12"></script>
 
 <script>

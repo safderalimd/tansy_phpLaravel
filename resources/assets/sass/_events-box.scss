@@ -1,0 +1,45 @@
+.dashboard.square-boxes {
+
+    .home-events {
+        .events-text {
+            font-size: 25px;
+        }
+        &.stat-panel {
+            margin-top: 0px;
+        }
+    }
+
+    .home-events-panel {
+        max-height: 305px;
+
+        &.panel-body {
+            height: initial;
+
+            .pagination {
+                margin-top: 15px;
+                margin-bottom: 0px;
+
+                a {
+                    margin: 0px;
+                    margin-right: 5px;
+                    font-size: 14px;
+                    padding: 0px;
+                    border: 0px;
+                    border-radius: 0px;
+                    color: #fff;
+                    background-color: #0B71B5;
+                    text-decoration: none;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+
+                li.active a {
+                    background-color: #0B71B5;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+}

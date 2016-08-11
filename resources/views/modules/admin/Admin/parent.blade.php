@@ -1,6 +1,7 @@
-@extends('layout.dashboard')
+@extends('layout.cabinet')
 
 @section('title', 'Home - v1')
+@section('screen-name', 'dashboard square-boxes')
 
 @section('content')
 
@@ -26,15 +27,4 @@
     </div>
 </div>
 
-@endsection
-
-@section('styles')
-<style type="text/css">
-    .panel-body {
-        height: 200px;
-    }
-    .stat-panel {
-        margin-top: 50px;
-    }
-</style>
 @endsection

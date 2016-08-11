@@ -1,0 +1,17 @@
+.help-block {
+    margin-bottom: 0px;
+    color: #f00;
+}
+
+label.required:after {
+    content: " *";
+    color: red;
+}
+
+@media (max-width: 350px) {
+    .help-block {
+        margin-top: 1px;
+        font-size: 12px;
+    }
+}
+

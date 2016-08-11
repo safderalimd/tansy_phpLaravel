@@ -1,5 +1,25 @@
+// general styles
 @import 'header';
+@import 'flash-message';
+@import 'validation';
+@import 'upload-button';
+@import 'preloader';
+@import 'forms';
+@import 'simple-sidebar';
+@import 'dashboard';
+@import 'events-box';
+
+// todo: refactor
+@import 'layout';
+
+// screen specific styles
 @import 'inbox';
+@import 'help';
+@import 'dynamic-grid';
+
+body {
+    padding: 0px;
+}
 
 // @media (max-width: 500px) {
 // }
