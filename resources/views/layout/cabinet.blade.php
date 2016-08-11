@@ -51,15 +51,7 @@
 <script type="text/javascript" src="/bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/bower_components/jquery-validation/dist/additional-methods.min.js"></script>
 <script type="text/javascript" src="/bower_components/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
-
-{{-- <script src="/dashboard/jquery.min.js"></script> --}}
-{{-- <script src="/dashboard/bootstrap-select.min.js"></script> --}}
-{{-- <script src="/dashboard/bootstrap.min.js"></script> --}}
-{{-- <script src="/dashboard/jquery.dataTables.min.js"></script> --}}
-{{-- <script src="/dashboard/dataTables.bootstrap.min.js"></script> --}}
 <script src="/dashboard/Chart.min.js"></script>
-{{-- <script src="/dashboard/fileinput.js"></script> --}}
-{{-- <script type="text/javascript" src="/bower_components/bootstrap-checkbox-x/js/checkbox-x.min.js"></script> --}}
 <script type="text/javascript" src="/bower_components/list.js/dist/list.min.js"></script>
 <script type="text/javascript" src="/bower_components/list.pagination.js/dist/list.pagination.min.js"></script>
 <script src="/dashboard/charts.js"></script>
