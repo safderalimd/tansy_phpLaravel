@@ -14,6 +14,8 @@ class SmsSender
 
     private $messages;
 
+    private $messagePrefix = '';
+
     /**
      * Set to 1 for test/sandbox mode, 0 for real sms mode
      *
@@ -34,6 +36,11 @@ class SmsSender
         if (empty($this->senderId)) {
             $this->senderId = 'TXTLCL';
         }
+    }
+
+    public function setMessagePrefix($prefix)
+    {
+        $this->messagePrefix = $prefix;
     }
 
     public function send($messages)
@@ -78,6 +85,7 @@ class SmsSender
             'senderId' => $this->senderId,
             'test'     => $this->test,
             'messages' => $this->messages,
+            'prefix'   => $this->messagePrefix . ' ',
         ]);
 
         $this->xmlData = $view->render();

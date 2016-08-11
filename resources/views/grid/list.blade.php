@@ -62,8 +62,15 @@
 
         $('.dynamic-filter-input').each(function() {
             var filter = $(this).attr('data-filterId') + '=';
-            if ($(this).attr('data-type') == 'value' && $(this).val()) {
+            var dataType = $(this).attr('data-type');
+
+            if (dataType == 'value' && $(this).val()) {
                 items.push(filter+$(this).val());
+            } else if (dataType == 'dropdown') {
+                var option = $('option:selected', $(this)).val();
+                if (option != 'none') {
+                    items.push(filter+option);
+                }
             }
         });
 

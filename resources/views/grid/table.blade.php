@@ -1,6 +1,12 @@
+<?php
+    $rowIndex = 1;
+?>
 <table id="grid-table" class="table table-striped table-bordered table-hover" @if (!isset($options['datatableOff'])) data-dynamicgrid @endif>
     <thead>
         <tr>
+            @if ($grid->settings->showPdfRowNumbers())
+                <th>#</th>
+            @endif
             @if (isset($options['headerFirstInclude'])) @include($options['headerFirstInclude']) @endif
             @foreach ($columns as $column)
                 <th>
@@ -20,7 +26,9 @@
     <tbody>
     @foreach($grid->rows() as $row)
         <tr>
-
+            @if ($grid->settings->showPdfRowNumbers())
+                <td>{{$rowIndex++}}</td>
+            @endif
         @if (isset($options['rowFirstInclude'])) @include($options['rowFirstInclude'], ['row' => $row]) @endif
 
         @foreach($columns as $column)

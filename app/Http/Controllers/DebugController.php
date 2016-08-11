@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use App\Http\Requests;
 use App\Http\Mailer\SendMail;
 use Exception;
+use Mail;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
 use App\Http\Modules\thirdparty\sms\SmsSender;
 
@@ -14,54 +15,69 @@ class DebugController extends Controller
 {
     public function debugException()
     {
-        throw new Exception("Debug test error exception.");
+        // send mail to developer admin
+        $admin = env('ADMIN_EMAIL');
+        $exception = new Exception('test');
+        if ($admin) {
+            Mail::send('emails.exception', ['exception' => $exception], function ($m) use ($admin) {
+                $m->to($admin, 'Admin');
+                $m->subject("TansyCloud TEST Error Message!");
+            });
+        }
+        // throw new Exception("Debug test error exception.");
     }
 
     public function debugSMS()
     {
+        try {
 
-        // curl --data "username=md.salmancse@gmail.com&hash=be80f85f7139ac89623c35cd6f25316261148dda" http://api.textlocal.in/balance/
+            $model = new SendSmsModel;
+            $api = $model->smsCredentials();
+            if ($api['active'] != 1) {
+                return dd($api);
+            }
 
-        // Textlocal account details
-        $username = "md.salmancse@gmail.com";
-        $hash = "be80f85f7139ac89623c35cd6f25316261148dda";
+            d($api);
 
-        // Prepare data for POST request
-        $data = array('username' => $username, 'hash' => $hash);
-        d($data);
+            $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
+            d($sender);
 
-        // Send the POST request with cURL
-        $ch = curl_init('http://api.textlocal.in/balance/');
+            $balance = $sender->getBalance();
+            dd($balance);
 
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, true);
+        } catch (Exception $e) {
+            dd($e);
+        }
 
-        $response = curl_exec($ch);
+        dd('--');
 
-        // Process your response here
-        d(curl_getinfo($ch));
-        d($response);
+        // // curl --data "username=md.salmancse@gmail.com&hash=be80f85f7139ac89623c35cd6f25316261148dda" http://api.textlocal.in/balance/
 
-        curl_close($ch);
+        // // Textlocal account details
+        // $username = "md.salmancse@gmail.com";
+        // $hash = "be80f85f7139ac89623c35cd6f25316261148dda";
 
-        die();
-        // try {
+        // // Prepare data for POST request
+        // $data = array('username' => $username, 'hash' => $hash);
+        // d($data);
 
-        //     $model = new SendSmsModel;
-        //     $api = $model->smsCredentials();
-        //     d($api);
+        // // Send the POST request with cURL
+        // $ch = curl_init('http://api.textlocal.in/balance/');
 
-        //     $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
-        //     d($sender);
+        // curl_setopt($ch, CURLOPT_POST, true);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_HEADER, true);
 
-        //     $balance = $sender->getBalance();
-        //     dd($balance);
+        // $response = curl_exec($ch);
 
-        // } catch (Exception $e) {
-        //     dd($e);
-        // }
+        // // Process your response here
+        // d(curl_getinfo($ch));
+        // d($response);
+
+        // curl_close($ch);
+
+        // die();
     }
 
     public function phpinfo()

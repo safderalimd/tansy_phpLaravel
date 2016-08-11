@@ -6,6 +6,16 @@ use App\Http\Repositories\Repository;
 
 class SendSmsRepository extends Repository
 {
+    public function smsMessagePrefix()
+    {
+        return $this->select(
+            'SELECT
+                prefix_id,
+                prefix_text
+             FROM view_sms_lkp_template_prefix LIMIT 1;'
+        );
+    }
+
     public function smsCredentials()
     {
         return $this->select(
@@ -13,8 +23,11 @@ class SendSmsRepository extends Repository
                 provider_entity_id,
                 sender_user_name,
                 sender_hash,
-                sender_id
-             FROM view_sms_lkp_credentials LIMIT 1;'
+                sender_id,
+                active
+             FROM view_sms_lkp_credentials
+             WHERE active = 1
+             LIMIT 1;'
         );
     }
 

@@ -54,8 +54,26 @@ class Filter
         return $this->inputType() == 'Date';
     }
 
+    public function isDropDown()
+    {
+        return $this->inputType() == 'Drop Down';
+    }
+
     public function get($key)
     {
         return isset($this->filter[$key]) ? $this->filter[$key] : null;
+    }
+
+    public function dropdownSql()
+    {
+        if (! isset($this->filter['drop_down_sql'])) {
+            return null;
+        }
+
+        if ($this->filter['drop_down_sql'] == 'N/A') {
+            return null;
+        }
+
+        return $this->filter['drop_down_sql'];
     }
 }

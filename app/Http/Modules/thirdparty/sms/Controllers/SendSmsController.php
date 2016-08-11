@@ -14,6 +14,7 @@ use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
 use App\Http\Modules\thirdparty\sms\SmsSender;
 use App\Http\Models\Grid;
 use Exception;
+use App\Http\CSVGenerator\CSV;
 
 class SendSmsController extends Controller
 {
@@ -37,11 +38,13 @@ class SendSmsController extends Controller
         $this->middleware('screen:' . SendSmsExam::staticScreenId(), ['only' => [
             'examResults',
             'sendExamResults',
+            'examResultsCSV',
         ]]);
 
         $this->middleware('screen:' . SendSmsExamSchedule::staticScreenId(), ['only' => [
             'examSchedule',
             'sendExamSchedule',
+            'examScheduleCSV',
         ]]);
 
         $this->middleware('screen:' . SendSmsAttendance::staticScreenId(), ['only' => [
@@ -52,7 +55,68 @@ class SendSmsController extends Controller
         $this->middleware('screen:' . SendSmsFeeDue::staticScreenId(), ['only' => [
             'feeDue',
             'sendFeeDue',
+            'feeDueCSV',
         ]]);
+    }
+
+    public function feeDueCSV(Request $request)
+    {
+        $sms = new SendSmsFeeDue($request->input());
+
+        $header = ['Account', 'Mobile', 'SMS Text'];
+        $rows = [];
+
+        foreach ($sms->rows() as $row) {
+            $rowData = [
+                $row['account_name'],
+                phone_number($row['mobile_phone']),
+                'Your current fee due amount is ' . amount($row['due_amount']),
+            ];
+
+            $rows[] = $rowData;
+        }
+
+        return CSV::make($header, $rows);
+    }
+
+    public function examScheduleCSV(Request $request)
+    {
+        $sms = new SendSmsExamSchedule($request->input());
+
+        $header = ['Account', 'Mobile', 'SMS Text'];
+        $rows = [];
+
+        foreach ($sms->rows() as $row) {
+            $rowData = [
+                $row['account_name'],
+                phone_number($row['mobile_phone']),
+                $row['sms_text'],
+            ];
+
+            $rows[] = $rowData;
+        }
+
+        return CSV::make($header, $rows);
+    }
+
+    public function examResultsCSV(Request $request)
+    {
+        $sms = new SendSmsExam($request->input());
+
+        $header = ['Account', 'Mobile', 'SMS Text'];
+        $rows = [];
+
+        foreach ($sms->rows() as $row) {
+            $rowData = [
+                $row['account_name'],
+                phone_number($row['mobile_phone']),
+                $row['sms_text'],
+            ];
+
+            $rows[] = $rowData;
+        }
+
+        return CSV::make($header, $rows);
     }
 
     public function feeDue(Request $request)
@@ -250,9 +314,13 @@ class SendSmsController extends Controller
 
         // get the textlocal.in credentials for this domain from the database
         $api = $sms->smsCredentials();
+        if ($api['active'] != 1) {
+            return \Redirect::back();
+        }
 
         // create sms sender object
         $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
+        $sender->setMessagePrefix($sms->smsMessagePrefix());
 
         // set request properties on the model
         $sms->setSmsBatchAttributes();

@@ -17,11 +17,12 @@ class ProgressPrintStudentRepository extends Repository
                 subject,
                 max_marks,
                 student_marks,
-                pass_fail
+                pass_fail,
+                subject_reporting_order
             FROM view_sch_progress_print_details
             WHERE exam_entity_id = :exam_id
             AND class_entity_id = :class_id
-            ORDER BY subject ASC;', [
+            ORDER BY subject_reporting_order ASC;', [
                 'exam_id' => $examId,
                 'class_id' => $classId,
             ]

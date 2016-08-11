@@ -93,6 +93,9 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('schedule-payment/create/student', 'Accounting\Controllers\SchedulePaymentController@createStudent');
     Route::post('schedule-payment/create/student', 'Accounting\Controllers\SchedulePaymentController@storeStudent');
 
+    Route::get('schedule-payment-v2', 'Accounting\Controllers\SchedulePaymentV2Controller@index');
+    Route::post('schedule-payment-v2', 'Accounting\Controllers\SchedulePaymentV2Controller@update');
+
     Route::get('payment-v1', 'Accounting\Controllers\PaymentController@index');
     Route::get('payment-v1/create', 'Accounting\Controllers\PaymentController@create');
     Route::post('payment-v1/create', 'Accounting\Controllers\PaymentController@payNow');
@@ -135,8 +138,8 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('generate-progress/generate', 'School\Controllers\GenerateProgressController@generate');
     Route::get('generate-progress/re-generate', 'School\Controllers\GenerateProgressController@regenerate');
 
-    Route::get('pdf---student-export', 'reports\School\Controllers\StudentExportController@index');
-    Route::get('pdf---student-export/pdf', 'reports\School\Controllers\StudentExportController@report');
+    // Route::get('pdf---student-export', 'reports\School\Controllers\StudentExportController@index');
+    // Route::get('pdf---student-export/pdf', 'reports\School\Controllers\StudentExportController@report');
 
     Route::get('pdf---student-detail', 'reports\School\Controllers\StudentDetailController@index');
     Route::get('pdf---student-detail/pdf', 'reports\School\Controllers\StudentDetailController@report');
@@ -153,14 +156,14 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('receipts-listing', 'reports\Accounting\Controllers\ReceiptPrintController@index');
     Route::get('pdf---receipt-v1/pdf', 'reports\Accounting\Controllers\ReceiptPrintPDFController@report');
 
-    Route::get('progress-print---student',
+    Route::get('pdf---student-progress-v1',
         'reports\School\Controllers\ProgressPrintStudentController@index');
-    Route::get('progress-print--student/pdf',
+    Route::get('pdf---student-progress-v1/pdf',
         'reports\School\Controllers\ProgressPrintStudentController@report');
 
-    Route::get('progress-print---class',
+    Route::get('pdf---class-progress',
         'reports\School\Controllers\ProgressPrintClassController@index');
-    Route::get('progress-print--class/pdf',
+    Route::get('pdf---class-progress/pdf',
         'reports\School\Controllers\ProgressPrintClassController@report');
 
     Route::get('payment-dashboard', 'dashboard\accounting\Controllers\PaymentController@index');
@@ -195,6 +198,10 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('send-sms---exam-schedule', 'thirdparty\sms\Controllers\SendSmsController@sendExamSchedule');
     Route::post('send-sms---attendence', 'thirdparty\sms\Controllers\SendSmsController@sendAttendance');
     Route::post('send-sms---fee-due', 'thirdparty\sms\Controllers\SendSmsController@sendFeeDue');
+
+    Route::get('send-sms---fee-due/csv', 'thirdparty\sms\Controllers\SendSmsController@feeDueCSV');
+    Route::get('send-sms---exam-schedule/csv', 'thirdparty\sms\Controllers\SendSmsController@examScheduleCSV');
+    Route::get('send-sms---exam-results/csv', 'thirdparty\sms\Controllers\SendSmsController@examResultsCSV');
 
     Route::get('daily-attendance', 'School\Controllers\AttendanceController@index');
     Route::post('daily-attendance', 'School\Controllers\AttendanceController@update');

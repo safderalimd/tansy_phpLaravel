@@ -13,6 +13,7 @@
         <div class="panel-body">
 
         @include('commons.errors')
+        @include('commons.sms-inactive')
 
         <form class="form-horizontal" action="" method="POST">
             <div class="form-group">
@@ -88,6 +89,7 @@
                     <input type="hidden" name="student_ids" id="student_ids" value="">
 
                     <a class="btn btn-default" href="/cabinet/send-sms---exam-schedule">Cancel</a>
+                    <a class="btn btn-success" target="_blank" href="/cabinet/send-sms---exam-schedule/csv{{query_string()}}">Export CSV</a>
                     <button disabled="disabled" id="send-sms-button" type="submit" class="btn btn-primary">Send Sms</button>
                 </form>
             </div>

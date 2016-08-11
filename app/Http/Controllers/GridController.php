@@ -45,7 +45,13 @@ class GridController extends Controller
 
         $options = ['isPdf' => true];
         $view = view('grid.PDF.pdf', compact('grid', 'options'));
-        return Pdf::render($view);
+
+        $columns = $grid->columns();
+        if (count($columns) > 8) {
+            return Pdf::renderLandscape($view);
+        } else {
+            return Pdf::render($view);
+        }
     }
 
     public function smsBatchDetails(Request $request)

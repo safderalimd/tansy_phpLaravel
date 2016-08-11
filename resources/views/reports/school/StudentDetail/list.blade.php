@@ -16,33 +16,35 @@
 
             <form class="form-horizontal" target="_blank" id="generate-report-form" action="/cabinet/pdf---student-detail/pdf" method="GET">
                 <input type="hidden" id="random_id" name="ri" value="">
+                <input type="hidden" id="report_type" name="rt" value="pdf">
 
-                <div class="form-group">
-                    <label class="col-md-1 control-label">Class</label>
-                    <div class="col-md-3">
-                        <select id="class_entity_id" class="form-control" name="ci">
-                            <option value="none">Select a class..</option>
-                            @foreach($export->classes() as $option)
-                                <option value="{{ $option['class_entity_id'] }}">{{ $option['class_name'] }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+                @include('grid.filters')
 
-                <div class="form-group">
-                    <label class="col-md-1 control-label">Student</label>
-                    <div class="col-md-3">
-                        <select id="student_entity_id" class="form-control" name="si">
-                            @foreach($export->students() as $option)
-                                <option data-classId="{{ $option['class_entity_id'] }}" value="{{ $option['student_entity_id'] }}">{{ $option['student_full_name'] }}</option>
-                            @endforeach
-                        </select>
+                <div class="row">
+                    <div class="col-md-12" style="padding-left:200px;">
+
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="toggle-subjects" name="toggle_checkbox" value=""> Check All</label>
+                        </div>
+
+                        <br/>
+
+                        @foreach ($grid->columns() as $column)
+                            @if ($column->name())
+                                <div class="checkbox">
+                                    <label><input type="checkbox" class="pdf-column" value="1" name="{{$column->name()}}">{{$column->label()}}</label>
+                                </div>
+                            @endif
+                        @endforeach
+
+                        <br/>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-3 col-md-offset-1">
-                        <button id="generate-report" class="btn btn-primary" type="submit">Generate Report</button>
+                    <div class="col-md-12" style="padding-left:200px;">
+                        <button id="generate-report-pdf" class="btn btn-primary" type="submit">Generate PDF</button>
+                        <button id="generate-report-csv" class="btn btn-default" type="submit">Generate CSV</button>
                     </div>
                 </div>
             </form>
@@ -55,65 +57,15 @@
 @section('scripts')
 <script type="text/javascript">
 
-    var allStudentOptions;
-
-    function initStudentOptions() {
-        allStudentOptions = $('#student_entity_id option');
-        removeAllStudentOptions();
-        $('#student_entity_id').append('<option value="none">Select a student...</option>');
-    }
-
-    function getClassId() {
-        return $('#class_entity_id option:selected').val();
-    }
-
-    function removeAllStudentOptions() {
-        $('#student_entity_id option').remove();
-    }
-
-    function populateStudentsSelectbox(accounts) {
-        $('#student_entity_id').prepend('<option value="none">Select a student...</option>');
-        $(accounts).each(function() {
-            $('#student_entity_id').append($(this));
-        });
-        $('#student_entity_id option[value=none]').prop('selected', 'selected');
-    }
-
-    function updateStudents() {
-        removeAllStudentOptions();
-
-        var classId = getClassId();
-        var filteredStudents = $(allStudentOptions).filter(function() {
-            if ($(this).attr('data-classId') == classId) {
-                return true;
-            }
-            return false;
-        }).get();
-
-        populateStudentsSelectbox(filteredStudents);
-    }
-
-    $('#class_entity_id').change(function() {
-        updateStudents();
+    $('#generate-report-pdf').on('click', function() {
+        $('#report_type').val('pdf');
     });
-
-    $(document).ready(function() {
-        initStudentOptions();
+    $('#generate-report-csv').on('click', function() {
+        $('#report_type').val('csv');
     });
-
 
     $('#generate-report-form').submit(function() {
         if (! $('#generate-report-form').valid()) {
-            return false;
-        }
-
-        if ($('#class_entity_id option:selected').val() == 'none') {
-            alert('Select a class.');
-            return false;
-        }
-
-        if ($('#student_entity_id option:selected').val() == 'none') {
-            alert('Select a student.');
             return false;
         }
 
@@ -121,16 +73,47 @@
         return true;
     });
 
+    // check/uncheck all checkboxes
+    $('#toggle-subjects').change(function() {
+        $('.pdf-column').prop('checked', false);
+        if($(this).is(":checked")) {
+            $('.pdf-column').prop('checked', true)
+        }
+        $('#generate-report-form').valid();
+    });
+
+    $('.pdf-column').change(function() {
+        $('#generate-report-form').valid();
+    });
+
     $('#generate-report-form').validate({
         rules: {
-            ci: {
+            f1: {
                 requiredSelect: true
             },
-            si: {
+            f2: {
                 requiredSelect: true
+            },
+            toggle_checkbox: {
+                required: function(elem) {
+                    return $("input.pdf-column:checked").length == 0;
+                }
+            }
+        },
+        messages: {
+            toggle_checkbox: {
+                required: "Please select at least 1 checkbox."
             }
         }
     });
 
 </script>
+@endsection
+
+@section('styles')
+<style type="text/css">
+    .form-horizontal .dynamic-filter-label {
+        padding-top: 0px;
+    }
+</style>
 @endsection

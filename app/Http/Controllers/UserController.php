@@ -60,6 +60,7 @@ class UserController extends Controller
 
                 // clear the sms balance from the session
                 session()->put('smsBalance', null);
+                session()->put('smsAccountInactive', null);
 
                 return redirect('/cabinet');
             }

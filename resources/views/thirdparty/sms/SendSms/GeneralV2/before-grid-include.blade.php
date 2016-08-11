@@ -1,3 +1,5 @@
+@include('commons.sms-inactive')
+
 <form class="form-horizontal" action="" method="POST">
     <div class="form-group">
         <label class="col-xs-3 col-md-2 control-label" for="sms_type_id">SMS Type</label>

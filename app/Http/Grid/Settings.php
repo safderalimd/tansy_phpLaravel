@@ -12,6 +12,8 @@ class Settings
 
     protected $showPdf = false;
 
+    protected $showPdfRowNumbers = false;
+
     public function __construct($settings)
     {
         $this->settings = $settings;
@@ -31,6 +33,10 @@ class Settings
             if ($option['ui_label'] == 'show_pdf') {
                 $this->showPdf = true;
             }
+
+            if ($option['ui_label'] == 'pdf_row_number') {
+                $this->showPdfRowNumbers = true;
+            }
         }
     }
 
@@ -47,5 +53,10 @@ class Settings
     public function showPdf()
     {
         return $this->showPdf;
+    }
+
+    public function showPdfRowNumbers()
+    {
+        return $this->showPdfRowNumbers;
     }
 }

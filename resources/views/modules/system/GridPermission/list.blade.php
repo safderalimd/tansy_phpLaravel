@@ -52,7 +52,12 @@
                             <thead>
                                 <tr>
                                     <th>Field Name</th>
-                                    <th>Visible</th>
+                                    <th class="text-center">
+                                        <label class="checkbox">
+                                            <input type="checkbox" id="toggle-subjects" name="toggle-checkbox" value="">
+                                            Visible
+                                        </label>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -123,6 +128,15 @@
         }
         return '';
     }
+
+    // Checkbox table header - for this page, toggle all checkboxes
+    $('#toggle-subjects').change(function() {
+        if($(this).is(":checked")) {
+            $('.checkbox-screen-id').prop('checked', true);
+        } else {
+            $('.checkbox-screen-id').prop('checked', false);
+        }
+    });
 
     // When submitting the form, prepend all selected checkboxes
     $('#grid-permission-form').submit(function() {

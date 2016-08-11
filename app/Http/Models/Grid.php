@@ -52,6 +52,11 @@ class Grid extends Model
                 $this->setAttribute('sql_operator_filter' . $filter->id(), $filter->get('sql_operator'));
                 $this->setAttribute('drop_down_pk_filter' . $filter->id(), $filter->get('drop_down_pk'));
                 $this->setAttribute('drop_down_parent_filter' . $filter->id(), $filter->get('drop_down_parent'));
+
+                if ($filter->isDropDown()) {
+                    $this->setAttribute($filter->get('db_column'), $this->{$filterId});
+                }
+
             } else {
                 // only return rows if all filters are set; allow default_facility_id filter to not be set
                 if ($filter->get('db_column') != 'iparam_default_facility_id') {
@@ -118,5 +123,19 @@ class Grid extends Model
         $this->filters = Filter::make(first_resultset($data));
 
         $this->params = new Params(second_resultset($data));
+    }
+
+    public function filterDropdownValues($filter)
+    {
+        if ($filter->dropdownSql()) {
+            return $this->repository->filterDropdownValues($filter->dropdownSql());
+        }
+
+        return [];
+    }
+
+    public function removeUnsetColumns($model)
+    {
+        $this->header->removeUnsetColumns($model);
     }
 }

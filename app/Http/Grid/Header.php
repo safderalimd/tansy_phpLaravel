@@ -62,4 +62,13 @@ class Header
 
         return $visible;
     }
+
+    public function removeUnsetColumns($model)
+    {
+        foreach ($this->visibleColumns as $key => $column) {
+            if (!isset($model->{$column->name()})) {
+                unset($this->visibleColumns[$key]);
+            }
+        }
+    }
 }
