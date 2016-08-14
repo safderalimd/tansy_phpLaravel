@@ -201,57 +201,6 @@ a.selected {
 .edit_form_wrapper label.radio-inline {
   padding-left: 20px; }
 
-#wrapper {
-  padding-left: 0;
-  transition: all 0.5s ease; }
-
-#wrapper.toggled {
-  padding-left: 290px; }
-
-#sidebar-wrapper {
-  z-index: 1000;
-  position: absolute;
-  left: 305px;
-  width: 0;
-  height: 100%;
-  margin-left: -290px;
-  overflow-y: auto;
-  transition: all 0.5s ease; }
-
-#wrapper.toggled #sidebar-wrapper {
-  width: 290px; }
-
-#page-content-wrapper {
-  width: auto !important;
-  position: absolute; }
-
-#wrapper.toggled #page-content-wrapper {
-  position: absolute;
-  margin-right: -290px; }
-
-.sidebar-nav {
-  position: absolute;
-  top: 0;
-  width: 290px;
-  margin: 0;
-  padding: 0;
-  list-style: none; }
-
-@media (min-width: 768px) {
-  #wrapper {
-    padding-left: 290px; }
-  #wrapper.toggled {
-    padding-left: 0; }
-  #sidebar-wrapper {
-    width: 290px; }
-  #wrapper.toggled #sidebar-wrapper {
-    width: 0; }
-  #page-content-wrapper {
-    position: relative; }
-  #wrapper.toggled #page-content-wrapper {
-    position: relative;
-    margin-right: 0; } }
-
 .active-exam {
   text-decoration: underline; }
 
