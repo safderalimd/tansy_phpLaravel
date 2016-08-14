@@ -42,7 +42,7 @@ class Model
      *
      * @var boolean
      */
-    protected $isNewRecord = true;
+    public $isNewRecord = true;
 
     /**
      * The model's repository.

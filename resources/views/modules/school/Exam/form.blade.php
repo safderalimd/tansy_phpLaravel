@@ -51,6 +51,54 @@
                         ])
 
                         <div class="form-group">
+                            <label class="col-md-4 control-label" for="exam_short_code">Exam Short Code</label>
+                            <div class="col-md-8">
+                                <input id="exam_short_code" class="form-control" type="text" name="exam_short_code" value="{{ v('exam_short_code') }}" placeholder="Exam Short Code">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-8">
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_jan') }} name="attendance_jan" type="checkbox"> Jan
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_feb') }} name="attendance_feb" type="checkbox"> Feb
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_mar') }} name="attendance_mar" type="checkbox"> Mar
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_apr') }} name="attendance_apr" type="checkbox"> Apr
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_may') }} name="attendance_may" type="checkbox"> May
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_jun') }} name="attendance_jun" type="checkbox"> Jun
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_jul') }} name="attendance_jul" type="checkbox"> Jul
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_aug') }} name="attendance_aug" type="checkbox"> Aug
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_sep') }} name="attendance_sep" type="checkbox"> Sep
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_oct') }} name="attendance_oct" type="checkbox"> Oct
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_nov') }} name="attendance_nov" type="checkbox"> Nov
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_dec') }} name="attendance_dec" type="checkbox"> Dec
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="col-md-4 control-label required" for="facility_ids">Facility</label>
                             <div class="col-md-8">
                                 <?php
@@ -95,6 +143,19 @@
     </div>
 @endsection
 
+@section('styles')
+<style type="text/css">
+    .checkbox-inline.no_indent,
+    .checkbox-inline.no_indent+.checkbox-inline.no_indent {
+        margin-left: 0;
+        margin-right: 10px;
+        width: 70px;
+    }
+    .checkbox-inline.no_indent:last-child {
+        margin-right: 0;
+    }
+</style>
+@endsection
 
 @section('scripts')
 <script type="text/javascript">
