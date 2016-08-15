@@ -54,6 +54,7 @@
 <script src="/dashboard/Chart.min.js"></script>
 <script type="text/javascript" src="/bower_components/list.js/dist/list.min.js"></script>
 <script type="text/javascript" src="/bower_components/list.pagination.js/dist/list.pagination.min.js"></script>
+<script type="text/javascript" src="/js/jquery.jscroll.min.js"></script>
 <script src="/dashboard/charts.js"></script>
 
 <script type="text/javascript" src="/js/custom.js?v=12"></script>

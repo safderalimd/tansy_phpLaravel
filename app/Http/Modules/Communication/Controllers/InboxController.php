@@ -2,6 +2,7 @@
 
 namespace App\Http\Modules\Communication\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Communication\Models\Inbox;
 use App\Http\Modules\Communication\Requests\ProductFormRequest;
@@ -23,12 +24,19 @@ class InboxController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $inbox = new Inbox;
-        // dd($inbox->messages());
-        // dd($inbox);
-        return view('modules.communication.Inbox.list', compact('inbox'));
+
+        $pageNr = $request->input('page');
+        if (is_null($pageNr)) {
+            $pageNr = 2;
+            return view('modules.communication.Inbox.list', compact('inbox', 'pageNr'));
+
+        } else {
+            $pageNr++;
+            return view('modules.communication.Inbox.messages', compact('inbox', 'pageNr'));
+        }
     }
 
     // /**
