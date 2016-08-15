@@ -127,8 +127,11 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     });
 
     Route::get('exam-schedule', 'School\Controllers\ExamScheduleController@index');
+    Route::get('exam-schedule/edit/{id}', 'School\Controllers\ExamScheduleController@edit');
+    Route::post('exam-schedule/edit/{id}', 'School\Controllers\ExamScheduleController@update');
     Route::post('exam-schedule/map-subjects', 'School\Controllers\ExamScheduleController@mapSubjects');
     Route::post('exam-schedule/schedule-rows', 'School\Controllers\ExamScheduleController@scheduleRows');
+    Route::get('exam-schedule/paper-2', 'School\Controllers\ExamScheduleController@paper2');
     Route::get('exam-schedule/delete', 'School\Controllers\ExamScheduleController@destroy');
 
     Route::get('mark-sheet', 'School\Controllers\MarkSheetController@index');

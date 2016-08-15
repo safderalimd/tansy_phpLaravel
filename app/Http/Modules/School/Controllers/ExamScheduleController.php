@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Modules\School\Models\ExamSchedule;
 use App\Http\Modules\School\Requests\ExamScheduleMapSubjectsFormRequest;
 use App\Http\Modules\School\Requests\ExamScheduleRowsFormRequest;
-use App\Http\Modules\School\Requests\ExamScheduleDeleteFormRequest;
 use App\Http\Models\Grid;
 
 class ExamScheduleController extends Controller
@@ -48,9 +47,28 @@ class ExamScheduleController extends Controller
         ];
 
         return view('grid.list', compact('grid', 'options', 'schedule'));
+    }
 
-        // $schedule = new ExamSchedule($request->input());
-        // return view('modules.school.ExamSchedule.list', compact('schedule'));
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request, $id)
+    {
+        $schedule = new ExamSchedule($request->input());
+        $schedule->setDetail($id);
+        return view('modules.school.ExamSchedule.form', compact('schedule'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $product = new ExamSchedule;
+        $product->setAttribute('exam_schedule_id', $id);
+        $product->update($request->input());
+        flash('Exam Schedule Updated!');
+        return redirect('/cabinet/exam-schedule?f1='.$request->input('f1'));
     }
 
     /**
@@ -81,18 +99,19 @@ class ExamScheduleController extends Controller
         return redirect_back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * Ids will be in the query string.
-     *
-     * @param ExamScheduleDeleteFormRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ExamScheduleDeleteFormRequest $request)
+    public function paper2(Request $request)
+    {
+        $schedule = new ExamSchedule($request->input());
+        $schedule->paper2();
+        flash('Paper 2 Created!');
+        return redirect('/cabinet/exam-schedule?f1='.$request->input('f1'));
+    }
+
+    public function destroy(Request $request)
     {
         $schedule = new ExamSchedule($request->input());
         $schedule->delete();
-        flash('Exam Deleted!');
+        flash('Exam Schedule Deleted!');
         return redirect('/cabinet/exam-schedule?f1='.$request->input('f1'));
     }
 }

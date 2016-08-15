@@ -3,6 +3,7 @@
 namespace App\Http\Modules\School\Models;
 
 use App\Http\Models\Model;
+use Session;
 
 class ExamSchedule extends Model
 {
@@ -22,6 +23,11 @@ class ExamSchedule extends Model
     public function examDropdown()
     {
         return $this->repository->examDropdown($this);
+    }
+
+    public function subExamDropdown()
+    {
+        return $this->repository->subExamDropdown($this);
     }
 
     public function scheduleRows()
@@ -64,9 +70,20 @@ class ExamSchedule extends Model
         return $value;
     }
 
-    // public function setEidAttribute($value)
-    // {
-    //     $this->setAttribute('exam_entity_id', $value);
-    //     return $value;
-    // }
+    public function paper2()
+    {
+        return $this->repository->paper2($this);
+    }
+
+    public function setDetail($id)
+    {
+        $this->setAttribute('exam_schedule_id', $id);
+        $data = $this->repository->detail($this);
+        if (isset($data[0])) {
+            $data = $data[0];
+        }
+        $items = array_merge($this->attributes, $data);
+        Session::flashInput($items);
+        $this->isNewRecord = false;
+    }
 }
