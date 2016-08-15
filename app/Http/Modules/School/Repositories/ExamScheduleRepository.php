@@ -46,6 +46,16 @@ class ExamScheduleRepository extends Repository
         );
     }
 
+    public function examDropdown($model)
+    {
+        $procedure = 'sproc_sch_lkp_main_exam';
+        $iparams = [];
+        $oparams = [];
+
+        $data = $this->procedure($model, $procedure, $iparams, $oparams);
+        return first_resultset($data);
+    }
+
     public function scheduleRows($model)
     {
         $procedure = 'sproc_sch_schedule_exam_dml_ins';

@@ -19,6 +19,11 @@ class ExamSchedule extends Model
         return $this->repository->getExamGrid($this->eid);
     }
 
+    public function examDropdown()
+    {
+        return $this->repository->examDropdown($this);
+    }
+
     public function scheduleRows()
     {
         return $this->repository->scheduleRows($this);

@@ -8,6 +8,7 @@ use App\Http\Modules\School\Models\ExamSchedule;
 use App\Http\Modules\School\Requests\ExamScheduleMapSubjectsFormRequest;
 use App\Http\Modules\School\Requests\ExamScheduleRowsFormRequest;
 use App\Http\Modules\School\Requests\ExamScheduleDeleteFormRequest;
+use App\Http\Models\Grid;
 
 class ExamScheduleController extends Controller
 {
@@ -29,8 +30,22 @@ class ExamScheduleController extends Controller
      */
     public function index(Request $request)
     {
-        $schedule = new ExamSchedule($request->input());
-        return view('modules.school.ExamSchedule.list', compact('schedule'));
+        $grid = new Grid('/' . $request->path());
+        $grid->fill($request->input());
+        $grid->loadData();
+
+        $options = [
+            // 'headerLastInclude' => 'modules.school.ExamSchedule.header-last-include',
+            // 'rowLastInclude'    => 'modules.school.ExamSchedule.row-last-include',
+            'beforeGridInclude' => 'modules.school.ExamSchedule.before-grid-include',
+            'afterGridInclude'  => 'modules.school.ExamSchedule.after-grid-include',
+            'scriptsInclude'    => 'modules.school.ExamSchedule.scripts-include',
+        ];
+
+        return view('grid.list', compact('grid', 'options'));
+
+        // $schedule = new ExamSchedule($request->input());
+        // return view('modules.school.ExamSchedule.list', compact('schedule'));
     }
 
     /**
