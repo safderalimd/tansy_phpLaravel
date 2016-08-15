@@ -9,7 +9,7 @@
                     <select id="exam_entity_id" class="form-control" name="exam_entity_id">
                         <option value="none">Select an exam..</option>
                         @foreach($schedule->examDropdown() as $option)
-                            <option {{activeSelect($option['exam_entity_id'], 'eid')}} value="{{$option['exam_entity_id']}}">{{$option['exam']}}</option>
+                            <option {{activeSelect($option['exam_entity_id'], 'f1')}} value="{{$option['exam_entity_id']}}">{{$option['exam']}}</option>
                         @endforeach
                     </select>
                 </div>

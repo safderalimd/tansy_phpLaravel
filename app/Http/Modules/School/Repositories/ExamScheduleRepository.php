@@ -110,9 +110,7 @@ class ExamScheduleRepository extends Repository
         $procedure = 'sproc_sch_schedule_exam_dml_del';
 
         $iparams = [
-            ':iparam_class_entity_id',
-            ':iparam_subject_entity_id',
-            ':iparam_exam_entity_id',
+            ':iparam_exam_schedule_id',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

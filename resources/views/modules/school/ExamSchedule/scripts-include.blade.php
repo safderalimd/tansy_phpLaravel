@@ -31,7 +31,7 @@
         if (this.value == 'none') {
             window.location.href = "/cabinet/exam-schedule";
         } else {
-            window.location.href = "/cabinet/exam-schedule?eid=" + this.value;
+            window.location.href = "/cabinet/exam-schedule?f1=" + this.value;
         }
     });
 

@@ -34,15 +34,20 @@ class ExamScheduleController extends Controller
         $grid->fill($request->input());
         $grid->loadData();
 
+        $schedule = new ExamSchedule($request->input());
+
         $options = [
-            // 'headerLastInclude' => 'modules.school.ExamSchedule.header-last-include',
-            // 'rowLastInclude'    => 'modules.school.ExamSchedule.row-last-include',
-            'beforeGridInclude' => 'modules.school.ExamSchedule.before-grid-include',
-            'afterGridInclude'  => 'modules.school.ExamSchedule.after-grid-include',
-            'scriptsInclude'    => 'modules.school.ExamSchedule.scripts-include',
+            'headerFirstInclude' => 'modules.school.ExamSchedule.header-first-include',
+            'rowFirstInclude'    => 'modules.school.ExamSchedule.row-first-include',
+            'headerLastInclude'  => 'modules.school.ExamSchedule.header-last-include',
+            'rowLastInclude'     => 'modules.school.ExamSchedule.row-last-include',
+            'beforeGridInclude'  => 'modules.school.ExamSchedule.before-grid-include',
+            'afterGridInclude'   => 'modules.school.ExamSchedule.after-grid-include',
+            'scriptsInclude'     => 'modules.school.ExamSchedule.scripts-include',
+            'skipGridFilters'    => true,
         ];
 
-        return view('grid.list', compact('grid', 'options'));
+        return view('grid.list', compact('grid', 'options', 'schedule'));
 
         // $schedule = new ExamSchedule($request->input());
         // return view('modules.school.ExamSchedule.list', compact('schedule'));
@@ -88,6 +93,6 @@ class ExamScheduleController extends Controller
         $schedule = new ExamSchedule($request->input());
         $schedule->delete();
         flash('Exam Deleted!');
-        return redirect('/cabinet/exam-schedule?eid='.$request->input('eid'));
+        return redirect('/cabinet/exam-schedule?f1='.$request->input('f1'));
     }
 }
