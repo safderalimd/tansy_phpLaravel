@@ -5,7 +5,6 @@ namespace App\Http\Modules\School\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\School\Models\ExamSetup;
-// use App\Http\Modules\School\Requests\ExamFormRequest;
 
 class ExamSetupController extends Controller
 {
@@ -44,10 +43,10 @@ class ExamSetupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param ExamFormRequest $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ExamFormRequest $request)
+    public function store(Request $request)
     {
         $setup = new ExamSetup($request->input());
         $setup->setAttribute('exam_entity_id', $request->input('eei'));
