@@ -123,7 +123,7 @@
 
         var marksIds = $('.input-mark-value').map(function() {
             var mark = this.value;
-            if (mark != 0 && !mark) {
+            if (mark !== 0 && !mark) {
                 mark = 'null';
             }
             return $(this).attr('data-scheduleId') + '<$$>' + $(this).attr('data-studentId') + '<$$>' + mark;
