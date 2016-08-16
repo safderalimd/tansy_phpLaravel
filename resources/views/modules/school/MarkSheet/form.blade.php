@@ -75,7 +75,7 @@
                                                 <?php
                                                     $mark = isset($item[$column['sub_exam_name']]) ? $item[$column['sub_exam_name']] : '';
                                                 ?>
-                                                <input data-rule-number="true" data-rule-min="0" data-scheduleId="{{$column['exam_schedule_id']}}" data-studentId="{{$item['class_student_id']}}" class="input-mark-value form-control" type="text" name="marks_name_{{$i++}}{{$j++}}" value="{{marks($mark)}}">
+                                                <input data-rule-number="true" data-rule-min="0" data-scheduleId="{{$column['exam_schedule_id']}}" data-studentId="{{$item['class_student_id']}}" class="input-mark-value form-control" type="text" name="marks_name_{{$i++}}{{$j++}}" value="{{$mark}}">
                                             </td>
                                         @endif
                                     @endforeach
