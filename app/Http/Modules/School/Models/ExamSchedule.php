@@ -11,6 +11,13 @@ class ExamSchedule extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\School\Repositories\ExamScheduleRepository';
 
+    protected $selects = [
+        'exam_entity_id',
+        'sub_exam_entity_id',
+        'class_entity_id',
+        'subject_entity_id',
+    ];
+
     public function getExamGrid()
     {
         if (is_null($this->eid)) {

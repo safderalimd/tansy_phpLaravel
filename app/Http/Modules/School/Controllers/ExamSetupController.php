@@ -49,60 +49,42 @@ class ExamSetupController extends Controller
      */
     public function store(ExamFormRequest $request)
     {
-        $setup = new ExamSetup;
-        $setup->setAttribute('active', 0);
-        $setup->fill($request->input());
-        $setup->setCheckboxes();
+        $setup = new ExamSetup($request->input());
+        $setup->setAttribute('exam_entity_id', $request->input('eei'));
         $setup->save();
-        flash('Exam Added!');
-        return redirect('/cabinet/exam');
+        flash('Exam Setup Added!');
+        return redirect('/cabinet/exam-setup?eei='.$request->input('eei'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $setup = new ExamSetup;
+        $setup = new ExamSetup($request->input());
         $setup->setDetail($id);
-        $setup->loadData();
         return view('modules.school.ExamSetup.form', compact('setup'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param ExamFormRequest $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(ExamFormRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $setup = new ExamSetup;
-        $setup->setAttribute('active', 0);
-        $setup->setAttribute('exam_entity_id', $id);
-        $setup->fill($request->input());
-        $setup->setCheckboxes();
-        $setup->update();
-        flash('Exam Updated!');
-        return redirect('/cabinet/exam');
+        $product = new ExamSetup;
+        $product->setAttribute('exam_schedule_id', $id);
+        $product->update($request->input());
+        flash('Exam Setup Updated!');
+        return redirect('/cabinet/exam-setup?eei='.$request->input('eei'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $setup = new ExamSetup;
-        $setup->setAttribute('exam_entity_id', $id);
+        $setup = new ExamSetup($request->input());
         $setup->delete();
-        flash('Exam Deleted!');
-        return redirect('/cabinet/exam');
+        flash('Exam Setup Deleted!');
+        return redirect('/cabinet/exam-setup?eei='.$request->input('eei'));
+    }
+
+    public function copy(Request $request)
+    {
+        $setup = new ExamSetup($request->input());
+        $setup->copy();
+        flash('Exam Copied!');
+        return redirect('/cabinet/exam-setup?eei='.$request->input('eei'));
     }
 }

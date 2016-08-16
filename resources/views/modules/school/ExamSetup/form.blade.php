@@ -1,14 +1,14 @@
 @extends('layout.cabinet')
 
-@section('title', 'Exam')
+@section('title', 'Exam Setup')
 
 @section('content')
     <div class="row">
         <div class="col-md-8 sch_class panel-group panel-bdr">
             <div class="panel panel-primary">
-			    <div class="panel-heading">
-                	<i class="glyphicon glyphicon-th"></i>
-                	<h3>Exam{{ form_label() }}</h3>
+                <div class="panel-heading">
+                    <i class="glyphicon glyphicon-th"></i>
+                    <h3>Exam Setup{{ form_label() }}</h3>
                 </div>
 
                 <div class="panel-body edit_form_wrapper">
@@ -16,123 +16,136 @@
 
                     @include('commons.errors')
 
-                    <form id="exam-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
+                    <form id="exam-setup-form" class="form-horizontal" action="{{ form_action_full() }}" method="POST">
                         {{ csrf_field() }}
 
+                        @if (!$setup->isNewRecord())
+                            @include('commons.select', [
+                                'label'    => 'Exam' ,
+                                'name'     => 'exam_entity_id',
+                                'options'  => $setup->examDropdown(),
+                                'keyId'    => 'exam_entity_id',
+                                'keyName'  => 'exam',
+                                'none'     => 'Select an exam..',
+                            ])
+                        @endif
+
+                        @include('commons.select', [
+                            'label'    => 'Sub Exam' ,
+                            'name'     => 'sub_exam_entity_id',
+                            'options'  => $setup->subExamDropdown(),
+                            'keyId'    => 'exam_entity_id',
+                            'keyName'  => 'exam',
+                            'none'     => 'Select an exam..',
+                        ])
+
+                        @if ($setup->isNewRecord())
+                            @include('commons.select', [
+                                'label'    => 'Class' ,
+                                'name'     => 'class_entity_id',
+                                'options'  => $setup->classDropdown(),
+                                'keyId'    => 'entity_id',
+                                'keyName'  => 'drop_down_list_name',
+                                'none'     => 'Select a class..',
+                            ])
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="">Subjects</label>
+                                <div class="col-sm-8">
+                                    @foreach ($setup->subject() as $subject)
+                                        <label class="checkbox-inline no_indent">
+                                            <input class="subject-checkbox" name="{{$subject['subject_entity_id']}}" value="{{$subject['subject_entity_id']}}" type="checkbox"> {{$subject['subject']}}
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <input type="hidden" id="subjectIDS" name="subjectIDS" value="">
+
+                        @else
+                            @include('commons.select', [
+                                'label'    => 'Class' ,
+                                'name'     => 'class_entity_id',
+                                'options'  => $setup->classes(),
+                                'keyId'    => 'class_entity_id',
+                                'keyName'  => 'class_name',
+                                'none'     => 'Select a class..',
+                            ])
+
+                            @include('commons.select', [
+                                'label'    => 'Class' ,
+                                'name'     => 'subject_entity_id',
+                                'options'  => $setup->subject(),
+                                'keyId'    => 'subject_entity_id',
+                                'keyName'  => 'subject',
+                                'none'     => 'Select a subject..',
+                            ])
+                        @endif
+
                         <div class="form-group">
-                            <div class="col-sm-offset-4 col-sm-8">
-                                <div class="checkbox">
-                                    <label>
-                                        @if($exam->isNewRecord())
-                                            <input checked="checked" name="active" type="checkbox" disabled readonly> Active
-                                        @else
-                                            <input {{ c('active') }} name="active" type="checkbox"> Active
-                                        @endif
-                                    </label>
+                            <label class="col-md-4 control-label" for="max_marks">Max Marks</label>
+                            <div class="col-md-8">
+                                <input id="max_marks" class="form-control" type="text" name="max_marks" value="{{ v('max_marks') }}" placeholder="Max Marks">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="average_reduced_marks">Average Reduced Marks</label>
+                            <div class="col-md-8">
+                                <input id="average_reduced_marks" class="form-control" type="text" name="average_reduced_marks" value="{{ v('average_reduced_marks') }}" placeholder="Average Reduced Marks">
+                            </div>
+                        </div>
+
+                        {{--
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Paper Instance</label>
+                            <div class="col-md-8">
+                                <div class="well well-sm">{{ v('paper_instance') }} &nbsp;</div>
+                            </div>
+                        </div>
+                        --}}
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="exam_date">Exam Date</label>
+                            <div class="col-md-8">
+                                <div class="input-group date">
+                                    <input id="exam_date" class="form-control" type="text" name="exam_date" value="{{ v('exam_date') }}" placeholder="Exam Date">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button"><span
+                                                    class="glyphicon glyphicon-calendar"></span></button>
+                                    </span>
                                 </div>
                             </div>
                         </div>
 
-               			<div class="form-group">
-                            <label class="col-md-4 control-label required" for="exam_name">Exam</label>
-                            <div class="col-md-8">
-                                <input id="exam_name" class="form-control" type="text" name="exam_name" value="{{ v('exam_name') }}" placeholder="Exam">
-                            </div>
-                        </div>
-
-                        @include('commons.select', [
-                            'label'    => 'Exam Type' ,
-                            'name'     => 'exam_type_id',
-                            'options'  => $exam->examTypes(),
-                            'keyId'    => 'exam_type_id',
-                            'keyName'  => 'exam_type',
-                            'none'     => 'Select an exam type..',
-                            'required' => true,
-                        ])
-
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="exam_short_code">Exam Short Code</label>
+                            <label class="col-md-4 control-label" for="exam_start_time">Exam Start Time</label>
                             <div class="col-md-8">
-                                <input id="exam_short_code" class="form-control" type="text" name="exam_short_code" value="{{ v('exam_short_code') }}" placeholder="Exam Short Code">
+                                <div class="input-group datetimepicker">
+                                    <input id="exam_start_time" class="form-control datetimepicker" type="text" name="exam_start_time" value="{{ v('exam_start_time') }}" placeholder="Start Time">
+                                    <span class="input-group-addon" style="cursor:pointer;">
+                                        <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-offset-4 col-sm-8">
-                                <label class="checkbox-inline no_indent">
-                                    <input {{ c('attendance_jan') }} name="attendance_jan" type="checkbox"> Jan
-                                </label>
-                                <label class="checkbox-inline no_indent">
-                                    <input {{ c('attendance_feb') }} name="attendance_feb" type="checkbox"> Feb
-                                </label>
-                                <label class="checkbox-inline no_indent">
-                                    <input {{ c('attendance_mar') }} name="attendance_mar" type="checkbox"> Mar
-                                </label>
-                                <label class="checkbox-inline no_indent">
-                                    <input {{ c('attendance_apr') }} name="attendance_apr" type="checkbox"> Apr
-                                </label>
-                                <label class="checkbox-inline no_indent">
-                                    <input {{ c('attendance_may') }} name="attendance_may" type="checkbox"> May
-                                </label>
-                                <label class="checkbox-inline no_indent">
-                                    <input {{ c('attendance_jun') }} name="attendance_jun" type="checkbox"> Jun
-                                </label>
-                                <label class="checkbox-inline no_indent">
-                                    <input {{ c('attendance_jul') }} name="attendance_jul" type="checkbox"> Jul
-                                </label>
-                                <label class="checkbox-inline no_indent">
-                                    <input {{ c('attendance_aug') }} name="attendance_aug" type="checkbox"> Aug
-                                </label>
-                                <label class="checkbox-inline no_indent">
-                                    <input {{ c('attendance_sep') }} name="attendance_sep" type="checkbox"> Sep
-                                </label>
-                                <label class="checkbox-inline no_indent">
-                                    <input {{ c('attendance_oct') }} name="attendance_oct" type="checkbox"> Oct
-                                </label>
-                                <label class="checkbox-inline no_indent">
-                                    <input {{ c('attendance_nov') }} name="attendance_nov" type="checkbox"> Nov
-                                </label>
-                                <label class="checkbox-inline no_indent">
-                                    <input {{ c('attendance_dec') }} name="attendance_dec" type="checkbox"> Dec
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label required" for="facility_ids">Facility</label>
+                            <label class="col-md-4 control-label" for="exam_end_time">Exam End Time</label>
                             <div class="col-md-8">
-                                <?php
-                                    if (!is_array($exam->selectedFacilities)) {
-                                        $exam->selectedFacilities = [];
-                                    }
-                                ?>
-                                <select id="facility_ids" class="form-control" name="facility_ids">
-                                    <option value="none">Select a facility..</option>
-                                    @foreach($exam->facilities() as $option)
-                                        <option @if(in_array($option['facility_entity_id'], $exam->selectedFacilities)) selected @endif value="{{$option['facility_entity_id']}}">{{$option['facility_name']}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label required" for="reporting_order">Reporting Order</label>
-                            <div class="col-md-8">
-                                <input id="reporting_order" class="form-control" type="text" name="reporting_order" value="{{ v('reporting_order') }}" placeholder="Reporting Order">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label required" for="progress_card_reporting_order">Card Reporting Order</label>
-                            <div class="col-md-8">
-                                <input id="progress_card_reporting_order" class="form-control" type="text" name="progress_card_reporting_order" value="{{ v('progress_card_reporting_order') }}" placeholder="Card Reporting Order">
+                                <div class="input-group datetimepicker">
+                                    <input id="exam_end_time" class="form-control datetimepicker" type="text" name="exam_end_time" value="{{ v('exam_end_time') }}" placeholder="End Time">
+                                    <span class="input-group-addon" style="cursor:pointer;">
+                                        <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                </div>
                             </div>
                         </div>
 
                         <div class="row grid_footer">
-                           <div class="col-md-8 col-md-offset-4">
+                           <div class="col-md-offset-4 col-md-8">
                                 <button class="btn btn-primary grid_btn" type="submit">Save</button>
-                                <a href="{{ url("/cabinet/exam")}}" class="btn btn-default cancle_btn">Cancel</a>
+                                <a href="{{ url("/cabinet/exam-setup")}}" class="btn btn-default cancle_btn">Cancel</a>
                             </div>
                         </div>
                     </form>
@@ -143,49 +156,35 @@
     </div>
 @endsection
 
+@section('scripts')
+<script type="text/javascript">
+    @if ($setup->isNewRecord())
+
+        $('#exam-setup-form').submit(function() {
+
+            var subjectIds = $('.subject-checkbox:checked').map(function() {
+                return $(this).val();
+            }).get();
+
+            $('#subjectIDS').val(subjectIds.join('|'));
+
+            return true;
+        });
+
+    @endif
+</script>
+@endsection
+
 @section('styles')
 <style type="text/css">
     .checkbox-inline.no_indent,
     .checkbox-inline.no_indent+.checkbox-inline.no_indent {
         margin-left: 0;
         margin-right: 10px;
-        width: 70px;
+        width: 150px;
     }
     .checkbox-inline.no_indent:last-child {
         margin-right: 0;
     }
 </style>
-@endsection
-
-@section('scripts')
-<script type="text/javascript">
-
-    $('#exam-form').validate({
-        rules: {
-            exam_name: {
-                required: true,
-                minlength: 3,
-                maxlength: 100
-            },
-            exam_type_id: {
-                requiredSelect: true
-            },
-            facility_ids: {
-                requiredSelect: true
-            },
-            reporting_order: {
-                required: true,
-                number: true,
-                min: 0
-            },
-            progress_card_reporting_order: {
-                required: true,
-                number: true,
-                min: 0,
-                max:999
-            }
-        }
-    });
-
-</script>
 @endsection

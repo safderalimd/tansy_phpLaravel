@@ -9,14 +9,16 @@
     	<div class="panel-heading">
         	<i class="glyphicon glyphicon-th-list"></i>
         	<h3>Exam Setup</h3>
-        	<a href="{{url('/cabinet/exam-setup/create/')}}" class="btn pull-right btn-default">Add new record</a>
+            @if (is_numeric(app('request')->input('eei')))
+            	<a href="{{url('/cabinet/exam-setup/create?eei='.app('request')->input('eei'))}}" class="btn pull-right btn-default">Add new record</a>
+            @endif
         </div>
         <div class="panel-body">
 
             @include('commons.errors')
 
             <!-- filter the exams -->
-            <form class="form-horizontal" id="select-exam-form" action="{{url_with_query("/cabinet/exam-setup/copy/")}}" method="POST">
+            <form class="form-horizontal" id="select-exam-form" action="{{url_with_query("/cabinet/exam-setup/copy")}}" method="POST">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-5">
@@ -60,10 +62,10 @@
                         <td>{{$item['max_marks']}}</td>
                         <td>{{$item['average_reduced_marks']}}</td>
                         <td>
-                            <a class="btn btn-default" href="{{url("/cabinet/exam-setup/edit/{$item['exam_schedule_id']}")}}" title="Edit">
+                            <a class="btn btn-default" href="{{url("/cabinet/exam-setup/edit/{$item['exam_schedule_id']}?eei=".app('request')->input('eei'))}}" title="Edit">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </a>
-                            <a class="btn btn-default formConfirm" href="{{url("/cabinet/exam-setup/delete/{$item['exam_schedule_id']}")}}"
+                            <a class="btn btn-default formConfirm" href="{{url("/cabinet/exam-setup/delete?esi={$item['exam_schedule_id']}&eei=".app('request')->input('eei'))}}"
                                title="Delete"
                                data-title="Delete Exam Setup"
                                data-message="Are you sure to delete the selected record?"

@@ -66,11 +66,12 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('exam/delete/{id}', 'School\Controllers\ExamController@destroy');
 
     Route::get('exam-setup', 'School\Controllers\ExamSetupController@index');
-    // Route::get('exam-setup/create', 'School\Controllers\ExamSetupController@create');
-    // Route::post('exam-setup/create', 'School\Controllers\ExamSetupController@store');
-    // Route::get('exam-setup/edit/{id}', 'School\Controllers\ExamSetupController@edit');
-    // Route::post('exam-setup/edit/{id}', 'School\Controllers\ExamSetupController@update');
-    // Route::get('exam-setup/delete/{id}', 'School\Controllers\ExamSetupController@destroy');
+    Route::get('exam-setup/create', 'School\Controllers\ExamSetupController@create');
+    Route::post('exam-setup/create', 'School\Controllers\ExamSetupController@store');
+    Route::get('exam-setup/edit/{id}', 'School\Controllers\ExamSetupController@edit');
+    Route::post('exam-setup/edit/{id}', 'School\Controllers\ExamSetupController@update');
+    Route::get('exam-setup/delete', 'School\Controllers\ExamSetupController@destroy');
+    Route::post('exam-setup/copy', 'School\Controllers\ExamSetupController@copy');
 
     Route::get('class-subject-map', 'School\Controllers\ClassSubjectMapController@index');
     Route::get('class-subject-map/map/{classId}/{subjectId}', 'School\Controllers\ClassSubjectMapController@map');
