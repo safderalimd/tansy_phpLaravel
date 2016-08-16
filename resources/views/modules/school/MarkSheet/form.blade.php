@@ -28,7 +28,13 @@
                         $examName = isset($columns[0]['main_exam_name']) ? $columns[0]['main_exam_name'] : '-';
                         $className = isset($columns[0]['class_name']) ? $columns[0]['class_name'] : '-';
                         $subjectName = isset($columns[0]['subject_name']) ? $columns[0]['subject_name'] : '-';
-                        $maxMarks = isset($columns[0]['max_marks']) ? $columns[0]['max_marks'] : '-';
+
+                        $maxMarks = 0;
+                        foreach ($columns as $column) {
+                            if (isset($column['max_marks']) && is_numeric($column['max_marks'])) {
+                                $maxMarks += $column['max_marks'];
+                            }
+                        }
                     ?>
                     <div class="row">
                         <div class="col-md-12">
@@ -57,7 +63,12 @@
                                 <th>Student Name</th>
                                 @foreach ($columns as $column)
                                     @if (isset($column['sub_exam_name']))
-                                        <th>{{$column['sub_exam_name']}}</th>
+                                        <th>
+                                            {{$column['sub_exam_name']}}
+                                            @if (isset($column['max_marks']))
+                                                <br/> <span class="small text-muted">Max. {{$column['max_marks']}}</span>
+                                            @endif
+                                        </th>
                                     @endif
                                 @endforeach
                             </tr>
@@ -99,6 +110,7 @@
                             <input type="hidden" name="subject_entity_id" id="id-subject_entity_id" value="{{$subjectEntityId}}">
 
                             <button class="btn btn-primary grid_btn" type="submit" id="save-marks-submit">Save</button>
+                            <a href="{{ url("/cabinet/mark-sheet")}}" class="btn btn-default cancle_btn">Cancel</a>
                         </form>
 
                         </div>
