@@ -41,7 +41,7 @@ class GenerateProgressRepository extends Repository
 
     public function generateProgress($model)
     {
-        $procedure = 'sproc_sch_generate_progress_dml';
+        $procedure = 'sproc_sch_exam_generate_progress_dml';
 
         $iparams = [
             ':iparam_exam_entity_id',
