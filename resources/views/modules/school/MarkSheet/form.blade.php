@@ -31,8 +31,8 @@
 
                         $maxMarks = 0;
                         foreach ($columns as $column) {
-                            if (isset($column['max_marks']) && is_numeric($column['max_marks'])) {
-                                $maxMarks += $column['max_marks'];
+                            if (isset($column['average_reduced_marks']) && is_numeric($column['average_reduced_marks'])) {
+                                $maxMarks += $column['average_reduced_marks'];
                             }
                         }
                     ?>
