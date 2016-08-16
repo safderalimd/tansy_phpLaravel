@@ -56,4 +56,19 @@ class MarkSheet extends Model
     {
         return $this->repository->unlock($this);
     }
+
+    public function examDropdown()
+    {
+        return $this->repository->examDropdown($this);
+    }
+
+    public function getGrid()
+    {
+        return $this->repository->getGrid($this);
+    }
+
+    public function marksGrid()
+    {
+        return $this->repository->marksGrid($this);
+    }
 }

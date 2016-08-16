@@ -16,38 +16,37 @@
 
                     @include('commons.errors')
 
-                    <?php $allItems = $markSheet->getMarkSheetDetail(); ?>
                     <?php
-                        $examEntityId = 0;
-                        $classEntityId = 0;
-                        $subjectEntityId = 0;
-                    ?>
+                        $data = $markSheet->marksGrid();
+                        $allItems = first_resultset($data);
+                        $columns = second_resultset($data);
 
-                    @if (count($allItems))
-                        <?php
-                            $examEntityId = $allItems[0]['exam_entity_id'];
-                            $classEntityId = $allItems[0]['class_entity_id'];
-                            $subjectEntityId = $allItems[0]['subject_entity_id'];
-                        ?>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3 class="pull-left"><strong>{{$allItems[0]['exam_name']}}</strong></h3>
-                            </div>
+                        $examEntityId = $markSheet->exam_entity_id;
+                        $classEntityId = $markSheet->class_entity_id;
+                        $subjectEntityId = $markSheet->subject_entity_id;
+
+                        $examName = isset($columns[0]['main_exam_name']) ? $columns[0]['main_exam_name'] : '-';
+                        $className = isset($columns[0]['class_name']) ? $columns[0]['class_name'] : '-';
+                        $subjectName = isset($columns[0]['subject_name']) ? $columns[0]['subject_name'] : '-';
+                        $maxMarks = isset($columns[0]['max_marks']) ? $columns[0]['max_marks'] : '-';
+                    ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="pull-left"><strong>{{$examName}}</strong></h3>
                         </div>
-                        <hr style="margin:0px; padding:0px;" />
-                        <div class="row">
-                            <div class="col-md-6"><h4 class="pull-left">Class - {{$allItems[0]['class_name']}}</h4></div>
-                            <div class="col-md-6"><h4 class="pull-right">Subject - {{$allItems[0]['subject_name']}}</h4></div>
+                    </div>
+                    <hr style="margin:0px; padding:0px;" />
+                    <div class="row">
+                        <div class="col-md-6"><h4 class="pull-left">Class - {{$className}}</h4></div>
+                        <div class="col-md-6"><h4 class="pull-right">Subject - {{$subjectName}}</h4></div>
+                    </div>
+                    <hr style="margin:0px; padding:0px;" />
+                    <div class="row" style="">
+                        <div class="col-md-12">
+                            <h4 class="pull-right">Max Marks - {{$maxMarks}}</h4>
                         </div>
-                        <hr style="margin:0px; padding:0px;" />
-                        <div class="row" style="">
-                            <div class="col-md-12">
-                                <h4 class="pull-right">Max Marks - {{$allItems[0]['max_marks']}}</h4>
-                            </div>
-                        </div>
-                    @else
-                        There is not data for this form.
-                    @endif
+                    </div>
+
                     <hr style="margin-top:0px;" />
 
                     <form id="marks-table" class="form-horizontal" method="POST">
@@ -56,7 +55,11 @@
                             <tr>
                                 <th>Roll Number</th>
                                 <th>Student Name</th>
-                                <th>Marks</th>
+                                @foreach ($columns as $column)
+                                    @if (isset($column['sub_exam_name']))
+                                        <th>{{$column['sub_exam_name']}}</th>
+                                    @endif
+                                @endforeach
                             </tr>
                         </thead>
                         <tbody>
@@ -65,9 +68,17 @@
                                 <tr>
                                     <td>{{$item['student_roll_number']}}</td>
                                     <td>{{$item['student_full_name']}}</td>
-                                    <td style="max-width:150px;width:150px;">
-                                        <input data-rule-number="true" data-rule-min="0" data-studentId="{{$item['class_student_id']}}" class="input-mark-value form-control" type="text" name="product_name_{{$i++}}" value="{{marks($item['student_marks'])}}">
-                                    </td>
+                                    <?php $j = 1; ?>
+                                    @foreach ($columns as $column)
+                                        @if (isset($column['sub_exam_name']))
+                                            <td style="max-width:150px;width:150px;">
+                                                <?php
+                                                    $mark = isset($item[$column['sub_exam_name']]) ? $item[$column['sub_exam_name']] : '';
+                                                ?>
+                                                <input data-rule-number="true" data-rule-min="0" data-scheduleId="{{$column['exam_schedule_id']}}" data-studentId="{{$item['class_student_id']}}" class="input-mark-value form-control" type="text" name="marks_name_{{$i++}}{{$j++}}" value="{{marks($mark)}}">
+                                            </td>
+                                        @endif
+                                    @endforeach
                                 </tr>
                             @endforeach
                         </tbody>
@@ -81,7 +92,7 @@
                         <form class="form-horizontal" id="save-marks-form" action="{{url("/cabinet/mark-sheet/save?eid={$examEntityId}")}}" method="POST">
                             {{ csrf_field() }}
 
-                            <input type="hidden" name="clsStudIDs_marks" id="clsStudIDs_marks" value="">
+                            <input type="hidden" name="exSchID_clsStudntID_marks" id="exSchID_clsStudntID_marks" value="">
 
                             <input type="hidden" name="exam_entity_id" id="id-exam_entity_id" value="{{$examEntityId}}">
                             <input type="hidden" name="class_entity_id" id="id-class_entity_id" value="{{$classEntityId}}">
@@ -111,7 +122,11 @@
         }
 
         var marksIds = $('.input-mark-value').map(function() {
-            return $(this).attr('data-studentId') + '-' + this.value;
+            var mark = this.value;
+            if (mark != 0 && !mark) {
+                mark = 'null';
+            }
+            return $(this).attr('data-scheduleId') + '<$$>' + $(this).attr('data-studentId') + '<$$>' + mark;
         }).get();
 
         if (marksIds.length == 0) {
@@ -119,7 +134,7 @@
             return false;
         }
 
-        $('#clsStudIDs_marks').val(marksIds.join(','));
+        $('#exSchID_clsStudntID_marks').val(marksIds.join('|'));
 
         return true;
     });

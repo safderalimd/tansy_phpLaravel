@@ -75,10 +75,10 @@ class MarkSheetController extends Controller
     /**
      * Save.
      *
-     * @param MarkSheetDeleteFormRequest $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function save(MarkSheetDeleteFormRequest $request)
+    public function save(Request $request)
     {
         $markSheet = new MarkSheet($request->input());
         $markSheet->saveMarksheet();

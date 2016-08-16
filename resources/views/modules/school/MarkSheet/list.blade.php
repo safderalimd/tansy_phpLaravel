@@ -23,7 +23,7 @@
                                     <div class="col-md-4">
                                         <select id="exam_entity_id" class="form-control" name="exam_entity_id">
                                             <option value="none">Select an exam..</option>
-                                            @foreach($markSheet->exam() as $option)
+                                            @foreach($markSheet->examDropdown() as $option)
                                                 <option {{activeSelect($option['exam_entity_id'], 'eid')}} value="{!! $option['exam_entity_id'] !!}">{!! $option['exam'] !!}</option>
                                             @endforeach
                                         </select>
@@ -46,7 +46,7 @@
                     </thead>
                     <tbody>
 
-            @foreach($markSheet->markSheetGrid() as $item)
+            @foreach($markSheet->getGrid() as $item)
             <tr class="mark-sheet-tr">
                 <td class="mark-sheet-td" data-examid="{{$item['exam_entity_id']}}" >
                     {{$item['class_name']}}
