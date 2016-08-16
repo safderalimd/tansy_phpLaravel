@@ -69,12 +69,14 @@
                             </div>
                         </div>
 
+                        <!--
                         <div class="form-group">
                             <label class="col-md-4 control-label">Paper Instance</label>
                             <div class="col-md-8">
                                 <div class="well well-sm">{{ v('paper_instance') }} &nbsp;</div>
                             </div>
                         </div>
+                        -->
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="exam_date">Exam Date</label>
