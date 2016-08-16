@@ -33,6 +33,11 @@ class GenerateProgress extends Model
             return [];
         }
 
-        return $this->repository->generateFilteredProgressGrid($this->eid);
+        return $this->repository->getGrid($this);
+    }
+
+    public function examDropdown()
+    {
+        return $this->repository->examDropdown($this);
     }
 }
