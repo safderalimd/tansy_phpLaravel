@@ -24,6 +24,7 @@
         </a>
     @endif
 
+    <!--
     @if (isset($row['paper_name']) && $row['paper_name'] == 'Paper 1')
         @if (isset($row['exam_schedule_id']) && !is_null($row['exam_schedule_id']))
             <a class="btn btn-default" href="{{url("/cabinet/exam-schedule/paper-2?esi={$row['exam_schedule_id']}&f1=".app('request')->input('f1'))}}" title="Create Paper2">Create Paper2</a>
@@ -31,4 +32,5 @@
             <a class="btn btn-default" href="#" disabled="disabled" title="Create Paper2">Create Paper2</a>
         @endif
     @endif
+    -->
 </td>
