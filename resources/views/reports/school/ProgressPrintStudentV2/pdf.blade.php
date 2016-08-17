@@ -17,7 +17,7 @@
                 font-weight: bold;
             }
             .panel-body {
-                padding: 10px 20px;
+                padding: 10px 5px;
             }
 
             .top-panel {
@@ -34,30 +34,8 @@
                 text-align: center;
             }
 
-            .marks-grid,
-            .right-grid {
-                height: 700px;
-            }
-            .student-picture-row {
-                height: 150px;
-            }
-            .attendance-row,
-            .attendance-column {
-                height: 265px;
-            }
-            .signatures-row,
-            .signatures-column {
-                height: 265px;
-            }
-            .signatures-row {
-                margin-top: 20px;
-            }
-
             .marks-grid {
                 padding: 0px;
-            }
-            .marks-grid table {
-                height: 100%;
             }
             .marks-grid td,
             .marks-grid th {
@@ -67,6 +45,9 @@
             .th-total,
             .subject-grade-point {
                 width: 70px;
+            }
+            .table {
+                margin-bottom: 0px;
             }
 
             .marks-grid td.cell-remarks {
@@ -90,7 +71,6 @@
             .student-picture {
                 width: 120px;
                 height: 120px;
-                margin: 10px auto 0px auto;
             }
             .student-info {
                 margin-top: 25px;
@@ -117,28 +97,34 @@
                 background-color: #f9f9f9;
             }
 
-            .signatures-row table,
-            .attendance-row table {
-                height: 100%;
-                margin: 0px;
+            .signatures-row,
+            .attendance-row {
+                margin: 10px 0px 0px 0px;
                 table-layout: fixed;
             }
             .gray-bg {
                 background-color: #f9f9f9;
             }
 
-            .student-info-column,
-            .signatures-column,
-            .attendance-column {
-                padding-right: 0px;
+            .marks-grid,
+            .right-grid {
+                border-top: 0px !important;
+                padding: 0px !important;
+            }
+
+            .marks-grid {
+                padding-right: 10px !important;
+            }
+            .right-grid {
+                width: 250px;
             }
         </style>
     </head>
     <body>
 
-    {{-- <div id="watermark"><div id="watermark-text">{{$export->schoolName}}</div></div> --}}
+    <div id="watermark"><div id="watermark-text">{{$export->schoolName}}</div></div>
 
-{{-- foreach($export->studentRows as $row) --}}
+@foreach($progress->students as $student)
 
     <div class="container">
 
@@ -153,122 +139,153 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-8 marks-grid">
+                        <table class="table">
+                            <tr>
+                                <td class="marks-grid">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Subject</th>
+                                                @foreach($progress->examTypes as $type)
+                                                    <th>{{$type}} <br/>5</th>
+                                                @endforeach
+                                                <th class="th-total">Total  <br/>20</th>
+                                                <th class="subject-grade-point">Subject Grade Point</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($student as $subject)
+                                                <tr>
+                                                    <th>
+                                                        @if (isset($subject['subject_name']))
+                                                            {{$subject['subject_name']}}
+                                                        @endif
+                                                    </th>
 
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Subject</th>
-                                            <th>Reading & Reflection <br/>5</th>
-                                            <th>Wrtiging Work <br/>5</th>
-                                            <th>Project Work <br/>5</th>
-                                            <th>Written Test <br/>5</th>
-                                            <th class="th-total">Total  <br/>20</th>
-                                            <th class="subject-grade-point">Subject Grade Point</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>Telugu</th><td></td><td></td><td></td><td></td><td></td><td></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Hindi</th><td></td><td></td><td></td><td></td><td></td><td></td>
-                                        </tr>
-                                        <tr>
-                                            <th>English</th><td></td><td></td><td></td><td></td><td></td><td></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Mathematics</th><td></td><td></td><td></td><td></td><td></td><td></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Gen. Science</th><td></td><td></td><td></td><td></td><td></td><td></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Social Studies</th><td></td><td></td><td></td><td></td><td></td><td></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="cell-remarks" rowspan="3" colspan="4">Remarks</td>
-                                            <td class="cell-grand-total">Grand Total</td>
-                                            <td></td>
-                                            <td class="cell-gpa">GPA</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="cell-percentage">Percentage</td>
-                                            <td></td>
-                                            <td class="cell-gpa" rowspan="2"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="cell-grade">Grade</td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                                    @foreach($progress->examTypes as $type)
+                                                        <td>
+                                                            @if (isset($subject[$type]))
+                                                                {{$subject[$type]}}
+                                                            @endif
+                                                        </td>
+                                                    @endforeach
 
-                            </div>
-                            <div class="col-md-4 right-grid">
-                                <div class="row student-picture-row">
-                                    <div class="col-md-5">
-                                        <div class="student-picture">
-                                            <img src="{{student_picture(55)}}" class="center-block img-responsive" alt="Image">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-7 student-info-column">
-                                        <div class="student-info">
-                                            B. Charkovsky Reddy <br/>
-                                            Class II <br/>
-                                            Roll No. 1 <br/>
-                                            Admn.No. 12 <br/>
-                                        </div>
-                                    </div>
-                                </div>
+                                                    <td>
+                                                        @if (isset($subject['student_subject_max_total']))
+                                                            {{$subject['student_subject_max_total']}}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if (isset($subject['subject_gpa']))
+                                                            {{$subject['subject_gpa']}}
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
 
-                                <div class="row attendance-row">
-                                    <div class="col-md-12 attendance-column">
-                                        <table class="table table-bordered">
+                                            <?php
+                                                $studentTotals = $progress->getTotal($student);
+                                            ?>
                                             <tr>
-                                                <th colspan="3" class="attendance-header-text">Attendance Details</th>
+                                                <td class="cell-remarks" rowspan="3" colspan="4">Remarks</td>
+                                                <td class="cell-grand-total">Grand Total</td>
+                                                <td>
+                                                    @if (isset($studentTotals['student_total_marks']))
+                                                        {{$studentTotals['student_total_marks']}}
+                                                    @endif
+                                                </td>
+                                                <td class="cell-gpa">GPA</td>
                                             </tr>
                                             <tr>
-                                                <th>Month</th>
-                                                <th>Working Days</th>
-                                                <th>Days Present</th>
+                                                <td class="cell-percentage">Percentage</td>
+                                                <td>
+                                                    @if (isset($studentTotals['score_percent']))
+                                                        {{$studentTotals['score_percent']}}
+                                                    @endif
+                                                </td>
+                                                <td class="cell-gpa" rowspan="2">
+                                                    @if (isset($studentTotals['gpa']))
+                                                        {{$studentTotals['gpa']}}
+                                                    @endif
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <th>June</th>
-                                                <td></td>
-                                                <td></td>
+                                                <td class="cell-grade">Grade</td>
+                                                <td>
+                                                    @if (isset($studentTotals['grade']))
+                                                        {{$studentTotals['grade']}}
+                                                    @endif
+                                                </td>
                                             </tr>
-                                            <tr>
-                                                <th>July</th>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td class="right-grid">
 
-                                <div class="row signatures-row">
-                                    <div class="col-md-12 signatures-column">
-                                        <table class="table table-bordered">
-                                            <tr>
-                                                <th class="gray-bg">Class Teacher Signature</th>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Headmaster Signature</th>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <th class="gray-bg">Parent Signature</th>
-                                                <td></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <div class="student-picture">
+                                                    <img src="{{student_picture(55)}}" class="center-block img-responsive" alt="Image">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="student-info">
+                                                    B. Charkovsky Reddy <br/>
+                                                    Class II <br/>
+                                                    Roll No. 1 <br/>
+                                                    Admn.No. 12 <br/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <table class="table table-bordered attendance-row">
+                                                    <tr>
+                                                        <th colspan="3" class="attendance-header-text">Attendance Details</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Month</th>
+                                                        <th>Working Days</th>
+                                                        <th>Days Present</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>June</th>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>July</th>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <table class="table table-bordered signatures-row">
+                                                    <tr>
+                                                        <th class="gray-bg">Class Teacher Signature</th>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Headmaster Signature</th>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="gray-bg">Parent Signature</th>
+                                                        <td></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
 
-                            </div>
-                        </div>
+                                </td>
+                            </tr>
+                        </table>
+
                     </div>
                 </div>
             </div>
@@ -276,9 +293,9 @@
 
     </div>
 
-    {{-- <div class="pdf-page-break"></div> --}}
+    <div class="pdf-page-break"></div>
 
-{{-- endforeach --}}
+@endforeach
 
     </body>
 </html>
