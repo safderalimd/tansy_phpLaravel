@@ -68,12 +68,11 @@
                 background-color: #f3f3f3;
             }
 
-            .student-picture {
-                width: 120px;
-                height: 120px;
+            .student-picture img {
+                max-width: 100px;
+                max-height: 100px;
             }
             .student-info {
-                margin-top: 25px;
                 text-transform: uppercase;
                 text-decoration: underline;
                 font-weight: bold;
@@ -122,19 +121,27 @@
     </head>
     <body>
 
-    <div id="watermark"><div id="watermark-text">{{$export->schoolName}}</div></div>
+    <div id="watermark"><div id="watermark-text">{{$progress->organizationName}}</div></div>
 
 @foreach($progress->students as $student)
 
+    <?php
+        $studentTotals = $progress->getTotal($student);
+
+        $firstItem = $student->first();
+        $studentId = isset($firstItem['student_entity_id']) ? $firstItem['student_entity_id'] : null;
+        $studentName = isset($firstItem['student_full_name']) ? $firstItem['student_full_name'] : null;
+        $rollNr = isset($firstItem['student_roll_number']) ? $firstItem['student_roll_number'] : null;
+    ?>
     <div class="container">
 
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading top-panel">
-                        <div class="school-title">Kinderland</div>
+                        <div class="school-title">{{$progress->organizationName}}</div>
                         <div class="exam-name">
-                            <div>Formative Assesement - I</div>
+                            <div>{{$progress->examName}}</div>
                             <div>Result Sheet</div>
                         </div>
                     </div>
@@ -149,7 +156,7 @@
                                                 @foreach($progress->examTypes as $type)
                                                     <th>{{$type}} <br/>5</th>
                                                 @endforeach
-                                                <th class="th-total">Total  <br/>20</th>
+                                                <th class="th-total">Total <br/>20</th>
                                                 <th class="subject-grade-point">Subject Grade Point</th>
                                             </tr>
                                         </thead>
@@ -183,9 +190,6 @@
                                                 </tr>
                                             @endforeach
 
-                                            <?php
-                                                $studentTotals = $progress->getTotal($student);
-                                            ?>
                                             <tr>
                                                 <td class="cell-remarks" rowspan="3" colspan="4">Remarks</td>
                                                 <td class="cell-grand-total">Grand Total</td>
@@ -226,14 +230,14 @@
                                         <tr>
                                             <td>
                                                 <div class="student-picture">
-                                                    <img src="{{student_picture(55)}}" class="center-block img-responsive" alt="Image">
+                                                    <img src="{{student_picture($studentId)}}" class="" alt="Image">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="student-info">
-                                                    B. Charkovsky Reddy <br/>
+                                                    {{$studentName}} <br/>
                                                     Class II <br/>
-                                                    Roll No. 1 <br/>
+                                                    Roll No. {{$rollNr}} <br/>
                                                     Admn.No. 12 <br/>
                                                 </div>
                                             </td>
