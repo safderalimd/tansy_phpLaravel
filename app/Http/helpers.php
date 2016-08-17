@@ -397,3 +397,24 @@ function screen_name($screenId)
 
     return '';
 }
+
+function student_picture($id)
+{
+    return '/dashboard/student.jpg';
+
+    // on android we don't show pdf, only html
+    $imgPath = storage_path('uploads/'. domain() . "/student-images/{id}");
+
+    if (Device::isAndroidMobile()) {
+        if (file_exists($imgPath)) {
+            return "/cabinet/img/student/{$id}?w=260&h=260&ri=".time().uniqid();
+        }
+        return '/dashboard/student.jpg';
+
+    } else {
+        if (file_exists($imgPath)) {
+            return $imgPath;
+        }
+        return public_path('dashboard/student.jpg');
+    }
+}

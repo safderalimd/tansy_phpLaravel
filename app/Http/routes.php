@@ -172,6 +172,9 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('pdf---student-progress-v1/pdf',
         'reports\School\Controllers\ProgressPrintStudentController@report');
 
+    Route::get('pdf---student-progress-v2/pdf',
+        'reports\School\Controllers\ProgressPrintStudentV2Controller@report');
+
     Route::get('pdf---class-progress',
         'reports\School\Controllers\ProgressPrintClassController@index');
     Route::get('pdf---class-progress/pdf',
