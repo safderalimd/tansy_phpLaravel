@@ -68,7 +68,11 @@
             </td>
             <td>
                 @if ($generated)
-                    <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v1/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="Print">Print</a>
+                    @if (isset($item['student_report_version']) && $item['student_report_version'] == 'v2')
+                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v2/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="Print">Print</a>
+                    @else
+                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v1/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="Print">Print</a>
+                    @endif
                 @endif
             </td>
             <td>
