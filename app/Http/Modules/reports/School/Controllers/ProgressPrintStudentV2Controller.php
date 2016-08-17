@@ -36,6 +36,6 @@ class ProgressPrintStudentV2Controller extends Controller
         $export->loadPdfData();
         // return view('reports.school.ProgressPrintStudentV2.pdf', compact('export'));
         $view = view('reports.school.ProgressPrintStudentV2.pdf', compact('export'));
-        return Pdf::render($view);
+        return Pdf::renderLandscape($view);
     }
 }

@@ -20,12 +20,14 @@
                 padding: 10px 20px;
             }
 
+            .top-panel {
+                position: relative;
+            }
             .school-title {
-                float: left;
+                position: absolute;
+                left: 7px;
             }
             .exam-name {
-                width: 350px;
-                margin: 0 auto;
                 text-align: center;
             }
             .exam-name div {
@@ -143,7 +145,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
+                    <div class="panel-heading top-panel">
                         <div class="school-title">Kinderland</div>
                         <div class="exam-name">
                             <div>Formative Assesement - I</div>
