@@ -29,8 +29,9 @@ class ProgressPrintStudentV2Controller extends Controller
     {
         $export = new ProgressPrintStudentV2;
         $export->setAttribute('exam_entity_id', $request->input('ei'));
-        $export->setAttribute('class_entity_id', $request->input('ci'));
+        $export->setAttribute('filter_entity_id', $request->input('ci'));
         $export->setAttribute('class_student_id', 0);
+        $export->setAttribute('return_type', 'Student Report');
         $progress = $export->getPdfData();
 
         $view = view('reports.school.ProgressPrintStudentV2.pdf', compact('export', 'progress'));

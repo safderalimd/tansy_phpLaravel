@@ -47,7 +47,7 @@ class SchoolProgress
     public function setExamTypes($types)
     {
         $types = isset($types[0]) ? $types[0] : [];
-        $skip = ['class_student_id', 'student_roll_number', 'student_full_name', 'subject_name', 'student_subject_max_total', 'subject_gpa'];
+        $skip = ['class_student_id', 'student_roll_number', 'student_full_name', 'subject_name', 'student_subject_max_total', 'subject_gpa', 'subject_short_code', 'subject_order', 'main_exam_name'];
 
         foreach ($types as $type => $value) {
             if (!is_numeric($type) && !in_array($type, $skip)) {

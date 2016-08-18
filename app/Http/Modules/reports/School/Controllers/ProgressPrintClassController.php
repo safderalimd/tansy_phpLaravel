@@ -41,8 +41,9 @@ class ProgressPrintClassController extends Controller
     {
         $export = new ProgressPrintClass;
         $export->setAttribute('exam_entity_id', $request->input('ei'));
-        $export->setAttribute('class_entity_id', $request->input('ci'));
+        $export->setAttribute('filter_entity_id', $request->input('ci'));
         $export->setAttribute('class_student_id', 0);
+        $export->setAttribute('return_type', 'Class Report');
         $progress = $export->getPdfData();
 
         $studentRows = [];
