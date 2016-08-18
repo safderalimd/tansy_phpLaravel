@@ -45,7 +45,6 @@ class ProgressPrintClassController extends Controller
         $export->setAttribute('class_student_id', 0);
         $progress = $export->getPdfData();
 
-        $firstRow = ['Roll Number', 'Name'];
         $studentRows = [];
 
         // get a list of the subjects alphabetically
@@ -60,6 +59,17 @@ class ProgressPrintClassController extends Controller
         $allSubjects = collect($allSubjects);
         $allSubjects = $allSubjects->unique();
         $allSubjects = $allSubjects->sort();
+
+        $firstRow = ['Roll Number', 'Name'];
+        foreach ($allSubjects as $oneSubject) {
+            foreach($progress->examTypes as $type) {
+                $firstRow[] = $type;
+            }
+            $firstRow[] = 'Subject Total';
+        }
+        $firstRow[] = '';
+        $firstRow[] = '';
+        $firstRow[] = '';
 
         // build rows
         foreach($progress->students as $student) {
@@ -132,6 +142,7 @@ class ProgressPrintClassController extends Controller
         $header[] = 'Student TOTAL';
         $header[] = 'GPA';
 
+        array_unshift($studentRows, $firstRow);
         return CSV::make($header, $studentRows);
     }
 }
