@@ -63,7 +63,8 @@
             <td>{{$item['progress_status']}}</td>
             <td>
                 @if ($generated)
-                    <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---class-progress/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="CSV">CSV</a>
+                    <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---class-progress/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="PDF">PDF</a>
+                    <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---class-progress/csv?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="CSV">CSV</a>
                 @endif
             </td>
             <td>

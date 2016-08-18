@@ -64,4 +64,19 @@ class SchoolProgress
         $this->mobilePhone = isset($school['mobile_phone']) ? $school['mobile_phone'] : '-';
         $this->examName = isset($school['exam_name']) ? $school['exam_name'] : '-';
     }
+
+    public function getAllSubjects()
+    {
+        // get a list of the subjects alphabetically
+        $allSubjects = [];
+        foreach($this->students as $student) {
+            foreach ($student as $subject) {
+                if (isset($subject['subject_name'])) {
+                    $allSubjects[] = $subject['subject_name'];
+                }
+            }
+        }
+        $allSubjects = collect($allSubjects);
+        return $allSubjects->unique();
+    }
 }

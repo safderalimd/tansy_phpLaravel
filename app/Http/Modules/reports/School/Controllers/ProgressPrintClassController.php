@@ -31,13 +31,26 @@ class ProgressPrintClassController extends Controller
         return view('reports.school.ProgressPrintClass.list', compact('progress'));
     }
 
+    public function report(Request $request)
+    {
+        $export = new ProgressPrintClass;
+        $export->setAttribute('exam_entity_id', $request->input('ei'));
+        $export->setAttribute('filter_entity_id', $request->input('ci'));
+        $export->setAttribute('class_student_id', 0);
+        $export->setAttribute('return_type', 'Class Report');
+        $progress = $export->getPdfData();
+
+        $view = view('reports.school.ProgressPrintClass.pdf', compact('export', 'progress'));
+        return Pdf::renderLandscape($view);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function report(Request $request)
+    public function csv(Request $request)
     {
         $export = new ProgressPrintClass;
         $export->setAttribute('exam_entity_id', $request->input('ei'));
@@ -48,17 +61,7 @@ class ProgressPrintClassController extends Controller
 
         $studentRows = [];
 
-        // get a list of the subjects alphabetically
-        $allSubjects = [];
-        foreach($progress->students as $student) {
-            foreach ($student as $subject) {
-                if (isset($subject['subject_name'])) {
-                    $allSubjects[] = $subject['subject_name'];
-                }
-            }
-        }
-        $allSubjects = collect($allSubjects);
-        $allSubjects = $allSubjects->unique();
+        $allSubjects = $progress->getAllSubjects();
         $allSubjects = $allSubjects->sort();
 
         $firstRow = ['Roll Number', 'Name'];

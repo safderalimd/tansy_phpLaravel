@@ -21,13 +21,13 @@
     <div class="container">
 
         @include('reports.common.pdf-header', [
-            'school' => $export->schoolName,
-            'phone'  => $export->schoolWorkPhone,
+            'school' => $progress->organizationName,
+            'phone'  => $progress->mobilePhone,
         ])
 
         <div class="row">
             <div class="col-md-12">
-                <h4 class="report-name text-center">{{$export->examInfo['exam']}} - {{$export->reportName}}</h4>
+                <h4 class="report-name text-center">{{$progress->examName}} - Progress Report</h4>
             </div>
         </div>
         <div class="row">
@@ -41,16 +41,29 @@
             </div>
         </div>
 
+        <?php
+            $allSubjects = $progress->getAllSubjects();
+
+            $firstStudent = $progress->students->first();
+            $firstStudentTotals = $progress->getTotal($firstStudent);
+            $firstItem = $firstStudent->first();
+
+            $className = isset($firstItem['class_name']) ? $firstItem['class_name'] : null;
+            $maxTotalMarks = isset($firstStudentTotals['max_total_marks']) ? $firstStudentTotals['max_total_marks'] : null;
+        ?>
+
         <div class="row">
             <div class="col-md-12">
                 <table class="header-table">
+{{--
                     <tr>
-                        <td class="text-left"><h4><strong>Exam Start Date:</strong> {{style_date($export->examInfo['exam_start_date'])}}</h4></td>
-                        <td class="text-right"><h4><strong>Exam End Date:</strong> {{style_date($export->examInfo['exam_end_date'])}}</h4></td>
+                        <td class="text-left"><h4><strong>Exam Start Date:</strong> {style_date($export->examInfo['exam_start_date'])}</h4></td>
+                        <td class="text-right"><h4><strong>Exam End Date:</strong> {style_date($export->examInfo['exam_end_date'])}</h4></td>
                     </tr>
+ --}}
                     <tr>
-                        <td class="text-left"><h4><strong>Class Name:</strong> {{$export->examInfo['class_name']}}</h4></td>
-                        <td class="text-right"><h4><strong>Max Marks:</strong> {{$export->examInfo['max_marks']}}</h4></td>
+                        <td class="text-left"><h4><strong>Class Name:</strong> {{$className}}</h4></td>
+                        <td class="text-right"><h4><strong>Max Marks:</strong> {{$maxTotalMarks}}</h4></td>
                     </tr>
                 </table>
             </div>
@@ -63,31 +76,45 @@
                     <tr>
                         <th class="text-left">Student Name</th>
                         <th class="text-left">Student #</th>
-                        @foreach($export->subjectList as $subject)
+                        @foreach($allSubjects as $subject)
                             <th class="text-left">{{$subject}}</th>
                         @endforeach
                         <th class="text-left">Total</th>
                         <th class="text-left">Grade</th>
+                        <th class="text-left">Percentage</th>
+                        <th class="text-left">GPA</th>
                         <th class="text-left">Result</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($export->studentRows as $row)
+                    @foreach($progress->students as $student)
+                    <?php
+                        $studentTotals = $progress->getTotal($student);
+
+                        $firstItem = $student->first();
+                        $studentName = isset($firstItem['student_full_name']) ? $firstItem['student_full_name'] : null;
+                        $rollNr = isset($firstItem['student_roll_number']) ? $firstItem['student_roll_number'] : null;
+                    ?>
                     <tr>
-                        <td class="text-left">{{$row['student_full_name']}}</td>
-                        <td class="text-left">{{$row['student_roll_number']}}</td>
-                        @foreach($export->subjectList as $subject)
+                        <td class="text-left">{{$studentName}}</td>
+                        <td class="text-left">{{$rollNr}}</td>
+                        @foreach($allSubjects as $oneSubject)
                             <td class="text-left">
-                                @if (isset($row[$subject]))
-                                    {{marks($row[$subject])}}
+                                <?php
+                                    $subject = $student->where('subject_name', $oneSubject)->first();
+                                ?>
+                                @if (isset($subject['student_subject_max_total']))
+                                    {{marks($subject['student_subject_max_total'])}}
                                 @else
                                     -
                                 @endif
                             </td>
                         @endforeach
-                        <td class="text-left">{{marks($row['student_total_marks'])}}</td>
-                        <td class="text-left">{{$row['grade']}}</td>
-                        <td class="text-left">{{$row['pass_fail']}}</td>
+                        <td class="text-left">{{marks($studentTotals['student_total_marks'])}}</td>
+                        <td class="text-left">{{$studentTotals['grade']}}</td>
+                        <td class="text-left">{{$studentTotals['score_percent']}}</td>
+                        <td class="text-left">{{$studentTotals['gpa']}}</td>
+                        <td class="text-left">{{$studentTotals['pass_fail']}}</td>
                     </tr>
                     @endforeach
                 </tbody>
