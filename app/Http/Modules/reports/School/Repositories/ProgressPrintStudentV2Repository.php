@@ -28,6 +28,7 @@ class ProgressPrintStudentV2Repository extends Repository
             '@oparam_err_msg',
         ];
 
-        return $this->procedure($model, $procedure, $iparams, $oparams);
+        $x= $this->procedure($model, $procedure, $iparams, $oparams);
+        dd($x);
     }
 }
