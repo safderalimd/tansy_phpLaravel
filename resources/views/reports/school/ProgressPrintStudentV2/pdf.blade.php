@@ -23,17 +23,9 @@
             .top-panel {
                 position: relative;
             }
-            .school-title {
-                position: absolute;
-                left: 7px;
-            }
-            .exam-name {
+            .top-panel div {
                 text-align: center;
             }
-            .exam-name div {
-                text-align: center;
-            }
-
             .marks-grid {
                 padding: 0px;
             }
@@ -117,11 +109,45 @@
             .right-grid {
                 width: 250px;
             }
+
+            .school-title {
+                font-size: 18px;
+            }
+            .phone-number {
+                font-size: 14px;
+            }
+
+            #school-logo-wrapper {
+                position: fixed;
+                bottom: 0px;
+                right: 0px;
+                width: 100%;
+                height: 100%;
+                opacity: .2;
+                z-index: 2;
+                text-align: center;
+            }
+            #school-img-center {
+                height: 200px;
+                width: 200px;
+                position: relative;
+                top: 50%;
+                margin: -100px auto 0 auto;
+                text-align: center;
+            }
+            .attendance-row {
+                font-size: 14px;
+            }
         </style>
     </head>
     <body>
 
     <div id="watermark"><div id="watermark-text">{{$progress->organizationName}}</div></div>
+    <div id="school-logo-wrapper">
+        <div id="school-img-center">
+            @include('reports.common.pdf-logo-img')
+        </div>
+    </div>
 
 @foreach($progress->students as $student)
 
@@ -140,10 +166,10 @@
                 <div class="panel panel-default">
                     <div class="panel-heading top-panel">
                         <div class="school-title">{{$progress->organizationName}}</div>
-                        <div class="exam-name">
-                            <div>{{$progress->examName}}</div>
-                            <div>Result Sheet</div>
-                        </div>
+                        <div class="phone-number">{{phone_number($progress->mobilePhone)}}</div>
+                        <div>&nbsp;</div>
+                        <div class="exam-name">{{$progress->examName}}</div>
+                        <div>Result Sheet</div>
                     </div>
                     <div class="panel-body">
                         <table class="table">
@@ -260,6 +286,11 @@
                                                     </tr>
                                                     <tr>
                                                         <th>July</th>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>August</th>
                                                         <td></td>
                                                         <td></td>
                                                     </tr>
