@@ -57,6 +57,7 @@
                             'keyId'    => 'grade_system_id',
                             'keyName'  => 'grade_type',
                             'none'     => 'Select a grade system..',
+                            'required' => true,
                         ])
 
                         @include('commons.select', [
@@ -178,32 +179,67 @@
 @section('scripts')
 <script type="text/javascript">
 
-    $('#exam-form').validate({
-        rules: {
-            exam_name: {
-                required: true,
-                minlength: 3,
-                maxlength: 100
-            },
-            exam_type_id: {
-                requiredSelect: true
-            },
-            facility_ids: {
-                requiredSelect: true
-            },
-            reporting_order: {
-                required: true,
-                number: true,
-                min: 0
-            },
-            progress_card_reporting_order: {
-                required: true,
-                number: true,
-                min: 0,
-                max:999
-            }
-        }
+    $(document).ready(function() {
+        $('#exam-form').validate({
+            rules: rules
+        });
+
+        change_report_required();
+
+        $('#exam_type_id').change(function() {
+            change_report_required();
+            $('#student_report_version').valid();
+        });
     });
+
+    var rules = {
+        exam_name: {
+            required: true,
+            minlength: 3,
+            maxlength: 100
+        },
+        exam_type_id: {
+            requiredSelect: true
+        },
+        grade_system_id: {
+            requiredSelect: true
+        },
+        student_report_version: {
+
+        },
+        facility_ids: {
+            requiredSelect: true
+        },
+        reporting_order: {
+            required: true,
+            number: true,
+            min: 0
+        },
+        progress_card_reporting_order: {
+            required: true,
+            number: true,
+            min: 0,
+            max:999
+        }
+    };
+
+    function change_report_required() {
+        notRequiredElemetn('#student_report_version');
+        $('#student_report_version').rules('remove', 'requiredSelect');
+
+        if ($('#exam_type_id option:selected').text().trim() == 'Main Exam') {
+            $('#student_report_version').rules('add', 'requiredSelect');
+            makeRequiredElement('#student_report_version');
+        }
+    }
+
+    function makeRequiredElement(elem) {
+        $(elem).closest('.form-group').find('.control-label').addClass('required');
+    }
+
+    function notRequiredElemetn(elem) {
+        $(elem).closest('.form-group').find('.control-label').removeClass('required');
+    }
 
 </script>
 @endsection

@@ -33,7 +33,7 @@ class SendSmsExam extends SendSmsModel
 
         $this->smsBalanceCount = $this->smsBalanceCount();
         $this->smsAccountTypes = $this->repository->getAccountTypeFilter();
-        $this->exam = $this->repository->getExam();
+        $this->exam = $this->repository->examDropdown($this);
     }
 
     public function rows()

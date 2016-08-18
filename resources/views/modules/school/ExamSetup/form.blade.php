@@ -46,6 +46,7 @@
                             'keyId'    => 'grade_system_id',
                             'keyName'  => 'grade_type',
                             'none'     => 'Select a grade system..',
+                            'required' => true,
                         ])
 
                         @if ($setup->isNewRecord())
@@ -170,6 +171,9 @@
     @if ($setup->isNewRecord())
 
         $('#exam-setup-form').submit(function() {
+            if (! $('#exam-setup-form').valid()) {
+                return false;
+            }
 
             var subjectIds = $('.subject-checkbox:checked').map(function() {
                 return $(this).val();
@@ -181,6 +185,14 @@
         });
 
     @endif
+
+    $('#exam-setup-form').validate({
+        rules: {
+            grade_system_id: {
+                requiredSelect: true
+            }
+        }
+    });
 </script>
 @endsection
 

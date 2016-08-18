@@ -6,6 +6,13 @@ use App\Http\Repositories\Repository;
 
 class SendSmsRepository extends Repository
 {
+    public function examDropdown($model)
+    {
+        $procedure = 'sproc_sch_lkp_main_exam';
+        $data = $this->procedure($model, $procedure, [], []);
+        return first_resultset($data);
+    }
+
     public function smsMessagePrefix()
     {
         return $this->select(
