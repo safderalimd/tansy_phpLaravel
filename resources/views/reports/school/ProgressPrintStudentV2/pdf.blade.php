@@ -158,6 +158,11 @@
         $studentId = isset($firstItem['student_entity_id']) ? $firstItem['student_entity_id'] : null;
         $studentName = isset($firstItem['student_full_name']) ? $firstItem['student_full_name'] : null;
         $rollNr = isset($firstItem['student_roll_number']) ? $firstItem['student_roll_number'] : null;
+
+        $className = isset($firstItem['class_name']) ? $firstItem['class_name'] : null;
+        $admissionNr = isset($firstItem['admission_number']) ? $firstItem['admission_number'] : null;
+
+        $subjectMaxTotal = isset($firstItem['subject_max_total']) ? $firstItem['subject_max_total'] : null;
     ?>
     <div class="container">
 
@@ -180,9 +185,9 @@
                                             <tr>
                                                 <th>Subject</th>
                                                 @foreach($progress->examTypes as $type)
-                                                    <th>{{$type}} <br/>5</th>
+                                                    <th>{{$type}}</th>
                                                 @endforeach
-                                                <th class="th-total">Total <br/>20</th>
+                                                <th class="th-total">Total <br/>({{$subjectMaxTotal}})</th>
                                                 <th class="subject-grade-point">Subject Grade Point</th>
                                             </tr>
                                         </thead>
@@ -262,9 +267,9 @@
                                             <td>
                                                 <div class="student-info">
                                                     {{$studentName}} <br/>
-                                                    Class II <br/>
+                                                    {{$className}} <br/>
                                                     Roll No. {{$rollNr}} <br/>
-                                                    Admn.No. 12 <br/>
+                                                    Admn.No. {{$admissionNr}} <br/>
                                                 </div>
                                             </td>
                                         </tr>
