@@ -25,7 +25,7 @@
         $firstItem = $student->first();
         $studentName = isset($firstItem['student_full_name']) ? $firstItem['student_full_name'] : null;
         $rollNr = isset($firstItem['student_roll_number']) ? $firstItem['student_roll_number'] : null;
-        $className = '';
+        $className = isset($firstItem['class_name']) ? $firstItem['class_name'] : null;
     ?>
 
     <div class="container">
@@ -62,7 +62,7 @@
                         <th class="text-left">Subjects</th>
                         <th class="text-left">Max Marks</th>
                         <th class="text-left">Obtain Marks</th>
-                        <th class="text-left">Pass/Fail</th>
+                        <th class="text-left">GPA</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,7 +74,9 @@
                             @endif
                         </td>
                         <td class="text-left">
-                            -
+                            @if (isset($subject['subject_max_total']))
+                                {{marks($subject['subject_max_total'])}}
+                            @endif
                         </td>
                         <td class="text-left">
                             @if (isset($subject['student_subject_max_total']))
@@ -82,7 +84,9 @@
                             @endif
                         </td>
                         <td class="text-left">
-                            -
+                            @if (isset($subject['subject_gpa']))
+                                {{$subject['subject_gpa']}}
+                            @endif
                         </td>
                     </tr>
                     @endforeach
@@ -130,21 +134,21 @@
             </div>
         </div>
 
-        <div class="row">
+       {{--  <div class="row">
             <div class="col-md-12">
                 <table class="header-table">
                     <tr>
                         <td class="text-left">
                             <h4>Results: <strong>
-                            @if (isset($studentTotals['pass_fail']))
+                            if (isset($studentTotals['pass_fail']))
                                 {{$studentTotals['pass_fail']}}
-                            @endif
+                            endif
                             </strong></h4>
                         </td>
                     </tr>
                 </table>
             </div>
-        </div>
+        </div> --}}
 
         <div class="row signatures">
             <div class="col-md-12">
