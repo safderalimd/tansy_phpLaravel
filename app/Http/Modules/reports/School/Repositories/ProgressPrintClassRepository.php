@@ -38,7 +38,7 @@ class ProgressPrintClassRepository extends Repository
 
     public function getProgressList($model)
     {
-        $procedure = 'sproc_sch_progress_lst_v';
+        $procedure = 'sproc_sch_progress_lst';
 
         $iparams = [
             ':iparam_exam_entity_id',
