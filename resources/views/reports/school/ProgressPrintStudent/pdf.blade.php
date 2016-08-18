@@ -134,21 +134,24 @@
             </div>
         </div>
 
-       {{--  <div class="row">
+        <div class="row">
             <div class="col-md-12">
                 <table class="header-table">
                     <tr>
                         <td class="text-left">
-                            <h4>Results: <strong>
-                            if (isset($studentTotals['pass_fail']))
-                                {{$studentTotals['pass_fail']}}
-                            endif
+                            <h4>GPA: <strong>
+                            @if (isset($studentTotals['gpa']))
+                                {{$studentTotals['gpa']}}
+                            @endif
                             </strong></h4>
                         </td>
                     </tr>
                 </table>
             </div>
-        </div> --}}
+        </div>
+
+        <br/>
+        <br/>
 
         <div class="row signatures">
             <div class="col-md-12">
