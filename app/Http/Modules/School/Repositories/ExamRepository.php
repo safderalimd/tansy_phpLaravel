@@ -16,6 +16,20 @@ class ExamRepository extends Repository
         );
     }
 
+    public function studentReport($model)
+    {
+        $procedure = 'sproc_sch_lkp_exam_student_report_version';
+        $data = $this->procedure($model, $procedure, [], []);
+        return first_resultset($data);
+    }
+
+    public function gradingSystem($model)
+    {
+        $procedure = 'sproc_sch_lkp_exam_grading_system';
+        $data = $this->procedure($model, $procedure, [], []);
+        return first_resultset($data);
+    }
+
     public function getExamGrid($model)
     {
         $procedure = 'sproc_sch_exam_grid';
@@ -95,6 +109,8 @@ class ExamRepository extends Repository
             ':iparam_attendance_oct',
             ':iparam_attendance_nov',
             ':iparam_attendance_dec',
+            ':iparam_grade_system_id',
+            '-iparam_student_report_version',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
@@ -137,6 +153,8 @@ class ExamRepository extends Repository
             ':iparam_attendance_oct',
             ':iparam_attendance_nov',
             ':iparam_attendance_dec',
+            ':iparam_grade_system_id',
+            '-iparam_student_report_version',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

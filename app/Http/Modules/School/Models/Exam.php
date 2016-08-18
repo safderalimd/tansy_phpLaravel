@@ -14,9 +14,21 @@ class Exam extends Model
     protected $selects = [
         'exam_type_id',
         'facility_ids',
+        'grade_system_id',
+        'student_report_version',
     ];
 
     public $selectedFacilities;
+
+    public function studentReport()
+    {
+        return $this->repository->studentReport($this);
+    }
+
+    public function gradingSystem()
+    {
+        return $this->repository->gradingSystem($this);
+    }
 
     public function examGrid()
     {

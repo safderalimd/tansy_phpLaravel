@@ -39,6 +39,15 @@
                             'none'     => 'Select an exam..',
                         ])
 
+                        @include('commons.select', [
+                            'label'    => 'Grade System' ,
+                            'name'     => 'grade_system_id',
+                            'options'  => $setup->gradingSystem(),
+                            'keyId'    => 'grade_system_id',
+                            'keyName'  => 'grade_type',
+                            'none'     => 'Select a grade system..',
+                        ])
+
                         @if ($setup->isNewRecord())
                             @include('commons.select', [
                                 'label'    => 'Class' ,

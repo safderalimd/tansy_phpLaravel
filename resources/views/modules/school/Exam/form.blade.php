@@ -50,6 +50,24 @@
                             'required' => true,
                         ])
 
+                        @include('commons.select', [
+                            'label'    => 'Grade System' ,
+                            'name'     => 'grade_system_id',
+                            'options'  => $exam->gradingSystem(),
+                            'keyId'    => 'grade_system_id',
+                            'keyName'  => 'grade_type',
+                            'none'     => 'Select a grade system..',
+                        ])
+
+                        @include('commons.select', [
+                            'label'    => 'Student Report Version' ,
+                            'name'     => 'student_report_version',
+                            'options'  => $exam->studentReport(),
+                            'keyId'    => 'student_report_version',
+                            'keyName'  => 'student_report_version',
+                            'none'     => 'Select a report version..',
+                        ])
+
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="exam_short_code">Exam Short Code</label>
                             <div class="col-md-8">

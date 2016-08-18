@@ -16,6 +16,7 @@ class ExamSetup extends Model
         'sub_exam_entity_id',
         'class_entity_id',
         'subject_entity_id',
+        'grade_system_id',
     ];
 
     public function setEeiAttribute($value)
@@ -27,6 +28,16 @@ class ExamSetup extends Model
     public function examDropdown()
     {
         return $this->repository->examDropdown($this);
+    }
+
+    public function studentReport()
+    {
+        return $this->repository->studentReport($this);
+    }
+
+    public function gradingSystem()
+    {
+        return $this->repository->gradingSystem($this);
     }
 
     public function classDropdown()
