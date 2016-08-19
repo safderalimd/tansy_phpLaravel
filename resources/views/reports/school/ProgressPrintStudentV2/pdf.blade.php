@@ -138,6 +138,9 @@
             .attendance-row {
                 font-size: 14px;
             }
+            .header-table {
+                table-layout: fixed;
+            }
         </style>
     </head>
     <body>
@@ -156,6 +159,8 @@
 
         $firstItem = $student->first();
         $studentId = isset($firstItem['student_entity_id']) ? $firstItem['student_entity_id'] : null;
+        $classStudentId = isset($firstItem['class_student_id']) ? $firstItem['class_student_id'] : null;
+
         $studentName = isset($firstItem['student_full_name']) ? $firstItem['student_full_name'] : null;
         $rollNr = isset($firstItem['student_roll_number']) ? $firstItem['student_roll_number'] : null;
 
@@ -284,39 +289,29 @@
                                                         <th>Working Days</th>
                                                         <th>Days Present</th>
                                                     </tr>
+                                                    <?php
+                                                        $months = $progress->attendance->where('class_student_id', $classStudentId);
+                                                    ?>
+
+                                                    @foreach ($months as $month)
                                                     <tr>
-                                                        <th>June</th>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <th>
+                                                            @if (isset($month['calendar_month']))
+                                                                {{$month['calendar_month']}}
+                                                            @endif
+                                                        </th>
+                                                        <td>
+                                                            @if (isset($month['working_days']))
+                                                                {{$month['working_days']}}
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if (isset($month['present_days']))
+                                                                {{$month['present_days']}}
+                                                            @endif
+                                                        </td>
                                                     </tr>
-                                                    <tr>
-                                                        <th>July</th>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>August</th>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <table class="table table-bordered signatures-row">
-                                                    <tr>
-                                                        <th class="gray-bg">Class Teacher Signature</th>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Headmaster Signature</th>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="gray-bg">Parent Signature</th>
-                                                        <td></td>
-                                                    </tr>
+                                                    @endforeach
                                                 </table>
                                             </td>
                                         </tr>
@@ -328,6 +323,21 @@
 
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div class="row signatures">
+            <div class="col-md-12">
+                <table class="header-table">
+                    <tr>
+                        <td class="text-center"><h4><strong>Principal Signature</strong></h4></td>
+                        <td class="text-center"><h4><strong>Teacher Signature</strong></h4></td>
+                        <td class="text-center"><h4><strong>Parent Signature</strong></h4></td>
+                    </tr>
+                </table>
             </div>
         </div>
 

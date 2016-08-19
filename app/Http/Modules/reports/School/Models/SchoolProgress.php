@@ -18,6 +18,8 @@ class SchoolProgress
 
     public $totals;
 
+    public $attendance;
+
     public function __construct($data)
     {
         $this->setExamTypes(first_resultset($data));
@@ -28,6 +30,7 @@ class SchoolProgress
         $this->totals = collect(second_resultset($data));
 
         $this->setSchoolInfo(third_resultset($data));
+        $this->attendance = collect(fourth_resultset($data));
     }
 
     public function getTotal($student)
