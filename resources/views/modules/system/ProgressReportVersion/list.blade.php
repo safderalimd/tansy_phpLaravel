@@ -64,7 +64,7 @@
             <input type="checkbox" class="class-entity-id" name="report_checkbox" value="{{$row['class_entity_id']}}">
         </td>
         <td>{{$row['class_name']}}</td>
-        <td>{{$row['student_report_version']}}</td>
+        <td>{{$row['report_version']}}</td>
     </tr>
     @endforeach
 
