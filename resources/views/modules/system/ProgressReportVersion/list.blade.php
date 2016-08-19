@@ -120,7 +120,7 @@
         updateQueryString();
     });
 
-    $('#student-class-entity-id').change(function() {
+    $('#student-report-version-id').change(function() {
         updateQueryString();
     });
 
@@ -131,7 +131,7 @@
     // get the query string
     function getQueryString() {
         var eei = $('#exam-entity-id-filter option:selected').val();
-        var rt = $('#student-class-entity-id option:selected').val();
+        var rt = $('#student-report-version-id option:selected').val();
 
         var items = [];
         if (eei != "none") {
