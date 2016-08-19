@@ -60,7 +60,7 @@
                             'required' => true,
                         ])
 
-                        @include('commons.select', [
+{{--                         include('commons.select', [
                             'label'    => 'Student Report Version' ,
                             'name'     => 'student_report_version',
                             'options'  => $exam->studentReport(),
@@ -68,7 +68,7 @@
                             'keyName'  => 'student_report_version',
                             'none'     => 'Select a report version..',
                         ])
-
+ --}}
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="exam_short_code">Exam Short Code</label>
                             <div class="col-md-8">
