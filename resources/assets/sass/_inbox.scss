@@ -23,7 +23,7 @@
 }
 
 .panel-header-text {
-    display: block;
+    display: inline-block;
     margin-top: 0px;
     margin-bottom: 0px;
 }
@@ -163,4 +163,13 @@
             }
         }
     }
+}
+
+.preloader-scroll {
+    text-align: center;
+    padding: 4px;
+}
+
+.new-message {
+    float: right;
 }

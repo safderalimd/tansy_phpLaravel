@@ -510,7 +510,7 @@ a.selected {
     border: 0px; }
 
 .panel-header-text {
-  display: block;
+  display: inline-block;
   margin-top: 0px;
   margin-bottom: 0px; }
 
@@ -614,6 +614,13 @@ a.selected {
   .inbox-list .inbox-row.unread .message-sender,
   .inbox-list .inbox-row.unread .message-subject {
     font-weight: bold; }
+
+.preloader-scroll {
+  text-align: center;
+  padding: 4px; }
+
+.new-message {
+  float: right; }
 
 #help-search-box {
   width: 300px;

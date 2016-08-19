@@ -15,6 +15,9 @@
 
         <header class="panel-heading">
             <h3 class="panel-header-text">Inbox</h3>
+            <div class="new-message">
+                <button class="btn btn-danger" type="submit"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            </div>
         </header>
 
         <div class="panel-body">
@@ -42,7 +45,9 @@
 @section('scripts')
 <script type="text/javascript">
 
-    $('.inbox-list').jscroll();
+    $('.inbox-list').jscroll({
+        loadingHtml: '<div class="preloader-scroll"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i><span class="sr-only">Loading...</span></div>'
+    });
 
     // $('.inbox-list').jscroll({
     //     loadingHtml: '<img src="/images/page-loader.gif" alt="Loading" /> Loading...',
