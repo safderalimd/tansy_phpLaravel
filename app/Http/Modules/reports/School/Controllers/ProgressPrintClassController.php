@@ -64,13 +64,16 @@ class ProgressPrintClassController extends Controller
         $allSubjects = $progress->getAllSubjects();
         $allSubjects = $allSubjects->sort();
 
-        $firstRow = ['Roll Number', 'Name'];
+        $firstRow = ['Class Name', 'Roll Number', 'Name'];
         foreach ($allSubjects as $oneSubject) {
             foreach($progress->examTypes as $type) {
                 $firstRow[] = $type;
             }
             $firstRow[] = 'Subject Total';
+            $firstRow[] = 'Subject GPA';
         }
+        $firstRow[] = '';
+        $firstRow[] = '';
         $firstRow[] = '';
         $firstRow[] = '';
         $firstRow[] = '';
@@ -82,9 +85,12 @@ class ProgressPrintClassController extends Controller
             $studentTotals = $progress->getTotal($student);
 
             $firstItem = $student->first();
+
+            $className = isset($firstItem['class_name']) ? $firstItem['class_name'] : null;
             $studentName = isset($firstItem['student_full_name']) ? $firstItem['student_full_name'] : null;
             $rollNr = isset($firstItem['student_roll_number']) ? $firstItem['student_roll_number'] : null;
 
+            $row[] = $className;
             $row[] = $rollNr;
             $row[] = $studentName;
 
@@ -108,11 +114,18 @@ class ProgressPrintClassController extends Controller
                 } else {
                     $row[] = '';
                 }
+
+                // subject gpa
+                if (isset($subject['subject_gpa'])) {
+                    $row[] = $subject['subject_gpa'];
+                } else {
+                    $row[] = '';
+                }
             }
 
             // max total
-            if (isset($studentTotals['student_total_marks'])) {
-                $row[] = $studentTotals['student_total_marks'];
+            if (isset($studentTotals['max_total_marks'])) {
+                $row[] = $studentTotals['max_total_marks'];
             } else {
                 $row[] = '';
             }
@@ -120,6 +133,20 @@ class ProgressPrintClassController extends Controller
             // student total
             if (isset($studentTotals['student_total_marks'])) {
                 $row[] = $studentTotals['student_total_marks'];
+            } else {
+                $row[] = '';
+            }
+
+            // percentage
+            if (isset($studentTotals['score_percent'])) {
+                $row[] = $studentTotals['score_percent'];
+            } else {
+                $row[] = '';
+            }
+
+            // grade
+            if (isset($studentTotals['grade'])) {
+                $row[] = $studentTotals['grade'];
             } else {
                 $row[] = '';
             }
@@ -135,15 +162,18 @@ class ProgressPrintClassController extends Controller
         }
 
         // header
-        $header = ['', ''];
+        $header = ['', '', ''];
         foreach ($allSubjects as $value) {
             $header[] = $value;
             for ($i=0; $i<count($progress->examTypes); $i++) {
                 $header[] = '';
             }
+            $header[] = '';
         }
         $header[] = 'Max. TOTAL';
         $header[] = 'Student TOTAL';
+        $header[] = 'Percentage';
+        $header[] = 'Grade';
         $header[] = 'GPA';
 
         array_unshift($studentRows, $firstRow);
