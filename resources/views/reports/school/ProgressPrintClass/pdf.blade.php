@@ -110,11 +110,31 @@
                                 @endif
                             </td>
                         @endforeach
-                        <td class="text-left">{{marks($studentTotals['student_total_marks'])}}</td>
-                        <td class="text-left">{{$studentTotals['grade']}}</td>
-                        <td class="text-left">{{$studentTotals['score_percent']}}</td>
-                        <td class="text-left">{{$studentTotals['gpa']}}</td>
-                        <td class="text-left">{{$studentTotals['pass_fail']}}</td>
+                        <td class="text-left">
+                            @if (isset($studentTotals['student_total_marks']))
+                                {{marks($studentTotals['student_total_marks'])}}
+                            @endif
+                        </td>
+                        <td class="text-left">
+                            @if (isset($studentTotals['grade']))
+                                {{$studentTotals['grade']}}
+                            @endif
+                        </td>
+                        <td class="text-left">
+                            @if (isset($studentTotals['score_percent']))
+                                {{$studentTotals['score_percent']}}
+                            @endif
+                        </td>
+                        <td class="text-left">
+                            @if (isset($studentTotals['gpa']))
+                                {{$studentTotals['gpa']}}
+                            @endif
+                        </td>
+                        <td class="text-left">
+                            @if (isset($studentTotals['pass_fail']))
+                                {{$studentTotals['pass_fail']}}
+                            @endif
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
