@@ -32,7 +32,7 @@ class ProgressReportVersionController extends Controller
     public function update(Request $request)
     {
         $version = new ProgressReportVersion($request->input());
-        $product->update();
+        $version->update();
         flash('Report Version Updated!');
         return redirect_back();
     }
