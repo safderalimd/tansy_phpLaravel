@@ -279,6 +279,9 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td style="color: #fff;" colspan="2">------------------------------------------------------</td>
+                                        </tr>
+                                        <tr>
                                             <td colspan="2">
                                                 <table class="table table-bordered attendance-row">
                                                     <tr>
@@ -326,7 +329,6 @@
             </div>
         </div>
 
-        <br/>
         <br/>
 
         <div class="row signatures">
