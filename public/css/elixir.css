@@ -620,7 +620,9 @@ a.selected {
   padding: 4px; }
 
 .new-message {
-  float: right; }
+  float: right;
+  margin-top: -5px;
+  margin-right: 5px; }
 
 #help-search-box {
   width: 300px;
