@@ -33,13 +33,16 @@ class SendSmsExam extends SendSmsModel
 
         $this->smsBalanceCount = $this->smsBalanceCount();
         $this->smsAccountTypes = $this->repository->getAccountTypeFilter();
-        $this->exam = $this->repository->getExam();
+        $this->exam = $this->repository->examDropdown($this);
     }
 
     public function rows()
     {
         if (!is_null($this->filter_entity_id) && !is_null($this->filter_type)) {
-            return $this->repository->examResults($this);
+            $this->setAttribute('class_student_id', 0);
+            $this->setAttribute('return_type', 'SMS Results');
+            $data = $this->repository->getProgressList($this);
+            return first_resultset($data);
         }
 
         return [];

@@ -24,14 +24,16 @@
                                     <div class="col-md-4">
                                         <select id="exam_entity_id" class="form-control" name="exam_entity_id">
                                             <option value="none">Select an exam..</option>
-                                            @foreach($schedule->exam() as $option)
+                                            @foreach($schedule->examDropdown() as $option)
                                                 <option {{activeSelect($option['exam_entity_id'], 'eid')}} value="{{$option['exam_entity_id']}}">{{$option['exam']}}</option>
                                             @endforeach
                                         </select>
                                     </div>
+                                    {{--
                                     <div class="col-md-4">
                                         <button class="btn btn-primary grid_btn" type="submit">MAP ALL SUBJECTS TO EXAM</button>
                                     </div>
+                                     --}}
                                 </div>
                             </div>
                         </div>

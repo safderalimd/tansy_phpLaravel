@@ -24,7 +24,9 @@
 
             @if (isset($options['beforeGridInclude'])) @include($options['beforeGridInclude']) @endif
 
-            @include('grid.filters')
+            @if (!isset($options['skipGridFilters']))
+                @include('grid.filters')
+            @endif
 
             @include('grid.table')
 

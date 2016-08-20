@@ -46,7 +46,7 @@
                         {{$row['city_name']}}
                     </td>
                     <td>
-                        <textarea @if (empty($row['mobile_phone'])) disabled="disabled" @endif style="width:100%;" rows="2" maxlength="160" name="" class="custom-message-text form-control"></textarea>
+                        <textarea @if (empty($row['mobile_phone'])) disabled="disabled" @endif style="width:100%;" rows="2" maxlength="145" name="" class="custom-message-text form-control"></textarea>
                     </td>
                 </tr>
                 @endforeach

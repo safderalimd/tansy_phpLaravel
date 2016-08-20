@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-md-12">
         <form id="sms-textarea-form" class="form-horizontal" action="" method="POST">
-            <textarea maxlength="160" name="sms_common_message" id="sms-message" class="form-control" rows="4"></textarea>
-            <span class="pull-right text-muted"><span id="total-chars-used">160</span> used out of 160 characters</span>
+            <textarea maxlength="145" name="sms_common_message" id="sms-message" class="form-control" rows="4"></textarea>
+            <span class="pull-right text-muted"><span id="total-chars-used">145</span> left out of 145 characters</span>
         </form>
     </div>
 </div>

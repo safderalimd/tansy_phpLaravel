@@ -16,7 +16,7 @@
     // max nr of charachters counter for text area
     $('#sms-message').keyup(function() {
         var textLength = $('#sms-message').val().length;
-        var textRemaining = 160 - textLength;
+        var textRemaining = 145 - textLength;
         $('#total-chars-used').text(textRemaining);
     });
 

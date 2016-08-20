@@ -21,11 +21,11 @@ class Procedure
 
     protected $resultSets;
 
-    protected $oparamsResults;
+    protected $oparamsResults = [];
 
-    protected $procedureSql;
+    protected $procedureSql = '';
 
-    protected $oparamsSelect;
+    protected $oparamsSelect = '';
 
     protected $start;
 
@@ -89,6 +89,10 @@ class Procedure
 
     protected function runSelectOparams()
     {
+        if (empty($this->oparams)) {
+            return;
+        }
+
         $this->oparamsSelect = $this->generateOparamsSelect();
         $stmt = $this->pdo->query($this->oparamsSelect);
 

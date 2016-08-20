@@ -50,7 +50,9 @@ class ExamController extends Controller
     {
         $exam = new Exam;
         $exam->setAttribute('active', 0);
-        $exam->save($request->input());
+        $exam->fill($request->input());
+        $exam->setCheckboxes();
+        $exam->save();
         flash('Exam Added!');
         return redirect('/cabinet/exam');
     }
@@ -63,7 +65,8 @@ class ExamController extends Controller
      */
     public function edit($id)
     {
-        $exam = Exam::findOrFail($id);
+        $exam = new Exam;
+        $exam->setDetail($id);
         $exam->loadData();
         return view('modules.school.Exam.form', compact('exam'));
     }
@@ -80,7 +83,9 @@ class ExamController extends Controller
         $exam = new Exam;
         $exam->setAttribute('active', 0);
         $exam->setAttribute('exam_entity_id', $id);
-        $exam->update($request->input());
+        $exam->fill($request->input());
+        $exam->setCheckboxes();
+        $exam->update();
         flash('Exam Updated!');
         return redirect('/cabinet/exam');
     }
@@ -93,7 +98,8 @@ class ExamController extends Controller
      */
     public function destroy($id)
     {
-        $exam = Exam::findOrFail($id);
+        $exam = new Exam;
+        $exam->setAttribute('exam_entity_id', $id);
         $exam->delete();
         flash('Exam Deleted!');
         return redirect('/cabinet/exam');

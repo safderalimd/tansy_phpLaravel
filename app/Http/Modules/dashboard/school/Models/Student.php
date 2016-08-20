@@ -24,6 +24,10 @@ class Student extends Model
 
     public $examName;
 
+    public $exam_grade;
+
+    public $exam_result;
+
     public function loadStudentInfo()
     {
         $studentInfo = $this->repository->studentInfo($this);
@@ -72,7 +76,20 @@ class Student extends Model
         }
 
         // call sproc and get the data
-        $examData = $this->repository->examDetails($this);
+        $this->setAttribute('return_type', 'Student Dashboard');
+        $this->setAttribute('filter_entity_id', 0);
+        $data = $this->repository->examDetails2($this);
+        $examData = first_resultset($data);
+        $oparams = second_resultset($data);
+
+        // "class_student_id" => 55
+        // "max_total_marks" => "120.00"
+        // "student_total_marks" => "98.40"
+        // "gpa" => "9.00"
+        // "score_percent" => "82.00"
+        // "rank" => 3
+        $this->exam_grade = isset($oparams[0]['grade']) ? $oparams[0]['grade'] : '';
+        $this->exam_result = isset($oparams[0]['pass_fail']) ? $oparams[0]['pass_fail'] : '';
 
         // map the data for the char.js library
         $this->examPieChart = array_map(function($item) {
@@ -80,7 +97,7 @@ class Student extends Model
                 'value' => $item['subject_percent'],
                 'label' => $item['subject'],
             ];
-        }, $examData[0]);
+        }, $examData);
     }
 
     public function loadData()

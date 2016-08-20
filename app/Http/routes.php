@@ -65,6 +65,14 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('exam/edit/{id}', 'School\Controllers\ExamController@update');
     Route::get('exam/delete/{id}', 'School\Controllers\ExamController@destroy');
 
+    Route::get('exam-setup', 'School\Controllers\ExamSetupController@index');
+    Route::get('exam-setup/create', 'School\Controllers\ExamSetupController@create');
+    Route::post('exam-setup/create', 'School\Controllers\ExamSetupController@store');
+    Route::get('exam-setup/edit/{id}', 'School\Controllers\ExamSetupController@edit');
+    Route::post('exam-setup/edit/{id}', 'School\Controllers\ExamSetupController@update');
+    Route::get('exam-setup/delete', 'School\Controllers\ExamSetupController@destroy');
+    Route::post('exam-setup/copy', 'School\Controllers\ExamSetupController@copy');
+
     Route::get('class-subject-map', 'School\Controllers\ClassSubjectMapController@index');
     Route::get('class-subject-map/map/{classId}/{subjectId}', 'School\Controllers\ClassSubjectMapController@map');
     Route::get('class-subject-map/delete/{classId}/{subjectId}', 'School\Controllers\ClassSubjectMapController@destroy');
@@ -120,8 +128,11 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     });
 
     Route::get('exam-schedule', 'School\Controllers\ExamScheduleController@index');
+    Route::get('exam-schedule/edit/{id}', 'School\Controllers\ExamScheduleController@edit');
+    Route::post('exam-schedule/edit/{id}', 'School\Controllers\ExamScheduleController@update');
     Route::post('exam-schedule/map-subjects', 'School\Controllers\ExamScheduleController@mapSubjects');
     Route::post('exam-schedule/schedule-rows', 'School\Controllers\ExamScheduleController@scheduleRows');
+    Route::get('exam-schedule/paper-2', 'School\Controllers\ExamScheduleController@paper2');
     Route::get('exam-schedule/delete', 'School\Controllers\ExamScheduleController@destroy');
 
     Route::get('mark-sheet', 'School\Controllers\MarkSheetController@index');
@@ -161,10 +172,15 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('pdf---student-progress-v1/pdf',
         'reports\School\Controllers\ProgressPrintStudentController@report');
 
+    Route::get('pdf---student-progress-v2/pdf',
+        'reports\School\Controllers\ProgressPrintStudentV2Controller@report');
+
     Route::get('pdf---class-progress',
         'reports\School\Controllers\ProgressPrintClassController@index');
     Route::get('pdf---class-progress/pdf',
         'reports\School\Controllers\ProgressPrintClassController@report');
+    Route::get('pdf---class-progress/csv',
+        'reports\School\Controllers\ProgressPrintClassController@csv');
 
     Route::get('payment-dashboard', 'dashboard\accounting\Controllers\PaymentController@index');
     Route::get('payment-dashboard/schedule-fee', 'dashboard\accounting\Controllers\PaymentController@scheduleFee');
@@ -275,8 +291,10 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('custom-fields/edit/{id}', 'System\Controllers\CustomFieldsController@edit');
     Route::post('custom-fields/edit/{id}', 'System\Controllers\CustomFieldsController@update');
 
-    Route::get('inbox', 'Communication\Controllers\InboxController@index');
+    Route::get('progress-report-version', 'System\Controllers\ProgressReportVersionController@index');
+    Route::post('progress-report-version', 'System\Controllers\ProgressReportVersionController@update');
 
+    Route::get('inbox', 'Communication\Controllers\InboxController@index');
 
     Route::get('/logout', '\App\Http\Controllers\UserController@logout');
 

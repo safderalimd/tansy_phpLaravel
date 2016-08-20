@@ -24,7 +24,7 @@
                                 <div class="col-md-4">
                                     <select id="exam_entity_id" class="form-control" name="exam_entity_id">
                                         <option value="none">Select an exam..</option>
-                                        @foreach($progress->exam() as $option)
+                                        @foreach($progress->examDropdown() as $option)
                                             <option {{ activeSelect($option['exam_entity_id'], 'eid') }} value="{{ $option['exam_entity_id'] }}">{{ $option['exam'] }}</option>
                                         @endforeach
                                     </select>
@@ -63,12 +63,17 @@
             <td>{{$item['progress_status']}}</td>
             <td>
                 @if ($generated)
-                    <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---class-progress/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="Print">Print</a>
+                    <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---class-progress/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="PDF">PDF</a>
+                    <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---class-progress/csv?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="CSV">CSV</a>
                 @endif
             </td>
             <td>
                 @if ($generated)
-                    <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v1/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="Print">Print</a>
+                    @if (isset($item['student_report_version']) && $item['student_report_version'] == 'V-0002')
+                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v2/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="Print">Print</a>
+                    @else
+                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v1/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="Print">Print</a>
+                    @endif
                 @endif
             </td>
             <td>

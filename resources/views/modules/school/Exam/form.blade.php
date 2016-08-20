@@ -50,6 +50,73 @@
                             'required' => true,
                         ])
 
+                        @include('commons.select', [
+                            'label'    => 'Grade System' ,
+                            'name'     => 'grade_system_id',
+                            'options'  => $exam->gradingSystem(),
+                            'keyId'    => 'grade_system_id',
+                            'keyName'  => 'grade_type',
+                            'none'     => 'Select a grade system..',
+                            'required' => true,
+                        ])
+
+{{--                         include('commons.select', [
+                            'label'    => 'Student Report Version' ,
+                            'name'     => 'student_report_version',
+                            'options'  => $exam->studentReport(),
+                            'keyId'    => 'student_report_version',
+                            'keyName'  => 'student_report_version',
+                            'none'     => 'Select a report version..',
+                        ])
+ --}}
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="exam_short_code">Exam Short Code</label>
+                            <div class="col-md-8">
+                                <input id="exam_short_code" class="form-control" type="text" name="exam_short_code" value="{{ v('exam_short_code') }}" placeholder="Exam Short Code">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-8">
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_jan') }} name="attendance_jan" type="checkbox"> Jan
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_feb') }} name="attendance_feb" type="checkbox"> Feb
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_mar') }} name="attendance_mar" type="checkbox"> Mar
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_apr') }} name="attendance_apr" type="checkbox"> Apr
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_may') }} name="attendance_may" type="checkbox"> May
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_jun') }} name="attendance_jun" type="checkbox"> Jun
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_jul') }} name="attendance_jul" type="checkbox"> Jul
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_aug') }} name="attendance_aug" type="checkbox"> Aug
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_sep') }} name="attendance_sep" type="checkbox"> Sep
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_oct') }} name="attendance_oct" type="checkbox"> Oct
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_nov') }} name="attendance_nov" type="checkbox"> Nov
+                                </label>
+                                <label class="checkbox-inline no_indent">
+                                    <input {{ c('attendance_dec') }} name="attendance_dec" type="checkbox"> Dec
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="col-md-4 control-label required" for="facility_ids">Facility</label>
                             <div class="col-md-8">
@@ -95,36 +162,84 @@
     </div>
 @endsection
 
+@section('styles')
+<style type="text/css">
+    .checkbox-inline.no_indent,
+    .checkbox-inline.no_indent+.checkbox-inline.no_indent {
+        margin-left: 0;
+        margin-right: 10px;
+        width: 70px;
+    }
+    .checkbox-inline.no_indent:last-child {
+        margin-right: 0;
+    }
+</style>
+@endsection
 
 @section('scripts')
 <script type="text/javascript">
 
-    $('#exam-form').validate({
-        rules: {
-            exam_name: {
-                required: true,
-                minlength: 3,
-                maxlength: 100
-            },
-            exam_type_id: {
-                requiredSelect: true
-            },
-            facility_ids: {
-                requiredSelect: true
-            },
-            reporting_order: {
-                required: true,
-                number: true,
-                min: 0
-            },
-            progress_card_reporting_order: {
-                required: true,
-                number: true,
-                min: 0,
-                max:999
-            }
-        }
+    $(document).ready(function() {
+        $('#exam-form').validate({
+            rules: rules
+        });
+
+        change_report_required();
+
+        $('#exam_type_id').change(function() {
+            change_report_required();
+            $('#student_report_version').valid();
+        });
     });
+
+    var rules = {
+        exam_name: {
+            required: true,
+            minlength: 3,
+            maxlength: 100
+        },
+        exam_type_id: {
+            requiredSelect: true
+        },
+        grade_system_id: {
+            requiredSelect: true
+        },
+        student_report_version: {
+
+        },
+        facility_ids: {
+            requiredSelect: true
+        },
+        reporting_order: {
+            required: true,
+            number: true,
+            min: 0
+        },
+        progress_card_reporting_order: {
+            required: true,
+            number: true,
+            min: 0,
+            max:999
+        }
+    };
+
+    function change_report_required() {
+        notRequiredElemetn('#student_report_version');
+        $('#student_report_version').rules('remove', 'requiredSelect');
+
+        if ($('#exam_type_id option:selected').text().trim() == 'Main Exam') {
+            $('#student_report_version').rules('add', 'requiredSelect');
+            makeRequiredElement('#student_report_version');
+        }
+    }
+
+    function makeRequiredElement(elem) {
+        $(elem).closest('.form-group').find('.control-label').addClass('required');
+    }
+
+    function notRequiredElemetn(elem) {
+        $(elem).closest('.form-group').find('.control-label').removeClass('required');
+    }
 
 </script>
 @endsection
