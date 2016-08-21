@@ -45,6 +45,15 @@ class InboxController extends Controller
         return view('modules.communication.Inbox.new', compact('inbox'));
     }
 
+    public function send(Request $request)
+    {
+        $inbox = new Inbox($request->input());
+        dd($inbox);
+        $inbox->send();
+        flash('Message Sent!');
+        return redirect('/cabinet/inbox');
+    }
+
     // /**
     //  * Show the form for creating a new resource.
     //  *

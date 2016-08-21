@@ -650,6 +650,9 @@ a.selected {
   line-height: 30px;
   font-size: 12px; }
 
+.inbox-compose #mobile-panel {
+  max-width: 900px; }
+
 .new-message {
   float: right;
   margin-top: -5px;
@@ -662,10 +665,10 @@ a.selected {
   padding: 5px 0px; }
   .compose-buttons .close-btn {
     height: 34px;
-    margin-left: 20px; }
+    margin-left: 15px; }
   .compose-buttons .send-btn {
     height: 34px;
-    margin-right: 20px; }
+    margin-right: 15px; }
   .compose-buttons .compose-text {
     height: 34px;
     display: inline-block;
@@ -682,9 +685,66 @@ a.selected {
 
 .subject-input,
 .message-input {
-  border: 0px;
+  border-radius: 0px;
   background-color: #fff;
+  border-color: #f1f1f1;
   box-shadow: none; }
+
+.to-field .dropdown-menu {
+  max-width: 250px;
+  overflow: hidden; }
+
+.to-field li {
+  color: #98978b;
+  font-size: 11px;
+  line-height: 22px;
+  font-weight: 500;
+  text-transform: uppercase;
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden; }
+  .to-field li:hover {
+    text-decoration: none;
+    color: #98978b;
+    background-color: #f8f5f0;
+    cursor: pointer; }
+
+.to-email {
+  margin-right: 5px;
+  border: 1px solid #f1f1f1;
+  margin-top: 5px;
+  display: inline-block;
+  height: 24px;
+  line-height: 24px;
+  font-size: 0px; }
+  .to-email .to-name {
+    border-right: 1px solid #f1f1f1;
+    padding: 0px 5px;
+    float: left;
+    font-size: 12px;
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+  .to-email .to-remove {
+    padding: 0px 5px;
+    float: left;
+    font-size: 8px;
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    text-align: center; }
+    .to-email .to-remove:hover {
+      background-color: #f4f4f4;
+      color: #ff002a;
+      cursor: pointer; }
 
 #help-search-box {
   width: 300px;

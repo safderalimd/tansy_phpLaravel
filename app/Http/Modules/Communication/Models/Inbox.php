@@ -24,4 +24,9 @@ class Inbox extends Model
 
         return 0;
     }
+
+    public function send()
+    {
+        return $this->repository->sendMessage($this);
+    }
 }

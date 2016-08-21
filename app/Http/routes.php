@@ -296,6 +296,7 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
 
     Route::get('inbox', 'Communication\Controllers\InboxController@index');
     Route::get('inbox/new', 'Communication\Controllers\InboxController@new');
+    Route::post('inbox/new', 'Communication\Controllers\InboxController@send');
 
     Route::get('/logout', '\App\Http\Controllers\UserController@logout');
 
