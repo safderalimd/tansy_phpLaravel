@@ -10,13 +10,13 @@
     $totalMessages = $inbox->totalMessages();
 ?>
 
-<div id="inbox-panel" class="panel-group">
+<div id="mobile-panel" class="panel-group">
     <section class="panel">
 
         <header class="panel-heading">
             <h3 class="panel-header-text">Inbox</h3>
             <div class="new-message">
-                <button class="btn btn-danger" type="submit"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                <a href="{{url("/cabinet/inbox/new")}}" class="btn btn-danger"><i class="fa fa-pencil" aria-hidden="true"></i></a>
             </div>
         </header>
 
@@ -41,6 +41,13 @@
 
 @endsection
 
+@section('end-content')
+    <div id="inbox-options">
+        <div class="selected-message-count pull-left">0</div>
+        <button class="btn btn-default pull-left" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button class="btn btn-default pull-right close-options" type="button"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+@endsection
 
 @section('scripts')
 <script type="text/javascript">
@@ -56,6 +63,20 @@
     //     contentSelector: 'li'
     // });
 
+    function unselectAllMessages() {
+        $('.select-circle span').each(function() {
+            var icon = $('.fa', $(this));
+            icon.removeClass('fa-circle').addClass('fa-circle-thin');
+            icon.closest('tr').removeClass('selected');
+        })
+        $('.selected-message-count').text(0);
+    }
+
+    $('.close-options').on('click', function() {
+        $('#inbox-options').hide();
+        unselectAllMessages();
+    });
+
     $('.select-circle span').on('click', function() {
         var icon = $('.fa', $(this));
 
@@ -65,7 +86,10 @@
         } else {
             icon.removeClass('fa-circle-thin').addClass('fa-circle');
             icon.closest('tr').addClass('selected');
+            $('#inbox-options').show();
         }
+
+        $('.selected-message-count').text($('.fa-circle').length);
     });
 
 </script>

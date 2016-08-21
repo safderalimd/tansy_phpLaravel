@@ -39,6 +39,12 @@ class InboxController extends Controller
         }
     }
 
+    public function new(Request $request)
+    {
+        $inbox = new Inbox;
+        return view('modules.communication.Inbox.new', compact('inbox'));
+    }
+
     // /**
     //  * Show the form for creating a new resource.
     //  *

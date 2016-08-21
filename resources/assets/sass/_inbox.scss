@@ -1,26 +1,38 @@
-.mobile-grid-screen {
-    #wrapper {
+@media (max-width: 767px) {
+    .mobile-grid-screen {
+        #wrapper {
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+        #page-content-wrapper {
+            width: 100% !important;
+        }
+        .sidebar-nav {
+            padding-right: 20px !important;
+        }
+    }
+    #mobile-panel {
+        .panel-heading {
+            padding-top: 0px;
+        }
+        .panel-body {
+            padding: 0px;
+        }
+        .panel {
+            border: 0px;
+        }
         margin-left: -15px;
         margin-right: -15px;
     }
-    #page-content-wrapper {
-        width: 100% !important;
+    .inbox-compose {
+        .panel-body {
+            .row {
+                margin: 0px;
+            }
+        }
     }
 }
 
-#inbox-panel {
-    .panel-heading {
-        padding-top: 0px;
-    }
-    .panel-body {
-        padding: 0px;
-    }
-    .panel {
-        border: 0px;
-    }
-    margin-left: -15px;
-    margin-right: -15px;
-}
 
 .panel-header-text {
     display: inline-block;
@@ -33,6 +45,11 @@
     background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAQAAADYv8WvAAAAEElEQVR4AWP4D4QMDGoMagAQkgJLtGgMhgAAAABJRU5ErkJggg==) repeat-x bottom;
     background-size: 1px 1px;
 }
+
+
+// ---------------------------------------
+// Inbox Grid
+// ---------------------------------------
 
 .search-box {
     height: 46px;
@@ -61,7 +78,7 @@
     .search-input {
         position: absolute;
         top: 0px;
-        right: 0px;
+        left: 0px;
 
         font-size: 17px;
         display: block;
@@ -170,8 +187,80 @@
     padding: 4px;
 }
 
+#inbox-options {
+    display: none;
+    background-color: #ddd;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 40px;
+    z-index: 1000;
+    .btn {
+        color: #331;
+        margin-top: 3px;
+    }
+    .btn.pull-right {
+        margin-right: 10px;
+    }
+}
+.selected-message-count {
+    color: #331;
+    background-color: #fff;
+    height: 30px;
+    width: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    border: 1px solid #f1f1f1;
+    text-align: center;
+    line-height: 30px;
+    font-size: 12px;
+}
+
+// ---------------------------------------
+// Inbox Compose
+// ---------------------------------------
+
 .new-message {
     float: right;
     margin-top: -5px;
     margin-right: 5px;
+}
+
+.compose-buttons {
+    text-align: center;
+    background-color: #f1f1f1;
+    height: 44px;
+    padding: 5px 0px;
+    .close-btn {
+        height: 34px;
+        margin-left: 20px;
+    }
+    .send-btn {
+        height: 34px;
+        margin-right: 20px;
+    }
+    .compose-text {
+        height: 34px;
+        display: inline-block;
+        line-height: 34px;
+        font-size: 19px;
+        font-weight: bold;
+        text-align: center;
+    }
+}
+
+.to-field,
+.subject-field,
+.message-field {
+    padding: 10px 15px;
+    border-bottom: 1px solid #efefef;
+}
+
+.subject-input,
+.message-input {
+    border: 0px;
+    background-color: #fff;
+    box-shadow: none;
 }
