@@ -41,9 +41,8 @@
 }
 
 .divider-line {
-    height: 2px;
-    background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAQAAADYv8WvAAAAEElEQVR4AWP4D4QMDGoMagAQkgJLtGgMhgAAAABJRU5ErkJggg==) repeat-x bottom;
-    background-size: 1px 1px;
+    height: 1px;
+    border-bottom: 1px solid #f1f1f1;
 }
 
 
@@ -56,8 +55,7 @@
     position: relative;
     top: 0px;
     left: 0px;
-    background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAQAAADYv8WvAAAAEElEQVR4AWP4D4QMDGoMagAQkgJLtGgMhgAAAABJRU5ErkJggg==) repeat-x bottom;
-    background-size: 1px 1px;
+    border-bottom: 1px solid #f1f1f1;
 
     .search-submit {
         position: absolute;
@@ -95,14 +93,17 @@
     .inbox-row {
         padding: 0px;
         height: 79px;
-        background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAQAAADYv8WvAAAAEElEQVR4AWP4D4QMDGoMagAQkgJLtGgMhgAAAABJRU5ErkJggg==) repeat-x bottom;
-        background-size: 1px 1px;
+        border-bottom: 1px solid #f1f1f1;
         font-family: Helvetica, Arial, sans-serif;
         white-space: nowrap;
         word-wrap: break-word;
         position: relative;
         top: 0px;
         left: 0px;
+
+        &:hover {
+            background-color: #f3f3f3;
+        }
 
         .select-circle {
             position: absolute;
@@ -131,6 +132,9 @@
             }
             .fa {
                 color: #777;
+                &:hover {
+                    color: $red;
+                }
             }
         }
 
@@ -184,12 +188,12 @@
 
 .preloader-scroll {
     text-align: center;
-    padding: 4px;
+    padding: 6px 4px 4px 4px;
 }
 
 #inbox-options {
     display: none;
-    background-color: #ddd;
+    background-color: #f1f1f1;
     position: fixed;
     bottom: 0px;
     left: 0px;

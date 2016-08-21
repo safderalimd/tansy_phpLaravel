@@ -518,17 +518,15 @@ a.selected {
   margin-bottom: 0px; }
 
 .divider-line {
-  height: 2px;
-  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAQAAADYv8WvAAAAEElEQVR4AWP4D4QMDGoMagAQkgJLtGgMhgAAAABJRU5ErkJggg==) repeat-x bottom;
-  background-size: 1px 1px; }
+  height: 1px;
+  border-bottom: 1px solid #f1f1f1; }
 
 .search-box {
   height: 46px;
   position: relative;
   top: 0px;
   left: 0px;
-  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAQAAADYv8WvAAAAEElEQVR4AWP4D4QMDGoMagAQkgJLtGgMhgAAAABJRU5ErkJggg==) repeat-x bottom;
-  background-size: 1px 1px; }
+  border-bottom: 1px solid #f1f1f1; }
   .search-box .search-submit {
     position: absolute;
     top: 0px;
@@ -558,14 +556,15 @@ a.selected {
 .inbox-list .inbox-row {
   padding: 0px;
   height: 79px;
-  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAQAAADYv8WvAAAAEElEQVR4AWP4D4QMDGoMagAQkgJLtGgMhgAAAABJRU5ErkJggg==) repeat-x bottom;
-  background-size: 1px 1px;
+  border-bottom: 1px solid #f1f1f1;
   font-family: Helvetica, Arial, sans-serif;
   white-space: nowrap;
   word-wrap: break-word;
   position: relative;
   top: 0px;
   left: 0px; }
+  .inbox-list .inbox-row:hover {
+    background-color: #f3f3f3; }
   .inbox-list .inbox-row .select-circle {
     position: absolute;
     top: 30px;
@@ -586,6 +585,8 @@ a.selected {
       cursor: pointer; }
     .inbox-list .inbox-row .details-arrow .fa {
       color: #777; }
+      .inbox-list .inbox-row .details-arrow .fa:hover {
+        color: #ff002a; }
   .inbox-list .inbox-row .message-sender {
     position: absolute;
     top: 17px;
@@ -620,11 +621,11 @@ a.selected {
 
 .preloader-scroll {
   text-align: center;
-  padding: 4px; }
+  padding: 6px 4px 4px 4px; }
 
 #inbox-options {
   display: none;
-  background-color: #ddd;
+  background-color: #f1f1f1;
   position: fixed;
   bottom: 0px;
   left: 0px;
