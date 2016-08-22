@@ -24,6 +24,7 @@ class CashCounterRepository extends Repository
         $iparams = [
             '-iparam_dateID_paymentTypeID_balanceAmount_list',
             ':iparam_default_facility_id',
+            ':iparam_accountant_individual_entity_id',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
