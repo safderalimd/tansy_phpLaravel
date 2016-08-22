@@ -141,6 +141,15 @@
             .header-table {
                 table-layout: fixed;
             }
+
+            .marks-grid table,
+            .marks-grid td,
+            .marks-grid th,
+            .marks-grid tr,
+            .marks-grid div {
+                font-size: 10px;
+            }
+
         </style>
     </head>
     <body>
