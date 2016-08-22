@@ -27,6 +27,7 @@ class InboxController extends Controller
     public function index(Request $request)
     {
         $inbox = new Inbox;
+        dd($inbox->contacts());
 
         $pageNr = $request->input('page');
         if (is_null($pageNr)) {

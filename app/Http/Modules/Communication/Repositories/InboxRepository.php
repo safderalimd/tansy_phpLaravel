@@ -6,6 +6,13 @@ use App\Http\Repositories\Repository;
 
 class InboxRepository extends Repository
 {
+    public function contacts($model)
+    {
+        $procedure = 'sproc_cmu_lkp_sender_list';
+        $data = $this->procedure($model, $procedure, [], []);
+        return first_resultset($data);
+    }
+
     public function deleteMessage($model)
     {
         $procedure = 'sproc_cmu_dml_email_delete';
