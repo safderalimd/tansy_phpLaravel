@@ -298,6 +298,13 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('inbox/new', 'Communication\Controllers\InboxController@new');
     Route::post('inbox/new', 'Communication\Controllers\InboxController@send');
 
+    Route::get('my-sms-history', 'Parent\Controllers\MySMSHistoryController@index');
+    Route::get('my-student-diary', 'Parent\Controllers\MyStudentDiaryController@index');
+    Route::get('my-attendance', 'Parent\Controllers\MyAttendanceController@index');
+    Route::get('my-exam-schedule', 'Parent\Controllers\MyExamScheduleController@index');
+    Route::get('my-exam-syllabus', 'Parent\Controllers\MyExamSyllabusController@index');
+    Route::get('my-payments', 'Parent\Controllers\MyPaymentsController@index');
+
     Route::get('/logout', '\App\Http\Controllers\UserController@logout');
 
     Route::get('/img/student/{id}', '\App\Http\Controllers\ImageController@studentImage');
