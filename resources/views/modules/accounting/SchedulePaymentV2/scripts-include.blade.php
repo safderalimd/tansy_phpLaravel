@@ -1,5 +1,33 @@
 <script type="text/javascript">
 
+    function isOneTimeFrequency() {
+        var frequency = $("#frequency_id option:selected").text();
+        frequency = frequency.trim().split(' ').join('');
+        frequency = frequency.toLowerCase();
+
+        if (frequency == 'onetime') {
+            return true;
+        }
+
+        return false;
+    }
+    $('#frequency_id').change(function() {
+        if (isOneTimeFrequency()) {
+            $('#end_date').prop('disabled', true);
+            $('#end-date-btn button').prop('disabled', true);
+            $('#end_date').val($('#start_date').val());
+        } else {
+            $('#end-date-btn button').prop('disabled', false);
+            $('#end_date').prop('disabled', false);
+        }
+    });
+    // if Frequency is OneTime, update end time when start time changes
+    $('#start_date').change(function() {
+        if ($('#end_date').is(':disabled')) {
+            $('#end_date').val($('#start_date').val());
+        }
+    });
+
     $('#toggle-subjects').change(function() {
         if($(this).is(":checked")) {
             $('.payment-row-id').prop('checked', true);
