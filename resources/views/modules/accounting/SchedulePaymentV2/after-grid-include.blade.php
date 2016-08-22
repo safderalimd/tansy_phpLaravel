@@ -61,7 +61,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="margin-top: 15px;">
            <div class="col-md-12">
                 <a href="{{ url("/cabinet/schedule-payment-v2")}}" class="pull-right btn btn-default cancle_btn">Cancel</a>
                 <button id="schedule-btn" type="submit" class="pull-right btn btn-primary" style="margin-right: 10px;">Schedule Payments</button>
