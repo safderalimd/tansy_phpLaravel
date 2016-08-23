@@ -136,7 +136,7 @@
         "autoWidth": false
     });
 
-    $('#amounts-table table').on('page.dt', function () {
+    $('#amounts-table table').on('draw.dt', function () {
         $('.date').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true,
