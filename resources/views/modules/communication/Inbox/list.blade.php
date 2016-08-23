@@ -5,11 +5,6 @@
 
 @section('content')
 
-<?php
-    $messages = $inbox->messages();
-    $totalMessages = $inbox->totalMessages();
-?>
-
 <div id="mobile-panel" class="panel-group">
     <section class="panel">
 
@@ -23,12 +18,15 @@
         <div class="panel-body">
 
             <div class="divider-line"></div>
-            <form action="/cabinet/inbox" class="form-inline" method="POST">
+
+            @if ($inbox->showSearch())
+            <form action="/cabinet/inbox" class="form-inline" method="GET">
                 <div class="search-box">
                     <button class="search-submit" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                    <input type="text" class="search-input form-control" placeholder="Search">
+                    <input type="text" name="q" value="{!!$inbox->searchQuery()!!}" class="search-input form-control" placeholder="Search">
                 </div>
             </form>
+            @endif
 
             <div class="inbox-list">
 
@@ -44,7 +42,10 @@
 @section('end-content')
     <div id="inbox-options">
         <div class="selected-message-count pull-left">0</div>
-        <button class="btn btn-default pull-left" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <form id="delete-messages-form" method="POST" action="/cabinet/inbox/delete">
+            <input type="hidden" name="email_id" id="deleted_messages">
+            <button class="btn btn-default pull-left" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        </form>
         <button class="btn btn-default pull-right close-options" type="button"><i class="fa fa-times" aria-hidden="true"></i></button>
     </div>
 @endsection
@@ -56,18 +57,27 @@
         loadingHtml: '<div class="preloader-scroll"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i><span class="sr-only">Loading...</span></div>'
     });
 
-    // $('.inbox-list').jscroll({
-    //     loadingHtml: '<img src="/images/page-loader.gif" alt="Loading" /> Loading...',
-    //     padding: 20,
-    //     nextSelector: 'a.jscroll-next:last',
-    //     contentSelector: 'li'
-    // });
+    $('#delete-messages-form').submit(function() {
+
+        var emailIds = $('.inbox-row.selected').map(function() {
+            return $(this).attr('data-emailId');
+        }).get();
+
+        if (emailIds.length == 0) {
+            alert("No rows are selected.");
+            return false;
+        }
+
+        $('#deleted_messages').val(emailIds.join('|'));
+
+        return true;
+    });
 
     function unselectAllMessages() {
         $('.select-circle span').each(function() {
             var icon = $('.fa', $(this));
             icon.removeClass('fa-circle').addClass('fa-circle-thin');
-            icon.closest('tr').removeClass('selected');
+            icon.closest('.inbox-row').removeClass('selected');
         })
         $('.selected-message-count').text(0);
     }
@@ -82,10 +92,10 @@
 
         if (icon.hasClass('fa-circle')) {
             icon.removeClass('fa-circle').addClass('fa-circle-thin');
-            icon.closest('tr').removeClass('selected');
+            icon.closest('.inbox-row').removeClass('selected');
         } else {
             icon.removeClass('fa-circle-thin').addClass('fa-circle');
-            icon.closest('tr').addClass('selected');
+            icon.closest('.inbox-row').addClass('selected');
             $('#inbox-options').show();
         }
 

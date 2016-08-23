@@ -18,7 +18,7 @@ class InboxRepository extends Repository
         $procedure = 'sproc_cmu_dml_email_delete';
 
         $iparams = [
-            ':iparam_email_id',
+            '-iparam_email_id',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

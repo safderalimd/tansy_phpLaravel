@@ -75,14 +75,16 @@
 
     .search-input {
         position: absolute;
-        top: 0px;
-        left: 0px;
+        top: 6px;
+        left: 35px;
 
+        border: 1px solid #f1f1f1 !important;
+        border-radius: 0px !important;
         font-size: 17px;
         display: block;
-        height: 44px;
+        height: 34px;
         z-index: 10;
-        padding-left: 39px;
+        width: 250px;
         border: 0px;
         box-shadow: none;
         color: #b8b8b8;

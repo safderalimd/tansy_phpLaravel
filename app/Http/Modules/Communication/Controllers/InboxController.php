@@ -27,15 +27,13 @@ class InboxController extends Controller
     public function index(Request $request)
     {
         $inbox = new Inbox($request->input());
+        $inbox->loadData();
 
-        $pageNr = $request->input('page');
-        if (is_null($pageNr)) {
-            $pageNr = 2;
-            return view('modules.communication.Inbox.list', compact('inbox', 'pageNr'));
+        if ($inbox->isFirstPage()) {
+            return view('modules.communication.Inbox.list', compact('inbox'));
 
         } else {
-            $pageNr++;
-            return view('modules.communication.Inbox.messages', compact('inbox', 'pageNr'));
+            return view('modules.communication.Inbox.messages', compact('inbox'));
         }
     }
 
@@ -50,6 +48,14 @@ class InboxController extends Controller
         $inbox = new Inbox($request->input());
         $inbox->send();
         flash('Message Sent!');
+        return redirect('/cabinet/inbox');
+    }
+
+    public function delete(Request $request)
+    {
+        $inbox = new Inbox($request->input());
+        $inbox->deleteMessage();
+        flash('Messages Deleted!');
         return redirect('/cabinet/inbox');
     }
 
@@ -109,17 +115,4 @@ class InboxController extends Controller
     //     return redirect('/cabinet/product');
     // }
 
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  int $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy($id)
-    // {
-    //     $product = Product::findOrFail($id);
-    //     $product->delete();
-    //     flash('Product Deleted!');
-    //     return redirect('/cabinet/product');
-    // }
 }
