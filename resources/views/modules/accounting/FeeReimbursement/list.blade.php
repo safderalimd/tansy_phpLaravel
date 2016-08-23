@@ -52,12 +52,13 @@
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
+                        <th class="text-center"><input type="checkbox" id="toggle-subjects" name="toggle-checkbox" value=""></th>
                         <th>Account <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Total <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Paid <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Balance <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Due Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                        <th style="width:130px">Reimbursement Amount</th>
+                        <th style="width:130px">Paid Amount</th>
                         <th style="width:130px">Receipt Number</th>
                         <th style="width:130px">Receipt Date</th>
                     </tr>
@@ -67,22 +68,25 @@
                 <?php $i = 0; ?>
                 @foreach($reimbursement->rows() as $item)
                     <tr>
+                        <td class="text-center">
+                            <input type="checkbox" class="payment-row-id" name="payment_id" value="">
+                        </td>
                         <td>{{$item['student_full_name']}}</td>
                         <td>&#x20b9; {{amount($item['total_amount'])}}</td>
                         <td>&#x20b9; {{amount($item['total_paid_amount'])}}</td>
                         <td>&#x20b9; {{amount($item['due_amount'])}}</td>
                         <td>{{style_date($item['due_start_date'])}}</td>
                         <td>
-                            <input data-rule-number="true" data-rule-min="0" data-aei="{{$item['account_entity_id']}}" data-sei="{{$item['schedule_entity_id']}}" data-dateid="{{$item['date_id']}}" data-totalamount="{{$item['total_amount']}}" type="text" name="{{$i++}}reinbursement-amount" class="reinbursement-amount form-control">
+                            <input disabled="disabled" data-rule-required="true" data-rule-number="true" data-rule-min="0" data-aei="{{$item['account_entity_id']}}" data-sei="{{$item['schedule_entity_id']}}" data-dateid="{{$item['date_id']}}" data-totalamount="{{$item['total_amount']}}" type="text" name="{{$i++}}reinbursement-amount" class="reinbursement-amount form-control">
                         </td>
                         <td>
-                            <input data-rule-number="true" data-rule-min="0" type="text" name="{{$i}}receipt-number" class="receipt-number form-control">
+                            <input disabled="disabled" data-rule-number="true" data-rule-min="0" type="text" name="{{$i}}receipt-number" class="receipt-number form-control">
                         </td>
                         <td>
                             <div class="input-group date">
-                                <input class="receipt-date form-control" type="text" name="{{$i}}exam_date" value="">
+                                <input disabled="disabled" class="receipt-date form-control" type="text" name="{{$i}}exam_date" value="">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><span
+                                    <button disabled="disabled" class="date-btn btn btn-default" type="button"><span
                                                 class="glyphicon glyphicon-calendar"></span></button>
                                 </span>
                             </div>
@@ -182,12 +186,14 @@
             return false;
         }
 
-        var accountIds = $('.reinbursement-amount').map(function() {
-            var aei = $(this).attr('data-aei');
-            var sei = $(this).attr('data-sei');
-            var dateid = $(this).attr('data-dateid');
-            var totalamount = $(this).attr('data-totalamount');
-            var reinbursement = parseFloat(this.value);
+        var accountIds = $('.payment-row-id:checked').map(function() {
+            var reinbursementInput = $(this).closest('tr').find('.reinbursement-amount');
+
+            var aei = $(reinbursementInput).attr('data-aei');
+            var sei = $(reinbursementInput).attr('data-sei');
+            var dateid = $(reinbursementInput).attr('data-dateid');
+            var totalamount = $(reinbursementInput).attr('data-totalamount');
+            var reinbursement = $(reinbursementInput).val();
             if (reinbursement !== 0 && !reinbursement) {
                 reinbursement = 'null';
             }
@@ -208,6 +214,41 @@
         $('#hidden_amounts').val(accountIds.join(','));
 
         return true;
+    });
+
+    // check/uncheck all checkboxes
+    $('#toggle-subjects').change(function() {
+        if($(this).is(":checked")) {
+            var table = $('.table').DataTable();
+            var rows = table.rows({ page: 'current' }).nodes();
+            rows.each(function() {
+                $('.payment-row-id', this).prop('checked', true)
+                $('.payment-row-id', this).closest('tr').find('input[type="text"]').prop('disabled', false);
+                $('.payment-row-id', this).closest('tr').find('.date-btn').prop('disabled', false);
+            });
+        } else {
+            $('.payment-row-id').prop('checked', false);
+            $('.payment-row-id').closest('tr').find('input[type="text"]').prop('disabled', true);
+            $('.payment-row-id').closest('tr').find('.date-btn').prop('disabled', true);
+        }
+    });
+
+    // reset all checkboxes after you change the page
+    $('#amounts-table').on('page.dt', function () {
+        $('.payment-row-id').prop('checked', false);
+        $('.payment-row-id').closest('tr').find('input[type="text"]').prop('disabled', true);
+        $('.payment-row-id').closest('tr').find('.date-btn').prop('disabled', true);
+        $('#toggle-subjects').prop('checked', false);
+    });
+
+    $('.payment-row-id').change(function() {
+        if ($(this).is(':checked')) {
+            $(this).closest('tr').find('input[type="text"]').prop('disabled', false);
+            $(this).closest('tr').find('.date-btn').prop('disabled', false);
+        } else {
+            $(this).closest('tr').find('input[type="text"]').prop('disabled', true);
+            $(this).closest('tr').find('.date-btn').prop('disabled', true);
+        }
     });
 
     $('#update-reinbursement-form').validate({
