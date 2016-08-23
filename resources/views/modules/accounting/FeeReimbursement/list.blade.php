@@ -64,6 +64,7 @@
                 </thead>
                 <tbody>
 
+                <?php $i = 0; ?>
                 @foreach($reimbursement->rows() as $item)
                     <tr>
                         <td>{{$item['student_full_name']}}</td>
@@ -72,14 +73,14 @@
                         <td>&#x20b9; {{amount($item['due_amount'])}}</td>
                         <td>{{style_date($item['due_start_date'])}}</td>
                         <td>
-                            <input data-rule-number="true" data-rule-min="0" data-aei="{{$item['account_entity_id']}}" data-sei="{{$item['schedule_entity_id']}}" data-dateid="{{$item['date_id']}}" data-totalamount="{{$item['total_amount']}}" type="text" name="reinbursement-amount" class="reinbursement-amount form-control">
+                            <input data-rule-number="true" data-rule-min="0" data-aei="{{$item['account_entity_id']}}" data-sei="{{$item['schedule_entity_id']}}" data-dateid="{{$item['date_id']}}" data-totalamount="{{$item['total_amount']}}" type="text" name="{{$i++}}reinbursement-amount" class="reinbursement-amount form-control">
                         </td>
                         <td>
-                            <input data-rule-number="true" data-rule-min="0" type="text" name="receipt-number" class="receipt-number form-control">
+                            <input data-rule-number="true" data-rule-min="0" type="text" name="{{$i}}receipt-number" class="receipt-number form-control">
                         </td>
                         <td>
                             <div class="input-group date">
-                                <input class="receipt-date form-control" type="text" name="exam_date" value="">
+                                <input class="receipt-date form-control" type="text" name="{{$i}}exam_date" value="">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button"><span
                                                 class="glyphicon glyphicon-calendar"></span></button>
