@@ -768,6 +768,19 @@ a.selected {
       color: #ff002a;
       cursor: pointer; }
 
+.inbox-detail-screen .email-text {
+  padding: 35px; }
+
+.inbox-detail-screen .panel-body .row {
+  margin: 0px; }
+
+.inbox-detail-screen .compose-buttons {
+  text-align: left;
+  padding-left: 15px; }
+
+.inbox-detail-screen #inbox-form {
+  max-width: 800px; }
+
 #help-search-box {
   width: 300px;
   margin-left: 20px; }

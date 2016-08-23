@@ -1,13 +1,21 @@
 @extends('layout.cabinet')
 
 @section('title', 'Inbox')
-@section('screen-name', 'mobile-grid-screen')
+@section('screen-name', 'mobile-grid-screen inbox-detail-screen')
 
 @section('content')
 
 <?php
 
-    $message = $inbox->detail();
+    $message = $inbox->messageDetail();
+
+    // $message = [
+    //     'email_id' => 'lorem ipsum',
+    //     'to_list' => 'lorem ipsum',
+    //     'email_subject' => 'lorem ipsum',
+    //     'email_send_datetime' => 'lorem ipsum',
+    //     'email_text' => 'lorem ipsum',
+    // ];
 
 ?>
 
@@ -20,18 +28,46 @@
 
             <div class="divider-line"></div>
             <div class="inbox-list">
-                <div data-emailId="{{$message['email_id']}}" class="inbox-row @if($message['email_read_flag'] == 0) unread @endif">
-                    <div class="select-circle">
-                        <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
-                    </div>
-                    <div class="message-sender">{{$message['sender_name']}}</div>
+                <div data-emailId="{{$message['email_id']}}" class="inbox-row">
+                    <div class="message-sender">{{$message['to_list']}}</div>
                     <div class="message-subject">{{$message['email_subject']}}</div>
                     <div class="message-date">{{style_date($message['email_send_datetime'])}}</div>
-                    <div class="details-arrow">
-                        <span><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                    </div>
                 </div>
             </div>
+
+            <div class="email-text">
+                {{$message['email_text']}}
+            </div>
+
+            <form id="inbox-form" class="" action="/cabinet/inbox/new" method="POST">
+                {{ csrf_field() }}
+
+                <div class="row">
+                    <div class="col-md-12 compose-buttons">
+                        <span class="compose-text">Reply</span>
+                        <button class="btn btn-primary pull-right send-btn" type="submit">Reply</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 subject-field">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <label class="btn">Subject:</label>
+                            </span>
+                            <input type="text" name="email_subject" class="subject-input form-control" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 message-field">
+                        <textarea rows="5" name="email_text" class="message-input form-control" placeholder=""></textarea>
+                    </div>
+                </div>
+
+                <input type="hidden" name="parent_email_id" value="{{$message['email_id']}}" id="parent_email_id">
+
+            </form>
 
         </div>
     </section>

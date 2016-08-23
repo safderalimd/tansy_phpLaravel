@@ -103,6 +103,12 @@ class Inbox extends Model
 
     public function messageDetail()
     {
-        return $this->repository->messageDetail($this);
+        $this->setAttribute('email_id', $this->id);
+        $message = $this->repository->messageDetail($this);
+        if (isset($message[0])) {
+            return $message[0];
+        }
+
+        return [];
     }
 }

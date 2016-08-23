@@ -358,3 +358,19 @@
         }
     }
 }
+
+.inbox-detail-screen {
+    .email-text {
+        padding: 35px;
+    }
+    .panel-body .row {
+        margin: 0px;
+    }
+    .compose-buttons {
+        text-align: left;
+        padding-left: 15px;
+    }
+    #inbox-form {
+        max-width: 800px;
+    }
+}
