@@ -136,10 +136,13 @@
         "autoWidth": false
     });
 
-    $('#amounts-table table').on( 'draw.dt', function () {
-        $('#amounts-table table').DataTable({
-            "aaSorting": [],
-            "autoWidth": false
+    $('#amounts-table table').on('page.dt', function () {
+        $('.date').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            onSelect: function(dateText) {
+                $(this).change();
+            }
         });
     });
 
