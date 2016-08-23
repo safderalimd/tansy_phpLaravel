@@ -27,7 +27,6 @@ class MyAttendanceController extends Controller
     {
         $inbox = new MyAttendance($request->input());
         $inbox->loadData();
-        dd($inbox);
 
         if ($inbox->isFirstPage()) {
             return view('modules.parent.MyAttendance.list', compact('inbox'));
