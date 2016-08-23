@@ -261,6 +261,8 @@
     }
 }
 
+.cc-field,
+.bcc-field,
 .to-field,
 .subject-field,
 .message-field {
@@ -276,6 +278,8 @@
     box-shadow: none;
 }
 
+.cc-field,
+.bcc-field,
 .to-field {
     .dropdown-menu {
         max-width: 250px;

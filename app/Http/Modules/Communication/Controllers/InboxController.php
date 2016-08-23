@@ -9,15 +9,15 @@ use App\Http\Modules\Communication\Requests\ProductFormRequest;
 
 class InboxController extends Controller
 {
-    // /**
-    //  * Instantiate a new Controller instance.
-    //  *
-    //  * @return void
-    //  */
-    // public function __construct()
-    // {
-    //     $this->middleware('screen:' . Inbox::screenId());
-    // }
+    /**
+     * Instantiate a new Controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('screen:' . Inbox::screenId());
+    }
 
     /**
      * Display a listing of the resource.
@@ -27,7 +27,6 @@ class InboxController extends Controller
     public function index(Request $request)
     {
         $inbox = new Inbox;
-        dd($inbox->contacts());
 
         $pageNr = $request->input('page');
         if (is_null($pageNr)) {
@@ -49,7 +48,7 @@ class InboxController extends Controller
     public function send(Request $request)
     {
         $inbox = new Inbox($request->input());
-        dd($inbox);
+        // dd($inbox);
         $inbox->send();
         flash('Message Sent!');
         return redirect('/cabinet/inbox');

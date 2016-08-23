@@ -678,6 +678,8 @@ a.selected {
     font-weight: bold;
     text-align: center; }
 
+.cc-field,
+.bcc-field,
 .to-field,
 .subject-field,
 .message-field {
@@ -691,10 +693,14 @@ a.selected {
   border-color: #f1f1f1;
   box-shadow: none; }
 
+.cc-field .dropdown-menu,
+.bcc-field .dropdown-menu,
 .to-field .dropdown-menu {
   max-width: 250px;
   overflow: hidden; }
 
+.cc-field li,
+.bcc-field li,
 .to-field li {
   color: #98978b;
   font-size: 11px;
@@ -707,6 +713,8 @@ a.selected {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden; }
+  .cc-field li:hover,
+  .bcc-field li:hover,
   .to-field li:hover {
     text-decoration: none;
     color: #98978b;
