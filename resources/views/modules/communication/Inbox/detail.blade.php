@@ -6,17 +6,7 @@
 @section('content')
 
 <?php
-
     $message = $inbox->messageDetail();
-
-    // $message = [
-    //     'email_id' => 'lorem ipsum',
-    //     'to_list' => 'lorem ipsum',
-    //     'email_subject' => 'lorem ipsum',
-    //     'email_send_datetime' => 'lorem ipsum',
-    //     'email_text' => 'lorem ipsum',
-    // ];
-
 ?>
 
 <div id="mobile-panel" class="panel-group">
@@ -31,7 +21,7 @@
                 <div data-emailId="{{$message['email_id']}}" class="inbox-row">
                     <div class="message-sender">{{$message['to_list']}}</div>
                     <div class="message-subject">{{$message['email_subject']}}</div>
-                    <div class="message-date">{{style_date($message['email_send_datetime'])}}</div>
+                    <div class="message-date">{!!mobile_date($message['email_send_datetime'])!!}</div>
                 </div>
             </div>
 

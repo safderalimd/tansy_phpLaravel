@@ -781,6 +781,9 @@ a.selected {
 .inbox-detail-screen #inbox-form {
   max-width: 800px; }
 
+.no-rows-message {
+  padding: 35px; }
+
 #help-search-box {
   width: 300px;
   margin-left: 20px; }

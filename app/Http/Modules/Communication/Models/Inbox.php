@@ -55,8 +55,6 @@ class Inbox extends Model
 
     public function showSearch()
     {
-        return true;
-
         if (isset($this->show_lazy_load_search) && $this->show_lazy_load_search == 1) {
             return true;
         }
@@ -76,6 +74,15 @@ class Inbox extends Model
         }
 
         return 20;
+    }
+
+    public function batchSize()
+    {
+        if (isset($this->lazy_load_batch_size) && is_numeric($this->lazy_load_batch_size)) {
+            return $this->lazy_load_batch_size;
+        }
+
+        return 0;
     }
 
     public function searchQuery()

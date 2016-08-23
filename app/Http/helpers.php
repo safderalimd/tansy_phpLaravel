@@ -132,6 +132,17 @@ function style_date($date)
     return date("M jS, Y", $date);
 }
 
+function mobile_date($date)
+{
+    $date = strtotime($date);
+
+    if (empty($date)) {
+        return '-';
+    }
+
+    return date("M jS, Y", $date) . '<br/>' . date("H:i:s", $date);
+}
+
 function current_date()
 {
     return date('M jS, Y');
