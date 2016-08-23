@@ -188,8 +188,8 @@
             var dateid = $(this).attr('data-dateid');
             var totalamount = $(this).attr('data-totalamount');
             var reinbursement = parseFloat(this.value);
-            if (isNaN(reinbursement)) {
-                reinbursement = 0;
+            if (reinbursement !== 0 && !reinbursement) {
+                reinbursement = 'null';
             }
 
             var receiptNumber = $(this).closest('tr').find('.receipt-number').val();
