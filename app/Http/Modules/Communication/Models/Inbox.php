@@ -12,7 +12,7 @@ class Inbox extends Model
 
     public function messages()
     {
-        $this->setAttribute('page_number', 1);
+        $this->setAttribute('start_row_number', $this->page);
         return $this->repository->messages($this);
     }
 

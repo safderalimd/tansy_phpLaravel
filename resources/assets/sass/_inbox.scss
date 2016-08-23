@@ -283,7 +283,8 @@
 .to-field {
     .dropdown-menu {
         max-width: 250px;
-        overflow: hidden;
+        overflow-y: scroll;
+        max-height: 290px;
     }
     li {
         color: #98978b;

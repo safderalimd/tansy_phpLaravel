@@ -98,7 +98,7 @@ class InboxRepository extends Repository
         $procedure = 'sproc_cmu_grid_inbox';
 
         $iparams = [
-            ':iparam_page_number',
+            ':iparam_start_row_number',
             '-iparam_search_text',
             ':iparam_session_id',
             ':iparam_user_id',
@@ -108,24 +108,14 @@ class InboxRepository extends Repository
         ];
 
         $oparams = [
-            '@oparam_total_rows',
+            '@oparam_lazy_load_batch_size',
+            '@oparam_show_lazy_load_search',
             '@oparam_err_flag',
             '@oparam_err_step',
             '@oparam_err_msg',
         ];
 
-        // $data = $this->procedure($model, $procedure, $iparams, $oparams);
-        // return first_resultset($data);
-
-        return [
-            [
-                "email_id" => 1,
-                "sender_name" => "Mr Sysadmin",
-                "email_send_datetime" => "2016-07-29 22:28:44",
-                "email_subject" => "Test Email 101",
-                "email_text" => " Hello!!!",
-                "email_read_flag" => 0,
-            ]
-        ];
+        $data = $this->procedure($model, $procedure, $iparams, $oparams);
+        return first_resultset($data);
     }
 }

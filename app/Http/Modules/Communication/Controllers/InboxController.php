@@ -26,7 +26,7 @@ class InboxController extends Controller
      */
     public function index(Request $request)
     {
-        $inbox = new Inbox;
+        $inbox = new Inbox($request->input());
 
         $pageNr = $request->input('page');
         if (is_null($pageNr)) {
@@ -48,7 +48,6 @@ class InboxController extends Controller
     public function send(Request $request)
     {
         $inbox = new Inbox($request->input());
-        // dd($inbox);
         $inbox->send();
         flash('Message Sent!');
         return redirect('/cabinet/inbox');
