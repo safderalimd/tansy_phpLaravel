@@ -6,7 +6,7 @@ use App\Http\Repositories\Repository;
 
 class MyAttendanceRepository extends Repository
 {
-    public function grid($model)
+    public function messages($model)
     {
         $procedure = 'sproc_sch_parent_attendance_grid';
 

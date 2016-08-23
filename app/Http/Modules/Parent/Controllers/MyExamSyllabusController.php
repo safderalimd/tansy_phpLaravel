@@ -2,6 +2,7 @@
 
 namespace App\Http\Modules\Parent\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Parent\Models\MyExamSyllabus;
 
@@ -22,11 +23,16 @@ class MyExamSyllabusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $history = new MyExamSyllabus;
-        d($history->grid());
-        dd($history);
-        return view('modules.parent.MyExamSyllabus.list', compact('history'));
+        $inbox = new MyExamSyllabus($request->input());
+        $inbox->loadData();
+
+        if ($inbox->isFirstPage()) {
+            return view('modules.parent.MyExamSyllabus.list', compact('inbox'));
+
+        } else {
+            return view('modules.parent.MyExamSyllabus.messages', compact('inbox'));
+        }
     }
 }

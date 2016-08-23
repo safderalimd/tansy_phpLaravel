@@ -2,6 +2,7 @@
 
 namespace App\Http\Modules\Parent\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Parent\Models\MyPayments;
 
@@ -22,11 +23,16 @@ class MyPaymentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $history = new MyPayments;
-        d($history->grid());
-        dd($history);
-        return view('modules.parent.MyPayments.list', compact('history'));
+        $inbox = new MyPayments($request->input());
+        $inbox->loadData();
+
+        if ($inbox->isFirstPage()) {
+            return view('modules.parent.MyPayments.list', compact('inbox'));
+
+        } else {
+            return view('modules.parent.MyPayments.messages', compact('inbox'));
+        }
     }
 }

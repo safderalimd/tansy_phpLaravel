@@ -6,7 +6,7 @@ use App\Http\Repositories\Repository;
 
 class MyPaymentsRepository extends Repository
 {
-    public function grid($model)
+    public function messages($model)
     {
         $procedure = 'sproc_sch_parent_payments_grid';
 

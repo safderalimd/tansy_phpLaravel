@@ -812,6 +812,21 @@ iframe {
   width: 250px;
   float: left; }
 
+.parents-grid .inbox-list .inbox-row {
+  white-space: initial;
+  word-wrap: initial;
+  padding: 17px 35px;
+  height: initial;
+  min-height: 79px; }
+  .parents-grid .inbox-list .inbox-row .grid-sender {
+    font-size: 17px;
+    font-weight: 300;
+    color: #060606; }
+  .parents-grid .inbox-list .inbox-row .grid-subject {
+    font-size: 13px;
+    line-height: 17px;
+    color: #777; }
+
 body {
   padding: 0px; }
 

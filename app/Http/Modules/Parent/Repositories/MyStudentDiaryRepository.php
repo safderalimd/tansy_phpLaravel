@@ -6,7 +6,7 @@ use App\Http\Repositories\Repository;
 
 class MyStudentDiaryRepository extends Repository
 {
-    public function grid($model)
+    public function messages($model)
     {
         $procedure = 'sproc_sch_parent_student_diary_grid';
 

@@ -1,0 +1,26 @@
+.parents-grid {
+    .inbox-list {
+        .inbox-row {
+            white-space: initial;
+            word-wrap: initial;
+
+            padding: 17px 35px;
+            height: initial;
+            min-height: 79px;
+
+            .grid-sender {
+                font-size: 17px;
+                font-weight: 300;
+                color: #060606;
+            }
+            .grid-subject {
+                font-size: 13px;
+                line-height: 17px;
+                color: #777;
+            }
+            .grid-text {
+
+            }
+        }
+    }
+}

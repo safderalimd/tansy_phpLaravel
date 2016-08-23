@@ -6,7 +6,7 @@ use App\Http\Repositories\Repository;
 
 class MyExamScheduleRepository extends Repository
 {
-    public function grid($model)
+    public function messages($model)
     {
         $procedure = 'sproc_sch_parent_exam_schedule_grid';
 

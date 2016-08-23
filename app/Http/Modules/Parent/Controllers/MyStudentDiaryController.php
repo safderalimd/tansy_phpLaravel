@@ -2,6 +2,7 @@
 
 namespace App\Http\Modules\Parent\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Parent\Models\MyStudentDiary;
 
@@ -22,11 +23,17 @@ class MyStudentDiaryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $history = new MyStudentDiary;
-        d($history->grid());
-        dd($history);
-        return view('modules.parent.MyStudentDiary.list', compact('history'));
+        $inbox = new MyStudentDiary($request->input());
+        $inbox->loadData();
+        dd($inbox);
+
+        if ($inbox->isFirstPage()) {
+            return view('modules.parent.MyStudentDiary.list', compact('inbox'));
+
+        } else {
+            return view('modules.parent.MyStudentDiary.messages', compact('inbox'));
+        }
     }
 }

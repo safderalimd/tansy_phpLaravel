@@ -2,6 +2,7 @@
 
 namespace App\Http\Modules\Parent\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Parent\Models\MySMSHistory;
 
@@ -22,11 +23,16 @@ class MySMSHistoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $history = new MySMSHistory;
-        d($history->grid());
-        dd($history);
-        return view('modules.parent.MySMSHistory.list', compact('history'));
+        $inbox = new MySMSHistory($request->input());
+        $inbox->loadData();
+
+        if ($inbox->isFirstPage()) {
+            return view('modules.parent.MySMSHistory.list', compact('inbox'));
+
+        } else {
+            return view('modules.parent.MySMSHistory.messages', compact('inbox'));
+        }
     }
 }

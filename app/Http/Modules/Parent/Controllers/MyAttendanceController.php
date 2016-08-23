@@ -2,6 +2,7 @@
 
 namespace App\Http\Modules\Parent\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Parent\Models\MyAttendance;
 
@@ -22,11 +23,17 @@ class MyAttendanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $history = new MyAttendance;
-        d($history->grid());
-        dd($history);
-        return view('modules.parent.MyAttendance.list', compact('history'));
+        $inbox = new MyAttendance($request->input());
+        $inbox->loadData();
+        dd($inbox);
+
+        if ($inbox->isFirstPage()) {
+            return view('modules.parent.MyAttendance.list', compact('inbox'));
+
+        } else {
+            return view('modules.parent.MyAttendance.messages', compact('inbox'));
+        }
     }
 }
