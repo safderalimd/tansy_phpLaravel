@@ -136,6 +136,13 @@
         "autoWidth": false
     });
 
+    $('#amounts-table table').on( 'draw.dt', function () {
+        $('#amounts-table table').DataTable({
+            "aaSorting": [],
+            "autoWidth": false
+        });
+    });
+
     $('#fiscal_years, #product_type_id').change(function() {
         updateQueryString();
     });
