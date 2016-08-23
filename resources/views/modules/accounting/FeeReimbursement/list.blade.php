@@ -57,7 +57,9 @@
                         <th>Paid <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Balance <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Due Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                        <th style="width:250px">Reimbursement Amount</th>
+                        <th style="width:130px">Reimbursement Amount</th>
+                        <th style="width:130px">Receipt Number</th>
+                        <th style="width:130px">Receipt Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,6 +73,18 @@
                         <td>{{style_date($item['due_start_date'])}}</td>
                         <td>
                             <input data-rule-number="true" data-rule-min="0" data-aei="{{$item['account_entity_id']}}" data-sei="{{$item['schedule_entity_id']}}" data-dateid="{{$item['date_id']}}" data-totalamount="{{$item['total_amount']}}" type="text" name="reinbursement-amount" class="reinbursement-amount form-control">
+                        </td>
+                        <td>
+                            <input data-rule-number="true" data-rule-min="0" type="text" name="receipt-number" class="receipt-number form-control">
+                        </td>
+                        <td>
+                            <div class="input-group date">
+                                <input class="receipt-date form-control" type="text" name="exam_date" value="">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"><span
+                                                class="glyphicon glyphicon-calendar"></span></button>
+                                </span>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
@@ -166,7 +180,18 @@
             if (isNaN(reinbursement)) {
                 reinbursement = 0;
             }
-            return aei + '-' + sei + '-' + dateid + '-' + totalamount + '-' + reinbursement;
+
+            var receiptNumber = $(this).closest('tr').find('.receipt-number').val();
+            if (receiptNumber !== 0 && !receiptNumber) {
+                receiptNumber = 'null';
+            }
+
+            var receiptDate = $(this).closest('tr').find('.receipt-date').val();
+            if (!receiptDate) {
+                receiptDate = 'null';
+            }
+
+            return aei + '|' + sei + '|' + dateid + '|' + totalamount + '|' + reinbursement + '|' + receiptNumber + '|' + receiptDate;
         }).get();
 
         $('#hidden_amounts').val(accountIds.join(','));
