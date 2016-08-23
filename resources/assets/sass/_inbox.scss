@@ -102,6 +102,7 @@
         position: relative;
         top: 0px;
         left: 0px;
+        z-index: 100;
 
         &:hover {
             background-color: #f3f3f3;
@@ -109,13 +110,23 @@
 
         .select-circle {
             position: absolute;
-            top: 30px;
-            left: 10px;
+            left: 0px;
+            top: 0px;
+            height: 79px;
+            width: 35px;
+            text-align: center;
+            z-index: 200;
 
             font-size: 17px;
             cursor: default;
             span {
                 cursor: pointer;
+                &:before {
+                    content: '';
+                    display: inline-block;
+                    height: 100%;
+                    vertical-align: middle;
+                }
             }
             .fa {
                 color: #089de3;

@@ -2,8 +2,8 @@
     $messages = $inbox->messages();
 ?>
 @foreach ($messages as $message)
-<div data-emailId="{{$message['email_id']}}" class="inbox-row @if($message['email_read_flag'] == 0) unread @endif">
-    <div class="select-circle">
+<div onclick="openDetail(this, event)" data-emailId="{{$message['email_id']}}" class="inbox-row @if($message['email_read_flag'] == 0) unread @endif">
+    <div class="select-circle" onclick="openDetail(this, event)">
         <span><i class="fa fa-circle-thin" aria-hidden="true"></i></span>
     </div>
     <div class="message-sender">{{$message['sender_name']}}</div>

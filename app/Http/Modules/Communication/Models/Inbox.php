@@ -100,4 +100,9 @@ class Inbox extends Model
     {
         return $this->repository->deleteMessage($this);
     }
+
+    public function messageDetail()
+    {
+        return $this->repository->messageDetail($this);
+    }
 }

@@ -99,8 +99,23 @@
             $('#inbox-options').show();
         }
 
+        if ($('.fa-circle').length == 0) {
+            $('#inbox-options').hide();
+        }
+
         $('.selected-message-count').text($('.fa-circle').length);
     });
+
+    function openDetail(element, event)
+    {
+        if ($(element).hasClass('select-circle')) {
+            event.stopPropagation();
+            return;
+        }
+
+        var id = $(element).attr('data-emailId');
+        window.location.href = "/cabinet/inbox/detail?id="+id;
+    }
 
 </script>
 @endsection

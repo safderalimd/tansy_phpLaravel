@@ -37,6 +37,12 @@ class InboxController extends Controller
         }
     }
 
+    public function detail(Request $request)
+    {
+        $inbox = new Inbox($request->input());
+        return view('modules.communication.Inbox.detail', compact('inbox'));
+    }
+
     public function new(Request $request)
     {
         $inbox = new Inbox;
