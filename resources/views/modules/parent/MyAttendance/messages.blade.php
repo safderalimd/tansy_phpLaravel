@@ -5,7 +5,7 @@
     <div class="inbox-row">
         <div class="grid-sender">{{$message['student_full_name']}}</div>
         <div class="grid-subject">{{$message['class_name']}}</div>
-        <div class="message-date">{!!mobile_date($message['absent_date'])!!}</div>
+        <div class="message-date">{!!style_date($message['absent_date'])!!}</div>
     </div>
 @endforeach
 
