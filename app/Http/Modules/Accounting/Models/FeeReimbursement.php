@@ -30,7 +30,7 @@ class FeeReimbursement extends Model
 
     public function updateRows()
     {
-        $this->setAttribute('actEID_schEntID_dateID_totAmnt_PaidAmnt_list', $this->hidden_amounts);
+        $this->setAttribute('aID_schID_dtID_tAmt_pAmt_rcpNm_rcpDt_list', $this->hidden_amounts);
         $this->setAttribute('product_entity_id', $this->pi);
         $this->setAttribute('fiscal_year_entity_id', $this->fi);
         return $this->repository->update($this);

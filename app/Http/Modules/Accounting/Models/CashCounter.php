@@ -15,4 +15,10 @@ class CashCounter extends Model
         $this->setAttribute('dateID_paymentTypeID_balanceAmount_list', $this->collection_ids);
         return $this->repository->closeCounter($this);
     }
+
+    public function setF1Attribute($value)
+    {
+        $this->setAttribute('accountant_individual_entity_id', $value);
+        return $value;
+    }
 }

@@ -46,6 +46,6 @@ class CashCounterController extends Controller
         $cash = new CashCounter($request->input());
         $cash->closeCounter();
         flash('Cash Counter Closed!');
-        return redirect('/cabinet/close-cash-counter');
+        return redirect('/cabinet/close-cash-counter?f1='.$request->input('f1'));
     }
 }
