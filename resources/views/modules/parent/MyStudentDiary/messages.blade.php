@@ -1,12 +1,15 @@
 <?php
     $messages = $inbox->messages();
 ?>
+
+<div class="inbox-row" style="padding:0px; min-height: 30px;">
+    <div class="message-date" style="top:7px;">Home Work Date</div>
+</div>
 @foreach ($messages as $message)
     <div class="inbox-row">
         <div class="grid-sender">Subject: {{$message['subject']}}</div>
-        <div class="grid-subject">Class: {{$message['class_name']}}</div>
-        <div class="grid-subject">Student: {{$message['student_full_name']}}</div>
-        <div class="message-date">Home Work Date: <br/>{{style_date($message['home_work_date'])}}</div>
+        <div class="grid-subject">{{$message['student_full_name']}} ({{$message['class_name']}})</div>
+        <div class="message-date">{{style_date($message['home_work_date'])}}</div>
         <div class="grid-text">Home Work: {{$message['home_work']}}</div>
     </div>
 @endforeach
