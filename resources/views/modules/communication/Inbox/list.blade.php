@@ -10,9 +10,11 @@
 
         <header class="panel-heading">
             <h3 class="panel-header-text">Inbox</h3>
-            <div class="new-message">
-                <a href="{{url("/cabinet/inbox/new")}}" class="btn btn-danger"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-            </div>
+            @if ($inbox->showNewMessage())
+                <div class="new-message">
+                    <a href="{{url("/cabinet/inbox/new")}}" class="btn btn-danger"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                </div>
+            @endif
         </header>
 
         <div class="panel-body">
