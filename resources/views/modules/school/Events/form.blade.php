@@ -107,5 +107,13 @@
         }
     });
 
+    $('#start_date').change(function() {
+        $('#start_date').valid();
+    });
+
+    $('#end_date').change(function() {
+        $('#end_date').valid();
+    });
+
 </script>
 @endsection
