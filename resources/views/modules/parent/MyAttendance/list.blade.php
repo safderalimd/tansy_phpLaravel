@@ -13,8 +13,6 @@
         </header>
 
         <div class="panel-body">
-
-            <div class="divider-line"></div>
             <div class="inbox-list">
 
                 @include('modules.parent.MyAttendance.messages')

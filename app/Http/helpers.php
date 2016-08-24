@@ -125,23 +125,28 @@ function phone_number_spaces($number)
 function style_date($date)
 {
     $date = strtotime($date);
-
     if (empty($date)) {
         return '-';
     }
-
     return date("M jS, Y", $date);
 }
 
 function mobile_date($date)
 {
     $date = strtotime($date);
-
     if (empty($date)) {
         return '-';
     }
-
     return date("M jS, Y", $date) . '<br/>' . date("H:i:s", $date);
+}
+
+function absent_date($date)
+{
+    $date = strtotime($date);
+    if (empty($date)) {
+        return '-';
+    }
+    return date("l, F d, Y", $date);
 }
 
 function current_date()

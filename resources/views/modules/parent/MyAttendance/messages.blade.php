@@ -1,11 +1,14 @@
 <?php
     $messages = $inbox->messages();
 ?>
+
+<div class="inbox-row header-row">
+    <div class="message-date">Absent Date</div>
+</div>
 @foreach ($messages as $message)
     <div class="inbox-row">
-        <div class="grid-sender">{{$message['student_full_name']}}</div>
-        <div class="grid-subject">{{$message['class_name']}}</div>
-        <div class="message-date">{!!style_date($message['absent_date'])!!}</div>
+        <div class="grid-sender">{{$message['student_full_name']}} ({{$message['class_name']}})</div>
+        <div class="message-date">{!!absent_date($message['absent_date'])!!}</div>
     </div>
 @endforeach
 

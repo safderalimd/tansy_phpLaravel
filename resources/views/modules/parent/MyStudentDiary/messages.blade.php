@@ -2,8 +2,8 @@
     $messages = $inbox->messages();
 ?>
 
-<div class="inbox-row" style="padding:0px; min-height: 30px;">
-    <div class="message-date" style="top:7px;">Home Work Date</div>
+<div class="inbox-row header-row">
+    <div class="message-date">Home Work Date</div>
 </div>
 @foreach ($messages as $message)
     <div class="inbox-row">

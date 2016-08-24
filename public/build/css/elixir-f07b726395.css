@@ -819,6 +819,13 @@ iframe {
   padding: 17px 35px;
   height: initial;
   min-height: 79px; }
+  .inbox-detail-screen .inbox-list .inbox-row.header-row,
+  .parents-grid .inbox-list .inbox-row.header-row {
+    padding: 0px;
+    min-height: 30px; }
+    .inbox-detail-screen .inbox-list .inbox-row.header-row .message-date,
+    .parents-grid .inbox-list .inbox-row.header-row .message-date {
+      top: 7px; }
   .inbox-detail-screen .inbox-list .inbox-row .grid-sender,
   .parents-grid .inbox-list .inbox-row .grid-sender {
     font-size: 17px;

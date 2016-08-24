@@ -2,6 +2,15 @@
 .parents-grid {
     .inbox-list {
         .inbox-row {
+
+            &.header-row {
+                padding:0px;
+                min-height: 30px;
+                .message-date {
+                    top: 7px;
+                }
+            }
+
             white-space: initial;
             word-wrap: initial;
 
