@@ -27,7 +27,6 @@ class MyStudentDiaryController extends Controller
     {
         $inbox = new MyStudentDiary($request->input());
         $inbox->loadData();
-        dd($inbox);
 
         if ($inbox->isFirstPage()) {
             return view('modules.parent.MyStudentDiary.list', compact('inbox'));

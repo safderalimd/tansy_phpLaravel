@@ -1,6 +1,6 @@
 @extends('layout.cabinet')
 
-@section('title', 'My SMS History')
+@section('title', 'My Student Diary')
 @section('screen-name', 'mobile-grid-screen parents-grid')
 
 @section('content')
@@ -9,7 +9,7 @@
     <section class="panel">
 
         <header class="panel-heading">
-            <h3 class="panel-header-text">My SMS History</h3>
+            <h3 class="panel-header-text">My Student Diary</h3>
         </header>
 
         <div class="panel-body">
@@ -17,7 +17,7 @@
             <div class="divider-line"></div>
             <div class="inbox-list">
 
-                @include('modules.parent.MySMSHistory.messages')
+                @include('modules.parent.MyStudentDiary.messages')
 
             </div>
         </div>

@@ -27,7 +27,6 @@ class MyExamScheduleController extends Controller
     {
         $inbox = new MyExamSchedule($request->input());
         $inbox->loadData();
-        dd($inbox);
 
         if ($inbox->isFirstPage()) {
             return view('modules.parent.MyExamSchedule.list', compact('inbox'));
