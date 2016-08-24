@@ -837,6 +837,11 @@ iframe {
     line-height: 17px;
     color: #777; }
 
+@media (max-width: 450px) {
+  .my-payments .grid-sender,
+  .my-attendance .grid-sender {
+    margin-top: 25px; } }
+
 body {
   padding: 0px; }
 

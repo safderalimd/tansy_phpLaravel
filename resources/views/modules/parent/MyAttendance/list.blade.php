@@ -1,7 +1,7 @@
 @extends('layout.cabinet')
 
 @section('title', 'My Attendance')
-@section('screen-name', 'mobile-grid-screen parents-grid')
+@section('screen-name', 'mobile-grid-screen parents-grid my-attendance')
 
 @section('content')
 

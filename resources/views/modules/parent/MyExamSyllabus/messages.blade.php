@@ -2,14 +2,15 @@
     $messages = $inbox->messages();
 ?>
 
+<div class="inbox-row header-row">
+    <div class="message-date">Exam Date</div>
+</div>
 @foreach ($messages as $message)
     <div class="inbox-row">
-        <div class="grid-sender">{{$message['subject']}}</div>
-        <div class="grid-subject">{{$message['exam']}}</div>
-        <div class="grid-subject">{{$message['class_name']}}</div>
-        <div class="grid-subject">{{$message['student_full_name']}}</div>
+        <div class="grid-sender">{{$message['exam']}} ({{$message['subject']}})</div>
+        <div class="grid-subject">{{$message['student_full_name']}} ({{$message['class_name']}})</div>
         <div class="message-date">{!!mobile_date($message['exam_date'])!!}</div>
-        <div class="grid-text">{{$message['syllabus']}}</div>
+        <div class="grid-text">Syllabus: {{$message['syllabus']}}</div>
     </div>
 @endforeach
 

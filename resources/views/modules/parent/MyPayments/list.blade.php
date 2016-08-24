@@ -1,7 +1,7 @@
 @extends('layout.cabinet')
 
 @section('title', 'My Payments')
-@section('screen-name', 'mobile-grid-screen parents-grid')
+@section('screen-name', 'mobile-grid-screen parents-grid my-payments')
 
 @section('content')
 
@@ -13,8 +13,6 @@
         </header>
 
         <div class="panel-body">
-
-            <div class="divider-line"></div>
             <div class="inbox-list">
 
                 @include('modules.parent.MyPayments.messages')
