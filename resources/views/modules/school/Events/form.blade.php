@@ -29,7 +29,7 @@
                         @include('commons.select', [
                             'label'    => 'Exam Type' ,
                             'name'     => 'event_type_id',
-                            'options'  => [], //$events->eventTypes()
+                            'options'  => $events->eventTypes(),
                             'keyId'    => 'event_type_id',
                             'keyName'  => 'event_type',
                             'none'     => 'Select an event type..',
@@ -72,7 +72,7 @@
                         <div class="row grid_footer">
                            <div class="col-md-8 col-md-offset-4">
                                 <button class="btn btn-primary grid_btn" type="submit">Save</button>
-                                <a href="{{ url("/cabinet/exam").query_string()}}" class="btn btn-default cancle_btn">Cancel</a>
+                                <a href="{{ url("/cabinet/events").query_string()}}" class="btn btn-default cancle_btn">Cancel</a>
                             </div>
                         </div>
                     </form>

@@ -78,7 +78,8 @@ function url_with_query($url)
 
 function query_string()
 {
-    return '?' . app('request')->getQueryString();
+    $query = app('request')->getQueryString();
+    return empty($query) ? '' : '?' . $query;
 }
 
 function is_locked($value)

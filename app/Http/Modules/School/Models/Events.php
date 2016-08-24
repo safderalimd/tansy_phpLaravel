@@ -39,9 +39,8 @@ class Events extends Model
         if (isset($data[0])) {
             $data = $data[0];
         }
-        // $data['exam_name'] = isset($data['exam']) ? $data['exam'] : '';
-        // $items = array_merge($this->attributes, $data);
-        Session::flashInput($this->attributes);
+        $items = array_merge($this->attributes, $data);
+        Session::flashInput($items);
         $this->isNewRecord = false;
     }
 }
