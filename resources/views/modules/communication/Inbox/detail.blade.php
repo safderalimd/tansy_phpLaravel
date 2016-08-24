@@ -19,8 +19,9 @@
             <div class="divider-line"></div>
             <div class="inbox-list">
                 <div data-emailId="{{$message['email_id']}}" class="inbox-row">
-                    <div class="message-sender">{{$message['to_list']}}</div>
-                    <div class="message-subject">{{$message['email_subject']}}</div>
+                    <div class="grid-sender">From: {{$message['sender_name']}}</div>
+                    <div class="grid-subject">To: {{$message['to_list']}}</div>
+                    <div class="grid-subject">Subject: {{$message['email_subject']}}</div>
                     <div class="message-date">{!!mobile_date($message['email_send_datetime'])!!}</div>
                 </div>
             </div>

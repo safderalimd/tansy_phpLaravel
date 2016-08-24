@@ -812,16 +812,19 @@ iframe {
   width: 250px;
   float: left; }
 
+.inbox-detail-screen .inbox-list .inbox-row,
 .parents-grid .inbox-list .inbox-row {
   white-space: initial;
   word-wrap: initial;
   padding: 17px 35px;
   height: initial;
   min-height: 79px; }
+  .inbox-detail-screen .inbox-list .inbox-row .grid-sender,
   .parents-grid .inbox-list .inbox-row .grid-sender {
     font-size: 17px;
     font-weight: 300;
     color: #060606; }
+  .inbox-detail-screen .inbox-list .inbox-row .grid-subject,
   .parents-grid .inbox-list .inbox-row .grid-subject {
     font-size: 13px;
     line-height: 17px;
