@@ -65,6 +65,13 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('exam/edit/{id}', 'School\Controllers\ExamController@update');
     Route::get('exam/delete/{id}', 'School\Controllers\ExamController@destroy');
 
+    Route::get('events', 'School\Controllers\EventsController@index');
+    Route::get('events/create', 'School\Controllers\EventsController@create');
+    Route::post('events/create', 'School\Controllers\EventsController@store');
+    Route::get('events/edit/{id}', 'School\Controllers\EventsController@edit');
+    Route::post('events/edit/{id}', 'School\Controllers\EventsController@update');
+    Route::get('events/delete/{id}', 'School\Controllers\EventsController@destroy');
+
     Route::get('exam-setup', 'School\Controllers\ExamSetupController@index');
     Route::get('exam-setup/create', 'School\Controllers\ExamSetupController@create');
     Route::post('exam-setup/create', 'School\Controllers\ExamSetupController@store');
