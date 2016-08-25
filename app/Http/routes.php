@@ -309,7 +309,7 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('progress-report-version', 'System\Controllers\ProgressReportVersionController@update');
 
     Route::get('inbox', 'Communication\Controllers\InboxController@index');
-    Route::get('inbox/new', 'Communication\Controllers\InboxController@new');
+    Route::get('inbox/new', 'Communication\Controllers\InboxController@newMessage');
     Route::post('inbox/new', 'Communication\Controllers\InboxController@send');
     Route::post('inbox/delete', 'Communication\Controllers\InboxController@delete');
     Route::get('inbox/detail', 'Communication\Controllers\InboxController@detail');

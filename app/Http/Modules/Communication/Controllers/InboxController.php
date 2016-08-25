@@ -43,7 +43,7 @@ class InboxController extends Controller
         return view('modules.communication.Inbox.detail', compact('inbox'));
     }
 
-    public function new(Request $request)
+    public function newMessage(Request $request)
     {
         $inbox = new Inbox;
         return view('modules.communication.Inbox.new', compact('inbox'));
