@@ -55,7 +55,7 @@
     </nav>
     <!-- Full Width Image Header -->
     <header class="header-image">
-        <img src="/tansy/img/Tansy.png" />
+        <img src="/tansy/img/Tansy.png" class="img-responsive banner-img" />
     </header>
     <!-- Page Content -->
     <div class="container">
