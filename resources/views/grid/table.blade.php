@@ -41,7 +41,12 @@
                     {{ style_date($row[$column->name()]) }}
 
                 @elseif ($column->hasCurrencyFormat())
-                    @if (!isset($options['isPdf'])) &#x20b9; @endif {{ amount($row[$column->name()]) }}
+                    @if (!isset($options['isPdf']))
+                        &#x20b9; {{ amount($row[$column->name()]) }}
+                    @else
+                        <span style="vertical-align: top; font-family: DejaVu Sans; sans-serif;">&#8377;</span>
+                        <span style="vertical-align: middle;">{{ amount($row[$column->name()]) }}</span>
+                    @endif
 
                 @elseif ($column->hasNumberFormat())
                     {{ nr($row[$column->name()]) }}
