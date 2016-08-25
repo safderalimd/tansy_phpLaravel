@@ -153,6 +153,7 @@
     function makeRowUneditable(row) {
         $('.save-button', row).hide();
         $('.edit-button', row).show();
+        $('.cancel-button', row).show();
 
         var td_start_percent = $('.td-start-percent input', row).val();
         var td_end_percent = $('.td-end-percent input', row).val();
@@ -218,6 +219,10 @@
 
     });
 
+    $('.grade-setup-table').on('click', '.cancel-button', function() {
+        $(this).closest('.progress-grade-setup-row').remove();
+    });
+
     $('#add-new-row').on('click', function() {
         var start_percent = '<td class="td-start-percent"><input class="form-control" type="text" value=""></td>';
         var end_percent = '<td class="td-end-percent"><input class="form-control" type="text" value=""></td>';
@@ -226,7 +231,7 @@
         var selectHtml = $('#grate-pass-fail-select').html();
         var pass_fail = '<td class="td-pass-fail">'+selectHtml+'</td>';
 
-        var saveButton = '<td><button type="button" data-newrecord="true" data-loading-text="Saving..." class="save-button btn btn-default">Save</button><button type="button" style="display:none;" class="edit-button btn btn-default">Edit</button></td>';
+        var saveButton = '<td><button type="button" data-newrecord="true" data-loading-text="Saving..." class="save-button btn btn-default">Save</button><button type="button" style="display:none;" class="edit-button btn btn-default">Edit</button><button type="button" style="margin-left:10px;" class="cancel-button btn btn-default">Cancel</button</td>';
 
         var html = start_percent + end_percent + grade + gpa + pass_fail + saveButton;
         $('.grade-setup-table tbody').append('<tr class="progress-grade-setup-row">'+html+'</tr>');
