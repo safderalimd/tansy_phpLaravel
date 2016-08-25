@@ -102,13 +102,13 @@
             <div class="pull-right">
                 <img class="featurette-image img-circle img-responsive" src="/tansy/img/contact.jpg">
                 <address>
-                    <strong>H.No#2-4-611</strong><br>
+                    <strong>#2-4-611</strong><br>
                     Kachiguda Kamela<br>
                     Hyderabad -27<br>
                     <abbr title="Phone">P:</abbr> +91 800-837-0527
                 </address>
                 <address class="second-address">
-                    <strong>H.No: 24-1-12</strong><br>
+                    <strong>#24-1-12</strong><br>
                     Afzalnagar Kazipet<br>
                     Warangal 506004<br>
                     <abbr title="Phone">P:</abbr> +91 800-837-0527

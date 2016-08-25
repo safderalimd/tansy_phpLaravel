@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Modules\School\Models\ProgressGradeSetup;
 use Validator;
 use Illuminate\Http\Request;
+use Exception;
 
 class ProgressGradeSetupController extends Controller
 {
