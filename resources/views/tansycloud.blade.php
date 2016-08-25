@@ -125,7 +125,18 @@
                                     <b>Tansy Cloud Private Limited.</b>
                                 </p>
                                 <div class="contact-form">
-                                    <form id="contact-form" method="post" action="/contact" role="form">
+
+                                    @if (count($errors) > 0)
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
+                                    <form id="contact-form" method="POST" action="/contact" role="form">
                                         <div class="form-group wow fadeInDown" data-wow-duration="500ms" data-wow-delay=".6s">
                                             <input type="text" placeholder="Your Name" class="form-control" name="name" id="name">
                                         </div>
@@ -142,6 +153,7 @@
                                             <input type="submit" id="contact-submit" class="btn btn-primary btn-send" value="Send Message">
                                         </div>
                                     </form>
+
                                 </div>
                             </div>
                         </div>
