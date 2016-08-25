@@ -50,9 +50,13 @@ class ProgressGradeSetupController extends Controller
             return $this->errors();
         }
 
-        $progress = new ProgressGradeSetup($request->input());
-        $progress->save();
-        return ['success' => true];
+        try {
+            $progress = new ProgressGradeSetup($request->input());
+            $progress->save();
+            return ['success' => true];
+        } catch (Exception $e) {
+            return ['error' => $e->getMessage()];
+        }
     }
 
     /**
@@ -67,16 +71,24 @@ class ProgressGradeSetupController extends Controller
             return $this->errors();
         }
 
-        $progress = new ProgressGradeSetup($request->input());
-        $progress->update();
-        return ['success' => true];
+        try {
+            $progress = new ProgressGradeSetup($request->input());
+            $progress->update();
+            return ['success' => true];
+        } catch (Exception $e) {
+            return ['error' => $e->getMessage()];
+        }
     }
 
     public function destroy(Request $request, $id)
     {
-        $progress = new ProgressGradeSetup($request->input());
-        $progress->delete();
-        return ['success' => true];
+        try {
+            $progress = new ProgressGradeSetup($request->input());
+            $progress->delete();
+            return ['success' => true];
+        } catch (Exception $e) {
+            return ['error' => $e->getMessage()];
+        }
     }
 
     protected function validationFails(Request $request)
