@@ -114,6 +114,15 @@ class Inbox extends Model
         return $this->repository->contacts($this);
     }
 
+    public function userCanSendMessage()
+    {
+        $this->repository->userCanSendMessage($this);
+        if ($this->compose_email_flag == 1) {
+            return true;
+        }
+        return false;
+    }
+
     public function deleteMessage()
     {
         return $this->repository->deleteMessage($this);

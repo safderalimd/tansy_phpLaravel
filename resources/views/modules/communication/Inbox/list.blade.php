@@ -10,7 +10,7 @@
 
         <header class="panel-heading">
             <h3 class="panel-header-text">Inbox</h3>
-            @if ($inbox->showNewMessage())
+            @if ($inbox->userCanSendMessage())
                 <div class="new-message">
                     <a href="{{url("/cabinet/inbox/new")}}" class="btn btn-danger"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                 </div>

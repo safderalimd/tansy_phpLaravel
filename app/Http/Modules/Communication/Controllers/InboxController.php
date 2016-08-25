@@ -46,12 +46,14 @@ class InboxController extends Controller
     public function newMessage(Request $request)
     {
         $inbox = new Inbox;
+        $this->checkSendPermission($inbox);
         return view('modules.communication.Inbox.new', compact('inbox'));
     }
 
     public function send(Request $request)
     {
         $inbox = new Inbox($request->input());
+        $this->checkSendPermission($inbox);
         $inbox->send();
         flash('Message Sent!');
         return redirect('/cabinet/inbox');
@@ -63,5 +65,12 @@ class InboxController extends Controller
         $inbox->deleteMessage();
         flash('Messages Deleted!');
         return redirect('/cabinet/inbox');
+    }
+
+    public function checkSendPermission($inbox)
+    {
+        if (!$inbox->userCanSendMessage()) {
+            die("Unauthorized. You don't have permission to access this screen.");
+        }
     }
 }

@@ -13,6 +13,29 @@ class InboxRepository extends Repository
         return first_resultset($data);
     }
 
+    public function userCanSendMessage($model)
+    {
+        $procedure = 'sproc_cmu_get_compose_permission';
+
+        $iparams = [
+            ':iparam_session_id',
+            ':iparam_user_id',
+            ':iparam_screen_id',
+            ':iparam_debug_sproc',
+            ':iparam_audit_screen_visit',
+        ];
+
+        $oparams = [
+            '@oparam_compose_email_flag',
+            '@oparam_err_flag',
+            '@oparam_err_step',
+            '@oparam_err_msg',
+        ];
+
+        $data = $this->procedure($model, $procedure, $iparams, $oparams);
+        return first_resultset($data);
+    }
+
     public function deleteMessage($model)
     {
         $procedure = 'sproc_cmu_dml_email_delete';

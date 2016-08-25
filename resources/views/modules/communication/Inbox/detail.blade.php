@@ -30,6 +30,7 @@
                 {{$message['email_text']}}
             </div>
 
+            @if ($inbox->userCanSendMessage())
             <form id="inbox-form" class="" action="/cabinet/inbox/new" method="POST">
                 {{ csrf_field() }}
 
@@ -59,6 +60,7 @@
                 <input type="hidden" name="parent_email_id" value="{{$message['email_id']}}" id="parent_email_id">
 
             </form>
+            @endif
 
         </div>
     </section>
