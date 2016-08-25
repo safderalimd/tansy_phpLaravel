@@ -103,10 +103,6 @@ address {
         width: 95% !important;
     }
 
-    .headline h1 {
-        padding: 20px;
-        font-size: 50px;
-    }
 
     .featurette-divider {
         margin: 40px 0px 0px 0px;
@@ -130,10 +126,6 @@ address {
 }
 
 @media(max-width:768px) {
-    .headline h1 {
-        padding: 15px;
-        font-size: 40px;
-    }
 
     .container {
         margin: 0 15px;
@@ -155,10 +147,6 @@ address {
 }
 
 @media(max-width:668px) {
-    .headline h1 {
-        padding: 20px;
-        font-size: 45px;
-    }
     .featurette-divider {
         margin: 30px 0px 0px 0px;
     }
@@ -178,10 +166,6 @@ address {
 }
 
 @media(max-width:375px) {
-    .headline h1 {
-        padding: 10px;
-        font-size: 30px;
-    }
 
     .featurette-divider {
         margin: 10px 0px 0px 0px;
@@ -249,8 +233,5 @@ address {
     margin-top: 19px;
 }
 body {
-    margin-top: 90px;
-}
-.banner-text {
-    color: #fff;
+    margin-top: 120px;
 }

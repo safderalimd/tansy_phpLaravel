@@ -55,13 +55,7 @@
     </nav>
     <!-- Full Width Image Header -->
     <header class="header-image">
-        <div class="headline">
-            <div class="container">
-                <h1 class="banner-text">
-                    Tansy Cloud
-                    <br>... <i>bussiness on your mobile</i></h1>
-            </div>
-        </div>
+        <img src="/tansy/img/Tansy.png" />
     </header>
     <!-- Page Content -->
     <div class="container">
