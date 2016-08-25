@@ -24,7 +24,7 @@
                 <div class="form-group dynamic-filter">
                     <label class="control-label dynamic-filter-label" for="f{{$filter->id()}}">{{$filter->label()}}</label>
                     <div class="dynamic-filter-item">
-                        <select data-filterId="f{{$filter->id()}}" data-type="dropdown" requiredSelect id="f{{$filter->id()}}" class="dynamic-filter-input form-control" name="f{{$filter->id()}}">
+                        <select data-filterId="f{{$filter->id()}}" data-type="dropdown" id="f{{$filter->id()}}" class="dynamic-filter-input form-control requiredSelect" name="f{{$filter->id()}}">
                             <option value="none">Select an option..</option>
                             @foreach($grid->filterDropdownValues($filter) as $option)
                                 @if (isset($option['drop_down_filter_id']) && isset($option['drop_down_list_name']))
