@@ -58,9 +58,22 @@ class Grid extends Model
                 }
 
             } else {
+
                 // only return rows if all filters are set; allow default_facility_id filter to not be set
                 if ($filter->get('db_column') != 'iparam_default_facility_id') {
                     $returnRows = false;
+                }
+
+                // in the case if a value to be passed to grid sproc is in the params resultset
+                if ($filter->isHidden()) {
+                    $inputValue = '';
+                    foreach ($this->params->originalParams() as $param) {
+                        if (isset($param['parameter_name']) && $param['parameter_name'] == $filter->get('db_column')) {
+                            $inputValue = isset($param['input_value']) ? $param['input_value'] : '';
+                        }
+                    }
+                    $iparamName = substr($filter->get('db_column'), 7);
+                    $this->setAttribute($iparamName, $inputValue);
                 }
             }
         }

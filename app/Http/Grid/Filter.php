@@ -59,6 +59,11 @@ class Filter
         return $this->inputType() == 'Drop Down';
     }
 
+    public function isHidden()
+    {
+        return $this->inputType() == 'hidden';
+    }
+
     public function get($key)
     {
         return isset($this->filter[$key]) ? $this->filter[$key] : null;

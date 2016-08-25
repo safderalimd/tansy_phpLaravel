@@ -6,8 +6,28 @@ use App\Http\Repositories\Repository;
 
 class GridRepository extends Repository
 {
+    public function changeKeys($sql, $keyId, $keyName)
+    {
+        $rows = $this->select($sql);
+        foreach ($rows as $key => $option) {
+            if (!is_array($rows[$key])) {
+                continue;
+            }
+            $rows[$key]['drop_down_filter_id'] = isset($option[$keyId]) ? $option[$keyId] : '-';
+            $rows[$key]['drop_down_list_name'] = isset($option[$keyName]) ? $option[$keyName] : '-';
+        }
+        return $rows;
+    }
+
     public function filterDropdownValues($sql)
     {
+        if (strpos($sql, 'call sproc_org_lkp_account_type_filter') !== false) {
+            return $this->changeKeys($sql, 'entity_id', 'drop_down_list_name');
+
+        } elseif (strpos($sql, 'call sproc_prd_lkp_product') !== false) {
+            return $this->changeKeys($sql, 'product_entity_id', 'product_name');
+        }
+
         return $this->select($sql);
     }
 

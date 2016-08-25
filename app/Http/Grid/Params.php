@@ -66,4 +66,9 @@ class Params
     {
         return $this->oparams;
     }
+
+    public function originalParams()
+    {
+        return $this->params;
+    }
 }
