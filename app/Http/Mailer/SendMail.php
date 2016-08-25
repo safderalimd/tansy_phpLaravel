@@ -62,7 +62,7 @@ class SendMail
     public static function contactMessage($name, $email, $subject, $message)
     {
         Mail::send('emails.contact', compact('name', 'email', 'subject', 'message'), function ($m) {
-            $m->to('safderalimd@outlook.com', 'Admin');
+            $m->to('ceo@tansycloud.com', 'Admin');
             $m->subject('New Contact Message');
         });
     }
