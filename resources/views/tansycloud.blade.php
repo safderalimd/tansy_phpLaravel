@@ -126,16 +126,7 @@
                                 </p>
                                 <div class="contact-form">
 
-                                    @if (count($errors) > 0)
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
-
+                                    <div class="contact-message"></div>
                                     <form id="contact-form" method="POST" action="/contact" role="form">
                                         <div class="form-group wow fadeInDown" data-wow-duration="500ms" data-wow-delay=".6s">
                                             <input type="text" placeholder="Your Name" class="form-control" name="name" id="name">
@@ -150,7 +141,7 @@
                                             <textarea rows="6" placeholder="Message" class="form-control" name="message" id="message"></textarea>
                                         </div>
                                         <div id="submit" class="wow fadeInDown" data-wow-duration="500ms" data-wow-delay="1.4s">
-                                            <input type="submit" id="contact-submit" class="btn btn-primary btn-send" value="Send Message">
+                                            <input type="button" data-loading-text="Sending..." id="contact-submit" class="btn btn-primary btn-send" value="Send Message">
                                         </div>
                                     </form>
 
@@ -177,6 +168,47 @@
     <script src="/tansy/js/jquery.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="/tansy/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('#contact-submit').on('click', function() {
+                var name = $('#name').val();
+                var email = $('#email').val();
+                var subject = $('#subject').val();
+                var message = $('#message').val();
+
+                $('#contact-submit').button('loading');
+
+                $.ajax({
+                    type: "POST",
+                    url: "/contact",
+                    data: {
+                        name: name,
+                        email: email,
+                        subject: subject,
+                        message: message
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        $('#contact-submit').button('reset');
+                        if (data.error) {
+                            $('.contact-message').addClass('error').removeClass('success').text(data.error);
+                        } else if (data.success) {
+                            $('.contact-message').addClass('success').removeClass('error').text(data.success);
+                            $('#name').val('');
+                            $('#email').val('');
+                            $('#subject').val('');
+                            $('#message').val('');
+                        }
+                    },
+                    failure: function(errMsg) {
+                        $('#contact-submit').button('reset');
+                    }
+                });
+            });
+
+        });
+    </script>
 </body>
 
 </html>
