@@ -153,7 +153,7 @@
     function makeRowUneditable(row) {
         $('.save-button', row).hide();
         $('.edit-button', row).show();
-        $('.cancel-button', row).show();
+        $('.cancel-button', row).hide();
 
         var td_start_percent = $('.td-start-percent input', row).val();
         var td_end_percent = $('.td-end-percent input', row).val();
