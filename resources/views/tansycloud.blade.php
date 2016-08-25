@@ -27,7 +27,7 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -36,11 +36,11 @@
                 <a class="navbar-brand" href="/">Tansy cloud</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#services">Products</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#about" data-toggle="collapse" data-target="#navbar-collapse" >About</a></li>
+                    <li><a href="#services" data-toggle="collapse" data-target="#navbar-collapse" >Products</a></li>
+                    <li><a href="#contact" data-toggle="collapse" data-target="#navbar-collapse" >Contact</a></li>
                     @if (session()->has('user'))
                         <li><a href="/cabinet">Cabinet</a></li>
                         <li><a href="/cabinet/logout">Logout</a></li>
