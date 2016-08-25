@@ -60,7 +60,7 @@ class Grid extends Model
             } else {
 
                 // only return rows if all filters are set; allow default_facility_id filter to not be set
-                if ($filter->get('db_column') != 'iparam_default_facility_id') {
+                if (!$filter->isHidden() && $filter->get('db_column') != 'iparam_default_facility_id') {
                     $returnRows = false;
                 }
 
