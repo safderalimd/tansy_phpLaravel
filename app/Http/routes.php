@@ -72,6 +72,11 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('events/edit/{id}', 'School\Controllers\EventsController@update');
     Route::get('events/delete/{id}', 'School\Controllers\EventsController@destroy');
 
+    Route::get('progress-grade-setup', 'School\Controllers\ProgressGradeSetupController@index');
+    Route::post('progress-grade-setup/store', 'School\Controllers\ProgressGradeSetupController@store');
+    Route::post('progress-grade-setup/update', 'School\Controllers\ProgressGradeSetupController@update');
+    Route::post('progress-grade-setup/delete/{id}', 'School\Controllers\ProgressGradeSetupController@destroy');
+
     Route::get('exam-setup', 'School\Controllers\ExamSetupController@index');
     Route::get('exam-setup/create', 'School\Controllers\ExamSetupController@create');
     Route::post('exam-setup/create', 'School\Controllers\ExamSetupController@store');
