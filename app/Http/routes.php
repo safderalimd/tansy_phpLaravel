@@ -26,6 +26,8 @@ Route::get('/database-error', function () {
 Route::get('/login', '\App\Http\Controllers\UserController@index')->middleware('guest');
 Route::post('/login', '\App\Http\Controllers\UserController@login')->middleware('guest');
 
+Route::post('/contact', '\App\Http\Controllers\ContactController@send');
+
 Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabinet'], function() {
 
     Route::get('/debug-sms', '\App\Http\Controllers\DebugController@debugSMS');

@@ -1,0 +1,256 @@
+/*
+ * Start Bootstrap - One Page Wonder (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+body {
+    margin-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+.header-image {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: url('http://placehold.it/100x00') no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.headline {
+    padding: 10px 0;
+}
+
+.headline h1 {
+    padding: 25px;
+    font-size: 60px;
+    background-color: #094AB2;
+}
+
+.headline h2 {
+    font-size: 77px;
+    background-color: #F2B50F;
+}
+
+.featurette-divider {
+    margin: 80px 0px 0px 0px;
+}
+#about,
+#services,
+#services-2,
+#contact {
+    padding-top: 80px;
+}
+
+.featurette {
+    overflow: hidden;
+}
+
+.featurette-image.pull-left {
+    margin-right: 40px;
+}
+
+.featurette-image.pull-right {
+    margin-left: 40px;
+}
+
+.featurette-heading {
+    font-size: 50px;
+}
+
+footer {
+    margin: 50px 0;
+}
+
+address {
+    margin-top: 20px;
+    float: left;
+}
+.second-address {
+    padding-left: 30px;
+}
+
+@media(max-width:1200px) {
+    .featurette-divider {
+        margin: 50px 0px 0px 0px;
+    }
+    #about,
+    #services,
+    #services-2,
+    #contact {
+        padding-top: 50px;
+    }
+
+
+    .featurette-image.pull-left {
+        margin-right: 20px;
+    }
+
+    .featurette-image.pull-right {
+        margin-left: 20px;
+    }
+
+    .featurette-heading {
+        font-size: 35px;
+    }
+}
+
+@media(max-width:991px) {
+
+    .form-control {
+        width: 95% !important;
+    }
+
+    .headline h1 {
+        padding: 20px;
+        font-size: 50px;
+    }
+
+    .featurette-divider {
+        margin: 40px 0px 0px 0px;
+    }
+
+    .featurette-image {
+        max-width: 50%;
+    }
+
+    .featurette-image.pull-left {
+        margin-right: 10px;
+    }
+
+    .featurette-image.pull-right {
+        margin-left: 10px;
+    }
+
+    .featurette-heading {
+        font-size: 30px;
+    }
+}
+
+@media(max-width:768px) {
+    .headline h1 {
+        padding: 15px;
+        font-size: 40px;
+    }
+
+    .container {
+        margin: 0 15px;
+    }
+
+    .featurette-divider {
+        margin: 40px 0px 0px 0px;
+    }
+    #about,
+    #services,
+    #services-2,
+    #contact {
+        padding-top: 40px;
+    }
+
+    .featurette-heading {
+        font-size: 25px;
+    }
+}
+
+@media(max-width:668px) {
+    .headline h1 {
+        padding: 20px;
+        font-size: 45px;
+    }
+    .featurette-divider {
+        margin: 30px 0px 0px 0px;
+    }
+    #about,
+    #services,
+    #services-2,
+    #contact {
+        padding-top: 30px;
+    }
+    address {
+        padding-left: 15px;
+        float: none;
+    }
+    .second-address {
+        padding-left: 15px;
+    }
+}
+
+@media(max-width:375px) {
+    .headline h1 {
+        padding: 10px;
+        font-size: 30px;
+    }
+
+    .featurette-divider {
+        margin: 10px 0px 0px 0px;
+    }
+    #about,
+    #services,
+    #services-2,
+    #contact {
+        padding-top: 10px;
+    }
+
+    .featurette-image {
+        max-width: 100%;
+    }
+
+    .featurette-image.pull-left {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .featurette-image.pull-right {
+        margin-bottom: 10px;
+        margin-left: 0;
+    }
+}
+
+#contact .featurette-image,
+#about .featurette-image {
+    margin-bottom: 15px;
+}
+
+.navbar-inverse {
+    background-color: #0078D7;
+    border-color: #0078D7;
+    color: #fff;
+}
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
+    height: 72px;
+    line-height: 42px;
+    font-family: 'Open Sans', serif;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    font-size: 15px;
+}
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus,
+.navbar-inverse .navbar-nav>li>a:hover,
+.navbar-inverse .navbar-nav>li>a:focus {
+    background-color: #006cc1;
+}
+.navbar-inverse .navbar-collapse,
+.navbar-inverse .navbar-form,
+.navbar-inverse .navbar-toggle {
+    border-color: #fff;
+}
+.navbar-brand {
+    font-weight: bold;
+}
+.navbar-toggle {
+    margin-top: 19px;
+}
+body {
+    margin-top: 90px;
+}
+.banner-text {
+    color: #fff;
+}
