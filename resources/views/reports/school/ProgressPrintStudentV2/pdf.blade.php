@@ -149,9 +149,19 @@
             .marks-grid div {
                 font-size: 10px;
             }
-            .page-wrapper {
-                height: 100vh;
-            }
+
+            @if ($showHtml)
+                .page-wrapper {
+                    height: 100vh;
+                }
+                @media print
+                {
+                    @page
+                    {
+                        size: landscape;
+                    }
+                }
+            @endif
 
         </style>
     </head>
