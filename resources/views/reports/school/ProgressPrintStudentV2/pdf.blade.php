@@ -36,7 +36,7 @@
             }
             .th-total,
             .subject-grade-point {
-                width: 70px;
+                min-width: 70px;
             }
             .table {
                 margin-bottom: 0px;
@@ -249,7 +249,10 @@
                                             @endforeach
 
                                             <tr>
-                                                <td class="cell-remarks" rowspan="3" colspan="4">Remarks</td>
+                                                <?php
+                                                    $colspan = count($progress->examTypes);
+                                                ?>
+                                                <td class="cell-remarks" rowspan="3" colspan="{{$colspan}}">Remarks</td>
                                                 <td class="cell-grand-total">Grand Total</td>
                                                 <td>
                                                     @if (isset($studentTotals['student_total_marks']))
