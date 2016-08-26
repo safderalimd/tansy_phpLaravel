@@ -19,9 +19,8 @@
 
         <div class="panel-body">
 
-            <div class="divider-line"></div>
-
             @if ($inbox->showSearch())
+            <div class="divider-line"></div>
             <form action="/cabinet/inbox" class="form-inline" method="GET">
                 <div class="search-box">
                     <button class="search-submit" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>

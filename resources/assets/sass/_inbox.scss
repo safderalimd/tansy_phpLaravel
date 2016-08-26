@@ -93,6 +93,22 @@
 
 .inbox-list {
     .inbox-row {
+        &.inbox-header-row {
+            padding:0px;
+            min-height: 30px;
+            height: 40px;
+            .message-date {
+                top: initial;
+                bottom: 7px;
+            }
+            .from-header {
+                position: absolute;
+                bottom: 7px;
+                left: 35px;
+                color: #777;
+                font-size: 12px;
+            }
+        }
         padding: 0px;
         height: 79px;
         border-bottom: 1px solid #f1f1f1;

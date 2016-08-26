@@ -1,6 +1,11 @@
 <?php
     $messages = $inbox->messages();
 ?>
+
+<div class="inbox-row inbox-header-row">
+    <div class="message-date">Received Date</div>
+    <div class="from-header">FROM</div>
+</div>
 @foreach ($messages as $message)
     <div onclick="openDetail(this, event)" data-emailId="{{$message['email_id']}}" class="inbox-row @if($message['email_read_flag'] == 0) unread @endif">
         <div class="select-circle" onclick="openDetail(this, event)">

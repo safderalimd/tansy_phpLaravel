@@ -566,6 +566,19 @@ a.selected {
   top: 0px;
   left: 0px;
   z-index: 100; }
+  .inbox-list .inbox-row.inbox-header-row {
+    padding: 0px;
+    min-height: 30px;
+    height: 40px; }
+    .inbox-list .inbox-row.inbox-header-row .message-date {
+      top: initial;
+      bottom: 7px; }
+    .inbox-list .inbox-row.inbox-header-row .from-header {
+      position: absolute;
+      bottom: 7px;
+      left: 35px;
+      color: #777;
+      font-size: 12px; }
   .inbox-list .inbox-row:hover {
     background-color: #f3f3f3; }
   .inbox-list .inbox-row .select-circle {
