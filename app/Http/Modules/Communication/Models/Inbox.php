@@ -62,17 +62,6 @@ class Inbox extends Model
         return false;
     }
 
-    public function showNewMessage()
-    {
-        return true;
-
-        if (isset($this->show_new_message) && $this->show_new_message == 1) {
-            return true;
-        }
-
-        return false;
-    }
-
     public function rowsPerPage()
     {
         if (isset($this->r) && is_numeric($this->r)) {
@@ -116,6 +105,7 @@ class Inbox extends Model
 
     public function userCanSendMessage()
     {
+        return true;
         $this->repository->userCanSendMessage($this);
         if ($this->compose_email_flag == 1) {
             return true;

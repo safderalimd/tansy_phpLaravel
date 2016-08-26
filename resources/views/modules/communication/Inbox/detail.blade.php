@@ -16,8 +16,10 @@
         </header>
         <div class="panel-body">
 
-            <div class="divider-line"></div>
             <div class="inbox-list">
+                <div class="inbox-row header-row">
+                    <div class="message-date">Received Date</div>
+                </div>
                 <div data-emailId="{{$message['email_id']}}" class="inbox-row">
                     <div class="grid-sender">From: {{$message['sender_name']}}</div>
                     <div class="grid-subject">To: {{$message['to_list']}}</div>
@@ -31,13 +33,15 @@
             </div>
 
             @if ($inbox->userCanSendMessage())
-            <form id="inbox-form" class="" action="/cabinet/inbox/new" method="POST">
+
+            <button class="btn btn-primary reply-toggle" type="submit"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+
+            <form id="inbox-form" class="" style="" action="/cabinet/inbox/new" method="POST">
                 {{ csrf_field() }}
 
                 <div class="row">
                     <div class="col-md-12 compose-buttons">
                         <span class="compose-text">Reply</span>
-                        <button class="btn btn-primary pull-right send-btn" type="submit">Reply</button>
                     </div>
                 </div>
 
@@ -59,6 +63,12 @@
 
                 <input type="hidden" name="parent_email_id" value="{{$message['email_id']}}" id="parent_email_id">
 
+                <div class="row">
+                    <div class="col-md-12 send-button-col">
+                        <button class="btn btn-primary pull-right send-btn" type="submit">Send</button>
+                    </div>
+                </div>
+
             </form>
             @endif
 
@@ -71,7 +81,10 @@
 @section('scripts')
 <script type="text/javascript">
 
-
+    $('.reply-toggle').on('click', function() {
+        $(this).remove();
+        $('#inbox-form').show();
+    });
 
 </script>
 @endsection
