@@ -415,12 +415,12 @@ function screen_name($screenId)
     return '';
 }
 
-function student_picture($id)
+function student_picture($id, $showHtml)
 {
     // on android we don't show pdf, only html
     $imgPath = storage_path('uploads/'. domain() . "/student-images/{id}");
 
-    if (Device::isAndroidMobile()) {
+    if ($showHtml || Device::isAndroidMobile()) {
         if (file_exists($imgPath)) {
             return "/cabinet/img/student/{$id}?w=100&h=100&ri=".time().uniqid();
         }

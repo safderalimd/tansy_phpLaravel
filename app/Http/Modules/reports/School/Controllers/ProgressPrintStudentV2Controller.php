@@ -34,9 +34,11 @@ class ProgressPrintStudentV2Controller extends Controller
         $export->setAttribute('return_type', 'Student Report');
         $progress = $export->getPdfData();
 
-        $view = view('reports.school.ProgressPrintStudentV2.pdf', compact('export', 'progress'));
+        $showHtml = is_null($request->input('html')) ? false : true;
 
-        if (!is_null($request->input('html'))) {
+        $view = view('reports.school.ProgressPrintStudentV2.pdf', compact('export', 'progress', 'showHtml'));
+
+        if ($showHtml) {
             return $view;
         }
 

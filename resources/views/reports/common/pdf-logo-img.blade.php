@@ -1,5 +1,5 @@
 <?php $logo = storage_path('uploads/'.domain().'/school-logo/logo.png'); ?>
-@if (Device::isAndroidMobile())
+@if ( (isset($showHtml) && $showHtml) || Device::isAndroidMobile())
     @if (file_exists($logo))
         <img src="/cabinet/img/school-logo/logo.png" alt="School Image" class="school-logo text-right">
     @else

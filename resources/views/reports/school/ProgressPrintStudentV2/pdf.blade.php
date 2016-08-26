@@ -149,12 +149,18 @@
             .marks-grid div {
                 font-size: 10px;
             }
+            .page-wrapper {
+                height: 100vh;
+            }
 
         </style>
     </head>
     <body>
 
-    <div id="watermark"><div id="watermark-text">{{$progress->organizationName}}</div></div>
+    @if (!$showHtml)
+        <div id="watermark"><div id="watermark-text">{{$progress->organizationName}}</div></div>
+    @endif
+
     <div id="school-logo-wrapper">
         <div id="school-img-center">
             @include('reports.common.pdf-logo-img')
@@ -182,6 +188,9 @@
 
         $subjectMaxTotal = isset($firstItem['subject_max_total']) ? $firstItem['subject_max_total'] : null;
     ?>
+    @if ($showHtml)
+        <div class="page-wrapper">
+    @endif
     <div class="container">
 
         <div class="row">
@@ -279,7 +288,7 @@
                                         <tr>
                                             <td>
                                                 <div class="student-picture">
-                                                    <img src="{{student_picture($studentId)}}" class="" alt="Image">
+                                                    <img src="{{student_picture($studentId, $showHtml)}}" class="" alt="Image">
                                                 </div>
                                             </td>
                                             <td>
@@ -292,7 +301,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="color: #fff;" colspan="2">------------------------------------------------------</td>
+                                            <td style="color: #fff;" colspan="2">&nbsp;</td>
                                         </tr>
                                         <tr>
                                             <td colspan="2">
@@ -363,6 +372,9 @@
         <div class="pdf-page-break"></div>
     @endif
 
+    @if ($showHtml)
+        </div>
+    @endif
 @endforeach
 
     </body>
