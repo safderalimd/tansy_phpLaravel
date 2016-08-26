@@ -70,10 +70,10 @@
             <td>
                 @if ($generated)
                     @if (isset($item['student_report_version']) && $item['student_report_version'] == 'V-0002')
-                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v2/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="Print">Print</a>
+                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v2/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="PDF">PDF</a>
                         <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v2/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}&html=true")}}" title="Html">Html</a>
                     @else
-                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v1/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="Print">Print</a>
+                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v1/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="PDF">PDF</a>
                     @endif
                 @endif
             </td>
