@@ -105,7 +105,6 @@ class Inbox extends Model
 
     public function userCanSendMessage()
     {
-        return true;
         $this->repository->userCanSendMessage($this);
         if ($this->compose_email_flag == 1) {
             return true;
