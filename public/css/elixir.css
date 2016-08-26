@@ -679,6 +679,11 @@ a.selected {
 .inbox-compose #mobile-panel {
   max-width: 900px; }
 
+.inbox-compose .send-button-col {
+  height: 36px; }
+  .inbox-compose .send-button-col .send-btn {
+    margin: 10px 0px; }
+
 .new-message {
   float: right;
   margin-top: -5px;

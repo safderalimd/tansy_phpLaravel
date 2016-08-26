@@ -259,6 +259,12 @@
     #mobile-panel {
         max-width: 900px;
     }
+    .send-button-col {
+        height: 36px;
+        .send-btn {
+            margin: 10px 0px;
+        }
+    }
 }
 
 .new-message {

@@ -23,7 +23,6 @@
                     <div class="col-md-12 compose-buttons">
                         <a href="{{url("/cabinet/inbox")}}" class="close-btn btn btn-default pull-left">Cancel</a>
                         <span class="compose-text">Compose</span>
-                        <button class="btn btn-primary pull-right send-btn" type="submit">Send</button>
                     </div>
                 </div>
 
@@ -103,6 +102,12 @@
                 <input type="hidden" name="send_to_entity_id_list" id="send_to_entity_id_list">
                 <input type="hidden" name="cc_to_entity_id_list" id="cc_to_entity_id_list">
                 <input type="hidden" name="bcc_to_entity_id_list" id="bcc_to_entity_id_list">
+
+                <div class="row">
+                    <div class="col-md-12 send-button-col">
+                        <button class="btn btn-primary pull-right send-btn" type="submit">Send</button>
+                    </div>
+                </div>
 
             </form>
 
