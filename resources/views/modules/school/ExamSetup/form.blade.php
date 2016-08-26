@@ -19,6 +19,17 @@
                     <form id="exam-setup-form" class="form-horizontal" action="{{ form_action_full() }}" method="POST">
                         {{ csrf_field() }}
 
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="main-exam-entity-id">Main Exam</label>
+                            <div class="col-md-8">
+                                <select disabled="disabled" id="main-exam-entity-id" class="form-control" name="main_exam_entity_id">
+                                    @foreach($setup->examDropdown() as $option)
+                                        <option {{activeSelect($option['exam_entity_id'], 'eei')}} value="{{$option['exam_entity_id']}}">{{$option['exam']}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
                         @if (!$setup->isNewRecord())
                             @include('commons.select', [
                                 'label'    => 'Exam' ,
