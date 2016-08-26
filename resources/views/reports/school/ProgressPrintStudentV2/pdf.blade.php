@@ -161,9 +161,13 @@
         </div>
     </div>
 
+<?php
+    $nrOfStudents = count($progress->students);
+    $currentStudent = 0;
+?>
 @foreach($progress->students as $student)
-
     <?php
+        $currentStudent++;
         $studentTotals = $progress->getTotal($student);
 
         $firstItem = $student->first();
@@ -354,7 +358,10 @@
 
     </div>
 
-    <div class="pdf-page-break"></div>
+    {{-- Don't add page break after last student --}}
+    @if ($currentStudent < $nrOfStudents)
+        <div class="pdf-page-break"></div>
+    @endif
 
 @endforeach
 
