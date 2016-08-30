@@ -1,6 +1,6 @@
 <?php
 
-require('fpdf181/fpdf.php');
+require('fpdf181/alpha-fpdf.php');
 
 class PDF extends FPDF
 {
