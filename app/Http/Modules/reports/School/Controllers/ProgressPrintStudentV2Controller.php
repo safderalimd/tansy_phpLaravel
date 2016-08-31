@@ -5,7 +5,7 @@ namespace App\Http\Modules\reports\School\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\School\Models\ProgressPrintStudentV2;
-use App\Http\PdfGenerator\Pdf;
+use App\Http\FPDF\ProgressPrintStudentV2\PDF;
 
 class ProgressPrintStudentV2Controller extends Controller
 {
@@ -35,13 +35,11 @@ class ProgressPrintStudentV2Controller extends Controller
         $progress = $export->getPdfData();
 
         $showHtml = is_null($request->input('html')) ? false : true;
-
-        $view = view('reports.school.ProgressPrintStudentV2.pdf', compact('export', 'progress', 'showHtml'));
-
         if ($showHtml) {
-            return $view;
+            return view('reports.school.ProgressPrintStudentV2.pdf', compact('export', 'progress', 'showHtml'));
         }
 
-        return Pdf::renderLandscape($view);
+        $pdf = PDF::landscape();
+        $pdf->generate($export, $progress);
     }
 }

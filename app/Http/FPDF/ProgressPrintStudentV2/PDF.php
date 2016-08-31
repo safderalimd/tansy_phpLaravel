@@ -1,26 +1,9 @@
 <?php
 
-require('fpdf181/alpha-fpdf.php');
+namespace App\Http\FPDF\ProgressPrintStudentV2;
+use AlphaPDF;
 
-// Contents for each student row
-class Contents
-{
-    public $title = 'Progress Student V2';
-
-    public $schoolName = 'CANADIAN INTERNATIONAL SCHOOL - RELEASE2S';
-
-    public $phoneNr = '880-193-3344';
-
-    public $examName = 'FA1';
-
-    public $grandTotal = 84.44;
-
-    public $percentage = 95.44;
-
-    public $grade = 'A2';
-
-    public $gpa = '9.00';
-}
+require app_path('Http/FPDF/fpdf181/alpha-fpdf.php');
 
 class PDF extends AlphaPDF
 {
@@ -43,22 +26,27 @@ class PDF extends AlphaPDF
         return new static('L', 'mm', 'A4');
     }
 
-    public function init()
+    public function generate($export, $progress)
     {
-        $this->setContents(new Contents);
+        $this->setContents(new Contents($export, $progress));
         $this->SetTitle($this->contents->title);
         $this->SetAuthor('Tansycloud');
         $this->loadFonts();
 
-        $this->AddPage();
-        $this->drawGrid();
-        $this->drawHeader();
-        $this->drawGradesTable();
-        $this->drawStudentInfo();
-        $this->drawAttendanceTable();
-        $this->drawSignatures();
-        $this->drawLogo();
-        $this->drawWatermark();
+        foreach ($this->contents->students as $student) {
+            $this->contents->setStudent($student);
+
+            $this->AddPage();
+            $this->drawGrid();
+            $this->drawHeader();
+            $this->drawGradesTable();
+            $this->drawStudentInfo();
+            $this->drawAttendanceTable();
+            $this->drawSignatures();
+            $this->drawLogo();
+            $this->drawWatermark();
+        }
+
         $this->Output();
     }
 
@@ -164,10 +152,14 @@ class PDF extends AlphaPDF
     {
         $this->setXY(214, 36);
         $this->Cell(32, 35, '', 0, 0, 'C');
-        $this->Image('student.png', 214, 36, 30);
+        $this->Image(public_path('dashboard/student.png'), 214, 36, 30);
 
-        $this->SetFont('Helvetica', 'BU', 12);
-        $text = "\nJohn Doe\nX-A\nRoll.No. 1\nAdm.No. 23";
+        $this->SetFont('Helvetica', 'BU', 11);
+        $text  = "\n" . $this->contents->studentName;
+        $text .= "\n" . $this->contents->className;
+        $text .= "\nRoll.No. " . $this->contents->rollNr;
+        $text .= "\nAdm.No. " . $this->contents->admissionNr;
+
         $this->MultiCell(39, 5, $text, 0, 'L');
     }
 
@@ -193,26 +185,19 @@ class PDF extends AlphaPDF
         $this->Ln(1);
 
         $this->setY($y+15);
-        $this->setX(214);
-        $this->Cell(23, 10, 'Jun', 1, 0, 'C');
-        $this->SetFont('Helvetica', '');
-        $this->Cell(24, 10, '0', 1, 0, 'C');
-        $this->Cell(24, 10, '0', 1, 1, 'C');
-        $this->SetFont('Helvetica', 'B');
 
-        $this->setX(214);
-        $this->Cell(23, 10, 'Jul', 1, 0, 'C');
-        $this->SetFont('Helvetica', '');
-        $this->Cell(24, 10, '0', 1, 0, 'C');
-        $this->Cell(24, 10, '0', 1, 1, 'C');
-        $this->SetFont('Helvetica', 'B');
+        foreach ($this->contents->months as $month) {
+            $calendarMonth = isset($month['calendar_month']) ? $month['calendar_month'] : '';
+            $workingDays = isset($month['working_days']) ? $month['working_days'] : '';
+            $presentDays = isset($month['present_days']) ? $month['present_days'] : '';
 
-        $this->setX(214);
-        $this->Cell(23, 10, 'Aug', 1, 0, 'C');
-        $this->SetFont('Helvetica', '');
-        $this->Cell(24, 10, '0', 1, 0, 'C');
-        $this->Cell(24, 10, '0', 1, 0, 'C');
-        $this->SetFont('Helvetica', 'B');
+            $this->setX(214);
+            $this->Cell(23, 10, $calendarMonth, 1, 0, 'C');
+            $this->SetFont('Helvetica', '');
+            $this->Cell(24, 10, $workingDays, 1, 0, 'C');
+            $this->Cell(24, 10, $presentDays, 1, 1, 'C');
+            $this->SetFont('Helvetica', 'B');
+        }
     }
 
     public function drawSignatures()
@@ -229,7 +214,7 @@ class PDF extends AlphaPDF
     public function drawLogo()
     {
         $this->SetAlpha(0.2);
-        $this->Image('logo.png', 97, 76, 30);
+        $this->Image(public_path('images/school-logo.png'), 97, 76, 40);
         $this->SetAlpha(1);
     }
 
@@ -241,5 +226,3 @@ class PDF extends AlphaPDF
     }
 }
 
-$pdf = PDF::landscape();
-$pdf->init();
