@@ -57,6 +57,8 @@ class PDF extends AlphaPDF
         $this->drawStudentInfo();
         $this->drawAttendanceTable();
         $this->drawSignatures();
+        $this->drawLogo();
+        $this->drawWatermark();
         $this->Output();
     }
 
@@ -72,10 +74,6 @@ class PDF extends AlphaPDF
         $this->Rect(10, 10, $this->GetPageWidth()-20, 24, 'F');
         $this->Rect(10, 10, $this->GetPageWidth()-20, $this->GetPageHeight()-50, 'D');
         $this->Line(10, 34, $this->GetPageWidth()-10, 34);
-
-        $this->SetAlpha(0.2);
-        $this->Image('logo.png', 10, 6, 30);
-        $this->SetAlpha(1);
     }
 
     public function drawHeader()
@@ -180,10 +178,7 @@ class PDF extends AlphaPDF
         $this->Cell(71, 15, 'ATTENDANCE DETAILS', 1, 1, 'C', true);
 
         $this->setX(214);
-        // $this->MultiCell(24, 7, "Month", 1, 'C');
-        // $this->MultiCell(24, 7, "Working\nDays", 1, 'C');
-
-
+        $y = $this->getY();
         $this->Cell(23, 15, 'Month', 1, 0, 'C');
         $this->Cell(24, 15, '', 1, 0, 'C');
         $this->Cell(24, 15, '', 1, 0, 'C');
@@ -195,6 +190,29 @@ class PDF extends AlphaPDF
         $this->setX(214+23);
         $this->Cell(24, 7, 'Days', 0, 0, 'C');
         $this->Cell(24, 7, 'Present', 0, 0, 'C');
+        $this->Ln(1);
+
+        $this->setY($y+15);
+        $this->setX(214);
+        $this->Cell(23, 10, 'Jun', 1, 0, 'C');
+        $this->SetFont('Helvetica', '');
+        $this->Cell(24, 10, '0', 1, 0, 'C');
+        $this->Cell(24, 10, '0', 1, 1, 'C');
+        $this->SetFont('Helvetica', 'B');
+
+        $this->setX(214);
+        $this->Cell(23, 10, 'Jul', 1, 0, 'C');
+        $this->SetFont('Helvetica', '');
+        $this->Cell(24, 10, '0', 1, 0, 'C');
+        $this->Cell(24, 10, '0', 1, 1, 'C');
+        $this->SetFont('Helvetica', 'B');
+
+        $this->setX(214);
+        $this->Cell(23, 10, 'Aug', 1, 0, 'C');
+        $this->SetFont('Helvetica', '');
+        $this->Cell(24, 10, '0', 1, 0, 'C');
+        $this->Cell(24, 10, '0', 1, 0, 'C');
+        $this->SetFont('Helvetica', 'B');
     }
 
     public function drawSignatures()
@@ -206,6 +224,20 @@ class PDF extends AlphaPDF
         $this->Cell($width, 4, 'Principal Signature', 0, 0, 'C');
         $this->Cell($width, 4, 'Teacher Signature', 0, 0, 'C');
         $this->Cell($width, 4, 'Parent Signature', 0, 0, 'C');
+    }
+
+    public function drawLogo()
+    {
+        $this->SetAlpha(0.2);
+        $this->Image('logo.png', 97, 76, 30);
+        $this->SetAlpha(1);
+    }
+
+    public function drawWatermark()
+    {
+        $this->SetAlpha(0.2);
+        $this->RotatedText(110, 135, $this->contents->schoolName, 45);
+        $this->SetAlpha(1);
     }
 }
 

@@ -1,8 +1,8 @@
 <?php
 
-require('base-fpdf.php');
+require('rotate-fpdf.php');
 
-class AlphaPDF extends FPDF
+class AlphaPDF extends PDF_Rotate
 {
     var $extgstates = array();
 
