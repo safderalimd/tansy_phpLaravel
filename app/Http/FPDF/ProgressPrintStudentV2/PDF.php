@@ -80,28 +80,87 @@ class PDF extends AlphaPDF
         $this->Cell(0, 4, 'RESULT SHEET', 0, 1, 'C');
     }
 
+    public function TableHeader($header, $width, $height)
+    {
+        $initialX = $this->getX();
+        $initialY = $this->getY();
+        $maxY = $initialY + $height;
+
+        $i = 1;
+        // draw header text with top border only
+        foreach ($header as $text) {
+            $x = $this->getX();
+            $y = $this->getY();
+            $this->MultiCell($width, $height, $text, 'T', 'C');
+            if ($maxY < $this->getY()) {
+                $maxY = $this->getY();
+            }
+            $this->setY($initialY);
+            $this->setX($initialX + ($width*$i));
+            $i++;
+        }
+
+        // draw header grid lines
+        $this->setXY($initialX, $initialY);
+        for ($i=0; $i<=count($header); $i++) {
+            $xPos = $initialX + ($width*$i);
+            $this->Line($xPos, $initialY, $xPos, $maxY);
+        }
+
+        // draw bottom line of row
+        $x = $initialX + ($width * count($header));
+        $this->Line($initialX, $maxY, $x, $maxY);
+        $this->setY($maxY);
+    }
+
     public function drawGradesTable()
     {
         $fontSize = 9;
-        $nrTestColumns = 4;
+        $nrTestColumns = count($this->contents->examTypes());
         $nrColumns = 3 + $nrTestColumns;
         $totalWidth = 200;
         $width = round($totalWidth / $nrColumns, 2);
 
-        $nrRows = 10;
-        $height = round(102 / $nrRows, 2);
-
         $this->setXY(12, 36);
-        $this->SetFont('Helvetica', '', $fontSize);
+        $this->SetFont('Helvetica', 'B', $fontSize);
 
+        $header = ['Subject'];
+        foreach ($this->contents->examTypes() as $type) {
+            $header[] = $type;
+        }
+        $header[] = 'Total';
+        $header[] = 'Subject Grade Point';
+
+        $startY = 36;
+        $this->TableHeader($header, $width, 6);
+        $headerHeight = $this->getY() - $startY;
+
+        $nrRows = count($this->contents->getStudent());
+        $height = round((102 - $headerHeight) / $nrRows, 2);
+
+        $this->SetFont('Helvetica', '');
         $fill = false;
-        for ($line = 0; $line < $nrRows; $line++) {
-            for ($i=0; $i<$nrColumns; $i++) {
-                $this->Cell($width, $height, $i, 1, 0, 'C', $fill);
-            }
-            $fill = !$fill;
-            $this->Ln();
+        foreach ($this->contents->getStudent() as $subject) {
             $this->setX(12);
+            $fill = !$fill;
+
+            $this->SetFont('Helvetica', 'B');
+            $subjectName = isset($subject['subject_name']) ? $subject['subject_name'] : '';
+            $this->Cell($width, $height, $subjectName, 1, 0, 'C', $fill);
+
+            $this->SetFont('Helvetica', '');
+            foreach($this->contents->examTypes() as $type) {
+                $subjectType = isset($subject[$type]) ? $subject[$type] : '';
+                $this->Cell($width, $height, $subjectType, 1, 0, 'C', $fill);
+            }
+
+            $subjectMaxTotal = isset($subject['student_subject_max_total']) ? $subject['student_subject_max_total'] : '';
+            $this->Cell($width, $height, $subjectMaxTotal, 1, 0, 'C', $fill);
+
+            $subjectGpa = isset($subject['subject_gpa']) ? $subject['subject_gpa'] : '';
+            $this->Cell($width, $height, $subjectGpa, 1, 0, 'C', $fill);
+
+            $this->Ln();
         }
 
         // remarks cell

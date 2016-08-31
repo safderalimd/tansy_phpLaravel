@@ -11,6 +11,8 @@ class Contents
 
     public $students;
 
+    protected $student;
+
     // general data for all pages below ..
     public $title = 'Progress Student V2';
     public $schoolName = '';
@@ -24,13 +26,10 @@ class Contents
     public $admissionNr = '';
     public $months = [];
 
-    public $grandTotal = 84.44;
-
-    public $percentage = 95.44;
-
-    public $grade = 'A2';
-
-    public $gpa = '9.00';
+    public $grandTotal = '';
+    public $percentage = '';
+    public $grade = '';
+    public $gpa = '';
 
     public function __construct($export, $progress)
     {
@@ -43,8 +42,14 @@ class Contents
         $this->examName = $progress->examName;
     }
 
+    public function getStudent()
+    {
+        return $this->student;
+    }
+
     public function setStudent($student)
     {
+        $this->student = $student;
         $studentTotals = $this->progress->getTotal($student);
 
         $firstItem = $student->first();
@@ -60,5 +65,15 @@ class Contents
         $subjectMaxTotal = isset($firstItem['subject_max_total']) ? $firstItem['subject_max_total'] : null;
 
         $this->months = $this->progress->attendance->where('class_student_id', $classStudentId);
+
+        $this->grandTotal = isset($studentTotals['student_total_marks']) ? $studentTotals['student_total_marks'] : '';
+        $this->percentage = isset($studentTotals['score_percent']) ? $studentTotals['score_percent'] : '';
+        $this->grade = isset($studentTotals['grade']) ? $studentTotals['grade'] : '';
+        $this->gpa = isset($studentTotals['gpa']) ? $studentTotals['gpa'] : '';
+    }
+
+    public function examTypes()
+    {
+        return $this->progress->examTypes;
     }
 }
