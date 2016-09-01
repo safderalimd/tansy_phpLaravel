@@ -44,7 +44,7 @@ class ClassSubjectMapController extends Controller
         $subject->setAttribute('subject_entity_id', $subjectId);
         $subject->map();
         flash('Subject Mapped!');
-        return redirect('/cabinet/class-subject-map');
+        return redirect_back();
     }
 
     /**
@@ -62,6 +62,6 @@ class ClassSubjectMapController extends Controller
         $subject->setAttribute('subject_entity_id', $subjectId);
         $subject->delete();
         flash('Subject Map Deleted!');
-        return redirect('/cabinet/class-subject-map');
+        return redirect_back();
     }
 }
