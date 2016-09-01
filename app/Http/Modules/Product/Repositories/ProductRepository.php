@@ -3,23 +3,36 @@
 namespace App\Http\Modules\Product\Repositories;
 
 use App\Http\Repositories\Repository;
+use App\Http\Models\Model;
 
 class ProductRepository extends Repository
 {
     public function getModelById($id)
     {
-        return $this->select(
-            'SELECT
-                product AS product_name,
-                product_type,
-                unit_rate,
-                product_type_entity_id,
-                product_entity_id,
-                active
-             FROM view_prd_lkp_product
-             WHERE product_entity_id = :id
-             LIMIT 1;', ['id' => $id]
-        );
+        $procedure = 'sproc_prd_product_detail';
+
+        $iparams = [
+            ':iparam_product_entity_id',
+        ];
+
+        $model = new Model;
+        $model->setAttribute('product_entity_id', $id);
+
+        $data = $this->procedure($model, $procedure, $iparams, []);
+        return first_resultset($data);
+
+        // return $this->select(
+        //     'SELECT
+        //         product AS product_name,
+        //         product_type,
+        //         unit_rate,
+        //         product_type_entity_id,
+        //         product_entity_id,
+        //         active
+        //      FROM view_prd_lkp_product
+        //      WHERE product_entity_id = :id
+        //      LIMIT 1;', ['id' => $id]
+        // );
     }
 
     public function getSelectedFacilities($id)

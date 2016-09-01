@@ -20,32 +20,6 @@ class AccountAgentRepository extends Repository
         );
     }
 
-    public function getSecurityGroupForAgent()
-    {
-        return $this->select(
-            'SELECT
-                security_group,
-                security_group_entity_id,
-                system_value
-             FROM view_sec_lkp_security_group
-             WHERE security_group = :group
-             LIMIT 1;', ['group' => 'Agent']
-        );
-    }
-
-    public function getOrganizationsForBrokers()
-    {
-        return $this->select(
-            'SELECT
-                organization_name,
-                organization_entity_id,
-                organization_type
-             FROM view_org_lkp_organization
-             WHERE organization_type = :type
-             ORDER BY organization_name ASC;', ['type' => 'Broker']
-        );
-    }
-
     public function getModelById($id)
     {
         return $this->select(

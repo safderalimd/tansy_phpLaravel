@@ -39,7 +39,7 @@
                         @include('commons.select', [
                             'label'    => 'Organization',
                             'name'     => 'organization_entity_id',
-                            'options'  => $account->organizationsForBrokers(),
+                            'options'  => $account->agentOrganizations(),
                             'keyId'    => 'organization_entity_id',
                             'keyName'  => 'organization_name',
                             'none'     => 'Select an organization..',

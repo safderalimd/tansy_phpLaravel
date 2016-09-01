@@ -54,43 +54,6 @@ class ClientVisitRepository extends Repository
         );
     }
 
-    public function getOrganizations()
-    {
-        return $this->select(
-            'SELECT
-                organization_name,
-                organization_entity_id
-             FROM view_org_lkp_organization
-             ORDER BY organization_name ASC;'
-        );
-    }
-
-    public function getClientOrganizations()
-    {
-        return $this->select(
-            'SELECT
-                organization_name,
-                organization_entity_id,
-                organization_type
-             FROM view_org_lkp_organization
-             WHERE organization_type = :type
-             ORDER BY organization_name ASC;', ['type' => 'Client']
-        );
-    }
-
-    public function getAgentOrganizations()
-    {
-        return $this->select(
-            'SELECT
-                organization_name,
-                organization_entity_id,
-                organization_type
-             FROM view_org_lkp_organization
-             WHERE organization_type = :type
-             ORDER BY organization_name ASC;', ['type' => 'Broker']
-        );
-    }
-
     public function getContacts()
     {
         return $this->lookup('sproc_org_lkp_organization_contact');

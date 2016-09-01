@@ -68,18 +68,6 @@ class AccountEmployeeRepository extends Repository
         // );
     }
 
-    public function getSecurityGroupForEmployees()
-    {
-        return $this->select(
-            'SELECT
-                security_group,
-                security_group_entity_id,
-                system_value
-             FROM view_sec_lkp_security_group
-             WHERE system_value = :value;', ['value' => 9]
-        );
-    }
-
     public function insert($model)
     {
         $procedure = 'sproc_org_account_employee_dml_ins';

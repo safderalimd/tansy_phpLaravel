@@ -54,7 +54,8 @@ class FeeDueReport extends Model
 
     public function setFilterCriteria()
     {
-        $criteria = $this->repository->getFilterCriteria($this->pk);
+        $this->setAttribute('primary_key_id', $this->pk);
+        $criteria = $this->repository->getFilterCriteria($this);
 
         if (isset($criteria[0]) && isset($criteria[0]['drop_down_list_name'])) {
             $this->filterCriteria = $criteria[0]['drop_down_list_name'];

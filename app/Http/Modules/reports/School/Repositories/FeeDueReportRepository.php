@@ -53,16 +53,18 @@ class FeeDueReportRepository extends Repository
         );
     }
 
-    public function getFilterCriteria($id)
+    public function getFilterCriteria($model)
     {
-        $rows = $this->lookup('sproc_org_lkp_account_type_4_receivable_payment');
-        foreach ($rows as $row) {
-            if ($id == $row['primary_key_id']) {
-                return $row;
-            }
-        }
+        $procedure = 'sproc_org_lkp_account_type_4_receivable_payment';
 
-        return [];
+        $iparams = [
+            ':iparam_primary_key_id'
+        ];
+
+        $oparams = [];
+
+        $data = $this->procedure($model, $procedure, $iparams, $oparams);
+        return first_resultset($data);
 
         // return $this->select(
         //     'SELECT

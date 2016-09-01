@@ -90,9 +90,9 @@ class StudentExportRepository extends Repository
         );
     }
 
-    public function getDropdown()
-    {
-        return $this->lookup('sproc_org_lkp_class_type_4_student_pdf_report');
+    // public function getDropdown()
+    // {
+        // return $this->lookup('sproc_org_lkp_class_type_4_student_pdf_report');
 
         // return $this->select(
         //     'SELECT
@@ -103,17 +103,14 @@ class StudentExportRepository extends Repository
         //     FROM view_org_lkp_class_type_4_student_pdf_report
         //     ORDER BY drop_down_list_name;'
         // );
-    }
+    // }
 
-    public function getFilterCriteria($id)
+    public function getFilterCriteria($model)
     {
-        $rows = $this->lookup('sproc_org_lkp_class_type_4_student_pdf_report');
-        foreach ($rows as $row) {
-            if ($id == $row['primary_key_id']) {
-                return $row;
-            }
-        }
-        return [];
+        $procedure = 'sproc_org_lkp_class_type_4_student_pdf_report';
+
+        $data = $this->procedure($model, $procedure, [':iparam_primary_key_id'], []);
+        return first_resultset($data);
 
         // return $this->select(
         //     'SELECT

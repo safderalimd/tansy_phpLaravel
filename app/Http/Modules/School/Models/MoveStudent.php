@@ -21,7 +21,8 @@ class MoveStudent extends Model
             return [];
         }
 
-        return $this->repository->getStudentsGrid($this->cei);
+        $this->setAttribute('class_entity_id', $this->cei);
+        return $this->repository->getStudentsGrid($this);
     }
 
     public function move()

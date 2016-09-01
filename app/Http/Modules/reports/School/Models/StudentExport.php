@@ -30,13 +30,19 @@ class StudentExport extends Model
         return $value;
     }
 
+    public function dropdown()
+    {
+        return $this->repository->getFilterCriteria($this);
+    }
+
     public function filterCriteria()
     {
         if (empty($this->pk)) {
             return 'All Clasess';
         }
 
-        $criteria = $this->repository->getFilterCriteria($this->pk);
+        $this->setAttribute('primary_key_id', $this->pk);
+        $criteria = $this->repository->getFilterCriteria($this);
 
         if (isset($criteria[0]) && isset($criteria[0]['drop_down_list_name'])) {
             return $criteria[0]['drop_down_list_name'];

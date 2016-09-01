@@ -246,11 +246,13 @@ class Repository
 
     public function getProducts()
     {
-        return $this->select(
-            'SELECT product, product_type, unit_rate, product_type_entity_id, product_entity_id, active
-             FROM view_prd_lkp_product
-             ORDER BY product ASC;'
-        );
+        return $this->lookup('sproc_prd_lkp_product');
+
+        // return $this->select(
+        //     'SELECT product, product_type, unit_rate, product_type_entity_id, product_entity_id, active
+        //      FROM view_prd_lkp_product
+        //      ORDER BY product ASC;'
+        // );
     }
 
     public function getProductTypes()
@@ -697,15 +699,6 @@ class Repository
         // );
     }
 
-    public function getStudents()
-    {
-        return $this->select(
-            'SELECT student_full_name, first_name, middle_name, last_name, class_name, student_roll_number, fiscal_year, mobile_phone, active, class_student_id, student_entity_id, class_entity_id, class_category_entity_id, class_group_entity_id, fiscal_year_entity_id, class_reporting_order
-            FROM view_sch_lkp_student
-            ORDER BY class_reporting_order, student_full_name ASC;'
-        );
-    }
-
     public function getSubject()
     {
         return $this->lookup('sproc_sch_lkp_subject');
@@ -796,7 +789,10 @@ class Repository
 
     public function getIdentifications()
     {
-        return $this->lookup('sproc_org_lkp_client_unique_key');
+        $procedure = 'sproc_org_lkp_client_unique_key';
+
+        $data = $this->procedure(new Model, $procedure, [':iparam_unique_key_id'], []);
+        return first_resultset($data);
 
         // return $this->select(
         //     'SELECT
@@ -809,13 +805,11 @@ class Repository
 
     public function getIdentification($id)
     {
-        $rows = $this->lookup('sproc_org_lkp_client_unique_key');
-        foreach ($rows as $row) {
-            if ($id == $row['unique_key_id']) {
-                return $row;
-            }
-        }
-        return [];
+        $procedure = 'sproc_org_lkp_client_unique_key';
+        $model = new Model;
+        $model->setAttribute('unique_key_id', $id);
+        $data = $this->procedure($model, $procedure, [':iparam_unique_key_id'], []);
+        return first_resultset($data);
 
         // return $this->select(
         //    'SELECT
@@ -853,17 +847,6 @@ class Repository
         // );
     }
 
-    public function getSecurityGroup()
-    {
-        return $this->select(
-            'SELECT
-                security_group,
-                security_group_entity_id,
-                system_value
-             FROM view_sec_lkp_security_group;'
-        );
-    }
-
     public function getAccountTypeFilter()
     {
         return $this->lookup('sproc_org_lkp_account_type_filter2');
@@ -877,6 +860,178 @@ class Repository
         //         reporting_order
         //      FROM view_lkp_account_type_filter
         //      ORDER BY sequence_id, reporting_order ASC;'
+        // );
+    }
+
+    public function getOrganizations()
+    {
+        $procedure = 'sproc_org_lkp_organization';
+
+        $data = $this->procedure(new Model, $procedure, ['-iparam_organization_type'], []);
+        return first_resultset($data);
+
+        // return $this->select(
+        //     'SELECT
+        //         organization_name,
+        //         organization_entity_id
+        //      FROM view_org_lkp_organization
+        //      ORDER BY organization_name ASC;'
+        // );
+    }
+
+    public function getClientOrganizations()
+    {
+        $procedure = 'sproc_org_lkp_organization';
+        $model = new Model;
+        $model->setAttribute('organization_type', 'Client');
+        $data = $this->procedure($model, $procedure, ['-iparam_organization_type'], []);
+        return first_resultset($data);
+
+        // return $this->select(
+        //     'SELECT
+        //         organization_name,
+        //         organization_entity_id,
+        //         organization_type
+        //      FROM view_org_lkp_organization
+        //      WHERE organization_type = :type
+        //      ORDER BY organization_name ASC;', ['type' => 'Client']
+        // );
+    }
+
+    public function getAgentOrganizations()
+    {
+        $procedure = 'sproc_org_lkp_organization';
+        $model = new Model;
+        $model->setAttribute('organization_type', 'Broker');
+        $data = $this->procedure($model, $procedure, ['-iparam_organization_type'], []);
+        return first_resultset($data);
+
+        // return $this->select(
+        //     'SELECT
+        //         organization_name,
+        //         organization_entity_id,
+        //         organization_type
+        //      FROM view_org_lkp_organization
+        //      WHERE organization_type = :type
+        //      ORDER BY organization_name ASC;', ['type' => 'Broker']
+        // );
+    }
+
+    public function getSecurityGroup()
+    {
+        $procedure = 'sproc_org_lkp_organization';
+
+        $iparams = [
+            '-iparam_security_group',
+            ':iparam_system_value',
+        ];
+
+        $data = $this->procedure(new Model, $procedure, $iparams, []);
+        return first_resultset($data);
+
+        // return $this->select(
+        //     'SELECT
+        //         security_group,
+        //         security_group_entity_id,
+        //         system_value
+        //      FROM view_sec_lkp_security_group;'
+        // );
+    }
+
+    public function getSecurityGroupForParent()
+    {
+        $procedure = 'sproc_org_lkp_organization';
+
+        $iparams = [
+            '-iparam_security_group',
+            ':iparam_system_value',
+        ];
+
+        $model = new Model;
+        $model->setAttribute('security_group', 'Parent');
+
+        $data = $this->procedure($model, $procedure, $iparams, []);
+        return first_resultset($data);
+
+        // return $this->select(
+        //     'SELECT
+        //         security_group,
+        //         security_group_entity_id,
+        //         system_value
+        //      FROM view_sec_lkp_security_group
+        //      WHERE security_group = :group
+        //      LIMIT 1;', ['group' => 'Parent']
+        // );
+    }
+
+    public function getSecurityGroupForAgent()
+    {
+        $procedure = 'sproc_org_lkp_organization';
+
+        $iparams = [
+            '-iparam_security_group',
+            ':iparam_system_value',
+        ];
+
+        $model = new Model;
+        $model->setAttribute('security_group', 'Agent');
+
+        $data = $this->procedure($model, $procedure, $iparams, []);
+        return first_resultset($data);
+
+        // return $this->select(
+        //     'SELECT
+        //         security_group,
+        //         security_group_entity_id,
+        //         system_value
+        //      FROM view_sec_lkp_security_group
+        //      WHERE security_group = :group
+        //      LIMIT 1;', ['group' => 'Agent']
+        // );
+    }
+
+    public function getSecurityGroupForEmployees()
+    {
+        $procedure = 'sproc_org_lkp_organization';
+
+        $iparams = [
+            '-iparam_security_group',
+            ':iparam_system_value',
+        ];
+
+        $model = new Model;
+        $model->setAttribute('system_value', 9);
+
+        $data = $this->procedure($model, $procedure, $iparams, []);
+        return first_resultset($data);
+
+        // return $this->select(
+        //     'SELECT
+        //         security_group,
+        //         security_group_entity_id,
+        //         system_value
+        //      FROM view_sec_lkp_security_group
+        //      WHERE system_value = :value;', ['value' => 9]
+        // );
+    }
+
+    public function getStudents()
+    {
+        $procedure = 'sproc_sch_lkp_student';
+
+        $iparams = [
+            ':iparam_class_entity_id',
+            ':iparam_student_entity_id',
+            ':iparam_class_student_id',
+        ];
+
+        $data = $this->procedure(new Model, $procedure, $iparams, []);
+        return first_resultset($data);
+
+        // return $this->select(
+        //     'SELECT student_full_name, first_name, middle_name, last_name, class_name, student_roll_number, fiscal_year, mobile_phone, active, class_student_id, student_entity_id, class_entity_id, class_category_entity_id, class_group_entity_id, fiscal_year_entity_id, class_reporting_order
+        //     FROM view_sch_lkp_student
+        //     ORDER BY class_reporting_order, student_full_name ASC;'
         // );
     }
 }
