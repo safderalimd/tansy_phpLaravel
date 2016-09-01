@@ -919,7 +919,7 @@ class Repository
 
     public function getSecurityGroup()
     {
-        $procedure = 'sproc_org_lkp_organization';
+        $procedure = 'sproc_sec_lkp_security_group';
 
         $iparams = [
             '-iparam_security_group',
@@ -940,7 +940,7 @@ class Repository
 
     public function getSecurityGroupForParent()
     {
-        $procedure = 'sproc_org_lkp_organization';
+        $procedure = 'sproc_sec_lkp_security_group';
 
         $iparams = [
             '-iparam_security_group',
@@ -966,7 +966,7 @@ class Repository
 
     public function getSecurityGroupForAgent()
     {
-        $procedure = 'sproc_org_lkp_organization';
+        $procedure = 'sproc_sec_lkp_security_group';
 
         $iparams = [
             '-iparam_security_group',
@@ -992,7 +992,7 @@ class Repository
 
     public function getSecurityGroupForEmployees()
     {
-        $procedure = 'sproc_org_lkp_organization';
+        $procedure = 'sproc_sec_lkp_security_group';
 
         $iparams = [
             '-iparam_security_group',

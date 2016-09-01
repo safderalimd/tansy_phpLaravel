@@ -26,7 +26,7 @@
                     <select id="product_entity_id" class="form-control" name="product_entity_id">
                         <option value="none">Select a product..</option>
                         @foreach($grid->products() as $option)
-                            <option value="{{ $option['product_entity_id'] }}">{{ $option['product'] }}</option>
+                            <option value="{{ $option['product_entity_id'] }}">{{ $option['product_name'] }}</option>
                         @endforeach
                     </select>
                 </div>

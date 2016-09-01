@@ -23,7 +23,7 @@
                                 <select id="product_type_id" class="form-control" name="product_type_id">
                                     <option data-rowtype="none" value="none">Select a product..</option>
                                     @foreach($reimbursement->products() as $option)
-                                        <option {{activeSelect($option['product_entity_id'], 'pi')}} value="{{ $option['product_entity_id'] }}">{{ $option['product'] }}</option>
+                                        <option {{activeSelect($option['product_entity_id'], 'pi')}} value="{{ $option['product_entity_id'] }}">{{ $option['product_name'] }}</option>
                                     @endforeach
                                 </select>
                             </div>

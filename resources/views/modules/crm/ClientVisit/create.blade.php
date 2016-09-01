@@ -122,7 +122,7 @@
                         'name'    => 'product_entity_id',
                         'options' => $client->products(),
                         'keyId'   => 'product_entity_id',
-                        'keyName' => 'product',
+                        'keyName' => 'product_name',
                         'none'    => 'Select a product..',
                     ])
 
