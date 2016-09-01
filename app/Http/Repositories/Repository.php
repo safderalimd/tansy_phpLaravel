@@ -866,15 +866,17 @@ class Repository
 
     public function getAccountTypeFilter()
     {
-        return $this->select(
-            'SELECT
-                row_type,
-                entity_id,
-                drop_down_list_name,
-                sequence_id,
-                reporting_order
-             FROM view_lkp_account_type_filter
-             ORDER BY sequence_id, reporting_order ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_account_type_filter2');
+
+        // return $this->select(
+        //     'SELECT
+        //         row_type,
+        //         entity_id,
+        //         drop_down_list_name,
+        //         sequence_id,
+        //         reporting_order
+        //      FROM view_lkp_account_type_filter
+        //      ORDER BY sequence_id, reporting_order ASC;'
+        // );
     }
 }
