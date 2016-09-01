@@ -57,13 +57,15 @@ class AccountEmployeeRepository extends Repository
 
     public function getDepartments()
     {
-        return $this->select(
-            'SELECT
-                department_name,
-                department_id
-             FROM view_org_lkp_department
-             ORDER BY department_name ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_department');
+
+        // return $this->select(
+        //     'SELECT
+        //         department_name,
+        //         department_id
+        //      FROM view_org_lkp_department
+        //      ORDER BY department_name ASC;'
+        // );
     }
 
     public function getSecurityGroupForEmployees()

@@ -38,11 +38,13 @@ class Repository
 
     public function getFiscalYears()
     {
-        return $this->select(
-            'SELECT fiscal_year_entity_id, fiscal_year
-             FROM view_org_lkp_fiscal_year
-             ORDER BY fiscal_year ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_fiscal_year');
+
+        // return $this->select(
+        //     'SELECT fiscal_year_entity_id, fiscal_year
+        //      FROM view_org_lkp_fiscal_year
+        //      ORDER BY fiscal_year ASC;'
+        // );
     }
 
     public function getClasses()
@@ -64,6 +66,19 @@ class Repository
         //         employee_entity_id
         //      FROM view_org_lkp_account_employee
         //      ORDER BY employee_name ASC;'
+        // );
+    }
+
+    public function getFacilityTypes()
+    {
+        return $this->lookup('sproc_org_lkp_facility_type');
+
+        // return $this->select(
+        //     'SELECT
+        //         facility_type_id,
+        //         facility_type
+        //      FROM view_org_lkp_facility_type
+        //      ORDER BY facility_type ASC;'
         // );
     }
 
@@ -125,29 +140,35 @@ class Repository
 
     public function getCities()
     {
-        return $this->select(
-            'SELECT city_id, city_name, district, state, country
-             FROM view_org_lkp_city
-             ORDER BY city_name ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_city');
+
+        // return $this->select(
+        //     'SELECT city_id, city_name, district, state, country
+        //      FROM view_org_lkp_city
+        //      ORDER BY city_name ASC;'
+        // );
     }
 
     public function getCityAreas()
     {
-        return $this->select(
-            'SELECT city_area
-             FROM view_org_lkp_city_area
-             ORDER BY city_area ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_city_area_area');
+
+        // return $this->select(
+        //     'SELECT city_area
+        //      FROM view_org_lkp_city_area
+        //      ORDER BY city_area ASC;'
+        // );
     }
 
     public function getCastes()
     {
-        return $this->select(
-            'SELECT caste_id, caste_name
-             FROM view_org_lkp_caste
-             ORDER BY caste_name ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_caste');
+
+        // return $this->select(
+        //     'SELECT caste_id, caste_name
+        //      FROM view_org_lkp_caste
+        //      ORDER BY caste_name ASC;'
+        // );
     }
 
     public function getReligions()
@@ -179,11 +200,13 @@ class Repository
 
     public function getDesignations()
     {
-        return $this->select(
-            'SELECT designation_id, designation_name
-             FROM view_org_lkp_designation
-             ORDER BY designation_name ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_designation');
+
+        // return $this->select(
+        //     'SELECT designation_id, designation_name
+        //      FROM view_org_lkp_designation
+        //      ORDER BY designation_name ASC;'
+        // );
     }
 
     public function getQualifications()
@@ -304,15 +327,6 @@ class Repository
         // );
     }
 
-    public function getAccountType4ReceivablePayment()
-    {
-        return $this->select(
-            'SELECT row_type, primary_key_id, drop_down_list_name, sequence_id
-            FROM view_org_lkp_account_type_4_receivable_payment
-            ORDER BY drop_down_list_name ASC;'
-        );
-    }
-
     public function getScheduleGrid()
     {
         return $this->select(
@@ -421,49 +435,72 @@ class Repository
         // );
     }
 
+    public function getCampaigns()
+    {
+        return $this->lookup('sproc_org_lkp_campaign');
+
+        // return $this->select(
+        //     'SELECT
+        //         campaign_name,
+        //         campaign_entity_id
+        //      FROM view_org_lkp_campaign
+        //      ORDER BY campaign_name ASC;'
+        // );
+    }
+
     public function getCategoryType()
     {
-        return $this->select(
-            'SELECT category_type_id, category_name, entity_type_id, entity_type
-            FROM view_org_lkp_category_type
-            ORDER BY category_name ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_category_type');
+
+        // return $this->select(
+        //     'SELECT category_type_id, category_name, entity_type_id, entity_type
+        //     FROM view_org_lkp_category_type
+        //     ORDER BY category_name ASC;'
+        // );
     }
 
     public function getClient()
     {
-        return $this->select(
-            'SELECT entity_name, city, city_area
-            FROM view_org_lkp_client
-            ORDER BY entity_name ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_client');
+
+        // return $this->select(
+        //     'SELECT entity_name, city, city_area
+        //     FROM view_org_lkp_client
+        //     ORDER BY entity_name ASC;'
+        // );
     }
 
     public function getDistrict()
     {
-        return $this->select(
-            'SELECT district
-            FROM view_org_lkp_district
-            ORDER BY district ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_district');
+
+        // return $this->select(
+        //     'SELECT district
+        //     FROM view_org_lkp_district
+        //     ORDER BY district ASC;'
+        // );
     }
 
     public function getEntityName()
     {
-        return $this->select(
-            'SELECT entity_name, entity_type_id, entity_id
-            FROM view_org_lkp_entity_name
-            ORDER BY entity_name ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_entity_name');
+
+        // return $this->select(
+        //     'SELECT entity_name, entity_type_id, entity_id
+        //     FROM view_org_lkp_entity_name
+        //     ORDER BY entity_name ASC;'
+        // );
     }
 
     public function getEntityType()
     {
-        return $this->select(
-            'SELECT entity_type_id, entity_type
-            FROM view_org_lkp_entity_type
-            ORDER BY entity_type ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_entity_type');
+
+        // return $this->select(
+        //     'SELECT entity_type_id, entity_type
+        //     FROM view_org_lkp_entity_type
+        //     ORDER BY entity_type ASC;'
+        // );
     }
 
 
@@ -676,26 +713,36 @@ class Repository
 
     public function getIdentifications()
     {
-        return $this->select(
-            'SELECT
-                unique_key,
-                unique_key_id,
-                default_value
-             FROM view_org_lkp_client_unique_key;'
-        );
+        return $this->lookup('sproc_org_lkp_client_unique_key');
+
+        // return $this->select(
+        //     'SELECT
+        //         unique_key,
+        //         unique_key_id,
+        //         default_value
+        //      FROM view_org_lkp_client_unique_key;'
+        // );
     }
 
     public function getIdentification($id)
     {
-        return $this->select(
-           'SELECT
-               unique_key,
-               unique_key_id,
-               default_value
-            FROM view_org_lkp_client_unique_key
-            WHERE unique_key_id = :id
-            LIMIT 1;', ['id' => $id]
-        );
+        $rows = $this->lookup('sproc_org_lkp_client_unique_key');
+        foreach ($rows as $row) {
+            if ($id == $row['unique_key_id']) {
+                return $row;
+            }
+        }
+        return [];
+
+        // return $this->select(
+        //    'SELECT
+        //        unique_key,
+        //        unique_key_id,
+        //        default_value
+        //     FROM view_org_lkp_client_unique_key
+        //     WHERE unique_key_id = :id
+        //     LIMIT 1;', ['id' => $id]
+        // );
     }
 
     public function getSelectedFacilities($id)
@@ -713,12 +760,14 @@ class Repository
 
     public function getDocumentType()
     {
-        return $this->select(
-            'SELECT
-                document_type_id,
-                document_type
-             FROM view_org_lkp_document_type;'
-        );
+        return $this->lookup('sproc_org_lkp_document_type');
+
+        // return $this->select(
+        //     'SELECT
+        //         document_type_id,
+        //         document_type
+        //      FROM view_org_lkp_document_type;'
+        // );
     }
 
     public function getSecurityGroup()

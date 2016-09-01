@@ -28,17 +28,6 @@ class OrganizationRepository extends Repository
         );
     }
 
-    public function getFacilityTypes()
-    {
-        return $this->select(
-            'SELECT
-                facility_type_id,
-                facility_type
-             FROM view_org_lkp_facility_type
-             ORDER BY facility_type ASC;'
-        );
-    }
-
     public function getOrganizations()
     {
         return $this->select(

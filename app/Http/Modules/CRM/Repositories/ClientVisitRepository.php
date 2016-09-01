@@ -91,17 +91,6 @@ class ClientVisitRepository extends Repository
         );
     }
 
-    public function getFacilityTypes()
-    {
-        return $this->select(
-            'SELECT
-                facility_type_id,
-                facility_type
-             FROM view_org_lkp_facility_type
-             ORDER BY facility_type ASC;'
-        );
-    }
-
     public function getContacts()
     {
         return $this->select(
@@ -112,17 +101,6 @@ class ClientVisitRepository extends Repository
                 contact_entity_id
              FROM view_org_lkp_organization_contact
              ORDER BY contact_name ASC;'
-        );
-    }
-
-    public function getCampaigns()
-    {
-        return $this->select(
-            'SELECT
-                campaign_name,
-                campaign_entity_id
-             FROM view_org_lkp_campaign
-             ORDER BY campaign_name ASC;'
         );
     }
 

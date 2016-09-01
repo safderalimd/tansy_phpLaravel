@@ -69,15 +69,24 @@ class FeeDueReportRepository extends Repository
 
     public function getFilterCriteria($id)
     {
-        return $this->select(
-            'SELECT
-                row_type,
-                primary_key_id,
-                drop_down_list_name,
-                sequence_id
-            FROM view_org_lkp_account_type_4_receivable_payment
-            WHERE primary_key_id = :id
-            LIMIT 1;', ['id' => $id]
-        );
+        $rows = $this->lookup('view_org_lkp_account_type_4_receivable_payment');
+        foreach ($rows as $row) {
+            if ($id == $row['primary_key_id']) {
+                return $row;
+            }
+        }
+
+        return [];
+
+        // return $this->select(
+        //     'SELECT
+        //         row_type,
+        //         primary_key_id,
+        //         drop_down_list_name,
+        //         sequence_id
+        //     FROM view_org_lkp_account_type_4_receivable_payment
+        //     WHERE primary_key_id = :id
+        //     LIMIT 1;', ['id' => $id]
+        // );
     }
 }
