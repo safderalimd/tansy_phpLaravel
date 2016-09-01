@@ -69,7 +69,7 @@ class FeeDueReportRepository extends Repository
 
     public function getFilterCriteria($id)
     {
-        $rows = $this->lookup('view_org_lkp_account_type_4_receivable_payment');
+        $rows = $this->lookup('sproc_org_lkp_account_type_4_receivable_payment');
         foreach ($rows as $row) {
             if ($id == $row['primary_key_id']) {
                 return $row;
