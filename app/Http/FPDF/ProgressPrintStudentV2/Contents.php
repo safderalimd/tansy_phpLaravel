@@ -30,6 +30,7 @@ class Contents
     public $percentage = '';
     public $grade = '';
     public $gpa = '';
+    public $studentId = '';
 
     public function __construct($export, $progress)
     {
@@ -53,7 +54,7 @@ class Contents
         $studentTotals = $this->progress->getTotal($student);
 
         $firstItem = $student->first();
-        $studentId = isset($firstItem['student_entity_id']) ? $firstItem['student_entity_id'] : null;
+        $this->studentId = isset($firstItem['student_entity_id']) ? $firstItem['student_entity_id'] : null;
         $classStudentId = isset($firstItem['class_student_id']) ? $firstItem['class_student_id'] : null;
 
         $this->studentName = isset($firstItem['student_full_name']) ? $firstItem['student_full_name'] : null;

@@ -211,7 +211,13 @@ class PDF extends AlphaPDF
     {
         $this->setXY(214, 36);
         $this->Cell(32, 35, '', 0, 0, 'C');
-        $this->Image(public_path('dashboard/student.png'), 214, 36, 30);
+
+        $id = $this->contents->studentId;
+        $imgPath = storage_path('uploads/'. domain() . "/student-images/{id}");
+        if (file_exists($imgPath)) {
+            $imgPath = public_path('dashboard/student.png');
+        }
+        $this->Image($imgPath, 214, 36, 30);
 
         $this->SetFont('Helvetica', 'BU', 11);
         $text  = "\n" . $this->contents->studentName;
@@ -273,7 +279,13 @@ class PDF extends AlphaPDF
     public function drawLogo()
     {
         $this->SetAlpha(0.2);
-        $this->Image(public_path('images/school-logo.png'), 97, 76, 40);
+
+        $logo = storage_path('uploads/'.domain().'/school-logo/logo.png');
+        if (!file_exists($logo)) {
+            $logo = public_path('images/school-logo.png');
+        }
+
+        $this->Image($logo, 97, 76, 40);
         $this->SetAlpha(1);
     }
 
