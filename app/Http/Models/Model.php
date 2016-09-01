@@ -69,8 +69,10 @@ class Model
         $this->setAttribute('audit_screen_visit', Session::get('user.auditScreenVisit'));
         $this->setAttribute('screen_id', $this->getScreenId());
 
-        $class = $this->repositoryNamespace;
-        $this->repository = new $class();
+        if (isset($this->repositoryNamespace) && !is_null($this->repositoryNamespace)) {
+            $class = $this->repositoryNamespace;
+            $this->repository = new $class();
+        }
     }
 
     /**

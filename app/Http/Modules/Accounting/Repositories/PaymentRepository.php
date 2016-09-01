@@ -8,13 +8,15 @@ class PaymentRepository extends Repository
 {
     public function getSmsReceiptSettings()
     {
-        return $this->select(
-            'SELECT
-                send_payment_sms,
-                payment_receipt_sms_type_id
-             FROM view_sys_lkp_variables
-             LIMIT 1;'
-        );
+        return $this->lookup('sproc_sys_lkp_variables');
+
+        // return $this->select(
+        //     'SELECT
+        //         send_payment_sms,
+        //         payment_receipt_sms_type_id
+        //      FROM view_sys_lkp_variables
+        //      LIMIT 1;'
+        // );
     }
 
     public function getIsCashCounterClosed()

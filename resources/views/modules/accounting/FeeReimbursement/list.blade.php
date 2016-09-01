@@ -106,7 +106,7 @@
                             <div class="col-md-8">
                                 <select id="payment_type_id" class="form-control" name="payment_type_id">
                                     <option data-rowtype="none" value="none">Select a product..</option>
-                                    @foreach($reimbursement->paymentType() as $option)
+                                    @foreach($reimbursement->paymentTypes() as $option)
                                         <option value="{{ $option['payment_type_id'] }}">{{ $option['payment_type'] }}</option>
                                     @endforeach
                                 </select>

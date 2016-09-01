@@ -63,7 +63,7 @@
                     @include('commons.select', [
                         'label'    => 'Teacher' ,
                         'name'     => 'class_teacher_entity_id',
-                        'options'  => $class->teachers(),
+                        'options'  => $class->employees(),
                         'keyId'    => 'employee_entity_id',
                         'keyName'  => 'employee_name',
                         'none'     => 'Select a teacher..',

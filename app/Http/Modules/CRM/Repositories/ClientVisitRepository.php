@@ -54,122 +54,19 @@ class ClientVisitRepository extends Repository
         );
     }
 
-    public function getOrganizations()
-    {
-        return $this->select(
-            'SELECT
-                organization_name,
-                organization_entity_id
-             FROM view_org_lkp_organization
-             ORDER BY organization_name ASC;'
-        );
-    }
-
-    public function getClientOrganizations()
-    {
-        return $this->select(
-            'SELECT
-                organization_name,
-                organization_entity_id,
-                organization_type
-             FROM view_org_lkp_organization
-             WHERE organization_type = :type
-             ORDER BY organization_name ASC;', ['type' => 'Client']
-        );
-    }
-
-    public function getAgentOrganizations()
-    {
-        return $this->select(
-            'SELECT
-                organization_name,
-                organization_entity_id,
-                organization_type
-             FROM view_org_lkp_organization
-             WHERE organization_type = :type
-             ORDER BY organization_name ASC;', ['type' => 'Broker']
-        );
-    }
-
-    public function getFacilityTypes()
-    {
-        return $this->select(
-            'SELECT
-                facility_type_id,
-                facility_type
-             FROM view_org_lkp_facility_type
-             ORDER BY facility_type ASC;'
-        );
-    }
-
     public function getContacts()
     {
-        return $this->select(
-            'SELECT
-                contact_name,
-                facility_entity_id,
-                organization_entity_id,
-                contact_entity_id
-             FROM view_org_lkp_organization_contact
-             ORDER BY contact_name ASC;'
-        );
-    }
+        return $this->lookup('sproc_org_lkp_organization_contact');
 
-    public function getAgents()
-    {
-        return $this->select(
-            'SELECT
-                agent_name,
-                individual_entity_id,
-                mobile_phone,
-                organization_entity_id
-             FROM view_org_lkp_agent
-             ORDER BY agent_name ASC;'
-        );
-    }
-
-    public function getUnitTypes()
-    {
-        return $this->select(
-            'SELECT
-                unit_type_id,
-                unit_type
-             FROM view_crm_lkp_unit_type
-             ORDER BY unit_type ASC;'
-        );
-    }
-
-    public function getVisitType()
-    {
-        return $this->select(
-            'SELECT
-                visit_type_id,
-                visit_type
-             FROM view_crm_lkp_visit_type
-             ORDER BY visit_type ASC;'
-        );
-    }
-
-    public function getCampaigns()
-    {
-        return $this->select(
-            'SELECT
-                campaign_name,
-                campaign_entity_id
-             FROM view_org_lkp_campaign
-             ORDER BY campaign_name ASC;'
-        );
-    }
-
-    public function getStatuses()
-    {
-        return $this->select(
-            'SELECT
-                client_status,
-                client_status_id
-             FROM view_crm_lkp_client_status
-             ORDER BY client_status ASC;'
-        );
+        // return $this->select(
+        //     'SELECT
+        //         contact_name,
+        //         facility_entity_id,
+        //         organization_entity_id,
+        //         contact_entity_id
+        //      FROM view_org_lkp_organization_contact
+        //      ORDER BY contact_name ASC;'
+        // );
     }
 
     public function insert($model)

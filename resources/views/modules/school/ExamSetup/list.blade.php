@@ -21,10 +21,10 @@
             <form class="form-horizontal" id="select-exam-form" action="{{url_with_query("/cabinet/exam-setup/copy")}}" method="POST">
                 {{ csrf_field() }}
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="exam_entity_id">Exam</label>
-                            <div class="col-md-4">
+                            <label class="col-md-4 control-label" for="exam_entity_id">Exam</label>
+                            <div class="col-md-8">
                                 <select id="exam_entity_id" class="form-control" name="exam_entity_id">
                                     <option value="none">Select an exam..</option>
                                     @foreach($setup->examDropdown() as $option)
@@ -32,12 +32,10 @@
                                     @endforeach
                                 </select>
                             </div>
-
-                            <div class="col-md-4">
-                                <button class="btn btn-primary grid_btn" type="submit">COPY EXAM SETUP FROM PREVIOUS YEAR</button>
-                            </div>
-
                         </div>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-primary grid_btn" type="submit">COPY EXAM SETUP FROM PREVIOUS YEAR</button>
                     </div>
                 </div>
             </form>

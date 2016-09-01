@@ -14,19 +14,6 @@ class AccountStudentRepository extends Repository
         return $this->select($sql);
     }
 
-    public function getSecurityGroupForParent()
-    {
-        return $this->select(
-            'SELECT
-                security_group,
-                security_group_entity_id,
-                system_value
-             FROM view_sec_lkp_security_group
-             WHERE security_group = :group
-             LIMIT 1;', ['group' => 'Parent']
-        );
-    }
-
     public function update($model)
     {
         $procedure = 'sproc_org_account_student_dml_upd';

@@ -6,15 +6,6 @@ use App\Http\Repositories\Repository;
 
 class StudentRepository extends Repository
 {
-    public function getExamWithResult()
-    {
-        return $this->select(
-            'SELECT exam, exam_type, exam_entity_id, reporting_order
-            FROM view_sch_lkp_exam_with_result
-            ORDER BY reporting_order ASC;'
-        );
-    }
-
     public function studentInfo($model)
     {
         $procedure = 'sproc_dsh_sch_student_v1';

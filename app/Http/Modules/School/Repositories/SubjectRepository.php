@@ -35,16 +35,6 @@ class SubjectRepository extends Repository
         );
     }
 
-    public function getSubjectTypes()
-    {
-        return $this->select(
-            'SELECT
-                subject_type_id,
-                subject_type
-             FROM view_sch_lkp_subject_type;'
-        );
-    }
-
     public function insert($model)
     {
         $procedure = 'sproc_sch_subject_dml_ins';

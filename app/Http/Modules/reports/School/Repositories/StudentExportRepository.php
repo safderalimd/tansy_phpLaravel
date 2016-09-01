@@ -90,31 +90,38 @@ class StudentExportRepository extends Repository
         );
     }
 
-    public function getDropdown()
-    {
-        return $this->select(
-            'SELECT
-                row_type,
-                primary_key_id,
-                drop_down_list_name,
-                sequence_id
-            FROM view_org_lkp_class_type_4_student_pdf_report
-            ORDER BY drop_down_list_name;'
-        );
-    }
+    // public function getDropdown()
+    // {
+        // return $this->lookup('sproc_org_lkp_class_type_4_student_pdf_report');
 
-    public function getFilterCriteria($id)
+        // return $this->select(
+        //     'SELECT
+        //         row_type,
+        //         primary_key_id,
+        //         drop_down_list_name,
+        //         sequence_id
+        //     FROM view_org_lkp_class_type_4_student_pdf_report
+        //     ORDER BY drop_down_list_name;'
+        // );
+    // }
+
+    public function getFilterCriteria($model)
     {
-        return $this->select(
-            'SELECT
-                row_type,
-                primary_key_id,
-                drop_down_list_name,
-                sequence_id
-            FROM view_org_lkp_class_type_4_student_pdf_report
-            WHERE primary_key_id = :id
-            ORDER BY drop_down_list_name
-            LIMIT 1;', ['id' => $id]
-        );
+        $procedure = 'sproc_org_lkp_class_type_4_student_pdf_report';
+
+        $data = $this->procedure($model, $procedure, [':iparam_primary_key_id'], []);
+        return first_resultset($data);
+
+        // return $this->select(
+        //     'SELECT
+        //         row_type,
+        //         primary_key_id,
+        //         drop_down_list_name,
+        //         sequence_id
+        //     FROM view_org_lkp_class_type_4_student_pdf_report
+        //     WHERE primary_key_id = :id
+        //     ORDER BY drop_down_list_name
+        //     LIMIT 1;', ['id' => $id]
+        // );
     }
 }

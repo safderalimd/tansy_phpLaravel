@@ -6,20 +6,6 @@ use App\Http\Repositories\Repository;
 
 class FeeDueReportRepository extends Repository
 {
-    public function getAccountsDropdown()
-    {
-        return $this->select(
-            'SELECT
-                row_type,
-                entity_id AS primary_key_id,
-                drop_down_list_name,
-                sequence_id,
-                reporting_order
-             FROM view_lkp_account_type_filter
-             ORDER BY sequence_id, reporting_order ASC;'
-        );
-    }
-
     public function getAllFees($model)
     {
         $procedure = 'sproc_act_rcv_due_lst';
@@ -67,17 +53,28 @@ class FeeDueReportRepository extends Repository
         );
     }
 
-    public function getFilterCriteria($id)
+    public function getFilterCriteria($model)
     {
-        return $this->select(
-            'SELECT
-                row_type,
-                primary_key_id,
-                drop_down_list_name,
-                sequence_id
-            FROM view_org_lkp_account_type_4_receivable_payment
-            WHERE primary_key_id = :id
-            LIMIT 1;', ['id' => $id]
-        );
+        $procedure = 'sproc_org_lkp_account_type_4_receivable_payment';
+
+        $iparams = [
+            ':iparam_primary_key_id'
+        ];
+
+        $oparams = [];
+
+        $data = $this->procedure($model, $procedure, $iparams, $oparams);
+        return first_resultset($data);
+
+        // return $this->select(
+        //     'SELECT
+        //         row_type,
+        //         primary_key_id,
+        //         drop_down_list_name,
+        //         sequence_id
+        //     FROM view_org_lkp_account_type_4_receivable_payment
+        //     WHERE primary_key_id = :id
+        //     LIMIT 1;', ['id' => $id]
+        // );
     }
 }

@@ -20,17 +20,6 @@ class AccountEmployeeRepository extends Repository
         );
     }
 
-    public function getManagers()
-    {
-        return $this->select(
-            'SELECT
-                employee_name,
-                employee_entity_id
-             FROM view_org_lkp_account_employee
-             ORDER BY employee_name ASC;'
-        );
-    }
-
     public function getModelById($id)
     {
         return $this->select(
@@ -68,25 +57,15 @@ class AccountEmployeeRepository extends Repository
 
     public function getDepartments()
     {
-        return $this->select(
-            'SELECT
-                department_name,
-                department_id
-             FROM view_org_lkp_department
-             ORDER BY department_name ASC;'
-        );
-    }
+        return $this->lookup('sproc_org_lkp_department');
 
-    public function getSecurityGroupForEmployees()
-    {
-        return $this->select(
-            'SELECT
-                security_group,
-                security_group_entity_id,
-                system_value
-             FROM view_sec_lkp_security_group
-             WHERE system_value = :value;', ['value' => 9]
-        );
+        // return $this->select(
+        //     'SELECT
+        //         department_name,
+        //         department_id
+        //      FROM view_org_lkp_department
+        //      ORDER BY department_name ASC;'
+        // );
     }
 
     public function insert($model)
