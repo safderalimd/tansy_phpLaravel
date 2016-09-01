@@ -15,38 +15,44 @@ class SendSmsRepository extends Repository
 
     public function smsMessagePrefix()
     {
-        return $this->select(
-            'SELECT
-                prefix_id,
-                prefix_text
-             FROM view_sms_lkp_template_prefix LIMIT 1;'
-        );
+        return $this->lookup('sproc_sms_lkp_template_prefix');
+
+        // return $this->select(
+        //     'SELECT
+        //         prefix_id,
+        //         prefix_text
+        //      FROM view_sms_lkp_template_prefix LIMIT 1;'
+        // );
     }
 
     public function smsCredentials()
     {
-        return $this->select(
-            'SELECT
-                provider_entity_id,
-                sender_user_name,
-                sender_hash,
-                sender_id,
-                active
-             FROM view_sms_lkp_credentials
-             WHERE active = 1
-             LIMIT 1;'
-        );
+        return $this->lookup('sproc_sms_lkp_credentials');
+
+        // return $this->select(
+        //     'SELECT
+        //         provider_entity_id,
+        //         sender_user_name,
+        //         sender_hash,
+        //         sender_id,
+        //         active
+        //      FROM view_sms_lkp_credentials
+        //      WHERE active = 1
+        //      LIMIT 1;'
+        // );
     }
 
     public function getSmsTypes()
     {
-        return $this->select(
-            'SELECT
-                sms_type,
-                sms_type_id
-            FROM view_sms_lkp_sms_type
-            ORDER BY sms_type ASC;'
-        );
+        return $this->lookup('sproc_sms_lkp_sms_type');
+
+        // return $this->select(
+        //     'SELECT
+        //         sms_type,
+        //         sms_type_id
+        //     FROM view_sms_lkp_sms_type
+        //     ORDER BY sms_type ASC;'
+        // );
     }
 
     public function feeReminders($model)

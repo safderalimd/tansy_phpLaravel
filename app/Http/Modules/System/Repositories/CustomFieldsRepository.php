@@ -8,47 +8,55 @@ class CustomFieldsRepository extends Repository
 {
     public function getEntities()
     {
-        return $this->select(
-            'SELECT
-                screen_id,
-                screen_name
-             FROM view_sys_lkp_custom_screen
-             ORDER BY screen_name ASC;'
-        );
+        return $this->lookup('sproc_sys_lkp_custom_screen');
+
+        // return $this->select(
+        //     'SELECT
+        //         screen_id,
+        //         screen_name
+        //      FROM view_sys_lkp_custom_screen
+        //      ORDER BY screen_name ASC;'
+        // );
     }
 
     public function getExistingDropDown()
     {
-        return $this->select(
-            'SELECT
-                row_type,
-                primary_key_id,
-                list_name
-             FROM view_sys_lkp_custom_field_link_existing_drop_down
-             ORDER BY list_name ASC;'
-        );
+        return $this->lookup('sproc_sys_lkp_custom_field_link_existing_drop_down');
+
+        // return $this->select(
+        //     'SELECT
+        //         row_type,
+        //         primary_key_id,
+        //         list_name
+        //      FROM view_sys_lkp_custom_field_link_existing_drop_down
+        //      ORDER BY list_name ASC;'
+        // );
     }
 
     public function getFieldDataType()
     {
-        return $this->select(
-            'SELECT
-                data_type_id,
-                data_type
-             FROM view_sys_lkp_custom_field_data_type
-             ORDER BY data_type ASC;'
-        );
+        return $this->lookup('sproc_sys_lkp_custom_field_data_type');
+
+        // return $this->select(
+        //     'SELECT
+        //         data_type_id,
+        //         data_type
+        //      FROM view_sys_lkp_custom_field_data_type
+        //      ORDER BY data_type ASC;'
+        // );
     }
 
     public function getFieldInputType()
     {
-        return $this->select(
-            'SELECT
-                input_type_id,
-                input_type
-             FROM view_sys_lkp_custom_field_input_type
-             ORDER BY input_type ASC;'
-        );
+        return $this->lookup('sproc_sys_lkp_custom_field_input_type');
+
+        // return $this->select(
+        //     'SELECT
+        //         input_type_id,
+        //         input_type
+        //      FROM view_sys_lkp_custom_field_input_type
+        //      ORDER BY input_type ASC;'
+        // );
     }
 
     public function getGrid($id)

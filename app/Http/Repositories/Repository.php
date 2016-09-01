@@ -632,11 +632,13 @@ class Repository
 
     public function getAdmissionStatus()
     {
-        return $this->select(
-            'SELECT admission_status_id, admission_status
-            FROM view_sch_lkp_admission_status
-            ORDER BY admission_status ASC;'
-        );
+        return $this->lookup('sproc_sch_lkp_admission_status');
+
+        // return $this->select(
+        //     'SELECT admission_status_id, admission_status
+        //     FROM view_sch_lkp_admission_status
+        //     ORDER BY admission_status ASC;'
+        // );
     }
 
     public function getClassCategories()
@@ -706,11 +708,25 @@ class Repository
 
     public function getSubject()
     {
-        return $this->select(
-            'SELECT subject, subject_entity_id
-            FROM view_sch_lkp_subject
-            ORDER BY subject ASC;'
-        );
+        return $this->lookup('sproc_sch_lkp_subject');
+
+        // return $this->select(
+        //     'SELECT subject, subject_entity_id
+        //     FROM view_sch_lkp_subject
+        //     ORDER BY subject ASC;'
+        // );
+    }
+
+    public function getSubjectTypes()
+    {
+        return $this->lookup('sproc_sch_lkp_subject_type');
+
+        // return $this->select(
+        //     'SELECT
+        //         subject_type_id,
+        //         subject_type
+        //      FROM view_sch_lkp_subject_type;'
+        // );
     }
 
     public function getMarkSheetDetail()
@@ -769,20 +785,13 @@ class Repository
 
     public function getUser()
     {
-        return $this->select(
-            'SELECT user_id, login_name
-            FROM view_sec_lkp_user
-            ORDER BY login_name ASC;'
-        );
-    }
+        return $this->lookup('sproc_sec_lkp_user');
 
-    public function getSmsType()
-    {
-        return $this->select(
-            'SELECT sms_type, sms_type_id
-            FROM view_sms_lkp_sms_type
-            ORDER BY sms_type ASC;'
-        );
+        // return $this->select(
+        //     'SELECT user_id, login_name
+        //     FROM view_sec_lkp_user
+        //     ORDER BY login_name ASC;'
+        // );
     }
 
     public function getIdentifications()
