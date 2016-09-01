@@ -4,6 +4,7 @@ namespace App\Http\Modules\School\Controllers;
 
 use App\Http\Controllers\Controller;
 
+use Illuminate\Http\Request;
 use App\Http\Modules\School\Models\ClassSubjectMap;
 use App\Http\Modules\School\Requests\ClassSubjectMapFormRequest;
 
@@ -37,14 +38,14 @@ class ClassSubjectMapController extends Controller
      * @param  int $subjectId
      * @return \Illuminate\Http\Response
      */
-    public function map($classId, $subjectId)
+    public function map(Request $request, $classId, $subjectId)
     {
         $subject = new ClassSubjectMap;
         $subject->setAttribute('class_entity_id', $classId);
         $subject->setAttribute('subject_entity_id', $subjectId);
         $subject->map();
         flash('Subject Mapped!');
-        return redirect_back();
+        return redirect('/cabinet/class-subject-map?page='.$request->input('page'));
     }
 
     /**
@@ -54,7 +55,7 @@ class ClassSubjectMapController extends Controller
      * @param  int $subjectId
      * @return \Illuminate\Http\Response
      */
-    public function destroy($classId, $subjectId)
+    public function destroy(Request $request, $classId, $subjectId)
     {
         // $subject = ClassSubjectMap::findOrFail($id);
         $subject = new ClassSubjectMap;
@@ -62,6 +63,6 @@ class ClassSubjectMapController extends Controller
         $subject->setAttribute('subject_entity_id', $subjectId);
         $subject->delete();
         flash('Subject Map Deleted!');
-        return redirect_back();
+        return redirect('/cabinet/class-subject-map?page='.$request->input('page'));
     }
 }
