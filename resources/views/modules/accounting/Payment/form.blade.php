@@ -213,11 +213,6 @@
     // update the new balance box
     function updateNewBalance() {
         var newBalance = getNewBalance();
-        if (newBalance < 0) {
-            $('#pay-now-btn').prop('disabled', true);
-        } else {
-            enablePayNowButton();
-        }
         $('#new-balance').text(addCommas(newBalance));
     }
 
@@ -248,7 +243,9 @@
 
     function updatePaymentButton() {
         var paidAmount = getPaidAmount();
-        if (paidAmount <= 0) {
+        var newBalance = getNewBalance();
+
+        if (paidAmount <= 0 || newBalance < 0) {
             $('#pay-now-btn').prop('disabled', true);
         } else {
             enablePayNowButton()

@@ -77,7 +77,7 @@
                         <td>&#x20b9; {{amount($item['due_amount'])}}</td>
                         <td>{{style_date($item['due_start_date'])}}</td>
                         <td>
-                            <input disabled="disabled" data-rule-required="true" data-rule-number="true" data-rule-min="0" data-aei="{{$item['account_entity_id']}}" data-sei="{{$item['schedule_entity_id']}}" data-dateid="{{$item['date_id']}}" data-totalamount="{{$item['total_amount']}}" type="text" name="{{$i++}}reinbursement-amount" class="reinbursement-amount form-control">
+                            <input disabled="disabled" data-rule-required="true" data-rule-number="true" data-rule-min="0" data-aei="{{$item['account_entity_id']}}" data-sei="{{$item['schedule_entity_id']}}" data-dateid="{{$item['date_id']}}" data-totalamount="{{$item['total_amount']}}" data-balance="{{$item['due_amount']}}" type="text" name="{{$i++}}reinbursement-amount" class="reinbursement-amount form-control paidAmountValidation">
                         </td>
                         <td>
                             <input disabled="disabled" data-rule-number="true" data-rule-min="0" type="text" name="{{$i}}receipt-number" class="receipt-number form-control">
@@ -134,6 +134,16 @@
 
 @section('scripts')
 <script type="text/javascript">
+
+    // paid amount can't be greter than balance
+    $.validator.addMethod('paidAmountValidation', function(value, element) {
+        var balance = $(element).attr('data-balance');
+        balance = parseFloat(balance);
+        if (balance < parseFloat(value)) {
+            return false;
+        }
+        return true;
+    }, "Paid Amount can't be larger than Balance.");
 
     $('#amounts-table table').DataTable({
         "aaSorting": [],
