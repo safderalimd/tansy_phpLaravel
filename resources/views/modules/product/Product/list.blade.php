@@ -25,9 +25,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($product->products() as $item)
+                    @foreach($product->productGrid() as $item)
                     <tr>
-                        <td>{{$item['product']}}</td>
+                        <td>{{$item['product_name']}}</td>
                         <td>{{$item['product_type']}}</td>
                         <td>
                             @if ($item['active'])

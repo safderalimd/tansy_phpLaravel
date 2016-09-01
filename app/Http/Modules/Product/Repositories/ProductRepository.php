@@ -7,6 +7,18 @@ use App\Http\Models\Model;
 
 class ProductRepository extends Repository
 {
+    public function getProductGrid()
+    {
+        $procedure = 'sproc_prd_product_detail';
+
+        $iparams = [
+            ':iparam_product_entity_id',
+        ];
+
+        $data = $this->procedure(new Model, $procedure, $iparams, []);
+        return first_resultset($data);
+    }
+
     public function getModelById($id)
     {
         $procedure = 'sproc_prd_product_detail';
