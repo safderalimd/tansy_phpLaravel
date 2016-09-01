@@ -6,16 +6,6 @@ use App\Http\Repositories\Repository;
 
 class ExamRepository extends Repository
 {
-    public function getExamTypes()
-    {
-        return $this->select(
-            'SELECT
-                exam_type_id,
-                exam_type
-             FROM view_sch_lkp_exam_type;'
-        );
-    }
-
     public function studentReport($model)
     {
         $procedure = 'sproc_sch_lkp_exam_student_report_version';

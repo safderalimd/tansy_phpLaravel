@@ -37,28 +37,6 @@ class SchoolClassRepository extends Repository
         );
     }
 
-    public function getClassGroups()
-    {
-        return $this->select(
-            'SELECT
-                class_group_entity_id,
-                class_group
-             FROM view_sch_lkp_class_group
-             ORDER BY class_group ASC;'
-        );
-    }
-
-    public function getClassCategories()
-    {
-        return $this->select(
-            'SELECT
-                class_category_entity_id,
-                class_category
-             FROM view_sch_lkp_class_category
-             ORDER BY class_category ASC;'
-        );
-    }
-
     public function insert($model)
     {
         $procedure = 'sproc_sch_class_dml_ins';

@@ -44,13 +44,15 @@ class OrganizationRepository extends Repository
 
     public function getOrganizationTypes()
     {
-        return $this->select(
-            'SELECT
-                organization_type,
-                organization_type_id
-             FROM view_org_lkp_organization_type_for_org_screen
-             ORDER BY organization_type ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_organization_type_for_org_screen');
+
+        // return $this->select(
+        //     'SELECT
+        //         organization_type,
+        //         organization_type_id
+        //      FROM view_org_lkp_organization_type_for_org_screen
+        //      ORDER BY organization_type ASC;'
+        // );
     }
 
     public function insert($model)

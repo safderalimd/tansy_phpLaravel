@@ -6,18 +6,6 @@ use App\Http\Repositories\Repository;
 
 class DailyExpenseRepository extends Repository
 {
-    public function getOrganizationSupplier()
-    {
-        return $this->select(
-            'SELECT
-                organization_name,
-                organization_entity_id,
-                organization_type
-             FROM view_org_lkp_organization_supplier
-             ORDER BY organization_name ASC;'
-        );
-    }
-
     public function getModelById($id)
     {
         return $this->select(

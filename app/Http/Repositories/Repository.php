@@ -49,11 +49,13 @@ class Repository
 
     public function getClasses()
     {
-        return $this->select(
-            'SELECT class_entity_id, class_name, class_group, class_category, class_group_entity_id, class_category_entity_id, class_reporting_order
-             FROM view_sch_lkp_class
-             ORDER BY class_reporting_order ASC;'
-        );
+        return $this->lookup('sproc_sch_lkp_class');
+
+        // return $this->select(
+        //     'SELECT class_entity_id, class_name, class_group, class_category, class_group_entity_id, class_category_entity_id, class_reporting_order
+        //      FROM view_sch_lkp_class
+        //      ORDER BY class_reporting_order ASC;'
+        // );
     }
 
     public function getEmployees()
@@ -131,11 +133,13 @@ class Repository
 
     public function getClassGroups()
     {
-        return $this->select(
-            'SELECT class_group_entity_id, class_group
-             FROM view_sch_lkp_class_group
-             ORDER BY class_group ASC;'
-        );
+        return $this->lookup('sproc_sch_lkp_class_group');
+
+        // return $this->select(
+        //     'SELECT class_group_entity_id, class_group
+        //      FROM view_sch_lkp_class_group
+        //      ORDER BY class_group ASC;'
+        // );
     }
 
     public function getCities()
@@ -173,29 +177,49 @@ class Repository
 
     public function getReligions()
     {
-        return $this->select(
-            'SELECT religion_id, religion_name
-             FROM view_org_lkp_religion
-             ORDER BY religion_name ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_religion');
+
+        // return $this->select(
+        //     'SELECT religion_id, religion_name
+        //      FROM view_org_lkp_religion
+        //      ORDER BY religion_name ASC;'
+        // );
+    }
+
+    public function getOrganizationSupplier()
+    {
+        return $this->lookup('sproc_org_lkp_organization_supplier');
+
+        // return $this->select(
+        //     'SELECT
+        //         organization_name,
+        //         organization_entity_id,
+        //         organization_type
+        //      FROM view_org_lkp_organization_supplier
+        //      ORDER BY organization_name ASC;'
+        // );
     }
 
     public function getLanguages()
     {
-        return $this->select(
-            'SELECT language_id, language_name
-             FROM view_org_lkp_language
-             ORDER BY language_name ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_language');
+
+        // return $this->select(
+        //     'SELECT language_id, language_name
+        //      FROM view_org_lkp_language
+        //      ORDER BY language_name ASC;'
+        // );
     }
 
     public function getRelationships()
     {
-        return $this->select(
-            'SELECT relationship_type_id, relationship_name
-             FROM view_org_lkp_relationship
-             ORDER BY relationship_name ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_relationship');
+
+        // return $this->select(
+        //     'SELECT relationship_type_id, relationship_name
+        //      FROM view_org_lkp_relationship
+        //      ORDER BY relationship_name ASC;'
+        // );
     }
 
     public function getDesignations()
@@ -211,11 +235,13 @@ class Repository
 
     public function getQualifications()
     {
-        return $this->select(
-            'SELECT qualification_id, qualification_name
-             FROM view_org_lkp_qualification
-             ORDER BY qualification_name ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_qualification');
+
+        // return $this->select(
+        //     'SELECT qualification_id, qualification_name
+        //      FROM view_org_lkp_qualification
+        //      ORDER BY qualification_name ASC;'
+        // );
     }
 
     public function getProducts()
@@ -229,11 +255,13 @@ class Repository
 
     public function getProductTypes()
     {
-        return $this->select(
-            'SELECT product_type_entity_id, product_type
-             FROM view_prd_lkp_product_type
-             ORDER BY product_type;'
-        );
+        return $this->lookup('sproc_prd_lkp_product_type');
+
+        // return $this->select(
+        //     'SELECT product_type_entity_id, product_type
+        //      FROM view_prd_lkp_product_type
+        //      ORDER BY product_type;'
+        // );
     }
 
     public function getClassSubjectsGrid()
@@ -290,7 +318,7 @@ class Repository
 
     public function getStatuses()
     {
-        return $this->lookup('sproc_act_lkp_adjustment_type');
+        return $this->lookup('sproc_crm_lkp_client_status');
 
         // return $this->select(
         //     'SELECT
@@ -506,38 +534,46 @@ class Repository
 
     public function getFrequency()
     {
-        return $this->select(
-            'SELECT frequency_id, description
-            FROM view_org_lkp_frequency
-            ORDER BY description ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_frequency');
+
+        // return $this->select(
+        //     'SELECT frequency_id, description
+        //     FROM view_org_lkp_frequency
+        //     ORDER BY description ASC;'
+        // );
     }
 
     public function getIndividual()
     {
-        return $this->select(
-            'SELECT individual_entity_id, individual_name, entity_type_id, entity_type
-            FROM view_org_lkp_individual
-            ORDER BY individual_name ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_individual');
+
+        // return $this->select(
+        //     'SELECT individual_entity_id, individual_name, entity_type_id, entity_type
+        //     FROM view_org_lkp_individual
+        //     ORDER BY individual_name ASC;'
+        // );
     }
 
     public function getOrganizationType()
     {
-        return $this->select(
-            'SELECT organization_type, organization_type_id
-            FROM view_org_lkp_organization_type
-            ORDER BY organization_type ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_organization_type');
+
+        // return $this->select(
+        //     'SELECT organization_type, organization_type_id
+        //     FROM view_org_lkp_organization_type
+        //     ORDER BY organization_type ASC;'
+        // );
     }
 
     public function getState()
     {
-        return $this->select(
-            'SELECT state
-            FROM view_org_lkp_state
-            ORDER BY state ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_state');
+
+        // return $this->select(
+        //     'SELECT state
+        //     FROM view_org_lkp_state
+        //     ORDER BY state ASC;'
+        // );
     }
 
     public function getOrganizationDetail()
@@ -603,22 +639,60 @@ class Repository
         );
     }
 
-    public function getClassCategory()
+    public function getClassCategories()
     {
-        return $this->select(
-            'SELECT class_category_entity_id, class_category
-            FROM view_sch_lkp_class_category
-            ORDER BY class_category ASC;'
-        );
+        return $this->lookup('sproc_sch_lkp_class_category');
+
+        // return $this->select(
+        //     'SELECT
+        //         class_category_entity_id,
+        //         class_category
+        //      FROM view_sch_lkp_class_category
+        //      ORDER BY class_category ASC;'
+        // );
     }
+
+    // public function getClassCategory()
+    // {
+    //     return $this->select(
+    //         'SELECT class_category_entity_id, class_category
+    //         FROM view_sch_lkp_class_category
+    //         ORDER BY class_category ASC;'
+    //     );
+    // }
 
     public function getExam()
     {
-        return $this->select(
-            'SELECT exam, exam_type, exam_entity_id, reporting_order
-            FROM view_sch_lkp_exam
-            ORDER BY reporting_order ASC;'
-        );
+        return $this->lookup('sproc_sch_lkp_exam');
+
+        // return $this->select(
+        //     'SELECT exam, exam_type, exam_entity_id, reporting_order
+        //     FROM view_sch_lkp_exam
+        //     ORDER BY reporting_order ASC;'
+        // );
+    }
+
+    public function getExamTypes()
+    {
+        return $this->lookup('sproc_sch_lkp_exam_type');
+
+        // return $this->select(
+        //     'SELECT
+        //         exam_type_id,
+        //         exam_type
+        //      FROM view_sch_lkp_exam_type;'
+        // );
+    }
+
+    public function getExamWithResult()
+    {
+        return $this->lookup('sproc_sch_lkp_exam_with_result');
+
+        // return $this->select(
+        //     'SELECT exam, exam_type, exam_entity_id, reporting_order
+        //     FROM view_sch_lkp_exam_with_result
+        //     ORDER BY reporting_order ASC;'
+        // );
     }
 
     public function getStudents()

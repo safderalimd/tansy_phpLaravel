@@ -6,18 +6,6 @@ use App\Http\Repositories\Repository;
 
 class FeeReimbursementRepository extends Repository
 {
-    public function getOrganizationSupplier()
-    {
-        return $this->select(
-            'SELECT
-                organization_name,
-                organization_entity_id,
-                organization_type
-             FROM view_org_lkp_organization_supplier
-             ORDER BY organization_name ASC;'
-        );
-    }
-
     public function getAllReimbursements($model)
     {
         $procedure = 'sproc_act_rcv_due_lst_reimbursement';

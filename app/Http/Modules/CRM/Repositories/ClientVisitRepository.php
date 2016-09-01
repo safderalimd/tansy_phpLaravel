@@ -93,15 +93,17 @@ class ClientVisitRepository extends Repository
 
     public function getContacts()
     {
-        return $this->select(
-            'SELECT
-                contact_name,
-                facility_entity_id,
-                organization_entity_id,
-                contact_entity_id
-             FROM view_org_lkp_organization_contact
-             ORDER BY contact_name ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_organization_contact');
+
+        // return $this->select(
+        //     'SELECT
+        //         contact_name,
+        //         facility_entity_id,
+        //         organization_entity_id,
+        //         contact_entity_id
+        //      FROM view_org_lkp_organization_contact
+        //      ORDER BY contact_name ASC;'
+        // );
     }
 
     public function insert($model)
