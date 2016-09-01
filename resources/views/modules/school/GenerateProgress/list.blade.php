@@ -18,10 +18,10 @@
                 <form class="form-horizontal" style="margin-bottom:-15px;" action="{{url_with_query("/cabinet/generate-progress/generate-progress-for-all-classes")}}" method="POST">
                     {{ csrf_field() }}
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label class="col-md-2 control-label" for="exam_entity_id">Exam</label>
-                                <div class="col-md-6">
+                                <label class="col-md-4 control-label" for="exam_entity_id">Exam</label>
+                                <div class="col-md-8">
                                     <select id="exam_entity_id" class="form-control" name="exam_entity_id">
                                         <option value="none">Select an exam..</option>
                                         @foreach($progress->examDropdown() as $option)
@@ -29,10 +29,10 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-4">
-                                   <button class="btn btn-primary grid_btn" type="submit">Generate Progress for all Classes</button>
-                                </div>
                             </div>
+                        </div>
+                        <div class="col-md-3">
+                           <button class="btn btn-primary grid_btn" type="submit">Generate Progress for all Classes</button>
                         </div>
                     </div>
                 </form>
