@@ -20,17 +20,6 @@ class AccountEmployeeRepository extends Repository
         );
     }
 
-    public function getManagers()
-    {
-        return $this->select(
-            'SELECT
-                employee_name,
-                employee_entity_id
-             FROM view_org_lkp_account_employee
-             ORDER BY employee_name ASC;'
-        );
-    }
-
     public function getModelById($id)
     {
         return $this->select(

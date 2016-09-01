@@ -209,7 +209,7 @@
                         @include('commons.select', [
                             'label'   => 'Manager',
                             'name'    => 'manager_entity_id',
-                            'options' => $account->managers(),
+                            'options' => $account->employees(),
                             'keyId'   => 'employee_entity_id',
                             'keyName' => 'employee_name',
                             'none'    => 'Select a manager..',

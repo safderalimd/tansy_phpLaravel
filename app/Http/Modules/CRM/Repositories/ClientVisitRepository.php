@@ -115,41 +115,6 @@ class ClientVisitRepository extends Repository
         );
     }
 
-    public function getAgents()
-    {
-        return $this->select(
-            'SELECT
-                agent_name,
-                individual_entity_id,
-                mobile_phone,
-                organization_entity_id
-             FROM view_org_lkp_agent
-             ORDER BY agent_name ASC;'
-        );
-    }
-
-    public function getUnitTypes()
-    {
-        return $this->select(
-            'SELECT
-                unit_type_id,
-                unit_type
-             FROM view_crm_lkp_unit_type
-             ORDER BY unit_type ASC;'
-        );
-    }
-
-    public function getVisitType()
-    {
-        return $this->select(
-            'SELECT
-                visit_type_id,
-                visit_type
-             FROM view_crm_lkp_visit_type
-             ORDER BY visit_type ASC;'
-        );
-    }
-
     public function getCampaigns()
     {
         return $this->select(
@@ -158,17 +123,6 @@ class ClientVisitRepository extends Repository
                 campaign_entity_id
              FROM view_org_lkp_campaign
              ORDER BY campaign_name ASC;'
-        );
-    }
-
-    public function getStatuses()
-    {
-        return $this->select(
-            'SELECT
-                client_status,
-                client_status_id
-             FROM view_crm_lkp_client_status
-             ORDER BY client_status ASC;'
         );
     }
 

@@ -59,28 +59,6 @@ class SchoolClassRepository extends Repository
         );
     }
 
-    public function getFacilities()
-    {
-        return $this->select(
-            'SELECT
-                facility_entity_id,
-                facility_name
-             FROM view_org_facility_lkp
-             ORDER BY facility_name ASC;'
-        );
-    }
-
-    public function getTeachers()
-    {
-        return $this->select(
-            'SELECT
-                employee_entity_id,
-                employee_name
-             FROM view_org_lkp_account_employee
-             ORDER BY employee_name ASC;'
-        );
-    }
-
     public function insert($model)
     {
         $procedure = 'sproc_sch_class_dml_ins';

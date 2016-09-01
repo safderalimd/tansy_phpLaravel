@@ -6,17 +6,6 @@ use App\Http\Repositories\Repository;
 
 class DailyExpenseRepository extends Repository
 {
-    public function getExpenseTypes()
-    {
-        return $this->select(
-            'SELECT
-                expense_type,
-                expense_type_id
-             FROM view_act_lkp_expense_type
-             ORDER BY expense_type ASC;'
-        );
-    }
-
     public function getOrganizationSupplier()
     {
         return $this->select(
@@ -26,17 +15,6 @@ class DailyExpenseRepository extends Repository
                 organization_type
              FROM view_org_lkp_organization_supplier
              ORDER BY organization_name ASC;'
-        );
-    }
-
-    public function getPaymentTypes()
-    {
-        return $this->select(
-            'SELECT
-                payment_type_id,
-                payment_type
-             FROM view_act_lkp_payment_type
-             ORDER BY payment_type ASC;'
         );
     }
 

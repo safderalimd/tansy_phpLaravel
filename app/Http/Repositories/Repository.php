@@ -54,18 +54,49 @@ class Repository
         );
     }
 
+    public function getEmployees()
+    {
+        return $this->lookup('sproc_org_lkp_account_employee');
+
+        // return $this->select(
+        //     'SELECT
+        //         employee_name,
+        //         employee_entity_id
+        //      FROM view_org_lkp_account_employee
+        //      ORDER BY employee_name ASC;'
+        // );
+    }
+
     public function getFacilities()
     {
-        return $this->select(
-            'SELECT
-                facility_entity_id,
-                facility_name,
-                organization_type,
-                organization_entity_id,
-                organization_type_id
-             FROM view_org_lkp_facility
-             ORDER BY facility_name ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_facility');
+
+        // return $this->select(
+        //     'SELECT
+        //         facility_entity_id,
+        //         facility_name,
+        //         organization_type,
+        //         organization_entity_id,
+        //         organization_type_id
+        //      FROM view_org_lkp_facility
+        //      ORDER BY facility_name ASC;'
+        // );
+    }
+
+    public function getFacilitiesList()
+    {
+        // Todo: used in school class form
+
+
+        // return $this->lookup('sproc_org_lkp_facility');
+
+        // return $this->select(
+        //     'SELECT
+        //         facility_entity_id,
+        //         facility_name
+        //      FROM view_org_facility_lkp
+        //      ORDER BY facility_name ASC;'
+        // );
     }
 
     public function getFacilitiesForOwner()
@@ -191,22 +222,86 @@ class Repository
         );
     }
 
-    public function getAdjustmentType()
+    public function lookup($procedure)
     {
-        return $this->select(
-            'SELECT payment_type_id, payment_type
-            FROM view_act_lkp_adjustment_type
-            ORDER BY payment_type ASC;'
-        );
+        $data = $this->procedure(new Model, $procedure, [], []);
+        return first_resultset($data);
     }
 
-    public function getPaymentType()
+    public function getAdjustmentType()
     {
-        return $this->select(
-            'SELECT payment_type_id, payment_type
-            FROM view_act_lkp_payment_type
-            ORDER BY payment_type ASC;'
-        );
+        return $this->lookup('sproc_act_lkp_adjustment_type');
+
+        // return $this->select(
+        //     'SELECT payment_type_id, payment_type
+        //     FROM view_act_lkp_adjustment_type
+        //     ORDER BY payment_type ASC;'
+        // );
+    }
+
+    public function getExpenseTypes()
+    {
+        return $this->lookup('sproc_act_lkp_expense_type');
+
+        // return $this->select(
+        //     'SELECT
+        //         expense_type,
+        //         expense_type_id
+        //      FROM view_act_lkp_expense_type
+        //      ORDER BY expense_type ASC;'
+        // );
+    }
+
+    public function getPaymentTypes()
+    {
+        return $this->lookup('sproc_act_lkp_payment_type');
+
+        // return $this->select(
+        //     'SELECT
+        //         payment_type_id,
+        //         payment_type
+        //      FROM view_act_lkp_payment_type
+        //      ORDER BY payment_type ASC;'
+        // );
+    }
+
+    public function getStatuses()
+    {
+        return $this->lookup('sproc_act_lkp_adjustment_type');
+
+        // return $this->select(
+        //     'SELECT
+        //         client_status,
+        //         client_status_id
+        //      FROM view_crm_lkp_client_status
+        //      ORDER BY client_status ASC;'
+        // );
+    }
+
+    public function getUnitTypes()
+    {
+        return $this->lookup('sproc_crm_lkp_unit_type');
+
+        // return $this->select(
+        //     'SELECT
+        //         unit_type_id,
+        //         unit_type
+        //      FROM view_crm_lkp_unit_type
+        //      ORDER BY unit_type ASC;'
+        // );
+    }
+
+    public function getVisitType()
+    {
+        return $this->lookup('view_crm_lkp_visit_type');
+
+        // return $this->select(
+        //     'SELECT
+        //         visit_type_id,
+        //         visit_type
+        //      FROM view_crm_lkp_visit_type
+        //      ORDER BY visit_type ASC;'
+        // );
     }
 
     public function getAccountType4ReceivablePayment()
@@ -271,15 +366,6 @@ class Repository
         );
     }
 
-    public function getFacilityLkp()
-    {
-        return $this->select(
-            'SELECT facility_entity_id, facility_name
-            FROM view_org_facility_lkp
-            ORDER BY facility_name ASC;'
-        );
-    }
-
     public function getFiscalYear()
     {
         return $this->select(
@@ -300,20 +386,39 @@ class Repository
 
     public function getAccountType()
     {
-        return $this->select(
-            'SELECT entity_type_id, entity_type
-            FROM view_org_lkp_account_type
-            ORDER BY entity_type ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_account_type');
+
+        // return $this->select(
+        //     'SELECT entity_type_id, entity_type
+        //     FROM view_org_lkp_account_type
+        //     ORDER BY entity_type ASC;'
+        // );
     }
 
     public function getAddressType()
     {
-        return $this->select(
-            'SELECT address_type_id, address_type
-            FROM view_org_lkp_address_type
-            ORDER BY address_type ASC;'
-        );
+        return $this->lookup('sproc_org_lkp_address_type');
+
+        // return $this->select(
+        //     'SELECT address_type_id, address_type
+        //     FROM view_org_lkp_address_type
+        //     ORDER BY address_type ASC;'
+        // );
+    }
+
+    public function getAgents()
+    {
+        return $this->lookup('sproc_org_lkp_agent');
+
+        // return $this->select(
+        //     'SELECT
+        //         agent_name,
+        //         individual_entity_id,
+        //         mobile_phone,
+        //         organization_entity_id
+        //      FROM view_org_lkp_agent
+        //      ORDER BY agent_name ASC;'
+        // );
     }
 
     public function getCategoryType()
