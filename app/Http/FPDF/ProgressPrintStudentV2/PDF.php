@@ -214,7 +214,7 @@ class PDF extends AlphaPDF
 
         $id = $this->contents->studentId;
         $imgPath = storage_path('uploads/'. domain() . "/student-images/{id}");
-        if (file_exists($imgPath)) {
+        if (!file_exists($imgPath)) {
             $imgPath = public_path('dashboard/student.png');
         }
         $this->Image($imgPath, 214, 36, 30);
