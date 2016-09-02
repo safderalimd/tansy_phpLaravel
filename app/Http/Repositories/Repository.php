@@ -86,7 +86,12 @@ class Repository
 
     public function getFacilities()
     {
-        return $this->lookup('sproc_org_lkp_facility');
+        $procedure = 'sproc_org_lkp_facility';
+
+        $iparams = ['-iparam_organization_type'];
+
+        $data = $this->procedure(new Model, $procedure, $iparams, []);
+        return first_resultset($data);
 
         // return $this->select(
         //     'SELECT
@@ -118,17 +123,27 @@ class Repository
 
     public function getFacilitiesForOwner()
     {
-        return $this->select(
-            'SELECT
-                facility_entity_id,
-                facility_name,
-                organization_type,
-                organization_entity_id,
-                organization_type_id
-             FROM view_org_lkp_facility
-             WHERE organization_type = :type
-             ORDER BY facility_name ASC;', ['type' => 'owner']
-        );
+        $procedure = 'sproc_org_lkp_facility';
+
+        $iparams = ['-iparam_organization_type'];
+
+        $model = new Model;
+        $model->setAttribute('organization_type', 'owner');
+
+        $data = $this->procedure($model, $procedure, $iparams, []);
+        return first_resultset($data);
+
+        // return $this->select(
+        //     'SELECT
+        //         facility_entity_id,
+        //         facility_name,
+        //         organization_type,
+        //         organization_entity_id,
+        //         organization_type_id
+        //      FROM view_org_lkp_facility
+        //      WHERE organization_type = :type
+        //      ORDER BY facility_name ASC;', ['type' => 'owner']
+        // );
     }
 
     public function getClassGroups()
