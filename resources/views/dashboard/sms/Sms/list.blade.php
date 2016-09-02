@@ -85,16 +85,10 @@
                                 <div class="row show-grid">
                                     <div class="col-xs-6 col-sm-4">
                                         <h4>
-                                        Total Acounts: {{sms($sms->accounts_with_valid_sms_count + $sms->accounts_with_invalid_sms_count + $sms->accounts_with_no_sms_count)}}
-                                        <br/>
-                                        <br/>
-                                        Acounts with valid sms: {{sms($sms->accounts_with_valid_sms_count)}}
-                                        <br/>
-                                        <br/>
-                                        Acounts with invalid sms: {{sms($sms->accounts_with_invalid_sms_count)}}
-                                        <br/>
-                                        <br/>
-                                        Acounts with no sms: {{sms($sms->accounts_with_no_sms_count)}}
+                                            Total Acounts: {{sms($sms->total_accounts)}}
+                                            <br/>
+                                            <br/>
+                                            Accounts with no Mobile Number: {{sms($sms->accounts_with_no_mobile_number)}}
                                         </h4>
                                     </div>
                                 </div>
