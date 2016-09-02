@@ -31,8 +31,21 @@ class ProductRepository extends Repository
         $model->setAttribute('product_entity_id', $id);
 
         $data = $this->procedure($model, $procedure, $iparams, []);
-        return first_resultset($data);
+        $data = first_resultset($data);
+        if (isset($data[0])) {
+            $data = $data[0];
+        } else {
+            $data = [];
+        }
 
+        $return = [];
+        foreach ($data as $key => $value) {
+            if (!is_numeric($key)) {
+                $return[$key] = $value;
+            }
+        }
+
+        return [$return];
         // return $this->select(
         //     'SELECT
         //         product AS product_name,
