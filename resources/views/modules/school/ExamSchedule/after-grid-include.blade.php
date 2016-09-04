@@ -60,6 +60,31 @@
         </div>
     </div><br/>
 
+    <!-- third row -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="average_reduced_marks">Average Reduced Marks</label>
+                <div class="col-md-8">
+                    <input id="average_reduced_marks" class="form-control" type="text" name="average_reduced_marks" value="" placeholder="Average Reduced Marks">
+               </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="grade_system_id">Grade System</label>
+                <div class="col-md-8">
+                    <select id="grade_system_id" class="form-control" name="grade_system_id">
+                        <option value="none">Select a grade system..</option>
+                        @foreach($schedule->gradeSystem() as $option)
+                            <option value="{{$option['grade_system_id']}}">{{$option['grade_type']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+           </div>
+        </div>
+    </div><br/>
+
     <!-- button -->
     <div class="row">
         <div class="col-md-8">

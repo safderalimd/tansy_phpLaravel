@@ -77,6 +77,8 @@ class ExamScheduleRepository extends Repository
             '-iparam_exam_start_time',
             '-iparam_exam_end_time',
             ':iparam_max_marks',
+            '-iparam_average_reduced_marks',
+            ':iparam_grade_system_id',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',

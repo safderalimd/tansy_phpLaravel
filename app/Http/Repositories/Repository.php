@@ -862,6 +862,11 @@ class Repository
         // );
     }
 
+    public function getGradeSystem()
+    {
+        return $this->lookup('sproc_sch_lkp_exam_grading_system');
+    }
+
     public function getAccountTypeFilter()
     {
         return $this->lookup('sproc_org_lkp_account_type_filter2');

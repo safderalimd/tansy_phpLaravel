@@ -75,6 +75,12 @@
             },
             exam_end_time: {
                 required: true
+            },
+            average_reduced_marks: {
+                required: true
+            },
+            grade_system_id: {
+                requiredSelect: true
             }
         }
     });
