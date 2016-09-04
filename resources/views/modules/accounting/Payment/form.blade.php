@@ -134,9 +134,9 @@
                                 <h5 style="margin:2px;"><small>Send Receipt Email ({{$email}})</small></h5>
                             </label>
 
-                            <label class="checkbox" style="padding-top:1px;margin-top:-3px;">
+                            <label class="checkbox" style="padding-top:1px;margin-top:-10px;">
                                 <input type="checkbox" name="show_receipt_pdf">
-                                <h5 style="margin:2px;"><small>Show Receipt Pdf</small></h5>
+                                <h5 style="margin:2px;"><small>Show Receipt PDF</small></h5>
                             </label>
                         </div>
                     </td>
