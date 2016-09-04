@@ -82,4 +82,9 @@ class ExamSetup extends Model
         $this->setAttribute('exam_schedule_id', $value);
         return $value;
     }
+
+    public function deleteMultiple()
+    {
+        return $this->repository->deleteMultiple($this);
+    }
 }

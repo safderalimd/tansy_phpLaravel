@@ -86,4 +86,12 @@ class ExamSetupController extends Controller
         flash('Exam Copied!');
         return redirect('/cabinet/exam-setup?eei='.$request->input('eei'));
     }
+
+    public function deleteMultiple(Request $request)
+    {
+        $schedule = new ExamSetup($request->input());
+        $schedule->deleteMultiple();
+        flash('Exam Setups Deleted!');
+        return redirect('/cabinet/exam-setup?eei='.$request->input('eei'));
+    }
 }

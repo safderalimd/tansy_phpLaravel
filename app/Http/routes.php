@@ -86,6 +86,7 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('exam-setup/edit/{id}', 'School\Controllers\ExamSetupController@update');
     Route::get('exam-setup/delete', 'School\Controllers\ExamSetupController@destroy');
     Route::post('exam-setup/copy', 'School\Controllers\ExamSetupController@copy');
+    Route::post('exam-setup/delete-multiple', 'School\Controllers\ExamSetupController@deleteMultiple');
 
     Route::get('class-subject-map', 'School\Controllers\ClassSubjectMapController@index');
     Route::get('class-subject-map/map/{classId}/{subjectId}', 'School\Controllers\ClassSubjectMapController@map');

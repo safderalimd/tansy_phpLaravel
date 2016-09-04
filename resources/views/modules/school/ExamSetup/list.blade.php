@@ -43,6 +43,7 @@
             <table class="table table-striped table-bordered table-hover" data-datatable>
                 <thead>
                     <tr>
+                        <th class="text-center"><input type="checkbox" id="toggle-subjects" name="toggle-checkbox" value=""></th>
                         <th>Class Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Subject <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Sub Exam <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
@@ -54,6 +55,9 @@
                 <tbody>
                     @foreach($setup->examSetupGrid() as $item)
                     <tr>
+                        <td class="text-center">
+                            <input type="checkbox" class="exam-schedule-id" name="exam_schedule_id" value="{{$item['exam_schedule_id']}}">
+                        </td>
                         <td>{{$item['class_name']}}</td>
                         <td>{{$item['subject']}}</td>
                         <td>{{$item['sub_exam']}}</td>
@@ -75,6 +79,15 @@
                     @endforeach
                 </tbody>
             </table>
+
+            <br/>
+            <div class="row">
+                <form class="form-horizontal" id="delete-rows-form" action="{{url_with_query("/cabinet/exam-setup/delete-multiple")}}" method="POST">
+                    {{ csrf_field() }}
+                    <input type="hidden" id="exam_schedule_ids" name="exam_schedule_ids">
+                    <button class="btn btn-primary pull-right" disabled="disabled" id="delete-rows-btn" type="submit">Delete Selected Rows</button>
+                </form>
+            </div>
 
 		    @include('commons.modal')
 
@@ -101,6 +114,41 @@
                 requiredSelect: true
             }
         }
+    });
+
+    // Checkbox table header - for this page, toggle all checkboxes
+    $('#toggle-subjects').change(function() {
+        if($(this).is(":checked")) {
+            $('.exam-schedule-id').prop('checked', true);
+        } else {
+            $('.exam-schedule-id').prop('checked', false);
+        }
+    });
+
+    // Disable/Enable Delete Button depending if checkboxes are selected
+    $('.exam-schedule-id, #toggle-subjects').change(function() {
+        if ($('.exam-schedule-id:checked').length > 0) {
+            $('#delete-rows-btn').prop('disabled', false);
+        } else {
+            $('#delete-rows-btn').prop('disabled', true);
+        }
+    });
+
+    // When submitting the form, prepend all selected checkboxes
+    $('#delete-rows-form').submit(function() {
+
+        var examIds = $('.exam-schedule-id:checked').map(function() {
+            return this.value;
+        }).get();
+
+        if (examIds.length == 0) {
+            alert("No exams are selected.");
+            return false;
+        }
+
+        $('#exam_schedule_ids').val(examIds.join('|'));
+
+        return true;
     });
 
 </script>
