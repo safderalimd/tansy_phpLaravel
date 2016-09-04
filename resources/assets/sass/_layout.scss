@@ -35,3 +35,13 @@
 .sch_class.panel-bdr .panel.panel-primary {border: 1px solid #337ab7;}
 .sch_class.panel-bdr .form_panel{width:80%; margin:0 auto; display:block;}
 /*# sourceMappingURL=layout.css.map */
+
+
+table.dataTable thead>tr>th.sorting_asc,
+table.dataTable thead>tr>th.sorting_desc,
+table.dataTable thead>tr>th.sorting,
+table.dataTable thead>tr>td.sorting_asc,
+table.dataTable thead>tr>td.sorting_desc,
+table.dataTable thead>tr>td.sorting {
+    padding-right: 18px;
+}
