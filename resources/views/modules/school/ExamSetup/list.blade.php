@@ -82,11 +82,13 @@
 
             <br/>
             <div class="row">
-                <form class="form-horizontal" id="delete-rows-form" action="{{url_with_query("/cabinet/exam-setup/delete-multiple")}}" method="POST">
-                    {{ csrf_field() }}
-                    <input type="hidden" id="exam_schedule_ids" name="exam_schedule_ids">
-                    <button class="btn btn-primary pull-right" disabled="disabled" id="delete-rows-btn" type="submit">Delete Selected Rows</button>
-                </form>
+                <div class="col-md-12">
+                    <form class="form-horizontal" id="delete-rows-form" action="{{url_with_query("/cabinet/exam-setup/delete-multiple")}}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" id="exam_schedule_ids" name="exam_schedule_ids">
+                        <button class="btn btn-primary pull-right" disabled="disabled" id="delete-rows-btn" type="submit">Delete Selected Rows</button>
+                    </form>
+                </div>
             </div>
 
 		    @include('commons.modal')
