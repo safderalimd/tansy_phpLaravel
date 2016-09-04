@@ -40,7 +40,7 @@
                 </div>
             </form>
 
-            <table class="table table-striped table-bordered table-hover" data-datatable>
+            <table id="exam-setup-table" class="table table-striped table-bordered table-hover" data-datatable>
                 <thead>
                     <tr>
                         <th class="text-center"><input type="checkbox" id="toggle-subjects" name="toggle-checkbox" value=""></th>
@@ -151,6 +151,13 @@
         $('#exam_schedule_ids').val(examIds.join('|'));
 
         return true;
+    });
+
+    // reset all checkboxes after you change the page
+    $('#exam-setup-table').on('page.dt', function () {
+        $('.exam-schedule-id').prop('checked', false);
+        $('#toggle-subjects').prop('checked', false);
+        $('#delete-rows-btn').prop('disabled', true);
     });
 
 </script>
