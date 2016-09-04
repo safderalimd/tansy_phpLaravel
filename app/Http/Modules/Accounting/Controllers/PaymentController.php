@@ -83,8 +83,23 @@ class PaymentController extends Controller
         $this->setReceiptDetails($payment);
         $this->sendReceiptSms();
         $this->sendReceiptEmail();
-        flash('Amount Paid!');
-        return redirect("/cabinet/payment-v1?ak={$accountKey}&rt={$rowType}");
+
+        if ($payment->showReceiptPdf() || $this->showReceiptCheckbox()) {
+            return redirect("/cabinet/pdf---receipt-v1/pdf?id={$payment->receipt_id}");
+
+        } else {
+            flash('Amount Paid!');
+            return redirect("/cabinet/payment-v1?ak={$accountKey}&rt={$rowType}");
+        }
+    }
+
+    public function showReceiptCheckbox()
+    {
+        if (isset($this->payment->show_receipt_pdf)) {
+            return true;
+        }
+
+        return false;
     }
 
     public function setReceiptDetails($payment)

@@ -133,6 +133,11 @@
                                 @endif
                                 <h5 style="margin:2px;"><small>Send Receipt Email ({{$email}})</small></h5>
                             </label>
+
+                            <label class="checkbox" style="padding-top:1px;margin-top:-3px;">
+                                <input type="checkbox" name="show_receipt_pdf">
+                                <h5 style="margin:2px;"><small>Show Receipt Pdf</small></h5>
+                            </label>
                         </div>
                     </td>
                     <td></td>
