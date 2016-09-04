@@ -26,7 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($account->employees() as $item)
+                    @foreach($account->employeesGrid() as $item)
                     <tr>
                         <td>{{$item['account_name']}}</td>
                         <td>{{$item['department_name']}}</td>

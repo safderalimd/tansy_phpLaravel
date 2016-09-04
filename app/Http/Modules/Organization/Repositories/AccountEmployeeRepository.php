@@ -6,7 +6,7 @@ use App\Http\Repositories\Repository;
 
 class AccountEmployeeRepository extends Repository
 {
-    public function getEmployees()
+    public function getEmployeesGrid()
     {
         return $this->select(
             'SELECT
