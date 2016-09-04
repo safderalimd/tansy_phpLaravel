@@ -314,6 +314,10 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('inbox/delete', 'Communication\Controllers\InboxController@delete');
     Route::get('inbox/detail', 'Communication\Controllers\InboxController@detail');
 
+    Route::get('send-mail', 'Communication\Controllers\SendMailController@index');
+    Route::post('send-mail/delete', 'Communication\Controllers\SendMailController@delete');
+    Route::get('send-mail/detail', 'Communication\Controllers\SendMailController@detail');
+
     Route::get('my-sms-history', 'Parent\Controllers\MySMSHistoryController@index');
     Route::get('my-student-diary', 'Parent\Controllers\MyStudentDiaryController@index');
     Route::get('my-attendance', 'Parent\Controllers\MyAttendanceController@index');

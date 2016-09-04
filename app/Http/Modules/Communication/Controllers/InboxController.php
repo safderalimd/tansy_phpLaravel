@@ -5,7 +5,6 @@ namespace App\Http\Modules\Communication\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Communication\Models\Inbox;
-use App\Http\Modules\Communication\Requests\ProductFormRequest;
 
 class InboxController extends Controller
 {
