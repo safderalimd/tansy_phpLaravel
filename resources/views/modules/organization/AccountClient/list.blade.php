@@ -28,7 +28,7 @@
                 </thead>
                 <tbody>
 
-                    @foreach($account->clients() as $item)
+                    @foreach($account->clientsGrid() as $item)
                     <tr>
                         <td>{{$item['account_name']}}</td>
                         <td>{{$item['client_type']}}</td>

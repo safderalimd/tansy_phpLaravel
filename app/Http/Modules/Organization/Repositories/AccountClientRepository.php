@@ -6,7 +6,7 @@ use App\Http\Repositories\Repository;
 
 class AccountClientRepository extends Repository
 {
-    public function getClients()
+    public function getClientsGrid()
     {
         return $this->select(
             'SELECT
