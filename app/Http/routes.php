@@ -103,6 +103,7 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('student-account/edit/{id}', 'Organization\Controllers\AccountStudentController@edit');
     Route::post('student-account/edit/{id}', 'Organization\Controllers\AccountStudentController@update');
     Route::get('student-account/delete/{id}', 'Organization\Controllers\AccountStudentController@destroy');
+    Route::post('student-account/delete-image/{id}', 'Organization\Controllers\AccountStudentController@deleteImage');
 
     Route::get('move-student', 'School\Controllers\MoveStudentController@index');
     Route::post('move-student', 'School\Controllers\MoveStudentController@move');

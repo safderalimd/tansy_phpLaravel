@@ -37,6 +37,7 @@
                                 <label class="col-md-4 control-label">Image</label>
                                 <div class="col-md-8">
                                     <img src="/cabinet/img/student/{{$account->student_entity_id}}?w=300&h=300&ri=<?php echo time().uniqid(); ?>" alt="Student Image" class="img-thumbnail">
+                                    <button data-imageId="{{$account->student_entity_id}}" class="delete-image-btn btn btn-default" data-loading-text="Deleting Image..." type="button">Delete Image</button>
                                 </div>
                             </div>
                         @endif
@@ -681,6 +682,34 @@
     });
     $('#admission_date').change(function() {
         $('#admission_date').valid();
+    });
+
+    $('.delete-image-btn').on('click', function() {
+
+        var deleteButton = this;
+        var imageId = $(deleteButton).attr('data-imageId');
+        var postUrl = '/cabinet/student-account/delete-image/' + imageId;
+
+        $(deleteButton).button('loading');
+
+        $.ajax({
+            type: "POST",
+            url: postUrl,
+            data: {},
+            dataType: "json",
+            success: function(data) {
+                $(deleteButton).button('reset');
+                if (data.success) {
+                    $(deleteButton).closest('.form-group').remove();
+                } else {
+                    alert("An unexpected error occured. The image was not deleted.");
+                }
+            },
+            error: function(errMsg) {
+                $(deleteButton).button('reset');
+                alert("An unexpected error occured.");
+            }
+        });
     });
 
 </script>

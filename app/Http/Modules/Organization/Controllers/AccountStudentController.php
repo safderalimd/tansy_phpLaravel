@@ -110,4 +110,36 @@ class AccountStudentController extends Controller
         flash('Student Deleted!');
         return redirect('/cabinet/student-account');
     }
+
+    public function deleteImage($id)
+    {
+        // clear cache for older images
+        $server = ServerFactory::create([
+            'source'   => storage_path('uploads/'.domain().'/student-images'),
+            'cache'    => storage_path('uploads/'.domain().'/student-images-cache'),
+            'response' => new LaravelResponseFactory()
+        ]);
+
+        // get old image extension
+        $extensionPath = storage_path('uploads/'.domain()."/student-images/{$id}");
+
+        if (file_exists($extensionPath)) {
+            $extension = file_get_contents($extensionPath);
+            $extension = trim($extension);
+
+            // clear previous image cache
+            $server->deleteCache($id.'.'.$extension);
+
+            // clear previous image extension info
+            unlink($extensionPath);
+
+            // delete image
+            $imagePath = $extensionPath.'.'.$extension;
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+        return ['success' => true];
+    }
 }
