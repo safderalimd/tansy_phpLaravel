@@ -44,9 +44,9 @@ class Attendance extends Model
 
     public function loadData()
     {
-        if (!isset($this->absense_date)) {
-            $this->setAttribute('absense_date', date('Y-m-j'));
-        }
+        // if (!isset($this->absense_date)) {
+        //     $this->setAttribute('absense_date', date('Y-m-j'));
+        // }
 
         $this->attendanceList = $this->attendanceList();
     }

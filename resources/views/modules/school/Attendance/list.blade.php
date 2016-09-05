@@ -27,14 +27,30 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+{{--                 <div class="form-group">
                     <label class="col-sm-3 col-md-2 control-label" for="">Date</label>
                     <div class="col-md-8">
                         <button type="button" class="btn btn-primary" id="previous-date-btn"><i class="glyphicon glyphicon-arrow-left"></i></button>
-                        <span id="absense_date" data-date="{{$attendance->absense_date}}" class="next-prev-date-container form-control">{{$attendance->absense_date}}</span>
+
+                        <span id="absense_date" data-date=" $attendance->absense_date " class="next-prev-date-container form-control">{{$attendance->absense_date}}</span>
+
                         <button type="button" class="btn btn-primary" id="next-date-btn"><i class="glyphicon glyphicon-arrow-right"></i></button>
                     </div>
+                </div> --}}
+
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-2 control-label" for="absense_date">Date</label>
+                    <div class="col-sm-3 col-md-3">
+                        <div class="input-group date">
+                            <input id="absense_date" class="form-control" type="text" name="absense_date" value="{{queryStringValue('dt')}}" placeholder="Date">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span
+                                            class="glyphicon glyphicon-calendar"></span></button>
+                            </span>
+                        </div>
+                    </div>
                 </div>
+
             </form>
 
             <table id="attendance-table" class="table table-striped table-bordered table-hover">
@@ -98,29 +114,29 @@
     });
 
     // when the account types dropdown changes redirect
-    $('#account_types_entity_id').change(function() {
+    $('#account_types_entity_id, #absense_date').change(function() {
         updateQueryString();
     });
 
-    function updateDateValue(days) {
-        var date = $('#absense_date').text();
-        date = new Date(date);
-        date.setDate(date.getDate() + parseInt(days));
-        var month = ('0' + (date.getMonth() + 1)).slice(-2)
-        var day = ('0' + date.getDate()).slice(-2);
-        var newDate = date.getFullYear() + '-' + month + '-' + day;
-        $('#absense_date').attr('data-date', newDate);
-    }
+    // function updateDateValue(days) {
+    //     var date = $('#absense_date').text();
+    //     date = new Date(date);
+    //     date.setDate(date.getDate() + parseInt(days));
+    //     var month = ('0' + (date.getMonth() + 1)).slice(-2)
+    //     var day = ('0' + date.getDate()).slice(-2);
+    //     var newDate = date.getFullYear() + '-' + month + '-' + day;
+    //     $('#absense_date').attr('data-date', newDate);
+    // }
 
-    // when the date changes redirect
-    $('#previous-date-btn').on('click', function() {
-        updateDateValue(-1);
-        updateQueryString();
-    });
-    $('#next-date-btn').on('click', function() {
-        updateDateValue(1);
-        updateQueryString();
-    });
+    // // when the date changes redirect
+    // $('#previous-date-btn').on('click', function() {
+    //     updateDateValue(-1);
+    //     updateQueryString();
+    // });
+    // $('#next-date-btn').on('click', function() {
+    //     updateDateValue(1);
+    //     updateQueryString();
+    // });
 
     function updateQueryString() {
         window.location.href = window.location.href.split('?')[0] + getQueryString();
@@ -130,7 +146,7 @@
     function getQueryString() {
         var aei = $('#account_types_entity_id option:selected').val();
         var art = $('#account_types_entity_id option:selected').attr('data-rowType');
-        var dt = $('#absense_date').attr('data-date');
+        var dt = $('#absense_date').val(); //attr('data-date');
 
         var items = [];
         if (aei != "none") {
