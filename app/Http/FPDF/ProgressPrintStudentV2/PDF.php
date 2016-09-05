@@ -223,7 +223,6 @@ class PDF extends AlphaPDF
                 $imgPath = $extensionPath.'.'.$extension;
             }
         }
-        dd($extensionPath);
 
         $this->Image($imgPath, 214, 36, 30);
 
