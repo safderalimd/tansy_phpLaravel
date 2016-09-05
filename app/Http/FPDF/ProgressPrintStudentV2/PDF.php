@@ -212,11 +212,19 @@ class PDF extends AlphaPDF
         $this->setXY(214, 36);
         $this->Cell(32, 35, '', 0, 0, 'C');
 
+        $imgPath = public_path('dashboard/student.png');
         $id = $this->contents->studentId;
-        $imgPath = storage_path('uploads/'. domain() . "/student-images/{id}");
-        if (!file_exists($imgPath)) {
-            $imgPath = public_path('dashboard/student.png');
+        $extensionPath = storage_path('uploads/'.domain()."/student-images/{$id}");
+
+        if (file_exists($extensionPath)) {
+            $extension = file_get_contents($extensionPath);
+            $extension = trim($extension);
+            if (file_exists($extensionPath.'.'.$extension)) {
+                $imgPath = $extensionPath.'.'.$extension;
+            }
         }
+        dd($extensionPath);
+
         $this->Image($imgPath, 214, 36, 30);
 
         $this->SetFont('Helvetica', 'BU', 11);
