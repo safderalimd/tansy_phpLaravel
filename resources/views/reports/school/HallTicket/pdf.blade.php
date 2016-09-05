@@ -14,23 +14,23 @@
 
     <div id="watermark"><div id="watermark-text">{{$export->schoolName}}</div></div>
 
-{{--
-    <div class="footer text-right">
-        Page: <span class="pagenum"></span>
-    </div>
- --}}
-
     <div class="container">
 
     @foreach($export->tickets as $ticket)
-{{--
-        include('reports.common.pdf-header', [
-            'school' => $export->schoolName,
-            'phone'  => $export->schoolWorkPhone,
-        ])
 
-        include('reports.common.report-name', ['report' => $export->reportName])
- --}}
+        <div class="row">
+            <div class="col-md-4 logo-container">
+                @include('reports.common.pdf-logo-img')
+            </div>
+            <div class="col-md-8 school-container">
+                <h3 class="school-name text-center">{{$export->schoolName}}</h3>
+                <h4 class="school-phone text-center">{{$export->schoolCity}} (Phone: {{phone_number_spaces($export->schoolWorkPhone)}})</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12"><h4 class="report-name text-center">{{$export->reportName}}</h4></div>
+        </div>
 
         <?php
             $examName = isset($ticket[0]['exam']) ? $ticket[0]['exam'] : '';

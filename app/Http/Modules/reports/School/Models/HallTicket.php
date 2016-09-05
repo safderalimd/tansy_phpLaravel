@@ -18,6 +18,8 @@ class HallTicket extends Model
 
     public $schoolWorkPhone = '-';
 
+    public $schoolCity = '-';
+
     public $examFilter = '';
 
     public function setAeiAttribute($value)
@@ -38,29 +40,14 @@ class HallTicket extends Model
         $tickets = collect($tickets);
         $this->tickets = $tickets->groupBy('account_entity_id');
 
-        // $this->setExamFilter();
-        $this->setSchoolNameAndPhone();
+        $this->setSchoolInfo();
     }
 
-    public function setSchoolNameAndPhone()
+    public function setSchoolInfo()
     {
-        $name = $this->repository->getSchoolName();
-        if (isset($name[0]) && isset($name[0]['organization_name'])) {
-            $this->schoolName = $name[0]['organization_name'];
-        }
-        if (isset($name[0]) && isset($name[0]['work_phone'])) {
-            $this->schoolWorkPhone = $name[0]['work_phone'];
-        }
-    }
-
-    public function setExamFilter()
-    {
-        foreach ($this->mainExam() as $option) {
-            if ($option['exam_entity_id'] == $this->exam_entity_id) {
-                $this->examFilter = $option['exam'];
-                break;
-            }
-        }
+        $this->schoolName = isset($this->school_name) ? $this->school_name : '';
+        $this->schoolCity = isset($this->school_city) ? $this->school_city : '';
+        $this->schoolWorkPhone = isset($this->school_phone) ? $this->school_phone : '';
     }
 
     public function showImage()
