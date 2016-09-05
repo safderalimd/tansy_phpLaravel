@@ -110,7 +110,7 @@
                             <input type="hidden" name="subject_entity_id" id="id-subject_entity_id" value="{{$subjectEntityId}}">
 
                             <button class="btn btn-primary grid_btn" type="submit" id="save-marks-submit">Save</button>
-                            <a href="{{ url("/cabinet/mark-sheet")}}" class="btn btn-default cancle_btn">Cancel</a>
+                            <a href="{{ url("/cabinet/mark-sheet?eid=".queryStringValue('eid'))}}" class="btn btn-default cancle_btn">Cancel</a>
                         </form>
 
                         </div>
