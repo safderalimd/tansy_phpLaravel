@@ -17,10 +17,10 @@
                     <!-- filter the exams -->
                     <form class="form-horizontal" style="margin-bottom:-15px;" action="" method="POST">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="exam_entity_id">Exam</label>
-                                    <div class="col-md-8">
+                                    <label class="col-md-2 control-label" for="exam_entity_id">Exam</label>
+                                    <div class="col-md-9">
                                         <select id="exam_entity_id" class="form-control" name="exam_entity_id">
                                             <option value="none">Select an exam..</option>
                                             @foreach($markSheet->examDropdown() as $option)
