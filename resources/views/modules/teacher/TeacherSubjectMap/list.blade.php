@@ -14,7 +14,7 @@
 
             @include('commons.errors')
 
-            <form class="form-horizontal" action="" method="POST">
+            <form class="form-horizontal" id="teacher-subject-map-form" action="{{form_action_full()}}" method="POST">
                 <div class="row">
                     <div class="col-md-6">
 
@@ -48,7 +48,7 @@
                 <div class="row">
                     <div class="col-md-6">
 
-                        <table class="table table-striped table-bordered table-hover" data-datatable>
+                        <table id="teacher-subject-map-table" class="table table-striped table-bordered table-hover" data-datatable>
                             <thead>
                                 <tr>
                                     <th>Class <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
@@ -76,6 +76,8 @@
                 </div>
 
                 <br/>
+
+                <input type="hidden" name="class_IDs" id="class_IDs" value="">
 
                 <div class="row grid_footer">
                     <div class="col-md-6">
@@ -131,40 +133,21 @@
     }
 
     // When submitting the form, prepend all selected checkboxes
-    $('#move-students-form').submit(function() {
-        if (! $('#move-students-form').valid()) {
-            return false;
-        }
+    $('#teacher-subject-map-form').submit(function() {
 
-        var studentIds = $('.student-entity-id:checked').map(function() {
+        var cells = $('#teacher-subject-map-table').DataTable().cells().nodes();
+
+        var classIds = $(cells).find('.teacher-subject-map:checked').map(function() {
             return this.value;
         }).get();
 
-        if (studentIds.length == 0) {
-            alert("No students are selected.");
-            return false;
+        if (classIds.length == 0) {
+            classIds = ['null'];
         }
 
-        $('#class_student_ids').val(studentIds.join(','));
+        $('#class_IDs').val(classIds.join('|'));
 
         return true;
-    });
-
-    $('#move-students-form').validate({
-        rules: {
-            move_to_fiscal_year_entity_id: {
-                requiredSelect: true
-            },
-            move_to_class_entity_id: {
-                requiredSelect: true,
-                notEqualTo: '#class-entity-id-filter'
-            }
-        },
-        messages: {
-            move_to_class_entity_id: {
-                notEqualTo: "Please select a different class."
-            }
-        }
     });
 
 </script>

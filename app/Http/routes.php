@@ -152,6 +152,7 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('exam-schedule/delete', 'School\Controllers\ExamScheduleController@destroy');
 
     Route::get('teacher-subject-map', 'Teacher\Controllers\TeacherSubjectMapController@index');
+    Route::post('teacher-subject-map', 'Teacher\Controllers\TeacherSubjectMapController@update');
 
     Route::get('mark-sheet', 'School\Controllers\MarkSheetController@index');
     Route::get('mark-sheet/edit', 'School\Controllers\MarkSheetController@edit');
