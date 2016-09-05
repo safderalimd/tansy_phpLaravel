@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Modules\School\Models\MarkSheet;
 use App\Http\Modules\School\Requests\MarkSheetFormRequest;
 use App\Http\Modules\School\Requests\MarkSheetDeleteFormRequest;
-use App\Http\FPDF\MarkSheet\MarkSheetPDF;
+use App\Http\PdfGenerator\Pdf;
+// use App\Http\FPDF\MarkSheet\MarkSheetPDF;
 
 class MarkSheetController extends Controller
 {
@@ -18,7 +19,7 @@ class MarkSheetController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('screen:' . MarkSheet::screenId());
+        $this->middleware('screen:' . MarkSheet::screenId());
     }
 
     /**
@@ -44,8 +45,12 @@ class MarkSheetController extends Controller
         $markSheet = new MarkSheet($request->input());
 
         if ($request->input('pdf') == 1) {
-            $pdf = MarkSheetPDF::portrait();
-            $pdf->generate($markSheet);
+            $markSheet->setSchoolNameAndPhone();
+            $view = view('modules.school.MarkSheet.pdf', compact('markSheet'));
+            return Pdf::render($view);
+
+            // $pdf = MarkSheetPDF::portrait();
+            // $pdf->generate($markSheet);
 
         } else {
             return view('modules.school.MarkSheet.form', compact('markSheet'));
