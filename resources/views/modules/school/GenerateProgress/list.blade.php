@@ -21,7 +21,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-md-2 control-label" for="exam_entity_id">Exam</label>
-                                <div class="col-md-9">
+                                <div class="col-md-10">
                                     <select id="exam_entity_id" class="form-control" name="exam_entity_id">
                                         <option value="none">Select an exam..</option>
                                         @foreach($progress->examDropdown() as $option)

@@ -88,7 +88,7 @@
     <!-- button -->
     <div class="row">
         <div class="col-md-8">
-            <button style="margin-right:15px;" class="btn btn-primary grid_btn pull-right" type="submit">Schedule Selected Rows</button>
+            <button class="btn btn-primary grid_btn pull-right" type="submit">Schedule Selected Rows</button>
         </div>
     </div>
 
