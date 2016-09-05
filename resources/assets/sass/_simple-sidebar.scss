@@ -33,6 +33,14 @@
     position: absolute;
 }
 
+@media (max-width: 767px) {
+    .dashboard {
+        #page-content-wrapper {
+            width: 100% !important;
+        }
+    }
+}
+
 #wrapper.toggled #page-content-wrapper {
     position: absolute;
     margin-right: -290px;
