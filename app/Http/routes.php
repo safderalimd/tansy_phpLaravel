@@ -177,6 +177,9 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('pdf---final-progress', 'reports\School\Controllers\FinalProgressController@index');
     Route::get('pdf---final-progress/pdf', 'reports\School\Controllers\FinalProgressController@report');
 
+    Route::get('pdf---hall-ticket', 'reports\School\Controllers\HallTicketController@index');
+    Route::get('pdf---hall-ticket/pdf', 'reports\School\Controllers\HallTicketController@report');
+
     Route::get('pdf---account-statement', 'reports\Accounting\Controllers\AccountStatementController@index');
     Route::get('pdf---account-statement/pdf', 'reports\Accounting\Controllers\AccountStatementController@report');
 
