@@ -691,6 +691,11 @@ class Repository
         // );
     }
 
+    public function getMainExam()
+    {
+        return $this->lookup('sproc_sch_lkp_main_exam');
+    }
+
     public function getExamTypes()
     {
         return $this->lookup('sproc_sch_lkp_exam_type');
@@ -881,6 +886,11 @@ class Repository
         //      FROM view_lkp_account_type_filter
         //      ORDER BY sequence_id, reporting_order ASC;'
         // );
+    }
+
+    public function getSchoolAccountTypeFilter()
+    {
+        return $this->lookup('sproc_sch_lkp_account_type_filter');
     }
 
     public function getOrganizations()

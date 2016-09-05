@@ -26,8 +26,8 @@ class HallTicketController extends Controller
      */
     public function index()
     {
-        $ticket = new HallTicket;
-        return view('reports.school.HallTicket.list', compact('ticket'));
+        $report = new HallTicket;
+        return view('reports.school.HallTicket.list', compact('report'));
     }
 
     /**
@@ -36,11 +36,11 @@ class HallTicketController extends Controller
      * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    public function report(HallTicket $request)
+    public function report(Request $request)
     {
-        $export = new StudentDetail($request->input());
-
-        $view = view('grid.PDF.pdf', compact('grid', 'options'));
+        $export = new HallTicket($request->input());
+        $export->loadPdfData();
+        $view = view('reports.school.HallTicket.pdf', compact('export'));
         return Pdf::render($view);
     }
 }
