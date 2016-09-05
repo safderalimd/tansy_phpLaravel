@@ -38,7 +38,7 @@ class TeacherSubjectMapController extends Controller
     public function update(Request $request)
     {
         $teacher = new TeacherSubjectMap($request->input());
-        $product->update();
+        $teacher->update();
         flash('Teacher Subject Map Updated!');
         return redirect_back();
     }
