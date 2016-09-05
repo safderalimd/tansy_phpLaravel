@@ -71,6 +71,11 @@ class Repository
         // );
     }
 
+    public function getOrgEmployees()
+    {
+        return $this->lookup('sproc_org_lkp_employee');
+    }
+
     public function getFacilityTypes()
     {
         return $this->lookup('sproc_org_lkp_facility_type');

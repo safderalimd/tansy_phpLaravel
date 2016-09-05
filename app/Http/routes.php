@@ -151,6 +151,8 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('exam-schedule/paper-2', 'School\Controllers\ExamScheduleController@paper2');
     Route::get('exam-schedule/delete', 'School\Controllers\ExamScheduleController@destroy');
 
+    Route::get('teacher-subject-map', 'Teacher\Controllers\TeacherSubjectMapController@index');
+
     Route::get('mark-sheet', 'School\Controllers\MarkSheetController@index');
     Route::get('mark-sheet/edit', 'School\Controllers\MarkSheetController@edit');
     Route::get('mark-sheet/lock', 'School\Controllers\MarkSheetController@lock');
