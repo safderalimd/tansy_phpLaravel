@@ -9,6 +9,7 @@
                 <div class="panel-heading">
                     <i class="glyphicon glyphicon-th"></i>
                     <h3>Mark Sheet Detail</h3>
+                    <a href="{{form_action_full().'&pdf=1'}}" target="_blank" class="btn pull-right btn-default">Mark Sheet PDF</a>
                 </div>
 
                 <div class="panel-body edit_form_wrapper">
