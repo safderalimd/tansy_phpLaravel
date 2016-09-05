@@ -48,7 +48,7 @@
                 <div class="row">
                     <div class="col-md-6">
 
-                        <table id="teacher-subject-map-table" class="table table-striped table-bordered table-hover" data-datatable>
+                        <table id="teacher-subject-map-table" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th>Class <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
@@ -135,9 +135,9 @@
     // When submitting the form, prepend all selected checkboxes
     $('#teacher-subject-map-form').submit(function() {
 
-        var cells = $('#teacher-subject-map-table').DataTable().cells().nodes();
+        // var cells = $('#teacher-subject-map-table').DataTable().cells().nodes();
 
-        var classIds = $(cells).find('.teacher-subject-map:checked').map(function() {
+        var classIds = $('.teacher-subject-map:checked').map(function() {
             return this.value;
         }).get();
 
