@@ -110,8 +110,10 @@ class HallTicketPDF extends BasePDF
         $cellWidth = round(($this->GetPageWidth() - 24)/$nrColumns, 2);
 
         $widths = [];
+        $emptyRow = [];
         for ($i=0; $i < $nrColumns; $i++) {
             $widths[] = $cellWidth;
+            $emptyRow[] = '';
         }
         $this->SetWidths($widths);
 
@@ -123,6 +125,9 @@ class HallTicketPDF extends BasePDF
 
         $this->setX(12);
         $this->Row($this->contents->subjectsRow);
+
+        $this->setX(12);
+        $this->Row($emptyRow);
     }
 
     public function drawSignature()
