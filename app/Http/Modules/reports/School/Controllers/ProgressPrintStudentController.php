@@ -5,7 +5,7 @@ namespace App\Http\Modules\reports\School\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\School\Models\ProgressPrintStudent;
-use App\Http\PdfGenerator\Pdf;
+use App\Http\FPDF\ProgressPrintStudent\ProgressPrintStudentPDF;
 
 class ProgressPrintStudentController extends Controller
 {
@@ -43,9 +43,11 @@ class ProgressPrintStudentController extends Controller
         $export->setAttribute('filter_entity_id', $request->input('ci'));
         $export->setAttribute('class_student_id', 0);
         $export->setAttribute('return_type', 'Student Report');
-        $progress = $export->getPdfData();
 
-        $view = view('reports.school.ProgressPrintStudent.pdf', compact('export', 'progress'));
-        return Pdf::render($view);
+        ProgressPrintStudentPDF::portrait()->generate($export);
+        // $progress = $export->getPdfData();
+
+        // $view = view('reports.school.ProgressPrintStudent.pdf', compact('export', 'progress'));
+        // return Pdf::render($view);
     }
 }

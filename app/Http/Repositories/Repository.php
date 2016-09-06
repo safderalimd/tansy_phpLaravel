@@ -27,48 +27,28 @@ class Repository
         return $procedure->run();
     }
 
-    public function getAdmissionGrid()
+    public function lookup($procedure)
     {
-        return $this->select(
-            'SELECT student_full_name, admission_number, admission_date, admitted_to, current_class_name, admission_status, admission_id, admission_status_id
-             FROM view_sch_admission_grid
-             ORDER BY student_full_name ASC;'
-        );
+        $data = $this->procedure(new Model, $procedure, [], []);
+        return first_resultset($data);
     }
 
     public function getFiscalYears()
     {
+        // fiscal_year_entity_id, fiscal_year
         return $this->lookup('sproc_org_lkp_fiscal_year');
-
-        // return $this->select(
-        //     'SELECT fiscal_year_entity_id, fiscal_year
-        //      FROM view_org_lkp_fiscal_year
-        //      ORDER BY fiscal_year ASC;'
-        // );
     }
 
     public function getClasses()
     {
+        // class_entity_id, class_name, class_group, class_category, class_group_entity_id, class_category_entity_id, class_reporting_order
         return $this->lookup('sproc_sch_lkp_class');
-
-        // return $this->select(
-        //     'SELECT class_entity_id, class_name, class_group, class_category, class_group_entity_id, class_category_entity_id, class_reporting_order
-        //      FROM view_sch_lkp_class
-        //      ORDER BY class_reporting_order ASC;'
-        // );
     }
 
     public function getEmployees()
     {
+        // employee_name, employee_entity_id
         return $this->lookup('sproc_org_lkp_account_employee');
-
-        // return $this->select(
-        //     'SELECT
-        //         employee_name,
-        //         employee_entity_id
-        //      FROM view_org_lkp_account_employee
-        //      ORDER BY employee_name ASC;'
-        // );
     }
 
     public function getOrgEmployees()
@@ -78,56 +58,412 @@ class Repository
 
     public function getFacilityTypes()
     {
+        //  facility_type_id, facility_type
         return $this->lookup('sproc_org_lkp_facility_type');
+    }
 
-        // return $this->select(
-        //     'SELECT
-        //         facility_type_id,
-        //         facility_type
-        //      FROM view_org_lkp_facility_type
-        //      ORDER BY facility_type ASC;'
-        // );
+    public function getClassGroups()
+    {
+        // class_group_entity_id, class_group
+        return $this->lookup('sproc_sch_lkp_class_group');
+    }
+
+    public function getCities()
+    {
+        // city_id, city_name, district, state, country
+        return $this->lookup('sproc_org_lkp_city');
+    }
+
+    public function getCityAreas()
+    {
+        // city_area
+        return $this->lookup('sproc_org_lkp_city_area_area');
+    }
+
+    public function getCastes()
+    {
+        // caste_id, caste_name
+        return $this->lookup('sproc_org_lkp_caste');
+    }
+
+    public function getReligions()
+    {
+        // religion_id, religion_name
+        return $this->lookup('sproc_org_lkp_religion');
+    }
+
+    public function getOrganizationSupplier()
+    {
+        // organization_name, organization_entity_id, organization_type
+        return $this->lookup('sproc_org_lkp_organization_supplier');
+    }
+
+    public function getLanguages()
+    {
+        // language_id, language_name
+        return $this->lookup('sproc_org_lkp_language');
+    }
+
+    public function getRelationships()
+    {
+        // relationship_type_id, relationship_name
+        return $this->lookup('sproc_org_lkp_relationship');
+    }
+
+    public function getDesignations()
+    {
+        // designation_id, designation_name
+        return $this->lookup('sproc_org_lkp_designation');
+    }
+
+    public function getQualifications()
+    {
+        // qualification_id, qualification_name
+        return $this->lookup('sproc_org_lkp_qualification');
+    }
+
+    public function getProducts()
+    {
+        // product, product_type, unit_rate, product_type_entity_id, product_entity_id, active
+        return $this->lookup('sproc_prd_lkp_product');
+    }
+
+    public function getProductTypes()
+    {
+        // product_type_entity_id, product_type
+        return $this->lookup('sproc_prd_lkp_product_type');
+    }
+
+    public function getAdjustmentType()
+    {
+        // payment_type_id, payment_type
+        return $this->lookup('sproc_act_lkp_adjustment_type');
+    }
+
+    public function getExpenseTypes()
+    {
+        // expense_type, expense_type_id
+        return $this->lookup('sproc_act_lkp_expense_type');
+    }
+
+    public function getPaymentTypes()
+    {
+        // payment_type_id, payment_type
+        return $this->lookup('sproc_act_lkp_payment_type');
+    }
+
+    public function getStatuses()
+    {
+        // client_status, client_status_id
+        return $this->lookup('sproc_crm_lkp_client_status');
+    }
+
+    public function getUnitTypes()
+    {
+        // unit_type_id, unit_type
+        return $this->lookup('sproc_crm_lkp_unit_type');
+    }
+
+    public function getVisitType()
+    {
+        // visit_type_id, visit_type
+        return $this->lookup('view_crm_lkp_visit_type');
+    }
+
+    public function getAccountType()
+    {
+        // entity_type_id, entity_type
+        return $this->lookup('sproc_org_lkp_account_type');
+    }
+
+    public function getAddressType()
+    {
+        // address_type_id, address_type
+        return $this->lookup('sproc_org_lkp_address_type');
+    }
+
+    public function getAgents()
+    {
+        // agent_name, individual_entity_id, mobile_phone, organization_entity_id
+        return $this->lookup('sproc_org_lkp_agent');
+    }
+
+    public function getCampaigns()
+    {
+        // campaign_name, campaign_entity_id
+        return $this->lookup('sproc_org_lkp_campaign');
+    }
+
+    public function getCategoryType()
+    {
+        // category_type_id, category_name, entity_type_id, entity_type
+        return $this->lookup('sproc_org_lkp_category_type');
+    }
+
+    public function getClient()
+    {
+        // entity_name, city, city_area
+        return $this->lookup('sproc_org_lkp_client');
+    }
+
+    public function getDistrict()
+    {
+        // district
+        return $this->lookup('sproc_org_lkp_district');
+    }
+
+    public function getEntityName()
+    {
+        // entity_name, entity_type_id, entity_id
+        return $this->lookup('sproc_org_lkp_entity_name');
+    }
+
+    public function getEntityType()
+    {
+        // entity_type_id, entity_type
+        return $this->lookup('sproc_org_lkp_entity_type');
+    }
+
+    public function getFrequency()
+    {
+        // frequency_id, description
+        return $this->lookup('sproc_org_lkp_frequency');
+    }
+
+    public function getIndividual()
+    {
+        // individual_entity_id, individual_name, entity_type_id, entity_type
+        return $this->lookup('sproc_org_lkp_individual');
+    }
+
+    public function getOrganizationType()
+    {
+        // organization_type, organization_type_id
+        return $this->lookup('sproc_org_lkp_organization_type');
+    }
+
+    public function getState()
+    {
+        // state
+        return $this->lookup('sproc_org_lkp_state');
+    }
+
+    public function getAdmissionStatus()
+    {
+        // admission_status_id, admission_status
+        return $this->lookup('sproc_sch_lkp_admission_status');
+    }
+
+    public function getClassCategories()
+    {
+        // class_category_entity_id, class_category
+        return $this->lookup('sproc_sch_lkp_class_category');
+    }
+
+    public function getExam()
+    {
+        // exam, exam_type, exam_entity_id, reporting_order
+        return $this->lookup('sproc_sch_lkp_exam');
+    }
+
+    public function getMainExam()
+    {
+        return $this->lookup('sproc_sch_lkp_main_exam');
+    }
+
+    public function getExamTypes()
+    {
+        // exam_type_id, exam_type
+        return $this->lookup('sproc_sch_lkp_exam_type');
+    }
+
+    public function getExamWithResult()
+    {
+        // exam, exam_type, exam_entity_id, reporting_order
+        return $this->lookup('sproc_sch_lkp_exam_with_result');
+    }
+
+    public function getSubject()
+    {
+        // subject, subject_entity_id
+        return $this->lookup('sproc_sch_lkp_subject');
+    }
+
+    public function getSubjectTypes()
+    {
+        // subject_type_id, subject_type
+        return $this->lookup('sproc_sch_lkp_subject_type');
+    }
+
+    public function getUser()
+    {
+        // user_id, login_name
+        return $this->lookup('sproc_sec_lkp_user');
+    }
+
+    public function getDocumentType()
+    {
+        // document_type_id, document_type
+        return $this->lookup('sproc_org_lkp_document_type');
+    }
+
+    public function getGradeSystem()
+    {
+        return $this->lookup('sproc_sch_lkp_exam_grading_system');
+    }
+
+    public function getAccountTypeFilter()
+    {
+        // row_type, entity_id, drop_down_list_name, sequence_id, reporting_order
+        return $this->lookup('sproc_org_lkp_account_type_filter2');
+    }
+
+    public function getSchoolAccountTypeFilter()
+    {
+        return $this->lookup('sproc_sch_lkp_account_type_filter');
+    }
+
+    public function getOrganizations()
+    {
+        // organization_name, organization_entity_id
+        $procedure = 'sproc_org_lkp_organization';
+        $data = $this->procedure(new Model, $procedure, ['-iparam_organization_type'], []);
+        return first_resultset($data);
+    }
+
+    public function getClientOrganizations()
+    {
+        // organization_name, organization_entity_id, organization_type
+        $procedure = 'sproc_org_lkp_organization';
+        $model = new Model;
+        $model->setAttribute('organization_type', 'Client');
+        $data = $this->procedure($model, $procedure, ['-iparam_organization_type'], []);
+        return first_resultset($data);
+    }
+
+    public function getAgentOrganizations()
+    {
+        // organization_name, organization_entity_id, organization_type
+        $procedure = 'sproc_org_lkp_organization';
+        $model = new Model;
+        $model->setAttribute('organization_type', 'Broker');
+        $data = $this->procedure($model, $procedure, ['-iparam_organization_type'], []);
+        return first_resultset($data);
+    }
+
+    public function getSecurityGroup()
+    {
+        // security_group, security_group_entity_id, system_value
+        $procedure = 'sproc_sec_lkp_security_group';
+
+        $iparams = [
+            '-iparam_security_group',
+            ':iparam_system_value',
+        ];
+
+        $data = $this->procedure(new Model, $procedure, $iparams, []);
+        return first_resultset($data);
+    }
+
+    public function getSecurityGroupForParent()
+    {
+        // security_group, security_group_entity_id, system_value
+        $procedure = 'sproc_sec_lkp_security_group';
+
+        $iparams = [
+            '-iparam_security_group',
+            ':iparam_system_value',
+        ];
+
+        $model = new Model;
+        $model->setAttribute('security_group', 'Parent');
+
+        $data = $this->procedure($model, $procedure, $iparams, []);
+        return first_resultset($data);
+    }
+
+    public function getSecurityGroupForAgent()
+    {
+        // security_group, security_group_entity_id, system_value
+        $procedure = 'sproc_sec_lkp_security_group';
+
+        $iparams = [
+            '-iparam_security_group',
+            ':iparam_system_value',
+        ];
+
+        $model = new Model;
+        $model->setAttribute('security_group', 'Agent');
+
+        $data = $this->procedure($model, $procedure, $iparams, []);
+        return first_resultset($data);
+    }
+
+    public function getSecurityGroupForEmployees()
+    {
+        // security_group, security_group_entity_id, system_value
+        $procedure = 'sproc_sec_lkp_security_group';
+
+        $iparams = [
+            '-iparam_security_group',
+            ':iparam_system_value',
+        ];
+
+        $model = new Model;
+        $model->setAttribute('system_value', 9);
+
+        $data = $this->procedure($model, $procedure, $iparams, []);
+        return first_resultset($data);
+    }
+
+    public function getStudents()
+    {
+        // student_full_name, first_name, middle_name, last_name, class_name, student_roll_number, fiscal_year, mobile_phone, active, class_student_id, student_entity_id, class_entity_id, class_category_entity_id, class_group_entity_id, fiscal_year_entity_id, class_reporting_order
+        $procedure = 'sproc_sch_lkp_student';
+
+        $iparams = [
+            ':iparam_class_entity_id',
+            ':iparam_student_entity_id',
+            ':iparam_class_student_id',
+        ];
+
+        $data = $this->procedure(new Model, $procedure, $iparams, []);
+        return first_resultset($data);
+    }
+
+    public function getIdentifications()
+    {
+        // unique_key, unique_key_id, default_value
+        $procedure = 'sproc_org_lkp_client_unique_key';
+
+        $data = $this->procedure(new Model, $procedure, [':iparam_unique_key_id'], []);
+        return first_resultset($data);
+    }
+
+    public function getIdentification($id)
+    {
+        // unique_key, unique_key_id, default_value
+        $procedure = 'sproc_org_lkp_client_unique_key';
+        $model = new Model;
+        $model->setAttribute('unique_key_id', $id);
+        $data = $this->procedure($model, $procedure, [':iparam_unique_key_id'], []);
+        return first_resultset($data);
     }
 
     public function getFacilities()
     {
+        // facility_entity_id, facility_name, organization_type, organization_entity_id, organization_type_id
         $procedure = 'sproc_org_lkp_facility';
 
         $iparams = ['-iparam_organization_type'];
 
         $data = $this->procedure(new Model, $procedure, $iparams, []);
         return first_resultset($data);
-
-        // return $this->select(
-        //     'SELECT
-        //         facility_entity_id,
-        //         facility_name,
-        //         organization_type,
-        //         organization_entity_id,
-        //         organization_type_id
-        //      FROM view_org_lkp_facility
-        //      ORDER BY facility_name ASC;'
-        // );
-    }
-
-    public function getFacilitiesList()
-    {
-        // Todo: used in school class form
-
-
-        // return $this->lookup('sproc_org_lkp_facility');
-
-        // return $this->select(
-        //     'SELECT
-        //         facility_entity_id,
-        //         facility_name
-        //      FROM view_org_facility_lkp
-        //      ORDER BY facility_name ASC;'
-        // );
     }
 
     public function getFacilitiesForOwner()
     {
+        // facility_entity_id, facility_name, organization_type, organization_entity_id, organization_type_id
         $procedure = 'sproc_org_lkp_facility';
 
         $iparams = ['-iparam_organization_type'];
@@ -137,153 +473,6 @@ class Repository
 
         $data = $this->procedure($model, $procedure, $iparams, []);
         return first_resultset($data);
-
-        // return $this->select(
-        //     'SELECT
-        //         facility_entity_id,
-        //         facility_name,
-        //         organization_type,
-        //         organization_entity_id,
-        //         organization_type_id
-        //      FROM view_org_lkp_facility
-        //      WHERE organization_type = :type
-        //      ORDER BY facility_name ASC;', ['type' => 'owner']
-        // );
-    }
-
-    public function getClassGroups()
-    {
-        return $this->lookup('sproc_sch_lkp_class_group');
-
-        // return $this->select(
-        //     'SELECT class_group_entity_id, class_group
-        //      FROM view_sch_lkp_class_group
-        //      ORDER BY class_group ASC;'
-        // );
-    }
-
-    public function getCities()
-    {
-        return $this->lookup('sproc_org_lkp_city');
-
-        // return $this->select(
-        //     'SELECT city_id, city_name, district, state, country
-        //      FROM view_org_lkp_city
-        //      ORDER BY city_name ASC;'
-        // );
-    }
-
-    public function getCityAreas()
-    {
-        return $this->lookup('sproc_org_lkp_city_area_area');
-
-        // return $this->select(
-        //     'SELECT city_area
-        //      FROM view_org_lkp_city_area
-        //      ORDER BY city_area ASC;'
-        // );
-    }
-
-    public function getCastes()
-    {
-        return $this->lookup('sproc_org_lkp_caste');
-
-        // return $this->select(
-        //     'SELECT caste_id, caste_name
-        //      FROM view_org_lkp_caste
-        //      ORDER BY caste_name ASC;'
-        // );
-    }
-
-    public function getReligions()
-    {
-        return $this->lookup('sproc_org_lkp_religion');
-
-        // return $this->select(
-        //     'SELECT religion_id, religion_name
-        //      FROM view_org_lkp_religion
-        //      ORDER BY religion_name ASC;'
-        // );
-    }
-
-    public function getOrganizationSupplier()
-    {
-        return $this->lookup('sproc_org_lkp_organization_supplier');
-
-        // return $this->select(
-        //     'SELECT
-        //         organization_name,
-        //         organization_entity_id,
-        //         organization_type
-        //      FROM view_org_lkp_organization_supplier
-        //      ORDER BY organization_name ASC;'
-        // );
-    }
-
-    public function getLanguages()
-    {
-        return $this->lookup('sproc_org_lkp_language');
-
-        // return $this->select(
-        //     'SELECT language_id, language_name
-        //      FROM view_org_lkp_language
-        //      ORDER BY language_name ASC;'
-        // );
-    }
-
-    public function getRelationships()
-    {
-        return $this->lookup('sproc_org_lkp_relationship');
-
-        // return $this->select(
-        //     'SELECT relationship_type_id, relationship_name
-        //      FROM view_org_lkp_relationship
-        //      ORDER BY relationship_name ASC;'
-        // );
-    }
-
-    public function getDesignations()
-    {
-        return $this->lookup('sproc_org_lkp_designation');
-
-        // return $this->select(
-        //     'SELECT designation_id, designation_name
-        //      FROM view_org_lkp_designation
-        //      ORDER BY designation_name ASC;'
-        // );
-    }
-
-    public function getQualifications()
-    {
-        return $this->lookup('sproc_org_lkp_qualification');
-
-        // return $this->select(
-        //     'SELECT qualification_id, qualification_name
-        //      FROM view_org_lkp_qualification
-        //      ORDER BY qualification_name ASC;'
-        // );
-    }
-
-    public function getProducts()
-    {
-        return $this->lookup('sproc_prd_lkp_product');
-
-        // return $this->select(
-        //     'SELECT product, product_type, unit_rate, product_type_entity_id, product_entity_id, active
-        //      FROM view_prd_lkp_product
-        //      ORDER BY product ASC;'
-        // );
-    }
-
-    public function getProductTypes()
-    {
-        return $this->lookup('sproc_prd_lkp_product_type');
-
-        // return $this->select(
-        //     'SELECT product_type_entity_id, product_type
-        //      FROM view_prd_lkp_product_type
-        //      ORDER BY product_type;'
-        // );
     }
 
     public function getClassSubjectsGrid()
@@ -293,88 +482,6 @@ class Repository
             FROM view_sch_class2subject_grid
             ORDER BY class_reporting_order, subject_reporting_order ASC;'
         );
-    }
-
-    public function lookup($procedure)
-    {
-        $data = $this->procedure(new Model, $procedure, [], []);
-        return first_resultset($data);
-    }
-
-    public function getAdjustmentType()
-    {
-        return $this->lookup('sproc_act_lkp_adjustment_type');
-
-        // return $this->select(
-        //     'SELECT payment_type_id, payment_type
-        //     FROM view_act_lkp_adjustment_type
-        //     ORDER BY payment_type ASC;'
-        // );
-    }
-
-    public function getExpenseTypes()
-    {
-        return $this->lookup('sproc_act_lkp_expense_type');
-
-        // return $this->select(
-        //     'SELECT
-        //         expense_type,
-        //         expense_type_id
-        //      FROM view_act_lkp_expense_type
-        //      ORDER BY expense_type ASC;'
-        // );
-    }
-
-    public function getPaymentTypes()
-    {
-        return $this->lookup('sproc_act_lkp_payment_type');
-
-        // return $this->select(
-        //     'SELECT
-        //         payment_type_id,
-        //         payment_type
-        //      FROM view_act_lkp_payment_type
-        //      ORDER BY payment_type ASC;'
-        // );
-    }
-
-    public function getStatuses()
-    {
-        return $this->lookup('sproc_crm_lkp_client_status');
-
-        // return $this->select(
-        //     'SELECT
-        //         client_status,
-        //         client_status_id
-        //      FROM view_crm_lkp_client_status
-        //      ORDER BY client_status ASC;'
-        // );
-    }
-
-    public function getUnitTypes()
-    {
-        return $this->lookup('sproc_crm_lkp_unit_type');
-
-        // return $this->select(
-        //     'SELECT
-        //         unit_type_id,
-        //         unit_type
-        //      FROM view_crm_lkp_unit_type
-        //      ORDER BY unit_type ASC;'
-        // );
-    }
-
-    public function getVisitType()
-    {
-        return $this->lookup('view_crm_lkp_visit_type');
-
-        // return $this->select(
-        //     'SELECT
-        //         visit_type_id,
-        //         visit_type
-        //      FROM view_crm_lkp_visit_type
-        //      ORDER BY visit_type ASC;'
-        // );
     }
 
     public function getScheduleGrid()
@@ -448,156 +555,6 @@ class Repository
         );
     }
 
-    public function getAccountType()
-    {
-        return $this->lookup('sproc_org_lkp_account_type');
-
-        // return $this->select(
-        //     'SELECT entity_type_id, entity_type
-        //     FROM view_org_lkp_account_type
-        //     ORDER BY entity_type ASC;'
-        // );
-    }
-
-    public function getAddressType()
-    {
-        return $this->lookup('sproc_org_lkp_address_type');
-
-        // return $this->select(
-        //     'SELECT address_type_id, address_type
-        //     FROM view_org_lkp_address_type
-        //     ORDER BY address_type ASC;'
-        // );
-    }
-
-    public function getAgents()
-    {
-        return $this->lookup('sproc_org_lkp_agent');
-
-        // return $this->select(
-        //     'SELECT
-        //         agent_name,
-        //         individual_entity_id,
-        //         mobile_phone,
-        //         organization_entity_id
-        //      FROM view_org_lkp_agent
-        //      ORDER BY agent_name ASC;'
-        // );
-    }
-
-    public function getCampaigns()
-    {
-        return $this->lookup('sproc_org_lkp_campaign');
-
-        // return $this->select(
-        //     'SELECT
-        //         campaign_name,
-        //         campaign_entity_id
-        //      FROM view_org_lkp_campaign
-        //      ORDER BY campaign_name ASC;'
-        // );
-    }
-
-    public function getCategoryType()
-    {
-        return $this->lookup('sproc_org_lkp_category_type');
-
-        // return $this->select(
-        //     'SELECT category_type_id, category_name, entity_type_id, entity_type
-        //     FROM view_org_lkp_category_type
-        //     ORDER BY category_name ASC;'
-        // );
-    }
-
-    public function getClient()
-    {
-        return $this->lookup('sproc_org_lkp_client');
-
-        // return $this->select(
-        //     'SELECT entity_name, city, city_area
-        //     FROM view_org_lkp_client
-        //     ORDER BY entity_name ASC;'
-        // );
-    }
-
-    public function getDistrict()
-    {
-        return $this->lookup('sproc_org_lkp_district');
-
-        // return $this->select(
-        //     'SELECT district
-        //     FROM view_org_lkp_district
-        //     ORDER BY district ASC;'
-        // );
-    }
-
-    public function getEntityName()
-    {
-        return $this->lookup('sproc_org_lkp_entity_name');
-
-        // return $this->select(
-        //     'SELECT entity_name, entity_type_id, entity_id
-        //     FROM view_org_lkp_entity_name
-        //     ORDER BY entity_name ASC;'
-        // );
-    }
-
-    public function getEntityType()
-    {
-        return $this->lookup('sproc_org_lkp_entity_type');
-
-        // return $this->select(
-        //     'SELECT entity_type_id, entity_type
-        //     FROM view_org_lkp_entity_type
-        //     ORDER BY entity_type ASC;'
-        // );
-    }
-
-
-    public function getFrequency()
-    {
-        return $this->lookup('sproc_org_lkp_frequency');
-
-        // return $this->select(
-        //     'SELECT frequency_id, description
-        //     FROM view_org_lkp_frequency
-        //     ORDER BY description ASC;'
-        // );
-    }
-
-    public function getIndividual()
-    {
-        return $this->lookup('sproc_org_lkp_individual');
-
-        // return $this->select(
-        //     'SELECT individual_entity_id, individual_name, entity_type_id, entity_type
-        //     FROM view_org_lkp_individual
-        //     ORDER BY individual_name ASC;'
-        // );
-    }
-
-    public function getOrganizationType()
-    {
-        return $this->lookup('sproc_org_lkp_organization_type');
-
-        // return $this->select(
-        //     'SELECT organization_type, organization_type_id
-        //     FROM view_org_lkp_organization_type
-        //     ORDER BY organization_type ASC;'
-        // );
-    }
-
-    public function getState()
-    {
-        return $this->lookup('sproc_org_lkp_state');
-
-        // return $this->select(
-        //     'SELECT state
-        //     FROM view_org_lkp_state
-        //     ORDER BY state ASC;'
-        // );
-    }
-
     public function getOrganizationDetail()
     {
         return $this->select(
@@ -650,101 +607,6 @@ class Repository
             FROM view_sch_generate_progress_grid
             ORDER BY class_name ASC;'
         );
-    }
-
-    public function getAdmissionStatus()
-    {
-        return $this->lookup('sproc_sch_lkp_admission_status');
-
-        // return $this->select(
-        //     'SELECT admission_status_id, admission_status
-        //     FROM view_sch_lkp_admission_status
-        //     ORDER BY admission_status ASC;'
-        // );
-    }
-
-    public function getClassCategories()
-    {
-        return $this->lookup('sproc_sch_lkp_class_category');
-
-        // return $this->select(
-        //     'SELECT
-        //         class_category_entity_id,
-        //         class_category
-        //      FROM view_sch_lkp_class_category
-        //      ORDER BY class_category ASC;'
-        // );
-    }
-
-    // public function getClassCategory()
-    // {
-    //     return $this->select(
-    //         'SELECT class_category_entity_id, class_category
-    //         FROM view_sch_lkp_class_category
-    //         ORDER BY class_category ASC;'
-    //     );
-    // }
-
-    public function getExam()
-    {
-        return $this->lookup('sproc_sch_lkp_exam');
-
-        // return $this->select(
-        //     'SELECT exam, exam_type, exam_entity_id, reporting_order
-        //     FROM view_sch_lkp_exam
-        //     ORDER BY reporting_order ASC;'
-        // );
-    }
-
-    public function getMainExam()
-    {
-        return $this->lookup('sproc_sch_lkp_main_exam');
-    }
-
-    public function getExamTypes()
-    {
-        return $this->lookup('sproc_sch_lkp_exam_type');
-
-        // return $this->select(
-        //     'SELECT
-        //         exam_type_id,
-        //         exam_type
-        //      FROM view_sch_lkp_exam_type;'
-        // );
-    }
-
-    public function getExamWithResult()
-    {
-        return $this->lookup('sproc_sch_lkp_exam_with_result');
-
-        // return $this->select(
-        //     'SELECT exam, exam_type, exam_entity_id, reporting_order
-        //     FROM view_sch_lkp_exam_with_result
-        //     ORDER BY reporting_order ASC;'
-        // );
-    }
-
-    public function getSubject()
-    {
-        return $this->lookup('sproc_sch_lkp_subject');
-
-        // return $this->select(
-        //     'SELECT subject, subject_entity_id
-        //     FROM view_sch_lkp_subject
-        //     ORDER BY subject ASC;'
-        // );
-    }
-
-    public function getSubjectTypes()
-    {
-        return $this->lookup('sproc_sch_lkp_subject_type');
-
-        // return $this->select(
-        //     'SELECT
-        //         subject_type_id,
-        //         subject_type
-        //      FROM view_sch_lkp_subject_type;'
-        // );
     }
 
     public function getMarkSheetDetail()
@@ -801,52 +663,6 @@ class Repository
         );
     }
 
-    public function getUser()
-    {
-        return $this->lookup('sproc_sec_lkp_user');
-
-        // return $this->select(
-        //     'SELECT user_id, login_name
-        //     FROM view_sec_lkp_user
-        //     ORDER BY login_name ASC;'
-        // );
-    }
-
-    public function getIdentifications()
-    {
-        $procedure = 'sproc_org_lkp_client_unique_key';
-
-        $data = $this->procedure(new Model, $procedure, [':iparam_unique_key_id'], []);
-        return first_resultset($data);
-
-        // return $this->select(
-        //     'SELECT
-        //         unique_key,
-        //         unique_key_id,
-        //         default_value
-        //      FROM view_org_lkp_client_unique_key;'
-        // );
-    }
-
-    public function getIdentification($id)
-    {
-        $procedure = 'sproc_org_lkp_client_unique_key';
-        $model = new Model;
-        $model->setAttribute('unique_key_id', $id);
-        $data = $this->procedure($model, $procedure, [':iparam_unique_key_id'], []);
-        return first_resultset($data);
-
-        // return $this->select(
-        //    'SELECT
-        //        unique_key,
-        //        unique_key_id,
-        //        default_value
-        //     FROM view_org_lkp_client_unique_key
-        //     WHERE unique_key_id = :id
-        //     LIMIT 1;', ['id' => $id]
-        // );
-    }
-
     public function getSelectedFacilities($id)
     {
         return $this->select(
@@ -858,216 +674,6 @@ class Repository
              ORDER BY entity_id, facility_entity_id;',
              ['id' => $id]
         );
-    }
-
-    public function getDocumentType()
-    {
-        return $this->lookup('sproc_org_lkp_document_type');
-
-        // return $this->select(
-        //     'SELECT
-        //         document_type_id,
-        //         document_type
-        //      FROM view_org_lkp_document_type;'
-        // );
-    }
-
-    public function getGradeSystem()
-    {
-        return $this->lookup('sproc_sch_lkp_exam_grading_system');
-    }
-
-    public function getAccountTypeFilter()
-    {
-        return $this->lookup('sproc_org_lkp_account_type_filter2');
-
-        // return $this->select(
-        //     'SELECT
-        //         row_type,
-        //         entity_id,
-        //         drop_down_list_name,
-        //         sequence_id,
-        //         reporting_order
-        //      FROM view_lkp_account_type_filter
-        //      ORDER BY sequence_id, reporting_order ASC;'
-        // );
-    }
-
-    public function getSchoolAccountTypeFilter()
-    {
-        return $this->lookup('sproc_sch_lkp_account_type_filter');
-    }
-
-    public function getOrganizations()
-    {
-        $procedure = 'sproc_org_lkp_organization';
-
-        $data = $this->procedure(new Model, $procedure, ['-iparam_organization_type'], []);
-        return first_resultset($data);
-
-        // return $this->select(
-        //     'SELECT
-        //         organization_name,
-        //         organization_entity_id
-        //      FROM view_org_lkp_organization
-        //      ORDER BY organization_name ASC;'
-        // );
-    }
-
-    public function getClientOrganizations()
-    {
-        $procedure = 'sproc_org_lkp_organization';
-        $model = new Model;
-        $model->setAttribute('organization_type', 'Client');
-        $data = $this->procedure($model, $procedure, ['-iparam_organization_type'], []);
-        return first_resultset($data);
-
-        // return $this->select(
-        //     'SELECT
-        //         organization_name,
-        //         organization_entity_id,
-        //         organization_type
-        //      FROM view_org_lkp_organization
-        //      WHERE organization_type = :type
-        //      ORDER BY organization_name ASC;', ['type' => 'Client']
-        // );
-    }
-
-    public function getAgentOrganizations()
-    {
-        $procedure = 'sproc_org_lkp_organization';
-        $model = new Model;
-        $model->setAttribute('organization_type', 'Broker');
-        $data = $this->procedure($model, $procedure, ['-iparam_organization_type'], []);
-        return first_resultset($data);
-
-        // return $this->select(
-        //     'SELECT
-        //         organization_name,
-        //         organization_entity_id,
-        //         organization_type
-        //      FROM view_org_lkp_organization
-        //      WHERE organization_type = :type
-        //      ORDER BY organization_name ASC;', ['type' => 'Broker']
-        // );
-    }
-
-    public function getSecurityGroup()
-    {
-        $procedure = 'sproc_sec_lkp_security_group';
-
-        $iparams = [
-            '-iparam_security_group',
-            ':iparam_system_value',
-        ];
-
-        $data = $this->procedure(new Model, $procedure, $iparams, []);
-        return first_resultset($data);
-
-        // return $this->select(
-        //     'SELECT
-        //         security_group,
-        //         security_group_entity_id,
-        //         system_value
-        //      FROM view_sec_lkp_security_group;'
-        // );
-    }
-
-    public function getSecurityGroupForParent()
-    {
-        $procedure = 'sproc_sec_lkp_security_group';
-
-        $iparams = [
-            '-iparam_security_group',
-            ':iparam_system_value',
-        ];
-
-        $model = new Model;
-        $model->setAttribute('security_group', 'Parent');
-
-        $data = $this->procedure($model, $procedure, $iparams, []);
-        return first_resultset($data);
-
-        // return $this->select(
-        //     'SELECT
-        //         security_group,
-        //         security_group_entity_id,
-        //         system_value
-        //      FROM view_sec_lkp_security_group
-        //      WHERE security_group = :group
-        //      LIMIT 1;', ['group' => 'Parent']
-        // );
-    }
-
-    public function getSecurityGroupForAgent()
-    {
-        $procedure = 'sproc_sec_lkp_security_group';
-
-        $iparams = [
-            '-iparam_security_group',
-            ':iparam_system_value',
-        ];
-
-        $model = new Model;
-        $model->setAttribute('security_group', 'Agent');
-
-        $data = $this->procedure($model, $procedure, $iparams, []);
-        return first_resultset($data);
-
-        // return $this->select(
-        //     'SELECT
-        //         security_group,
-        //         security_group_entity_id,
-        //         system_value
-        //      FROM view_sec_lkp_security_group
-        //      WHERE security_group = :group
-        //      LIMIT 1;', ['group' => 'Agent']
-        // );
-    }
-
-    public function getSecurityGroupForEmployees()
-    {
-        $procedure = 'sproc_sec_lkp_security_group';
-
-        $iparams = [
-            '-iparam_security_group',
-            ':iparam_system_value',
-        ];
-
-        $model = new Model;
-        $model->setAttribute('system_value', 9);
-
-        $data = $this->procedure($model, $procedure, $iparams, []);
-        return first_resultset($data);
-
-        // return $this->select(
-        //     'SELECT
-        //         security_group,
-        //         security_group_entity_id,
-        //         system_value
-        //      FROM view_sec_lkp_security_group
-        //      WHERE system_value = :value;', ['value' => 9]
-        // );
-    }
-
-    public function getStudents()
-    {
-        $procedure = 'sproc_sch_lkp_student';
-
-        $iparams = [
-            ':iparam_class_entity_id',
-            ':iparam_student_entity_id',
-            ':iparam_class_student_id',
-        ];
-
-        $data = $this->procedure(new Model, $procedure, $iparams, []);
-        return first_resultset($data);
-
-        // return $this->select(
-        //     'SELECT student_full_name, first_name, middle_name, last_name, class_name, student_roll_number, fiscal_year, mobile_phone, active, class_student_id, student_entity_id, class_entity_id, class_category_entity_id, class_group_entity_id, fiscal_year_entity_id, class_reporting_order
-        //     FROM view_sch_lkp_student
-        //     ORDER BY class_reporting_order, student_full_name ASC;'
-        // );
     }
 
     public function getSchoolName()
@@ -1087,6 +693,15 @@ class Repository
                 organization_entity_id
             FROM view_org_organization_detail_owner
             LIMIT 1;'
+        );
+    }
+
+    public function getAdmissionGrid()
+    {
+        return $this->select(
+            'SELECT student_full_name, admission_number, admission_date, admitted_to, current_class_name, admission_status, admission_id, admission_status_id
+             FROM view_sch_admission_grid
+             ORDER BY student_full_name ASC;'
         );
     }
 }
