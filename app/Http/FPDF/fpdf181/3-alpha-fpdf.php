@@ -1,6 +1,6 @@
 <?php
 
-require('rotate-fpdf.php');
+require('2-rotate-fpdf.php');
 
 class AlphaPDF extends PDF_Rotate
 {

@@ -149,6 +149,15 @@ function absent_date($date)
     return date("l, F d, Y", $date);
 }
 
+function hall_ticket_date($date)
+{
+    $date = strtotime($date);
+    if (empty($date)) {
+        return '-';
+    }
+    return date("M jS, Y l", $date);
+}
+
 function current_date()
 {
     return date('M jS, Y');
@@ -432,4 +441,21 @@ function student_picture($id, $showHtml)
         }
         return public_path('dashboard/student.jpg');
     }
+}
+
+function student_picture_path($id)
+{
+    $imgPath = public_path('dashboard/student.png');
+
+    $extensionPath = storage_path('uploads/'.domain()."/student-images/{$id}");
+
+    if (file_exists($extensionPath)) {
+        $extension = file_get_contents($extensionPath);
+        $extension = trim($extension);
+        if (file_exists($extensionPath.'.'.$extension)) {
+            $imgPath = $extensionPath.'.'.$extension;
+        }
+    }
+
+    return $imgPath;
 }

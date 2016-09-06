@@ -5,7 +5,7 @@ namespace App\Http\Modules\reports\School\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\School\Models\HallTicket;
-use App\Http\PdfGenerator\Pdf;
+use App\Http\FPDF\HallTicket\HallTicketPDF;
 
 class HallTicketController extends Controller
 {
@@ -40,7 +40,7 @@ class HallTicketController extends Controller
     {
         $export = new HallTicket($request->input());
         $export->loadPdfData();
-        $view = view('reports.school.HallTicket.pdf', compact('export'));
-        return Pdf::render($view);
+
+        HallTicketPDF::portrait()->generate($export);
     }
 }

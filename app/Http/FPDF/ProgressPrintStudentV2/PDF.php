@@ -1,37 +1,17 @@
 <?php
 
 namespace App\Http\FPDF\ProgressPrintStudentV2;
-use AlphaPDF;
+use BasePDF;
 
-require app_path('Http/FPDF/fpdf181/alpha-fpdf.php');
+require app_path('Http/FPDF/fpdf181/base-fpdf.php');
 
-class PDF extends AlphaPDF
+class PDF extends BasePDF
 {
-    protected $contents;
-
-    public function setContents($contents)
-    {
-        $this->contents = $contents;
-    }
-
-    public static function portrait()
-    {
-        // A4 = 210 × 297 millimeters
-        return new static('P', 'mm', 'A4');
-    }
-
-    public static function landscape()
-    {
-        // A4 = 297 x 210 millimeters
-        return new static('L', 'mm', 'A4');
-    }
-
     public function generate($export, $progress)
     {
         $this->setContents(new Contents($export, $progress));
         $this->SetTitle($this->contents->title);
         $this->SetAuthor('Tansycloud');
-        $this->loadFonts();
 
         foreach ($this->contents->students as $student) {
             $this->contents->setStudent($student);
@@ -48,11 +28,6 @@ class PDF extends AlphaPDF
         }
 
         $this->Output();
-    }
-
-    public function loadFonts()
-    {
-        // $this->AddFont('Helvetica Neue', 'B', 'HelveticaNeueBd.php');
     }
 
     public function drawGrid()
@@ -212,18 +187,7 @@ class PDF extends AlphaPDF
         $this->setXY(214, 36);
         $this->Cell(32, 35, '', 0, 0, 'C');
 
-        $imgPath = public_path('dashboard/student.png');
-        $id = $this->contents->studentId;
-        $extensionPath = storage_path('uploads/'.domain()."/student-images/{$id}");
-
-        if (file_exists($extensionPath)) {
-            $extension = file_get_contents($extensionPath);
-            $extension = trim($extension);
-            if (file_exists($extensionPath.'.'.$extension)) {
-                $imgPath = $extensionPath.'.'.$extension;
-            }
-        }
-
+        $imgPath = student_picture_path($this->contents->studentId);
         $this->Image($imgPath, 214, 36, 30);
 
         $this->SetFont('Helvetica', 'BU', 11);
