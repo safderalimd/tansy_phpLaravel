@@ -19,14 +19,17 @@
     @foreach($export->tickets as $ticket)
 
         <div class="row">
-            <div class="col-md-4 logo-container">
-                @include('reports.common.pdf-logo-img')
-            </div>
-            <div class="col-md-8 school-container">
+            {{-- <div class="col-md-4"> --}}
+            {{-- logo-container --}}
+                {{-- include('reports.common.pdf-logo-img') --}}
+            {{-- </div> --}}
+            <div class="col-md-12">
+            {{-- school-container --}}
                 <h3 class="school-name text-center">{{$export->schoolName}}</h3>
                 <h4 class="school-phone text-center">{{$export->schoolCity}} (Phone: {{phone_number_spaces($export->schoolWorkPhone)}})</h4>
             </div>
         </div>
+
 
         <div class="row">
             <div class="col-md-12"><h4 class="report-name text-center">{{$export->reportName}}</h4></div>
@@ -58,17 +61,17 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>Subject</th>
-                        <th>Date</th>
+                        @foreach($ticket as $subjects)
+                            <th>{{style_date($subjects['exam_date'])}}</th>
+                        @endforeach
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($ticket as $subjects)
                     <tr>
-                        <td>{{$subjects['subject_name']}}</td>
-                        <td>{{style_date($subjects['exam_date'])}}</td>
+                        @foreach($ticket as $subjects)
+                            <td>{{$subjects['subject_name']}}</td>
+                        @endforeach
                     </tr>
-                    @endforeach
                 </tbody>
             </table>
             </div>
