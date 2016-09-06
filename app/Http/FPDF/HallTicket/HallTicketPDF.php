@@ -28,9 +28,9 @@ class HallTicketPDF extends BasePDF
 
                 $this->setX(10);
                 if ($i == 1) {
-                    $this->setY(20 + $this->ticketHeight);
+                    $this->setY(15 + $this->ticketHeight);
                 } elseif ($i == 2) {
-                    $this->setY(30 + 2 * $this->ticketHeight);
+                    $this->setY(20 + 2 * $this->ticketHeight);
                 }
 
                 $this->contents->setTicket($ticket);
@@ -76,7 +76,7 @@ class HallTicketPDF extends BasePDF
         $text = $this->contents->schoolCity . ' (Phone: ' . $this->contents->schoolWorkPhone . ')';
         $this->SetFont('Helvetica', '', 10);
         $this->Cell(0, 5, $text, 0, 1, 'C');
-        $this->Ln(10);
+        $this->Ln(8);
 
         $this->SetFont('Helvetica', 'BU', 14);
         $this->setX(12);
