@@ -115,6 +115,9 @@ class HallTicketPDF extends BasePDF
 
         $this->Ln(3);
         $this->SetFont('Helvetica', '', 10);
+        if ($nrColumns > 8) {
+            $this->SetFont('Helvetica', '', 8);
+        }
 
         $this->setX(12);
         foreach ($this->contents->datesRow as $cell) {
@@ -133,6 +136,8 @@ class HallTicketPDF extends BasePDF
 
         $this->setX(12);
         $this->Row($emptyRow);
+
+        $this->SetFont('Helvetica', '', 10);
     }
 
     public function drawSignature()
