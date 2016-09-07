@@ -138,7 +138,7 @@ class HallTicketPDF extends BasePDF
     public function drawSignature()
     {
         $this->SetFont('Helvetica', '', 11);
-        $this->Ln(1);
+        $this->Ln(3);
         $this->setX(12);
         $this->Cell($this->GetPageWidth() - 24, 6, 'Principal Signature', 0, 1, 'R');
     }
