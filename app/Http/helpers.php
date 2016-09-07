@@ -149,15 +149,6 @@ function absent_date($date)
     return date("l, F d, Y", $date);
 }
 
-function hall_ticket_date($date)
-{
-    $date = strtotime($date);
-    if (empty($date)) {
-        return '-';
-    }
-    return date("M jS, Y l", $date);
-}
-
 function current_date()
 {
     return date('M jS, Y');

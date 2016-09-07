@@ -22,6 +22,7 @@ class HallTicketRepository extends Repository
 
         $oparams = [
             '@oparam_show_image_in_hall_ticket',
+            '@oparam_fiscal_year',
             '@oparam_school_name',
             '@oparam_school_city',
             '@oparam_school_phone',
