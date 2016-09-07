@@ -381,7 +381,7 @@ class SendSmsController extends Controller
         $failureCount = 0;
 
         // calculate credits used, success count, failure count
-        foreach ($jsonRows as $jsonRow) {
+        foreach ((array)$jsonRows as $jsonRow) {
             $status = isset($jsonRow->status) ? $jsonRow->status : 'failure';
             if ($status == 'success') {
                 $successCount++;
