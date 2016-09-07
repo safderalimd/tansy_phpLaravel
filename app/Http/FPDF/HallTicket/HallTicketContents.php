@@ -53,7 +53,7 @@ class HallTicketContents
         foreach($ticket as $subjects) {
             $this->datesRow[] = $this->date($subjects['exam_date']);
             $this->weekdaysRow[] = $this->weekday($subjects['exam_date']);
-            $this->subjectsRow[] = $subjects['subject_name'];
+            $this->subjectsRow[] = $subjects['subject_short_code'];
         }
     }
 

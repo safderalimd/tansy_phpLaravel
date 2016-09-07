@@ -15,8 +15,6 @@ class HallTicketPDF extends BasePDF
         $this->SetTitle('Hall Ticket');
         $this->SetAuthor('Tansycloud');
 
-        $this->initDrawColors();
-
         $i = 1;
         foreach($this->contents->tickets as $ticket) {
 
@@ -28,10 +26,9 @@ class HallTicketPDF extends BasePDF
                 $this->AddPage();
             }
 
-            $initialX = $this->getX();
-            $initialY = $this->getY();
-
             $this->contents->setTicket($ticket);
+
+            $this->drawTicketBorder($i);
 
             if ($this->contents->showImage()) {
                 $this->drawStudentImage();
@@ -42,12 +39,6 @@ class HallTicketPDF extends BasePDF
             $this->drawSignature();
             $this->drawWatermark();
 
-            // draw ticket border
-            $this->Rect($initialX, $initialY, $this->GetPageWidth()-20, $this->getY()-$initialY, 'D');
-            // $nrLines = $this->nrLines();
-
-            $this->Ln(5);
-
             $i++;
         }
 
@@ -55,10 +46,20 @@ class HallTicketPDF extends BasePDF
         die();
     }
 
-    public function initDrawColors()
+    public function drawTicketBorder($i)
     {
         $this->SetDrawColor(221, 221, 221);
         $this->SetFillColor(245, 245, 245);
+
+        $this->setX(10);
+        if ($i == 1) {
+            $this->setY(10);
+        } elseif ($i == 2) {
+            $this->setY(105);
+        } elseif ($i == 3) {
+            $this->setY(200);
+        }
+        $this->Rect(10, $this->getY(), $this->GetPageWidth()-20, 85, 'D');
     }
 
     public function drawHeader()
@@ -140,7 +141,6 @@ class HallTicketPDF extends BasePDF
         $this->Ln(1);
         $this->setX(12);
         $this->Cell($this->GetPageWidth() - 24, 6, 'Principal Signature', 0, 1, 'R');
-        $this->Ln(7);
     }
 
     public function drawWatermark()
