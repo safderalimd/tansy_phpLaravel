@@ -22,6 +22,8 @@ class HallTicket extends Model
 
     public $examFilter = '';
 
+    public $fiscalYear = '';
+
     public function setAeiAttribute($value)
     {
         $this->setAttribute('filter_entity_id', $value);
@@ -38,7 +40,7 @@ class HallTicket extends Model
     {
         $tickets = $this->repository->tickets($this);
         $tickets = collect($tickets);
-        $this->tickets = $tickets->groupBy('account_entity_id');
+        $this->tickets = $tickets->groupBy('student_entity_id');
 
         $this->setSchoolInfo();
     }
@@ -48,6 +50,7 @@ class HallTicket extends Model
         $this->schoolName = isset($this->school_name) ? $this->school_name : '';
         $this->schoolCity = isset($this->school_city) ? $this->school_city : '';
         $this->schoolWorkPhone = isset($this->school_phone) ? $this->school_phone : '';
+        $this->fiscalYear = isset($this->fiscal_year) ? $this->fiscal_year : '';
     }
 
     public function showImage()
