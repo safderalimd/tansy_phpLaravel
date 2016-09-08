@@ -28,15 +28,9 @@ class Homework extends Model
         return $value;
     }
 
-    public function setSeiAttribute($value)
-    {
-        $this->setAttribute('subject_entity_id', $value);
-        return $value;
-    }
-
     public function rows()
     {
-        if (is_null($this->start_date) || is_null($this->end_date) || is_null($this->class_entity_id) || is_null($this->subject_entity_id)) {
+        if (is_null($this->start_date) || is_null($this->end_date) || is_null($this->class_entity_id)) {
             return [];
         }
 

@@ -51,16 +51,6 @@
                             @endforeach
                         </select>
                     </div>
-
-                    <label class="col-md-1 control-label" for="subject_entity_id">Subject</label>
-                    <div class="col-md-2">
-                        <select id="subject_entity_id" class="form-control" name="sid">
-                            <option value="none">Select a subject..</option>
-                            @foreach($homework->subject() as $option)
-                                <option {{ activeSelect($option['subject_entity_id'], 'sei') }} value="{{ $option['subject_entity_id'] }}">{{ $option['subject'] }}</option>
-                            @endforeach
-                        </select>
-                    </div>
                 </div>
 
             </form>
@@ -68,6 +58,7 @@
             <table class="table table-striped table-bordered table-hover" data-datatable>
                 <thead>
                     <tr>
+                        <th>Subject <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Homework Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Homework <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Actions</th>
@@ -76,6 +67,7 @@
                 <tbody>
                     @foreach($homework->rows() as $item)
                     <tr>
+                        <td>{{$item['subject_name']}}</td>
                         <td>{{style_date($item['home_work_date'])}}</td>
                         <td>{{$item['home_work']}}</td>
                         <td>
@@ -118,7 +110,6 @@
         var sdt = $('#start_date').val();
         var edt = $('#end_date').val();
         var cei = $('#class_entity_id option:selected').val();
-        var sei = $('#subject_entity_id option:selected').val();
 
         var items = [];
         if (sdt != "") {
@@ -129,9 +120,6 @@
         }
         if (cei != "none") {
             items.push('cei='+cei);
-        }
-        if (sei != "none") {
-            items.push('sei='+sei);
         }
 
         var queryString = items.join('&');

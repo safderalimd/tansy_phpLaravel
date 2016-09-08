@@ -38,7 +38,6 @@ class HomeworkRepository extends Repository
             '-iparam_start_date',
             '-iparam_end_date',
             ':iparam_class_entity_id',
-            ':iparam_subject_entity_id',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
