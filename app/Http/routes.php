@@ -161,6 +161,11 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('homework/edit/{id}', 'Teacher\Controllers\HomeworkController@update');
     Route::get('homework/delete/{id}', 'Teacher\Controllers\HomeworkController@destroy');
 
+    Route::get('exam-syllabus', 'Teacher\Controllers\ExamSyllabusController@index');
+    Route::get('exam-syllabus/edit/{id}', 'Teacher\Controllers\ExamSyllabusController@edit');
+    Route::post('exam-syllabus/edit/{id}', 'Teacher\Controllers\ExamSyllabusController@update');
+    Route::get('exam-syllabus/delete/{id}', 'Teacher\Controllers\ExamSyllabusController@destroy');
+
     Route::get('mark-sheet', 'School\Controllers\MarkSheetController@index');
     Route::get('mark-sheet/edit', 'School\Controllers\MarkSheetController@edit');
     Route::get('mark-sheet/lock', 'School\Controllers\MarkSheetController@lock');
