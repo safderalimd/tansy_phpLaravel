@@ -5,7 +5,8 @@ namespace App\Http\Modules\reports\School\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\School\Models\ProgressPrintStudentV2;
-use App\Http\FPDF\ProgressPrintStudentV2\PDF;
+use App\Http\FPDF\ProgressPrintStudentV2\V2PDF;
+use App\Http\FPDF\ProgressPrintStudentV2\V3PDF;
 
 class ProgressPrintStudentV2Controller extends Controller
 {
@@ -39,7 +40,12 @@ class ProgressPrintStudentV2Controller extends Controller
             return view('reports.school.ProgressPrintStudentV2.pdf', compact('export', 'progress', 'showHtml'));
         }
 
-        $pdf = PDF::landscape();
+        if ($request->input('v') == 3) {
+            $pdf = V3PDF::landscape();
+        } else {
+            $pdf = V2PDF::landscape();
+        }
+
         $pdf->generate($export, $progress);
     }
 }

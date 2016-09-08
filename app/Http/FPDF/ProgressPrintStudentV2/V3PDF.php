@@ -5,7 +5,7 @@ use BasePDF;
 
 require app_path('Http/FPDF/fpdf181/base-fpdf.php');
 
-class PDF extends BasePDF
+class V3PDF extends BasePDF
 {
     public function generate($export, $progress)
     {
