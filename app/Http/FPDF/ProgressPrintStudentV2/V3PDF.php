@@ -264,9 +264,9 @@ class V3PDF extends BasePDF
     public function drawGraph()
     {
         // data
-        $minMark = 0;
-        $maxMark = $this->contents->maxMark;
-        $increments = $this->getIncrements($maxMark);
+        // $maxMark = $this->contents->maxMark;
+        // $this->getIncrements($maxMark);
+        $increments = [100, 80, 60, 40, 20, 0];
         $percentages = $this->contents->percentages;
         $percentagesLine = $this->contents->percentagesLine;
 
@@ -367,16 +367,16 @@ class V3PDF extends BasePDF
     }
 
     // return 6 elements in the array
-    public function getIncrements($maxMark)
-    {
-        return [
-            round($maxMark),
-            round(80/100 * $maxMark),
-            round(60/100 * $maxMark),
-            round(40/100 * $maxMark),
-            round(20/100 * $maxMark),
-            0,
-        ];
-    }
+    // public function getIncrements($maxMark)
+    // {
+    //     return [
+    //         round($maxMark),
+    //         round(80/100 * $maxMark),
+    //         round(60/100 * $maxMark),
+    //         round(40/100 * $maxMark),
+    //         round(20/100 * $maxMark),
+    //         0,
+    //     ];
+    // }
 }
 
