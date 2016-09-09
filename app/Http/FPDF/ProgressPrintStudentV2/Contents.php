@@ -32,6 +32,11 @@ class Contents
     public $gpa = '';
     public $studentId = '';
 
+    // data for graphs
+    public $maxMark;
+    public $percentages = [];
+    public $subjects = [];
+
     public function __construct($export, $progress)
     {
         $this->export = $export;
@@ -71,6 +76,15 @@ class Contents
         $this->percentage = isset($studentTotals['score_percent']) ? $studentTotals['score_percent'] : '';
         $this->grade = isset($studentTotals['grade']) ? $studentTotals['grade'] : '';
         $this->gpa = isset($studentTotals['gpa']) ? $studentTotals['gpa'] : '';
+
+        // data for graphs
+        $this->maxMark = $subjectMaxTotal;
+        $this->subjects = [];
+        $this->percentages = [];
+        foreach ($student as $subject) {
+            $this->subjects[] = isset($subject['subject_short_code']) ? $subject['subject_short_code'] : '';
+            $this->percentages[] = isset($subject['student_subject_percent']) ? $subject['student_subject_percent'] : '';
+        }
     }
 
     public function examTypes()

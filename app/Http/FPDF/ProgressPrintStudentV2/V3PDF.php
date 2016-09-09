@@ -272,11 +272,11 @@ class V3PDF extends BasePDF
     {
         // data
         $minMark = 0;
-        $maxMark = 100;
-        $increments = [100, 80, 60, 40, 20, 0];
-        $percentages = [80, 44, 77, 36, 88, 95];
+        $maxMark = $this->contents->maxMark;
+        $increments = $this->getIncrements($maxMark);
+        $percentages = $this->contents->percentages;
 
-        $subjects = ['MAT', 'HIN', 'ENG', 'TEL', 'SCI', 'SOC'];
+        $subjects = $this->contents->subjects;
         $nrSubjects = count($subjects);
 
         // colors
@@ -351,6 +351,19 @@ class V3PDF extends BasePDF
             $barHeight = round($percentages[$i]/100 * $graphHeight, 2);
             $this->Rect($x1, $y1, $barWidth, -1 * $barHeight, 'F');
         }
+    }
+
+    // return 6 elements in the array
+    public function getIncrements($maxMark)
+    {
+        return [
+            $maxMark,
+            round(80/100 * $maxMark),
+            round(60/100 * $maxMark),
+            round(40/100 * $maxMark),
+            round(20/100 * $maxMark),
+            0,
+        ];
     }
 }
 
