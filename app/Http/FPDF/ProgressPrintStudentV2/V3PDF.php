@@ -9,7 +9,7 @@ class V3PDF extends BasePDF
 {
     public function generate($export, $progress)
     {
-        $this->setContents(new Contents($export, $progress));
+        $this->setContents(new V3Contents($export, $progress));
         $this->SetTitle($this->contents->title);
         $this->SetAuthor('Tansycloud');
 
@@ -202,26 +202,27 @@ class V3PDF extends BasePDF
 
     public function drawAttendanceTable()
     {
-        $this->setXY(214, 115);
+        $this->setXY(214, 120);
         $this->SetFont('Helvetica', 'B', 12);
-        $this->Cell(71, 15, 'ATTENDANCE DETAILS', 1, 1, 'C', true);
+        $this->Cell(71, 10, 'ATTENDANCE DETAILS', 0, 1, 'L');
+        // $this->Cell(71, 15, 'ATTENDANCE DETAILS', 1, 1, 'C', true);
 
-        $this->setX(214);
-        $y = $this->getY();
-        $this->Cell(23, 15, 'Month', 1, 0, 'C');
-        $this->Cell(24, 15, '', 1, 0, 'C');
-        $this->Cell(24, 15, '', 1, 0, 'C');
+        // $this->setX(214);
+        // $y = $this->getY();
+        // $this->Cell(23, 15, 'Month', 1, 0, 'C');
+        // $this->Cell(24, 15, '', 1, 0, 'C');
+        // $this->Cell(24, 15, '', 1, 0, 'C');
 
-        $this->setX(214+23);
-        $this->Cell(24, 7, 'Working', 0, 0, 'C');
-        $this->Cell(24, 7, 'Days', 0, 1, 'C');
+        // $this->setX(214+23);
+        // $this->Cell(24, 7, 'Working', 0, 0, 'C');
+        // $this->Cell(24, 7, 'Days', 0, 1, 'C');
 
-        $this->setX(214+23);
-        $this->Cell(24, 7, 'Days', 0, 0, 'C');
-        $this->Cell(24, 7, 'Present', 0, 0, 'C');
-        $this->Ln(1);
+        // $this->setX(214+23);
+        // $this->Cell(24, 7, 'Days', 0, 0, 'C');
+        // $this->Cell(24, 7, 'Present', 0, 0, 'C');
+        // $this->Ln(1);
 
-        $this->setY($y+15);
+        // $this->setY($y+15);
 
         foreach ($this->contents->months as $month) {
             $calendarMonth = isset($month['calendar_month']) ? $month['calendar_month'] : '';
@@ -229,11 +230,14 @@ class V3PDF extends BasePDF
             $presentDays = isset($month['present_days']) ? $month['present_days'] : '';
 
             $this->setX(214);
-            $this->Cell(23, 10, $calendarMonth, 1, 0, 'C');
-            $this->SetFont('Helvetica', '');
-            $this->Cell(24, 10, $workingDays, 1, 0, 'C');
-            $this->Cell(24, 10, $presentDays, 1, 1, 'C');
-            $this->SetFont('Helvetica', 'B');
+            $text = $calendarMonth . ' ' . $presentDays . '/' . $workingDays;
+            $this->Cell(50, 10, $text, 1, 0, 'C');
+
+            // $this->Cell(23, 10, $calendarMonth, 1, 0, 'C');
+            // $this->SetFont('Helvetica', '');
+            // $this->Cell(24, 10, $workingDays, 1, 0, 'C');
+            // $this->Cell(24, 10, $presentDays, 1, 1, 'C');
+            // $this->SetFont('Helvetica', 'B');
         }
     }
 
@@ -289,7 +293,7 @@ class V3PDF extends BasePDF
         $this->setXY(214, 72);
 
         $width = 71; // total width of the graph + left labels
-        $cellHeight = 6; // the height of left labels
+        $cellHeight = 7; // the height of left labels
         $cellWidth = 5; // the width of left labells
         $nrLines = 6; // nr horizontal lines
         $halfCellHeight = round($cellHeight/2, 2); // half of left labels height

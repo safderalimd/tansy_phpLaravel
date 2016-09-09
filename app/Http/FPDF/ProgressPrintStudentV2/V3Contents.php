@@ -3,7 +3,7 @@
 namespace App\Http\FPDF\ProgressPrintStudentV2;
 
 // Contents for each student row
-class Contents
+class V3Contents
 {
     protected $export;
 
@@ -14,7 +14,7 @@ class Contents
     protected $student;
 
     // general data for all pages below ..
-    public $title = 'Progress Student V2';
+    public $title = 'Progress Student V3';
     public $schoolName = '';
     public $phoneNr = '';
     public $examName = '';

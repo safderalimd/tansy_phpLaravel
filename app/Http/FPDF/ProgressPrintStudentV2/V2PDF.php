@@ -9,7 +9,7 @@ class V2PDF extends BasePDF
 {
     public function generate($export, $progress)
     {
-        $this->setContents(new Contents($export, $progress));
+        $this->setContents(new V2Contents($export, $progress));
         $this->SetTitle($this->contents->title);
         $this->SetAuthor('Tansycloud');
 
