@@ -25,6 +25,7 @@ class V3PDF extends BasePDF
             $this->drawSignatures();
             $this->drawLogo();
             $this->drawWatermark();
+            $this->drawGraph();
         }
 
         $this->Output();
@@ -201,7 +202,7 @@ class V3PDF extends BasePDF
 
     public function drawAttendanceTable()
     {
-        $this->setXY(214, 72);
+        $this->setXY(214, 115);
         $this->SetFont('Helvetica', 'B', 12);
         $this->Cell(71, 15, 'ATTENDANCE DETAILS', 1, 1, 'C', true);
 
@@ -265,6 +266,91 @@ class V3PDF extends BasePDF
         $this->SetAlpha(0.2);
         $this->RotatedText(110, 135, $this->contents->schoolName, 45);
         $this->SetAlpha(1);
+    }
+
+    public function drawGraph()
+    {
+        // data
+        $minMark = 0;
+        $maxMark = 100;
+        $increments = [100, 80, 60, 40, 20, 0];
+        $percentages = [80, 44, 77, 36, 88, 95];
+
+        $subjects = ['MAT', 'HIN', 'ENG', 'TEL', 'SCI', 'SOC'];
+        $nrSubjects = count($subjects);
+
+        // colors
+        $this->SetDrawColor(119, 119, 119);
+        $this->SetFillColor(0, 69, 138);
+        $this->SetFont('Helvetica', '', 7);
+        $this->SetTextColor(51, 51, 51);
+
+        // coordinates
+        $this->setXY(214, 72);
+
+        $width = 71; // total width of the graph + left labels
+        $cellHeight = 6; // the height of left labels
+        $cellWidth = 5; // the width of left labells
+        $nrLines = 6; // nr horizontal lines
+        $halfCellHeight = round($cellHeight/2, 2); // half of left labels height
+        $lineExtra = 1; // offset for lines
+        $graphWidth = $width - $cellWidth - $lineExtra; // total width of only the graph without left labels
+        $colWidth = round($graphWidth/$nrSubjects, 2); // the width of a column (distance beteween 2 lines at the bottom)
+        $barWidth = round($colWidth - (50/100) * $colWidth, 2); // width of blue bar
+        $barOffset = round(($colWidth - $barWidth)/2, 2); // blue bar offset
+        $graphHeight = ($nrLines-1) * $cellHeight;
+
+        // original coordinates
+        $x = $this->getX();
+        $y = $this->getY();
+
+        // draw horizontal graph lines and left labels
+        for ($i = 0; $i < $nrLines; $i++) {
+            $this->setX($x);
+            $this->Cell($cellWidth, $cellHeight, $increments[$i], 0, 1, 'R');
+
+            $x1 = $x + $cellWidth;
+            $y1 = $y + $cellHeight*$i + $halfCellHeight;
+            $x2 = $x + $width;
+            $y2 = $y + $cellHeight*$i + $halfCellHeight;
+
+            $this->Line($x1, $y1, $x2, $y2);
+        }
+
+        // draw first and last vertical graph lines
+        $x1 = $x + $cellWidth + $lineExtra;
+        $y1 = $y + $halfCellHeight;
+        $y2 = $y + $halfCellHeight + $cellHeight*($nrLines-1) + $lineExtra;
+        $this->Line($x1, $y1, $x1, $y2);
+        $x1 = $x + $width;
+        $this->Line($x1, $y1, $x1, $y2);
+
+        // draw spikes extra lines at the bottom (except first and last ones)
+        for ($i=1; $i<$nrSubjects; $i++) {
+            $x1 = $x + $colWidth * $i + $cellWidth + $lineExtra;
+            $x2 = $x1;
+            $y1 = $y + $cellHeight * ($nrLines-1) + $halfCellHeight;
+            $y2 = $y1 + $lineExtra;
+
+            $this->Line($x1, $y1, $x2, $y2);
+        }
+
+        // draw subject labels
+        $x1 = $x + $cellWidth + $lineExtra;
+        $y1 = $y + $cellHeight * ($nrLines-1) + $halfCellHeight;
+        $this->setXY($x1, $y1);
+        for ($i=0; $i<$nrSubjects; $i++) {
+            $this->Cell($colWidth, $cellHeight, $subjects[$i], 0, 0, 'C');
+        }
+
+        // draw bars on graph
+        for ($i=0; $i<$nrSubjects; $i++) {
+            $x1 = $x + $colWidth * $i + $lineExtra + $cellWidth + $barOffset;
+            $y1 = $y + $cellHeight * ($nrLines-1) + $halfCellHeight;
+
+            $barHeight = round($percentages[$i]/100 * $graphHeight, 2);
+            $this->Rect($x1, $y1, $barWidth, -1 * $barHeight, 'F');
+        }
     }
 }
 
