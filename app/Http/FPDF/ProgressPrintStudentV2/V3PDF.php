@@ -53,7 +53,7 @@ class V3PDF extends BasePDF
 
         $this->SetFontSize(12);
         $this->Cell(0, 4, $this->contents->examName, 0, 1, 'C');
-        $this->Cell(0, 4, 'RESULT SHEET', 0, 1, 'C');
+        $this->Cell(0, 4, 'PROGRESS REPORT', 0, 1, 'C');
     }
 
     public function TableHeader($header, $width, $height)
