@@ -357,7 +357,7 @@ class V3PDF extends BasePDF
     public function getIncrements($maxMark)
     {
         return [
-            $maxMark,
+            round($maxMark),
             round(80/100 * $maxMark),
             round(60/100 * $maxMark),
             round(40/100 * $maxMark),
