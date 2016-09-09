@@ -204,40 +204,29 @@ class V3PDF extends BasePDF
     {
         $this->setXY(214, 120);
         $this->SetFont('Helvetica', 'B', 12);
-        $this->Cell(71, 10, 'ATTENDANCE DETAILS', 0, 1, 'L');
-        // $this->Cell(71, 15, 'ATTENDANCE DETAILS', 1, 1, 'C', true);
+        $this->Cell(71, 8, 'ATTENDANCE DETAILS', 0, 1, 'L');
 
-        // $this->setX(214);
-        // $y = $this->getY();
-        // $this->Cell(23, 15, 'Month', 1, 0, 'C');
-        // $this->Cell(24, 15, '', 1, 0, 'C');
-        // $this->Cell(24, 15, '', 1, 0, 'C');
-
-        // $this->setX(214+23);
-        // $this->Cell(24, 7, 'Working', 0, 0, 'C');
-        // $this->Cell(24, 7, 'Days', 0, 1, 'C');
-
-        // $this->setX(214+23);
-        // $this->Cell(24, 7, 'Days', 0, 0, 'C');
-        // $this->Cell(24, 7, 'Present', 0, 0, 'C');
-        // $this->Ln(1);
-
-        // $this->setY($y+15);
-
+        $this->SetFont('Helvetica', '', 12);
+        $i = 1;
         foreach ($this->contents->months as $month) {
             $calendarMonth = isset($month['calendar_month']) ? $month['calendar_month'] : '';
             $workingDays = isset($month['working_days']) ? $month['working_days'] : '';
             $presentDays = isset($month['present_days']) ? $month['present_days'] : '';
 
-            $this->setX(214);
-            $text = $calendarMonth . ' ' . $presentDays . '/' . $workingDays;
-            $this->Cell(50, 10, $text, 1, 0, 'C');
+            // show second column of dates coordinates
+            if ($i == 7) {
+                $this->setY(128);
+            }
+            if ($i >= 7) {
+                $this->setX(249);
+            } else {
+                $this->setX(214);
+            }
 
-            // $this->Cell(23, 10, $calendarMonth, 1, 0, 'C');
-            // $this->SetFont('Helvetica', '');
-            // $this->Cell(24, 10, $workingDays, 1, 0, 'C');
-            // $this->Cell(24, 10, $presentDays, 1, 1, 'C');
-            // $this->SetFont('Helvetica', 'B');
+            $text = $calendarMonth . ' ' . $presentDays . '/' . $workingDays;
+            $this->Cell(35, 6, $text, 0, 1, 'L');
+
+            $i++;
         }
     }
 
@@ -279,6 +268,7 @@ class V3PDF extends BasePDF
         $maxMark = $this->contents->maxMark;
         $increments = $this->getIncrements($maxMark);
         $percentages = $this->contents->percentages;
+        $percentagesLine = $this->contents->percentagesLine;
 
         $subjects = $this->contents->subjects;
         $nrSubjects = count($subjects);
@@ -303,10 +293,14 @@ class V3PDF extends BasePDF
         $barWidth = round($colWidth - (50/100) * $colWidth, 2); // width of blue bar
         $barOffset = round(($colWidth - $barWidth)/2, 2); // blue bar offset
         $graphHeight = ($nrLines-1) * $cellHeight;
+        $halfBarWidth = round($barWidth/2, 2);
 
         // original coordinates
         $x = $this->getX();
         $y = $this->getY();
+
+        // the y coordinates of base line of the graph
+        $baseLine = $y + $cellHeight * ($nrLines-1) + $halfCellHeight;
 
         // draw horizontal graph lines and left labels
         for ($i = 0; $i < $nrLines; $i++) {
@@ -333,7 +327,7 @@ class V3PDF extends BasePDF
         for ($i=1; $i<$nrSubjects; $i++) {
             $x1 = $x + $colWidth * $i + $cellWidth + $lineExtra;
             $x2 = $x1;
-            $y1 = $y + $cellHeight * ($nrLines-1) + $halfCellHeight;
+            $y1 = $baseLine;
             $y2 = $y1 + $lineExtra;
 
             $this->Line($x1, $y1, $x2, $y2);
@@ -341,7 +335,7 @@ class V3PDF extends BasePDF
 
         // draw subject labels
         $x1 = $x + $cellWidth + $lineExtra;
-        $y1 = $y + $cellHeight * ($nrLines-1) + $halfCellHeight;
+        $y1 = $baseLine;
         $this->setXY($x1, $y1);
         for ($i=0; $i<$nrSubjects; $i++) {
             $this->Cell($colWidth, $cellHeight, $subjects[$i], 0, 0, 'C');
@@ -350,10 +344,25 @@ class V3PDF extends BasePDF
         // draw bars on graph
         for ($i=0; $i<$nrSubjects; $i++) {
             $x1 = $x + $colWidth * $i + $lineExtra + $cellWidth + $barOffset;
-            $y1 = $y + $cellHeight * ($nrLines-1) + $halfCellHeight;
+            $y1 = $baseLine;
 
             $barHeight = round($percentages[$i]/100 * $graphHeight, 2);
             $this->Rect($x1, $y1, $barWidth, -1 * $barHeight, 'F');
+        }
+
+        // draw red line on graph
+        $this->SetDrawColor(203, 70, 41);
+        for ($i=0; $i<$nrSubjects-1; $i++) {
+
+            $x1 = $x + $colWidth * $i + $lineExtra + $cellWidth + $barOffset + $halfBarWidth;
+            $x2 = $x1 + $colWidth;
+
+            $line1Height = round($percentagesLine[$i]/100 * $graphHeight, 2);
+            $line2Height = round($percentagesLine[$i+1]/100 * $graphHeight, 2);
+            $y1 = $baseLine - $line1Height;
+            $y2 = $baseLine - $line2Height;
+
+            $this->Line($x1, $y1, $x2, $y2);
         }
     }
 

@@ -35,6 +35,7 @@ class V3Contents
     // data for graphs
     public $maxMark;
     public $percentages = [];
+    public $percentagesLine = [];
     public $subjects = [];
 
     public function __construct($export, $progress)
@@ -81,9 +82,11 @@ class V3Contents
         $this->maxMark = $subjectMaxTotal;
         $this->subjects = [];
         $this->percentages = [];
+        $this->percentagesLine = [];
         foreach ($student as $subject) {
             $this->subjects[] = isset($subject['subject_short_code']) ? $subject['subject_short_code'] : '';
             $this->percentages[] = isset($subject['student_subject_percent']) ? $subject['student_subject_percent'] : '';
+            $this->percentagesLine[] = isset($subject['student_previous_subject_percent']) ? $subject['student_previous_subject_percent'] : '';
         }
     }
 
