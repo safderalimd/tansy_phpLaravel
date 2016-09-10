@@ -8,7 +8,7 @@ class HallTicketRepository extends Repository
 {
     public function tickets($model)
     {
-        $procedure = 'sproc_sch_sms_exam_hall_ticket';
+        $procedure = 'sproc_sch_exam_hall_ticket';
 
         $iparams = [
             ':iparam_filter_entity_id',
