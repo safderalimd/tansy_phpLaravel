@@ -168,6 +168,7 @@
 <?php
     $nrOfStudents = count($progress->students);
     $currentStudent = 0;
+    $index = 0;
 ?>
 @foreach($progress->students as $student)
     <?php
@@ -301,43 +302,25 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="color: #fff;" colspan="2">&nbsp;</td>
+                                            <td colspan="2">
+                                                <canvas id="bar-chart{{$index}}" width="230" height="150"></canvas>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td colspan="2">
-                                                <table class="table table-bordered attendance-row">
-                                                    <tr>
-                                                        <th colspan="3" class="attendance-header-text">Attendance Details</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Month</th>
-                                                        <th>Working Days</th>
-                                                        <th>Days Present</th>
-                                                    </tr>
-                                                    <?php
-                                                        $months = $progress->attendance->where('class_student_id', $classStudentId);
-                                                    ?>
+                                                <strong>Attendance Details</strong><br/>
+                                                <?php
+                                                    $months = $progress->attendance->where('class_student_id', $classStudentId);
+                                                ?>
 
-                                                    @foreach ($months as $month)
-                                                    <tr>
-                                                        <th>
-                                                            @if (isset($month['calendar_month']))
-                                                                {{$month['calendar_month']}}
-                                                            @endif
-                                                        </th>
-                                                        <td>
-                                                            @if (isset($month['working_days']))
-                                                                {{$month['working_days']}}
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            @if (isset($month['present_days']))
-                                                                {{$month['present_days']}}
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
-                                                </table>
+                                                @foreach ($months as $month)
+                                                    <?php
+                                                        $calendarMonth = isset($month['calendar_month']) ? $month['calendar_month'] : '';
+                                                        $workingDays = isset($month['working_days']) ? $month['working_days'] : '';
+                                                        $presentDays = isset($month['present_days']) ? $month['present_days'] : '';
+                                                    ?>
+                                                    {{$calendarMonth}} {{$presentDays}}/{{$workingDays}}<br/>
+                                                @endforeach
                                             </td>
                                         </tr>
                                     </table>
@@ -373,7 +356,62 @@
     @endif
 
     </div>
+
+    <script type="text/javascript">
+        var labels;
+        var percentages;
+    </script>
+    <?php
+        $chartSubjects = [];
+        $chartPercentages = [];
+        $chartPercentagesLine = [];
+        foreach ($student as $subject) {
+            $chartSubjects[] = isset($subject['subject_short_code']) ? $subject['subject_short_code'] : '';
+            $chartPercentages[] = isset($subject['student_subject_percent']) ? $subject['student_subject_percent'] : '';
+            $chartPercentagesLine[] = isset($subject['student_previous_subject_percent']) ? $subject['student_previous_subject_percent'] : '';
+        }
+    ?>
+    <script type="text/javascript">
+        labels = <?php echo json_encode($chartSubjects); ?>;
+        percentages = <?php echo json_encode($chartPercentages); ?>;
+
+        var data{{$index}} = {
+            labels: labels,
+            datasets: [
+                {
+                    label: "Results",
+                    fillColor: "rgba(0,69,168,0.5)",
+                    strokeColor: "rgba(220,220,220,0.8)",
+                    highlightFill: "rgba(220,220,220,0.75)",
+                    highlightStroke: "rgba(220,220,220,1)",
+                    data: percentages
+                }
+            ]
+        };
+
+    </script>
+
+    <?php $index++; ?>
 @endforeach
 
+
+    <script src="/js/app.js"></script>
+    <script src="/dashboard/Chart.min.js"></script>
+    <script type="text/javascript">
+        var options = {
+            scaleOverride : true,
+            scaleSteps : 5,
+            scaleStepWidth : 20,
+            scaleStartValue : 0
+        }
+
+        window.onload = function() {
+            @for ($j = 0; $j<$index; $j++)
+                var context{{$j}} = document.getElementById("bar-chart{{$j}}").getContext("2d");
+                window.barChart{{$j}} = new Chart(context{{$j}}).Bar(data{{$j}}, options);
+            @endfor
+        }
+
+    </script>
     </body>
 </html>

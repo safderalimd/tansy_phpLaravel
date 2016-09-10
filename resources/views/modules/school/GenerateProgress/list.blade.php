@@ -50,6 +50,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php
+                        $pdfLabel = pdf_label();
+                    ?>
+
         @foreach($progress->generateFilteredProgressGrid() as $item)
         <tr>
             <?php
@@ -63,21 +67,20 @@
             <td>{{$item['progress_status']}}</td>
             <td>
                 @if ($generated)
-                    <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---class-progress/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="PDF">PDF</a>
+                    <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---class-progress/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="{{$pdfLabel}}">{{$pdfLabel}}</a>
                     <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---class-progress/csv?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="CSV">CSV</a>
                 @endif
             </td>
             <td>
                 @if ($generated)
                     @if (isset($item['student_report_version']) && $item['student_report_version'] == 'V-0002')
-                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v2/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="PDF">PDF</a>
-                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v2/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}&html=true")}}" title="Html">Html</a>
+                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v2/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="{{$pdfLabel}}">{{$pdfLabel}}</a>
 
                     @elseif (isset($item['student_report_version']) && $item['student_report_version'] == 'V-0003')
-                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v2/pdf?v=3&ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="PDF">PDF</a>
+                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v2/pdf?v=3&ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="{{$pdfLabel}}">{{$pdfLabel}}</a>
 
                     @else
-                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v1/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="PDF">PDF</a>
+                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v1/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="{{$pdfLabel}}">{{$pdfLabel}}</a>
                     @endif
                 @endif
             </td>
