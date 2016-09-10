@@ -54,9 +54,11 @@
                         </div>
                     </div>
 
-                    <hr style="margin-top:0px;" />
+                    <hr style="margin-top:0px; margin-bottom: 5px;" />
 
-                    <form id="marks-table" class="form-horizontal" method="POST">
+                    <small>For Absent leave the input as blank, do not give zero.</small>
+
+                    <form style="margin-top: 5px;" id="marks-table" class="form-horizontal" method="POST">
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
