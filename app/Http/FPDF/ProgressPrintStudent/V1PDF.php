@@ -72,20 +72,6 @@ class V1PDF extends BasePDF
             ['Science', 20, 20, 10],
             ['Social', 20, 17, 9],
             ['Computers', 15, 12, 8],
-            ['Telugu', 20, 19, 10],
-            ['Hindi', 20, 14, 7],
-            ['English', 20, 14, 7],
-            ['Maths', 20, 14, 7],
-            ['Science', 20, 20, 10],
-            ['Social', 20, 17, 9],
-            ['Computers', 15, 12, 8],
-            ['Telugu', 20, 19, 10],
-            ['Hindi', 20, 14, 7],
-            ['English', 20, 14, 7],
-            ['Maths', 20, 14, 7],
-            ['Science', 20, 20, 10],
-            ['Social', 20, 17, 9],
-            ['Computers', 15, 12, 8],
         ];
 
         $this->Ln(3);
@@ -158,15 +144,6 @@ class V1PDF extends BasePDF
         $this->Cell($width, 10, 'Teacher Signature', 0, 0, 'C');
         $this->setX(10+$width*2);
         $this->Cell($width, 10, 'Parent Signature', 0, 0, 'C');
-    }
-
-    public function drawCenterWatermark()
-    {
-        $x = round($this->GetPageWidth()/2, 2);
-        $y = round($this->GetPageHeight()/2, 2);
-        $this->SetAlpha(0.2);
-        $this->RotatedText($x, $y, $this->contents->schoolName, 45);
-        $this->SetAlpha(1);
     }
 }
 

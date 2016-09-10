@@ -62,4 +62,20 @@ class BasePDF extends MulticellTablePDF
 	    $this->SetFont('Helvetica', 'B', 15);
 	    $this->Cell(0, 6, $this->contents->reportName, 0, 1, 'C');
 	}
+
+	public function drawCenterWatermark()
+	{
+		$this->SetFont('Helvetica', 'B', 12);
+	    $x = round($this->GetPageWidth()/2, 2);
+	    $y = round($this->GetPageHeight()/2, 2);
+
+	    $text = $this->contents->schoolName;
+	    $stringWidth = $this->GetStringWidth($text);
+	    $baseWdith = round(0.52 * $stringWidth, 2);
+	    $x = $x - ($baseWdith/2);
+
+	    $this->SetAlpha(0.2);
+	    $this->RotatedText($x, $y, $text, 45);
+	    $this->SetAlpha(1);
+	}
 }
