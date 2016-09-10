@@ -7,109 +7,165 @@ require app_path('Http/FPDF/fpdf181/base-fpdf.php');
 
 class V1PDF extends BasePDF
 {
-    protected $ticketHeight;
-
-    protected $marginBottom = 10;
-
     public function generate($export, $progress)
     {
         $this->setContents(new V1Contents($export, $progress));
         $this->SetTitle('Student Report');
         $this->SetAuthor('Tansycloud');
 
+        $this->AddPage();
+        $this->drawSchoolHeader();
+        $this->drawStudentInfo();
+        $this->drawGradesTable();
+        $this->drawGradesTotals();
+        $this->drawSignatures();
+        $this->drawCenterWatermark();
+
+        $this->Show();
 
 
-        $this->Output();
-        die();
-    }
+        // -------------
+        foreach ($this->contents->students as $student) {
+            $this->contents->setStudent($student);
 
-    public function calculateTicketHeight()
-    {
-        // at 3 tickets per page, with 10 distance beteween the tickets
-        $this->ticketHeight = round(($this->GetPageHeight() - 40) / 3, 2);
-    }
-
-    public function drawTicketBorder()
-    {
-        $this->SetDrawColor(221, 221, 221);
-        $this->SetFillColor(245, 245, 245);
-        $this->Rect(10, $this->getY(), $this->GetPageWidth()-20, $this->ticketHeight, 'D');
-    }
-
-    public function drawHeader()
-    {
-        $this->SetFont('Helvetica', 'B', 15);
-        $this->SetTextColor(51, 51, 51);
-        $this->Ln(5);
-        $this->Cell(0, 5, $this->contents->schoolName, 0, 1, 'C');
-
-        $text = $this->contents->schoolCity . ' (Phone: ' . $this->contents->schoolWorkPhone . ')';
-        $this->SetFont('Helvetica', '', 10);
-        $this->Cell(0, 5, $text, 0, 1, 'C');
-        $this->Ln(8);
-
-        $this->SetFont('Helvetica', 'BU', 14);
-        $this->setX(12);
-        $this->Cell(0, 5, 'Hall Ticket', 0, 1, 'L');
-
-        $this->SetFont('Helvetica', '', 10);
-        $this->setX(12);
-        $this->Cell(0, 5, 'Exam: ' . $this->contents->examName, 0, 1, 'L');
-        $this->setX(12);
-        $this->Cell(0, 5, 'Student: ' . $this->contents->studentName, 0, 1, 'L');
-
-        $text = 'Class: ' . $this->contents->className . ', Roll No: ' . $this->contents->rollNumber;
-        $this->setX(12);
-        $this->Cell(0, 5, $text, 0, 1, 'L');
-    }
-
-    public function drawStudentImage()
-    {
-        $x = $this->getX();
-        $y = $this->getY();
-
-        $imgPath = student_picture_path($this->contents->studentId);
-        $this->Image($imgPath, 160, $y + 10, 30);
-
-        $this->setXY($x, $y);
-    }
-
-    public function drawTicketTable()
-    {
-        $nrColumns = count($this->contents->datesRow);
-        $cellWidth = round(($this->GetPageWidth() - 24)/$nrColumns, 2);
-
-        $widths = [];
-        $emptyRow = [];
-        for ($i=0; $i < $nrColumns; $i++) {
-            $widths[] = $cellWidth;
-            $emptyRow[] = '';
+            $this->AddPage();
+            $this->drawSchoolHeader();
+            $this->drawStudentInfo();
+            $this->drawGradesTable();
+            $this->drawGradesTotals();
+            $this->drawSignatures();
+            $this->drawCenterWatermark();
         }
-        $this->SetWidths($widths);
 
-        $this->Ln(3);
-        $this->SetFont('Helvetica', '', 10);
-
-        $this->setX(12);
-        $this->Row($this->contents->datesRow);
-
-        $this->setX(12);
-        $this->Row($this->contents->subjectsRow);
-
-        $this->setX(12);
-        $this->Row($emptyRow);
+        $this->show();
     }
 
-    public function drawSignature()
+    public function drawStudentInfo()
     {
         $this->SetFont('Helvetica', '', 12);
-        $this->Cell($this->GetPageWidth() - 24, 12, 'Principal Signature', 0, 0, 'R');
+        $this->Ln(4);
+
+        $this->CellWidthAuto(6, 'Student Name: ');
+        $this->SetFont('Helvetica', 'B', 12);
+        $this->Cell(0, 6, $this->contents->studentName, 0, 1, 'L');
+        $this->SetFont('Helvetica', '', 12);
+
+        $this->CellWidthAuto(6, 'Class: ');
+        $this->SetFont('Helvetica', 'B', 12);
+        $this->Cell(0, 6, $this->contents->className, 0, 1, 'L');
+        $this->SetFont('Helvetica', '', 12);
+
+        $this->CellWidthAuto(6, 'Roll No. ');
+        $this->SetFont('Helvetica', 'B', 12);
+        $this->Cell(0, 6, $this->contents->rollNr, 0, 1, 'L');
+        $this->SetFont('Helvetica', '', 12);
     }
 
-    public function drawWatermark()
+    public function drawGradesTable()
     {
+        $headerRow = ['Subjects', 'Max Marks', 'Obtain Marks', 'GPA'];
+        $subjects = [
+            ['Telugu', 20, 19, 10],
+            ['Hindi', 20, 14, 7],
+            ['English', 20, 14, 7],
+            ['Maths', 20, 14, 7],
+            ['Science', 20, 20, 10],
+            ['Social', 20, 17, 9],
+            ['Computers', 15, 12, 8],
+            ['Telugu', 20, 19, 10],
+            ['Hindi', 20, 14, 7],
+            ['English', 20, 14, 7],
+            ['Maths', 20, 14, 7],
+            ['Science', 20, 20, 10],
+            ['Social', 20, 17, 9],
+            ['Computers', 15, 12, 8],
+            ['Telugu', 20, 19, 10],
+            ['Hindi', 20, 14, 7],
+            ['English', 20, 14, 7],
+            ['Maths', 20, 14, 7],
+            ['Science', 20, 20, 10],
+            ['Social', 20, 17, 9],
+            ['Computers', 15, 12, 8],
+        ];
+
+        $this->Ln(3);
+        $this->SetDrawColor(221, 221, 221);
+        $this->SetFillColor(245, 245, 245);
+
+        $this->setRowMultiCellHeight(10);
+        if (count($subjects) > 15) {
+            $this->setRowMultiCellHeight(7);
+        }
+        $this->SetFont('Helvetica', 'B', 12);
+        $this->Row($headerRow);
+
+        $this->SetFont('Helvetica', '', 12);
+        $fill = true;
+        foreach ($subjects as $row) {
+            $this->setRowMultiCellFill($fill);
+            $this->Row($row);
+            $fill = !$fill;
+        }
+    }
+
+    public function drawGradesTotals()
+    {
+        $this->Ln(4);
+        $x = $this->GetPageWidth()/2;
+
+        $this->SetFont('Helvetica', '', 12);
+
+        // first row
+        $this->CellWidthAuto(6, 'Max Total: ');
+        $this->SetFont('Helvetica', 'B', 12);
+        $this->Cell(30, 6, $this->contents->maxTotalMarks, 0, 0, 'L');
+        $this->SetFont('Helvetica', '', 12);
+
+        $this->setX($x);
+        $this->CellWidthAuto(6, 'Student Total: ');
+        $this->SetFont('Helvetica', 'B', 12);
+        $this->Cell(30, 6, $this->contents->grandTotal, 0, 1, 'L');
+        $this->SetFont('Helvetica', '', 12);
+
+        // second row
+        $this->CellWidthAuto(6, 'Percentage: ');
+        $this->SetFont('Helvetica', 'B', 12);
+        $this->Cell(30, 6, $this->contents->percentage, 0, 0, 'L');
+        $this->SetFont('Helvetica', '', 12);
+
+        $this->setX($x);
+        $this->CellWidthAuto(6, 'Grade: ');
+        $this->SetFont('Helvetica', 'B', 12);
+        $this->Cell(30, 6, $this->contents->grade, 0, 1, 'L');
+        $this->SetFont('Helvetica', '', 12);
+
+        // third row
+        $this->CellWidthAuto(6, 'GPA: ');
+        $this->SetFont('Helvetica', 'B', 12);
+        $this->Cell(30, 6, $this->contents->gpa, 0, 1, 'L');
+        $this->SetFont('Helvetica', '', 12);
+    }
+
+    public function drawSignatures()
+    {
+        $this->Ln(4);
+        $width = round(($this->GetPageWidth()-20)/3, 2);
+
+        $this->SetFont('Helvetica', 'B', 12);
+        $this->setX(10);
+        $this->Cell($width, 10, 'Principal Signature', 0, 0, 'C');
+        $this->setX(10+$width);
+        $this->Cell($width, 10, 'Teacher Signature', 0, 0, 'C');
+        $this->setX(10+$width*2);
+        $this->Cell($width, 10, 'Parent Signature', 0, 0, 'C');
+    }
+
+    public function drawCenterWatermark()
+    {
+        $x = round($this->GetPageWidth()/2, 2);
+        $y = round($this->GetPageHeight()/2, 2);
         $this->SetAlpha(0.2);
-        $this->RotatedText(60, $this->getY()+7, $this->contents->schoolName, 45);
+        $this->RotatedText($x, $y, $this->contents->schoolName, 45);
         $this->SetAlpha(1);
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\School\Models\ProgressPrintStudent;
 use App\Http\FPDF\ProgressPrintStudent\V1PDF;
+use Device;
 
 class ProgressPrintStudentController extends Controller
 {
@@ -16,6 +17,8 @@ class ProgressPrintStudentController extends Controller
      */
     public function __construct()
     {
+        V1PDF::portrait()->generate(null, null);
+
         $this->middleware('screen:' . ProgressPrintStudent::screenId());
     }
 
