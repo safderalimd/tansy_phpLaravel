@@ -5,49 +5,19 @@ use BasePDF;
 
 require app_path('Http/FPDF/fpdf181/base-fpdf.php');
 
-class ProgressPrintStudentPDF extends BasePDF
+class V1PDF extends BasePDF
 {
     protected $ticketHeight;
 
     protected $marginBottom = 10;
 
-    public function generate($export)
+    public function generate($export, $progress)
     {
-        $this->setContents(new HallTicketContents($export));
-        $this->SetTitle('Hall Ticket');
+        $this->setContents(new V1Contents($export, $progress));
+        $this->SetTitle('Student Report');
         $this->SetAuthor('Tansycloud');
 
-        // assuming 3 tickets per page
-        $this->calculateTicketHeight();
 
-        foreach($this->contents->tickets->chunk(3) as $row) {
-            $this->AddPage();
-
-            $i = 0;
-            foreach ($row as $ticket) {
-
-                $this->setX(10);
-                if ($i == 1) {
-                    $this->setY(15 + $this->ticketHeight);
-                } elseif ($i == 2) {
-                    $this->setY(20 + 2 * $this->ticketHeight);
-                }
-
-                $this->contents->setTicket($ticket);
-                $this->drawTicketBorder();
-
-                if ($this->contents->showImage()) {
-                    $this->drawStudentImage();
-                }
-
-                $this->drawHeader();
-                $this->drawTicketTable();
-                $this->drawSignature();
-                $this->drawWatermark();
-
-                $i++;
-            }
-        }
 
         $this->Output();
         die();
