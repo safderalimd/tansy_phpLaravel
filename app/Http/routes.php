@@ -154,6 +154,18 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('teacher-subject-map', 'Teacher\Controllers\TeacherSubjectMapController@index');
     Route::post('teacher-subject-map', 'Teacher\Controllers\TeacherSubjectMapController@update');
 
+    Route::get('homework', 'Teacher\Controllers\HomeworkController@index');
+    Route::get('homework/create', 'Teacher\Controllers\HomeworkController@create');
+    Route::post('homework/create', 'Teacher\Controllers\HomeworkController@store');
+    Route::get('homework/edit/{id}', 'Teacher\Controllers\HomeworkController@edit');
+    Route::post('homework/edit/{id}', 'Teacher\Controllers\HomeworkController@update');
+    Route::get('homework/delete/{id}', 'Teacher\Controllers\HomeworkController@destroy');
+
+    Route::get('exam-syllabus', 'Teacher\Controllers\ExamSyllabusController@index');
+    Route::get('exam-syllabus/edit/{id}', 'Teacher\Controllers\ExamSyllabusController@edit');
+    Route::post('exam-syllabus/edit/{id}', 'Teacher\Controllers\ExamSyllabusController@update');
+    Route::get('exam-syllabus/delete/{id}', 'Teacher\Controllers\ExamSyllabusController@destroy');
+
     Route::get('mark-sheet', 'School\Controllers\MarkSheetController@index');
     Route::get('mark-sheet/edit', 'School\Controllers\MarkSheetController@edit');
     Route::get('mark-sheet/lock', 'School\Controllers\MarkSheetController@lock');

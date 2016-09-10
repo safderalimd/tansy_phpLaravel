@@ -5,11 +5,11 @@ use BasePDF;
 
 require app_path('Http/FPDF/fpdf181/base-fpdf.php');
 
-class PDF extends BasePDF
+class V2PDF extends BasePDF
 {
     public function generate($export, $progress)
     {
-        $this->setContents(new Contents($export, $progress));
+        $this->setContents(new V2Contents($export, $progress));
         $this->SetTitle($this->contents->title);
         $this->SetAuthor('Tansycloud');
 
@@ -52,7 +52,7 @@ class PDF extends BasePDF
 
         $this->SetFontSize(12);
         $this->Cell(0, 4, $this->contents->examName, 0, 1, 'C');
-        $this->Cell(0, 4, 'RESULT SHEET', 0, 1, 'C');
+        $this->Cell(0, 4, 'PROGRESS REPORT', 0, 1, 'C');
     }
 
     public function TableHeader($header, $width, $height)

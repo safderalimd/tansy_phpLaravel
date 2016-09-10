@@ -246,6 +246,40 @@ class Model
         return $this->isNewRecord;
     }
 
+    public static function find($id)
+    {
+        $instance = new static;
+
+        // select the data from the database
+        $data = $instance->repository->detail($instance, $id);
+        $data = first_resultset($data);
+        $data = isset($data[0]) ? (array)$data[0] : [];
+
+        // save only non numeric keys
+        $attributes = [];
+        foreach ($data as $key => $value) {
+            if (!is_numeric($key)) {
+                $attributes[$key] = $value;
+            }
+        }
+
+        // throw exception if the model is not found
+        if (empty($attributes)) {
+            throw new DbModelNotFoundException('There is no record with this id.');
+        }
+
+        // set attributes to the model instance
+        $instance->fill($attributes);
+
+        // flash data to the session to populate edit forms
+        Session::flashInput($instance->attributes);
+
+        // mark this model as not a new record
+        $instance->isNewRecord = false;
+
+        return $instance;
+    }
+
     public static function findOrFail($id)
     {
         $instance = new static;
