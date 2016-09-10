@@ -80,6 +80,7 @@ class V1PDF extends BasePDF
             $this->Row($row);
             $fill = !$fill;
         }
+        $this->setRowMultiCellFill(false);
     }
 
     public function drawGradesTotals()
