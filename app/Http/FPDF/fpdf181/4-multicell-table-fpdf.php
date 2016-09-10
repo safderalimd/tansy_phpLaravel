@@ -8,10 +8,33 @@ class MulticellTablePDF extends AlphaPDF
 
     private $aligns;
 
+    private $rowMultiCellHeight = 5;
+
+    protected $rowMultiCellFill = 0;
+
+    public function setRowMultiCellHeight($height)
+    {
+        $this->rowMultiCellHeight = $height;
+    }
+
+    public function setRowMultiCellFill($fill)
+    {
+        $this->rowMultiCellFill = (int)$fill;
+    }
+
     public function SetWidths($w)
     {
         //Set the array of column widths
         $this->widths=$w;
+    }
+
+    public function setDefaultWidths($data)
+    {
+        $this->widths = [];
+        $width = round(($this->GetPageWidth()-20)/count($data), 2);
+        for($i=0;$i<count($data);$i++) {
+            $this->widths[] = $width;
+        }
     }
 
     public function SetAligns($a)
@@ -22,11 +45,15 @@ class MulticellTablePDF extends AlphaPDF
 
     public function Row($data)
     {
+        if (empty($this->widths)) {
+            $this->setDefaultWidths($data);
+        }
+
         //Calculate the height of the row
         $nb=0;
         for($i=0;$i<count($data);$i++)
             $nb=max($nb,$this->NbLines($this->widths[$i],$data[$i]));
-        $h=5*$nb;
+        $h=$this->rowMultiCellHeight*$nb;
         //Issue a page break first if needed
         $this->CheckPageBreak($h);
         //Draw the cells of the row
@@ -37,10 +64,10 @@ class MulticellTablePDF extends AlphaPDF
             //Save the current position
             $x=$this->GetX();
             $y=$this->GetY();
+            //Print the text
+            $this->MultiCell($w,$this->rowMultiCellHeight,$data[$i],0,$a, $this->rowMultiCellFill);
             //Draw the border
             $this->Rect($x,$y,$w,$h);
-            //Print the text
-            $this->MultiCell($w,5,$data[$i],0,$a);
             //Put the position to the right of the cell
             $this->SetXY($x+$w,$y);
         }

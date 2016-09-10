@@ -5,7 +5,8 @@ namespace App\Http\Modules\reports\School\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\School\Models\ProgressPrintStudent;
-use App\Http\PdfGenerator\Pdf;
+use App\Http\FPDF\ProgressPrintStudent\V1PDF;
+use Device;
 
 class ProgressPrintStudentController extends Controller
 {
@@ -45,7 +46,10 @@ class ProgressPrintStudentController extends Controller
         $export->setAttribute('return_type', 'Student Report');
         $progress = $export->getPdfData();
 
-        $view = view('reports.school.ProgressPrintStudent.pdf', compact('export', 'progress'));
-        return Pdf::render($view);
+        if (Device::isAndroidMobile()) {
+            return view('reports.school.ProgressPrintStudent.pdf', compact('export', 'progress'));
+        } else {
+            V1PDF::portrait()->generate($export, $progress);
+        }
     }
 }

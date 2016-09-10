@@ -29,6 +29,7 @@ class V3PDF extends BasePDF
         }
 
         $this->Output();
+        die();
     }
 
     public function drawGrid()

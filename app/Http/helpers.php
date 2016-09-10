@@ -451,3 +451,12 @@ function pdf_label()
 
     return 'PDF';
 }
+
+function logo_path()
+{
+    $logo = storage_path('uploads/'.domain().'/school-logo/logo.png');
+    if (!file_exists($logo)) {
+        $logo = public_path('images/school-logo.png');
+    }
+    return $logo;
+}
