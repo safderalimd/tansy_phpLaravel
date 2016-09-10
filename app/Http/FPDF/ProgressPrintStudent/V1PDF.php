@@ -13,18 +13,6 @@ class V1PDF extends BasePDF
         $this->SetTitle('Student Report');
         $this->SetAuthor('Tansycloud');
 
-        $this->AddPage();
-        $this->drawSchoolHeader();
-        $this->drawStudentInfo();
-        $this->drawGradesTable();
-        $this->drawGradesTotals();
-        $this->drawSignatures();
-        $this->drawCenterWatermark();
-
-        $this->Show();
-
-
-        // -------------
         foreach ($this->contents->students as $student) {
             $this->contents->setStudent($student);
 
@@ -64,15 +52,15 @@ class V1PDF extends BasePDF
     public function drawGradesTable()
     {
         $headerRow = ['Subjects', 'Max Marks', 'Obtain Marks', 'GPA'];
-        $subjects = [
-            ['Telugu', 20, 19, 10],
-            ['Hindi', 20, 14, 7],
-            ['English', 20, 14, 7],
-            ['Maths', 20, 14, 7],
-            ['Science', 20, 20, 10],
-            ['Social', 20, 17, 9],
-            ['Computers', 15, 12, 8],
-        ];
+        $subjects = [];
+        foreach ($this->contents->getStudent() as $subject) {
+            $row = [];
+            $row[] = isset($subject['subject_name']) ? $subject['subject_name'] : '';
+            $row[] = isset($subject['subject_max_total']) ? $subject['subject_max_total'] : '';
+            $row[] = isset($subject['student_subject_max_total']) ? $subject['student_subject_max_total'] : '';
+            $row[] = isset($subject['subject_gpa']) ? $subject['subject_gpa'] : '';
+            $subjects[] = $row;
+        }
 
         $this->Ln(3);
         $this->SetDrawColor(221, 221, 221);

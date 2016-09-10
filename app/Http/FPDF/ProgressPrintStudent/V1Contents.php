@@ -14,25 +14,24 @@ class V1Contents
 
     // general data for all pages below ..
     public $title = 'Progress Report';
-    public $schoolName = 'Canadian International School';
-    public $reportName = 'Progress Report - Formative Assessment-1';
-    public $phoneNr = '880 193 3344';
-    public $examName = 'Formative Assessment-1';
+    public $schoolName = '';
+    public $reportName = '';
+    public $phoneNr = '';
+    public $examName = '';
 
     // data for each student below ..
-    public $studentName = 'John Doe';
-    public $className = 'X-A';
-    public $rollNr = '3';
+    public $studentName = '';
+    public $className = '';
+    public $rollNr = '';
 
-    public $grandTotal = '110';
-    public $percentage = '92';
-    public $grade = 'A2';
-    public $gpa = '9.00';
-    public $maxTotalMarks = '135';
+    public $grandTotal = '';
+    public $percentage = '';
+    public $grade = '';
+    public $gpa = '';
+    public $maxTotalMarks = '';
 
     public function __construct($export, $progress)
     {
-        return;
         $this->export = $export;
         $this->progress = $progress;
 
@@ -41,7 +40,7 @@ class V1Contents
         $this->phoneNr = phone_number($progress->mobilePhone);
         $this->examName = $progress->examName;
 
-        $this->reportName = 'Progress Report - ' . $this->contents->examName;
+        $this->reportName = 'Progress Report - ' . $this->examName;
     }
 
     public function getStudent()

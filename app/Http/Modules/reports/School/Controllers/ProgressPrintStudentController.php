@@ -17,8 +17,6 @@ class ProgressPrintStudentController extends Controller
      */
     public function __construct()
     {
-        V1PDF::portrait()->generate(null, null);
-
         $this->middleware('screen:' . ProgressPrintStudent::screenId());
     }
 
