@@ -27,6 +27,13 @@ class UserRepository extends Repository
             '@oparam_company_name',
             '@oparam_debug_sproc',
             '@oparam_audit_screen_visit',
+
+            '@oparam_user_mobile',
+            '@oparam_owner_mobile',
+            '@oparam_force_change_password',
+            '@oparam_send_login_sms',
+            '@oparam_send_login_otp',
+
             '@oparam_err_flag',
             '@oparam_err_step',
             '@oparam_err_msg',
