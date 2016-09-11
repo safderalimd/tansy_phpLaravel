@@ -211,7 +211,8 @@ class SendSmsRepository extends Repository
 
         $iparams = [
             '-iparam_send_datetime',
-            '-iparam_provider_name',
+            '-iparam_provider_entity_id',
+            ':iparam_route_type_id',
             '-iparam_provider_batch_id',
             '-iparam_provider_batch_status',
             '-iparam_provider_batch_credits',
@@ -254,7 +255,8 @@ class SendSmsRepository extends Repository
 
         $iparams = [
             '-iparam_send_datetime',
-            '-iparam_provider_name',
+            '-iparam_provider_entity_id',
+            ':iparam_route_type_id',
             '-iparam_provider_batch_id',
             '-iparam_provider_batch_status',
             '-iparam_provider_batch_credits',
