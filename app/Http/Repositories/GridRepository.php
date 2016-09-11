@@ -26,6 +26,12 @@ class GridRepository extends Repository
 
         } elseif (strpos($sql, 'call sproc_prd_lkp_product') !== false) {
             return $this->changeKeys($sql, 'product_entity_id', 'product_name');
+
+        } elseif (strpos($sql, 'call sproc_sec_lkp_login_users') !== false) {
+            return $this->changeKeys($sql, 'individual_entity_id', 'login_name');
+
+        } elseif (strpos($sql, 'call sproc_sch_lkp_main_exam') !== false) {
+            return $this->changeKeys($sql, 'exam_entity_id', 'exam');
         }
 
         return $this->select($sql);
