@@ -210,7 +210,6 @@ class SendSmsRepository extends Repository
         $procedure = 'sproc_sms_batch_dml_ins';
 
         $iparams = [
-            '-iparam_send_datetime',
             '-iparam_provider_entity_id',
             ':iparam_route_type_id',
             '-iparam_provider_batch_id',
@@ -254,7 +253,6 @@ class SendSmsRepository extends Repository
         $procedure = 'sproc_sms_batch_dml_ins_v2';
 
         $iparams = [
-            '-iparam_send_datetime',
             '-iparam_provider_entity_id',
             ':iparam_route_type_id',
             '-iparam_provider_batch_id',
