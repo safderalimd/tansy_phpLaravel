@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <a href="{{ url("/cabinet/my-time-table?day=".($inbox->day - 86400))}}" class="btn btn-default btn-circle"><i class="glyphicon glyphicon-arrow-left"></i></a>
-                    <span style="font-size:17px;" class="">{{$inbox->getDate()}} ({{$inbox->dayName()}})</span>
+                    <span style="font-size:17px;" class="">{{style_date($inbox->getDate())}} ({{$inbox->dayName()}})</span>
                     <a href="{{ url("/cabinet/my-time-table?day=".($inbox->day + 86400))}}" class="btn btn-default btn-circle"><i class="glyphicon glyphicon-arrow-right"></i></a>
                 </div>
             </div>
