@@ -6,6 +6,35 @@ use App\Http\Repositories\Repository;
 
 class ClassTimeTableRepository extends Repository
 {
+    public function classSubject($model)
+    {
+        // subject, subject_entity_id
+        $procedure = 'sproc_sch_lkp_class_subjects';
+
+        $iparams = [
+            ':iparam_class_entity_id',
+        ];
+
+        $oparams = [];
+
+        return $this->procedure($model, $procedure, $iparams, $oparams);
+    }
+
+    public function classSubjectTeacher($model)
+    {
+        $procedure = 'sproc_sch_lkp_class_subject_teacher';
+
+        $iparams = [
+            ':iparam_class_entity_id',
+            ':iparam_subject_entity_id',
+            ':iparam_teacher_entity_id',
+        ];
+
+        $oparams = [];
+
+        return $this->procedure($model, $procedure, $iparams, $oparams);
+    }
+
     public function detail($model)
     {
         $procedure = 'sproc_sch_time_table_detail';

@@ -45,6 +45,18 @@ class Repository
         return $this->lookup('sproc_sch_lkp_class');
     }
 
+    public function getPeriods()
+    {
+        // period_name, start_time, end_time, period_type,
+        return $this->lookup('sproc_sch_lkp_periods');
+    }
+
+    public function getWeekDays()
+    {
+        // week_day_number, week_day
+        return $this->lookup('sproc_org_lkp_week_days');
+    }
+
     public function getEmployees()
     {
         // employee_name, employee_entity_id
