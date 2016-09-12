@@ -1,10 +1,11 @@
-<table class="timetable table table-condensed table-striped table-bordered">
+<?php $teacherRows = $timetable->teacherRows(); ?>
+<table class="timetable table table-striped table-bordered">
     <thead>
         <tr>
-            <th></th>
+            <th class="periods-th"></th>
             @foreach ($weekDays as $day)
-                <?php $weekDay = isset($day['week_day']) ? $day['week_day'] : ''; ?>
-                <th>{{$weekDay}}</th>
+                <?php $weekDayShort = isset($day['week_day_short_code']) ? $day['week_day_short_code'] : ''; ?>
+                <th class="text-center">{{$weekDayShort}}</th>
             @endforeach
         </tr>
     </thead>
@@ -18,24 +19,22 @@
                 $periodId = isset($period['period_id']) ? $period['period_id'] : '';
             ?>
             <tr>
-                <td>
-                    <strong>{{$periodName}}</strong> <br/>
-                    {{$startTime}} - {{$endTime}}
-                </td>
                 @if ($periodType == 'Break')
-                    <td class="period-break" colspan="{{count($weekDays)}}"></td>
+                    <td class="text-center period-break" colspan="{{count($weekDays)+1}}">
+                        <strong>{{$periodName}}</strong> {{hour_minutes($startTime)}} - {{hour_minutes($endTime)}}
+                    </td>
                 @else
+                    <td class="text-right">
+                        <strong>{{$periodName}}</strong> {{hour_minutes($startTime)}} - {{hour_minutes($endTime)}}
+                    </td>
                     @foreach ($weekDays as $day)
-                        @if ($timetable->isEnabled())
+                        @if (count($teacherRows))
                             <?php
                                 $weekDay = isset($day['week_day']) ? $day['week_day'] : '';
-                                $weekId = isset($day['week_day_number']) ? $day['week_day_number'] : '';
-                                $subject = $timetable->findSubject($rows, $periodName, $weekDay);
-                                $shortCode = isset($subject['subject_short_code']) ? $subject['subject_short_code'] : '';
-                                $subjectId = isset($subject['subject_entity_id']) ? $subject['subject_entity_id'] : '';
+                                $subject = $timetable->findSubject($teacherRows, $periodName, $weekDay);
                                 $className = isset($subject['class_name']) ? $subject['class_name'] : '';
                             ?>
-                            <td class="verify-timetable-cell" data-periodid="{{$periodId}}" data-weekid="{{$weekId}}" data-subjectid="{{$subjectId}}">
+                            <td class="text-center verify-timetable-cell">
                                 {{$className}}
                             </td>
                         @else

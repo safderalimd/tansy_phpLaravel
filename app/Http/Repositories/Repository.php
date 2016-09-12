@@ -53,7 +53,7 @@ class Repository
 
     public function getWeekDays()
     {
-        // week_day_number, week_day
+        // week_day_number, week_day, week_day_short_code
         return $this->lookup('sproc_org_lkp_week_days');
     }
 

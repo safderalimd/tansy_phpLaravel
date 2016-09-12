@@ -34,7 +34,10 @@ class ClassTimeTableController extends Controller
         // d($timetable->classSubject());
         // d('classSubjectTeacher');
         // d($timetable->classSubjectTeacher());
-        // dd($timetable->rows());
+        // d('rows');
+        // d($timetable->rows());
+        // d('teacher rows');
+        // dd($timetable->teacherRows());
         return view('modules.teacher.ClassTimeTable.list', compact('timetable'));
     }
 

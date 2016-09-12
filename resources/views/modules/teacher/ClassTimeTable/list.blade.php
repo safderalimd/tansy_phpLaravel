@@ -65,13 +65,13 @@
                 </div>
             @endif
 
-            <table class="timetable table table-condensed table-striped table-bordered">
+            <table class="timetable table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th class="periods-th"></th>
                         @foreach ($weekDays as $day)
-                            <?php $weekDay = isset($day['week_day']) ? $day['week_day'] : ''; ?>
-                            <th>{{$weekDay}}</th>
+                            <?php $weekDayShort = isset($day['week_day_short_code']) ? $day['week_day_short_code'] : ''; ?>
+                            <th class="text-center">{{$weekDayShort}}</th>
                         @endforeach
                     </tr>
                 </thead>
@@ -85,13 +85,14 @@
                             $periodId = isset($period['period_id']) ? $period['period_id'] : '';
                         ?>
                         <tr>
-                            <td>
-                                <strong>{{$periodName}}</strong> <br/>
-                                {{$startTime}} - {{$endTime}}
-                            </td>
                             @if ($periodType == 'Break')
-                                <td class="period-break" colspan="{{count($weekDays)}}"></td>
+                                <td class="text-center period-break" colspan="{{count($weekDays)+1}}">
+                                    <strong>{{$periodName}}</strong> {{hour_minutes($startTime)}} - {{hour_minutes($endTime)}}
+                                </td>
                             @else
+                                <td class="text-right">
+                                    <strong>{{$periodName}}</strong> {{hour_minutes($startTime)}} - {{hour_minutes($endTime)}}
+                                </td>
                                 @foreach ($weekDays as $day)
                                     @if ($timetable->isEnabled())
                                         <?php
@@ -101,7 +102,7 @@
                                             $shortCode = isset($subject['subject_short_code']) ? $subject['subject_short_code'] : '';
                                             $subjectId = isset($subject['subject_entity_id']) ? $subject['subject_entity_id'] : '';
                                         ?>
-                                        <td class="timetable-cell" data-periodid="{{$periodId}}" data-weekid="{{$weekId}}" data-subjectid="{{$subjectId}}">
+                                        <td class="text-center timetable-cell" data-periodid="{{$periodId}}" data-weekid="{{$weekId}}" data-subjectid="{{$subjectId}}">
                                             {{$shortCode}}
                                         </td>
                                     @else
@@ -164,7 +165,7 @@
                             <select id="class_teacher" class="form-control" name="cti">
                                 <option value="none">Select a class teacher..</option>
                                 @foreach($timetable->classSubjectTeacher() as $option)
-                                    <option value="{{ $option['individual_entity_id'] }}">{{ $option['teacher_name'] }}</option>
+                                    <option {{ activeSelect($option['individual_entity_id'], 'cti') }} value="{{ $option['individual_entity_id'] }}">{{ $option['teacher_name'] }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -204,7 +205,7 @@
 @section('scripts')
 <script type="text/javascript">
 
-    $('#start_date, #class_entity_id').change(function() {
+    $('#start_date, #class_entity_id, #class_teacher').change(function() {
         updateQueryString();
     });
 
@@ -215,6 +216,7 @@
     function getQueryString() {
         var sdt = $('#start_date').val();
         var cei = $('#class_entity_id option:selected').val();
+        var cti = $('#class_teacher option:selected').val();
 
         var items = [];
         if (sdt != "") {
@@ -222,6 +224,9 @@
         }
         if (cei != "none") {
             items.push('cei='+cei);
+        }
+        if (cti != "none") {
+            items.push('cti='+cti);
         }
 
         var queryString = items.join('&');

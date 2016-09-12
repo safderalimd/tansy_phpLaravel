@@ -149,6 +149,11 @@ function absent_date($date)
     return date("l, F d, Y", $date);
 }
 
+function hour_minutes($date)
+{
+    return date('h:i', strtotime($date));
+}
+
 function current_date()
 {
     return date('M jS, Y');

@@ -30,6 +30,12 @@ class ClassTimeTable extends Model
         return $value;
     }
 
+    public function setCtiAttribute($value)
+    {
+        $this->setAttribute('teacher_account_entity_id', $value);
+        return $value;
+    }
+
     public function classSubject()
     {
         $data = $this->repository->classSubject($this);
@@ -51,7 +57,16 @@ class ClassTimeTable extends Model
         $this->isEnabled = true;
         $rows = $this->repository->detail($this);
         return collect(first_resultset($rows));
-        // return $rows->groupBy('calendar_date');
+    }
+
+    public function teacherRows()
+    {
+        if (is_null($this->teacher_account_entity_id)) {
+            return [];
+        }
+
+        $rows = $this->repository->teachersDetail($this);
+        return collect(first_resultset($rows));
     }
 
     public function weekDays()
