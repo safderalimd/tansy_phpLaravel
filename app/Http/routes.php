@@ -350,6 +350,7 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('my-exam-schedule', 'Parent\Controllers\MyExamScheduleController@index');
     Route::get('my-exam-syllabus', 'Parent\Controllers\MyExamSyllabusController@index');
     Route::get('my-payments', 'Parent\Controllers\MyPaymentsController@index');
+    Route::get('my-time-table', 'Parent\Controllers\MyTimeTableController@index');
 
     Route::get('/logout', '\App\Http\Controllers\UserController@logout');
 
