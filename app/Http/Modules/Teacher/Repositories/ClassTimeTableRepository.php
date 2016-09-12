@@ -59,10 +59,6 @@ class ClassTimeTableRepository extends Repository
         return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 
-    // set @iparam_class_entity_id = 30;
-    // set @iparam_effective_start_date = '2016-6-1';
-    // set @iparam_effective_end_date = '2017-4-30';
-    // set @iparam_weekID_periodID_subjectID ='1-1-56|2-1-56|3-1-56|4-1-56|5-1-56|6-1-56';
     public function update($model)
     {
         $procedure = 'sproc_sch_time_table_dml_upd';

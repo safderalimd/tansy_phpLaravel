@@ -36,6 +36,12 @@ class ClassTimeTable extends Model
         return first_resultset($data);
     }
 
+    public function classSubjectTeacher()
+    {
+        $data = $this->repository->classSubjectTeacher($this);
+        return first_resultset($data);
+    }
+
     public function rows()
     {
         if (is_null($this->start_date) || is_null($this->account_entity_id)) {
@@ -46,6 +52,19 @@ class ClassTimeTable extends Model
         $rows = $this->repository->detail($this);
         return collect(first_resultset($rows));
         // return $rows->groupBy('calendar_date');
+    }
+
+    public function weekDays()
+    {
+        $days = $this->repository->getWeekDays();
+
+        // put sunday at the end of the week
+        if (isset($days[0])) {
+            $sunday = array_shift($days);
+            array_push($days, $sunday);
+        }
+
+        return $days;
     }
 
     public function findSubject($rows, $periodName, $weekDay)

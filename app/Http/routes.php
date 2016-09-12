@@ -155,6 +155,7 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('teacher-subject-map', 'Teacher\Controllers\TeacherSubjectMapController@update');
 
     Route::get('class-time-table', 'Teacher\Controllers\ClassTimeTableController@index');
+    Route::post('class-time-table', 'Teacher\Controllers\ClassTimeTableController@update');
 
     Route::get('homework', 'Teacher\Controllers\HomeworkController@index');
     Route::get('homework/create', 'Teacher\Controllers\HomeworkController@create');

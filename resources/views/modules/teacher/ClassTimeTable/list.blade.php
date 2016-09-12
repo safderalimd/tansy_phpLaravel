@@ -50,13 +50,13 @@
             ?>
 
             @if ($timetable->isEnabled())
-                <div class="row subjects-radio-btns">
+                <div class="row subjects-btns-row">
                     <div class="col-md-12">
                         <?php $isFirst = true; ?>
                         @foreach ($timetable->classSubject() as $subject)
-                            @if (isset($subject['subject_entity_id']) && isset($subject['subject']))
+                            @if (isset($subject['subject_entity_id']) && isset($subject['subject_short_code']))
                                 <label class="radio-inline">
-                                    <input @if($isFirst) checked="checked" @endif type="radio" name="class_subject" value="{{$subject['subject_entity_id']}}"> {{$subject['subject']}}
+                                    <input @if($isFirst) checked="checked" @endif class="subject-radio-btn" data-shortcode="{{$subject['subject_short_code']}}" type="radio" name="class_subject" value="{{$subject['subject_entity_id']}}"> {{$subject['subject_short_code']}}
                                 </label>
                             @endif
                             <?php $isFirst = false; ?>
@@ -82,6 +82,7 @@
                             $startTime = isset($period['start_time']) ? $period['start_time'] : '';
                             $endTime = isset($period['end_time']) ? $period['end_time'] : '';
                             $periodType = isset($period['period_type']) ? $period['period_type'] : '';
+                            $periodId = isset($period['period_id']) ? $period['period_id'] : '';
                         ?>
                         <tr>
                             <td>
@@ -95,10 +96,12 @@
                                     @if ($timetable->isEnabled())
                                         <?php
                                             $weekDay = isset($day['week_day']) ? $day['week_day'] : '';
+                                            $weekId = isset($day['week_day_number']) ? $day['week_day_number'] : '';
                                             $subject = $timetable->findSubject($rows, $periodName, $weekDay);
                                             $shortCode = isset($subject['subject_short_code']) ? $subject['subject_short_code'] : '';
+                                            $subjectId = isset($subject['subject_entity_id']) ? $subject['subject_entity_id'] : '';
                                         ?>
-                                        <td>
+                                        <td class="timetable-cell" data-periodid="{{$periodId}}" data-weekid="{{$weekId}}" data-subjectid="{{$subjectId}}">
                                             {{$shortCode}}
                                         </td>
                                     @else
@@ -111,6 +114,66 @@
                 </tbody>
             </table>
 
+            @if ($timetable->isEnabled())
+            <form class="form-horizontal" id="save-timetable-form" action="{{form_action_full()}}" method="POST">
+                {{ csrf_field() }}
+
+                <input type="hidden" name="weekID_periodID_subjectID" id="weekID_periodID_subjectID" value="">
+
+                <div class="form-group">
+                    <label class="col-md-2 col-md-offset-8 control-label" for="effective_start_date">Effective Start Date</label>
+                    <div class="col-md-2">
+                        <div class="input-group date">
+                            <input id="effective_start_date" class="form-control" type="text" name="effective_start_date" value="" placeholder="Effective Start Date">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span
+                                            class="glyphicon glyphicon-calendar"></span></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 col-md-offset-8 control-label" for="effective_end_date">Effective End Date</label>
+                    <div class="col-md-2">
+                        <div class="input-group date">
+                            <input id="effective_end_date" class="form-control" type="text" name="effective_end_date" value="" placeholder="Effective End Date">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span
+                                            class="glyphicon glyphicon-calendar"></span></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <button type="submit" class="pull-right btn btn-primary">Save Timetable</button>
+                    </div>
+                </div>
+            </form>
+            @endif
+
+            <br/>
+
+            @if ($timetable->isEnabled())
+                <form class="form-horizontal" action="" method="POST">
+                    <div class="form-group">
+                        <label class="col-md-1 control-label" for="class_teacher">Class Teacher</label>
+                        <div class="col-md-2">
+                            <select id="class_teacher" class="form-control" name="cti">
+                                <option value="none">Select a class teacher..</option>
+                                @foreach($timetable->classSubjectTeacher() as $option)
+                                    <option value="{{ $option['individual_entity_id'] }}">{{ $option['teacher_name'] }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </form>
+
+                @include('modules.teacher.ClassTimeTable.second-grid')
+
+            @endif
 
             @include('commons.modal')
 
@@ -128,8 +191,12 @@
     .period-break {
 
     }
-    .subjects-radio-btns {
+    .subjects-btns-row {
         margin-bottom: 10px;
+    }
+    .timetable-cell:hover {
+        background-color: #f1f1f1;
+        cursor: pointer;
     }
 </style>
 @endsection
@@ -163,6 +230,65 @@
         }
         return '';
     }
+
+    @if ($timetable->isEnabled())
+        $(document).ready(function() {
+            $('.timetable-cell').on('click', function() {
+                var subject = $('.subject-radio-btn:checked');
+                var shortCode = $(subject).attr('data-shortcode');
+                var subjectId = $(subject).val();
+
+                // if you click twice on the same cell, remove the shortcode
+                if ($(this).attr('data-subjectid') == subjectId) {
+                    $(this).html('');
+                    $(this).attr('data-subjectid', '');
+                } else {
+                    $(this).html(shortCode);
+                    $(this).attr('data-subjectid', subjectId);
+                }
+            });
+        });
+    @endif
+
+    // When submitting the form, prepend all selected checkboxes
+    $('#save-timetable-form').submit(function() {
+        if (! $('#save-timetable-form').valid()) {
+            return false;
+        }
+
+        var timetableIds = [];
+
+        $('.timetable-cell').each(function() {
+            var weekId = $(this).attr('data-weekid');
+            var periodId = $(this).attr('data-periodid');
+            var subjectId = $(this).attr('data-subjectid');
+            if (subjectId) {
+                timetableIds.push(weekId+'-'+periodId+'-'+subjectId);
+            }
+        });
+
+        $('#weekID_periodID_subjectID').val(timetableIds.join('|'));
+
+        return true;
+    });
+
+    $('#save-timetable-form').validate({
+        rules: {
+            effective_start_date: {
+                required: true,
+                dateISO: true
+            },
+            effective_end_date: {
+                required: true,
+                dateISO: true
+            }
+        }
+    });
+
+    $('#effective_start_date, #effective_end_date').change(function() {
+        $('#effective_start_date').valid();
+        $('#effective_end_date').valid();
+    });
 
 </script>
 @endsection

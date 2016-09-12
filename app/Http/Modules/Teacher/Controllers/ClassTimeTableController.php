@@ -26,78 +26,29 @@ class ClassTimeTableController extends Controller
     public function index(Request $request)
     {
         $timetable = new ClassTimeTable($request->input());
+        // d('weekDays');
         // d($timetable->weekDays());
+        // d('periods');
         // d($timetable->periods());
+        // d('classSubject');
         // d($timetable->classSubject());
+        // d('classSubjectTeacher');
+        // d($timetable->classSubjectTeacher());
         // dd($timetable->rows());
         return view('modules.teacher.ClassTimeTable.list', compact('timetable'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $timetable = new ClassTimeTable;
-        return view('modules.teacher.ClassTimeTable.form', compact('timetable'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $timetable = new ClassTimeTable($request->input());
-        $timetable->save();
-        flash('ClassTimeTable Added!');
-        return redirect('/cabinet/class-time-table'.query_string());
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $timetable = ClassTimeTable::find($id);
-        return view('modules.teacher.ClassTimeTable.form', compact('timetable'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $timetable = new ClassTimeTable($request->input());
-        $timetable->setAttribute('home_work_id', $id);
         $timetable->update();
-        flash('ClassTimeTable Updated!');
-        return redirect('/cabinet/class-time-table'.query_string());
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $timetable = new ClassTimeTable;
-        $timetable->setAttribute('home_work_id', $id);
-        $timetable->delete();
-        flash('ClassTimeTable Deleted!');
+        flash('Time Table Updated!');
         return redirect('/cabinet/class-time-table'.query_string());
     }
 }
