@@ -47,7 +47,7 @@
                         ])
 
                         @include('commons.select', [
-                            'label'    => 'Class' ,
+                            'label'    => 'Subject' ,
                             'name'     => 'subject_entity_id',
                             'options'  => $schedule->subject(),
                             'keyId'    => 'subject_entity_id',
