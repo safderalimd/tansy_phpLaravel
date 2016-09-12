@@ -26,18 +26,6 @@ class ClassTimeTableController extends Controller
     public function index(Request $request)
     {
         $timetable = new ClassTimeTable($request->input());
-        // d('weekDays');
-        // d($timetable->weekDays());
-        // d('periods');
-        // d($timetable->periods());
-        // d('classSubject');
-        // d($timetable->classSubject());
-        // d('classSubjectTeacher');
-        // d($timetable->classSubjectTeacher());
-        // d('rows');
-        // d($timetable->rows());
-        // d('teacher rows');
-        // dd($timetable->teacherRows());
         return view('modules.teacher.ClassTimeTable.list', compact('timetable'));
     }
 
