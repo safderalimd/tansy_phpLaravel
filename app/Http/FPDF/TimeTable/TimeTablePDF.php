@@ -86,10 +86,14 @@ class TimeTablePDF extends BasePDF
             $periodType = isset($period['period_type']) ? $period['period_type'] : '';
 
             if ($periodType == 'Break') {
+                $initialX = $this->getX();
+                $this->Cell($maxWidth, $cellHeight, '', 1, 0, 'R', $fill);
+                $this->setX($initialX);
                 $this->SetFont('Helvetica', 'B', 12);
-                $text = $periodName . ' ' . hour_minutes($startTime) . ' - ' . hour_minutes($endTime);
-                $this->Cell($maxWidth, $cellHeight, $text, 1, 1, 'C', $fill);
+                $this->Cell($maxWidth/2, $cellHeight, $periodName, 0, 0, 'R', false);
                 $this->SetFont('Helvetica', '', 12);
+                $text = hour_minutes($startTime) . ' - ' . hour_minutes($endTime);
+                $this->Cell($maxWidth/2, $cellHeight, $text, 0, 1, 'L', false);
 
             } else {
                 // draw period cell
