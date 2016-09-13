@@ -5,6 +5,7 @@ namespace App\Http\Modules\reports\School\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\School\Models\TimeTable;
+use App\Http\FPDF\TimeTable\TimeTablePDF;
 use Device;
 
 class TimeTableController extends Controller
@@ -41,11 +42,10 @@ class TimeTableController extends Controller
         $export = new TimeTable($request->input());
         $export->loadData();
 
-            return view('reports.school.TimeTable.pdf', compact('export'));
         if (Device::isAndroidMobile()) {
-
+            return view('reports.school.TimeTable.pdf', compact('export'));
         } else {
-
+            TimeTablePDF::landscape()->generate($export);
         }
     }
 }
