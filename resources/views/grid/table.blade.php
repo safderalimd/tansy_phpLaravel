@@ -11,7 +11,7 @@
             @foreach ($columns as $column)
                 <th>
                     {{ $column->label() }}
-                    @if ($column->isSortable() && !isset($options['isPdf']))
+                    @if ($column->isSortable())
                         <i class="sorting-icon glyphicon glyphicon-chevron-down"></i>
                     @endif
                 </th>
@@ -41,12 +41,7 @@
                     {{ style_date($row[$column->name()]) }}
 
                 @elseif ($column->hasCurrencyFormat())
-                    @if (!isset($options['isPdf']))
-                        &#x20b9; {{ amount($row[$column->name()]) }}
-                    @else
-                        <span style="vertical-align: top; font-family: DejaVu Sans; sans-serif;">&#8377;</span>
-                        <span style="vertical-align: middle;">{{ amount($row[$column->name()]) }}</span>
-                    @endif
+                    &#x20b9; {{ amount($row[$column->name()]) }}
 
                 @elseif ($column->hasNumberFormat())
                     {{ nr($row[$column->name()]) }}

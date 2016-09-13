@@ -11,7 +11,6 @@ class V1PDF extends BasePDF
     {
         $this->setContents(new V1Contents($export, $progress));
         $this->SetTitle('Student Report');
-        $this->SetAuthor('Tansycloud');
 
         foreach ($this->contents->students as $student) {
             $this->contents->setStudent($student);

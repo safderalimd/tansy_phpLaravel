@@ -7,12 +7,15 @@ use App\Http\Grid\Header;
 use App\Http\Grid\Filter;
 use App\Http\Grid\Settings;
 use App\Http\Grid\Params;
+use App\Http\Models\Traits\OwnerOrganization;
 
 class Grid extends Model
 {
     protected $screenId = null;
 
     protected $repositoryNamespace = 'App\Http\Repositories\GridRepository';
+
+    use OwnerOrganization;
 
     protected $header;
 
@@ -25,10 +28,6 @@ class Grid extends Model
     public $filters;
 
     public $settings;
-
-    public $schoolName = '-';
-
-    public $schoolWorkPhone = '-';
 
     public function __construct($screenId)
     {
@@ -88,17 +87,7 @@ class Grid extends Model
         }
 
         $this->screenName = $this->getScreenName();
-    }
-
-    public function setSchoolNameAndPhone()
-    {
-        $name = $this->repository->getSchoolName();
-        if (isset($name[0]) && isset($name[0]['organization_name'])) {
-            $this->schoolName = $name[0]['organization_name'];
-        }
-        if (isset($name[0]) && isset($name[0]['work_phone'])) {
-            $this->schoolWorkPhone = $name[0]['work_phone'];
-        }
+        $this->setOwnerOrganizationInfo();
     }
 
     public function columns()

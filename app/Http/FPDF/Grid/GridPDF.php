@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\FPDF\TimeTable;
+namespace App\Http\FPDF\Grid;
 use BasePDF;
 
 require app_path('Http/FPDF/fpdf181/base-fpdf.php');
 
-class TimeTablePDF extends BasePDF
+class GridPDF extends BasePDF
 {
-    public function generate($export)
+    public function generate($grid)
     {
-        $this->setContents(new TimeTableContents($export));
+        $this->setContents(new TimeTableContents($grid));
         $this->SetTitle('Time Table');
 
         $this->AddPage();

@@ -11,7 +11,6 @@ class V3PDF extends BasePDF
     {
         $this->setContents(new V3Contents($export, $progress));
         $this->SetTitle($this->contents->title);
-        $this->SetAuthor('Tansycloud');
 
         foreach ($this->contents->students as $student) {
             $this->contents->setStudent($student);

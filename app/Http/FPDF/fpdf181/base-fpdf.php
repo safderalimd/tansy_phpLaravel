@@ -10,6 +10,7 @@ class BasePDF extends MulticellTablePDF
 	{
 		parent::__construct($orientation, $unit, $size);
 		$this->SetAutoPageBreak(true, 10);
+		$this->SetAuthor('Tansycloud');
 	}
 
 	public function setContents($contents)

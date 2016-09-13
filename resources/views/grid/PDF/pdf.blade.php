@@ -40,17 +40,13 @@
     </style>
 </head>
 <body>
-    <div id="watermark"><div id="watermark-text">{{$grid->schoolName}}</div></div>
-
-    <div class="footer text-right">
-        Page: <span class="pagenum"></span>
-    </div>
+    <div id="watermark"><div id="watermark-text">{{$grid->organizationName()}}</div></div>
 
     <div class="container">
 
         @include('reports.common.pdf-header', [
-            'school' => $grid->schoolName,
-            'phone'  => $grid->schoolWorkPhone,
+            'school' => $grid->organizationName(),
+            'phone'  => $grid->organizationPhone(),
         ])
 
         @include('reports.common.report-name', ['report' => $grid->screenName])

@@ -30,7 +30,6 @@ class MarkSheetPDF extends AlphaPDF
     {
         $this->setContents(new Contents($markSheet));
         $this->SetTitle($this->contents->title);
-        $this->SetAuthor('Tansycloud');
 
         $this->AddPage();
         $this->drawHeader();

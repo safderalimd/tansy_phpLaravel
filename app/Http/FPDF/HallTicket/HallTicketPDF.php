@@ -13,7 +13,6 @@ class HallTicketPDF extends BasePDF
     {
         $this->setContents(new HallTicketContents($export));
         $this->SetTitle('Hall Ticket');
-        $this->SetAuthor('Tansycloud');
 
         $i = 1;
         foreach($this->contents->tickets as $ticket) {
