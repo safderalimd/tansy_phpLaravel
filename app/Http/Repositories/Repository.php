@@ -45,6 +45,12 @@ class Repository
         return $this->lookup('sproc_sch_lkp_class');
     }
 
+    public function getTeachers()
+    {
+        // teacher_name, teacher_short_name, teacher_entity_id
+        return $this->lookup('sproc_sch_lkp_teacher');
+    }
+
     public function getPeriods()
     {
         // period_name, start_time, end_time, period_type,
@@ -333,6 +339,12 @@ class Repository
     public function getSchoolAccountTypeFilter()
     {
         return $this->lookup('sproc_sch_lkp_account_type_filter');
+    }
+
+    public function getOwnerOrganization()
+    {
+        // organization_name, organization_entity_id, mobile_phone
+        return $this->lookup('sproc_org_lkp_organization_owner');
     }
 
     public function getOrganizations()
