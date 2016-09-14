@@ -19,7 +19,6 @@ class Cabinet
     {
         if (!$this->userLoggedIn($request)) {
             return redirect()->guest('/login')->withErrors(['test' => 'You need to login']);
-            // return redirect('/login')->withErrors(['test' => 'You need to login']);
         }
 
         if (force_change_password() && !$this->isPasswordScreen($request)) {
