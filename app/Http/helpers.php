@@ -474,3 +474,8 @@ function logo_path()
     }
     return $logo;
 }
+
+function force_change_password()
+{
+    return session()->get('user.forceChangePassword');
+}

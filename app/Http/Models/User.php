@@ -82,4 +82,9 @@ class User extends Model
 
         Config::set('database.connections.secondDB', $secondDB);
     }
+
+    public function forceChangePassword()
+    {
+        return $this->force_change_password == 1;
+    }
 }

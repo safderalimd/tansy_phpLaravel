@@ -13,6 +13,7 @@ class ChangePasswordRepository extends Repository
         $iparams = [
             '-iparam_old_password',
             '-iparam_new_password',
+            ':iparam_ignore_old_password',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
@@ -21,6 +22,8 @@ class ChangePasswordRepository extends Repository
         ];
 
         $oparams = [
+            '@oparam_send_change_password_sms',
+            '@oparam_user_mobile',
             '@oparam_err_flag',
             '@oparam_err_step',
             '@oparam_err_msg',

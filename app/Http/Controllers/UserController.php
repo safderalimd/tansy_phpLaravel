@@ -62,7 +62,15 @@ class UserController extends Controller
                 session()->put('smsBalance', null);
                 session()->put('smsAccountInactive', null);
 
-                return redirect('/cabinet');
+                // force change password
+                Session::put('user.forceChangePassword', $user->forceChangePassword());
+
+                if ($user->forceChangePassword()) {
+                    return redirect('/cabinet/change-password');
+
+                } else {
+                    return redirect('/cabinet');
+                }
             }
 
         } catch(\Exception $e) {

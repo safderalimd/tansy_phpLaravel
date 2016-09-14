@@ -16,6 +16,12 @@
 
                     @include('commons.errors')
 
+                    @if (force_change_password())
+                        <div class="alert alert-success">
+                            <ul><li>For security reasons, you need to change your password.</li></ul>
+                        </div>
+                    @endif
+
                     <form id="change-password-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 

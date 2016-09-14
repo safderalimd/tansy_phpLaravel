@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Modules\Admin\Models\ChangePassword;
 use App\Http\Modules\Admin\Requests\ChangePasswordFormRequest;
 use App\Exceptions\DbErrorException;
+use App\Http\Modules\thirdparty\sms\SMS;
 
 class ChangePasswordController extends Controller
 {
@@ -29,7 +30,12 @@ class ChangePasswordController extends Controller
         $password = new ChangePassword($request->input());
 
         try {
-            $password->update();
+            $password->updatePassword();
+
+            if ($password->sendChangePasswordSMS()) {
+                SMS::transactional()->oneSMS($password->userMobile(), $password->getMessage());
+            }
+
         } catch (DbErrorException $e) {
             return redirect('/cabinet/change-password')->withErrors($e->getMessage());
         }

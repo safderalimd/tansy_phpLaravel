@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Session;
+use Config;
 
 class Cabinet
 {
@@ -15,11 +17,15 @@ class Cabinet
      */
     public function handle($request, Closure $next)
     {
-        if ( !$request->session()->has('user') ) {
+        if (!$this->userLoggedIn($request)) {
             return redirect('/login')->withErrors(['test' => 'You need to login']);
         }
 
-        $dbData = \Session::get('dbConnectionData');
+        if (force_change_password() && !$this->isPasswordScreen($request)) {
+            return redirect('/cabinet/change-password');
+        }
+
+        $dbData = Session::get('dbConnectionData');
 
         $secondDB = array(
             'driver'    => 'mysql',
@@ -32,8 +38,18 @@ class Cabinet
             'prefix'    => '',
         );
 
-        \Config::set('database.connections.secondDB', $secondDB);
+        Config::set('database.connections.secondDB', $secondDB);
 
         return $next($request);
+    }
+
+    public function userLoggedIn($request)
+    {
+        return $request->session()->has('user');
+    }
+
+    public function isPasswordScreen($request)
+    {
+        return 'cabinet/change-password' == $request->path();
     }
 }
