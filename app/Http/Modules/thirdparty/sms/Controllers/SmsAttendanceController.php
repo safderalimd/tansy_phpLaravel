@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsAttendance;
 
-class SendSmsAttendanceController extends Controller
+class SmsAttendanceController extends Controller
 {
     /**
      * Instantiate a new Controller instance.

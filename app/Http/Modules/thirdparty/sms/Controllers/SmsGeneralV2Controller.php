@@ -8,7 +8,7 @@ use App\Http\Modules\thirdparty\sms\Models\SendSmsGeneralV2;
 use App\Http\Models\Grid;
 use Exception;
 
-class SendSmsGeneralV2Controller extends Controller
+class SmsGeneralV2Controller extends Controller
 {
     /**
      * Instantiate a new Controller instance.

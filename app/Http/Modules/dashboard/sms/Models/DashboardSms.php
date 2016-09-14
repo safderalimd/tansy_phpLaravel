@@ -4,11 +4,11 @@ namespace App\Http\Modules\dashboard\sms\Models;
 
 use App\Http\Models\Model;
 
-class Sms extends Model
+class DashboardSms extends Model
 {
     protected $screenId = '/cabinet/sms-dashboard';
 
-    protected $repositoryNamespace = 'App\Http\Modules\dashboard\sms\Repositories\SmsRepository';
+    protected $repositoryNamespace = 'App\Http\Modules\dashboard\sms\Repositories\DashboardSmsRepository';
 
     public $pieDetails;
 

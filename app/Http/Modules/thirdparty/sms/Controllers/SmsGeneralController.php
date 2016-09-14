@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsGeneral;
 use App\Http\Models\Grid;
 
-class SendSmsGeneralController extends Controller
+class SmsGeneralController extends Controller
 {
     /**
      * Instantiate a new Controller instance.

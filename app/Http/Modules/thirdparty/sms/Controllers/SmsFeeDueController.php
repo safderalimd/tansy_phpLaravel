@@ -4,10 +4,10 @@ namespace App\Http\Modules\thirdparty\sms\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Modules\thirdparty\sms\Models\SendSmsExamSchedule;
+use App\Http\Modules\thirdparty\sms\Models\SendSmsFeeDue;
 use App\Http\CSVGenerator\CSV;
 
-class SendSmsExamScheduleController extends Controller
+class SmsFeeDueController extends Controller
 {
     /**
      * Instantiate a new Controller instance.
@@ -16,26 +16,26 @@ class SendSmsExamScheduleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:' . SendSmsExamSchedule::staticScreenId());
+        $this->middleware('screen:' . SendSmsFeeDue::staticScreenId());
     }
 
-    public function examSchedule(Request $request)
+    public function feeDue(Request $request)
     {
-        $sms = new SendSmsExamSchedule($request->input());
-        return view('thirdparty.sms.SendSms.exam-schedule', compact('sms'));
+        $sms = new SendSmsFeeDue($request->input());
+        return view('thirdparty.sms.SendSms.fee-due', compact('sms'));
     }
 
-    public function sendExamSchedule(Request $request)
+    public function sendFeeDue(Request $request)
     {
         $this->validate($request, ['student_ids' => 'required|string']);
-        $sms = new SendSmsExamSchedule($request->input());
-        flash('Exam Schedule SMS Sent!');
+        $sms = new SendSmsFeeDue($request->input());
+        flash('Fee Due SMS Sent!');
         return $this->sendSmsToStudents($sms, $request->input('student_ids'));
     }
 
-    public function examScheduleCSV(Request $request)
+    public function feeDueCSV(Request $request)
     {
-        $sms = new SendSmsExamSchedule($request->input());
+        $sms = new SendSmsFeeDue($request->input());
 
         $header = ['Account', 'Mobile', 'SMS Text'];
         $rows = [];
@@ -44,7 +44,7 @@ class SendSmsExamScheduleController extends Controller
             $rowData = [
                 $row['account_name'],
                 phone_number($row['mobile_phone']),
-                $row['sms_text'],
+                'Your current fee due amount is ' . amount($row['due_amount']),
             ];
 
             $rows[] = $rowData;

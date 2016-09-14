@@ -4,7 +4,7 @@ namespace App\Http\Modules\dashboard\sms\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Modules\dashboard\sms\Models\Sms;
+use App\Http\Modules\dashboard\sms\Models\DashboardSms;
 
 class DashboardSmsController extends Controller
 {
@@ -15,7 +15,7 @@ class DashboardSmsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:' . Sms::screenId());
+        $this->middleware('screen:' . DashboardSms::screenId());
     }
 
     /**
@@ -25,8 +25,8 @@ class DashboardSmsController extends Controller
      */
     public function index()
     {
-        $sms = new Sms;
+        $sms = new DashboardSms;
         $sms->loadData();
-        return view('dashboard.sms.Sms.list', compact('sms'));
+        return view('dashboard.sms.DashboardSms.list', compact('sms'));
     }
 }

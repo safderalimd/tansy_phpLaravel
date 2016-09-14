@@ -4,10 +4,10 @@ namespace App\Http\Modules\thirdparty\sms\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Modules\thirdparty\sms\Models\SendSmsExamResults;
+use App\Http\Modules\thirdparty\sms\Models\SendSmsExamSchedule;
 use App\Http\CSVGenerator\CSV;
 
-class SendSmsExamResultsController extends Controller
+class SmsExamScheduleController extends Controller
 {
     /**
      * Instantiate a new Controller instance.
@@ -16,26 +16,26 @@ class SendSmsExamResultsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('screen:' . SendSmsExamResults::staticScreenId());
+        $this->middleware('screen:' . SendSmsExamSchedule::staticScreenId());
     }
 
-    public function examResults(Request $request)
+    public function examSchedule(Request $request)
     {
-        $sms = new SendSmsExamResults($request->input());
-        return view('thirdparty.sms.SendSms.exam-results', compact('sms'));
+        $sms = new SendSmsExamSchedule($request->input());
+        return view('thirdparty.sms.SendSms.exam-schedule', compact('sms'));
     }
 
-    public function sendExamResults(Request $request)
+    public function sendExamSchedule(Request $request)
     {
         $this->validate($request, ['student_ids' => 'required|string']);
-        $sms = new SendSmsExamResults($request->input());
-        flash('Exam Results SMS Sent!');
+        $sms = new SendSmsExamSchedule($request->input());
+        flash('Exam Schedule SMS Sent!');
         return $this->sendSmsToStudents($sms, $request->input('student_ids'));
     }
 
-    public function examResultsCSV(Request $request)
+    public function examScheduleCSV(Request $request)
     {
-        $sms = new SendSmsExamResults($request->input());
+        $sms = new SendSmsExamSchedule($request->input());
 
         $header = ['Account', 'Mobile', 'SMS Text'];
         $rows = [];

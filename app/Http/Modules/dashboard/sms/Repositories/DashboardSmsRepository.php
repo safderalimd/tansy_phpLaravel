@@ -4,7 +4,7 @@ namespace App\Http\Modules\dashboard\sms\Repositories;
 
 use App\Http\Repositories\Repository;
 
-class SmsRepository extends Repository
+class DashboardSmsRepository extends Repository
 {
     public function smsDetails($model)
     {
