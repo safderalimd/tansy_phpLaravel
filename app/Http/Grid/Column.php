@@ -53,6 +53,11 @@ class Column
         return $this->format() == 'date';
     }
 
+    public function hasDateTimeFormat()
+    {
+        return $this->format() == 'datetime';
+    }
+
     public function hasCurrencyFormat()
     {
         return $this->format() == 'currency';

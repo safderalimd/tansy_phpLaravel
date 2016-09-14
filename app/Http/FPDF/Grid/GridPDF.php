@@ -72,6 +72,9 @@ class GridPDF extends BasePDF
                 } elseif ($column->hasDateFormat()) {
                     $items[] = style_date($row[$column->name()]);
 
+                } elseif ($column->hasDateTimeFormat()) {
+                    $items[] = style_datetime($row[$column->name()]);
+
                 } elseif ($column->hasCurrencyFormat()) {
                     $items[] = amount($row[$column->name()]);
                     // &#x20b9;

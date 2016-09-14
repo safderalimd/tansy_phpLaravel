@@ -40,6 +40,9 @@
                 @elseif ($column->hasDateFormat())
                     {{ style_date($row[$column->name()]) }}
 
+                @elseif ($column->hasDateTimeFormat())
+                    {{ style_datetime($row[$column->name()]) }}
+
                 @elseif ($column->hasCurrencyFormat())
                     &#x20b9; {{ amount($row[$column->name()]) }}
 
