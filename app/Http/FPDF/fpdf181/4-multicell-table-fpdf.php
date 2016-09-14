@@ -56,6 +56,19 @@ class MulticellTablePDF extends AlphaPDF
         $h=$this->rowMultiCellHeight*$nb;
         //Issue a page break first if needed
         $this->CheckPageBreak($h);
+
+        $initialX = $this->getX();
+        $initialY = $this->getY();
+
+        // draw the row backgroud
+        $sumOfWidhts = 0;
+        for($i=0;$i<count($this->widths);$i++) {
+            $sumOfWidhts += $this->widths[$i];
+        }
+        if ($this->rowMultiCellFill) {
+            $this->Rect($initialX,$initialY,$sumOfWidhts,$h, 'F');
+        }
+
         //Draw the cells of the row
         for($i=0;$i<count($data);$i++)
         {
@@ -65,7 +78,7 @@ class MulticellTablePDF extends AlphaPDF
             $x=$this->GetX();
             $y=$this->GetY();
             //Print the text
-            $this->MultiCell($w,$this->rowMultiCellHeight,$data[$i],0,$a, $this->rowMultiCellFill);
+            $this->MultiCell($w,$this->rowMultiCellHeight,$data[$i],0,$a);
             //Draw the border
             $this->Rect($x,$y,$w,$h);
             //Put the position to the right of the cell
@@ -133,5 +146,105 @@ class MulticellTablePDF extends AlphaPDF
                 $i++;
         }
         return $nl;
+    }
+
+    public function drawDynamicTable($headerRow, $tableRows)
+    {
+        // calculate the width averages
+        $averages = [];
+        $counts = [];
+        $minimumWidth = [];
+
+        // set the widths of the header cells
+        foreach ($headerRow as $column) {
+            $counts[] = 1;
+            if (!$this->isEmpty($column)) {
+                $averages[] = $this->GetStringWidth($column);
+                $minimumWidth[] = $this->longestWordWidth($column);
+            } else {
+                $averages[] = 0;
+                $minimumWidth[] = 5;
+            }
+        }
+
+        // sum each column, where the column is not emtpy
+        foreach ($tableRows as $row) {
+            $i=0;
+            foreach ($row as $column) {
+                if (!$this->isEmpty($column)) {
+                    $averages[$i] += $this->GetStringWidth($column);
+                    $counts[$i]++;
+                }
+                $i++;
+            }
+        }
+
+        // calculate the average width of each column
+        $sumOfAverages = 0;
+        $sumOfMinimumWidth = 0;
+        for ($i=0;$i<count($averages);$i++) {
+            $averages[$i] = $averages[$i]/$counts[$i];
+            $sumOfAverages += $averages[$i];
+            $sumOfMinimumWidth += $minimumWidth[$i];
+        }
+
+        // calculate widths
+        $widths = [];
+        $tableWidth = $this->GetPageWidth() - 20;
+        for ($i=0;$i<count($averages);$i++) {
+            $percentage = $averages[$i] / $sumOfAverages;
+
+            if ($sumOfMinimumWidth > $tableWidth) {
+                // percentage width of total width
+                $widths[] = round($percentage * $tableWidth, 2, PHP_ROUND_HALF_DOWN);
+            } else {
+                $remainingWidth = $tableWidth - $sumOfMinimumWidth;
+                $widths[] = round($minimumWidth[$i] + $percentage * $remainingWidth, 2, PHP_ROUND_HALF_DOWN);
+            }
+        }
+
+        $this->setWidths($widths);
+        $this->setRowMultiCellHeight(10);
+
+        // draw first row
+        $this->font(12); $this->fontType('B');
+        $this->Row($headerRow);
+        $this->fontType('');
+
+        // draw the rest of the rows
+        $fill = true;
+        foreach ($tableRows as $row) {
+            $this->setRowMultiCellFill($fill);
+            $this->Row($row);
+            $fill = !$fill;
+        }
+        $this->setRowMultiCellFill(false);
+    }
+
+    public function isEmpty($cell)
+    {
+        if (is_null($cell)) {
+            return true;
+        }
+
+        if (is_string($cell) && strlen($cell) == 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function longestWordWidth($cell)
+    {
+        $cell = (string)$cell;
+        $words = explode(' ', $cell);
+        $largestWidth = 5;
+        foreach ($words as $word) {
+            $w = $this->GetStringWidth($word);
+            if ($w > $largestWidth) {
+                $largestWidth = $w;
+            }
+        }
+        return $largestWidth;
     }
 }
