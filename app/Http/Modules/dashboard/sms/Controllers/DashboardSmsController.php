@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\dashboard\sms\Models\Sms;
 
-class SmsController extends Controller
+class DashboardSmsController extends Controller
 {
     /**
      * Instantiate a new Controller instance.

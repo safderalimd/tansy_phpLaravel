@@ -103,7 +103,7 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('payment-dashboard/schedule-fee', 'dashboard\accounting\Controllers\PaymentController@scheduleFee');
     Route::get('payment-dashboard/discount', 'dashboard\accounting\Controllers\PaymentController@discount');
 
-    Route::get('sms-dashboard', 'dashboard\sms\Controllers\SmsController@index');
+    Route::get('sms-dashboard', 'dashboard\sms\Controllers\DashboardSmsController@index');
 
     Route::get('exam-dashboard', 'dashboard\school\Controllers\ExamController@index');
     Route::get('exam-dashboard/toppers', 'dashboard\school\Controllers\ExamController@toppers');
