@@ -69,7 +69,7 @@ class UserController extends Controller
                     return redirect('/cabinet/change-password');
 
                 } else {
-                    return redirect('/cabinet');
+                    return redirect()->intended('/cabinet');
                 }
             }
 

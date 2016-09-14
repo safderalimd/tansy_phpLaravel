@@ -18,7 +18,8 @@ class Cabinet
     public function handle($request, Closure $next)
     {
         if (!$this->userLoggedIn($request)) {
-            return redirect('/login')->withErrors(['test' => 'You need to login']);
+            return redirect()->guest('/login')->withErrors(['test' => 'You need to login']);
+            // return redirect('/login')->withErrors(['test' => 'You need to login']);
         }
 
         if (force_change_password() && !$this->isPasswordScreen($request)) {
