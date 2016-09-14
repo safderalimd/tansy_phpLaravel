@@ -40,7 +40,6 @@
                             <button class="btn btn-primary btn-block btn-lg">Login</button>
                         </div>
 
-<!--
                         <div class="form-group form-group-lg" style="margin-bottom: 0;">
                             <div class="row">
                                 <div class="col-xs-6">
@@ -52,11 +51,10 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-6 text-right">
-                                    <div style="padding-top: 10px"><a href="#">Forgot Password?</a></div>
+                                    <div style="padding-top: 10px"><a href="/forgot-password">Forgot Password?</a></div>
                                 </div>
                             </div>
                         </div>
--->
 
                     </form>
                 </div>
