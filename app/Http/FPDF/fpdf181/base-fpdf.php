@@ -6,11 +6,43 @@ class BasePDF extends MulticellTablePDF
 {
 	protected $contents;
 
+	protected $currentFontName = 'Helvetica';
+
+	protected $currentFontType = '';
+
+	protected $currentFontSize = 12;
+
 	public function __construct($orientation = 'P', $unit = 'mm', $size = 'A4')
 	{
 		parent::__construct($orientation, $unit, $size);
 		$this->SetAutoPageBreak(true, 10);
 		$this->SetAuthor('Tansycloud');
+		$this->SetDrawColor(221, 221, 221);
+		$this->SetFillColor(245, 245, 245);
+		$this->updateFontSettings();
+	}
+
+	public function font($size)
+	{
+		$this->currentFontSize = $size;
+		$this->updateFontSettings();
+	}
+
+	public function fontType($type)
+	{
+		$this->currentFontType = $type;
+		$this->updateFontSettings();
+	}
+
+	public function updateFontSettings()
+	{
+		$this->SetFont($this->currentFontName, $this->currentFontType, $this->currentFontSize);
+	}
+
+	public function AcceptPageBreak()
+	{
+		parent::AcceptPageBreak();
+		$this->drawCenterWatermark();
 	}
 
 	public function setContents($contents)
@@ -73,7 +105,12 @@ class BasePDF extends MulticellTablePDF
 
 	public function drawCenterWatermark()
 	{
-		$this->SetFont('Helvetica', 'B', 12);
+		$fontName = $this->currentFontName;
+		$fontType = $this->currentFontType;
+		$fontSize = $this->currentFontSize;
+
+	    $this->SetFont('Helvetica', 'B', 12);
+
 	    $x = round($this->GetPageWidth()/2, 2);
 	    $y = round($this->GetPageHeight()/2, 2);
 
@@ -88,6 +125,11 @@ class BasePDF extends MulticellTablePDF
 	    $this->SetAlpha(0.2);
 	    $this->RotatedText($x, $y, $text, 45);
 	    $this->SetAlpha(1);
+
+	    $this->currentFontName = $fontName;
+	    $this->currentFontType = $fontType;
+	    $this->currentFontSize = $fontSize;
+	    $this->updateFontSettings();
 	}
 
 	public function drawPrintDateTime()

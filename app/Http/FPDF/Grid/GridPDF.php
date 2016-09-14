@@ -9,117 +9,188 @@ class GridPDF extends BasePDF
 {
     public function generate($grid)
     {
-        $this->setContents(new TimeTableContents($grid));
-        $this->SetTitle('Time Table');
+        $this->setContents(new GridContents($grid));
+        $this->SetTitle($this->contents->reportName);
 
         $this->AddPage();
         $this->drawSchoolHeader();
-        $this->drawGridInfo();
+        $this->drawGridFilters();
         $this->drawPrintDateTime();
-        $this->drawTimeTable();
+        $this->drawGridTable();
         $this->drawCenterWatermark();
         $this->show();
     }
 
-    public function drawGridInfo()
+    public function drawGridFilters()
     {
-        $this->SetFont('Helvetica', '', 12);
+        $this->font(12); $this->fontType('');
         $this->Ln(4);
 
-        $label = $this->contents->showType() == 'student' ? 'Class: ' : 'Teacher: ';
-        $this->CellWidthAuto(6, $label);
-        $this->SetFont('Helvetica', 'B', 12);
-        $this->Cell(0, 6, $this->contents->dropdownFilter, 0, 1, 'L');
-        $this->SetFont('Helvetica', '', 12);
+        foreach ($this->contents->grid->filters as $filter) {
+            $filterLabel = $filter->label();
+            $filterValue = $this->contents->getFilterValue($filter);
 
-        $this->CellWidthAuto(6, 'Start Date: ');
-        $this->SetFont('Helvetica', 'B', 12);
-        $this->Cell(0, 6, $this->contents->startDateFilter, 0, 1, 'L');
-        $this->SetFont('Helvetica', '', 12);
+            $this->CellWidthAuto(6, $filterLabel . ': ');
+            $this->fontType('B');
+            $this->Cell(0, 6, $filterValue, 0, 1, 'L');
+            $this->fontType('');
+        }
     }
 
-    public function drawTimeTable()
+    public function drawGridTable()
     {
-        $this->SetDrawColor(221, 221, 221);
-        $this->SetFillColor(245, 245, 245);
-        $x = $this->getX();
-        $y = $this->getY();
-        $tableHeight = $this->GetPageHeight() - $y - 12;
-        $nrRows = count($this->contents->periods) + 1;
-        $nrColumnsDays = count($this->contents->weekDays);
-        $nrColumns = $nrColumnsDays + 1;
-        $cellHeight = round($tableHeight/$nrRows, 2, PHP_ROUND_HALF_DOWN);
+        $this->font(12); $this->fontType('');
+        $grid = $this->contents->grid;
+        $columns = $grid->columns();
+        $rowIndex = 1;
 
-        // find max width of first column
-        $periodNameWidth = 10;
-        $periodTimeWidth = 26.59;
-        $this->SetFont('Helvetica', 'B', 12);
-        foreach ($this->contents->periods as $period) {
-            $periodName = isset($period['period_name']) ? $period['period_name'] : '';
-            $width = $this->GetStringWidth($periodName);
-            if ($width > $periodNameWidth) {
-                $periodNameWidth = $width;
+        // build header row
+        $headerRow = [];
+        if ($grid->settings->showPdfRowNumbers()) {
+            $headerRow[] = '#';
+        }
+        foreach ($columns as $column) {
+            $headerRow[] = $column->label();
+        }
+
+        // build rows
+        $tableRows = [];
+        foreach($grid->rows() as $row) {
+            $items = [];
+            if ($grid->settings->showPdfRowNumbers()) {
+                $items[] = $rowIndex++;
             }
-        }
-        $periodWidth = $periodNameWidth + $periodTimeWidth + 1;
-
-        // find out the width of the rest of the cells
-        $cellWidth = round(($this->GetPageWidth() - 20 - $periodWidth) / $nrColumnsDays, 2);
-        $maxWidth = $periodWidth + $nrColumnsDays * $cellWidth;
-
-        // set header row with days of the week
-        $this->SetFont('Helvetica', 'B', 12);
-        $this->Cell($periodWidth, $cellHeight, '', 1, 0, 'C');
-        foreach ($this->contents->weekDays as $day) {
-            $dayName = isset($day['week_day_short_code']) ? $day['week_day_short_code'] : '';
-            $this->Cell($cellWidth, $cellHeight, $dayName, 1, 0, 'C');
-        }
-        $this->Ln();
-        $this->SetFont('Helvetica', '', 12);
-
-        $fill = true;
-        foreach ($this->contents->periods as $period) {
-            $periodName = isset($period['period_name']) ? $period['period_name'] : '';
-            $startTime = isset($period['start_time']) ? $period['start_time'] : '';
-            $endTime = isset($period['end_time']) ? $period['end_time'] : '';
-            $periodType = isset($period['period_type']) ? $period['period_type'] : '';
-
-            if ($periodType == 'Break') {
-                $initialX = $this->getX();
-                $this->Cell($maxWidth, $cellHeight, '', 1, 0, 'R', $fill);
-                $this->setX($initialX);
-                $this->SetFont('Helvetica', 'B', 12);
-                $this->Cell($maxWidth/2, $cellHeight, $periodName, 0, 0, 'R', false);
-                $this->SetFont('Helvetica', '', 12);
-                $text = hour_minutes($startTime) . ' - ' . hour_minutes($endTime);
-                $this->Cell($maxWidth/2, $cellHeight, $text, 0, 1, 'L', false);
-
-            } else {
-                // draw period cell
-                $initialX = $this->getX();
-                $this->Cell($periodWidth, $cellHeight, '', 0, 0, 'R', $fill);
-                $this->setX($initialX);
-                $this->SetFont('Helvetica', 'B', 12);
-                $this->Cell($periodNameWidth, $cellHeight, $periodName, 0, 0, 'R', $fill);
-                $this->SetFont('Helvetica', '', 12);
-                $text = ' ' . hour_minutes($startTime) . ' - ' . hour_minutes($endTime);
-                $this->Cell($periodTimeWidth, $cellHeight, $text, 0, 0, 'R', $fill);
-                $this->setX($initialX);
-                $this->Cell($periodWidth, $cellHeight, '', 1, 0, 'R', false);
-
-                foreach ($this->contents->weekDays as $day) {
-                    $weekDay = isset($day['week_day']) ? $day['week_day'] : '';
-                    $subject = $this->contents->export->findSubject($this->contents->rows, $periodName, $weekDay);
-                    $shortCode = isset($subject['subject_short_code']) ? $subject['subject_short_code'] : '';
-                    $className = isset($subject['class_name']) ? $subject['class_name'] : '';
-                    $cellText = ($this->contents->showType() == 'student') ? $shortCode : $className;
-                    $this->Cell($cellWidth, $cellHeight, $cellText, 1, 0, 'C', $fill);
-
+            foreach($columns as $column) {
+                if (!isset($row[$column->name()])) {
+                    $items[] = '';
+                    continue;
                 }
-                $this->Ln();
+
+                if ($column->hasMobileFormat()) {
+                    $items[] = phone_number($row[$column->name()]);
+
+                } elseif ($column->hasDateFormat()) {
+                    $items[] = style_date($row[$column->name()]);
+
+                } elseif ($column->hasCurrencyFormat()) {
+                    $items[] = amount($row[$column->name()]);
+                    // &#x20b9;
+
+                } elseif ($column->hasNumberFormat()) {
+                    $items[] = nr($row[$column->name()]);
+
+                } else {
+                    $items[] = $row[$column->name()];
+                }
             }
+            $tableRows[] = $items;
+        }
+
+        $this->drawDynamicTable($headerRow, $tableRows);
+    }
+
+    public function drawDynamicTable($headerRow, $tableRows)
+    {
+        for ($i=0; $i < 15 ; $i++) {
+            $tableRows[] = $tableRows[0];
+        }
+
+        // calculate the width averages
+        $averages = [];
+        $counts = [];
+        $minimumWidth = [];
+
+        // set the widths of the header cells
+        foreach ($headerRow as $column) {
+            $counts[] = 1;
+            if (!$this->isEmpty($column)) {
+                $averages[] = $this->GetStringWidth($column);
+                $minimumWidth[] = $this->longestWordWidth($column);
+            } else {
+                $averages[] = 0;
+                $minimumWidth[] = 5;
+            }
+        }
+
+        // sum each column, where the column is not emtpy
+        foreach ($tableRows as $row) {
+            $i=0;
+            foreach ($row as $column) {
+                if (!$this->isEmpty($column)) {
+                    $averages[$i] += $this->GetStringWidth($column);
+                    $counts[$i]++;
+                }
+                $i++;
+            }
+        }
+
+        // calculate the average width of each column
+        $sumOfAverages = 0;
+        $sumOfMinimumWidth = 0;
+        for ($i=0;$i<count($averages);$i++) {
+            $averages[$i] = $averages[$i]/$counts[$i];
+            $sumOfAverages += $averages[$i];
+            $sumOfMinimumWidth += $minimumWidth[$i];
+        }
+
+        // calculate widths
+        $widths = [];
+        $tableWidth = $this->GetPageWidth() - 20;
+        for ($i=0;$i<count($averages);$i++) {
+            $percentage = $averages[$i] / $sumOfAverages;
+
+            if ($sumOfMinimumWidth > $tableWidth) {
+                // percentage width of total width
+                $widths[] = round($percentage * $tableWidth, 2, PHP_ROUND_HALF_DOWN);
+            } else {
+                $remainingWidth = $tableWidth - $sumOfMinimumWidth;
+                $widths[] = round($minimumWidth[$i] + $percentage * $remainingWidth, 2, PHP_ROUND_HALF_DOWN);
+            }
+        }
+
+        $this->setWidths($widths);
+        $this->setRowMultiCellHeight(10);
+
+        // draw first row
+        $this->font(12); $this->fontType('B');
+        $this->Row($headerRow);
+        $this->fontType('');
+
+        // draw the rest of the rows
+        $fill = true;
+        foreach ($tableRows as $row) {
+            $this->setRowMultiCellFill($fill);
+            $this->Row($row);
             $fill = !$fill;
         }
+        $this->setRowMultiCellFill(false);
+    }
+
+    public function isEmpty($cell)
+    {
+        if (is_null($cell)) {
+            return true;
+        }
+
+        if (is_string($cell) && strlen($cell) == 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function longestWordWidth($cell)
+    {
+        $cell = (string)$cell;
+        $words = explode(' ', $cell);
+        $largestWidth = 5;
+        foreach ($words as $word) {
+            $w = $this->GetStringWidth($word);
+            if ($w > $largestWidth) {
+                $largestWidth = $w;
+            }
+        }
+        return $largestWidth;
     }
 }
 
