@@ -347,26 +347,26 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
 
 
     // Sms Links Group
-    Route::get('send-sms-v1', 'thirdparty\sms\Controllers\SendSmsController@general');
-    Route::post('send-sms-v1', 'thirdparty\sms\Controllers\SendSmsController@sendGeneral');
+    Route::get('send-sms-v1', 'thirdparty\sms\Controllers\SendSmsGeneralController@general');
+    Route::post('send-sms-v1', 'thirdparty\sms\Controllers\SendSmsGeneralController@sendGeneral');
 
-    Route::get('send-sms-v2', 'thirdparty\sms\Controllers\SendSmsController@generalV2');
-    Route::post('send-sms-v2', 'thirdparty\sms\Controllers\SendSmsController@sendGeneralV2');
+    Route::get('send-sms-v2', 'thirdparty\sms\Controllers\SendSmsGeneralV2Controller@generalV2');
+    Route::post('send-sms-v2', 'thirdparty\sms\Controllers\SendSmsGeneralV2Controller@sendGeneralV2');
 
-    Route::get('send-sms---fee-due', 'thirdparty\sms\Controllers\SendSmsController@feeDue');
-    Route::post('send-sms---fee-due', 'thirdparty\sms\Controllers\SendSmsController@sendFeeDue');
-    Route::get('send-sms---fee-due/csv', 'thirdparty\sms\Controllers\SendSmsController@feeDueCSV');
+    Route::get('send-sms---fee-due', 'thirdparty\sms\Controllers\SendSmsFeeDueController@feeDue');
+    Route::post('send-sms---fee-due', 'thirdparty\sms\Controllers\SendSmsFeeDueController@sendFeeDue');
+    Route::get('send-sms---fee-due/csv', 'thirdparty\sms\Controllers\SendSmsFeeDueController@feeDueCSV');
 
-    Route::get('send-sms---exam-schedule', 'thirdparty\sms\Controllers\SendSmsController@examSchedule');
-    Route::post('send-sms---exam-schedule', 'thirdparty\sms\Controllers\SendSmsController@sendExamSchedule');
-    Route::get('send-sms---exam-schedule/csv', 'thirdparty\sms\Controllers\SendSmsController@examScheduleCSV');
+    Route::get('send-sms---exam-schedule', 'thirdparty\sms\Controllers\SendSmsExamScheduleController@examSchedule');
+    Route::post('send-sms---exam-schedule', 'thirdparty\sms\Controllers\SendSmsExamScheduleController@sendExamSchedule');
+    Route::get('send-sms---exam-schedule/csv', 'thirdparty\sms\Controllers\SendSmsExamScheduleController@examScheduleCSV');
 
-    Route::get('send-sms---exam-results', 'thirdparty\sms\Controllers\SendSmsController@examResults');
-    Route::post('send-sms---exam-results', 'thirdparty\sms\Controllers\SendSmsController@sendExamResults');
-    Route::get('send-sms---exam-results/csv', 'thirdparty\sms\Controllers\SendSmsController@examResultsCSV');
+    Route::get('send-sms---exam-results', 'thirdparty\sms\Controllers\SendSmsExamResultsController@examResults');
+    Route::post('send-sms---exam-results', 'thirdparty\sms\Controllers\SendSmsExamResultsController@sendExamResults');
+    Route::get('send-sms---exam-results/csv', 'thirdparty\sms\Controllers\SendSmsExamResultsController@examResultsCSV');
 
-    Route::get('send-sms---attendence', 'thirdparty\sms\Controllers\SendSmsController@attendence');
-    Route::post('send-sms---attendence', 'thirdparty\sms\Controllers\SendSmsController@sendAttendance');
+    Route::get('send-sms---attendence', 'thirdparty\sms\Controllers\SendSmsAttendanceController@attendence');
+    Route::post('send-sms---attendence', 'thirdparty\sms\Controllers\SendSmsAttendanceController@sendAttendance');
 
     Route::get('/sms-batch-details', '\App\Http\Controllers\GridController@smsBatchDetails');
 
