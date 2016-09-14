@@ -2,7 +2,7 @@
 
 namespace App\Http\Modules\thirdparty\sms\Models;
 
-class SendSmsExam extends SendSmsModel
+class SendSmsExamResults extends SendSmsModel
 {
     // todo: fix duplication
     protected $screenId = '/cabinet/send-sms---exam-results';
