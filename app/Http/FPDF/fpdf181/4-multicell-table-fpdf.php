@@ -160,7 +160,7 @@ class MulticellTablePDF extends AlphaPDF
             $counts[] = 1;
             if (!$this->isEmpty($column)) {
                 $averages[] = $this->GetStringWidth($column);
-                $minimumWidth[] = $this->longestWordWidth($column);
+                $minimumWidth[] = 3 + $this->longestWordWidth($column);
             } else {
                 $averages[] = 0;
                 $minimumWidth[] = 5;
