@@ -30,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Auth::provider('tansycloud', function($app, array $config) {
             // Return an instance of Illuminate\Contracts\Auth\UserProvider...
-            return new TansyUserProvider();
+            return new TansyUserProvider;
         });
     }
 }

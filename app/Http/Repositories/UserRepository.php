@@ -15,6 +15,10 @@ class UserRepository extends Repository
             '-iparam_password',
             '-iparam_ipaddress',
             '-iparam_login_media',
+
+            // for remember me feature
+            '-iparam_login_token',
+            ':iparam_user_id',
         ];
 
         $oparams = [
@@ -34,6 +38,30 @@ class UserRepository extends Repository
             '@oparam_send_login_sms',
             '@oparam_send_login_otp',
 
+            '@oparam_err_flag',
+            '@oparam_err_step',
+            '@oparam_err_msg',
+        ];
+
+        return $this->procedure($model, $procedure, $iparams, $oparams);
+    }
+
+    public function updateRememberToken($model)
+    {
+        $procedure = 'sproc_sec_user_token_dml_upd';
+
+        $iparams = [
+            '-iparam_login_token',
+            '-iparam_login_token_ip',
+            '-iparam_login_media',
+            ':iparam_session_id',
+            ':iparam_user_id',
+            ':iparam_screen_id',
+            ':iparam_debug_sproc',
+            ':iparam_audit_screen_visit',
+        ];
+
+        $oparams = [
             '@oparam_err_flag',
             '@oparam_err_step',
             '@oparam_err_msg',

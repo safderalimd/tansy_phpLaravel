@@ -35,10 +35,15 @@ class TansyUserProvider implements UserProvider
      */
     public function retrieveByToken($identifier, $token)
     {
-        return null;
+        $domain = head(explode('#', $token));
+        $user = $this->makeUserModel(['domain_name' => $domain]);
 
-        d('retrieveByToken: identifier, token');
-        dd($identifier, $token);
+        if ($user->retrieveByToken($token, $identifier)) {
+            $this->updateSession($user);
+            return new TansyUser((array) $user->getAttributes());
+        }
+
+        return null;
     }
 
     /**
@@ -50,9 +55,8 @@ class TansyUserProvider implements UserProvider
      */
     public function updateRememberToken(UserContract $user, $token)
     {
-        // d('updateRememberToken: user, token');
-        // dd($user, $token);
-        Session::put('updateRememberToken', $token);
+        $model = new UserModel;
+        $model->updateRememberToken($user->getRememberToken());
     }
 
     /**
@@ -63,38 +67,11 @@ class TansyUserProvider implements UserProvider
      */
     public function retrieveByCredentials(array $credentials)
     {
-        $user = new UserModel($credentials);
-
-        // read and set the second database credentials from the master database
-        $secondDBCredentials = $user->getConnectionDataForSecondDB();
-
-        Session::put('dbConnectionData', $secondDBCredentials);
-        UserModel::setSecondDBCredentials($secondDBCredentials);
+        return null;
+        $user = $this->makeUserModel($credentials);
 
         if ($user->login()) {
-            Session::put('user.user_name', $user->user_name);
-            Session::put('user.domain_name', trim($user->domain_name));
-
-            Session::put('user.defaultFacilityId', $user->default_facility_id);
-
-            Session::put('user.sessionID', $user->session_id);
-            Session::put('user.userID', $user->user_id);
-            Session::put('user.userSecurityGroup', $user->user_sec_group);
-            Session::put('user.debugSproc', $user->debug_sproc);
-            Session::put('user.auditScreenVisit', $user->audit_screen_visit);
-
-            Session::put('user.companyName', $user->company_name);
-            Session::put('dbMenuInfo', $user->menuInfo);
-            Session::put('dbHiddenMenuInfo', $user->hiddenMenuInfo);
-
-            // clear the sms balance from the session
-            Session::put('smsBalance', null);
-            Session::put('smsAccountInactive', null);
-
-            Session::put('user_attributes', $user->getAttributes());
-
-            // force change password
-            Session::put('user.forceChangePassword', $user->forceChangePassword());
+            $this->updateSession($user);
         }
 
         return new TansyUser((array) $user->getAttributes());
@@ -109,6 +86,46 @@ class TansyUserProvider implements UserProvider
      */
     public function validateCredentials(UserContract $user, array $credentials)
     {
+        return false;
         return $user->hasValidCredentials;
+    }
+
+    public function updateSession($user)
+    {
+        Session::put('user.user_name', $user->user_name);
+        Session::put('user.domain_name', trim($user->domain_name));
+
+        Session::put('user.defaultFacilityId', $user->default_facility_id);
+
+        Session::put('user.sessionID', $user->session_id);
+        Session::put('user.userID', $user->user_id);
+        Session::put('user.userSecurityGroup', $user->user_sec_group);
+        Session::put('user.debugSproc', $user->debug_sproc);
+        Session::put('user.auditScreenVisit', $user->audit_screen_visit);
+
+        Session::put('user.companyName', $user->company_name);
+        Session::put('dbMenuInfo', $user->menuInfo);
+        Session::put('dbHiddenMenuInfo', $user->hiddenMenuInfo);
+
+        // clear the sms balance from the session
+        Session::put('smsBalance', null);
+        Session::put('smsAccountInactive', null);
+
+        Session::put('user_attributes', $user->getAttributes());
+
+        // force change password
+        Session::put('user.forceChangePassword', $user->forceChangePassword());
+    }
+
+    public function makeUserModel($arguments)
+    {
+        $user = new UserModel($arguments);
+
+        // read and set the second database credentials from the master database
+        $secondDBCredentials = $user->getConnectionDataForSecondDB();
+        Session::put('dbConnectionData', $secondDBCredentials);
+        UserModel::setSecondDBCredentials($secondDBCredentials);
+
+        return $user;
     }
 }

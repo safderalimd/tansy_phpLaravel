@@ -47,11 +47,24 @@ class User extends Model
         $this->setAttribute('login_media', Device::type());
         $this->setAttribute('login_name', $this->user_name);
         $this->setAttribute('ipaddress', userIp());
+        $this->setAttribute('user_id', null);
         $data = $this->repository->login($this);
         $this->menuInfo = first_resultset($data);
         $this->hiddenMenuInfo = second_resultset($data);
 
         $this->attributes['hasValidCredentials'] = false;
+        return $this->userIsLoggedIn();
+    }
+
+    public function retrieveByToken($token, $identifier)
+    {
+        $this->setAttribute('login_token', $token);
+        $this->setAttribute('user_id', $identifier);
+        $this->setAttribute('ipaddress', userIp());
+        $data = $this->repository->login($this);
+        $this->menuInfo = first_resultset($data);
+        $this->hiddenMenuInfo = second_resultset($data);
+
         return $this->userIsLoggedIn();
     }
 
@@ -67,6 +80,15 @@ class User extends Model
         }
 
         return false;
+    }
+
+    public function updateRememberToken($token)
+    {
+        $this->setAttribute('login_token', $token);
+        $this->setAttribute('login_token_ip', userIp());
+        $this->setAttribute('login_media', Device::type());
+        $this->setAttribute('screen_id', screen_id_from_hidden_menu_info('/login'));
+        return $this->repository->updateRememberToken($this);
     }
 
     public function logout()

@@ -63,10 +63,11 @@ class Procedure
             $this->checkErrors();
 
             return $this->resultSets;
-        } catch (Exception $e) {
 
-            d($this);
-            dd($e);
+        } catch (Exception $e) {
+            // add sql call to the exception
+            $sql = " \n SQL Call:\n " . $this->setParamsSql . " \n " . $this->procedureSql;
+            throw new Exception($e->getMessage() . " \n " . $sql);
         }
     }
 

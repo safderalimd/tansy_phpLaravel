@@ -55,7 +55,7 @@ class MenuMiddleware
         $siteUrls = [];
         foreach ($this->menuInfo as $item) {
             $module = camel_case($item['module_name']);
-            $url = "cabinet/" . $this->link($item['screen_name']);
+            $url = "cabinet/" . menu_link($item['screen_name']);
             $siteUrls[] = [
                 'url'         => '/' . $url,
                 'screen_id'   => $item['screen_id'],
@@ -75,7 +75,7 @@ class MenuMiddleware
     {
         $hiddenSiteUrls = [];
         foreach ((array)$this->hiddenMenuInfo as $item) {
-            $url = "cabinet/" . $this->link($item['screen_name']);
+            $url = "cabinet/" . menu_link($item['screen_name']);
             $hiddenSiteUrls[] = [
                 'url'         => '/' . $url,
                 'screen_id'   => $item['screen_id'],
@@ -89,11 +89,6 @@ class MenuMiddleware
     private function getModules()
     {
         return array_unique(array_column($this->menuInfo, 'module_name', 'module_id'));
-    }
-
-    private function link($name) {
-        $name = strtolower($name);
-        return str_replace(' ', '-', $name);
     }
 
     public function orderSidebarLinks()

@@ -39,7 +39,11 @@
                                 <div class="col-xs-6">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="remember" {{c('remember')}} value="1">
+                                            @if (Cookie::get('remember'))
+                                                <input type="checkbox" name="remember" checked="checked" value="1">
+                                            @else
+                                                <input type="checkbox" name="remember" value="1">
+                                            @endif
                                             Remember Me
                                         </label>
                                     </div>

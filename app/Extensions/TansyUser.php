@@ -78,6 +78,7 @@ class TansyUser implements UserContract
      */
     public function setRememberToken($value)
     {
+        $value = domain() . '#' . $value;
         $this->attributes[$this->getRememberTokenName()] = $value;
     }
 

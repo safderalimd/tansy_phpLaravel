@@ -23,15 +23,8 @@ Route::get('/database-error', function () {
     return view('errors.db-error');
 });
 
-Route::get('/logged-in', function() {
-    return 'User is logged in.';
-});
-
-Route::get('/login', '\App\Http\Controllers\Auth\AuthController@index')->middleware('guest');
+Route::get('/login', '\App\Http\Controllers\Auth\AuthController@getLogin')->middleware('guest');
 Route::post('/login', '\App\Http\Controllers\Auth\AuthController@postLogin')->middleware('guest');
-
-// Route::get('/login', '\App\Http\Controllers\UserController@index')->middleware('guest');
-// Route::post('/login', '\App\Http\Controllers\UserController@login')->middleware('guest');
 
 Route::post('/contact', '\App\Http\Controllers\ContactController@send');
 
@@ -393,7 +386,6 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
 
 
     // Logout Links Group
-    // Route::get('/logout', '\App\Http\Controllers\UserController@logout');
     Route::get('/logout', '\App\Http\Controllers\Auth\AuthController@getLogout');
 
 

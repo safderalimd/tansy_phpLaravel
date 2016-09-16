@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Session;
-use Illuminate\Http\Request;
 use App\Http\Models\User;
+use Illuminate\Cookie\CookieJar;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -46,14 +47,11 @@ class AuthController extends Controller
     protected $username = 'login';
 
     /**
-     * Show login screen.
+     * The name of the login view.
      *
-     * @return \Illuminate\Http\Response
+     * @var string
      */
-    public function index()
-    {
-        return view('login');
-    }
+    protected $loginView = 'login';
 
     /**
      * Handle a login request to the application.
@@ -61,68 +59,15 @@ class AuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postLogin(Request $request)
+    public function postLogin(CookieJar $cookieJar, Request $request)
     {
-        return $this->login($request);
-    }
-
-    /**
-     * Login the user.
-     *
-     * @param  Request $request
-     * @return  \Illuminate\Http\Response
-     */
-    public function myLogin(Request $request)
-    {
-        try {
-
-            // create an user model with form input
-            $user = new User($request->input());
-
-            // read and set the second database credentials from the master database
-            $secondDBCredentials = $user->getConnectionDataForSecondDB();
-
-            Session::put('dbConnectionData', $secondDBCredentials);
-            User::setSecondDBCredentials($secondDBCredentials);
-
-            // try to log in the user
-            if ($user->login()) {
-
-                Session::put('user.user_name', $user->user_name);
-                Session::put('user.domain_name', trim($user->domain_name));
-
-                Session::put('user.defaultFacilityId', $user->default_facility_id);
-
-                Session::put('user.sessionID', $user->session_id);
-                Session::put('user.userID', $user->user_id);
-                Session::put('user.userSecurityGroup', $user->user_sec_group);
-                Session::put('user.debugSproc', $user->debug_sproc);
-                Session::put('user.auditScreenVisit', $user->audit_screen_visit);
-
-                Session::put('user.companyName', $user->company_name);
-                Session::put('dbMenuInfo', $user->menuInfo);
-                Session::put('dbHiddenMenuInfo', $user->hiddenMenuInfo);
-
-                // clear the sms balance from the session
-                session()->put('smsBalance', null);
-                session()->put('smsAccountInactive', null);
-
-                // force change password
-                Session::put('user.forceChangePassword', $user->forceChangePassword());
-
-                if ($user->forceChangePassword()) {
-                    return redirect('/cabinet/change-password');
-
-                } else {
-                    return redirect()->intended('/cabinet');
-                }
-            }
-
-        } catch(\Exception $e) {
-            return redirect('/login')->withInput()->withErrors([['login' => 'Something went wrong. Try again later.']]);
+        if ($request->has('remember')) {
+            $cookieJar->queue(cookie('remember', true, 2628000));
+        } else {
+            $cookieJar->queue(cookie('remember', null, -2628000));
         }
 
-        return redirect('/login')->withInput()->withErrors(['login' => 'Error: You are not logged in.']);
+        return $this->login($request);
     }
 
     /**
@@ -132,20 +77,10 @@ class AuthController extends Controller
      */
     public function getLogout()
     {
-        Session::flush();
-        return redirect('/login');
-
-        return $this->logout();
-    }
-
-    /**
-     * Logout the user.
-     */
-    public function myLogout()
-    {
         $user = new User();
         $user->logout();
+        $response = $this->logout();
         Session::flush();
-        return redirect('/login');
+        return $response;
     }
 }

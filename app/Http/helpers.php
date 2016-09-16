@@ -383,6 +383,32 @@ function redirect_back()
     return app('redirect')->back();
 }
 
+function menu_link($name) {
+    $name = strtolower($name);
+    return str_replace(' ', '-', $name);
+}
+
+function screen_id_from_hidden_menu_info($screenId)
+{
+    if (is_null($screenId)) {
+        return null;
+
+    } else {
+        $hiddenMenuInfo = session()->get('dbHiddenMenuInfo');
+        foreach ((array) $hiddenMenuInfo as $link) {
+            if (!isset($link['screen_name']) || !isset($link['screen_id'])) {
+                continue;
+            }
+            $url = '/' . menu_link($link['screen_name']);
+            if ($screenId == $url) {
+                return $link['screen_id'];
+            }
+        }
+    }
+
+    return null;
+}
+
 function screen_id($screenId)
 {
     if (is_null($screenId)) {
