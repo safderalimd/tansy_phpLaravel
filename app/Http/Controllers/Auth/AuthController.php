@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Session;
+use Illuminate\Http\Request;
+use App\Http\Models\User;
 
 class AuthController extends Controller
 {
@@ -31,42 +32,120 @@ class AuthController extends Controller
     protected $redirectTo = '/cabinet';
 
     /**
-     * Create a new authentication controller instance.
+     * Where to redirect users after logout.
      *
-     * @return void
+     * @var string
      */
-    public function __construct()
+    protected $redirectAfterLogout = '/login';
+
+    /**
+     * The input name for the username in the login form.
+     *
+     * @var string
+     */
+    protected $username = 'login';
+
+    /**
+     * Show login screen.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        return view('login');
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Handle a login request to the application.
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    protected function validator(array $data)
+    public function postLogin(Request $request)
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
+        return $this->login($request);
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * Login the user.
      *
-     * @param  array  $data
-     * @return User
+     * @param  Request $request
+     * @return  \Illuminate\Http\Response
      */
-    protected function create(array $data)
+    public function myLogin(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        try {
+
+            // create an user model with form input
+            $user = new User($request->input());
+
+            // read and set the second database credentials from the master database
+            $secondDBCredentials = $user->getConnectionDataForSecondDB();
+
+            Session::put('dbConnectionData', $secondDBCredentials);
+            User::setSecondDBCredentials($secondDBCredentials);
+
+            // try to log in the user
+            if ($user->login()) {
+
+                Session::put('user.user_name', $user->user_name);
+                Session::put('user.domain_name', trim($user->domain_name));
+
+                Session::put('user.defaultFacilityId', $user->default_facility_id);
+
+                Session::put('user.sessionID', $user->session_id);
+                Session::put('user.userID', $user->user_id);
+                Session::put('user.userSecurityGroup', $user->user_sec_group);
+                Session::put('user.debugSproc', $user->debug_sproc);
+                Session::put('user.auditScreenVisit', $user->audit_screen_visit);
+
+                Session::put('user.companyName', $user->company_name);
+                Session::put('dbMenuInfo', $user->menuInfo);
+                Session::put('dbHiddenMenuInfo', $user->hiddenMenuInfo);
+
+                // clear the sms balance from the session
+                session()->put('smsBalance', null);
+                session()->put('smsAccountInactive', null);
+
+                // force change password
+                Session::put('user.forceChangePassword', $user->forceChangePassword());
+
+                if ($user->forceChangePassword()) {
+                    return redirect('/cabinet/change-password');
+
+                } else {
+                    return redirect()->intended('/cabinet');
+                }
+            }
+
+        } catch(\Exception $e) {
+            return redirect('/login')->withInput()->withErrors([['login' => 'Something went wrong. Try again later.']]);
+        }
+
+        return redirect('/login')->withInput()->withErrors(['login' => 'Error: You are not logged in.']);
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getLogout()
+    {
+        Session::flush();
+        return redirect('/login');
+
+        return $this->logout();
+    }
+
+    /**
+     * Logout the user.
+     */
+    public function myLogout()
+    {
+        $user = new User();
+        $user->logout();
+        Session::flush();
+        return redirect('/login');
     }
 }

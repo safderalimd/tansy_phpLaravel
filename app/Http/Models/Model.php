@@ -27,6 +27,7 @@ class Model
         'debug_sproc',
         'audit_screen_visit',
         'default_facility_id',
+        'remember_token',
     ];
 
     /**
@@ -272,7 +273,7 @@ class Model
         $instance->fill($attributes);
 
         // flash data to the session to populate edit forms
-        Session::flashInput($instance->attributes);
+        Session::flashInput($instance->getAttributes());
 
         // mark this model as not a new record
         $instance->isNewRecord = false;
@@ -297,7 +298,7 @@ class Model
         $instance->fill($attributes);
 
         // flash data to the session to populate edit forms
-        Session::flashInput($instance->attributes);
+        Session::flashInput($instance->getAttributes());
 
         // mark this model as not a new record
         $instance->isNewRecord = false;
@@ -351,5 +352,10 @@ class Model
         }
 
         return false;
+    }
+
+    public function getAttributes()
+    {
+        return $this->attributes;
     }
 }

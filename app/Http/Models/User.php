@@ -51,11 +51,18 @@ class User extends Model
         $this->menuInfo = first_resultset($data);
         $this->hiddenMenuInfo = second_resultset($data);
 
+        $this->attributes['hasValidCredentials'] = false;
+        return $this->userIsLoggedIn();
+    }
+
+    public function userIsLoggedIn()
+    {
         if ($this->err_flag == 1) {
             return false;
         }
 
         if ($this->login_success == 1 && !empty($this->menuInfo)) {
+            $this->attributes['hasValidCredentials'] = true;
             return true;
         }
 

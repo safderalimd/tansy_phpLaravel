@@ -5,9 +5,28 @@ namespace App\Http\Middleware;
 use Closure;
 use Session;
 use Config;
+use Illuminate\Contracts\Auth\Guard;
 
 class Cabinet
 {
+    /**
+     * The Guard implementation.
+     *
+     * @var Guard
+     */
+    protected $auth;
+
+    /**
+     * Create a new filter instance.
+     *
+     * @param  Guard  $auth
+     * @return void
+     */
+    public function __construct(Guard $auth)
+    {
+        $this->auth = $auth;
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -17,7 +36,7 @@ class Cabinet
      */
     public function handle($request, Closure $next)
     {
-        if (!$this->userLoggedIn($request)) {
+        if ($this->auth->guest()) {
             return redirect()->guest('/login')->withErrors(['test' => 'You need to login']);
         }
 
@@ -41,11 +60,6 @@ class Cabinet
         Config::set('database.connections.secondDB', $secondDB);
 
         return $next($request);
-    }
-
-    public function userLoggedIn($request)
-    {
-        return $request->session()->has('user');
     }
 
     public function isPasswordScreen($request)

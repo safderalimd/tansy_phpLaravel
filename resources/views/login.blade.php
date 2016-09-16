@@ -17,15 +17,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading text-center"><h4>Login to tansyCloud</h4></div>
                 <div class="panel-body">
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+
+                    @include('commons.errors')
+
                     <form action="{{ url('login') }}" method="post">
                         {{ csrf_field() }}
                         <div class="form-group form-group-lg">
@@ -45,7 +39,7 @@
                                 <div class="col-xs-6">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="remember" value="">
+                                            <input type="checkbox" name="remember" {{c('remember')}} value="1">
                                             Remember Me
                                         </label>
                                     </div>

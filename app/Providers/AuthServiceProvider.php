@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use Auth;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Extensions\TansyUserProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies($gate);
 
-        //
+        Auth::provider('tansycloud', function($app, array $config) {
+            // Return an instance of Illuminate\Contracts\Auth\UserProvider...
+            return new TansyUserProvider();
+        });
     }
 }
