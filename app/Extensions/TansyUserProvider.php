@@ -67,7 +67,6 @@ class TansyUserProvider implements UserProvider
      */
     public function retrieveByCredentials(array $credentials)
     {
-        return null;
         $user = $this->makeUserModel($credentials);
 
         if ($user->login()) {
@@ -86,7 +85,6 @@ class TansyUserProvider implements UserProvider
      */
     public function validateCredentials(UserContract $user, array $credentials)
     {
-        return false;
         return $user->hasValidCredentials;
     }
 
