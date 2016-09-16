@@ -4,6 +4,7 @@ namespace App\Http\Repositories;
 
 use App\Http\Models\Model;
 use App\Exceptions\DbErrorException;
+use Exception;
 
 class Procedure
 {
@@ -46,21 +47,27 @@ class Procedure
 
     public function run()
     {
-        $this->start = microtime(true);
+        try {
+            $this->start = microtime(true);
 
-        $this->runSetIparamsQuery();
+            $this->runSetIparamsQuery();
 
-        $this->runCallProcedure();
+            $this->runCallProcedure();
 
-        $this->runSelectOparams();
+            $this->runSelectOparams();
 
-        $this->model->setProcedureOparams($this->oparamsResults);
+            $this->model->setProcedureOparams($this->oparamsResults);
 
-        $this->logProcedure();
+            $this->logProcedure();
 
-        $this->checkErrors();
+            $this->checkErrors();
 
-        return $this->resultSets;
+            return $this->resultSets;
+        } catch (Exception $e) {
+
+            d($this);
+            dd($e);
+        }
     }
 
     protected function runSetIparamsQuery()
