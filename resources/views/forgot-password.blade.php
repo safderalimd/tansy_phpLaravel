@@ -7,10 +7,11 @@
         html > body { background-color: #404040; }
         .login-wrapper { padding-top: 50px; }
         footer { color: #fff }
+        .reset-password-btn {
+            margin-top: 15px;
+        }
     </style>
-@endsection
 
-@section('styles')
     <script src='https://www.google.com/recaptcha/api.js'></script>
 @endsection
 
@@ -26,6 +27,9 @@
 
                     <form action="{{ url('forgot-password') }}" method="post">
                         {{ csrf_field() }}
+
+                        <h5>Note: You will get only one chance to provide correct information.</h5>
+
                         <div class="form-group form-group-lg">
                             <input class="form-control" name="login_username" value="{!!old('login_username')!!}" placeholder="Username">
                             <span class="help-block"></span>
@@ -34,11 +38,10 @@
                             <input type="text" class="form-control" name="mobile_phone" value="{!!old('mobile_phone')!!}" placeholder="Mobile Phone">
                             <span class="help-block"></span>
                         </div>
-                        <small>Note: You will get only one chance to provide correct information.</small>
 
                         <div class="g-recaptcha" data-sitekey="6LeTAAcUAAAAAF2K6Yj_keMTQNjqsvmywR1I2HT6"></div>
 
-                        <div class="form-group form-group-lg">
+                        <div class="form-group form-group-lg reset-password-btn">
                             <button class="btn btn-primary btn-block btn-lg">Reset Password</button>
                         </div>
 
