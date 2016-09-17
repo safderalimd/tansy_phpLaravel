@@ -14,24 +14,21 @@
 Route::get('/debug-exception', '\App\Http\Controllers\DebugController@debugException');
 Route::get('/debug-phpinfo', '\App\Http\Controllers\DebugController@phpinfo');
 Route::get('/enable-debugbar', '\App\Http\Controllers\DebugController@enableDebugbar');
+Route::get('/debug-sms', '\App\Http\Controllers\DebugController@debugSMS');
 
-Route::get('/', function () {
-    return view('tansycloud');
-});
 
-Route::get('/database-error', function () {
-    return view('errors.db-error');
-});
-
-Route::get('/login', '\App\Http\Controllers\Auth\AuthController@getLogin')->middleware('guest');
-Route::post('/login', '\App\Http\Controllers\Auth\AuthController@postLogin')->middleware('guest');
-
+Route::get('/', '\App\Http\Controllers\HomeController@index');
+Route::get('/database-error', '\App\Http\Controllers\HomeController@databaseError');
 Route::post('/contact', '\App\Http\Controllers\ContactController@send');
 
+
+Route::group(['middleware' => 'guest'], function() {
+    Route::get('/login', '\App\Http\Controllers\Auth\AuthController@getLogin');
+    Route::post('/login', '\App\Http\Controllers\Auth\AuthController@postLogin');
+});
+
+
 Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabinet'], function() {
-
-    Route::get('/debug-sms', '\App\Http\Controllers\DebugController@debugSMS');
-
 
     // Admin Links Group
     Route::get('/', 'Admin\Controllers\AdminController@home');
