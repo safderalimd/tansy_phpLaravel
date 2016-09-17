@@ -25,6 +25,8 @@ Route::post('/contact', '\App\Http\Controllers\ContactController@send');
 Route::group(['middleware' => 'guest'], function() {
     Route::get('/login', '\App\Http\Controllers\Auth\AuthController@getLogin');
     Route::post('/login', '\App\Http\Controllers\Auth\AuthController@postLogin');
+
+    Route::get('/forgot-password', '\App\Http\Controllers\ForgotPasswordController@index');
 });
 
 
