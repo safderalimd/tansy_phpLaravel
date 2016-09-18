@@ -40,7 +40,7 @@ class Cabinet
             return redirect()->guest('/login')->withErrors(['test' => 'You need to login']);
         }
 
-        if (force_change_password() && !$this->isPasswordScreen($request)) {
+        if (force_change_password() && !$this->isPasswordScreen($request) && !$this->isLogoutScreen($request)) {
             return redirect('/cabinet/change-password');
         }
 
@@ -65,5 +65,10 @@ class Cabinet
     public function isPasswordScreen($request)
     {
         return 'cabinet/change-password' == $request->path();
+    }
+
+    public function isLogoutScreen($request)
+    {
+        return 'cabinet/logout' == $request->path();
     }
 }
