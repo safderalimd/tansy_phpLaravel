@@ -1,19 +1,7 @@
 @extends('layout.default')
 
 @section('title', 'Forgot Password OTP')
-
-@section('styles')
-    <style>
-        html > body { background-color: #404040; }
-        .login-wrapper { padding-top: 50px; }
-        footer { color: #fff }
-        .reset-password-btn {
-            margin-top: 15px;
-        }
-
-    </style>
-
-@endsection
+@section('screen-name', 'login-screen')
 
 @section('content')
 <div class="login-wrapper">

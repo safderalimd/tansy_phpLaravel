@@ -4,7 +4,7 @@
     @include('include.head')
     @yield('styles')
 </head>
-<body>
+<body class="@yield('screen-name')">
 <div class="container-fluid">
 
     <main class="row">
