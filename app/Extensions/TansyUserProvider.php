@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 use App\Extensions\TansyUser;
 use App\Http\Models\User as UserModel;
+use App\Http\Models\MasterDB;
 use Session;
 
 class TansyUserProvider implements UserProvider
@@ -36,8 +37,11 @@ class TansyUserProvider implements UserProvider
     public function retrieveByToken($identifier, $token)
     {
         $domain = head(explode('#', $token));
-        $user = $this->makeUserModel(['domain_name' => $domain]);
+        if (! MasterDB::init($domain)) {
+            return null;
+        }
 
+        $user = new UserModel;
         if ($user->retrieveByToken($token, $identifier)) {
             $this->updateSession($user);
             return new TansyUser((array) $user->getAttributes());
@@ -67,8 +71,11 @@ class TansyUserProvider implements UserProvider
      */
     public function retrieveByCredentials(array $credentials)
     {
-        $user = $this->makeUserModel($credentials);
+        if (! MasterDB::initByLogin($credentials['login'])) {
+            return null;
+        }
 
+        $user = new UserModel($credentials);
         if ($user->login()) {
             $this->updateSession($user);
         }
@@ -113,17 +120,5 @@ class TansyUserProvider implements UserProvider
 
         // force change password
         Session::put('user.forceChangePassword', $user->forceChangePassword());
-    }
-
-    public function makeUserModel($arguments)
-    {
-        $user = new UserModel($arguments);
-
-        // read and set the second database credentials from the master database
-        $secondDBCredentials = $user->getConnectionDataForSecondDB();
-        Session::put('dbConnectionData', $secondDBCredentials);
-        UserModel::setSecondDBCredentials($secondDBCredentials);
-
-        return $user;
     }
 }

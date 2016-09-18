@@ -41,7 +41,7 @@
                     <li><a href="#about" data-toggle="collapse" data-target="#navbar-collapse" >About</a></li>
                     <li><a href="#services" data-toggle="collapse" data-target="#navbar-collapse" >Products</a></li>
                     <li><a href="#contact" data-toggle="collapse" data-target="#navbar-collapse" >Contact</a></li>
-                    @if (session()->has('user'))
+                    @if (Auth::check())
                         <li><a href="/cabinet">Cabinet</a></li>
                         <li><a href="/cabinet/logout">Logout</a></li>
                     @else

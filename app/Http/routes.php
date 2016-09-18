@@ -27,6 +27,8 @@ Route::group(['middleware' => 'guest'], function() {
     Route::post('/login', '\App\Http\Controllers\Auth\AuthController@postLogin');
 
     Route::get('/forgot-password', '\App\Http\Controllers\ForgotPasswordController@index');
+    Route::post('/forgot-password', '\App\Http\Controllers\ForgotPasswordController@validateForgotPassword');
+    Route::get('/forgot-password/otp', '\App\Http\Controllers\ForgotPasswordController@otp');
 });
 
 

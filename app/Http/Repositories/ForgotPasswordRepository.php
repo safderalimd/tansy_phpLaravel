@@ -32,15 +32,12 @@ class ForgotPasswordRepository extends Repository
         return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 
-    // set @iparam_login_name = 'sysadmin';
-    // set @iparam_user_mobile = '8801933344';
-    // set @iparam_ipaddress = '119.235.49.45';
-    // set @iparam_login_media = 'desktop';
     public function validateForgotPassword($model)
     {
         $procedure = 'sproc_sec_validate_forgot_password';
 
         $iparams = [
+            '-iparam_login_name',
             '-iparam_user_mobile',
             '-iparam_ipaddress',
             '-iparam_login_media',

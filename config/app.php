@@ -161,6 +161,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         // Barryvdh\Debugbar\ServiceProvider::class,
         App\Providers\DebugServiceProvider::class,
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
     ],
 
     /*

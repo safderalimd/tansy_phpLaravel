@@ -4,8 +4,7 @@ namespace App\Http\Models;
 
 use App\Http\Models\Model;
 use App\Http\Repositories\MasterDBRepository;
-use Config;
-use App\Http\DetectDevice\Device;
+use Device;
 
 class User extends Model
 {
@@ -19,27 +18,9 @@ class User extends Model
 
     public function setLoginAttribute($login)
     {
-        $tmp = explode('@', $login);
-        $this->setAttribute('user_name', $tmp[0]);
-        $this->setAttribute('domain_name', $tmp[1]);
+        $userName = head(explode('@', $login));
+        $this->setAttribute('user_name', $userName);
         return $login;
-    }
-
-    /**
-     * Read the second database connection info from the master database
-     *
-     * @return array
-     */
-    public function getConnectionDataForSecondDB()
-    {
-        $repository = new MasterDBRepository;
-        $this->setAttribute('debug_sproc', 0);
-        $this->setAttribute('audit_screen_visit', 0);
-        $data = $repository->getClientConnectionFromMasterDB($this);
-        if (isset($data[0][0])) {
-            return $data[0][0];
-        }
-        return [];
     }
 
     public function login()
@@ -94,22 +75,6 @@ class User extends Model
     public function logout()
     {
         return $this->repository->logout($this);
-    }
-
-    public static function setSecondDBCredentials($secondDBCredentials)
-    {
-        $secondDB = array(
-            'driver'    => 'mysql',
-            'host'      => $secondDBCredentials['db_server'],
-            'database'  => $secondDBCredentials['database_name'],
-            'username'  => $secondDBCredentials['sql_user_id'],
-            'password'  => $secondDBCredentials['sql_password'],
-            'charset'   => 'utf8',
-            'collation' => 'utf8_general_ci',
-            'prefix'    => '',
-        );
-
-        Config::set('database.connections.secondDB', $secondDB);
     }
 
     public function forceChangePassword()

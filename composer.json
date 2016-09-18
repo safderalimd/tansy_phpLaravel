@@ -16,7 +16,8 @@
         "laracasts/flash": "^2.0",
         "mobiledetect/mobiledetectlib": "^2.8",
         "guzzlehttp/guzzle": "^6.2",
-        "league/csv": "^8.1"
+        "league/csv": "^8.1",
+        "anhskohbo/no-captcha": "^2.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

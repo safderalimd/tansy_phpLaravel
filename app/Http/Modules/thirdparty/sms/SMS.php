@@ -28,7 +28,7 @@ class SMS
 
     public function oneSMS($phoneNumber, $textMessage)
     {
-        d($phoneNumber);
-        d($textMessage);
+        // d($phoneNumber);
+        // d($textMessage);
     }
 }
