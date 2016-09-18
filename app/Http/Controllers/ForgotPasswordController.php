@@ -177,7 +177,7 @@ class ForgotPasswordController extends Controller
             return redirect('/forgot-password')->withErrors($this->errorMasterDB());
         }
 
-        $password->setAttribute($request->input('new_password'));
+        $password->setAttribute('new_password', $request->input('new_password'));
         $password->resetPassword();
 
         if ($password->sendChangePasswordSMS()) {
