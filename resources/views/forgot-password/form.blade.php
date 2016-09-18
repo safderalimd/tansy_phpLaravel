@@ -62,6 +62,12 @@
                             <button class="btn btn-primary btn-block btn-lg">Reset Password</button>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <div><a href="/login">Back to login</a></div>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>
