@@ -6,14 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Models\ForgotPassword;
 use App\Http\Requests\ForgotPasswordFormRequest;
+use App\Http\Requests\ForgotPasswordOTPRequest;
+use App\Http\Requests\ForgotPasswordResetRequest;
 use App\Http\Models\MasterDB;
-use Illuminate\Cache\RateLimiter;
-use Session;
 use App\Http\Modules\thirdparty\sms\SMS;
 use Cache;
+use App\Http\ForgotPassword\PasswordThrottle;
+use App\Http\ForgotPassword\OTPThrottle;
 
 class ForgotPasswordController extends Controller
 {
+    use PasswordThrottle, OTPThrottle;
+
     /**
      * Return the forgot password view.
      */
@@ -28,16 +32,18 @@ class ForgotPasswordController extends Controller
     public function validateForgotPassword(ForgotPasswordFormRequest $request)
     {
         // get the domain from the login field
-        $domain = last(explode('@', $request->input('login_field')));
+        $domain = $this->getDomain($request);
 
         // the wrong mobile/username combination will lock the user out for 30min
         if ($this->userIsLockedOut($domain)) {
             return redirect('/forgot-password')->withErrors($this->getLockedOutMessage($domain));
         }
 
+        // the user is locked out after the first attempt
+        $this->lockOutUserFromDomain($domain);
+
         // try to initialize the maser db connection
         if (! MasterDB::init($domain)) {
-            $this->lockOutUserFromDomain($domain);
             return redirect('/forgot-password')->withErrors($this->getNotAllowedMessage());
         }
 
@@ -46,98 +52,138 @@ class ForgotPasswordController extends Controller
         $password->validateForgotPassword();
 
         if ($password->userCanResetPassword()) {
-
             // the user can use OTP now
             $password->activateOTPSession();
             SMS::otp()->oneSMS($password->getOTPUserMobile(), $password->getOTPMessage());
             return redirect('/forgot-password/otp');
 
         } else {
-
-            // the user is locked out
-            $this->lockOutUserFromDomain($domain);
             return redirect('/forgot-password')->withErrors($this->getNotAllowedMessage());
-
         }
     }
 
     /**
      * Show forgot password OTP view.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function otp()
     {
-        if (!$this->otpIsActive()) {
-            return redirect('/forgot-password');
+        if ($this->otpLockedOut()) {
+            return redirect('/forgot-password')->withErrors($this->otpLockedOutMessage());
         }
 
-        return view('forgot-password.otp');
-    }
-
-    public function validateOTP(Request $request)
-    {
-        if (!$this->otpIsActive()) {
-            return redirect('/forgot-password');
+        $password = new ForgotPassword;
+        if (! $password->otpIsActive()) {
+            return redirect('/forgot-password')->withErrors($this->otpExpiredMessage());
         }
 
-        // if ($this->hasTooManyLoginAttempts($request)) {
-        //     return $this->sendLockoutResponse($request);
-        // }
-
-        // if ($otpIsValid) {
-            // if ($password->sendForgotPasswordSMS()) {
-            //     SMS::transactional()->oneSMS($password->getOTPUserMobile(), $password->getMessage());
-            // }
-        // }
-
-        $this->incrementLoginAttempts($request);
-
-        Session::put('forgot_passwd.otp_active', false);
+        return view('forgot-password.otp', compact('password'));
     }
 
     /**
-     * Check if 10min did not pass since the otp code was created
+     * Validate the otp the user entered. Allow onl 2 attempts.
+     *
+     * @param ForgotPasswordOTPRequest $request
+     * @return \Illuminate\Http\Response
      */
-    public function otpIsActive()
+    public function validateOTP(ForgotPasswordOTPRequest $request)
+    {
+        // check if the otp was entered too many wrong times
+        if ($this->otpLockedOut()) {
+            return redirect('/forgot-password')->withErrors($this->otpLockedOutMessage());
+        }
+
+        // check that the otp is not expired
+        $password = new ForgotPassword;
+        if (! $password->otpIsActive()) {
+            return redirect('/forgot-password')->withErrors($this->otpExpiredMessage());
+        }
+
+        // try to initialize the maser db connection
+        if (! MasterDB::init($password->getOTPDomain())) {
+            return redirect('/forgot-password')->withErrors($this->errorMasterDB());
+        }
+
+        $this->incrementOTPAttempts();
+
+        if ($password->validOTP($request->input('otp_code'))) {
+            $password->otpEnteredCorrectly();
+            return redirect('/forgot-password/reset');
+
+        } else {
+            $url = ($this->remainingOTPTries() > 0) ? '/forgot-password/otp' : '/forgot-password';
+            return redirect($url)->withErrors($this->remainingOTPTriesMessage());
+        }
+    }
+
+    /**
+     * Resend the OTP sms.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function otpResend()
+    {
+        // check if the otp was entered too many wrong times
+        if ($this->otpLockedOut()) {
+            return redirect('/forgot-password')->withErrors($this->otpLockedOutMessage());
+        }
+
+        // check that the otp is not expired
+        $password = new ForgotPassword;
+        if (! $password->otpIsActive()) {
+            return redirect('/forgot-password')->withErrors($this->otpExpiredMessage());
+        }
+
+        // try to initialize the maser db connection
+        if (! MasterDB::init($password->getOTPDomain())) {
+            return redirect('/forgot-password')->withErrors($this->errorMasterDB());
+        }
+
+        SMS::otp()->oneSMS($password->getOTPUserMobile(), $password->getOTPMessage());
+        return redirect('/forgot-password/otp')->with('otp-resent', 'The SMS was resent. Please check your phone.');
+    }
+
+    /**
+     * Show form to enter new password.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function password()
     {
         $password = new ForgotPassword;
-        if (! $password->otpSessionIsActive()) {
-            return false;
+        if (! $password->otpPasswordIsActive()) {
+            return redirect('/forgot-password')->withErrors($this->otpPasswordExpiredMessage());
         }
 
-        return $password->otpStillValid();
+        return view('forgot-password.new-password', compact('password'));
     }
 
-    public function userIsLockedOut($domain)
+    /**
+     * Update the new password.
+     *
+     * @param ForgotPasswordResetRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePassword(ForgotPasswordResetRequest $request)
     {
-        return false;
-        if (Cache::has($this->getCacheKey($domain))) {
-            return true;
+        $password = new ForgotPassword;
+        if (! $password->otpPasswordIsActive()) {
+            return redirect('/forgot-password')->withErrors($this->otpPasswordExpiredMessage());
         }
 
-        return false;
-    }
+        // try to initialize the maser db connection
+        if (! MasterDB::init($password->getOTPDomain())) {
+            return redirect('/forgot-password')->withErrors($this->errorMasterDB());
+        }
 
-    public function getLockedOutMessage($domain)
-    {
-        $availableIn = Cache::get($this->getCacheKey($domain)) - time();
-        $minutes = $availableIn > 0 ? intval($availableIn / 60) : 1;
-        return 'You have been locked out. Please try again in '.$minutes.' minutes.';
-    }
+        $password->setAttribute($request->input('new_password'));
+        $password->resetPassword();
 
-    public function lockOutUserFromDomain($domain)
-    {
-        $decayMinutes = 30;
-        $expireTime = time() + ($decayMinutes * 60);
-        Cache::add($this->getCacheKey($domain), $expireTime, $decayMinutes);
-    }
+        if ($password->sendChangePasswordSMS()) {
+            // SMS::otp()->oneSMS($password->getOTPUserMobile(), $password->getOTPMessage());
+        }
 
-    public function getCacheKey($domain)
-    {
-        return $domain.'|'.userIp().':reset-password-lockout';
-    }
-
-    public function getNotAllowedMessage()
-    {
-        return 'Not allowed to use this feature, please contact system admin.';
+        return redirect('/login')->with('login-message', 'Your password has been reset.');
     }
 }

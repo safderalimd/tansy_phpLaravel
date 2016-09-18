@@ -1,14 +1,7 @@
 @extends('layout.default')
 
 @section('title', 'Login to tansyCloud')
-
-@section('styles')
-    <style>
-        html > body { background-color: #404040; }
-        .login-wrapper { padding-top: 50px; }
-        footer { color: #fff }
-    </style>
-@endsection
+@section('screen-name', 'login-screen')
 
 @section('content')
 <div class="login-wrapper">
@@ -19,6 +12,12 @@
                 <div class="panel-body">
 
                     @include('commons.errors')
+
+                    @if(Session::has('login-message'))
+                        <div class="alert alert-info">
+                            <ul><li>{{ Session::get('login-message') }}</li></ul>
+                        </div>
+                    @endif
 
                     <form action="{{ url('login') }}" method="post">
                         {{ csrf_field() }}

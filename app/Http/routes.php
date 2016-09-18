@@ -29,6 +29,10 @@ Route::group(['middleware' => 'guest'], function() {
     Route::get('/forgot-password', '\App\Http\Controllers\ForgotPasswordController@index');
     Route::post('/forgot-password', '\App\Http\Controllers\ForgotPasswordController@validateForgotPassword');
     Route::get('/forgot-password/otp', '\App\Http\Controllers\ForgotPasswordController@otp');
+    Route::post('/forgot-password/otp', '\App\Http\Controllers\ForgotPasswordController@validateOTP');
+    Route::get('/forgot-password/otp-resend', '\App\Http\Controllers\ForgotPasswordController@otpResend');
+    Route::get('/forgot-password/reset', '\App\Http\Controllers\ForgotPasswordController@password');
+    Route::post('/forgot-password/reset', '\App\Http\Controllers\ForgotPasswordController@updatePassword');
 });
 
 
