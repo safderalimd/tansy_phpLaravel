@@ -100,6 +100,8 @@ class TansyUserProvider implements UserProvider
         Session::put('user.user_name', $user->user_name);
         Session::put('user.domain_name', trim($user->domain_name));
 
+        Session::put('user.user_mobile', $user->userMobile());
+
         Session::put('user.defaultFacilityId', $user->default_facility_id);
 
         Session::put('user.sessionID', $user->session_id);
@@ -122,6 +124,6 @@ class TansyUserProvider implements UserProvider
         Session::put('user.forceChangePassword', $user->forceChangePassword());
 
         // force otp code enter
-        Session::put('user.forceLoginOTPCode', 1); //$user->forceLoginOTPCode());
+        Session::put('user.forceLoginOTPCode', $user->forceLoginOTPCode());
     }
 }

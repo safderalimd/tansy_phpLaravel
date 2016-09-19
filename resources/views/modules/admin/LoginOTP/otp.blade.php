@@ -27,7 +27,7 @@
                         <div style="margin-bottom:0px;" class="form-group form-group-lg">
                             <input class="form-control" name="otp_code" value="{!!old('otp_code')!!}" placeholder="OTP">
                         </div>
-                        <h6>The OTP code will expire in $otp->otpTimeRemainingValid().</h6>
+                        <h6>The OTP code will expire in {{$timeValid}}.</h6>
 
                         <div class="row">
                             <div class="col-md-12 text-right">

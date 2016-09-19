@@ -7,9 +7,12 @@ use App\Http\Modules\Admin\Models\ChangePassword;
 use App\Http\Modules\Admin\Requests\ChangePasswordFormRequest;
 use App\Http\Modules\thirdparty\sms\SMS;
 use App\Http\Modules\Admin\Requests\LoginOTPRequest;
+use App\Http\Modules\Admin\Controllers\Traits\LoginOTPThrottle;
 
 class LoginOTPController extends Controller
 {
+    use LoginOTPThrottle;
+
     /**
      * Show OTP form.
      *
@@ -21,10 +24,13 @@ class LoginOTPController extends Controller
             return redirect('/cabinet');
         }
 
-        return view('modules.admin.LoginOTP.otp');
-    }
+        if ($this->loginOTPExpired()) {
+            return $this->loginOTPExpiredResponse();
+        }
 
-    // todo: throtle like user login
+        $timeValid = $this->otpTimeRemainingValid();
+        return view('modules.admin.LoginOTP.otp', compact('timeValid'));
+    }
 
     /**
      * Validate the otp the user entered.
@@ -38,6 +44,23 @@ class LoginOTPController extends Controller
             return redirect('/cabinet');
         }
 
+        if ($this->loginOTPExpired()) {
+            return $this->loginOTPExpiredResponse();
+        }
+
+        if ($this->hasTooManyOTPAttempts()) {
+            return $this->sendLockoutResponse();
+        }
+
+        $this->incrementOTPLoginAttempts();
+
+        if ($this->isValidOTP($request->input('otp_code'))) {
+            $this->allowUserToEnter();
+            flash('OTP Validated!');
+            return redirect('/cabinet');
+        } else {
+            return redirect('/cabinet/otp')->withErrors('Wrong OTP code. Please try again.');
+        }
     }
 
     /**
@@ -51,5 +74,11 @@ class LoginOTPController extends Controller
             return redirect('/cabinet');
         }
 
+        if ($this->loginOTPExpired()) {
+            return $this->loginOTPExpiredResponse();
+        }
+
+        // SMS::otp()->loginOTP($this->getMobile(), $this->getLoginOTPMessage());
+        return redirect('/cabinet/otp')->with('otp-resent', 'The SMS was resent. Please check your phone.');
     }
 }
