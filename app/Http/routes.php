@@ -14,7 +14,7 @@
 Route::get('/debug-exception', '\App\Http\Controllers\DebugController@debugException');
 Route::get('/debug-phpinfo', '\App\Http\Controllers\DebugController@phpinfo');
 Route::get('/enable-debugbar', '\App\Http\Controllers\DebugController@enableDebugbar');
-Route::get('/debug-sms', '\App\Http\Controllers\DebugController@debugSMS');
+Route::get('/debug-sms', '\App\Http\Controllers\DebugController@debugSMS')->middleware('cabinet');
 
 
 Route::get('/', '\App\Http\Controllers\HomeController@index');

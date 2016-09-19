@@ -8,8 +8,6 @@ use App\Http\Requests;
 use App\Http\Mailer\SendMail;
 use Exception;
 use Mail;
-// use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
-// use App\Http\Modules\thirdparty\sms\SmsSender;
 use SMS;
 
 class DebugController extends Controller
@@ -19,9 +17,9 @@ class DebugController extends Controller
         $phone = '8801933344';
         $message = "Dear Customer, we have received a request to reset your password for user name sysadmin@release2m3 on 19-Sep-2016 15:32:03. Your OTP will be valid for next 10mins and your OTP is 12345678.";
 
-        SMS::otp()->oneSMS($phone, $message);
+        SMS::otp()->forgotPasswordOTP($phone, $message);
 
-
+        dd('-');
     }
 
     public function oldDebugSMS()

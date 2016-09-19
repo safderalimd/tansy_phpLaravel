@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Modules\thirdparty\sms;
+namespace App\Http\SMS;
 
 use Exception;
+use App\Http\SMS\Providers\Provider;
+use App\Http\SMS\Exceptions\NoCredentialsException;
 
-class SmsSender
+class ProviderTextlocal extends Provider
 {
     private $username;
 
@@ -21,18 +23,31 @@ class SmsSender
      *
      * @var integer
      */
-    private $test = 0;
+    private $test = 1;
 
     private $rawResponse;
 
     private $xmlData;
 
-    public function __construct($username, $hash, $senderId)
+    public function __construct($credentials)
     {
-        $this->username = trim($username);
-        $this->hash     = trim($hash);
-        $this->senderId = trim($senderId);
+        $this->username = isset($credentials['sender_user_name']) ? trim($credentials['sender_user_name']) : null;
+        $this->hash     = isset($credentials['sender_hash']) ? trim($credentials['sender_hash']) : null;
+        $this->senderId = isset($credentials['sender_id']) ? trim($credentials['sender_id']) : null;
 
+        $this->checkNotEmptyCredentials();
+        $this->checkSenderId();
+    }
+
+    public function checkNotEmptyCredentials()
+    {
+        if (empty($this->username) || empty($this->hash)) {
+            throw new NoCredentialsException("Credentials for SMS Provider are not set.");
+        }
+    }
+
+    public function checkSenderId()
+    {
         if (empty($this->senderId)) {
             $this->senderId = 'TXTLCL';
         }

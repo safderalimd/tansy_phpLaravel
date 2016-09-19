@@ -162,6 +162,7 @@ return [
         // Barryvdh\Debugbar\ServiceProvider::class,
         App\Providers\DebugServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        App\Http\SMS\SMSServiceProvider::class,
     ],
 
     /*
@@ -219,6 +220,7 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Device' => App\Http\DetectDevice\Device::class,
         'Group' => App\Http\UserGroups\Group::class,
+        'SMS' => App\Http\SMS\SMSFacade::class,
     ],
 
 ];
