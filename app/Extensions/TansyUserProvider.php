@@ -125,5 +125,8 @@ class TansyUserProvider implements UserProvider
 
         // force otp code enter
         Session::put('user.forceLoginOTPCode', $user->forceLoginOTPCode());
+
+        // send login sms notice
+        Session::put('user.sendLoginSMS', $user->sendLoginSMS());
     }
 }

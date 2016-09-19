@@ -87,6 +87,11 @@ class User extends Model
         return $this->send_login_otp == 1;
     }
 
+    public function sendLoginSMS()
+    {
+        return $this->send_login_sms == 1;
+    }
+
     public function userMobile()
     {
         return $this->user_mobile;
