@@ -81,4 +81,9 @@ class User extends Model
     {
         return $this->force_change_password == 1;
     }
+
+    public function forceLoginOTPCode()
+    {
+        return $this->send_login_otp == 1;
+    }
 }

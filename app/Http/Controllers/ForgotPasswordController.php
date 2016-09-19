@@ -10,7 +10,6 @@ use App\Http\Requests\ForgotPasswordOTPRequest;
 use App\Http\Requests\ForgotPasswordResetRequest;
 use App\Http\Models\MasterDB;
 use App\Http\Modules\thirdparty\sms\SMS;
-use Cache;
 use App\Http\ForgotPassword\PasswordThrottle;
 use App\Http\ForgotPassword\OTPThrottle;
 
@@ -82,7 +81,7 @@ class ForgotPasswordController extends Controller
     }
 
     /**
-     * Validate the otp the user entered. Allow onl 2 attempts.
+     * Validate the otp the user entered. Allow only 2 attempts.
      *
      * @param ForgotPasswordOTPRequest $request
      * @return \Illuminate\Http\Response

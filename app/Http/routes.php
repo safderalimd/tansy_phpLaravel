@@ -394,6 +394,12 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('/logout', '\App\Http\Controllers\Auth\AuthController@getLogout');
 
 
+    // Login OTP
+    Route::get('otp', 'Admin\Controllers\LoginOTPController@index');
+    Route::post('otp', 'Admin\Controllers\LoginOTPController@checkOTP');
+    Route::get('otp/resend', 'Admin\Controllers\LoginOTPController@resendOTP');
+
+
     // load image for student
     Route::get('/img/student/{id}', '\App\Http\Controllers\ImageController@studentImage');
 

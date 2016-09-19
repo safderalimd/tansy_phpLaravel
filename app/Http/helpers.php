@@ -505,3 +505,8 @@ function force_change_password()
 {
     return session()->get('user.forceChangePassword');
 }
+
+function force_login_otp()
+{
+    return session()->get('user.forceLoginOTPCode');
+}

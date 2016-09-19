@@ -40,6 +40,10 @@ class Cabinet
             return redirect()->guest('/login')->withErrors(['test' => 'You need to login']);
         }
 
+        if (force_login_otp() && !$this->isOTPScreen($request) && !$this->isLogoutScreen($request)) {
+            return redirect('/cabinet/otp');
+        }
+
         if (force_change_password() && !$this->isPasswordScreen($request) && !$this->isLogoutScreen($request)) {
             return redirect('/cabinet/change-password');
         }
@@ -70,5 +74,10 @@ class Cabinet
     public function isLogoutScreen($request)
     {
         return 'cabinet/logout' == $request->path();
+    }
+
+    public function isOTPScreen($request)
+    {
+        return 'cabinet/otp' == $request->path();
     }
 }
