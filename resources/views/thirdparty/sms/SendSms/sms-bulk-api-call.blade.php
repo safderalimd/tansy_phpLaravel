@@ -3,15 +3,8 @@
     <Sender From="{{$senderId}}">
         <Messages>
             @foreach ($messages as $message)
-                <?php
-                    $smsText = $message['sms_text'];
-
-                    if (strlen($smsText) > 145) {
-                        $smsText = substr($smsText, 0, 145);
-                    }
-                ?>
                 <Msg ID="{{$message['account_entity_id']}}" Number="{{$message['mobile_phone']}}">
-                    <Text>{!!$smsText!!}</Text>
+                    <Text>{!!$message['sms_text']!!}</Text>
                 </Msg>
             @endforeach
         </Messages>

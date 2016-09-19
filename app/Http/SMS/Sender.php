@@ -18,6 +18,6 @@ class Sender
 
     public function forgotPasswordOTP($phone, $message)
     {
-        $this->provider->sendOneMessage($phone, $message);
+        $this->provider->forgotPasswordOTP($phone, $message);
     }
 }

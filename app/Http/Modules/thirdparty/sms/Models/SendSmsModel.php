@@ -17,27 +17,15 @@ class SendSmsModel extends Model
         parent::__construct($arguments);
     }
 
-    public function textlocalMessagePrefix()
+    public function textlocalMessagePrefixes()
     {
-        $prefix = $this->repository->textlocalMessagePrefix();
-        return isset($prefix[0]['prefix_text']) ? $prefix[0]['prefix_text'] : 'Dear sir/madam,';
+        return $this->repository->textlocalMessagePrefixes();
     }
 
     public function credentials()
     {
         return $this->repository->credentials($this);
     }
-
-    // public function smsCredentials()
-    // {
-    //     $credentials = $this->repository->smsCredentials();
-    //     return [
-    //         'username' => isset($credentials[0]['sender_user_name']) ? $credentials[0]['sender_user_name'] : '',
-    //         'hash'     => isset($credentials[0]['sender_hash']) ? $credentials[0]['sender_hash'] : '',
-    //         'senderId' => isset($credentials[0]['sender_id']) ? $credentials[0]['sender_id'] : '',
-    //         'active'   => isset($credentials[0]['active']) ? $credentials[0]['active'] : '',
-    //     ];
-    // }
 
     public function smsBalanceCount()
     {
@@ -140,5 +128,23 @@ class SendSmsModel extends Model
         } else {
             return $model->repository->storeBatchStatus($model);
         }
+    }
+
+    public function logSMS_V1()
+    {
+        return $this->repository->logSMS_V1($this);
+    }
+
+    public function setChangePasswordSMSTypeId()
+    {
+        $types = $this->repository->getSmsTypes();
+        $typeId = null;
+        foreach ($types as $type) {
+            if ($type['sms_type'] == 'Change Password') {
+                $typeId = $type['sms_type_id'];
+                break;
+            }
+        }
+        $this->setAttribute('sms_type_id', $typeId);
     }
 }

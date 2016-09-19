@@ -19,7 +19,7 @@ class DebugController extends Controller
 
         SMS::otp()->forgotPasswordOTP($phone, $message);
 
-        dd('-');
+        d('---');
     }
 
     public function oldDebugSMS()

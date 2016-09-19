@@ -9,15 +9,23 @@ use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
 
 class ProviderTextlocal extends Provider
 {
+    private $prefixToParents = '';
+
+    private $prefixToLoginUsers = '';
+
     private $username;
 
     private $hash;
 
     private $senderId;
 
+    private $providerId;
+
+    private $routeTypeId;
+
     private $messages;
 
-    private $messagePrefix = '';
+    private $messagePrefixes;
 
     /**
      * Set to 1 for test/sandbox mode, 0 for real sms mode
@@ -42,10 +50,13 @@ class ProviderTextlocal extends Provider
         $this->hash     = isset($credentials['sender_hash']) ? trim($credentials['sender_hash']) : null;
         $this->senderId = isset($credentials['sender_id']) ? trim($credentials['sender_id']) : null;
 
+        $this->providerId = isset($credentials['provider_entity_id']) ? trim($credentials['provider_entity_id']) : null;
+        $this->routeTypeId = isset($credentials['route_type_id']) ? trim($credentials['route_type_id']) : null;
+
         $this->checkNotEmptyCredentials();
 
         $this->setSenderId();
-        $this->setMessagePrefix();
+        $this->setMessagePrefixes();
     }
 
     public function checkNotEmptyCredentials()
@@ -62,43 +73,108 @@ class ProviderTextlocal extends Provider
         }
     }
 
-    public function setMessagePrefix()
+    public function setMessagePrefixes()
     {
-        $this->messagePrefix = $this->model->textlocalMessagePrefix();
+        $messagePrefixes = $this->model->textlocalMessagePrefixes();
+        foreach ($messagePrefixes as $prefix) {
+            if (isset($prefix['prefix_type'], $prefix['prefix_text'])) {
+                if ($prefix['prefix_type'] == 'To Parents') {
+                    $this->prefixToParents = $prefix['prefix_text'] . ' ';
+                } elseif ($prefix['prefix_type'] == 'To Login Users') {
+                    $this->prefixToLoginUsers = $prefix['prefix_text'] . ' ';
+                }
+            }
+        }
     }
 
-    public function addPrefixTo($message)
+    public function trim($message)
     {
-        if (empty($this->messagePrefix)) {
-            return $message;
+        if (strlen($message) > 145) {
+            return substr($message, 0, 145);
         }
 
-        return $this->messagePrefix . ' ' . $message;
+        return $message;
     }
 
-    public function sendOneMessage($phone, $message)
+    public function forgotPasswordOTP($phone, $message)
     {
         $messages = [[
-            'sms_text'          => $this->addPrefixTo($message),
+            'sms_text'          => $this->trim($this->prefixToLoginUsers . $message),
             'mobile_phone'      => $phone,
-            'account_entity_id' => '',
-            'api_status'        => '',
+            'account_entity_id' => 'null',
         ]];
 
-        return $this->send($messages);
+        $this->send($messages);
+        $this->model->setChangePasswordSMSTypeId();
+        $this->logOneSMS();
+
+        d($this);
+        d($this->rawResponse);
+        d(json_decode($this->rawResponse));
+    }
+
+    public function sendGeneralSMS($messages)
+    {
+        foreach ($messages as &$message) {
+            $message['sms_text'] = $this->trim($message['sms_text']);
+        }
+        unset($message);
+        $this->send($messages);
+        $this->logMultipleSMS();
     }
 
     public function send($messages)
     {
         $this->messages = $messages;
-        return $this->sendBulkSms();
+        $this->sendBulkSms();
+    }
+
+    public function logOneSMS()
+    {
+        try {
+            $jsonRow = json_decode($this->getRawResponse());
+            $jsonRow = isset($jsonRow[0]) ? $jsonRow[0] : null;
+
+            $totalSmsInBatch = 1;
+            $creditsUsed  = 0;
+            $successCount = 0;
+            $failureCount = 0;
+
+            $status = isset($jsonRow->status) ? $jsonRow->status : 'failure';
+            if ($status == 'success') {
+                $successCount++;
+            } else {
+                $failureCount++;
+            }
+
+            $creditsUsed += isset($jsonRow->cost) ? intval($jsonRow->cost) : 0;
+            $messages = $this->messages;
+            $accountId = $messages[0]['account_entity_id'] . '-' . $messages[0]['mobile_phone'] . '-' . $status;
+
+            $this->model->setAttribute('provider_entity_id', $this->providerId);
+            $this->model->setAttribute('route_type_id', $this->routeTypeId);
+            $this->model->setAttribute('provider_batch_credits', $creditsUsed);
+            $this->model->setAttribute('total_sms_in_batch', $totalSmsInBatch);
+            $this->model->setAttribute('success_count', $successCount);
+            $this->model->setAttribute('failure_count', $failureCount);
+            $this->model->setAttribute('entityID_smsMobile_PrvStatus_details', $accountId);
+            $this->model->setAttribute('log_json_sms_sent', $this->getXmlData());
+            $this->model->setAttribute('log_json_sms_received', $this->getRawResponse());
+
+            $this->model->setAttribute('balance_count', $this->getBalance());
+
+            $this->model->logSMS_V1();
+
+        } catch (Exception $e) {
+            // todo: log exception
+        }
     }
 
     public function sendBulkSms()
     {
         $this->generateXmlData();
 
-        $post = 'data='. urlencode($this->xmlData);
+        $post = 'data='. urlencode($this->getXmlData());
         $url = "http://api.textlocal.in/xmlapi.php";
 
         $ch = curl_init();
@@ -111,9 +187,6 @@ class ProviderTextlocal extends Provider
         $error = curl_error($ch);
         curl_close($ch);
 
-        d($this);
-        dd($rawResponse);
-
         if ($rawResponse === false) {
             throw new Exception('Failed to connect to the Textlocal service: ' . $error);
         } elseif ($httpCode != 200) {
@@ -121,8 +194,6 @@ class ProviderTextlocal extends Provider
         }
 
         $this->rawResponse = $rawResponse;
-
-        return $this;
     }
 
     protected function generateXmlData()
@@ -133,7 +204,6 @@ class ProviderTextlocal extends Provider
             'senderId' => $this->senderId,
             'test'     => $this->test,
             'messages' => $this->messages,
-            'prefix'   => $this->messagePrefix . ' ',
         ]);
 
         $this->xmlData = $view->render();
