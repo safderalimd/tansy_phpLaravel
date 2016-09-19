@@ -8,26 +8,23 @@ use App\Http\Requests;
 use App\Http\Mailer\SendMail;
 use Exception;
 use Mail;
-use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
-use App\Http\Modules\thirdparty\sms\SmsSender;
+// use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
+// use App\Http\Modules\thirdparty\sms\SmsSender;
+use SMS;
 
 class DebugController extends Controller
 {
-    public function debugException()
+    public function debugSMS()
     {
-        // send mail to developer admin
-        $admin = env('ADMIN_EMAIL');
-        $exception = new Exception('test');
-        if ($admin) {
-            Mail::send('emails.exception', ['exception' => $exception], function ($m) use ($admin) {
-                $m->to($admin, 'Admin');
-                $m->subject("TansyCloud TEST Error Message!");
-            });
-        }
-        // throw new Exception("Debug test error exception.");
+        $phone = '8801933344';
+        $message = "Dear Customer, we have received a request to reset your password for user name sysadmin@release2m3 on 19-Sep-2016 15:32:03. Your OTP will be valid for next 10mins and your OTP is 12345678.";
+
+        SMS::otp()->oneSMS($phone, $message);
+
+
     }
 
-    public function debugSMS()
+    public function oldDebugSMS()
     {
         try {
 
@@ -78,6 +75,20 @@ class DebugController extends Controller
         // curl_close($ch);
 
         // die();
+    }
+
+    public function debugException()
+    {
+        // send mail to developer admin
+        $admin = env('ADMIN_EMAIL');
+        $exception = new Exception('test');
+        if ($admin) {
+            Mail::send('emails.exception', ['exception' => $exception], function ($m) use ($admin) {
+                $m->to($admin, 'Admin');
+                $m->subject("TansyCloud TEST Error Message!");
+            });
+        }
+        // throw new Exception("Debug test error exception.");
     }
 
     public function phpinfo()
