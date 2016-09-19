@@ -3,6 +3,7 @@
 namespace App\Http\SMS\Providers;
 
 use Exception;
+use Session;
 use App\Http\SMS\Providers\Provider;
 use App\Http\SMS\Exceptions\NoCredentialsException;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
@@ -107,10 +108,22 @@ class ProviderTextlocal extends Provider
         $this->send($messages);
         $this->model->setChangePasswordSMSTypeId();
         $this->logOneSMS();
+        // d($this);
+        // d($this->rawResponse);
+        // d(json_decode($this->rawResponse));
+    }
 
-        d($this);
-        d($this->rawResponse);
-        d(json_decode($this->rawResponse));
+    public function changePassword($phone, $message)
+    {
+        $messages = [[
+            'sms_text'          => $this->trim($this->prefixToLoginUsers . $message),
+            'mobile_phone'      => $phone,
+            'account_entity_id' => Session::get('user.userID'),
+        ]];
+
+        $this->send($messages);
+        $this->model->setChangePasswordSMSTypeId();
+        $this->logOneSMS();
     }
 
     public function sendGeneralSMS($messages)
@@ -157,6 +170,7 @@ class ProviderTextlocal extends Provider
             $this->model->setAttribute('total_sms_in_batch', $totalSmsInBatch);
             $this->model->setAttribute('success_count', $successCount);
             $this->model->setAttribute('failure_count', $failureCount);
+            $this->model->setAttribute('common_message_flag', 0);
             $this->model->setAttribute('entityID_smsMobile_PrvStatus_details', $accountId);
             $this->model->setAttribute('log_json_sms_sent', $this->getXmlData());
             $this->model->setAttribute('log_json_sms_received', $this->getRawResponse());

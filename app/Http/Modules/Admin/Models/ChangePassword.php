@@ -14,11 +14,6 @@ class ChangePassword extends Model
 
     public function updatePassword()
     {
-        // if (force_change_password()) {
-        //     $this->setAttribute('ignore_old_password', 1);
-        // } else {
-        // }
-
         $this->setAttribute('ignore_old_password', 0);
         Session::put('user.forceChangePassword', null);
         return $this->repository->update($this);

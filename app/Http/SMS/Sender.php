@@ -20,4 +20,9 @@ class Sender
     {
         $this->provider->forgotPasswordOTP($phone, $message);
     }
+
+    public function changePassword($phone, $message)
+    {
+        $this->provider->changePassword($phone, $message);
+    }
 }
