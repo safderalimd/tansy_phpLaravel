@@ -67,9 +67,25 @@ class ProviderTextlocal extends Provider
         $this->messagePrefix = $this->model->textlocalMessagePrefix();
     }
 
+    public function addPrefixTo($message)
+    {
+        if (empty($this->messagePrefix)) {
+            return $message;
+        }
+
+        return $this->messagePrefix . ' ' . $message;
+    }
+
     public function sendOneMessage($phone, $message)
     {
+        $messages = [[
+            'sms_text'          => $this->addPrefixTo($message),
+            'mobile_phone'      => $phone,
+            'account_entity_id' => '',
+            'api_status'        => '',
+        ]];
 
+        return $this->send($messages);
     }
 
     public function send($messages)
@@ -94,6 +110,9 @@ class ProviderTextlocal extends Provider
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $error = curl_error($ch);
         curl_close($ch);
+
+        d($this);
+        dd($rawResponse);
 
         if ($rawResponse === false) {
             throw new Exception('Failed to connect to the Textlocal service: ' . $error);

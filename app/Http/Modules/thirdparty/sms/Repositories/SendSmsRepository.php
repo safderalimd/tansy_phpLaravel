@@ -13,7 +13,7 @@ class SendSmsRepository extends Repository
         return first_resultset($data);
     }
 
-    public function smsMessagePrefix()
+    public function textlocalMessagePrefix()
     {
         // prefix_id, prefix_text
         return $this->lookup('sproc_sms_lkp_template_prefix');

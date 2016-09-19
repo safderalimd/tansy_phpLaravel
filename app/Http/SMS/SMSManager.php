@@ -51,7 +51,7 @@ class SMSManager
         $this->checkAccountIsActive($credentials);
 
         $provider = isset($credentials['provider_name']) ? $credentials['provider_name'] : null;
-        return $this->makeProvider($provider);
+        return $this->makeProvider($provider, $credentials);
     }
 
     /**
@@ -72,9 +72,10 @@ class SMSManager
      * Return the corresponding sms provider implementation.
      *
      * @param  string $provider
+     * @param  array $credentials
      * @return Provider
      */
-    public function makeProvider($provider)
+    public function makeProvider($provider, $credentials)
     {
         if ($provider == 'Text Local') {
             return new ProviderTextlocal($this->model, $credentials);

@@ -11,7 +11,7 @@
                     }
                 ?>
                 <Msg ID="{{$message['account_entity_id']}}" Number="{{$message['mobile_phone']}}">
-                    <Text>{{$prefix}}{!!$smsText!!}</Text>
+                    <Text>{!!$smsText!!}</Text>
                 </Msg>
             @endforeach
         </Messages>
