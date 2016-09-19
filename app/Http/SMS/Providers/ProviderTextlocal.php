@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\SMS;
+namespace App\Http\SMS\Providers;
 
 use Exception;
 use App\Http\SMS\Providers\Provider;
 use App\Http\SMS\Exceptions\NoCredentialsException;
+use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
 
 class ProviderTextlocal extends Provider
 {
@@ -29,14 +30,22 @@ class ProviderTextlocal extends Provider
 
     private $xmlData;
 
-    public function __construct($credentials)
+    /**
+     * @var SendSmsModel
+     */
+    protected $model;
+
+    public function __construct(SendSmsModel $model, $credentials)
     {
+        $this->model = $model;
         $this->username = isset($credentials['sender_user_name']) ? trim($credentials['sender_user_name']) : null;
         $this->hash     = isset($credentials['sender_hash']) ? trim($credentials['sender_hash']) : null;
         $this->senderId = isset($credentials['sender_id']) ? trim($credentials['sender_id']) : null;
 
         $this->checkNotEmptyCredentials();
-        $this->checkSenderId();
+
+        $this->setSenderId();
+        $this->setMessagePrefix();
     }
 
     public function checkNotEmptyCredentials()
@@ -46,16 +55,21 @@ class ProviderTextlocal extends Provider
         }
     }
 
-    public function checkSenderId()
+    public function setSenderId()
     {
         if (empty($this->senderId)) {
             $this->senderId = 'TXTLCL';
         }
     }
 
-    public function setMessagePrefix($prefix)
+    public function setMessagePrefix()
     {
-        $this->messagePrefix = $prefix;
+        $this->messagePrefix = $this->model->textlocalMessagePrefix();
+    }
+
+    public function sendOneMessage($phone, $message)
+    {
+
     }
 
     public function send($messages)

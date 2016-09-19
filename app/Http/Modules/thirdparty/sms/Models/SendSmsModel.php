@@ -17,9 +17,9 @@ class SendSmsModel extends Model
         parent::__construct($arguments);
     }
 
-    public function smsMessagePrefix()
+    public function textlocalMessagePrefix()
     {
-        $prefix = $this->repository->smsMessagePrefix();
+        $prefix = $this->repository->textlocalMessagePrefix();
         return isset($prefix[0]['prefix_text']) ? $prefix[0]['prefix_text'] : 'Dear sir/madam,';
     }
 

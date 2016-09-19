@@ -6,7 +6,7 @@ use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
 use App\Http\SMS\Exceptions\NullProviderException;
 use App\Http\SMS\Exceptions\InactiveProviderException;
 use App\Http\SMS\Sender;
-use App\Http\SMS\ProviderTextlocal;
+use App\Http\SMS\Providers\ProviderTextlocal;
 
 /**
  * Choose the correct provider implementation for each route.
@@ -77,7 +77,7 @@ class SMSManager
     public function makeProvider($provider)
     {
         if ($provider == 'Text Local') {
-            return new ProviderTextlocal($credentials);
+            return new ProviderTextlocal($this->model, $credentials);
         }
 
         throw new NullProviderException("Invalid SMS Provider.");
