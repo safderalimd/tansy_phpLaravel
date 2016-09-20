@@ -136,6 +136,19 @@ class ProviderTextlocal extends Provider
         $this->logOneSMS();
     }
 
+    public function loginSMS($phone, $message)
+    {
+        $messages = [[
+            'sms_text'          => $this->trim($this->prefixToLoginUsers . $message),
+            'mobile_phone'      => $phone,
+            'account_entity_id' => Session::get('user.userID'),
+        ]];
+
+        $this->send($messages);
+        $this->model->setSmsTypeIdLoginSMS();
+        $this->logOneSMS();
+    }
+
     public function sendGeneralSMS($messages)
     {
         foreach ($messages as &$message) {

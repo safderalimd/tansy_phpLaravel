@@ -145,6 +145,11 @@ class SendSmsModel extends Model
         $this->setAttribute('sms_type_id', $this->smsTypeIdFor('Login OTP'));
     }
 
+    public function setSmsTypeIdLoginSMS()
+    {
+        $this->setAttribute('sms_type_id', $this->smsTypeIdFor('Login SMS'));
+    }
+
     public function smsTypeIdFor($smsType)
     {
         $types = $this->repository->getSmsTypes();

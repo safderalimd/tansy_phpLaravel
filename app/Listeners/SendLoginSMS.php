@@ -31,7 +31,7 @@ class SendLoginSMS
         // send a login notice sms
         if ($this->shouldSendNoticeSMS()) {
             $this->smsWasSent();
-            // SMS::transactional()->loginSMS($this->getMobile(), $this->getSMSMessage());
+            SMS::transactional()->loginSMS($this->getMobile(), $this->getSMSMessage());
         }
     }
 
@@ -76,7 +76,8 @@ class SendLoginSMS
         $time = date("d-M-Y H:m:s", time());
         $device = Device::type();
         $ip = userIp();
-        return "The user {$user} logged into the system at time {$time} from {$device} device, using IP {$ip}.";
+        // return "The user {$user} logged into the system at time {$time} from {$device} device, using IP {$ip}.";
+        return "Login SMS: {$user} logged at {$time} from {$device}, IP {$ip}.";
     }
 
     /**

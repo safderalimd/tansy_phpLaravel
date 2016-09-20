@@ -30,4 +30,9 @@ class Sender
     {
         $this->provider->loginOTP($phone, $message);
     }
+
+    public function loginSMS($phone, $message)
+    {
+        $this->provider->loginSMS($phone, $message);
+    }
 }
