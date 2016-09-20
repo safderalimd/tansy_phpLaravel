@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\School\Models\HallTicket;
 use App\Http\FPDF\HallTicket\HallTicketPDF;
+use Device;
 
 class HallTicketController extends Controller
 {
@@ -41,6 +42,10 @@ class HallTicketController extends Controller
         $export = new HallTicket($request->input());
         $export->loadPdfData();
 
-        HallTicketPDF::portrait()->generate($export);
+            return view('reports.school.HallTicket.pdf', compact('export'));
+        if (Device::isAndroidMobile()) {
+        } else {
+            HallTicketPDF::portrait()->generate($export);
+        }
     }
 }
