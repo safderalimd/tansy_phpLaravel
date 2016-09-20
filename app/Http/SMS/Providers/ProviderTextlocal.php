@@ -102,7 +102,7 @@ class ProviderTextlocal extends Provider
         $messages = [[
             'sms_text'          => $this->trim($this->prefixToLoginUsers . $message),
             'mobile_phone'      => $phone,
-            'account_entity_id' => 'null',
+            'account_entity_id' => Session::get('forgot_passwd.user_id'),
         ]];
 
         $this->send($messages);
