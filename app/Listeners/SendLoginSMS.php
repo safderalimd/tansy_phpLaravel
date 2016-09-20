@@ -7,6 +7,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Session;
 use Device;
+use SMS;
 
 class SendLoginSMS
 {
