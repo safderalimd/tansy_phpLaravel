@@ -91,7 +91,8 @@ class ForgotPassword extends Model
         $name = $this->getOTPLoginName() . '@' . $this->getOTPDomain();
         $startTime = $this->getOPTStartTimeFormatted();
         $otp = $this->getOPTCode();
-        return "Dear Customer, we have received a request to reset your password for user name {$name} on {$startTime}. Your OTP will be valid for next 10mins and your OTP is {$otp}.";
+        // return "Dear Customer, we have received a request to reset your password for user name {$name} on {$startTime}. Your OTP will be valid for next 10mins and your OTP is {$otp}.";
+        return "OTP is {$otp}. Valid for 10min from {$startTime}. User: {$name}.";
     }
 
     public function getOPTStartTimeFormatted()

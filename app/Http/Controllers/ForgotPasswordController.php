@@ -53,7 +53,7 @@ class ForgotPasswordController extends Controller
         if ($password->userCanResetPassword()) {
             // the user can use OTP now
             $password->activateOTPSession();
-            SMS::otp()->oneSMS($password->getOTPUserMobile(), $password->getOTPMessage());
+            SMS::otp()->forgotPasswordOTP($password->getOTPUserMobile(), $password->getOTPMessage());
             return redirect('/forgot-password/otp');
 
         } else {
@@ -139,7 +139,7 @@ class ForgotPasswordController extends Controller
             return redirect('/forgot-password')->withErrors($this->errorMasterDB());
         }
 
-        SMS::otp()->oneSMS($password->getOTPUserMobile(), $password->getOTPMessage());
+        SMS::otp()->forgotPasswordOTP($password->getOTPUserMobile(), $password->getOTPMessage());
         return redirect('/forgot-password/otp')->with('otp-resent', 'The SMS was resent. Please check your phone.');
     }
 
