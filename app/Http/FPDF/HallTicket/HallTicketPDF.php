@@ -63,7 +63,7 @@ class HallTicketPDF extends BasePDF
 
     public function drawHeader()
     {
-        $this->SetFont('Helvetica', 'B', 15);
+        $this->SetFont('Helvetica', 'B', 17);
         $this->SetTextColor(51, 51, 51);
         $this->Ln(5);
         $this->Cell(0, 5, $this->contents->schoolName, 0, 1, 'C');
@@ -71,9 +71,9 @@ class HallTicketPDF extends BasePDF
         $text = $this->contents->schoolCity . ' (Phone: ' . $this->contents->schoolWorkPhone . ')';
         $this->SetFont('Helvetica', '', 10);
         $this->Cell(0, 5, $text, 0, 1, 'C');
-        $this->Ln(8);
+        $this->Ln(7);
 
-        $this->SetFont('Helvetica', 'BU', 14);
+        $this->SetFont('Helvetica', 'BU', 13);
         $this->setX(12);
         $this->Cell(0, 5, 'Hall Ticket - ' . $this->contents->fiscalYear, 0, 1, 'L');
 

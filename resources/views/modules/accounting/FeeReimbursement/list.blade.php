@@ -251,7 +251,7 @@
         $('#toggle-subjects').prop('checked', false);
     });
 
-    $('.payment-row-id').change(function() {
+    $(document).on('change', '.payment-row-id', function() {
         if ($(this).is(':checked')) {
             $(this).closest('tr').find('input[type="text"]').prop('disabled', false);
             $(this).closest('tr').find('.date-btn').prop('disabled', false);
