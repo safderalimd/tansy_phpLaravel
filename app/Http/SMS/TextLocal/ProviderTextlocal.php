@@ -148,6 +148,20 @@ class ProviderTextlocal
         $this->logOneSMS();
     }
 
+    public function paymentReceipt($phone, $message, $accoutId, $typeId, $screenId)
+    {
+        $messages = [[
+            'sms_text'          => $this->trim($this->prefixToLoginUsers . $message),
+            'mobile_phone'      => $phone,
+            'account_entity_id' => $accoutId,
+        ]];
+
+        $this->model->setAttribute('screen_id', $screenId);
+        $this->model->setAttribute('sms_type_id', $typeId);
+        $this->send($messages);
+        $this->logOneSMS();
+    }
+
     public function sendGeneralSMS($messages)
     {
         foreach ($messages as &$message) {
@@ -185,6 +199,7 @@ class ProviderTextlocal
             $creditsUsed += isset($jsonRow->cost) ? intval($jsonRow->cost) : 0;
             $messages = $this->messages;
             $accountId = $messages[0]['account_entity_id'] . '-' . $messages[0]['mobile_phone'] . '-' . $status;
+            $messageText = $messages[0]['sms_text'];
 
             $this->model->setAttribute('provider_entity_id', $this->providerId);
             $this->model->setAttribute('route_type_id', $this->routeTypeId);
@@ -192,6 +207,7 @@ class ProviderTextlocal
             $this->model->setAttribute('total_sms_in_batch', $totalSmsInBatch);
             $this->model->setAttribute('success_count', $successCount);
             $this->model->setAttribute('failure_count', $failureCount);
+            $this->model->setAttribute('common_message', $messageText);
             $this->model->setAttribute('common_message_flag', 0);
             $this->model->setAttribute('entityID_smsMobile_PrvStatus_details', $accountId);
             $this->model->setAttribute('log_json_sms_sent', $this->getXmlData());

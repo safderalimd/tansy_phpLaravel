@@ -78,10 +78,10 @@ class Sender
         }
     }
 
-    public function paymentReceipt($phone, $message)
+    public function paymentReceipt($phone, $message, $accoutId, $typeId, $screenId)
     {
         if ($this->provider) {
-            return $this->provider->paymentReceipt($phone, $message);
+            return $this->provider->paymentReceipt($phone, $message, $accoutId, $typeId, $screenId);
         }
     }
 }

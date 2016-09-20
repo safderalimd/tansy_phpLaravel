@@ -152,65 +152,7 @@ class PaymentController extends Controller
 
         $screenId = $this->payment->getScreenId();
         $accountId = $this->accountEntityId;
-        SMS::transactional()->paymentReceipt($this->phone, $message, $accoutId, $screenId);
-
-        $sms = new SendSmsModel;
-        $sms->setAttribute('screen_id', $this->payment->getScreenId());
-        $sms->setAttribute('sms_type_id', $this->payment->getReceiptSmsTypeID());
-        $sms->setAttribute('sms_account_row_type', null);
-        $sms->setAttribute('sms_account_entity_id', $this->accountEntityId);
-        $sms->setAttribute('exam_entity_id', null);
-
-        $messages = [[
-            'sms_text'   => $message,
-            'api_status' => '',
-            'account_entity_id' => $this->accountEntityId,
-            'mobile_phone' => $this->phone,
-        ]];
-
-        try {
-            $sender->send($messages);
-        } catch (\Exception $e) {
-            // todo: log exception
-            return \Redirect::back()->withErrors([$e->getMessage()]);
-        }
-
-        // extract json rows into an array
-        $jsonRows = json_decode($sender->getRawResponse());
-
-        // init total sms in batch, credits used, success count, failure count
-        $totalSmsInBatch = 1;
-        $creditsUsed  = 0;
-        $successCount = 0;
-        $failureCount = 0;
-
-        $jsonRow = $jsonRows[0];
-        $status = isset($jsonRow->status) ? $jsonRow->status : 'failure';
-        if ($status == 'success') {
-            $successCount++;
-        } else {
-            $failureCount++;
-        }
-        $creditsUsed += isset($jsonRow->cost) ? intval($jsonRow->cost) : 0;
-
-        $messages[0]['api_status'] = $status;
-
-        $accountIds = $messages[0]['account_entity_id'] . '-' . $messages[0]['mobile_phone'] . '-' . $messages[0]['api_status'];
-
-        $data = [
-            'screen_id' => $this->payment->getScreenId(),
-            'totalSmsInBatch' => $totalSmsInBatch,
-            'accountIds' => $accountIds,
-            'creditsUsed' => $creditsUsed,
-            'successCount' => $successCount,
-            'failureCount' => $failureCount,
-            'useCommonMessage' => true,
-            'commonMessage' => $message,
-            'xmlSent' => $sender->getXmlData(),
-            'jsonReceived' => $sender->getRawResponse(),
-            'balanceCount' => $sender->getBalance(),
-        ];
-
-        $sms->storeBatchStatus($data);
+        $typeId = $this->payment->getReceiptSmsTypeID();
+        SMS::transactional()->paymentReceipt($this->phone, $message, $accoutId, $typeId, $screenId);
     }
 }

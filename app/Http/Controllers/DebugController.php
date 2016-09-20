@@ -14,9 +14,9 @@ class DebugController extends Controller
 {
     public function debugSMS()
     {
-        d(SMS::transactional()->inactiveMessage());
+        d(SMS::transactional()->paymentReceipt('83434','test',3,4,5));
         d(SMS::transactional()->isActive());
-        dd(SMS::transactional()->balance());
+        d(SMS::transactional()->balance());
 
 
         // $phone = '8801933344';
