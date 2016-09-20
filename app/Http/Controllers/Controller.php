@@ -60,7 +60,7 @@ class Controller extends BaseController
 
         // send the sms messages
         try {
-            $sender = SMS::transactional()->sendMessages($validRows);
+            $sender = SMS::transactional()->sendMessages($validRows, $sms);
         } catch (Exception $e) {
             // todo: log exception
             return \Redirect::back()->withErrors([$e->getMessage()]);

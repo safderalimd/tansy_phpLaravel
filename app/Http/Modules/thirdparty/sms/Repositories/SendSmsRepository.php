@@ -183,12 +183,12 @@ class SendSmsRepository extends Repository
 
     public function logSMS_V1($model)
     {
-        return $this->logSMS($model, 'sproc_sms_batch_dml_ins')
+        return $this->logSMS($model, 'sproc_sms_batch_dml_ins');
     }
 
     public function logSMS_V2($model)
     {
-        return $this->logSMS($model, 'sproc_sms_batch_dml_ins_v2')
+        return $this->logSMS($model, 'sproc_sms_batch_dml_ins_v2');
     }
 
     public function logSMS($model, $procedure)

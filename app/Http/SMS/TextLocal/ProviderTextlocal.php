@@ -162,18 +162,12 @@ class ProviderTextlocal
         $this->logOneSMS();
     }
 
-    public function sendGeneralSMS($messages)
-    {
-        foreach ($messages as &$message) {
-            $message['sms_text'] = $this->trim($message['sms_text']);
-        }
-        unset($message);
-        $this->send($messages);
-        $this->logMultipleSMS();
-    }
-
     public function sendMessages($messages, $model)
     {
+        foreach ($messages as &$message) {
+            $message['sms_text'] = $this->trim($this->prefixToParents . $message['sms_text']);
+        }
+        unset($message);
         $model->setAttribute('provider_entity_id', $this->providerId);
         $model->setAttribute('route_type_id', $this->routeTypeId);
         $this->send($messages);
