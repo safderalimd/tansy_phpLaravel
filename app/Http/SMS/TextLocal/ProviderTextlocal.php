@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\SMS\Providers;
+namespace App\Http\SMS\TextLocal;
 
 use Exception;
 use Session;
-use App\Http\SMS\Providers\Provider;
 use App\Http\SMS\Exceptions\NoCredentialsException;
 use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
 
-class ProviderTextlocal extends Provider
+class ProviderTextlocal
 {
     private $prefixToParents = '';
 
@@ -33,7 +32,7 @@ class ProviderTextlocal extends Provider
      *
      * @var integer
      */
-    private $test = 0;
+    private $test = 1;
 
     private $rawResponse;
 
@@ -297,6 +296,6 @@ class ProviderTextlocal extends Provider
             }
         }
 
-        return $result->balance->sms;
+        return isset($result->balance->sms) ? $result->balance->sms : 0;
     }
 }

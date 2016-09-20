@@ -105,7 +105,7 @@
                     <td>
                         <div class="checkbox">
                             <label class="checkbox" style="margin-top: 25px;">
-                                @if (empty($phoneNumber) || session()->get('smsAccountInactive') == true || $smsBalanceCount == 0)
+                                @if (empty($phoneNumber) || !$smsIsActive || $smsBalance == 0)
                                     <input type="checkbox" disabled="disabled" name="send_receipt_sms">
                                 @else
                                     @if ($payment->shouldSendReceiptSms())
@@ -116,9 +116,9 @@
                                 @endif
                                 <h5 style="margin:2px;">
                                     <small>Send Receipt SMS ({{phone_number($phoneNumber)}})
-                                        @if (session()->get('smsAccountInactive') == true)
+                                        @if (!$smsIsActive)
                                             - SMS ACCOUNT IN-ACTIVE.
-                                        @elseif ($smsBalanceCount == 0)
+                                        @elseif ($smsBalance == 0)
                                             - SMS BALANCE is 0.
                                         @endif
                                     </small>

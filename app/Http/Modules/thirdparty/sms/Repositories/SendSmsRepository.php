@@ -25,13 +25,6 @@ class SendSmsRepository extends Repository
         return first_resultset($data);
     }
 
-
-    // public function smsCredentials()
-    // {
-    //     // provider_entity_id, sender_user_name, sender_hash, sender_id, active
-    //     return $this->lookup('sproc_sms_lkp_credentials');
-    // }
-
     public function getSmsTypes()
     {
         // sms_type, sms_type_id

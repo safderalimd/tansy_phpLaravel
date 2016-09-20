@@ -14,7 +14,6 @@ class SendSmsFeeDue extends SendSmsModel
     {
         parent::__construct($arguments);
 
-        $this->smsBalanceCount = $this->smsBalanceCount();
         $this->smsAccountTypes = $this->repository->getAccountTypeFilter();
     }
 

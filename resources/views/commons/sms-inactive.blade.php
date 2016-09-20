@@ -1,7 +1,7 @@
-@if (session()->get('smsAccountInactive') == true)
+@if (! SMS::transactional()->isActive())
     <div class="alert alert-danger">
         <ul>
-            <li>SMS ACCOUNT IN-ACTIVE.</li>
+            <li>{{ SMS::transactional()->inactiveMessage() }}</li>
         </ul>
     </div>
 @endif

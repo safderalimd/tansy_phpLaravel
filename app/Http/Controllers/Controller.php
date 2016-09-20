@@ -17,9 +17,6 @@ class Controller extends BaseController
 
     protected function sendSmsToStudents(SendSmsModel $sms, $ids, $commonMessage = false, $text = '', $skipRows = false)
     {
-        // clear the sms balance from the session
-        session()->put('smsBalance', null);
-
         // get the textlocal.in credentials for this domain from the database
         $api = $sms->smsCredentials();
         if ($api['active'] != 1) {
@@ -46,13 +43,9 @@ class Controller extends BaseController
             });
         }
 
+        // todo: not sure if i need this; textlocal will throw error if we don't have enoght credits
         // validate that valid row count is less than balance
-        $smsBalanceCount = $sender->getBalance();
-        if (!is_numeric($smsBalanceCount)) {
-            $smsBalanceCount = 0;
-        }
-
-        if (count($validRows) > $smsBalanceCount) {
+        if (count($validRows) > SMS::transactional()->balance()) {
             throw new Exception("You do not have enought sms credits.");
         }
 

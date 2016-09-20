@@ -32,7 +32,6 @@ class SendSmsGeneralV2 extends SendSmsModel
         parent::__construct($arguments);
 
         $this->generalSmsTypes = $this->generalSmsTypes();
-        $this->smsBalanceCount = $this->smsBalanceCount();
         $this->smsAccountTypes = $this->repository->getAccountTypeFilter();
     }
 

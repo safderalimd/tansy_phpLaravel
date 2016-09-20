@@ -3,14 +3,11 @@
 namespace App\Http\Modules\thirdparty\sms\Models;
 
 use App\Http\Models\Model;
-use App\Http\Modules\thirdparty\sms\SmsSender;
 use Exception;
 
 class SendSmsModel extends Model
 {
     protected $repositoryNamespace = 'App\Http\Modules\thirdparty\sms\Repositories\SendSmsRepository';
-
-    public $smsBalanceCount;
 
     public function __construct($arguments = [])
     {
@@ -27,39 +24,6 @@ class SendSmsModel extends Model
         return $this->repository->credentials($this);
     }
 
-    public function smsBalanceCount()
-    {
-        // check if the balance is in the session first
-        $balance = session()->get('smsBalance');
-        if (!is_null($balance) && is_numeric($balance)) {
-            return $balance;
-        }
-
-        try {
-            $api = $this->smsCredentials();
-
-            if ($api['active'] != 1) {
-                $balance = 0;
-                session()->put('smsAccountInactive', true);
-
-            } else {
-                // make an api call to get the balance
-                $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
-                $balance = $sender->getBalance();
-                if (!is_numeric($balance)) {
-                    $balance = 0;
-                }
-            }
-
-            // store the balance in the session
-            session()->put('smsBalance', $balance);
-
-            return $balance;
-        } catch (Exception $e) {
-            // todo: log error and mail admin
-            return 0;
-        }
-    }
 
     // public function storeBatchStatusV2($data)
     // {

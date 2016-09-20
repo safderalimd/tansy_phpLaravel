@@ -115,10 +115,6 @@ class TansyUserProvider implements UserProvider
         Session::put('dbMenuInfo', $user->menuInfo);
         Session::put('dbHiddenMenuInfo', $user->hiddenMenuInfo);
 
-        // clear the sms balance from the session
-        Session::put('smsBalance', null);
-        Session::put('smsAccountInactive', null);
-
         Session::put('user_attributes', $user->getAttributes());
 
         // force change password

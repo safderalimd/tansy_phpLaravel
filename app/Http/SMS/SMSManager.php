@@ -3,10 +3,8 @@
 namespace App\Http\SMS;
 
 use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
-use App\Http\SMS\Exceptions\NullProviderException;
-use App\Http\SMS\Exceptions\InactiveProviderException;
 use App\Http\SMS\Sender;
-use App\Http\SMS\Providers\ProviderTextlocal;
+use App\Http\SMS\TextLocal\ProviderTextlocal;
 
 /**
  * Choose the correct provider implementation for each route.
@@ -26,46 +24,40 @@ class SMSManager
 
     public function transactional()
     {
-        return new Sender($this->provider('SMS Text - Transactional'));
+        return $this->route('SMS Text - Transactional');
     }
 
     public function promotional()
     {
-        return new Sender($this->provider('SMS Text - Promotional'));
+        return $this->route('SMS Text - Promotional');
     }
 
     public function otp()
     {
-        return new Sender($this->provider('SMS Text - OTP'));
+        return $this->route('SMS Text - OTP');
     }
 
-    /**
-     * Get the provider object for this route type.
-     *
-     * @param  string $route
-     * @return object|null
-     */
-    public function provider($route)
+    public function route($route)
     {
-        $credentials = $this->credentialsFor($route);
-        $this->checkAccountIsActive($credentials);
+        $credentials = $this->credentialsForRoute($route);
 
-        $provider = isset($credentials['provider_name']) ? $credentials['provider_name'] : null;
-        return $this->makeProvider($provider, $credentials);
+        $provider = $this->makeProvider($this->getProviderName($credentials), $credentials);
+
+        $isActive = $this->isAccountActive($credentials);
+
+        return new Sender($provider, $isActive);
     }
 
     /**
      * Check if the current provider account is active.
      *
      * @param  array $credentials
-     * @return void
+     * @return boolean
      */
-    public function checkAccountIsActive($credentials)
+    public function isAccountActive($credentials)
     {
         $isActive = isset($credentials['active']) ? $credentials['active'] : null;
-        if ($isActive != 1) {
-            throw new InactiveProviderException("SMS Provider Account is not activated.");
-        }
+        return ($isActive == 1) ? true : false;
     }
 
     /**
@@ -73,15 +65,15 @@ class SMSManager
      *
      * @param  string $provider
      * @param  array $credentials
-     * @return Provider
+     * @return Provider|null
      */
     public function makeProvider($provider, $credentials)
     {
         if ($provider == 'Text Local') {
-            return new ProviderTextlocal($this->model, $credentials);
+            return new ProviderTextlocal(new SendSmsModel, $credentials);
         }
 
-        throw new NullProviderException("Invalid SMS Provider.");
+        return null;
     }
 
     /**
@@ -90,7 +82,7 @@ class SMSManager
      * @param  string $route
      * @return array|null
      */
-    public function credentialsFor($route)
+    public function credentialsForRoute($route)
     {
         foreach ((array)$this->credentials as $credential) {
             if (isset($credential['route_type'])) {
@@ -99,5 +91,16 @@ class SMSManager
         }
 
         return null;
+    }
+
+    /**
+     * Returnt the provider name.
+     *
+     * @param  array $credentials
+     * @return string|null
+     */
+    public function getProviderName($credentials)
+    {
+        return isset($credentials['provider_name']) ? $credentials['provider_name'] : null;
     }
 }

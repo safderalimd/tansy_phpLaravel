@@ -6,10 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Accounting\Models\Payment;
 use App\Http\Modules\Accounting\Requests\PaymentFormRequest;
-use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
-use App\Http\Modules\thirdparty\sms\SmsSender;
 use App\Http\Modules\reports\Accounting\Models\ReceiptPrintPDF;
 use App\Http\Mailer\SendMail;
+use SMS;
 
 class PaymentController extends Controller
 {
@@ -58,10 +57,10 @@ class PaymentController extends Controller
         $primaryKey = $request->input('pk');
         $payment = Payment::details($primaryKey);
 
-        $sms = new SendSmsModel;
-        $smsBalanceCount = $sms->smsBalanceCount();
+        $smsBalance = SMS::transactional()->balance();
+        $smsIsActive = SMS::transactional()->isActive();
 
-        return view('modules.accounting.Payment.form', compact('payment', 'primaryKey', 'smsBalanceCount'));
+        return view('modules.accounting.Payment.form', compact('payment', 'primaryKey', 'smsBalance', 'smsIsActive'));
     }
 
     /**
@@ -76,7 +75,7 @@ class PaymentController extends Controller
         $accountKey = $request->input('ak');
         $payment = new Payment($request->input());
 
-        // todo: ask client what php validations to be made for payment
+        // todo: do here the same validations that are done on the frontend; or maybe add them in the form request
 
         $payment->payNow();
 
@@ -148,7 +147,12 @@ class PaymentController extends Controller
             return false;
         }
 
-        $text = 'Received ' . $receiptHeader['paid_by_name'] . ' payment on '. style_date($receiptHeader['receipt_date']) .': Receipt #' . $receiptHeader['receipt_number'] . ', Paid Amount ' . amount($this->payment->total_paid_amount) . ', New Balance ' . amount($receiptHeader['new_balance']);
+        $message = 'Received ' . $receiptHeader['paid_by_name'] . ' payment on '. style_date($receiptHeader['receipt_date']) .': Receipt #' . $receiptHeader['receipt_number'] . ', Paid Amount ' . amount($this->payment->total_paid_amount) . ', New Balance ' . amount($receiptHeader['new_balance']);
+
+
+        $screenId = $this->payment->getScreenId();
+        $accountId = $this->accountEntityId;
+        SMS::transactional()->paymentReceipt($this->phone, $message, $accoutId, $screenId);
 
         $sms = new SendSmsModel;
         $sms->setAttribute('screen_id', $this->payment->getScreenId());
@@ -157,16 +161,8 @@ class PaymentController extends Controller
         $sms->setAttribute('sms_account_entity_id', $this->accountEntityId);
         $sms->setAttribute('exam_entity_id', null);
 
-        $api = $sms->smsCredentials();
-        if ($api['active'] != 1) {
-            return false;
-        }
-
-        $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
-        $sender->setMessagePrefix($sms->smsMessagePrefix());
-
         $messages = [[
-            'sms_text'   => $text,
+            'sms_text'   => $message,
             'api_status' => '',
             'account_entity_id' => $this->accountEntityId,
             'mobile_phone' => $this->phone,
@@ -209,7 +205,7 @@ class PaymentController extends Controller
             'successCount' => $successCount,
             'failureCount' => $failureCount,
             'useCommonMessage' => true,
-            'commonMessage' => $text,
+            'commonMessage' => $message,
             'xmlSent' => $sender->getXmlData(),
             'jsonReceived' => $sender->getRawResponse(),
             'balanceCount' => $sender->getBalance(),

@@ -30,7 +30,8 @@
                     <h4 class="text-right">SMS Balance:</h4>
                 </div>
                 <div class="col-xs-5 col-sm-2 col-md-1">
-                    <h4 class="text-left"><strong id="sms-balance-count" data-balance="{{$sms->smsBalanceCount}}" >{{nr($sms->smsBalanceCount)}}</strong></h4>
+                    <?php $balance = SMS::transactional()->balance(); ?>
+                    <h4 class="text-left"><strong id="sms-balance-count" data-balance="{{$balance}}">{{nr($balance)}}</strong></h4>
                 </div>
             </div>
 
