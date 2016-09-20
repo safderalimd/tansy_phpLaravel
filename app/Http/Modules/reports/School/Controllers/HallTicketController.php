@@ -42,8 +42,8 @@ class HallTicketController extends Controller
         $export = new HallTicket($request->input());
         $export->loadPdfData();
 
-            return view('reports.school.HallTicket.pdf', compact('export'));
         if (Device::isAndroidMobile()) {
+            return view('reports.school.HallTicket.pdf', compact('export'));
         } else {
             HallTicketPDF::portrait()->generate($export);
         }
