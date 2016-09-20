@@ -180,7 +180,7 @@ class ForgotPasswordController extends Controller
         $password->resetPassword();
 
         if ($password->sendChangePasswordSMS()) {
-            SMS::transactional()->changePassword($password->userMobile(), $password->getChangePasswordMessage());
+            SMS::transactional()->changePassword($password->getOTPUserMobile(), $password->getChangePasswordMessage());
         }
 
         return redirect('/login')->with('login-message', 'Your password has been reset. Please login using your new password.');
