@@ -19,7 +19,9 @@ class User extends Model
     public function setLoginAttribute($login)
     {
         $userName = head(explode('@', $login));
+        $domain = last(explode('@', $login));
         $this->setAttribute('user_name', $userName);
+        $this->setAttribute('domain_name', $domain);
         return $login;
     }
 

@@ -106,11 +106,8 @@ class ProviderTextlocal extends Provider
         ]];
 
         $this->send($messages);
-        $this->model->setChangePasswordSMSTypeId();
+        $this->model->setSmsTypeIdChangePassword();
         $this->logOneSMS();
-        // d($this);
-        // d($this->rawResponse);
-        // d(json_decode($this->rawResponse));
     }
 
     public function changePassword($phone, $message)
@@ -122,7 +119,20 @@ class ProviderTextlocal extends Provider
         ]];
 
         $this->send($messages);
-        $this->model->setChangePasswordSMSTypeId();
+        $this->model->setSmsTypeIdChangePassword();
+        $this->logOneSMS();
+    }
+
+    public function loginOTP($phone, $message)
+    {
+        $messages = [[
+            'sms_text'          => $this->trim($this->prefixToLoginUsers . $message),
+            'mobile_phone'      => $phone,
+            'account_entity_id' => Session::get('user.userID'),
+        ]];
+
+        $this->send($messages);
+        $this->model->setSmsTypeIdLoginOTP();
         $this->logOneSMS();
     }
 

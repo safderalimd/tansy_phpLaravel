@@ -6,6 +6,7 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Http\Modules\Admin\Controllers\Traits\LoginOTPThrottle;
+use SMS;
 
 class SendLoginOTP
 {
@@ -34,8 +35,8 @@ class SendLoginOTP
             // store it in the cache for the current user id, for 10 minutes
             $this->storeLoginOTPCode();
 
-            // send otp SMS
-            // SMS::otp()->loginOTP($this->getMobile(), $this->getLoginOTPMessage());
+            // send login otp SMS
+            SMS::otp()->loginOTP($this->getMobile(), $this->getLoginOTPMessage());
         }
     }
 }

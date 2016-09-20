@@ -9,9 +9,9 @@ use App\Http\Requests\ForgotPasswordFormRequest;
 use App\Http\Requests\ForgotPasswordOTPRequest;
 use App\Http\Requests\ForgotPasswordResetRequest;
 use App\Http\Models\MasterDB;
-use App\Http\Modules\thirdparty\sms\SMS;
 use App\Http\ForgotPassword\PasswordThrottle;
 use App\Http\ForgotPassword\OTPThrottle;
+use SMS;
 
 class ForgotPasswordController extends Controller
 {
@@ -180,7 +180,7 @@ class ForgotPasswordController extends Controller
         $password->resetPassword();
 
         if ($password->sendChangePasswordSMS()) {
-            // SMS::transactional()->changePasswordSMS($password->getOTPUserMobile());
+            SMS::transactional()->changePassword($password->userMobile(), $password->getChangePasswordMessage());
         }
 
         return redirect('/login')->with('login-message', 'Your password has been reset. Please login using your new password.');

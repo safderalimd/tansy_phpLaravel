@@ -42,6 +42,7 @@ class TansyUserProvider implements UserProvider
         }
 
         $user = new UserModel;
+        $user->setAttribute('domain_name', $domain);
         if ($user->retrieveByToken($token, $identifier)) {
             $this->updateSession($user);
             return new TansyUser((array) $user->getAttributes());

@@ -5,9 +5,9 @@ namespace App\Http\Modules\Admin\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\Admin\Models\ChangePassword;
 use App\Http\Modules\Admin\Requests\ChangePasswordFormRequest;
-use App\Http\Modules\thirdparty\sms\SMS;
 use App\Http\Modules\Admin\Requests\LoginOTPRequest;
 use App\Http\Modules\Admin\Controllers\Traits\LoginOTPThrottle;
+use SMS;
 
 class LoginOTPController extends Controller
 {
@@ -78,7 +78,7 @@ class LoginOTPController extends Controller
             return $this->loginOTPExpiredResponse();
         }
 
-        // SMS::otp()->loginOTP($this->getMobile(), $this->getLoginOTPMessage());
+        SMS::otp()->loginOTP($this->getMobile(), $this->getLoginOTPMessage());
         return redirect('/cabinet/otp')->with('otp-resent', 'The SMS was resent. Please check your phone.');
     }
 }

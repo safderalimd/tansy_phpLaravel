@@ -33,7 +33,7 @@ class ChangePasswordController extends Controller
             $password->updatePassword();
 
             if ($password->sendChangePasswordSMS()) {
-                SMS::transactional()->changePassword($password->userMobile(), $password->getMessage());
+                SMS::transactional()->changePassword($password->userMobile(), $password->getChangePasswordMessage());
             }
 
         } catch (DbErrorException $e) {

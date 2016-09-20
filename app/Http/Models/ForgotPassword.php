@@ -6,12 +6,15 @@ use App\Http\Models\Model;
 use Device;
 use Session;
 use Illuminate\Support\Str;
+use App\Http\Traits\ChangePasswordMessage;
 
 class ForgotPassword extends Model
 {
     protected $screenId = null;
 
     protected $repositoryNamespace = 'App\Http\Repositories\ForgotPasswordRepository';
+
+    use ChangePasswordMessage;
 
     public $loginName;
 

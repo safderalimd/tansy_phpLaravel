@@ -41,7 +41,8 @@ trait LoginOTPThrottle
         $name = $this->getLogin();
         $startTime = $this->getOPTStartTimeFormatted();
         $otp = $this->getOPTCode();
-        return "Dear Customer, we have received a request to login for user name {$name} on {$startTime}. Your OTP will be valid for next 10mins and your OTP is {$otp}.";
+        // return "Dear Customer, we have received a request to login for user name {$name} on {$startTime}. Your OTP will be valid for next 10mins and your OTP is {$otp}.";
+        return "Login OTP is {$otp} for {$name}. Sent at {$startTime}.";
     }
 
     /**

@@ -78,6 +78,10 @@ class Cabinet
 
     public function isOTPScreen($request)
     {
-        return 'cabinet/otp' == $request->path();
+        if ('cabinet/otp' == $request->path() || 'cabinet/otp/resend' == $request->path()) {
+            return true;
+        }
+
+        return false;
     }
 }

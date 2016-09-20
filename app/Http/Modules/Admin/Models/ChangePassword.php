@@ -5,12 +5,15 @@ namespace App\Http\Modules\Admin\Models;
 use App\Http\Models\Model;
 use Device;
 use Session;
+use App\Http\Traits\ChangePasswordMessage;
 
 class ChangePassword extends Model
 {
     protected $screenId = '/cabinet/change-password';
 
     protected $repositoryNamespace = 'App\Http\Modules\Admin\Repositories\ChangePasswordRepository';
+
+    use ChangePasswordMessage;
 
     public function updatePassword()
     {
@@ -27,12 +30,5 @@ class ChangePassword extends Model
     public function userMobile()
     {
         return $this->user_mobile;
-    }
-
-    public function getMessage()
-    {
-        $device = Device::type();
-        $time = current_time() . ', ' . current_date();
-        return 'Your password has been changed at '.$time.' from '.$device.' with IP: '.userIp() . '.';
     }
 }
