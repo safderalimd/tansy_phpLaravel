@@ -8,8 +8,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 use App\Http\Modules\thirdparty\sms\Models\SendSmsModel;
-use App\Http\Modules\thirdparty\sms\SmsSender;
 use Exception;
+use SMS;
 
 class Controller extends BaseController
 {
@@ -17,15 +17,9 @@ class Controller extends BaseController
 
     protected function sendSmsToStudents(SendSmsModel $sms, $ids, $commonMessage = false, $text = '', $skipRows = false)
     {
-        // get the textlocal.in credentials for this domain from the database
-        $api = $sms->smsCredentials();
-        if ($api['active'] != 1) {
+        if (! SMS::transactional()->isActive()) {
             return \Redirect::back();
         }
-
-        // create sms sender object
-        $sender = new SmsSender($api['username'], $api['hash'], $api['senderId']);
-        $sender->setMessagePrefix($sms->smsMessagePrefix());
 
         // set request properties on the model
         $sms->setSmsBatchAttributes();
@@ -46,7 +40,7 @@ class Controller extends BaseController
         // todo: not sure if i need this; textlocal will throw error if we don't have enoght credits
         // validate that valid row count is less than balance
         if (count($validRows) > SMS::transactional()->balance()) {
-            throw new Exception("You do not have enought sms credits.");
+            return \Redirect::back()->withErrors(["You do not have enought sms credits."]);
         }
 
         if (! $skipRows) {
@@ -66,7 +60,7 @@ class Controller extends BaseController
 
         // send the sms messages
         try {
-            $sender->send($validRows);
+            $sender = SMS::transactional()->sendMessages($validRows);
         } catch (Exception $e) {
             // todo: log exception
             return \Redirect::back()->withErrors([$e->getMessage()]);
@@ -145,23 +139,21 @@ class Controller extends BaseController
             }, $validRows);
         }
 
-        $data = [
-            'totalSmsInBatch' => $totalSmsInBatch,
-            'accountIds' => implode(',', $accountIds),
-            'creditsUsed' => $creditsUsed,
-            'successCount' => $successCount,
-            'failureCount' => $failureCount,
-            'useCommonMessage' => $commonMessage,
-            'commonMessage' => $text,
-            'xmlSent' => $sender->getXmlData(),
-            'jsonReceived' => $sender->getRawResponse(),
-            'balanceCount' => $sender->getBalance(),
-        ];
+        $sms->setAttribute('total_sms_in_batch', $totalSmsInBatch);
+        $sms->setAttribute('entityID_smsMobile_PrvStatus_details',  implode(',', $accountIds));
+        $sms->setAttribute('provider_batch_credits', $creditsUsed);
+        $sms->setAttribute('success_count', $successCount);
+        $sms->setAttribute('failure_count', $failureCount);
+        $sms->setAttribute('common_message_flag', intval($commonMessage));
+        $sms->setAttribute('common_message', $text);
+        $sms->setAttribute('log_json_sms_sent', $sender->getXmlData());
+        $sms->setAttribute('log_json_sms_received', $sender->getRawResponse());
+        $sms->setAttribute('balance_count', $sender->getBalance());
 
         if ($skipRows) {
-            $sms->storeBatchStatusV2($data);
+            $sms->logSMS_V2();
         } else {
-            $sms->storeBatchStatus($data);
+            $sms->logSMS_V1();
         }
 
         return \Redirect::back();

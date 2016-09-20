@@ -84,4 +84,11 @@ class Sender
             return $this->provider->paymentReceipt($phone, $message, $accoutId, $typeId, $screenId);
         }
     }
+
+    public function sendMessages($messages, $model)
+    {
+        if ($this->provider) {
+            return $this->provider->sendMessages($messages, $model);
+        }
+    }
 }

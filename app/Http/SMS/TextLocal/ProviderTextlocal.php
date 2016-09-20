@@ -172,6 +172,14 @@ class ProviderTextlocal
         $this->logMultipleSMS();
     }
 
+    public function sendMessages($messages, $model)
+    {
+        $model->setAttribute('provider_entity_id', $this->providerId);
+        $model->setAttribute('route_type_id', $this->routeTypeId);
+        $this->send($messages);
+        return $this;
+    }
+
     public function send($messages)
     {
         $this->messages = $messages;

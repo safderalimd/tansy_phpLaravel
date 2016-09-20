@@ -181,96 +181,18 @@ class SendSmsRepository extends Repository
         return first_resultset($data);
     }
 
-    // public function storeBatchStatus($model)
-    // {
-    //     $procedure = 'sproc_sms_batch_dml_ins';
-
-    //     $iparams = [
-    //         '-iparam_provider_entity_id',
-    //         ':iparam_route_type_id',
-    //         '-iparam_provider_batch_id',
-    //         '-iparam_provider_batch_status',
-    //         '-iparam_provider_batch_credits',
-    //         '-iparam_provider_batch_error',
-    //         '-iparam_sms_type_id',
-    //         '-iparam_account_filter_row_type',
-    //         '-iparam_account_filter_entity_id',
-    //         '-iparam_filter2_id',
-    //         ':iparam_total_sms_in_batch',
-    //         ':iparam_success_count',
-    //         ':iparam_failure_count',
-    //         ':iparam_common_message_flag',
-    //         '-iparam_common_message',
-    //         '-iparam_entityID_smsMobile_PrvStatus_details',
-    //         '-iparam_log_json_sms_sent',
-    //         '-iparam_log_json_sms_received',
-    //         '-iparam_log_json_batch_sent',
-    //         '-iparam_log_json_batch_received',
-    //         ':iparam_balance_count',
-    //         ':iparam_session_id',
-    //         ':iparam_user_id',
-    //         ':iparam_screen_id',
-    //         ':iparam_debug_sproc',
-    //         ':iparam_audit_screen_visit',
-    //     ];
-
-    //     $oparams = [
-    //         '@oparam_err_flag',
-    //         '@oparam_err_step',
-    //         '@oparam_err_msg',
-    //     ];
-
-    //     $data = $this->procedure($model, $procedure, $iparams, $oparams);
-    //     return first_resultset($data);
-    // }
-
-    // public function storeBatchStatusV2($model)
-    // {
-    //     $procedure = 'sproc_sms_batch_dml_ins_v2';
-
-    //     $iparams = [
-    //         '-iparam_provider_entity_id',
-    //         ':iparam_route_type_id',
-    //         '-iparam_provider_batch_id',
-    //         '-iparam_provider_batch_status',
-    //         '-iparam_provider_batch_credits',
-    //         '-iparam_provider_batch_error',
-    //         '-iparam_sms_type_id',
-    //         '-iparam_account_filter_row_type',
-    //         '-iparam_account_filter_entity_id',
-    //         '-iparam_filter2_id',
-    //         ':iparam_total_sms_in_batch',
-    //         ':iparam_success_count',
-    //         ':iparam_failure_count',
-    //         ':iparam_common_message_flag',
-    //         '-iparam_common_message',
-    //         '-iparam_entityID_smsMobile_PrvStatus_details',
-    //         '-iparam_log_json_sms_sent',
-    //         '-iparam_log_json_sms_received',
-    //         '-iparam_log_json_batch_sent',
-    //         '-iparam_log_json_batch_received',
-    //         ':iparam_balance_count',
-    //         ':iparam_session_id',
-    //         ':iparam_user_id',
-    //         ':iparam_screen_id',
-    //         ':iparam_debug_sproc',
-    //         ':iparam_audit_screen_visit',
-    //     ];
-
-    //     $oparams = [
-    //         '@oparam_err_flag',
-    //         '@oparam_err_step',
-    //         '@oparam_err_msg',
-    //     ];
-
-    //     $data = $this->procedure($model, $procedure, $iparams, $oparams);
-    //     return first_resultset($data);
-    // }
-
     public function logSMS_V1($model)
     {
-        $procedure = 'sproc_sms_batch_dml_ins';
+        return $this->logSMS($model, 'sproc_sms_batch_dml_ins')
+    }
 
+    public function logSMS_V2($model)
+    {
+        return $this->logSMS($model, 'sproc_sms_batch_dml_ins_v2')
+    }
+
+    public function logSMS($model, $procedure)
+    {
         $iparams = [
             ':iparam_provider_entity_id',
             ':iparam_route_type_id',
