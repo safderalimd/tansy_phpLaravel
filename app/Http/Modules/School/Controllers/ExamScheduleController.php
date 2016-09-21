@@ -38,8 +38,8 @@ class ExamScheduleController extends Controller
         $options = [
             'headerFirstInclude' => 'modules.school.ExamSchedule.header-first-include',
             'rowFirstInclude'    => 'modules.school.ExamSchedule.row-first-include',
-            'headerLastInclude'  => 'modules.school.ExamSchedule.header-last-include',
-            'rowLastInclude'     => 'modules.school.ExamSchedule.row-last-include',
+            // 'headerLastInclude'  => 'modules.school.ExamSchedule.header-last-include',
+            // 'rowLastInclude'     => 'modules.school.ExamSchedule.row-last-include',
             'beforeGridInclude'  => 'modules.school.ExamSchedule.before-grid-include',
             'afterGridInclude'   => 'modules.school.ExamSchedule.after-grid-include',
             'scriptsInclude'     => 'modules.school.ExamSchedule.scripts-include',
