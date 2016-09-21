@@ -5,6 +5,7 @@ namespace App\Http\Modules\CRM\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\CRM\Models\CRMIssueTask;
+use App\Http\Models\Grid;
 
 class CRMIssueTaskController extends Controller
 {
@@ -16,6 +17,19 @@ class CRMIssueTaskController extends Controller
     public function __construct()
     {
         $this->middleware('screen:' . CRMIssueTask::screenId());
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $grid = new Grid('/' . $request->path());
+        $grid->setAttribute('f1', $request->input('id'));
+        $grid->loadData();
+        return view('grid.list', compact('grid'));
     }
 
     /**
