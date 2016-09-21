@@ -373,7 +373,8 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('send-sms---attendence', 'thirdparty\sms\Controllers\SmsAttendanceController@attendence');
     Route::post('send-sms---attendence', 'thirdparty\sms\Controllers\SmsAttendanceController@sendAttendance');
 
-    Route::get('/sms-batch-details', '\App\Http\Controllers\GridController@smsBatchDetails');
+    Route::get('/sms-batch', 'thirdparty\sms\Controllers\SmsBatchController@smsBatch');
+    Route::get('/sms-batch-details', 'thirdparty\sms\Controllers\SmsBatchController@smsBatchDetails');
 
 
     // CRM Links Group
