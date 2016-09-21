@@ -353,6 +353,12 @@ class Repository
         return $this->lookup('sproc_org_lkp_organization_owner');
     }
 
+    public function getIssueStatus()
+    {
+        // issue_status, issue_status_id
+        return $this->lookup('sproc_crm_lkp_issue_status');
+    }
+
     public function getOrganizations()
     {
         // organization_name, organization_entity_id

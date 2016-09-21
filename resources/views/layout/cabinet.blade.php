@@ -3,6 +3,11 @@
 <head>
     @include('include.head')
     @yield('styles')
+    <style type="text/css">
+        .datepicker {
+            z-index: 1001 !important;
+        }
+    </style>
 </head>
 <body class="@yield('screen-name')">
 

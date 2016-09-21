@@ -24,12 +24,6 @@ class CRMIssueRepository extends Repository
         return $this->lookup('sproc_crm_lkp_priority');
     }
 
-    public function getIssueStatus()
-    {
-        // issue_status, issue_status_id
-        return $this->lookup('sproc_crm_lkp_issue_status');
-    }
-
     public function detail($model, $id)
     {
         $model->setAttribute('issue_id', $id);

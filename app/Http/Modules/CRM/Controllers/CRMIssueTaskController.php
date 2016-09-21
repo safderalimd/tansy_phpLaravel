@@ -53,8 +53,8 @@ class CRMIssueTaskController extends Controller
     {
         $issue = new CRMIssueTask($request->input());
         $issue->save();
-        flash('CRM Issue Added!');
-        return redirect('/cabinet/crm-issue-task/edit/' . $issue->issue_id . query_string());
+        flash('Task Added!');
+        return redirect('/cabinet/crm-issue-task'.query_string());
     }
 
     /**
@@ -65,7 +65,7 @@ class CRMIssueTaskController extends Controller
      */
     public function edit($id)
     {
-        $issue = CRMIssueTask::findIssue($id);
+        $issue = CRMIssueTask::find($id);
         return view('modules.crm.CRMIssueTask.form', compact('issue'));
     }
 
@@ -78,10 +78,10 @@ class CRMIssueTaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $issue = new CRMIssueTask;
-        $issue->setAttribute('issue_id', $id);
-        $issue->update($request->input());
-        flash('CRM Issue Updated!');
+        $issue = new CRMIssueTask($request->input());
+        $issue->setAttribute('task_id', $id);
+        $issue->update();
+        flash('Task Updated!');
         return redirect('/cabinet/crm-issue-task'.query_string());
     }
 }

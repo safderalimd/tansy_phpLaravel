@@ -3,8 +3,22 @@
 
 <div class="row">
     <div class="col-md-12">
-        ... comments
-        Comments to be shown in labels, no input controls. Show comment date and comment created by towards right bottom. Eg: (By: Bill Clinton @ Dec 21st, 2016 13:42:00)
+        @if (count($issue->comments()))
+            @foreach ($issue->comments() as $comment)
+                <div class="row">
+                    <div style="margin-bottom:10px;" class="col-md-12">
+                        <div class="form-control">
+                            {{$comment['comment']}}
+                        </div>
+                        <div class="pull-right">
+                            <small>By: {{$comment['created_by']}} @ {{style_datetime($comment['created_date'])}}</small>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @else
+            There are no comments.
+        @endif
     </div>
 </div>
 <br/><br/>
@@ -18,7 +32,7 @@
             <textarea id="comment" name="comment" class="form-control" rows="6">{{old('comment')}}</textarea>
         </div>
     </div>
-    <br/><br/>
+    <br/>
 
     <div class="row">
        <div class="col-md-12 text-center">
@@ -35,16 +49,29 @@
 
 <div class="row">
     <div class="col-md-12">
-        ... tasks
-        Display multiple tasks as read only labels from result set#3, no need of input controls. It’s ok if you concatenate fields from one task into one line/label with some sort of separator. We need task type, task status, task due date and assigned to as part of one task.
-
+        @if (count($issue->tasks()))
+            @foreach ($issue->tasks() as $task)
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="margin-bottom:10px;" class="form-control">
+                            <div class="pull-left">
+                                {{$task['task_type']}} - {{$task['issue_status']}} - {{style_date($task['due_date'])}}
+                            </div>
+                            <div class="pull-right">Assigned To: {{$task['created_by']}}</div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @else
+            There are no tasks.
+        @endif
     </div>
 </div>
-<br/><br/>
+<br/>
 
 <div class="row">
    <div class="col-md-12">
-        <a href="{{ url("/cabinet/crm-issue-task/create").query_string()}}" class="pull-right btn btn-primary">Add Task</a>
+        <a href="{{ url("/cabinet/crm-issue-task/create").'?id='.$issue->issue_id }}" class="pull-right btn btn-primary">Add Task</a>
     </div>
 </div>
 <br/>
