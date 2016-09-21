@@ -26,6 +26,11 @@ class EventsController extends Controller
      */
     public function index(Request $request)
     {
+        if (is_null($request->input('st')) && is_null($request->input('en'))) {
+            $date = current_system_date();
+            return redirect('/cabinet/events?st='.$date.'&en='.$date);
+        }
+
         $events = new Events($request->input());
         return view('modules.school.Events.list', compact('events'));
     }

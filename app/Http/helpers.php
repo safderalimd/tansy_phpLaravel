@@ -173,6 +173,11 @@ function current_time()
     return date('h:i A');
 }
 
+function current_system_date()
+{
+    return date('Y-m-d');
+}
+
 function amount($amount)
 {
     return number_format(floatval($amount), 2);
