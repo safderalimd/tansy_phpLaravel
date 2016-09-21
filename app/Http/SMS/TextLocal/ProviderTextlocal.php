@@ -45,6 +45,8 @@ class ProviderTextlocal
 
     public function __construct(SendSmsModel $model, $credentials)
     {
+        $this->test = env('SMS_SANDBOX', 0);
+
         $this->model = $model;
         $this->username = isset($credentials['sender_user_name']) ? trim($credentials['sender_user_name']) : null;
         $this->hash     = isset($credentials['sender_hash']) ? trim($credentials['sender_hash']) : null;
