@@ -390,6 +390,11 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('crm-issue/edit/{id}', 'CRM\Controllers\CRMIssueController@update');
     Route::post('crm-issue/edit/{id}/comment', 'CRM\Controllers\CRMIssueController@comment');
 
+    Route::get('crm-issue-task/create', 'CRM\Controllers\CRMIssueTaskController@create');
+    Route::post('crm-issue-task/create', 'CRM\Controllers\CRMIssueTaskController@store');
+    Route::get('crm-issue-task/edit/{id}', 'CRM\Controllers\CRMIssueTaskController@edit');
+    Route::post('crm-issue-task/edit/{id}', 'CRM\Controllers\CRMIssueTaskController@update');
+
 
     // Help Links Group
     Route::get('help', 'System\Controllers\HelpController@index');
