@@ -14,3 +14,6 @@ sudo apt-get install php7.0-mcrypt
 
 Install postfix for mails:
 https://www.digitalocean.com/community/tutorials/how-to-install-and-setup-postfix-on-ubuntu-14-04
+
+To install HTTPS from letsencrypt:
+https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-14-04
