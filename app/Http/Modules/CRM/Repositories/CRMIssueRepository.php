@@ -125,6 +125,8 @@ class CRMIssueRepository extends Repository
         $procedure = 'sproc_crm_issue_comment_dml_ins';
 
         $iparams = [
+            ':iparam_issue_id',
+            '-iparam_comment',
             ':iparam_session_id',
             ':iparam_user_id',
             ':iparam_screen_id',
