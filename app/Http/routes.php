@@ -380,10 +380,15 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('client-visit/create', 'CRM\Controllers\ClientVisitController@create');
     Route::post('client-visit/create', 'CRM\Controllers\ClientVisitController@store');
     Route::get('client-visit-details', 'CRM\Controllers\ClientVisitController@detail');
-
     // Route::get('client-visit/edit/{id}', 'CRM\Controllers\ClientVisitController@edit');
     // Route::post('client-visit/edit/{id}', 'CRM\Controllers\ClientVisitController@update');
     // Route::get('client-visit/delete/{id}', 'CRM\Controllers\ClientVisitController@destroy');
+
+    Route::get('crm-issue/create', 'CRM\Controllers\CRMIssueController@create');
+    Route::post('crm-issue/create', 'CRM\Controllers\CRMIssueController@store');
+    Route::get('crm-issue/edit/{id}', 'CRM\Controllers\CRMIssueController@edit');
+    Route::post('crm-issue/edit/{id}', 'CRM\Controllers\CRMIssueController@update');
+    Route::post('crm-issue/edit/{id}/comment', 'CRM\Controllers\CRMIssueController@comment');
 
 
     // Help Links Group

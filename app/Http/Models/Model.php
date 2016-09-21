@@ -253,7 +253,15 @@ class Model
 
         // select the data from the database
         $data = $instance->repository->detail($instance, $id);
-        $data = first_resultset($data);
+
+        // set the detail attributes on the model
+        $instance->setDetailAttributes($instance, first_resultset($data));
+
+        return $instance;
+    }
+
+    public function setDetailAttributes($instance, $data)
+    {
         $data = isset($data[0]) ? (array)$data[0] : [];
 
         // save only non numeric keys
@@ -277,8 +285,6 @@ class Model
 
         // mark this model as not a new record
         $instance->isNewRecord = false;
-
-        return $instance;
     }
 
     public static function findOrFail($id)

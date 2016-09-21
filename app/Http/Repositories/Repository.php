@@ -142,7 +142,7 @@ class Repository
 
     public function getProducts()
     {
-        // product, product_type, unit_rate, product_type_entity_id, product_entity_id, active
+        // product_name, product_entity_id
         return $this->lookup('sproc_prd_lkp_product');
     }
 
@@ -150,6 +150,12 @@ class Repository
     {
         // product_type_entity_id, product_type
         return $this->lookup('sproc_prd_lkp_product_type');
+    }
+
+    public function getProductRelease()
+    {
+        // product_release_name, product_release_id
+        return $this->lookup('sproc_crm_lkp_product_release');
     }
 
     public function getAdjustmentType()

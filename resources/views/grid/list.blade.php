@@ -15,7 +15,7 @@
             <i class="glyphicon glyphicon-th-list"></i>
             <h3>{{$grid->screenName}}</h3>
             @if ($grid->settings->hasInsertButton())
-                <a href="{{url(app('request')->path() . '/create')}}" class="btn pull-right btn-default">Add new record</a>
+                <a href="{{url(app('request')->path() . '/create').query_string()}}" class="btn pull-right btn-default">Add new record</a>
             @endif
         </div>
         <div class="panel-body">
