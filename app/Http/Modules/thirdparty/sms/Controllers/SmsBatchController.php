@@ -27,7 +27,6 @@ class SmsBatchController extends Controller
         }
 
         $grid = new Grid('/' . $request->path());
-        // $grid->setAttribute('f1', $request->input('id'));
         $grid->loadData();
         return view('grid.list', compact('grid'));
     }
