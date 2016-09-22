@@ -87,25 +87,4 @@ class OneStudentRepository extends Repository
              ['id' => $id]
         );
     }
-
-    // Todo: filter this select
-    public function getSchoolName()
-    {
-        return $this->select(
-            'SELECT
-                organization_name,
-                work_phone,
-                mobile_phone,
-                email,
-                address1,
-                address2,
-                city_area,
-                postal_code,
-                city_id,
-                organization_type_id,
-                organization_entity_id
-            FROM view_org_organization_detail_owner
-            LIMIT 1;'
-        );
-    }
 }

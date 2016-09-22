@@ -5,7 +5,8 @@ namespace App\Http\Modules\reports\School\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\School\Models\OneStudent;
-use App\Http\PdfGenerator\Pdf;
+use App\Http\FPDF\OneStudent\OneStudentPDF;
+use Device;
 
 class OneStudentController extends Controller
 {
@@ -40,7 +41,11 @@ class OneStudentController extends Controller
     {
         $export = new OneStudent($request->input());
         $export->loadPdfData();
-        $view = view('reports.school.OneStudent.pdf', compact('export'));
-        return Pdf::render($view);
+
+        if (Device::isAndroidMobile()) {
+            return view('reports.school.OneStudent.pdf', compact('export'));
+        } else {
+            OneStudentPDF::portrait()->generate($export);
+        }
     }
 }
