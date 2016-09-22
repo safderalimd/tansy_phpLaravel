@@ -25,7 +25,7 @@ class FeeDueReportPDF extends BasePDF
     public function drawTableInfo()
     {
         $this->fontType('');
-        $this->CellWidthAuto(6, 'Filter: ' . $this->contents->filterCriteria);
+        $this->Cell(0, 6, 'Filter: ' . $this->contents->filterCriteria, 0, 1, 'L');
     }
 
     public function drawFeeDueTable()
