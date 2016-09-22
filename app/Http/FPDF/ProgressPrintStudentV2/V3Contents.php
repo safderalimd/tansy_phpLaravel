@@ -7,7 +7,7 @@ class V3Contents
 {
     protected $export;
 
-    protected $progress;
+    public $progress;
 
     public $students;
 
