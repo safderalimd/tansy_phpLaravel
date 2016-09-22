@@ -5,8 +5,9 @@ namespace App\Http\Modules\reports\School\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\School\Models\ProgressPrintClass;
-use App\Http\PdfGenerator\Pdf;
 use App\Http\CSVGenerator\CSV;
+use App\Http\FPDF\ProgressPrintClass\ProgressPrintClassPDF;
+use Device;
 
 class ProgressPrintClassController extends Controller
 {
@@ -40,8 +41,11 @@ class ProgressPrintClassController extends Controller
         $export->setAttribute('return_type', 'Class Report');
         $progress = $export->getPdfData();
 
-        $view = view('reports.school.ProgressPrintClass.pdf', compact('export', 'progress'));
-        return Pdf::renderLandscape($view);
+        if (Device::isAndroidMobile()) {
+            return view('reports.school.ProgressPrintClass.pdf', compact('export', 'progress'));
+        } else {
+            ProgressPrintClassPDF::landscape()->generate($export, $progress);
+        }
     }
 
     /**

@@ -11,6 +11,7 @@ class GridPDF extends BasePDF
     {
         $this->setContents(new GridContents($grid));
         $this->SetTitle($this->contents->reportName);
+        $this->showPagination();
 
         $this->AddPage();
         $this->drawSchoolHeader();
@@ -89,7 +90,11 @@ class GridPDF extends BasePDF
             $tableRows[] = $items;
         }
 
-        $this->drawDynamicTable($headerRow, $tableRows);
+        $options = [
+            'rowFontSize' => 11,
+            'multicellHeight' => 7,
+        ];
+        $this->drawDynamicTable($headerRow, $tableRows, $options);
     }
 }
 

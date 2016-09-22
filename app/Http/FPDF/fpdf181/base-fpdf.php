@@ -12,6 +12,15 @@ class BasePDF extends MulticellTablePDF
 
 	protected $currentFontSize = 12;
 
+	protected $_showPagination = false;
+
+	/**
+	 * The margin on the left and the right.
+	 *
+	 * @var integer
+	 */
+	protected $_xMargin = 10;
+
 	public function __construct($orientation = 'P', $unit = 'mm', $size = 'A4')
 	{
 		parent::__construct($orientation, $unit, $size);
@@ -137,5 +146,23 @@ class BasePDF extends MulticellTablePDF
 		$this->SetFont('Helvetica', '', 12);
 		$this->CellWidthAuto(6, 'Print Date: ' . current_date());
 		$this->Cell(0, 6, 'Print Time: ' . current_time(), 0, 1, 'R');
+	}
+
+	public function showPagination()
+	{
+		$this->_showPagination = true;
+		$this->AliasNbPages();
+	}
+
+	public function Footer()
+	{
+	    // Position at 1.5 cm from bottom
+	    $this->SetY(-15);
+
+	    // Helvetica italic 8
+	    $this->SetFont('Helvetica','I', 8);
+
+	    // Page number
+	    $this->Cell(0, 10, 'Page: '.$this->PageNo().'/{nb}', 0, 0, 'R');
 	}
 }

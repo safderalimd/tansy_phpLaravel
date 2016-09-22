@@ -21,8 +21,8 @@
     <div class="container">
 
         @include('reports.common.pdf-header', [
-            'school' => $progress->organizationName,
-            'phone'  => $progress->mobilePhone,
+            'school' => $export->organizationName(),
+            'phone'  => $export->organizationPhone(),
         ])
 
         <div class="row">

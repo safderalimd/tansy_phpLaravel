@@ -10,7 +10,13 @@ class MulticellTablePDF extends AlphaPDF
 
     private $rowMultiCellHeight = 5;
 
-    protected $rowMultiCellFill = 0;
+    protected $_rowMultiCellFill = 0;
+
+    protected $_drawingDynamicTable = false;
+
+    protected $_dynamicTableOptions;
+
+    protected $_dynamicTableHeaderRow;
 
     public function setRowMultiCellHeight($height)
     {
@@ -19,7 +25,18 @@ class MulticellTablePDF extends AlphaPDF
 
     public function setRowMultiCellFill($fill)
     {
-        $this->rowMultiCellFill = (int)$fill;
+        $this->_rowMultiCellFill = (int)$fill;
+    }
+
+    public function getRowMultiCellFill()
+    {
+        return (boolean) $this->_rowMultiCellFill;
+    }
+
+    public function inverseRowMultiCellFill()
+    {
+        $fill = $this->getRowMultiCellFill();
+        $this->setRowMultiCellFill(! $fill);
     }
 
     public function SetWidths($w)
@@ -65,7 +82,7 @@ class MulticellTablePDF extends AlphaPDF
         for($i=0;$i<count($this->widths);$i++) {
             $sumOfWidhts += $this->widths[$i];
         }
-        if ($this->rowMultiCellFill) {
+        if ($this->getRowMultiCellFill()) {
             $this->Rect($initialX,$initialY,$sumOfWidhts,$h, 'F');
         }
 
@@ -90,10 +107,22 @@ class MulticellTablePDF extends AlphaPDF
 
     public function CheckPageBreak($h)
     {
+        $pageBreakTrigger = $this->PageBreakTrigger;
+        if ($this->_drawingDynamicTable && $this->_showPagination) {
+            $pageBreakTrigger = $this->GetPageHeight() - 15;
+        }
+
         //If the height h would cause an overflow, add a new page immediately
-        if($this->GetY()+$h>$this->PageBreakTrigger) {
+        if($this->GetY()+$h>$pageBreakTrigger) {
             $this->drawCenterWatermark();
             $this->AddPage($this->CurOrientation);
+
+            // draw the header for a new page
+            if ($this->_drawingDynamicTable) {
+                $this->setRowMultiCellFill(false);
+                $this->drawDynamicTableHeader();
+                $this->setRowMultiCellFill(true);
+            }
         }
     }
 
@@ -148,8 +177,12 @@ class MulticellTablePDF extends AlphaPDF
         return $nl;
     }
 
-    public function drawDynamicTable($headerRow, $tableRows)
+    public function drawDynamicTable($headerRow, $tableRows, $options = [])
     {
+        $this->_drawingDynamicTable = true;
+        $this->_dynamicTableOptions = $options = array_merge($this->getDefaultOptions(), $options);
+        $this->_dynamicTableHeaderRow = $headerRow;
+
         // calculate the width averages
         $averages = [];
         $counts = [];
@@ -204,21 +237,26 @@ class MulticellTablePDF extends AlphaPDF
         }
 
         $this->setWidths($widths);
-        $this->setRowMultiCellHeight(10);
+        $this->setRowMultiCellHeight($options['multicellHeight']);
 
         // draw first row
-        $this->font(12); $this->fontType('B');
-        $this->Row($headerRow);
-        $this->fontType('');
+        $this->drawDynamicTableHeader();
 
-        // draw the rest of the rows
-        $fill = true;
         foreach ($tableRows as $row) {
-            $this->setRowMultiCellFill($fill);
+            $this->inverseRowMultiCellFill();
             $this->Row($row);
-            $fill = !$fill;
         }
         $this->setRowMultiCellFill(false);
+        $this->_drawingDynamicTable = false;
+    }
+
+    public function drawDynamicTableHeader()
+    {
+        $options = $this->_dynamicTableOptions;
+
+        $this->font($options['rowFontSize']); $this->fontType($options['headerFontType']);
+        $this->Row($this->_dynamicTableHeaderRow);
+        $this->fontType($options['rowFontType']);
     }
 
     public function isEmpty($cell)
@@ -232,6 +270,16 @@ class MulticellTablePDF extends AlphaPDF
         }
 
         return false;
+    }
+
+    public function getDefaultOptions()
+    {
+        return [
+            'multicellHeight' => 10,
+            'headerFontType' => 'B',
+            'rowFontSize' => 12,
+            'rowFontType' => '',
+        ];
     }
 
     public function longestWordWidth($cell)
