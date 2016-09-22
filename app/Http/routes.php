@@ -232,7 +232,8 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
 
     Route::get('receipts-listing', 'reports\Accounting\Controllers\ReceiptPrintController@index');
 
-    Route::get('pdf---receipt-v1/pdf', 'reports\Accounting\Controllers\ReceiptPrintPDFController@report');
+    Route::get('pdf---receipt-v1/pdf', 'reports\Accounting\Controllers\ReceiptPrintPDFController@reportV1');
+    Route::get('pdf---receipt-v2/pdf', 'reports\Accounting\Controllers\ReceiptPrintPDFController@reportV2');
 
     // School Links Group
     Route::get('class', 'School\Controllers\SchoolClassController@index');

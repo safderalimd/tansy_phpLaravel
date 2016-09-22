@@ -3,12 +3,15 @@
 namespace App\Http\Modules\reports\Accounting\Models;
 
 use App\Http\Models\Model;
+use App\Http\Models\Traits\OwnerOrganization;
 
 class ReceiptPrintPDF extends Model
 {
     protected $screenId = '/cabinet/pdf---receipt-v1';
 
     public $reportName = 'Payment Receipt';
+
+    use OwnerOrganization;
 
     public $schoolName = '-';
 
@@ -20,25 +23,20 @@ class ReceiptPrintPDF extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\reports\Accounting\Repositories\ReceiptPrintRepository';
 
-    public function loadPdfData()
+    public function setIdAttribute($value)
     {
-        $this->details = $this->repository->getReceiptDetail($this->report_id);
-        $this->header = $this->repository->getReceiptHeader($this->report_id);
+        $this->setAttribute('receipt_id', $value);
+        return $value;
+    }
+
+    public function loadPdfDataV1()
+    {
+        $this->details = $this->repository->getReceiptDetail($this->receipt_id);
+        $this->header = $this->repository->getReceiptHeader($this->receipt_id);
         if (count($this->header)) {
             $this->header = $this->header[0];
         }
 
-        $this->setSchoolNameAndPhone();
-    }
-
-    public function setSchoolNameAndPhone()
-    {
-        $name = $this->repository->getSchoolName();
-        if (isset($name[0]) && isset($name[0]['organization_name'])) {
-            $this->schoolName = $name[0]['organization_name'];
-        }
-        if (isset($name[0]) && isset($name[0]['work_phone'])) {
-            $this->schoolWorkPhone = $name[0]['work_phone'];
-        }
+        $this->setOwnerOrganizationInfo();
     }
 }
