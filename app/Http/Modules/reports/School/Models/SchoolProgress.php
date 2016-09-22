@@ -20,6 +20,10 @@ class SchoolProgress
 
     public $attendance;
 
+    public $headerSecondLine;
+
+    public $headerThirdLine;
+
     public function __construct($data)
     {
         $this->setExamTypes(first_resultset($data));
@@ -66,6 +70,9 @@ class SchoolProgress
         $this->organizationName = isset($school['organization_name']) ? $school['organization_name'] : '-';
         $this->mobilePhone = isset($school['mobile_phone']) ? $school['mobile_phone'] : '-';
         $this->examName = isset($school['exam_name']) ? $school['exam_name'] : '-';
+
+        $this->headerSecondLine = isset($school['report_header_second_line']) ? $school['report_header_second_line'] : '';
+        $this->headerThirdLine = isset($school['report_header_third_line']) ? $school['report_header_third_line'] : '';
     }
 
     public function getAllSubjects()
