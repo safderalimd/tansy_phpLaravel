@@ -32,27 +32,6 @@ class FeeDueReportRepository extends Repository
         return first_resultset($data);
     }
 
-    // Todo: filter this select
-    public function getSchoolName()
-    {
-        return $this->select(
-            'SELECT
-                organization_name,
-                work_phone,
-                mobile_phone,
-                email,
-                address1,
-                address2,
-                city_area,
-                postal_code,
-                city_id,
-                organization_type_id,
-                organization_entity_id
-            FROM view_org_organization_detail_owner
-            LIMIT 1;'
-        );
-    }
-
     public function getFilterCriteria($model)
     {
         $procedure = 'sproc_org_lkp_account_type_4_receivable_payment';
@@ -65,16 +44,5 @@ class FeeDueReportRepository extends Repository
 
         $data = $this->procedure($model, $procedure, $iparams, $oparams);
         return first_resultset($data);
-
-        // return $this->select(
-        //     'SELECT
-        //         row_type,
-        //         primary_key_id,
-        //         drop_down_list_name,
-        //         sequence_id
-        //     FROM view_org_lkp_account_type_4_receivable_payment
-        //     WHERE primary_key_id = :id
-        //     LIMIT 1;', ['id' => $id]
-        // );
     }
 }

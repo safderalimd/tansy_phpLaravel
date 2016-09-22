@@ -12,7 +12,7 @@
     </head>
     <body>
 
-    <div id="watermark"><div id="watermark-text">{{$export->schoolName}}</div></div>
+{{--     <div id="watermark"><div id="watermark-text">{{$export->organizationName()}}</div></div> --}}
 
     <div class="footer text-right">
         Page: <span class="pagenum"></span>
@@ -21,8 +21,8 @@
     <div class="container">
 
         @include('reports.common.pdf-header', [
-            'school' => $export->schoolName,
-            'phone'  => $export->schoolWorkPhone,
+            'school' => $export->organizationName(),
+            'phone'  => $export->organizationPhone(),
         ])
 
         @include('reports.common.report-name', ['report' => $export->reportName])
