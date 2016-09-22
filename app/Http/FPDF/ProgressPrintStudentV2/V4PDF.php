@@ -59,7 +59,7 @@ class V4PDF extends BasePDF
         $this->Cell(0, 14, $this->contents->schoolName, 0, 1, 'C');
 
         // line 2
-        $this->SetFont('Times', 'B', 12);
+        $this->SetFont('Helvetica', 'B', 12);
         if (empty($this->contents->progress->headerSecondLine)) {
             $this->Ln(4);
         } else {
