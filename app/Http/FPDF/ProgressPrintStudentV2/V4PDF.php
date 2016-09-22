@@ -62,14 +62,16 @@ class V4PDF extends BasePDF
         $this->SetFont('Times', 'B', 12);
         if (empty($this->contents->progress->headerSecondLine)) {
             $this->Ln(4);
+        } else {
+            $this->Cell(0, 4, $this->contents->progress->headerSecondLine, 0, 1, 'C');
         }
-        $this->Cell(0, 4, $this->contents->progress->headerSecondLine, 0, 1, 'C');
         $this->Ln(2);
 
         // line 3
-        $this->Cell(0, 4, $this->contents->progress->headerThirdLine, 0, 1, 'C');
         if (empty($this->contents->progress->headerThirdLine)) {
             $this->Ln(4);
+        } else {
+            $this->Cell(0, 4, $this->contents->progress->headerThirdLine, 0, 1, 'C');
         }
         $this->Ln(2);
 
