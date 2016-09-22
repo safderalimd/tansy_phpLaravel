@@ -42,7 +42,7 @@ class V4PDF extends BasePDF
 
     public function drawHeader()
     {
-        $titleFont = 50;
+        $titleFont = 45;
         $this->AddFont('Review', 'B', 'Review.php');
         $this->SetFont('Review', 'B', $titleFont);
 
@@ -56,10 +56,10 @@ class V4PDF extends BasePDF
         }
 
         $this->Ln(2);
-        $this->Cell(0, 15, $this->contents->schoolName, 0, 1, 'C');
+        $this->Cell(0, 14, $this->contents->schoolName, 0, 1, 'C');
 
         // line 2
-        $this->SetFont('Times', 'B', 12);
+        $this->SetFont('Helvetica', 'B', 12);
         if (empty($this->contents->progress->headerSecondLine)) {
             $this->Ln(4);
         } else {
@@ -75,8 +75,8 @@ class V4PDF extends BasePDF
         }
         $this->Ln(2);
 
-        $this->SetFont('Helvetica', 'B', 12);
-        $this->Cell(0, 4, 'PROGRESS REPORT - ' . $this->contents->examName, 0, 1, 'C');
+        $this->SetFont('Helvetica', 'B', 14);
+        $this->Cell(0, 5, 'PROGRESS REPORT - ' . $this->contents->examName, 0, 1, 'C');
     }
 
     public function TableHeader($header, $width, $height)
