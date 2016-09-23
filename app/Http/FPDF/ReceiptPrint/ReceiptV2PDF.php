@@ -58,11 +58,19 @@ class ReceiptV2PDF extends BasePDF
         $this->CellWidthAuto(10, 'For Payment Of: ');
         $this->MultiCell(0, 10, '', 0, 'L');
 
+        $currentY = $this->getY();
         $this->Ln(1); $this->setX(12);
         $this->fontType('B');
         $this->CellWidthAuto(10, 'Received By: ');
         $this->fontType('');
-        $this->MultiCell(0, 10, $this->contents->receivedBy, 0, 'L');
+        $this->MultiCell(50, 10, $this->contents->receivedBy, 0, 'L');
+
+        $this->setXY(105, $currentY);
+        $this->Cell(45, 10, 'This Payment', 1, 0, 'C');
+        $this->Cell(45, 10, $this->contents->thisPayment.' ', 1, 1, 'R');
+        $this->setX(105);
+        $this->Cell(45, 10, 'Academic Due', 1, 0, 'C');
+        $this->Cell(45, 10, $this->contents->academicDue.' ', 1, 1, 'R');
     }
 }
 

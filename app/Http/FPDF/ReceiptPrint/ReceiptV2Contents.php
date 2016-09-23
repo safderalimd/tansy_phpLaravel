@@ -22,6 +22,9 @@ class ReceiptV2Contents
     public $receiptAmount = '';
     public $receivedBy = '';
 
+    public $thisPayment = '';
+    public $academicDue = '';
+
     public function __construct($export)
     {
         $this->export = $export;
@@ -54,6 +57,9 @@ class ReceiptV2Contents
         }
 
         $this->receivedBy = isset($details['received_by']) ? $details['received_by'] : '-';
+
+        $this->thisPayment = isset($details['receipt_amount']) ? amount($details['receipt_amount']) : '-';
+        $this->academicDue = isset($amounts['due_amount']) ? amount($amounts['due_amount']) : '-';
 
         // $this->productName = isset($details['product_name']) ? $details['product_name'] : '-';
         // $this->productCreditAmount = isset($details['product_credit_amount']) ? amount($details['product_credit_amount']) : '-';
