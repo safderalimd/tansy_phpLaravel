@@ -25,7 +25,7 @@
         </strong>
 
         <div class="row">
-            @if ($export->showType() == 'Student')
+            @if ($export->showType() == 'Class')
                 <div class="col-md-12"><h4>Class: {{$export->dropdownFilter}} </h4></div>
             @else
                 <div class="col-md-12"><h4>Teacher: {{$export->dropdownFilter}} </h4></div>
@@ -78,7 +78,7 @@
                                     $className = isset($subject['class_name']) ? $subject['class_name'] : '';
                                 ?>
                                 <td class="text-center timetable-cell">
-                                    @if ($export->showType() == 'Student')
+                                    @if ($export->showType() == 'Class')
                                         {{$shortCode}}
                                     @else
                                         {{$className}}
