@@ -50,12 +50,12 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="account_types_entity_id">Account Types</label>
+                            <label class="col-md-4 control-label" for="account_types_entity_id">Account Type</label>
                             <div class="col-md-8">
                                 <select id="account_types_entity_id" class="form-control" name="account_types_entity_id">
-                                    <option value="none">Select an account..</option>
-                                    @foreach($reimbursement->accountTypeFilter() as $option)
-                                        <option data-rowType="{{$option['row_type']}}" {{activeSelectByTwo($option['entity_id'], $option['row_type'], 'aei', 'art')}} value="{{ $option['entity_id'] }}">{{ $option['drop_down_list_name'] }}</option>
+                                    <option value="none">Select an account type..</option>
+                                    @foreach($reimbursement->schoolAccountTypeFilter() as $option)
+                                        <option {{activeSelect($option['entity_id'], 'aei')}} value="{{$option['entity_id']}}">{{$option['drop_down_list_name']}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -189,7 +189,6 @@
         var fi = $('#fiscal_years option:selected').val();
         var pi = $('#product_type_id option:selected').val();
         var aei = $('#account_types_entity_id option:selected').val();
-        var art = $('#account_types_entity_id option:selected').attr('data-rowType');
 
         var items = [];
         if (fi != "none") {
@@ -200,7 +199,6 @@
         }
         if (aei != "none") {
             items.push('aei='+aei);
-            items.push('art='+encodeURIComponent(art));
         }
 
         var queryString = items.join('&');
