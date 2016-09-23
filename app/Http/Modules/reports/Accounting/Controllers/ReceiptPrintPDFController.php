@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\Accounting\Models\ReceiptPrintPDF;
 use App\Http\FPDF\ReceiptPrint\ReceiptV1PDF;
 use App\Http\FPDF\ReceiptPrint\ReceiptV2PDF;
+use App\Http\FPDF\ReceiptPrint\ReceiptV2Contents;
 use Device;
 
 class ReceiptPrintPDFController extends Controller
@@ -38,7 +39,7 @@ class ReceiptPrintPDFController extends Controller
         $export = new ReceiptPrintPDF($request->input());
 
         if (Device::isAndroidMobile()) {
-            return view('reports.accounting.ReceiptPrint.pdf-v2', compact('export'));
+            return view('reports.accounting.ReceiptPrint.pdf-v2', ['export' => new ReceiptV2Contents($export)]);
         } else {
             ReceiptV2PDF::portrait()->generate($export);
         }

@@ -66,13 +66,13 @@ class ReceiptV2PDF extends BasePDF
         $this->fontType('');
         foreach ($this->contents->details as $row) {
             $productName = isset($row['product_name']) ? $row['product_name'] : '-';
-            $productAmount = isset($row['product_credit_amount']) ? $row['product_credit_amount'] : '-';
+            $productAmount = isset($row['product_credit_amount']) ? amount($row['product_credit_amount']) : '-';
             $this->setXY(52, $rowY);
             $this->MultiCell(105, 10, $productName, 0, 'L');
             $y1 = $this->getY();
 
             $this->setXY(157, $rowY);
-            $this->MultiCell(38, 10, amount($productAmount).' ', 0, 'R');
+            $this->MultiCell(38, 10, $productAmount.' ', 0, 'R');
             $y2 = $this->getY();
             $rowY = max($y1, $y2);
         }
