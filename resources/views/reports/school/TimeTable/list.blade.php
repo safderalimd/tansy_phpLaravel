@@ -16,29 +16,20 @@
 
             <form class="form-horizontal" target="_blank" id="generate-report-form" action="/cabinet/pdf---time-table/pdf" method="GET">
                 <input type="hidden" id="random_id" name="ri" value="">
-                <input type="hidden" id="teacher_or_class" name="tc" value="c">
 
-                <div class="form-group">
-                    <label class="col-md-1 control-label">Class</label>
-                    <div class="col-md-3">
-                        <select id="class_entity_id" class="form-control" name="ci">
-                            <option value="none">Select a class..</option>
-                            @foreach($export->classes() as $option)
-                                <option value="{{ $option['class_entity_id'] }}">{{ $option['class_name'] }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-md-1 control-label">Teacher</label>
-                    <div class="col-md-3">
-                        <select id="teacher_entity_id" class="form-control" name="ti">
-                            <option value="none">Select a teacher..</option>
-                            @foreach($export->teachers() as $option)
-                                <option value="{{ $option['teacher_entity_id'] }}">{{ $option['teacher_name'] }}</option>
-                            @endforeach
-                        </select>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="account_type_entity_id">Account Type</label>
+                            <div class="col-md-8">
+                                <select id="account_type_entity_id" class="form-control" name="aei">
+                                    <option value="none">Select an account type..</option>
+                                    @foreach($export->schoolAccountTypeFilter() as $option)
+                                        <option value="{{$option['entity_id']}}">{{$option['drop_down_list_name']}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -58,7 +49,6 @@
                 <div class="row">
                     <div class="col-md-3 col-md-offset-1">
                         <button id="generate-report" class="btn btn-primary" type="submit">Generate Report</button>
-                        <span style="display:none;" id="eid-error" class="help-block">Select either a class or a teacher.</span>
                     </div>
                 </div>
             </form>
@@ -71,29 +61,20 @@
 @section('scripts')
 <script type="text/javascript">
 
-    $('#class_entity_id').change(function() {
-        $('#teacher_entity_id').val('none');
-        $('#teacher_or_class').val('c');
-        $('#eid-error').hide();
-    });
-
-    $('#teacher_entity_id').change(function() {
-        $('#class_entity_id').val('none');
-        $('#teacher_or_class').val('t');
-        $('#eid-error').hide();
-    });
-
     $('#generate-report-form').submit(function() {
-        if ($('#teacher_entity_id option:selected').val() == 'none'
-            && $('#class_entity_id option:selected').val() == 'none') {
-
-            $('#eid-error').show();
-            return false;
-        }
-
         $('#random_id').val(Date.now());
         return true;
     });
 
+    $('#move-students-form').validate({
+        rules: {
+            account_type_entity_id: {
+                requiredSelect: true
+            },
+            start_date: {
+                required: true
+            }
+        }
+    });
 </script>
 @endsection
