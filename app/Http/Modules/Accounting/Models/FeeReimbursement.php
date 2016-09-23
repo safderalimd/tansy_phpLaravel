@@ -14,25 +14,37 @@ class FeeReimbursement extends Model
         'payment_type_id',
     ];
 
+    public function setPiAttribute($value)
+    {
+        $this->setAttribute('product_entity_id', $value);
+        return $value;
+    }
+
+    public function setFiAttribute($value)
+    {
+        $this->setAttribute('fiscal_year_entity_id', $value);
+        return $value;
+    }
+
+    public function setAeiAttribute($value)
+    {
+        $this->setAttribute('subject_entity_id', $value);
+        return $value;
+    }
+
     public function rows()
     {
-        if (is_null($this->fi) || !is_null($this->pi)) {
-            $this->setAttribute('return_type', 'Reimbursement');
-            $this->setAttribute('filter_type', 'All Students');
-            $this->setAttribute('subject_entity_id', 0);
-            $this->setAttribute('product_entity_id', $this->pi);
-            $this->setAttribute('fiscal_year_entity_id', $this->fi);
-            return $this->repository->getAllReimbursements($this);
+        if (is_null($this->fi) || is_null($this->pi) || is_null($this->aei)) {
+            return [];
         }
 
-        return [];
+        $this->setAttribute('return_type', 'Reimbursement');
+        return $this->repository->getAllReimbursements($this);
     }
 
     public function updateRows()
     {
         $this->setAttribute('aID_schID_dtID_tAmt_pAmt_rcpNm_rcpDt_list', $this->hidden_amounts);
-        $this->setAttribute('product_entity_id', $this->pi);
-        $this->setAttribute('fiscal_year_entity_id', $this->fi);
         return $this->repository->update($this);
     }
 }

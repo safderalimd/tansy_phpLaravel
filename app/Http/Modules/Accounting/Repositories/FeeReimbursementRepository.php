@@ -11,7 +11,6 @@ class FeeReimbursementRepository extends Repository
         $procedure = 'sproc_act_rcv_due_lst_reimbursement';
 
         $iparams = [
-            '-iparam_filter_type',
             ':iparam_subject_entity_id',
             '-iparam_return_type',
             ':iparam_product_entity_id',
