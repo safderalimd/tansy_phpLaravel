@@ -27,23 +27,9 @@ class TimeTable extends Model
         return $value;
     }
 
-    public function setAccountId()
-    {
-        // set teacher
-        if ($this->tc == 't') {
-            $this->setAttribute('account_entity_id', $this->ti);
-            $this->showType = 'teacher';
-
-        // set class
-        } else {
-            $this->setAttribute('account_entity_id', $this->ci);
-            $this->showType = 'student';
-        }
-    }
-
     public function loadData()
     {
-        $this->setAccountId();
+        $this->setAttribute('account_entity_id', $this->aei);
         $this->rows = $this->repository->timeTable($this);
         $this->rows = collect(first_resultset($this->rows));
 
@@ -53,22 +39,11 @@ class TimeTable extends Model
 
     public function setFilters()
     {
-        if ($this->showType == 'student') {
-            foreach ($this->classes() as $class) {
-                if ($this->account_entity_id == $class['class_entity_id']) {
-                    $this->dropdownFilter = $class['class_name'];
-                    break;
-                }
+        foreach ($this->schoolAccountTypeFilter() as $option) {
+            if ($this->account_entity_id == $option['entity_id']) {
+                $this->dropdownFilter = $option['drop_down_list_name'];
+                break;
             }
-
-        } else {
-            foreach ($this->teachers() as $teacher) {
-                if ($this->account_entity_id == $teacher['teacher_entity_id']) {
-                    $this->dropdownFilter = $teacher['teacher_name'];
-                    break;
-                }
-            }
-
         }
 
         $this->startDateFilter = $this->start_date;
