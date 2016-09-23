@@ -128,4 +128,17 @@ class Payment extends Model
 
         return false;
     }
+
+    public function showReceiptV1()
+    {
+        if (!isset($this->receipt_pdf_version)) {
+            return true;
+        }
+
+        if ($this->receipt_pdf_version == 'V-0002') {
+            return false;
+        }
+
+        return true;
+    }
 }

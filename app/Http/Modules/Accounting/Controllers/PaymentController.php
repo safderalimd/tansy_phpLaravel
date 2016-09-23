@@ -84,8 +84,11 @@ class PaymentController extends Controller
         $this->sendReceiptEmail();
 
         if ($payment->showReceiptPdf() || $this->showReceiptCheckbox()) {
-            return redirect("/cabinet/pdf---receipt-v1/pdf?id={$payment->receipt_id}");
-
+            if ($payment->showReceiptV1()) {
+                return redirect("/cabinet/pdf---receipt-v1/pdf?id={$payment->receipt_id}");
+            } else {
+                return redirect("/cabinet/pdf---receipt-v2/pdf?id={$payment->receipt_id}");
+            }
         } else {
             flash('Amount Paid!');
             return redirect("/cabinet/payment-v1?ak={$accountKey}&rt={$rowType}");

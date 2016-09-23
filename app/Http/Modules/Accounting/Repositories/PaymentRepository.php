@@ -74,6 +74,7 @@ class PaymentRepository extends Repository
         $oparams = [
             '@oparam_receipt_id',
             '@oparam_show_receipt_pdf',
+            '@oparam_receipt_pdf_version',
             '@oparam_err_flag',
             '@oparam_err_step',
             '@oparam_err_msg',
