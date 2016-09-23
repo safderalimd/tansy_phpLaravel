@@ -97,7 +97,7 @@ class PaymentController extends Controller
 
     public function showReceiptCheckbox()
     {
-        if (isset($this->payment->show_receipt_pdf)) {
+        if (isset($this->payment->show_receipt_pdf_checkbox)) {
             return true;
         }
 

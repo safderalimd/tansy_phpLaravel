@@ -135,7 +135,7 @@
                             </label>
 
                             <label class="checkbox" style="padding-top:1px;margin-top:-10px;">
-                                <input type="checkbox" name="show_receipt_pdf" checked="checked">
+                                <input type="checkbox" name="show_receipt_pdf_checkbox" checked="checked">
                                 <h5 style="margin:2px;"><small>Show Receipt PDF</small></h5>
                             </label>
                         </div>
