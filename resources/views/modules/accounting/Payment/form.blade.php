@@ -135,7 +135,12 @@
                             </label>
 
                             <label class="checkbox" style="padding-top:1px;margin-top:-10px;">
-                                <input type="checkbox" name="show_receipt_pdf_checkbox" checked="checked">
+                                @if ($payment->showReceiptOnPayment())
+                                    <input type="checkbox" name="show_receipt_pdf_checkbox" checked="checked">
+                                @else
+                                    <input type="checkbox" name="show_receipt_pdf_checkbox">
+                                @endif
+
                                 <h5 style="margin:2px;"><small>Show Receipt PDF</small></h5>
                             </label>
                         </div>

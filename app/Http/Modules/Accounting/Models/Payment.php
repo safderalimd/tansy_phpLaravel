@@ -120,6 +120,18 @@ class Payment extends Model
         $this->repository->payNow($this);
     }
 
+    public function showReceiptOnPayment()
+    {
+        $data = $this->repository->getShowReceiptOnPayment($this);
+        if (! isset($data[0]['show_receipt_pdf_after_payment'])) {
+            return false;
+        }
+        if ($data[0]['show_receipt_pdf_after_payment'] == 1) {
+            return true;
+        }
+        return false;
+    }
+
     public function showReceiptPdf()
     {
         if (isset($this->show_receipt_pdf) && $this->show_receipt_pdf == 1) {

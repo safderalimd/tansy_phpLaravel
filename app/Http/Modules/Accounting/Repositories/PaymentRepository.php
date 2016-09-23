@@ -6,6 +6,11 @@ use App\Http\Repositories\Repository;
 
 class PaymentRepository extends Repository
 {
+    public function getShowReceiptOnPayment()
+    {
+        return $this->lookup('sproc_act_lkp_show_receipt_on_payment');
+    }
+
     public function getSmsReceiptSettings()
     {
         return $this->lookup('sproc_sys_lkp_variables');

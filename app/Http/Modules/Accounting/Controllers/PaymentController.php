@@ -29,6 +29,7 @@ class PaymentController extends Controller
      */
     public function __construct()
     {
+        dd((new Payment)->showReceiptOnPayment());
         $this->middleware('screen:' . Payment::screenId());
     }
 
