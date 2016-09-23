@@ -17,24 +17,20 @@
             <form class="form-horizontal" target="_blank" id="generate-report-form" action="/cabinet/pdf---time-table/pdf" method="GET">
                 <input type="hidden" id="random_id" name="ri" value="">
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="account_type_entity_id">Account Type</label>
-                            <div class="col-md-8">
-                                <select id="account_type_entity_id" class="form-control" name="aei">
-                                    <option value="none">Select an account type..</option>
-                                    @foreach($export->schoolAccountTypeFilter() as $option)
-                                        <option value="{{$option['entity_id']}}">{{$option['drop_down_list_name']}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="account_type_entity_id">Time Table Account</label>
+                    <div class="col-md-3">
+                        <select id="account_type_entity_id" class="form-control" name="aei">
+                            <option value="none">Select an account..</option>
+                            @foreach($export->timeTableFilter() as $option)
+                                <option value="{{ $option['entity_id'] }}">{{ $option['entity_name'] }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-1 control-label" for="start_date">Week Date</label>
+                    <label class="col-md-2 control-label" for="start_date">Week Date</label>
                     <div class="col-md-3">
                         <div class="input-group date">
                             <input id="start_date" class="form-control" type="text" name="dt" value="" placeholder="Week Date">
@@ -47,7 +43,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-3 col-md-offset-1">
+                    <div class="col-md-3 col-md-offset-2">
                         <button id="generate-report" class="btn btn-primary" type="submit">Generate Report</button>
                     </div>
                 </div>

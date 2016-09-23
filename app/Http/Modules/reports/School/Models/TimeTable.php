@@ -13,8 +13,6 @@ class TimeTable extends Model
 
     use OwnerOrganization;
 
-    public $showType = 'student';
-
     public $dropdownFilter = '-';
 
     public $startDateFilter = '-';

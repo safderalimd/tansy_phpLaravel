@@ -26,7 +26,7 @@ class TimeTablePDF extends BasePDF
         $this->SetFont('Helvetica', '', 12);
         $this->Ln(4);
 
-        $label = $this->contents->showType() == 'student' ? 'Class: ' : 'Teacher: ';
+        $label = 'Account: '; // $this->contents->showType() == 'student' ? 'Class: ' : 'Teacher: ';
         $this->CellWidthAuto(6, $label);
         $this->SetFont('Helvetica', 'B', 12);
         $this->Cell(0, 6, $this->contents->dropdownFilter, 0, 1, 'L');
@@ -112,7 +112,8 @@ class TimeTablePDF extends BasePDF
                     $subject = $this->contents->export->findSubject($this->contents->rows, $periodName, $weekDay);
                     $shortCode = isset($subject['subject_short_code']) ? $subject['subject_short_code'] : '';
                     $className = isset($subject['class_name']) ? $subject['class_name'] : '';
-                    $cellText = ($this->contents->showType() == 'student') ? $shortCode : $className;
+                    // $cellText = ($this->contents->showType() == 'student') ? $shortCode : $className;
+                    $cellText = $shortCode;
                     $this->Cell($cellWidth, $cellHeight, $cellText, 1, 0, 'C', $fill);
 
                 }

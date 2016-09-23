@@ -36,9 +36,4 @@ class TimeTableContents
         $this->periods = $export->periods();
         $this->rows = $export->rows;
     }
-
-    public function showType()
-    {
-        return $this->export->showType;
-    }
 }
