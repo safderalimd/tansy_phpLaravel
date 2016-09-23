@@ -32,6 +32,9 @@ class GridRepository extends Repository
 
         } elseif (strpos($sql, 'call sproc_sch_lkp_main_exam') !== false) {
             return $this->changeKeys($sql, 'exam_entity_id', 'exam');
+
+        } elseif (strpos($sql, 'call sproc_org_lkp_account_type_filter2') !== false) {
+            return $this->changeKeys($sql, 'entity_id', 'drop_down_list_name');
         }
 
         return $this->select($sql);
