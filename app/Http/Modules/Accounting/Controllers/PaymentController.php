@@ -107,7 +107,7 @@ class PaymentController extends Controller
 
         $this->receipt = new ReceiptPrintPDF;
         $this->receipt->setAttribute('report_id', $this->payment->receipt_id);
-        $this->receipt->loadPdfData();
+        $this->receipt->loadPdfDataV1();
 
         $paymentDetail = Payment::details($this->payment->pk);
         $rows = $paymentDetail->rows();
