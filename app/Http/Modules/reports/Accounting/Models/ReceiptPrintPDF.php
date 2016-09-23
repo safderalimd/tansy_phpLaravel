@@ -39,4 +39,9 @@ class ReceiptPrintPDF extends Model
 
         $this->setOwnerOrganizationInfo();
     }
+
+    public function getPdfDataV2()
+    {
+        return $this->repository->receipt($this);
+    }
 }

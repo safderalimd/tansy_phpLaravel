@@ -36,7 +36,6 @@ class ReceiptPrintPDFController extends Controller
     public function reportV2(Request $request)
     {
         $export = new ReceiptPrintPDF($request->input());
-        $export->loadPdfDataV2();
 
         if (Device::isAndroidMobile()) {
             return view('reports.accounting.ReceiptPrint.pdf-v2', compact('export'));

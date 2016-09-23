@@ -112,6 +112,65 @@ class BasePDF extends MulticellTablePDF
 	    $this->Cell(0, 6, $this->contents->reportName, 0, 1, 'C');
 	}
 
+	public function drawSchoolHeaderLargeFont()
+	{
+	    $titleFont = 45;
+	    $this->AddFont('Review', 'B', 'Review.php');
+	    $this->SetFont('Review', 'B', $titleFont);
+
+	    $this->SetTextColor(51, 51, 51);
+	    $titleWidth = $this->GetStringWidth($this->contents->schoolName);
+	    $tableWidth = $this->GetPageWidth()-20;
+	    while ($titleWidth > $tableWidth) {
+	        $titleFont -= 2;
+	        $this->SetFont('Review', 'B', $titleFont);
+	        $titleWidth = $this->GetStringWidth($this->contents->schoolName);
+	    }
+
+	    $this->Ln(2);
+	    $this->Cell(0, 14, $this->contents->schoolName, 0, 1, 'C');
+
+	    // line 2
+	    $this->SetFont('Helvetica', 'B', 12);
+	    if (empty($this->contents->headerSecondLine)) {
+	        $this->Ln(4);
+	    } else {
+	        $this->Cell(0, 4, $this->contents->headerSecondLine, 0, 1, 'C');
+	    }
+	    $this->Ln(2);
+
+	    // line 3
+	    if (empty($this->contents->headerThirdLine)) {
+	        $this->Ln(4);
+	    } else {
+	        $this->Cell(0, 4, $this->contents->headerThirdLine, 0, 1, 'C');
+	    }
+	    $this->Ln(2);
+
+	    $this->SetFont('Helvetica', 'B', 12);
+	    $this->Cell(0, 5, $this->contents->phoneNr, 0, 1, 'C');
+	}
+
+	public function drawCenterLogoWatermark()
+	{
+		$logoWidth = 40;
+		$logo = logo_path();
+
+		$x = ($this->GetPageWidth() - $logoWidth)/2;
+
+		$size = GetImageSize($logo);
+		$width = isset($size[0]) ? $size[0] : 0;
+		$height = isset($size[1]) ? $size[1] : 0;
+		$ratio = $width / $height;
+		$logoHeight = $logoWidth / $ratio;
+
+		$y = ($this->GetPageHeight() - $logoHeight)/2;
+
+		$this->SetAlpha(0.2);
+		$this->Image($logo, $x, $y, $logoWidth);
+		$this->SetAlpha(1);
+	}
+
 	public function drawCenterWatermark()
 	{
 		$fontName = $this->currentFontName;
