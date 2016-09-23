@@ -39,7 +39,7 @@
                     </div>
                 @endif
 
-<form class="form-horizontal" target="_blank" action="{{ form_action_full() }}" id="pay-now-form" method="POST">
+<form class="form-horizontal" action="{{ form_action_full() }}" id="pay-now-form" method="POST">
     {{ csrf_field() }}
 
     <div class="row">
@@ -136,9 +136,9 @@
 
                             <label class="checkbox" style="padding-top:1px;margin-top:-10px;">
                                 @if ($payment->showReceiptOnPayment())
-                                    <input type="checkbox" name="show_receipt_pdf_checkbox" checked="checked">
+                                    <input type="checkbox" id="show_receipt_pdf_checkbox" name="show_receipt_pdf_checkbox" checked="checked">
                                 @else
-                                    <input type="checkbox" name="show_receipt_pdf_checkbox">
+                                    <input type="checkbox" id="show_receipt_pdf_checkbox" name="show_receipt_pdf_checkbox">
                                 @endif
 
                                 <h5 style="margin:2px;"><small>Show Receipt PDF</small></h5>
@@ -177,6 +177,11 @@
     }
 
     $('#pay-now-form').submit(function() {
+        var showPDF = $('#show_receipt_pdf_checkbox').is(':checked');
+        if (showPDF) {
+            $(this).attr('target', '_blank');
+        }
+
         $('#pay-now-btn').prop('disabled', true);
         $('#id_new_balance').val(getNewBalance());
 

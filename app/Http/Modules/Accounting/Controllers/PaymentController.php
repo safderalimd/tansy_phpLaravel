@@ -83,7 +83,7 @@ class PaymentController extends Controller
         $this->sendReceiptSms();
         $this->sendReceiptEmail();
 
-        if ($payment->showReceiptPdf() || $this->showReceiptCheckbox()) {
+        if ($this->showReceiptCheckbox()) {
             if ($payment->showReceiptV1()) {
                 return redirect("/cabinet/pdf---receipt-v1/pdf?id={$payment->receipt_id}");
             } else {
