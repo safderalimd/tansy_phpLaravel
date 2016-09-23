@@ -36,6 +36,7 @@
                         'keyId'    => 'product_component_id',
                         'keyName'  => 'component_name',
                         'none'     => 'Select a product component..',
+                        'required' => true,
                     ])
 
                     @include('commons.select', [
@@ -45,10 +46,11 @@
                         'keyId'    => 'user_id',
                         'keyName'  => 'login_name',
                         'none'     => 'Select an assigned individual..',
+                        'required' => true,
                     ])
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="due_date">Due Date</label>
+                        <label class="col-md-4 required control-label" for="due_date">Due Date</label>
                         <div class="col-md-8">
                             <div class="input-group date">
                                 <input id="due_date" class="form-control" type="text" name="due_date" value="{{ v('due_date') }}" placeholder="Due Date">
@@ -67,6 +69,7 @@
                         'keyId'    => 'issue_status_id',
                         'keyName'  => 'issue_status',
                         'none'     => 'Select a task status..',
+                        'required' => true,
                     ])
 
                     <div class="row grid_footer">
@@ -90,6 +93,19 @@
     $('#crm-issue-task-form').validate({
         rules: {
             task_type_id: {
+                requiredSelect: true
+            },
+            product_component_id: {
+                requiredSelect: true
+            },
+            assigned_individual_entity_id: {
+                requiredSelect: true
+            },
+            due_date: {
+                required: true,
+                dateISO: true
+            },
+            task_status_id: {
                 requiredSelect: true
             }
         }

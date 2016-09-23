@@ -29,7 +29,12 @@ class CRMIssueTaskController extends Controller
         $grid = new Grid('/' . $request->path());
         $grid->setAttribute('f1', $request->input('id'));
         $grid->loadData();
-        return view('grid.list', compact('grid'));
+
+        $options = [
+            'afterGridInclude' => 'modules.crm.CRMIssueTask.after-grid-include',
+        ];
+
+        return view('grid.list', compact('grid', 'options'));
     }
 
     /**

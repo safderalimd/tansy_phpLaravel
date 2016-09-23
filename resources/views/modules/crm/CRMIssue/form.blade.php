@@ -20,7 +20,7 @@
                     {{ csrf_field() }}
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="title">Title</label>
+                        <label class="col-md-4 required control-label" for="title">Title</label>
                         <div class="col-md-8">
                             <input id="title" autocomplete="off" class="form-control" type="text" name="title" value="{{ v('title') }}" placeholder="Title">
                         </div>
@@ -43,6 +43,7 @@
                         'keyId'   => 'issue_type_id',
                         'keyName' => 'issue_type',
                         'none'    => 'Select an issue type..',
+                        'required' => true,
                     ])
 
                     @include('commons.select', [
@@ -52,6 +53,7 @@
                         'keyId'   => 'issue_priority_id',
                         'keyName' => 'issue_priority',
                         'none'    => 'Select a priority..',
+                        'required' => true,
                     ])
 
                     @include('commons.select', [
@@ -61,6 +63,7 @@
                         'keyId'   => 'issue_status_id',
                         'keyName' => 'issue_status',
                         'none'    => 'Select an issue status..',
+                        'required' => true,
                     ])
 
                     @include('commons.select', [
@@ -70,6 +73,7 @@
                         'keyId'   => 'product_entity_id',
                         'keyName' => 'product_name',
                         'none'    => 'Select a product..',
+                        'required' => true,
                     ])
 
                     @include('commons.select', [
@@ -79,6 +83,7 @@
                         'keyId'   => 'product_release_id',
                         'keyName' => 'product_release_name',
                         'none'    => 'Select a product release..',
+                        'required' => true,
                     ])
 
                     @include('commons.select', [
@@ -88,6 +93,7 @@
                         'keyId'   => 'entity_type_id',
                         'keyName' => 'entity_type',
                         'none'    => 'Select an account type..',
+                        'required' => true,
                     ])
 
                     @include('commons.select', [
@@ -99,6 +105,7 @@
                         'data'     => 'entity_type_id',
                         'dataName' => 'entityId',
                         'none'     => 'Select an account..',
+                        'required' => true,
                     ])
 
                     {{-- Created date - system date, always disable --}}
@@ -115,7 +122,7 @@
 
                     @if($issue->isNewRecord())
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="owner_entity_id">Owner</label>
+                            <label class="col-md-4 required control-label" for="owner_entity_id">Owner</label>
                             <div class="col-md-8">
                                 <select autocomplete="off" id="owner_entity_id" class="form-control" name="owner_entity_id">
                                     <option value="none">Select an owner..</option>
@@ -134,11 +141,12 @@
                             'keyId'   => 'user_id',
                             'keyName' => 'login_name',
                             'none'    => 'Select an owner..',
+                            'required' => true,
                         ])
                     @endif
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="issue_due_date">Due Date</label>
+                        <label class="col-md-4 required control-label" for="issue_due_date">Due Date</label>
                         <div class="col-md-8">
                             <div class="input-group date">
                                 <input id="issue_due_date" class="form-control" type="text" name="issue_due_date" value="{{ v('issue_due_date') }}" placeholder="Due Date">
@@ -192,8 +200,39 @@
 
     $('#crm-issue-form').validate({
         rules: {
+            title: {
+                required: true
+            },
             project_entity_id: {
                 requiredSelect: true
+            },
+            issue_type_id: {
+                requiredSelect: true
+            },
+            issue_priority_id: {
+                requiredSelect: true
+            },
+            issue_status_id: {
+                requiredSelect: true
+            },
+            product_entity_id: {
+                requiredSelect: true
+            },
+            product_release_id: {
+                requiredSelect: true
+            },
+            subject_entity_id_filter: {
+                requiredSelect: true
+            },
+            subject_entity_id: {
+                requiredSelect: true
+            },
+            owner_entity_id: {
+                requiredSelect: true
+            },
+            issue_due_date: {
+                required: true,
+                dateISO: true
             }
         }
     });

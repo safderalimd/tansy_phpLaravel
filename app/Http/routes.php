@@ -386,6 +386,7 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     // Route::post('client-visit/edit/{id}', 'CRM\Controllers\ClientVisitController@update');
     // Route::get('client-visit/delete/{id}', 'CRM\Controllers\ClientVisitController@destroy');
 
+    Route::get('crm-issue', 'CRM\Controllers\CRMIssueController@index');
     Route::get('crm-issue/create', 'CRM\Controllers\CRMIssueController@create');
     Route::post('crm-issue/create', 'CRM\Controllers\CRMIssueController@store');
     Route::get('crm-issue/edit/{id}', 'CRM\Controllers\CRMIssueController@edit');

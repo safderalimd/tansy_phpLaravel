@@ -5,6 +5,8 @@ namespace App\Http\Modules\CRM\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\CRM\Models\CRMIssue;
+use App\Http\Models\Grid;
+use Session;
 
 class CRMIssueController extends Controller
 {
@@ -16,6 +18,20 @@ class CRMIssueController extends Controller
     public function __construct()
     {
         $this->middleware('screen:' . CRMIssue::screenId());
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        Session::put('crm-issue-grid-filters', query_string());
+        $grid = new Grid('/' . $request->path());
+        $grid->fill($request->input());
+        $grid->loadData();
+        return view('grid.list', compact('grid'));
     }
 
     /**
