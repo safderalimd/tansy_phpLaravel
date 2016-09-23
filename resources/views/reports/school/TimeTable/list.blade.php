@@ -62,7 +62,7 @@
         return true;
     });
 
-    $('#move-students-form').validate({
+    $('#generate-report-form').validate({
         rules: {
             account_type_entity_id: {
                 requiredSelect: true

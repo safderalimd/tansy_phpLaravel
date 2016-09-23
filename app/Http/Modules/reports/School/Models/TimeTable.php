@@ -37,7 +37,7 @@ class TimeTable extends Model
 
     public function setFilters()
     {
-        foreach ($this->schoolAccountTypeFilter() as $option) {
+        foreach ($this->timeTableFilter() as $option) {
             if ($this->account_entity_id == $option['entity_id']) {
                 $this->dropdownFilter = $option['drop_down_list_name'];
                 break;
