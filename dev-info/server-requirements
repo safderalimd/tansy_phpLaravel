@@ -13,6 +13,8 @@ sudo apt-get install php7.0-mysql
 sudo apt-get install php7.0-mcrypt
 sudo apt-get install php7.0-intl
 
+Enable Extension:
+- extension=php_intl.dll (for receipt v2 number format)
 
 Install postfix for mails:
 https://www.digitalocean.com/community/tutorials/how-to-install-and-setup-postfix-on-ubuntu-14-04
