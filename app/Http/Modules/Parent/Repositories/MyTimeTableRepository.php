@@ -22,6 +22,7 @@ class MyTimeTableRepository extends Repository
         ];
 
         $oparams = [
+            '@oparam_entity_type',
             '@oparam_err_flag',
             '@oparam_err_step',
             '@oparam_err_msg',

@@ -47,6 +47,14 @@ class TimeTable extends Model
         $this->startDateFilter = $this->start_date;
     }
 
+    /**
+     * Show teacher or class type
+     */
+    public function showType()
+    {
+        return $this->entity_type;
+    }
+
     public function weekDays()
     {
         $days = $this->repository->getWeekDays();
