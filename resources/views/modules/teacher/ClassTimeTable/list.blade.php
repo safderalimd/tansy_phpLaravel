@@ -160,12 +160,12 @@
             @if ($timetable->isEnabled())
                 <form class="form-horizontal" action="" method="POST">
                     <div class="form-group">
-                        <label class="col-md-1 control-label" for="class_teacher">Time Table Account</label>
-                        <div class="col-md-2">
+                        <label class="col-md-2 control-label" for="class_teacher">Time Table Account</label>
+                        <div class="col-md-3">
                             <select id="class_teacher" class="form-control" name="cti">
                                 <option value="none">Select an account..</option>
-                                @foreach($timetable->classSubjectTeacher() as $option)
-                                    <option {{ activeSelect($option['individual_entity_id'], 'cti') }} value="{{ $option['individual_entity_id'] }}">{{ $option['teacher_name'] }}</option>
+                                @foreach($timetable->timeTableFilter() as $option)
+                                    <option {{ activeSelect($option['entity_id'], 'cti') }} value="{{ $option['entity_id'] }}">{{ $option['entity_name'] }}</option>
                                 @endforeach
                             </select>
                         </div>

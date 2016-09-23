@@ -57,6 +57,12 @@ class Repository
         return $this->lookup('sproc_sch_lkp_periods');
     }
 
+    public function getTimeTableFilter()
+    {
+        // entity_id, entity_name
+        return $this->lookup('sproc_sch_lkp_time_table_filter');
+    }
+
     public function getWeekDays()
     {
         // week_day_number, week_day, week_day_short_code
