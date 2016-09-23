@@ -64,10 +64,10 @@
 
     $('#generate-report-form').validate({
         rules: {
-            account_type_entity_id: {
+            aei: {
                 requiredSelect: true
             },
-            start_date: {
+            dt: {
                 required: true
             }
         }
