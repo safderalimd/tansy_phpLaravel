@@ -173,6 +173,11 @@ function current_time()
     return date('h:i A');
 }
 
+function current_datetime()
+{
+    return date('M jS, Y H:i');
+}
+
 function current_system_date()
 {
     return date('Y-m-d');

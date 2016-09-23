@@ -12,6 +12,12 @@ class ReceiptPrint extends Model
 
     public function receiptGrid()
     {
-        return $this->repository->getReceiptGrid($this->account_entity_id);
+        $data = $this->repository->receiptsGrid($this);
+        return first_resultset($data);
+    }
+
+    public function version()
+    {
+        return $this->receipt_version;
     }
 }

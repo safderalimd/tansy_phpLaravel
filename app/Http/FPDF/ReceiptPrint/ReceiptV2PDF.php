@@ -11,14 +11,16 @@ class ReceiptV2PDF extends BasePDF
     {
         $this->setContents(new ReceiptV2Contents($export));
         $this->SetTitle($this->contents->reportName);
-        // $this->showPagination();
         $this->AddPage();
         $this->drawGrid();
         $this->drawSchoolHeaderLargeFont();
-
         $this->drawReceiptContents();
+        $this->drawReceiptPrintDate();
 
-        $this->drawCenterLogoWatermark();
+        $endY = $this->getY();
+        $this->Rect(10, 10, $this->GetPageWidth()-20, $endY-10+1, 'D');
+
+        $this->drawCenterLogoWatermark(0, -65);
         $this->show();
     }
 
@@ -27,7 +29,7 @@ class ReceiptV2PDF extends BasePDF
         $this->SetDrawColor(221, 221, 221);
         $this->SetFillColor(245, 245, 245);
         $this->Rect(10, 10, $this->GetPageWidth()-20, 36, 'F');
-        $this->Rect(10, 10, $this->GetPageWidth()-20, $this->GetPageHeight()-50, 'D');
+        // $this->Rect(10, 10, $this->GetPageWidth()-20, $this->GetPageHeight()-50, 'D');
         $this->Line(10, 46, $this->GetPageWidth()-10, 46);
     }
 
@@ -58,19 +60,44 @@ class ReceiptV2PDF extends BasePDF
         $this->CellWidthAuto(10, 'For Payment Of: ');
         $this->MultiCell(0, 10, '', 0, 'L');
 
+        $rowY = $this->getY();
+        $this->fontType('');
+        foreach ($this->contents->details as $row) {
+            $productName = isset($row['product_name']) ? $row['product_name'] : '-';
+            $productAmount = isset($row['product_credit_amount']) ? $row['product_credit_amount'] : '-';
+            $this->setXY(40, $rowY);
+            $this->MultiCell(50, 10, $productName, 0, 'L');
+            $y1 = $this->getY();
+
+            $this->setXY(90, $rowY);
+            $this->MultiCell(50, 10, amount($productAmount), 0, 'L');
+            $y2 = $this->getY();
+            $rowY = max($y1, $y2);
+        }
+
         $currentY = $this->getY();
-        $this->Ln(1); $this->setX(12);
+        $this->Ln(3); $this->setX(12);
         $this->fontType('B');
         $this->CellWidthAuto(10, 'Received By: ');
         $this->fontType('');
         $this->MultiCell(50, 10, $this->contents->receivedBy, 0, 'L');
 
-        $this->setXY(105, $currentY);
+        $this->setXY(105, $currentY+5);
         $this->Cell(45, 10, 'This Payment', 1, 0, 'C');
         $this->Cell(45, 10, $this->contents->thisPayment.' ', 1, 1, 'R');
         $this->setX(105);
         $this->Cell(45, 10, 'Academic Due', 1, 0, 'C');
         $this->Cell(45, 10, $this->contents->academicDue.' ', 1, 1, 'R');
+    }
+
+    public function drawReceiptPrintDate()
+    {
+        $this->Ln(2);
+        $this->setX(12);
+        $this->fontType('');
+        $this->font(8);
+        $this->SetTextColor(51, 51, 51);
+        $this->Cell(0, 6, 'Receipt Print Time: '.current_datetime(), 0, 1, 'L');
     }
 }
 

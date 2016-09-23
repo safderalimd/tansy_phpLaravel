@@ -151,7 +151,7 @@ class BasePDF extends MulticellTablePDF
 	    $this->Cell(0, 5, $this->contents->phoneNr, 0, 1, 'C');
 	}
 
-	public function drawCenterLogoWatermark()
+	public function drawCenterLogoWatermark($xOffset = 0, $yOffset = 0)
 	{
 		$logoWidth = 40;
 		$logo = logo_path();
@@ -167,7 +167,7 @@ class BasePDF extends MulticellTablePDF
 		$y = ($this->GetPageHeight() - $logoHeight)/2;
 
 		$this->SetAlpha(0.2);
-		$this->Image($logo, $x, $y, $logoWidth);
+		$this->Image($logo, $x+$xOffset, $y+$yOffset, $logoWidth);
 		$this->SetAlpha(1);
 	}
 
@@ -215,6 +215,10 @@ class BasePDF extends MulticellTablePDF
 
 	public function Footer()
 	{
+		if (!$this->_showPagination) {
+			return;
+		}
+
 	    // Position at 1.5 cm from bottom
 	    $this->SetY(-15);
 

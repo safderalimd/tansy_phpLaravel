@@ -13,6 +13,8 @@ class ReceiptV2Contents
     public $phoneNr = '';
     public $reportName = '';
 
+    public $details = [];
+
     public $headerSecondLine = '';
     public $headerThirdLine = '';
 
@@ -31,7 +33,9 @@ class ReceiptV2Contents
         $data = $this->export->getPdfDataV2();
 
         $details = first_resultset($data);
+        $this->details = $details;
         $details = isset($details[0]) ? $details[0] : [];
+
         $amounts = second_resultset($data);
         $amounts = isset($amounts[0]) ? $amounts[0] : [];
         $org = third_resultset($data);

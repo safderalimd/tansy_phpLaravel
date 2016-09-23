@@ -31,7 +31,11 @@
                 <td>{{style_date($item['receipt_date'])}}</td>
                 <td>&#x20b9; {{amount($item['receipt_amount'])}}</td>
                 <td>
-                    <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---receipt-v1/pdf?id={$item['receipt_id']}")}}" title="Print PDF">Print PDF</a>
+                    @if ($receipt->version() == 'V-0002')
+                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---receipt-v2/pdf?id={$item['receipt_id']}")}}" title="Print PDF">Print PDF</a>
+                    @else
+                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---receipt-v1/pdf?id={$item['receipt_id']}")}}" title="Print PDF">Print PDF</a>
+                    @endif
                 </td>
             </tr>
             @endforeach

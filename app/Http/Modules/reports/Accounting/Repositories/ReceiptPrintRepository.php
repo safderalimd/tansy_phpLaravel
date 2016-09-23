@@ -28,22 +28,27 @@ class ReceiptPrintRepository extends Repository
         return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 
-    public function getReceiptGrid($id)
+    public function receiptsGrid($model)
     {
-        return $this->select(
-            'SELECT
-                receipt_id,
-                receipt_number,
-                receipt_date,
-                receipt_amount,
-                new_balance,
-                account_name,
-                mobile_phone,
-                account_entity_id
-            FROM view_act_rcv_receipt_grid
-            WHERE account_entity_id = :id
-            ORDER BY account_name ASC;', ['id' => $id]
-        );
+        $procedure = 'sproc_act_rcv_receipt_grid';
+
+        $iparams = [
+            ':iparam_account_entity_id',
+            ':iparam_session_id',
+            ':iparam_user_id',
+            ':iparam_screen_id',
+            ':iparam_debug_sproc',
+            ':iparam_audit_screen_visit',
+        ];
+
+        $oparams = [
+            '@oparam_receipt_version',
+            '@oparam_err_flag',
+            '@oparam_err_step',
+            '@oparam_err_msg',
+        ];
+
+        return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 
     public function getReceiptHeader($id)
