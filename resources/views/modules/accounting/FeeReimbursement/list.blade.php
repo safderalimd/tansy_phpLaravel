@@ -80,7 +80,7 @@
                             <input disabled="disabled" data-rule-required="true" data-rule-number="true" data-rule-min="0" data-aei="{{$item['account_entity_id']}}" data-sei="{{$item['schedule_entity_id']}}" data-dateid="{{$item['date_id']}}" data-totalamount="{{$item['total_amount']}}" data-balance="{{$item['due_amount']}}" type="text" name="{{$i++}}reinbursement-amount" class="reinbursement-amount form-control paidAmountValidation">
                         </td>
                         <td>
-                            <input disabled="disabled" data-rule-number="true" data-rule-min="0" type="text" name="{{$i}}receipt-number" class="receipt-number form-control">
+                            <input disabled="disabled" type="text" name="{{$i}}receipt-number" class="receipt-number form-control">
                         </td>
                         <td>
                             <div class="input-group date">
@@ -209,7 +209,11 @@
             }
 
             var receiptNumber = $(this).closest('tr').find('.receipt-number').val();
-            if (receiptNumber !== 0 && !receiptNumber) {
+            if (typeof receiptNumber == 'string') {
+                if (receiptNumber.length == 0) {
+                    receiptNumber = 'null';
+                }
+            } else {
                 receiptNumber = 'null';
             }
 
