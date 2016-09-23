@@ -63,6 +63,6 @@ class ReceiptV2Contents
         $this->receivedBy = isset($details['received_by']) ? $details['received_by'] : '-';
 
         $this->thisPayment = isset($details['receipt_amount']) ? amount($details['receipt_amount']) : '-';
-        $this->academicDue = isset($amounts['due_amount']) ? amount($amounts['due_amount']) : '-';
+        $this->academicDue = isset($amounts['due_amount']) ? amount($amounts['due_amount']) : '0';
     }
 }

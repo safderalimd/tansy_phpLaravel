@@ -39,7 +39,7 @@
                     </div>
                 @endif
 
-<form class="form-horizontal" action="{{ form_action_full() }}" id="pay-now-form" method="POST">
+<form class="form-horizontal" target="_blank" action="{{ form_action_full() }}" id="pay-now-form" method="POST">
     {{ csrf_field() }}
 
     <div class="row">
