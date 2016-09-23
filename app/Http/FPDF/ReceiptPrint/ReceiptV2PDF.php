@@ -45,19 +45,19 @@ class ReceiptV2PDF extends BasePDF
 
         $this->Ln(1); $this->setX(12);
         $this->fontType('B');
-        $this->CellWidthAuto(10, 'Received From: ');
+        $this->Cell(40, 10, 'Received From: ', 0, 0, 'R');
         $this->fontType('');
         $this->MultiCell(0, 10, $this->contents->receivedFrom, 0, 'L');
 
         $this->Ln(1); $this->setX(12);
         $this->fontType('B');
-        $this->CellWidthAuto(10, 'Amount: ');
+        $this->Cell(40, 10, 'Amount: ', 0, 0, 'R');
         $this->fontType('');
         $this->MultiCell(0, 10, $this->contents->receiptAmount, 0, 'L');
 
         $this->Ln(1); $this->setX(12);
         $this->fontType('B');
-        $this->CellWidthAuto(10, 'For Payment Of: ');
+        $this->Cell(40, 10, 'For Payment Of: ', 0, 0, 'R');
         $this->MultiCell(0, 10, '', 0, 'L');
 
         $rowY = $this->getY();
@@ -65,12 +65,12 @@ class ReceiptV2PDF extends BasePDF
         foreach ($this->contents->details as $row) {
             $productName = isset($row['product_name']) ? $row['product_name'] : '-';
             $productAmount = isset($row['product_credit_amount']) ? $row['product_credit_amount'] : '-';
-            $this->setXY(40, $rowY);
-            $this->MultiCell(50, 10, $productName, 0, 'L');
+            $this->setXY(52, $rowY);
+            $this->MultiCell(105, 10, $productName, 0, 'L');
             $y1 = $this->getY();
 
-            $this->setXY(90, $rowY);
-            $this->MultiCell(50, 10, amount($productAmount), 0, 'L');
+            $this->setXY(157, $rowY);
+            $this->MultiCell(38, 10, amount($productAmount).' ', 0, 'R');
             $y2 = $this->getY();
             $rowY = max($y1, $y2);
         }
@@ -78,9 +78,9 @@ class ReceiptV2PDF extends BasePDF
         $currentY = $this->getY();
         $this->Ln(3); $this->setX(12);
         $this->fontType('B');
-        $this->CellWidthAuto(10, 'Received By: ');
+        $this->Cell(40, 10, 'Received By: ', 0, 0, 'R');
         $this->fontType('');
-        $this->MultiCell(50, 10, $this->contents->receivedBy, 0, 'L');
+        $this->MultiCell(40, 10, $this->contents->receivedBy, 0, 'L');
 
         $this->setXY(105, $currentY+5);
         $this->Cell(45, 10, 'This Payment', 1, 0, 'C');
