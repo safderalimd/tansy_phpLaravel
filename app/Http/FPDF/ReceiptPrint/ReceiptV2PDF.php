@@ -78,7 +78,8 @@ class ReceiptV2PDF extends BasePDF
         }
 
         $currentY = $this->getY();
-        $this->Ln(3); $this->setX(12);
+
+        $this->setXY(12, $currentY+15);
         $this->fontType('B');
         $this->Cell(40, 10, 'Received By: ', 0, 0, 'R');
         $this->fontType('');
