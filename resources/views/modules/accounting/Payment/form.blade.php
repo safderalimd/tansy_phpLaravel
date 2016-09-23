@@ -187,6 +187,10 @@
 
         $('#id_total_paid_amount').val(getPaidAmount());
 
+        setTimeout(function() {
+            window.location.href = ('/cabinet/payment-v1?ak={{$accountKey}}&rt={{$rowType}}');
+        }, 100);
+
         return true;
     });
 
