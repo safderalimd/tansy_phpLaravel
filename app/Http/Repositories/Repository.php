@@ -338,7 +338,7 @@ class Repository
 
     public function getAccountTypeFilter()
     {
-        // row_type, entity_id, drop_down_list_name, sequence_id, reporting_order
+        // row_type, entity_id, drop_down_list_name
         return $this->lookup('sproc_org_lkp_account_type_filter2');
     }
 
