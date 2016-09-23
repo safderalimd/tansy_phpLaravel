@@ -197,9 +197,11 @@
 
         $('#id_total_paid_amount').val(getPaidAmount());
 
-        setTimeout(function() {
-            window.location.href = ('/cabinet/payment-v1?ak={{queryStringValue('ak')}}&rt={{queryStringValue('rt')}}');
-        }, 100);
+        if (showPDF) {
+            setTimeout(function() {
+                window.location.href = ('/cabinet/payment-v1?ak={{queryStringValue('ak')}}&rt={{queryStringValue('rt')}}');
+            }, 100);
+        }
 
         return true;
     });
