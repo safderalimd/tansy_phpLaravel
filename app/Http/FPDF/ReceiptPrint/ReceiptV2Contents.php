@@ -57,7 +57,7 @@ class ReceiptV2Contents
         if ($this->receiptAmount != '-') {
             $f = new NumberFormatter("en", NumberFormatter::SPELLOUT);
             $this->receiptAmount = $f->format($this->receiptAmount);
-            $this->receiptAmount = ucfirst($this->receiptAmount);
+            $this->receiptAmount = ucfirst($this->receiptAmount) . ' rupees only';
         }
 
         $this->receivedBy = isset($details['received_by']) ? $details['received_by'] : '-';

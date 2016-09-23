@@ -51,10 +51,12 @@ class ReceiptV2PDF extends BasePDF
 
         $this->Ln(1); $this->setX(12);
         $this->fontType('B');
+        $this->font(10);
         $this->Cell(40, 10, 'Amount: ', 0, 0, 'R');
         $this->fontType('');
         $this->MultiCell(0, 10, $this->contents->receiptAmount, 0, 'L');
 
+        $this->font(12);
         $this->Ln(1); $this->setX(12);
         $this->fontType('B');
         $this->Cell(40, 10, 'For Payment Of: ', 0, 0, 'R');
