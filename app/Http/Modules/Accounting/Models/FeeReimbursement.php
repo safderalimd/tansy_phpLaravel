@@ -28,7 +28,7 @@ class FeeReimbursement extends Model
 
     public function setAeiAttribute($value)
     {
-        $this->setAttribute('account_types_entity_id', $value);
+        $this->setAttribute('subject_entity_id', $value);
         return $value;
     }
 
@@ -39,7 +39,6 @@ class FeeReimbursement extends Model
         }
 
         $this->setAttribute('return_type', 'Reimbursement');
-        $this->setAttribute('subject_entity_id', 0);
         return $this->repository->getAllReimbursements($this);
     }
 
