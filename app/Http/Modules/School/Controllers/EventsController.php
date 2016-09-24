@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\School\Models\Events;
 use App\Http\Modules\School\Requests\EventsFormRequest;
+use Carbon\Carbon;
 
 class EventsController extends Controller
 {
@@ -26,9 +27,11 @@ class EventsController extends Controller
      */
     public function index(Request $request)
     {
+
         if (is_null($request->input('st')) && is_null($request->input('en'))) {
-            $date = current_system_date();
-            return redirect('/cabinet/events?st='.$date.'&en='.$date);
+            $start = Carbon::now()->subDays(7)->toDateString();
+            $end = Carbon::now()->addDays(1)->toDateString();
+            return redirect('/cabinet/events?st='.$start.'&en='.$end);
         }
 
         $events = new Events($request->input());

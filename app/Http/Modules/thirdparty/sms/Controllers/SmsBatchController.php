@@ -5,6 +5,7 @@ namespace App\Http\Modules\thirdparty\sms\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Models\Grid;
+use Carbon\Carbon;
 
 class SmsBatchController extends Controller
 {
@@ -22,8 +23,9 @@ class SmsBatchController extends Controller
     public function smsBatch(Request $request)
     {
         if (is_null($request->input('f1')) && is_null($request->input('f2'))) {
-            $date = current_system_date();
-            return redirect('/cabinet/sms-batch?f1='.$date.'&f2='.$date);
+            $start = Carbon::now()->subDays(7)->toDateString();
+            $end = Carbon::now()->addDays(1)->toDateString();
+            return redirect('/cabinet/sms-batch?f1='.$start.'&f2='.$end);
         }
 
         $grid = new Grid('/' . $request->path());
