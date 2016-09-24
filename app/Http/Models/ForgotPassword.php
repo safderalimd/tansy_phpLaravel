@@ -94,7 +94,7 @@ class ForgotPassword extends Model
         // return "Dear Customer, we have received a request to reset your password for user name {$name} on {$startTime}. Your OTP will be valid for next 10mins and your OTP is {$otp}.";
         // return "OTP is {$otp}. Valid for 10min from {$startTime}. User: {$name}.";
 
-        return "your requested otp from tansyCloud is {$otp}";
+        return "YOUR REQUESTED OTP FROM TANSYCLOUD IS {$otp}";
     }
 
     public function getOPTStartTimeFormatted()
@@ -197,6 +197,6 @@ class ForgotPassword extends Model
      */
     public function generateOTPCode()
     {
-        return Str::quickRandom(8);
+        return strtoupper(Str::quickRandom(8));
     }
 }

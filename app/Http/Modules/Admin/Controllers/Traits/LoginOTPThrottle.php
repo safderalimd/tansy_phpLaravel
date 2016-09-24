@@ -43,7 +43,7 @@ trait LoginOTPThrottle
         $otp = $this->getOPTCode();
         // return "Dear Customer, we have received a request to login for user name {$name} on {$startTime}. Your OTP will be valid for next 10mins and your OTP is {$otp}.";
         // return "Login OTP is {$otp} for {$name}. Sent at {$startTime}.";
-        return "your requested otp from tansyCloud is {$otp}";
+        return "YOUR REQUESTED OTP FROM TANSYCLOUD IS {$otp}";
     }
 
     /**
@@ -95,7 +95,7 @@ trait LoginOTPThrottle
      */
     protected function generateOTPCode()
     {
-        return Str::quickRandom(8);
+        return strtoupper(Str::quickRandom(8));
     }
 
     /**
