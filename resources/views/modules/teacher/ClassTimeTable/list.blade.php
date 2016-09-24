@@ -157,7 +157,6 @@
 
 
             @if ($timetable->isEnabled())
-                <br/>
                 <hr/>
                 <div class="row"><div class="col-md-3 pull-left"><h3 style="margin-top:0px;">Verify Time Table</h3></div></div>
 
