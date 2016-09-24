@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\Accounting\Models\AccountStatement;
 use App\Http\Modules\reports\Accounting\Requests\AccountStatementFormRequest;
-use App\Http\PdfGenerator\Pdf;
+use App\Http\FPDF\AccountStatement\AccountStatementPDF;
+use Device;
 
 class AccountStatementController extends Controller
 {
@@ -43,7 +44,11 @@ class AccountStatementController extends Controller
     {
         $export = new AccountStatement($request->input());
         $export->loadPdfData();
-        $view = view('reports.accounting.AccountStatement.pdf', compact('export'));
-        return Pdf::render($view);
+
+        if (Device::isAndroidMobile()) {
+            return view('reports.accounting.AccountStatement.pdf', compact('export'));
+        } else {
+            AccountStatementPDF::portrait()->generate($export);
+        }
     }
 }
