@@ -229,6 +229,8 @@
                                                         <td>
                                                             @if (isset($subject[$type]))
                                                                 {{$subject[$type]}}
+                                                            @else
+                                                                AB
                                                             @endif
                                                         </td>
                                                     @endforeach

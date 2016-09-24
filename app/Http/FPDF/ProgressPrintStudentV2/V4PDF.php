@@ -149,7 +149,7 @@ class V4PDF extends BasePDF
 
             $this->SetFont('Helvetica', '');
             foreach($this->contents->examTypes() as $type) {
-                $subjectType = isset($subject[$type]) ? $subject[$type] : '';
+                $subjectType = isset($subject[$type]) ? $subject[$type] : 'AB';
                 $this->Cell($width, $height, $subjectType, 1, 0, 'C', $fill);
             }
 
