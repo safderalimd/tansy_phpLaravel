@@ -27,6 +27,7 @@ class AccountStatementPDF extends BasePDF
 
     public function drawAccountDetails()
     {
+        $this->Ln(3);
         $this->SetFont('Helvetica', '', 12);
         $this->CellWidthAuto(6, 'Student Name: ' . $this->contents->studentName);
         $this->Cell(0, 6, 'Class: ' . $this->contents->className, 0, 1, 'R');
@@ -37,7 +38,7 @@ class AccountStatementPDF extends BasePDF
 
     public function drawAccountStatementTable()
     {
-        $this->Ln(5);
+        $this->Ln(3);
         $this->font(12); $this->fontType('B');
 
         $this->setRowMultiCellHeight(10);
