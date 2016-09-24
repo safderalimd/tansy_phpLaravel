@@ -5,8 +5,9 @@ namespace App\Http\Modules\reports\School\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\School\Models\StudentDetail;
-use App\Http\PdfGenerator\Pdf;
 use App\Http\Models\Grid;
+use App\Http\FPDF\Grid\GridPDF;
+use Device;
 
 class StudentDetailController extends Controller
 {
@@ -47,16 +48,14 @@ class StudentDetailController extends Controller
             $grid = new Grid($export->getScreenIdProperty());
             $grid->fill($request->input());
             $grid->loadData();
-            $grid->setSchoolNameAndPhone();
             $grid->removeUnsetColumns($export);
 
-            $options = ['isPdf' => true];
-            $view = view('grid.PDF.pdf', compact('grid', 'options'));
-            $columns = $grid->columns();
-            if (count($columns) > 8) {
-                return Pdf::renderLandscape($view);
+            if (Device::isAndroidMobile()) {
+                $options = ['isPdf' => true];
+                return view('grid.PDF.pdf', compact('grid', 'options'));
             } else {
-                return Pdf::render($view);
+                $pdf = (count($grid->columns()) > 4) ? GridPDF::landscape() : GridPDF::portrait();
+                $pdf->generate($grid);
             }
 
         } else {

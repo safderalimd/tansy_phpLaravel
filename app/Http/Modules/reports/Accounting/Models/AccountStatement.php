@@ -9,6 +9,8 @@ class AccountStatement extends Model
 {
     protected $screenId = '/cabinet/pdf---account-statement';
 
+    protected $repositoryNamespace = 'App\Http\Modules\reports\Accounting\Repositories\AccountStatementRepository';
+
     public $reportName = 'Account Statement';
 
     use OwnerOrganization;
@@ -18,8 +20,6 @@ class AccountStatement extends Model
     public $schoolWorkPhone = '-';
 
     public $pdfData;
-
-    protected $repositoryNamespace = 'App\Http\Modules\reports\Accounting\Repositories\AccountStatementRepository';
 
     public function setSiAttribute($value)
     {

@@ -41,5 +41,7 @@ class GridContents
             }
             return '-';
         }
+
+        return false;
     }
 }

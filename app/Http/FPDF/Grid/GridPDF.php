@@ -31,10 +31,12 @@ class GridPDF extends BasePDF
             $filterLabel = $filter->label();
             $filterValue = $this->contents->getFilterValue($filter);
 
-            $this->CellWidthAuto(6, $filterLabel . ': ');
-            $this->fontType('B');
-            $this->Cell(0, 6, $filterValue, 0, 1, 'L');
-            $this->fontType('');
+            if ($filterValue !== false) {
+                $this->CellWidthAuto(6, $filterLabel . ': ');
+                $this->fontType('B');
+                $this->Cell(0, 6, $filterValue, 0, 1, 'L');
+                $this->fontType('');
+            }
         }
     }
 
@@ -52,6 +54,14 @@ class GridPDF extends BasePDF
         }
         foreach ($columns as $column) {
             $headerRow[] = $column->label();
+        }
+
+        $rowFontSize = 11;
+        if (count($headerRow) > 7) {
+            $rowFontSize = 10;
+        }
+        if (count($headerRow) > 10) {
+            $rowFontSize = 8;
         }
 
         // build rows
@@ -91,7 +101,7 @@ class GridPDF extends BasePDF
         }
 
         $options = [
-            'rowFontSize' => 11,
+            'rowFontSize' => $rowFontSize,
             'multicellHeight' => 7,
         ];
         $this->drawDynamicTable($headerRow, $tableRows, $options);

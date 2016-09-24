@@ -44,7 +44,8 @@ class GridController extends Controller
         $grid->loadData();
 
         if (Device::isAndroidMobile()) {
-            return view('grid.PDF.pdf', compact('grid'));
+            $options = ['isPdf' => true];
+            return view('grid.PDF.pdf', compact('grid', 'options'));
         } else {
             $pdf = (count($grid->columns()) > 4) ? GridPDF::landscape() : GridPDF::portrait();
             $pdf->generate($grid);
