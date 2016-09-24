@@ -155,9 +155,12 @@
             </form>
             @endif
 
-            <br/>
 
             @if ($timetable->isEnabled())
+                <br/>
+                <hr/>
+                <div class="row"><div class="col-md-3 pull-left"><h3 style="margin-top:0px;">Verify Time Table</h3></div></div>
+
                 <form class="form-horizontal" action="" method="POST">
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="class_teacher">Time Table Account</label>

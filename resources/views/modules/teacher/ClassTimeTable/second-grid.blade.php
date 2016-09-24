@@ -33,9 +33,11 @@
                                 $weekDay = isset($day['week_day']) ? $day['week_day'] : '';
                                 $subject = $timetable->findSubject($teacherRows, $periodName, $weekDay);
                                 $className = isset($subject['class_name']) ? $subject['class_name'] : '';
+                                $shortCode = isset($subject['subject_short_code']) ? $subject['subject_short_code'] : '';
+                                $cellText = ($timetable->showType() == 'Class') ? $shortCode : $className;
                             ?>
                             <td class="text-center verify-timetable-cell">
-                                {{$className}}
+                                {{$cellText}}
                             </td>
                         @else
                             <td></td>
