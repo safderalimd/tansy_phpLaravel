@@ -96,4 +96,12 @@ class ClassTimeTable extends Model
             return true;
         });
     }
+
+    /**
+     * Show teacher or class type
+     */
+    public function showType()
+    {
+        return $this->entity_type;
+    }
 }
