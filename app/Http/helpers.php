@@ -521,9 +521,10 @@ function force_login_otp()
     return session()->get('user.forceLoginOTPCode');
 }
 
-function generate_otp_code($length = 16)
+function generate_otp_code($length = 8)
 {
     $pool = '123456789abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ';
     $string = str_shuffle(str_repeat($pool, $length));
-    return mb_substr($string, 0, $length, 'UTF-8');
+    $otp = mb_substr($string, 0, $length, 'UTF-8');
+    return strtoupper($otp);
 }
