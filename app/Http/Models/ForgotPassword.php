@@ -197,6 +197,6 @@ class ForgotPassword extends Model
      */
     public function generateOTPCode()
     {
-        return strtoupper(Str::quickRandom(8));
+        return generate_otp_code();
     }
 }
