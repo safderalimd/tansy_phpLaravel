@@ -29,6 +29,7 @@ class BasePDF extends MulticellTablePDF
 		$this->SetDrawColor(221, 221, 221);
 		$this->SetFillColor(245, 245, 245);
 		$this->updateFontSettings();
+		$this->addCurrencyFont();
 	}
 
 	public function font($size)
@@ -110,6 +111,57 @@ class BasePDF extends MulticellTablePDF
 	    $this->setY(14 + $logoHeight);
 	    $this->SetFont('Helvetica', 'B', 15);
 	    $this->Cell(0, 6, $this->contents->reportName, 0, 1, 'C');
+	}
+
+	public function addCurrencyFont()
+	{
+		$this->AddFont('Rupee_Foradian', '', 'Rupee_Foradian.php');
+	}
+
+	public function CellAmount($width, $height, $text, $border, $nextLine, $align)
+	{
+		$strWidth = $this->GetStringWidth($text);
+
+		// set the rupee symbol font
+		$this->SetFont('Rupee_Foradian', '', $this->currentFontSize);
+
+		$originalX = $this->getX();
+		$originalY = $this->getY();
+
+		// draw the rupee symbol
+		if ($align == 'R') {
+			$this->setX($originalX+$width-$strWidth-5);
+			$this->Cell($width, $height, '`', 0, 0, 'L');
+		}
+
+		// reset the font after the rupee symbol
+		$this->updateFontSettings();
+
+		$this->setXY($originalX, $originalY);
+		$this->Cell($width, $height, ' '.$text, $border, $nextLine, $align);
+	}
+
+	public function MultiCellAmount($width, $height, $text, $border, $align)
+	{
+		$strWidth = $this->GetStringWidth($text);
+
+		// set the rupee symbol font
+		$this->SetFont('Rupee_Foradian', '', $this->currentFontSize);
+
+		$originalX = $this->getX();
+		$originalY = $this->getY();
+
+		// draw the rupee symbol
+		if ($align == 'R') {
+			$this->setX($originalX+$width-$strWidth-5);
+			$this->Cell($width, $height, '`', 0, 0, 'L');
+		}
+
+		// reset the font after the rupee symbol
+		$this->updateFontSettings();
+
+		$this->setXY($originalX, $originalY);
+		$this->MultiCell($width, $height, ' '.$text, $border, $align);
 	}
 
 	public function drawSchoolHeaderLargeFont()

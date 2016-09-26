@@ -70,9 +70,8 @@ class ReceiptV2PDF extends BasePDF
             $this->setXY(52, $rowY);
             $this->MultiCell(105, 10, $productName, 0, 'L');
             $y1 = $this->getY();
-
             $this->setXY(157, $rowY);
-            $this->MultiCell(38, 10, $productAmount.' ', 0, 'R');
+            $this->MultiCellAmount(38, 10, $productAmount.' ', 0, 'R');
             $y2 = $this->getY();
             $rowY = max($y1, $y2);
         }
@@ -87,10 +86,10 @@ class ReceiptV2PDF extends BasePDF
 
         $this->setXY(105, $currentY+5);
         $this->Cell(45, 10, 'This Payment', 1, 0, 'C');
-        $this->Cell(45, 10, $this->contents->thisPayment.' ', 1, 1, 'R');
+        $this->CellAmount(45, 10, $this->contents->thisPayment.' ', 1, 1, 'R');
         $this->setX(105);
         $this->Cell(45, 10, 'Academic Due', 1, 0, 'C');
-        $this->Cell(45, 10, $this->contents->academicDue.' ', 1, 1, 'R');
+        $this->CellAmount(45, 10, $this->contents->academicDue.' ', 1, 1, 'R');
     }
 
     public function drawReceiptPrintDate()
