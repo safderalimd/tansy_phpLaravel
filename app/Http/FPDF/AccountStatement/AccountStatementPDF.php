@@ -45,6 +45,8 @@ class AccountStatementPDF extends BasePDF
         $headerRow = ['Receipt Number', 'Receipt Date', 'Receipt Amount', 'New Balance', 'Financial Year Balance'];
         $this->Row($headerRow);
 
+        $this->setCurrencyColumns([false, false, true, true, true]);
+
         $this->fontType('');
         $fill = true;
         foreach ($this->contents->export->pdfData as $item) {
@@ -59,6 +61,7 @@ class AccountStatementPDF extends BasePDF
             $this->Row($row);
             $fill = !$fill;
         }
+        $this->resetCurrencyColumns();
     }
 }
 
