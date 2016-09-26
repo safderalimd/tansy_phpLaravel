@@ -32,6 +32,7 @@ class FeeDueReportPDF extends BasePDF
     {
         // build header row
         $headerRow = ['Class', 'Student Name', 'Parent Name', 'Mobile Phone', 'Due Amount'];
+        $this->setCurrencyColumns([false, false, false, false, true]);
 
         // build rows
         $tableRows = [];
@@ -53,6 +54,7 @@ class FeeDueReportPDF extends BasePDF
         ];
 
         $this->drawDynamicTable($headerRow, $tableRows, $options);
+        $this->resetCurrencyColumns();
     }
 }
 

@@ -20,6 +20,8 @@ class MulticellTablePDF extends AlphaPDF
 
     protected $_currencyColumns;
 
+    protected $_isDrawingDynamicTableHeader = false;
+
     public function setRowMultiCellHeight($height)
     {
         $this->rowMultiCellHeight = $height;
@@ -59,6 +61,10 @@ class MulticellTablePDF extends AlphaPDF
 
     public function showCurrencyAmount($i)
     {
+        if ($this->_isDrawingDynamicTableHeader == true) {
+            return false;
+        }
+
         if (! isset($this->_currencyColumns[$i])) {
             return false;
         }
@@ -283,9 +289,11 @@ class MulticellTablePDF extends AlphaPDF
     {
         $options = $this->_dynamicTableOptions;
 
+        $this->_isDrawingDynamicTableHeader = true;
         $this->font($options['rowFontSize']); $this->fontType($options['headerFontType']);
         $this->Row($this->_dynamicTableHeaderRow);
         $this->fontType($options['rowFontType']);
+        $this->_isDrawingDynamicTableHeader = false;
     }
 
     public function isEmpty($cell)

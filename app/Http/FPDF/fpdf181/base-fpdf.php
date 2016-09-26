@@ -157,6 +157,11 @@ class BasePDF extends MulticellTablePDF
 			$endX = ($width == 0) ? $this->GetPageWidth()-10 : $originalX+$width;
 			$this->setX($endX-$strWidth-5);
 			$this->Cell($width, $height, '`', 0, 0, 'L');
+		} elseif ($align == 'C') {
+			$cellWidth = ($width == 0) ? ($this->GetPageWidth()-10-$originalX) : $width;
+			$startX = $originalX + ($cellWidth - $strWidth)/2 - 4;
+			$this->setX($startX);
+			$this->Cell($width, $height, '`', 0, 0, 'L');
 		}
 
 		// reset the font after the rupee symbol
