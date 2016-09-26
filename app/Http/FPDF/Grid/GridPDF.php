@@ -46,6 +46,7 @@ class GridPDF extends BasePDF
         $grid = $this->contents->grid;
         $columns = $grid->columns();
         $rowIndex = 1;
+        $currencyColumns = [];
 
         // build header row
         $headerRow = [];
@@ -54,6 +55,11 @@ class GridPDF extends BasePDF
         }
         foreach ($columns as $column) {
             $headerRow[] = $column->label();
+            if ($column->hasCurrencyFormat()) {
+                $currencyColumns[] = true;
+            } else {
+                $currencyColumns[] = false;
+            }
         }
 
         $rowFontSize = 11;
@@ -104,7 +110,9 @@ class GridPDF extends BasePDF
             'rowFontSize' => $rowFontSize,
             'multicellHeight' => 7,
         ];
+        $this->setCurrencyColumns($currencyColumns);
         $this->drawDynamicTable($headerRow, $tableRows, $options);
+        $this->resetCurrencyColumns();
     }
 }
 
