@@ -83,6 +83,7 @@ class ReceiptV1PDF extends BasePDF
         $this->Row($headerRow);
 
         $this->fontType('');
+        $this->setCurrencyColumns([false, true]);
         $fill = true;
         foreach ($this->contents->export->details as $item) {
             $row = [];
@@ -92,18 +93,32 @@ class ReceiptV1PDF extends BasePDF
             $this->Row($row);
             $fill = !$fill;
         }
+        $this->resetCurrencyColumns();
     }
 
     public function drawAfterGridInfo()
     {
-        $this->Ln(5);
-        $this->Cell(0, 10, 'Total Paid: '.$this->contents->totalPaid.' ', 1, 1, 'R', 1);
+        $this->drawReceiptAmountsRow('Total Paid:', $this->contents->totalPaid);
+        $this->drawReceiptAmountsRow('New Balance:', $this->contents->newBalance);
+        $this->drawReceiptAmountsRow('Fiscal Year Balance:', $this->contents->fiscalYearBalance);
+    }
 
+    public function drawReceiptAmountsRow($text, $amount)
+    {
         $this->Ln(5);
-        $this->Cell(0, 10, 'New Balance: '.$this->contents->newBalance.' ', 1, 1, 'R', 1);
 
-        $this->Ln(5);
-        $this->Cell(0, 10, 'Fiscal Year Balance: '.$this->contents->fiscalYearBalance.' ', 1, 1, 'R', 1);
+        $firstCellWidth = $this->GetPageWidth() - 20 - $this->GetStringWidth($amount)-7;
+
+        $originalX = $this->getX();
+        $originalY = $this->getY();
+
+        $this->Cell(0, 10, '', 1, 1, 'R', 1);
+
+        $this->setXY($originalX, $originalY);
+        $this->Cell($firstCellWidth, 10, $text, 0, 0, 'R');
+
+        $this->setXY($originalX+$firstCellWidth, $originalY);
+        $this->CellAmount(0, 10, $amount.' ', 0, 1, 'R', 0);
     }
 }
 

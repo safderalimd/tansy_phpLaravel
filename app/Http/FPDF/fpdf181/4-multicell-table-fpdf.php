@@ -18,6 +18,8 @@ class MulticellTablePDF extends AlphaPDF
 
     protected $_dynamicTableHeaderRow;
 
+    protected $_currencyColumns;
+
     public function setRowMultiCellHeight($height)
     {
         $this->rowMultiCellHeight = $height;
@@ -43,6 +45,29 @@ class MulticellTablePDF extends AlphaPDF
     {
         //Set the array of column widths
         $this->widths=$w;
+    }
+
+    public function resetCurrencyColumns()
+    {
+        $this->_currencyColumns = null;
+    }
+
+    public function setCurrencyColumns($columns)
+    {
+        $this->_currencyColumns = $columns;
+    }
+
+    public function showCurrencyAmount($i)
+    {
+        if (! isset($this->_currencyColumns[$i])) {
+            return false;
+        }
+
+        if ($this->_currencyColumns[$i] == true) {
+            return true;
+        }
+
+        return false;
     }
 
     public function setDefaultWidths($data)
@@ -95,7 +120,11 @@ class MulticellTablePDF extends AlphaPDF
             $x=$this->GetX();
             $y=$this->GetY();
             //Print the text
-            $this->MultiCell($w,$this->rowMultiCellHeight,$data[$i],0,$a);
+            if ($this->showCurrencyAmount($i)) {
+                $this->MultiCellAmount($w,$this->rowMultiCellHeight,$data[$i],0,$a);
+            } else {
+                $this->MultiCell($w,$this->rowMultiCellHeight,$data[$i],0,$a);
+            }
             //Draw the border
             $this->Rect($x,$y,$w,$h);
             //Put the position to the right of the cell

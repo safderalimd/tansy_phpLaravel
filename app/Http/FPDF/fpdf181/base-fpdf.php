@@ -130,7 +130,8 @@ class BasePDF extends MulticellTablePDF
 
 		// draw the rupee symbol
 		if ($align == 'R') {
-			$this->setX($originalX+$width-$strWidth-5);
+			$endX = ($width == 0) ? $this->GetPageWidth()-10 : $originalX+$width;
+			$this->setX($endX-$strWidth-5);
 			$this->Cell($width, $height, '`', 0, 0, 'L');
 		}
 
@@ -153,7 +154,8 @@ class BasePDF extends MulticellTablePDF
 
 		// draw the rupee symbol
 		if ($align == 'R') {
-			$this->setX($originalX+$width-$strWidth-5);
+			$endX = ($width == 0) ? $this->GetPageWidth()-10 : $originalX+$width;
+			$this->setX($endX-$strWidth-5);
 			$this->Cell($width, $height, '`', 0, 0, 'L');
 		}
 
