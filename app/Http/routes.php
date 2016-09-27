@@ -374,6 +374,9 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('send-sms---attendence', 'thirdparty\sms\Controllers\SmsAttendanceController@attendence');
     Route::post('send-sms---attendence', 'thirdparty\sms\Controllers\SmsAttendanceController@sendAttendance');
 
+    Route::get('send-sms---homework', 'thirdparty\sms\Controllers\SmsHomeworkController@attendence');
+    Route::post('send-sms---homework', 'thirdparty\sms\Controllers\SmsHomeworkController@sendHomework');
+
     Route::get('/sms-batch', 'thirdparty\sms\Controllers\SmsBatchController@smsBatch');
     Route::get('/sms-batch-details', 'thirdparty\sms\Controllers\SmsBatchController@smsBatchDetails');
 

@@ -14,17 +14,10 @@ class SendSmsAttendance extends SendSmsModel
         return $value;
     }
 
-    public function __construct($arguments = [])
+    public function setDtAttribute($value)
     {
-        parent::__construct($arguments);
-
-        if (isset($this->dt)) {
-            $this->setAttribute('absense_date', $this->dt);
-        }
-
-        if (!isset($this->absense_date)) {
-            $this->setAttribute('absense_date', date('Y-m-j'));
-        }
+        $this->setAttribute('absense_date', $value);
+        return $value;
     }
 
     public function rows()

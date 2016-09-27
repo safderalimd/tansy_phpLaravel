@@ -1,6 +1,6 @@
 @extends('layout.cabinet')
 
-@section('title', 'Send Attendance SMS')
+@section('title', 'Send Homework SMS')
 
 @section('content')
 
@@ -8,7 +8,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <i class="glyphicon glyphicon-th-list"></i>
-            <h3>Send Attendance SMS</h3>
+            <h3>Send Homework SMS</h3>
         </div>
         <div class="panel-body">
 
@@ -19,15 +19,14 @@
             {{ csrf_field() }}
             <div class="form-group">
 
-                <label class="col-xs-3 col-md-2 control-label" for="absense_date">Date</label>
+                <label class="col-xs-3 col-md-2 control-label" for="account_type">Account Type</label>
                 <div class="col-xs-9 col-md-3">
-                    <div class="input-group date">
-                        <input id="absense_date" class="form-control" type="text" name="dt" value="{{queryStringValue('dt')}}" placeholder="Date">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><span
-                                        class="glyphicon glyphicon-calendar"></span></button>
-                        </span>
-                    </div>
+                    <select id="account_type" class="form-control" name="aei">
+                        <option data-rowType="none" value="none">Select an account..</option>
+                        @foreach($sms->schoolAccountTypeFilter() as $option)
+                            <option {{ activeSelect($option['entity_id'], 'aei') }} value="{{ $option['entity_id'] }}">{{ $option['drop_down_list_name'] }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="col-xs-4 col-xs-offset-0 col-sm-10 col-md-3 col-md-offset-3">
@@ -40,7 +39,17 @@
             </div>
 
             <div class="form-group">
-                <div class="col-xs-4 col-xs-offset-0 col-sm-10 col-md-3 col-md-offset-8">
+                <label class="col-xs-3 col-md-2 control-label" for="homework_date">Date</label>
+                <div class="col-xs-9 col-md-3">
+                    <div class="input-group date">
+                        <input id="homework_date" class="form-control" type="text" name="dt" value="{{queryStringValue('dt')}}" placeholder="Date">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><span
+                                        class="glyphicon glyphicon-calendar"></span></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-4 col-xs-offset-0 col-sm-10 col-md-3 col-md-offset-3">
                     <h4 class="text-right">Current Selected:</h4>
                 </div>
                 <div class="col-xs-5 col-sm-2 col-md-1">
@@ -83,9 +92,9 @@
                 <form class="navbar-form navbar-right" id="send-sms-form" action="{{form_action_full()}}" method="POST">
                     {{ csrf_field() }}
                     <input type="hidden" name="student_ids" id="student_ids" value="">
-                    <input type="hidden" name="hidden_absense_date" id="hidden_absense_date" value="">
+                    <input type="hidden" name="hidden_homework_date" id="hidden_homework_date" value="">
 
-                    <a class="btn btn-default" href="/cabinet/send-sms---attendence">Cancel</a>
+                    <a class="btn btn-default" href="/cabinet/send-sms---homework">Cancel</a>
                     <button disabled="disabled" id="send-sms-button" type="submit" class="btn btn-primary">Send Sms</button>
                 </form>
             </div>
@@ -101,7 +110,7 @@
 @section('scripts')
 <script type="text/javascript">
 
-    $('#absense_date').change(function() {
+    $('#account_type, #homework_date').change(function() {
         updateQueryString();
     });
 
@@ -111,9 +120,13 @@
 
     // get the query string
     function getQueryString() {
-        var dt = $('#absense_date').val();
+        var aei = $('#account_type option:selected').val();
+        var dt = $('#homework_date').val();
 
         var items = [];
+        if (aei != "none") {
+            items.push('aei='+aei);
+        }
         if (dt != "") {
             items.push('dt='+encodeURIComponent(dt));
         }
@@ -176,8 +189,8 @@
     });
 
     $('#send-sms-form').submit(function() {
-        var date = $('#absense_date').text();
-        $('#hidden_absense_date').val(date);
+        var date = $('#homework_date').val();
+        $('#hidden_homework_date').val(date);
 
         var accountIds = $('.account-entity-id:checked').map(function() {
             return this.value;
