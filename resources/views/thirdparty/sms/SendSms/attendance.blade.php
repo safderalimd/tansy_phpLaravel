@@ -176,7 +176,7 @@
     });
 
     $('#send-sms-form').submit(function() {
-        var date = $('#absense_date').text();
+        var date = $('#absense_date').val();
         $('#hidden_absense_date').val(date);
 
         var accountIds = $('.account-entity-id:checked').map(function() {
