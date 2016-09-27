@@ -218,7 +218,13 @@
                                         <tbody>
                                             @foreach($student->receipts as $row)
                                             <tr>
-                                                <td><a target="_blank" href="/cabinet/pdf---receipt-v1/pdf?id={{$row['receipt_id']}}">{{$row['receipt_number']}}</a></td>
+                                                <td>
+                                                    @if ($student->receipt_version == 'V-0002')
+                                                        <a target="_blank" href="/cabinet/pdf---receipt-v2/pdf?id={{$row['receipt_id']}}">{{$row['receipt_number']}}</a>
+                                                    @else
+                                                        <a target="_blank" href="/cabinet/pdf---receipt-v1/pdf?id={{$row['receipt_id']}}">{{$row['receipt_number']}}</a>
+                                                    @endif
+                                                </td>
                                                 <td>{{style_date($row['receipt_date'])}}</td>
                                                 <td>&#x20b9; {{amount($row['receipt_amount'])}}</td>
                                                 <td>&#x20b9; {{amount($row['new_balance'])}}</td>
