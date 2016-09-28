@@ -7,6 +7,7 @@ use App\Http\Modules\Organization\Models\AccountStudent;
 use App\Http\Modules\Organization\Requests\AccountStudentFormRequest;
 use League\Glide\ServerFactory;
 use League\Glide\Responses\LaravelResponseFactory;
+use Image;
 
 class AccountStudentController extends Controller
 {
@@ -70,6 +71,15 @@ class AccountStudentController extends Controller
             $file = $request->file('attachment');
             $newName = $id.'.'.$file->clientExtension();
             $savedFile = $file->move(storage_path('uploads/'.domain().'/student-images'), $newName);
+
+            // resize the image
+            $originalImgPath = storage_path('uploads/'.domain().'/student-images/'.$newName);
+            $img = Image::make($originalImgPath);
+            $img->resize(150, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $resizedImage = storage_path('uploads/'.domain()."/student-images/{$id}-150x.jpg");
+            $img->save($resizedImage, 100);
 
             // save the file extension info
             file_put_contents($extensionPath, $file->clientExtension());
@@ -137,6 +147,11 @@ class AccountStudentController extends Controller
             $imagePath = $extensionPath.'.'.$extension;
             if (file_exists($imagePath)) {
                 unlink($imagePath);
+            }
+
+            $resizedImage = storage_path('uploads/'.domain()."/student-images/{$id}-150x.jpg");
+            if (file_exists($resizedImage)) {
+                unlink($resizedImage);
             }
         }
 
