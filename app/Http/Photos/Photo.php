@@ -13,7 +13,7 @@ class Photo
     public static function studentProfileImage($studentId)
     {
         // if resized image exists
-        $resizedImage = storage_path('uploads/'.domain()."/student-images-30x/{$studentId}.png");
+        $resizedImage = storage_path('uploads/'.domain()."/student-images/{$studentId}-85x.png");
         if (file_exists($resizedImage)) {
             return $resizedImage;
         }
