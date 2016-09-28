@@ -13,7 +13,7 @@ class Photo
     public static function studentProfileImage($studentId)
     {
         // if resized image exists
-        $resizedImage = storage_path('uploads/'.domain()."/student-images/{$studentId}-85x.png");
+        $resizedImage = storage_path('uploads/'.domain()."/student-images/{$studentId}-150x.jpg");
         if (file_exists($resizedImage)) {
             return $resizedImage;
         }
@@ -22,10 +22,10 @@ class Photo
         $originalImgPath = static::originalStudentPhoto($studentId);
         if ($originalImgPath) {
             $img = Image::make($originalImgPath);
-            $img->resize(85, null, function ($constraint) {
+            $img->resize(150, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
-            $img->save($resizedImage);
+            $img->save($resizedImage, 100);
             return $resizedImage;
         }
 

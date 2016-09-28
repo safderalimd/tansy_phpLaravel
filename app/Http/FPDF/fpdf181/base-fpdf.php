@@ -295,21 +295,10 @@ class BasePDF extends MulticellTablePDF
 		$originalX = $this->getX();
 		$originalY = $this->getY();
 
-		// DON'T change this value. All student pictures are resized to this value. If this
-		// value is changed, then fpdf will need to resize the images itself and it will
-	    // cause the PDF to not get generated when loading too many images.
-		$imageWidth = 85;
-
 		$imgPath = Photo::studentProfileImage($studentId);
 
-		// set the unit conversion for 'pt'
-		$this->k = 1;
-
 		// draw the image
-		$this->Image($imgPath, $x, $y, $imageWidth);
-
-		// set the unit conversion for 'mm'
-		$this->k = 72/25.4;
+		$this->Image($imgPath, $x, $y, 30);
 
 		$this->setXY($originalX, $originalY);
 	}
