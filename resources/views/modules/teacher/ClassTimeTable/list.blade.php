@@ -227,7 +227,7 @@
         if (cei != "none") {
             items.push('cei='+cei);
         }
-        if (cti != "none") {
+        if (cti && cti != "none") {
             items.push('cti='+cti);
         }
 
