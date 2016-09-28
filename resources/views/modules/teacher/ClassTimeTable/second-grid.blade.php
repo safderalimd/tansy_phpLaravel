@@ -32,7 +32,7 @@
                             <?php
                                 $weekDay = isset($day['week_day']) ? $day['week_day'] : '';
                                 $subject = $timetable->findSubject($teacherRows, $periodName, $weekDay);
-                                $teacherName = isset($subject['teacher_name']) ? $subject['teacher_name'] : '';
+                                $teacherName = isset($subject['teacher_short_name']) ? $subject['teacher_short_name'] : '';
                                 $className = isset($subject['class_name']) ? $subject['class_name'] : '';
                                 $shortCode = isset($subject['subject_short_code']) ? $subject['subject_short_code'] : '';
                                 $cellText = ($timetable->showType() == 'Class') ? $teacherName.'/'.$shortCode : $className;
