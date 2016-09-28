@@ -2,6 +2,8 @@
 
 require('4-multicell-table-fpdf.php');
 
+use App\Http\Photos\Photo;
+
 class BasePDF extends MulticellTablePDF
 {
 	protected $contents;
@@ -286,5 +288,23 @@ class BasePDF extends MulticellTablePDF
 
 	    // Page number
 	    $this->Cell(0, 10, 'Page: '.$this->PageNo().'/{nb}', 0, 0, 'R');
+	}
+
+	public function showStudentProfilePicture($studentId, $x, $y)
+	{
+		$originalX = $this->getX();
+		$originalY = $this->getY();
+
+		// DON'T change this value. All student pictures are resized to this value. If this
+		// value is changed, then fpdf will need to resize the images itself and it will
+	    // cause the PDF to not get generated when loading too many images.
+		$imageWidth = 30;
+
+		$imgPath = Photo::studentProfileImage($studentId);
+		dd($imgPath);
+
+		$this->Image($imgPath, $x, $y, $imageWidth);
+
+		$this->setXY($originalX, $originalY);
 	}
 }

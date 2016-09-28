@@ -17,6 +17,9 @@ class HallTicketController extends Controller
      */
     public function __construct()
     {
+        $imgPath = \App\Http\Photos\Photo::studentProfileImage(398);
+        dd($imgPath);
+
         $this->middleware('screen:' . HallTicket::screenId());
     }
 

@@ -163,6 +163,7 @@ return [
         App\Providers\DebugServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         App\Http\SMS\SMSServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -221,6 +222,7 @@ return [
         'Device' => App\Http\DetectDevice\Device::class,
         'Group' => App\Http\UserGroups\Group::class,
         'SMS' => App\Http\SMS\SMSFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];
