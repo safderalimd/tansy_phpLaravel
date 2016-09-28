@@ -301,7 +301,6 @@ class BasePDF extends MulticellTablePDF
 		$imageWidth = 30;
 
 		$imgPath = Photo::studentProfileImage($studentId);
-		dd($imgPath);
 
 		$this->Image($imgPath, $x, $y, $imageWidth);
 
