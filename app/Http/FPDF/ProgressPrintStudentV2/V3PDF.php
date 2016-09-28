@@ -188,8 +188,7 @@ class V3PDF extends BasePDF
         $this->setXY(214, 36);
         $this->Cell(32, 35, '', 0, 0, 'C');
 
-        $imgPath = student_picture_path($this->contents->studentId);
-        $this->Image($imgPath, 214, 36, 30);
+        $this->showStudentProfilePicture($this->contents->studentId, 214, 36);
 
         $this->SetFont('Helvetica', 'BU', 11);
         $text  = "\n" . $this->contents->studentName;

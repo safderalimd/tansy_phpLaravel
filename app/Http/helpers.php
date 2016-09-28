@@ -476,23 +476,6 @@ function student_picture($id)
     return '/dashboard/student.jpg';
 }
 
-function student_picture_path($id)
-{
-    $imgPath = public_path('dashboard/student.png');
-
-    $extensionPath = storage_path('uploads/'.domain()."/student-images/{$id}");
-
-    if (file_exists($extensionPath)) {
-        $extension = file_get_contents($extensionPath);
-        $extension = trim($extension);
-        if (file_exists($extensionPath.'.'.$extension)) {
-            $imgPath = $extensionPath.'.'.$extension;
-        }
-    }
-
-    return $imgPath;
-}
-
 function pdf_label()
 {
     if (Device::isAndroidMobile()) {

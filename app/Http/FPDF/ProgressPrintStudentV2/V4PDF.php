@@ -211,8 +211,7 @@ class V4PDF extends BasePDF
         $this->setXY(214, 48);
         $this->Cell(32, 35, '', 0, 0, 'C');
 
-        $imgPath = student_picture_path($this->contents->studentId);
-        $this->Image($imgPath, 214, 48, 30);
+        $this->showStudentProfilePicture($this->contents->studentId, 214, 48);
 
         $this->SetFont('Helvetica', 'BU', 11);
         $text  = "\n" . $this->contents->studentName;
