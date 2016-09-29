@@ -6,18 +6,6 @@ use App\Http\Repositories\Repository;
 
 class HolidaysRepository extends Repository
 {
-    public function getMonths()
-    {
-        return $this->lookup('sproc_org_lkp_current_fiscal_year_months');
-
-        // return $this->select(
-        //     'SELECT
-        //         calendar_month,
-        //         month_id
-        //      FROM view_org_lkp_current_fiscal_year_months;'
-        // );
-    }
-
     public function getHolidays($id)
     {
         return $this->select(

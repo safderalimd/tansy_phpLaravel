@@ -63,6 +63,12 @@ class Repository
         return $this->lookup('sproc_sch_lkp_time_table_filter');
     }
 
+    public function getMonths()
+    {
+        // month_id, calendar_month
+        return $this->lookup('sproc_org_lkp_current_fiscal_year_months');
+    }
+
     public function getWeekDays()
     {
         // week_day_number, week_day, week_day_short_code
@@ -340,6 +346,12 @@ class Repository
     public function getGradeSystem()
     {
         return $this->lookup('sproc_sch_lkp_exam_grading_system');
+    }
+
+    public function getAccountTypeFilter3()
+    {
+        // entity_id, drop_down_list_name
+        return $this->lookup('sproc_org_lkp_account_type_filter3');
     }
 
     public function getAccountTypeFilter()

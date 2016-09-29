@@ -260,6 +260,9 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('class-time-table', 'Teacher\Controllers\ClassTimeTableController@index');
     Route::post('class-time-table', 'Teacher\Controllers\ClassTimeTableController@update');
 
+    Route::get('monthly-attendance', 'Teacher\Controllers\MonthlyAttendanceController@index');
+    Route::post('monthly-attendance', 'Teacher\Controllers\MonthlyAttendanceController@update');
+
     Route::get('pdf---time-table', 'reports\School\Controllers\TimeTableController@index');
     Route::get('pdf---time-table/pdf', 'reports\School\Controllers\TimeTableController@report');
 
