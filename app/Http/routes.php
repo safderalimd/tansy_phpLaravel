@@ -406,6 +406,12 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('crm-issue-task/edit/{id}', 'CRM\Controllers\CRMIssueTaskController@update');
 
 
+    // Campaign Links Group
+    Route::get('lead---quick-entry', 'Campaign\Controllers\LeadEntryController@index');
+    Route::post('lead---quick-entry', 'Campaign\Controllers\LeadEntryController@store');
+    Route::post('lead---quick-entry/spreadsheet', 'Campaign\Controllers\LeadEntryController@spreadsheet');
+
+
     // Help Links Group
     Route::get('help', 'System\Controllers\HelpController@index');
 
