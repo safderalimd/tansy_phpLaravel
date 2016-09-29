@@ -26,13 +26,14 @@
                         </select>
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <label class="col-sm-3 col-md-2 control-label" for="account_type_entity_id">Account Type</label>
+                    <label class="col-sm-3 col-md-2 control-label" for="account_type_entity_id">Class</label>
                     <div class="col-sm-3 col-md-3">
                         <select id="account_type_entity_id" class="form-control" name="aei">
-                            <option value="none">Select an account..</option>
-                            @foreach($attendance->accountTypeFilter3() as $option)
-                                <option {{activeSelect($option['entity_id'], 'aei')}} value="{{ $option['entity_id'] }}">{{ $option['drop_down_list_name'] }}</option>
+                            <option value="none">Select a class..</option>
+                            @foreach($attendance->classes() as $option)
+                                <option {{activeSelect($option['class_entity_id'], 'aei')}} value="{{ $option['class_entity_id'] }}">{{ $option['class_name'] }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -42,17 +43,19 @@
             <div class="row">
                 <div class="col-md-6">
                     <form id="attendance-table-form">
-                    <table class="table table-striped table-bordered table-hover" data-datatable>
+                    <table class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                                <th>Days Present <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                                <th>Roll Number</th>
+                                <th>Student Name</th>
+                                <th>Days Present</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $i=0; ?>
                             @foreach($attendance->rows() as $row)
                                 <tr>
+                                    <td>{{$row['student_roll_number']}}</td>
                                     <td>{{$row['account_name']}}</td>
                                     <td>
                                         <input data-rule-number="true" data-rule-min="0"  type="text" autocomplete="off" value="{{$row['presence_count']}}" class="row_account_entity_id form-control" name="{{$i++}}row_account_entity_id" data-accountId="{{$row['account_entity_id']}}" >
@@ -77,9 +80,9 @@
                         <div class="row">
                             <div class="form-horizontal">
                                 <div class="col-md-4 pull-right">
-                                    <input data-rule-number="true" data-rule-min="0" type="text" id="iparam_working_days_count" class="form-control pull-right" name="working_days_count">
+                                    <input required data-rule-number="true" data-rule-min="0" type="text" id="working_days_count" class="form-control pull-right" name="working_days_count">
                                 </div>
-                                <label class="pull-right control-label" for="iparam_working_days_count">Working Days Count</label>
+                                <label class="pull-right control-label" for="working_days_count">Working Days Count</label>
                             </div>
                         </div>
 
