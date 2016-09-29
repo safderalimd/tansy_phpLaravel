@@ -30,7 +30,6 @@ class MonthlyAttendanceRepository extends Repository
         return first_resultset($data);
     }
 
-    // set @iparam_actEntID_presenceDays ='112-1|115-19|116-22|119-21|120-18|121-17';
     public function update($model)
     {
         $procedure = 'sproc_org_individual_absentee_monthly_dml';

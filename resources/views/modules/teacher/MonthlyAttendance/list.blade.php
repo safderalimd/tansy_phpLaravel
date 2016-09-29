@@ -39,40 +39,59 @@
                 </div>
             </form>
 
-            <table id="attendance-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Student Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                        <th>Section <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
-                        <th>Absent</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{dd($attendance->rows())}}
-                    @foreach([] as $item)
-                    <tr>
-                        <td>{{$item['account_name']}}</td>
-                        <td>{{$item['section']}}</td>
-                        <td>
-                            <input type="checkbox" value="{{absent($item['absent'])}}" class="account_entity_id" name="account_entity_id" data-accountId="{{$item['account_entity_id']}}" >
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-
-            <nav class="nav-footer navbar navbar-default">
-                <div class="container-fluid">
-                    <form class="navbar-form navbar-right" id="update-attendance-form" action="{{form_action_full()}}" method="POST">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="account_ids" id="account_ids" value="">
-                        <input type="hidden" name="hidden_absense_date" id="hidden_absense_date" value="">
-
-                        <a class="btn btn-default" href="/cabinet/daily-attendance">Cancel</a>
-                        <button type="submit" class="btn btn-primary">Update Attendance</button>
+            <div class="row">
+                <div class="col-md-6">
+                    <form id="attendance-table-form">
+                    <table class="table table-striped table-bordered table-hover" data-datatable>
+                        <thead>
+                            <tr>
+                                <th>Name <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                                <th>Days Present <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $i=0; ?>
+                            @foreach($attendance->rows() as $row)
+                                <tr>
+                                    <td>{{$row['account_name']}}</td>
+                                    <td>
+                                        <input data-rule-number="true" data-rule-min="0"  type="text" autocomplete="off" value="{{$row['presence_count']}}" class="row_account_entity_id form-control" name="{{$i++}}row_account_entity_id" data-accountId="{{$row['account_entity_id']}}" >
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                     </form>
                 </div>
-            </nav>
+            </div>
+
+            <br/>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <form class="form-horizontal" id="update-attendance-form" action="{{form_action_full()}}" method="POST">
+                        {{ csrf_field() }}
+
+                        <input type="hidden" name="actEntID_presenceDays" id="actEntID_presenceDays" value="">
+
+                        <div class="row">
+                            <div class="form-horizontal">
+                                <div class="col-md-4 pull-right">
+                                    <input data-rule-number="true" data-rule-min="0" type="text" id="iparam_working_days_count" class="form-control pull-right" name="working_days_count">
+                                </div>
+                                <label class="pull-right control-label" for="iparam_working_days_count">Working Days Count</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 15px;">
+                           <div class="col-md-12">
+                                <a href="{{ url("/cabinet/monthly-attendance")}}" class="pull-right btn btn-default cancle_btn">Cancel</a>
+                                <button type="submit" class="pull-right btn btn-primary" style="margin-right: 10px;">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
             @include('commons.modal')
 
@@ -85,20 +104,6 @@
 
 @section('scripts')
 <script type="text/javascript">
-
-    $(".account_entity_id").checkboxX({
-        iconChecked: "<b>X</b>",
-        threeState: false
-    });
-
-    // // create datatale with checkbox column unsortable
-    // $('#attendance-table').DataTable( {
-    //    "aoColumnDefs": [
-    //        { 'bSortable': false, 'aTargets': [ 0 ] }
-    //     ],
-    //     "bPaginate": false,
-    //     "autoWidth": false
-    // });
 
     // when the account types dropdown changes redirect
     $('#account_type_entity_id, #month_id').change(function() {
@@ -129,20 +134,28 @@
     }
 
     $('#update-attendance-form').submit(function() {
-        var date = $('#absense_date').text();
-        $('#hidden_absense_date').val(date);
+        if (! $('#update-attendance-form').valid()) {
+            return false;
+        }
 
-        var accountIds = $('.account_entity_id').map(function() {
-            if ($(this).val() == 1) {
-                return $(this).attr('data-accountId') + '-1';
-            } else {
-                return $(this).attr('data-accountId') + '-0';;
+        var accountIds = $('.row_account_entity_id').map(function() {
+            var accountId = $(this).attr('data-accountId');
+
+            var presentDays = this.value;
+            if (presentDays !== 0 && !presentDays) {
+                presentDays = 'null';
             }
+
+            return accountId + '-' + presentDays;
         }).get();
 
-        $('#account_ids').val(accountIds.join(','));
+        $('#actEntID_presenceDays').val(accountIds.join('|'));
 
         return true;
     });
+
+    $('#update-attendance-form').validate();
+    $('#attendance-table-form').validate();
+
 </script>
 @endsection

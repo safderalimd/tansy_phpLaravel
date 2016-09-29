@@ -28,7 +28,6 @@ class MonthlyAttendance extends Model
             return [];
         }
 
-        $x = $this->repository->grid($this);
-        dd($x);
+        return $this->repository->grid($this);
     }
 }

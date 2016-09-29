@@ -40,6 +40,6 @@ class MonthlyAttendanceController extends Controller
         $timetable = new MonthlyAttendance($request->input());
         $timetable->update();
         flash('Absentees Updated!');
-        return redirect('/cabinet/class-time-table'.query_string());
+        return redirect('/cabinet/monthly-attendance'.query_string());
     }
 }
