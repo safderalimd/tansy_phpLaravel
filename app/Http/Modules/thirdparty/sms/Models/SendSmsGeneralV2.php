@@ -12,6 +12,20 @@ class SendSmsGeneralV2 extends SendSmsModel
 
     public $smsAccountTypes;
 
+    public $trimLength = 290;
+
+    public function setPrefixType($type)
+    {
+        $this->trimLength = 290;
+        if ($type == 'All Leads') {
+            $this->prefixType = 'All Leads';
+        }
+
+        if ($type == 'All Employees') {
+            $this->prefixType = 'All Employees';
+        }
+    }
+
     public function setStiAttribute($value)
     {
         $this->setAttribute('sms_type_id', $value);

@@ -13,6 +13,10 @@ class ProviderTextlocal
 
     private $prefixToLoginUsers = '';
 
+    private $prefixToLeads = '';
+
+    private $prefixToEmployees = '';
+
     private $username;
 
     private $hash;
@@ -82,17 +86,24 @@ class ProviderTextlocal
             if (isset($prefix['prefix_type'], $prefix['prefix_text'])) {
                 if ($prefix['prefix_type'] == 'To Parents') {
                     $this->prefixToParents = $prefix['prefix_text'] . ' ';
+
                 } elseif ($prefix['prefix_type'] == 'To Login Users') {
                     $this->prefixToLoginUsers = $prefix['prefix_text'] . ' ';
+
+                } elseif ($prefix['prefix_type'] == 'To Leads') {
+                    $this->prefixToLeads = $prefix['prefix_text'] . ' ';
+
+                } elseif ($prefix['prefix_type'] == 'To Employees') {
+                    $this->prefixToEmployees = $prefix['prefix_text'] . ' ';
                 }
             }
         }
     }
 
-    public function trim($message)
+    public function trim($message, $maxLength = 145)
     {
-        if (strlen($message) > 145) {
-            return substr($message, 0, 145);
+        if (strlen($message) > $maxLength) {
+            return substr($message, 0, $maxLength);
         }
 
         return $message;
@@ -166,8 +177,23 @@ class ProviderTextlocal
 
     public function sendMessages($messages, $model)
     {
+        $trimLength = 145;
+        if (isset($model->trimLength) && is_numeric($model->trimLength)) {
+            $trimLength = $model->trimLength;
+        }
+
+        if ($model->prefixType == 'All Leads') {
+            $prefixType = $this->prefixToLeads;
+
+        } elseif ($model->prefixType == 'All Employees') {
+            $prefixType = $this->prefixToEmployees;
+
+        } else {
+            $prefixType = $this->prefixToParents;
+        }
+
         foreach ($messages as &$message) {
-            $message['sms_text'] = $this->trim($this->prefixToParents . $message['sms_text']);
+            $message['sms_text'] = $this->trim($prefixType . $message['sms_text'], $trimLength);
         }
         unset($message);
         $model->setAttribute('provider_entity_id', $this->providerId);

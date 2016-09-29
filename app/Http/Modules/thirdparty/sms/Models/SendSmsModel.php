@@ -9,6 +9,8 @@ class SendSmsModel extends Model
 {
     protected $repositoryNamespace = 'App\Http\Modules\thirdparty\sms\Repositories\SendSmsRepository';
 
+    public $prefixType = '';
+
     public function __construct($arguments = [])
     {
         parent::__construct($arguments);

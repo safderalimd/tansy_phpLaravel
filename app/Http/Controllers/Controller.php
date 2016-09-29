@@ -17,7 +17,13 @@ class Controller extends BaseController
 
     protected function sendSmsToStudents(SendSmsModel $sms, $ids, $commonMessage = false, $text = '', $skipRows = false)
     {
-        if (! SMS::transactional()->isActive()) {
+        if ($sms->prefixType == 'All Leads') {
+            $smsRoute = SMS::promotional();
+        } else {
+            $smsRoute = SMS::transactional();
+        }
+
+        if (! $smsRoute->isActive()) {
             return \Redirect::back();
         }
 
@@ -39,7 +45,7 @@ class Controller extends BaseController
 
         // todo: not sure if i need this; textlocal will throw error if we don't have enoght credits
         // validate that valid row count is less than balance
-        if (count($validRows) > SMS::transactional()->balance()) {
+        if (count($validRows) > $smsRoute->balance()) {
             return \Redirect::back()->withErrors(["You do not have enought sms credits."]);
         }
 
@@ -60,7 +66,7 @@ class Controller extends BaseController
 
         // send the sms messages
         try {
-            $sender = SMS::transactional()->sendMessages($validRows, $sms);
+            $sender = $smsRoute->sendMessages($validRows, $sms);
         } catch (Exception $e) {
             // todo: log exception
             return \Redirect::back()->withErrors([$e->getMessage()]);

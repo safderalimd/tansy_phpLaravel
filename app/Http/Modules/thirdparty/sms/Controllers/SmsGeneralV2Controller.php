@@ -56,8 +56,8 @@ class SmsGeneralV2Controller extends Controller
         // validate message lenght
         foreach ($messages as $message) {
             $ids[] = $message->id;
-            if (strlen($message->message) > 160) {
-                throw new Exception("Message is too long. Max size is 160 chars.");
+            if (strlen($message->message) > 275) {
+                throw new Exception("Message is too long. Max size is 275 chars.");
             }
         }
 
@@ -68,6 +68,7 @@ class SmsGeneralV2Controller extends Controller
         $grid->loadData();
 
         $sms = new SendSmsGeneralV2($request->input());
+        $sms->setPrefixType($request->input('art'));
         $dbRows = $grid->rows();
 
         // get only rows selected

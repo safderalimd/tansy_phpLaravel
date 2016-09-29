@@ -48,7 +48,7 @@ class SmsGeneralController extends Controller
     public function sendGeneral(Request $request)
     {
         $this->validate($request, ['student_ids' => 'required|string']);
-        $this->validate($request, ['common_message' => 'required|string|max:160']);
+        $this->validate($request, ['common_message' => 'required|string|max:275']);
 
         $grid = new Grid('/' . $request->path());
         $grid->setAttribute('input_value_filter2', $request->input('aei'));
@@ -57,6 +57,8 @@ class SmsGeneralController extends Controller
         $grid->loadData();
 
         $sms = new SendSmsGeneral($request->input());
+        $sms->setPrefixType($request->input('art'));
+
         $dbRows = $grid->rows();
         $ids = $request->input('student_ids');
         $ids = explode(',', $ids);
