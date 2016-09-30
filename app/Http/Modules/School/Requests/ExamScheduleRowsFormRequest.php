@@ -30,7 +30,7 @@ class ExamScheduleRowsFormRequest extends Request
             'exam_date' => 'required|date',
             'exam_start_time' => 'required|string|max:21',
             'exam_end_time' => 'required|string|max:21',
-            'max_marks' => 'required|integer',
+            'max_marks' => 'required|numeric',
         ];
     }
 
