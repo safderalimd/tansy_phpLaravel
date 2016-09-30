@@ -107,7 +107,7 @@ class ExamSetupRepository extends Repository
             ':iparam_sub_exam_entity_id',
             ':iparam_class_entity_id',
             ':iparam_subject_entity_id',
-            ':iparam_max_marks',
+            '+iparam_max_marks',
             '+iparam_average_reduced_marks',
             '-iparam_exam_date',
             '-iparam_exam_start_time',
