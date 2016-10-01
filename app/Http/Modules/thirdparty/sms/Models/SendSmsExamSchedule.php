@@ -46,19 +46,19 @@ class SendSmsExamSchedule extends SendSmsModel
 
     public function setSmsBatchAttributes()
     {
-        $this->setAttribute('sms_type_id', $this->examResultSmsTypeId());
+        $this->setAttribute('sms_type_id', $this->examScheduleSmsTypeId());
         $this->setAttribute('sms_account_row_type', $this->filter_type);
         $this->setAttribute('sms_account_entity_id', $this->filter_entity_id);
         $this->setAttribute('exam_entity_id', $this->exam_entity_id);
     }
 
-    public function examResultSmsTypeId()
+    public function examScheduleSmsTypeId()
     {
         $smsTypes = $this->repository->getSmsTypes();
 
         foreach ($smsTypes as $item) {
             $type = trim($item['sms_type']);
-            if ($type == 'Exam Result') {
+            if ($type == 'Exam Schedule') {
                 return $item['sms_type_id'];
             }
         }
