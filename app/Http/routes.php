@@ -160,6 +160,9 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('account-agent/edit/{id}', 'Organization\Controllers\AccountAgentController@update');
     Route::get('account-agent/delete/{id}', 'Organization\Controllers\AccountAgentController@destroy');
 
+    Route::get('account---quick-update', 'Organization\Controllers\QuickUpdateController@index');
+    Route::post('account---quick-update', 'Organization\Controllers\QuickUpdateController@update');
+
 
     // Calendar Links Group
     Route::get('events', 'School\Controllers\EventsController@index');
