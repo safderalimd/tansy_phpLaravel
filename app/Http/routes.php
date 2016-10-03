@@ -51,6 +51,10 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::post('manage-lookups/store', 'System\Controllers\ManageLookupsController@store');
     Route::post('manage-lookups/update', 'System\Controllers\ManageLookupsController@update');
 
+    Route::get('time-table-period', 'System\Controllers\TimeTablePeriodController@index');
+    Route::post('time-table-period/store', 'System\Controllers\TimeTablePeriodController@store');
+    Route::post('time-table-period/update', 'System\Controllers\TimeTablePeriodController@update');
+
     Route::get('custom-fields', 'System\Controllers\CustomFieldsController@index');
     Route::get('custom-fields/create', 'System\Controllers\CustomFieldsController@create');
     Route::post('custom-fields/create', 'System\Controllers\CustomFieldsController@store');
