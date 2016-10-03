@@ -82,6 +82,9 @@
                     @elseif (isset($item['student_report_version']) && $item['student_report_version'] == 'V-0004')
                         <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v2/pdf?v=4&ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="{{$pdfLabel}}">{{$pdfLabel}}</a>
 
+                    @elseif (isset($item['student_report_version']) && $item['student_report_version'] == 'V-0005')
+                        <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v2/pdf?v=5&ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="{{$pdfLabel}}">{{$pdfLabel}}</a>
+
                     @else
                         <a class="btn btn-default" target="_blank" href="{{url("/cabinet/pdf---student-progress-v1/pdf?ei={$item['exam_entity_id']}&ci={$item['class_entity_id']}")}}" title="{{$pdfLabel}}">{{$pdfLabel}}</a>
                     @endif

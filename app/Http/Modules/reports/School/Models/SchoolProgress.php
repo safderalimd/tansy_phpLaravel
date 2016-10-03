@@ -24,6 +24,8 @@ class SchoolProgress
 
     public $headerThirdLine;
 
+    public $colors;
+
     public function __construct($data)
     {
         $this->setExamTypes(first_resultset($data));
@@ -35,6 +37,9 @@ class SchoolProgress
 
         $this->setSchoolInfo(third_resultset($data));
         $this->attendance = collect(fourth_resultset($data));
+
+        $colors = isset($data[4]) ? $data[4] : [];
+        $this->colors = collect($colors);
     }
 
     public function getTotal($student)

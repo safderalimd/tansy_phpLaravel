@@ -8,6 +8,7 @@ use App\Http\Modules\reports\School\Models\ProgressPrintStudentV2;
 use App\Http\FPDF\ProgressPrintStudentV2\V2PDF;
 use App\Http\FPDF\ProgressPrintStudentV2\V3PDF;
 use App\Http\FPDF\ProgressPrintStudentV2\V4PDF;
+use App\Http\FPDF\ProgressPrintStudentV2\V5PDF;
 use Device;
 
 class ProgressPrintStudentV2Controller extends Controller
@@ -38,10 +39,14 @@ class ProgressPrintStudentV2Controller extends Controller
         $progress = $export->getPdfData();
         $reportVersion3 = $request->input('v') == 3 ? true : false;
         $reportVersion4 = $request->input('v') == 4 ? true : false;
+        $reportVersion5 = $request->input('v') == 5 ? true : false;
 
         // show html for android
         if (Device::isAndroidMobile()) {
-            if ($reportVersion4) {
+            if ($reportVersion5) {
+                return view('reports.school.ProgressPrintStudentV2.pdf-v3', compact('export', 'progress'));
+
+            } elseif ($reportVersion4) {
                 return view('reports.school.ProgressPrintStudentV2.pdf-v3', compact('export', 'progress'));
 
             } elseif ($reportVersion3) {
@@ -53,7 +58,9 @@ class ProgressPrintStudentV2Controller extends Controller
         }
 
         // show pdf
-        if ($reportVersion4) {
+        if ($reportVersion5) {
+            $pdf = V5PDF::landscape();
+        } elseif ($reportVersion4) {
             $pdf = V4PDF::landscape();
         } elseif ($reportVersion3){
             $pdf = V3PDF::landscape();
