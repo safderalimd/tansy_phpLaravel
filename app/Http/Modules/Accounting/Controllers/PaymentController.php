@@ -109,7 +109,7 @@ class PaymentController extends Controller
         $this->payment = $payment;
 
         $this->receipt = new ReceiptPrintPDF;
-        $this->receipt->setAttribute('report_id', $this->payment->receipt_id);
+        $this->receipt->setAttribute('receipt_id', $this->payment->receipt_id);
         $this->receipt->loadPdfDataV1();
 
         $paymentDetail = Payment::details($this->payment->pk);
@@ -137,7 +137,6 @@ class PaymentController extends Controller
         SendMail::receipt($this->email, $this->receipt);
     }
 
-    // todo: refactor this
     public function sendReceiptSms()
     {
         // send receipt sms if checkbox is on
@@ -156,6 +155,6 @@ class PaymentController extends Controller
         $screenId = $this->payment->getScreenId();
         $accountId = $this->accountEntityId;
         $typeId = $this->payment->getReceiptSmsTypeID();
-        SMS::transactional()->paymentReceipt($this->phone, $message, $accoutId, $typeId, $screenId);
+        SMS::transactional()->paymentReceipt($this->phone, $message, $accountId, $typeId, $screenId);
     }
 }
