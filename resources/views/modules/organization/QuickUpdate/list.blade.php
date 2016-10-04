@@ -70,10 +70,19 @@
                         @endforeach
                         <td>
                             @if ($update->dataType == 'DROP DOWN')
+                                <?php
+                                    $matchBy = 'id';
+                                    foreach ($update->getDropdownOptions() as $option) {
+                                        if ($option['name'] == $row['Field Value']) {
+                                            $matchBy = 'name';
+                                            break;
+                                        }
+                                    }
+                                ?>
                                 <select disabled="disabled" data-type="dropdown" name="account_row_id{{$i}}" class="form-control account-row-id">
                                     <option value="none">Select..</option>
                                     @foreach ($update->getDropdownOptions() as $option)
-                                        <option @if ($option['name'] == $row['Field Value']) selected="selected" @endif value="{{$option['id']}}">{{$option['name']}}</option>
+                                        <option @if ($option[$matchBy] == $row['Field Value']) selected="selected" @endif value="{{$option['id']}}">{{$option['name']}}</option>
                                     @endforeach
                                 </select>
 
