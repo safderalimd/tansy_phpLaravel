@@ -30,7 +30,7 @@ class SendSmsFeeDue extends SendSmsModel
     public function rows()
     {
         $rows = $this->gridRows();
-        foreach ($rows as $key => $value) {
+        foreach ($rows as $key => $row) {
             $text = $row[$key]['first_name'].': Your current fee due amount is '.amount($row[$key]['due_amount']);
             $row[$key]['sms_text'] = $text;
         }
