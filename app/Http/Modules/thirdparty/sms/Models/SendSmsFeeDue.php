@@ -29,6 +29,16 @@ class SendSmsFeeDue extends SendSmsModel
 
     public function rows()
     {
+        $rows = $this->gridRows();
+        foreach ($rows as $key => $value) {
+            $text = $row[$key]['first_name'].': Your current fee due amount is '.amount($row[$key]['due_amount']);
+            $row[$key]['sms_text'] = $text;
+        }
+        return $rows;
+    }
+
+    public function gridRows()
+    {
         if (!is_null($this->subject_entity_id) && !is_null($this->filter_type)) {
             $this->setAttribute('return_type', 'SMS');
             return $this->repository->feeReminders($this);

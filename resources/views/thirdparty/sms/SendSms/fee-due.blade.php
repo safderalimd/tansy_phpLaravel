@@ -55,7 +55,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($sms->rows() as $row)
+                @foreach($sms->gridRows() as $row)
                 <tr>
                     <td class="text-center">
                         @if (empty($row['mobile_phone']))
