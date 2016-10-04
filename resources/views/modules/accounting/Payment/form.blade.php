@@ -135,7 +135,9 @@
                             </label>
 
                             <label class="checkbox" style="padding-top:1px;margin-top:-10px;">
-                                @if ($payment->showReceiptOnPayment())
+                                @if (Device::isAndroidMobile())
+                                    <input type="checkbox" id="show_receipt_pdf_checkbox" disabled="disabled" name="show_receipt_pdf_checkbox">
+                                @elseif ($payment->showReceiptOnPayment())
                                     <input type="checkbox" id="show_receipt_pdf_checkbox" name="show_receipt_pdf_checkbox" checked="checked">
                                 @else
                                     <input type="checkbox" id="show_receipt_pdf_checkbox" name="show_receipt_pdf_checkbox">
