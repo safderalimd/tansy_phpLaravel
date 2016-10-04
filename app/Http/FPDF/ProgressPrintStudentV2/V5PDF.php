@@ -50,6 +50,17 @@ class V5PDF extends BasePDF
         $this->SetFillColor(245, 245, 245);
     }
 
+    public function setHexFontColor($name)
+    {
+        $rgb = $this->hexColor($name);
+        $this->SetTextColor($rgb[0], $rgb[1], $rgb[2]);
+    }
+
+    public function resetHexFontColor()
+    {
+        $this->SetTextColor(51, 51, 51);
+    }
+
     public function generate($export, $progress)
     {
         $this->setContents(new V3Contents($export, $progress));
@@ -76,6 +87,7 @@ class V5PDF extends BasePDF
 
     public function drawGrid()
     {
+        $this->SetLineWidth(0.1);
         $this->SetDrawColor(221, 221, 221);
         $this->setBackgroundColor("REPORT TOP HEADER");
         $this->Rect(10, 10, $this->GetPageWidth()-20, 36, 'F');
@@ -90,7 +102,7 @@ class V5PDF extends BasePDF
         $this->AddFont('Review', 'B', 'Review.php');
         $this->SetFont('Review', 'B', $titleFont);
 
-        $this->SetTextColor(51, 51, 51);
+        $this->setHexFontColor('REPORT TOP HEADER FONT COLOR');
         $titleWidth = $this->GetStringWidth($this->contents->schoolName);
         $tableWidth = $this->GetPageWidth()-20;
         while ($titleWidth > $tableWidth) {
@@ -121,6 +133,7 @@ class V5PDF extends BasePDF
 
         $this->SetFont('Helvetica', 'B', 14);
         $this->Cell(0, 5, 'PROGRESS REPORT - ' . $this->contents->examName, 0, 1, 'C');
+        $this->resetHexFontColor();
     }
 
     public function TableHeader($header, $width, $height, $headerColors)
@@ -217,6 +230,23 @@ class V5PDF extends BasePDF
         $nrRows = count($this->contents->getStudent());
         $height = round((102 - $headerHeight) / $nrRows, 2);
 
+        // find out the max length of a subject, then reduce the fonts to fit the columns
+        $maxString = '';
+        foreach ($this->contents->getStudent() as $subject) {
+            $subjectName = isset($subject['subject_name']) ? $subject['subject_name'] : '';
+            if (strlen($subjectName) > strlen($maxString)) {
+                $maxString = $subjectName;
+            }
+        }
+        $subjectFontSize = $fontSize;
+        $subjetWidth = $this->GetStringWidth($maxString);
+        while ($subjetWidth > $width) {
+            $subjectFontSize -= 1;
+            $this->SetFontSize($subjectFontSize);
+            $subjetWidth = $this->GetStringWidth($maxString);
+        }
+
+        // draw the grid
         $this->SetFont('Helvetica', '');
         $fill = false;
         foreach ($this->contents->getStudent() as $subject) {
@@ -224,8 +254,10 @@ class V5PDF extends BasePDF
             $fill = !$fill;
 
             $this->SetFont('Helvetica', 'B');
+            $this->SetFontSize($subjectFontSize);
             $subjectName = isset($subject['subject_name']) ? $subject['subject_name'] : '';
             $this->Cell($width, $height, $subjectName, 1, 0, 'C', $fill);
+            $this->SetFontSize($fontSize);
 
             $this->SetFont('Helvetica', '');
             foreach($this->contents->examTypes() as $type) {
@@ -255,12 +287,11 @@ class V5PDF extends BasePDF
 
         // grand total text cell
         $this->SetFont('Helvetica', 'B', $fontSize);
-        $this->resetBackgroundColor();
+        $this->setBackgroundColor('GRAND TOTAL');
         $this->Cell($width, 10, 'GRAND TOTAL', 1, 0, 'C', true);
 
         // grand total value
         $this->SetFont('Helvetica', '');
-        $this->setBackgroundColor('GRAND TOTAL');
         $this->Cell($width, 10, $this->contents->grandTotal, 1, 0, 'C', true);
         $this->resetBackgroundColor();
 
@@ -273,22 +304,22 @@ class V5PDF extends BasePDF
         // percentage text cell
         $y = $this->getY();
         $this->setX(12 + $width * $nrTestColumns);
-        $this->Cell($width, 10, 'PERCENTAGE', 1, 0, 'C');
+        $this->setBackgroundColor('PERCENTAGE');
+        $this->Cell($width, 10, 'PERCENTAGE', 1, 0, 'C', true);
 
         // percentage value
         $this->SetFont('Helvetica', '');
-        $this->setBackgroundColor('PERCENTAGE');
-        $this->Cell($width, 10, $this->contents->percentage, 1, 1, 'C');
+        $this->Cell($width, 10, $this->contents->percentage, 1, 1, 'C', true);
         $this->resetBackgroundColor();
 
         // grade text cell
         $this->setX(12 + $width * $nrTestColumns);
         $this->SetFont('Helvetica', 'B');
+        $this->setBackgroundColor('GRADE');
         $this->Cell($width, 10, 'GRADE', 1, 0, 'C', true);
 
         // grade value
         $this->SetFont('Helvetica', '');
-        $this->setBackgroundColor('GRADE');
         $this->Cell($width, 10, $this->contents->grade, 1, 1, 'C', true);
         $this->resetBackgroundColor();
 
@@ -494,6 +525,7 @@ class V5PDF extends BasePDF
 
             $this->Line($x1, $y1, $x2, $y2);
         }
+        $this->SetLineWidth(0.1);
     }
 
     // return 6 elements in the array
