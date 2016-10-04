@@ -130,7 +130,11 @@
                             <label class="col-md-4 control-label" for="exam_date">Exam Date</label>
                             <div class="col-md-8">
                                 <div class="input-group date">
-                                    <input id="exam_date" class="form-control" type="text" name="exam_date" value="{{ v('exam_date') }}" placeholder="Exam Date">
+                                    @if ($setup->isNewRecord())
+                                        <input id="exam_date" class="form-control" type="text" name="exam_date" value="{{current_system_date()}}" placeholder="Exam Date">
+                                    @else
+                                        <input id="exam_date" class="form-control" type="text" name="exam_date" value="{{ v('exam_date') }}" placeholder="Exam Date">
+                                    @endif
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button"><span
                                                     class="glyphicon glyphicon-calendar"></span></button>
