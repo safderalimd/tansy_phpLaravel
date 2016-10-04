@@ -64,6 +64,19 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label class="col-md-4 control-label required" for="home_work_due_date">Due Date</label>
+                            <div class="col-md-8">
+                                <div class="input-group date">
+                                    <input id="home_work_due_date" class="form-control" type="text" name="home_work_due_date" value="{{v('home_work_due_date')}}" placeholder="Due Date">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button"><span
+                                                    class="glyphicon glyphicon-calendar"></span></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
                			<div class="form-group">
                             <label class="col-md-4 control-label required" for="home_work">Homework</label>
                             <div class="col-md-8">
@@ -97,6 +110,10 @@
                 requiredSelect: true
             },
             home_work_date: {
+                required: true,
+                dateISO: true
+            },
+            home_work_due_date: {
                 required: true,
                 dateISO: true
             },

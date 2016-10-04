@@ -63,6 +63,7 @@ class HomeworkRepository extends Repository
             ':iparam_class_entity_id',
             ':iparam_subject_entity_id',
             '-iparam_home_work_date',
+            '-iparam_home_work_due_date',
             '-iparam_home_work',
             ':iparam_session_id',
             ':iparam_user_id',
@@ -87,6 +88,7 @@ class HomeworkRepository extends Repository
         $iparams = [
             ':iparam_home_work_id',
             '-iparam_home_work_date',
+            '-iparam_home_work_due_date',
             '-iparam_home_work',
             ':iparam_session_id',
             ':iparam_user_id',

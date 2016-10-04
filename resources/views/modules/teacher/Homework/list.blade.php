@@ -60,6 +60,7 @@
                     <tr>
                         <th>Subject <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Homework Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
+                        <th>Due Date <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Homework <i class="sorting-icon glyphicon glyphicon-chevron-down"></i></th>
                         <th>Actions</th>
                     </tr>
@@ -69,6 +70,7 @@
                     <tr>
                         <td>{{$item['subject_name']}}</td>
                         <td>{{style_date($item['home_work_date'])}}</td>
+                        <td>{{style_date($item['due_date'])}}</td>
                         <td>{{$item['home_work']}}</td>
                         <td>
                             <a class="btn btn-default" href="{{url("/cabinet/homework/edit/{$item['home_work_id']}").query_string()}}" title="Edit">
