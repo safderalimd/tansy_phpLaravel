@@ -75,6 +75,7 @@
                                     @endif
                                     <td>
                                         <button type="button" class="edit-button btn btn-default">Edit</button>
+                                        <button type="button" style="display:none;" class="cancel-button btn btn-default">Cancel</button>
                                         @if (isset($row['primary_key_id']))
                                         <button data-loading-text="Saving..." data-keyid="{{$row['primary_key_id']}}" type="button" style="display:none;" class="save-button btn btn-default">Save</button>
                                         @endif
@@ -146,6 +147,7 @@
     $('.lookup-table').on('click', '.edit-button', function() {
         var row = $(this).closest('.manage-lookups-row');
         $('.save-button', row).show();
+        $('.cancel-button', row).show();
         $(this).hide();
 
         var description = $('.td-description', row).text();
@@ -161,11 +163,31 @@
         }
 
         $('.td-reporting_order', row).html($('<input class="form-control" type="text" value="">').val(reporting_order));
+
+        // store original values
+        $('.td-description', row).attr('data-original', description);
+        $('.td-active', row).attr('data-original', active);
+        $('.td-reporting_order', row).attr('data-original',reporting_order);
     });
+
+    $('.lookup-table').on('click', '.cancel-button', function() {
+        var row = $(this).closest('.manage-lookups-row');
+        originalRowUneditable(row);
+    });
+
+    function originalRowUneditable(row) {
+        $('.save-button', row).hide();
+        $('.edit-button', row).show();
+        $('.cancel-button', row).hide();
+        $('.td-description', row).html($('.td-description', row).attr('data-original'));
+        $('.td-active', row).html($('.td-active', row).attr('data-original'));
+        $('.td-reporting_order', row).html($('.td-reporting_order', row).attr('data-original'));
+    }
 
     function makeRowUneditable(row) {
         $('.save-button', row).hide();
         $('.edit-button', row).show();
+        $('.cancel-button', row).hide();
 
         var description = $('.td-description input', row).val();
         var active = $('.td-active input', row).is(':checked');
