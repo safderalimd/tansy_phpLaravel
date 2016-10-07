@@ -8,15 +8,8 @@ class PaymentRepository extends Repository
 {
     public function getDetailCurrentFiscal()
     {
-        return $this->select(
-            'SELECT
-                account_name,
-                credit_date,
-                adjustment_amount,
-                schedule_name
-            FROM view_act_adjustment_detail_current_fiscal
-            ORDER BY account_name;'
-        );
+        // account_name, credit_date, adjustment_amount, schedule_name
+        return $this->lookup('sproc_act_adjustment_detail_current_fiscal');
     }
 
     public function getScheduleDetail()
