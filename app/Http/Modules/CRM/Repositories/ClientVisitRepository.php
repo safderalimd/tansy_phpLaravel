@@ -41,19 +41,6 @@ class ClientVisitRepository extends Repository
         );
     }
 
-    public function getClientVisits()
-    {
-        return $this->select(
-            'SELECT
-                campaign_name,
-                entity_name,
-                client_status,
-                visit_date,
-                visit_id
-             FROM view_crm_client_visit_grid;'
-        );
-    }
-
     public function getContacts()
     {
         return $this->lookup('sproc_org_lkp_organization_contact');
