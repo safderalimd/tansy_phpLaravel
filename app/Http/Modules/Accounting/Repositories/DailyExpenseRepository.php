@@ -6,22 +6,19 @@ use App\Http\Repositories\Repository;
 
 class DailyExpenseRepository extends Repository
 {
-    public function getModelById($id)
+    public function detail($model, $id)
     {
-        return $this->select(
-            'SELECT
-                expense_id,
-                facility_entity_id,
-                expense_type_id,
-                supplier_organization_entity_id,
-                expense_date,
-                payment_type_id,
-                amount,
-                notes
-             FROM view_act_exp_daily_expense
-             WHERE expense_id = :id
-             LIMIT 1;', ['id' => $id]
-        );
+        $model->setAttribute('expense_id', $id);
+
+        $procedure = 'sproc_act_exp_daily_expense';
+
+        $iparams = [
+            ':iparam_expense_id',
+        ];
+
+        $oparams = [];
+
+        return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 
     public function insert($model)

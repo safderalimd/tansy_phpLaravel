@@ -54,7 +54,7 @@ class DailyExpenseController extends Controller
     public function edit($id)
     {
         $queryString = $this->getGridFilters();
-        $expense = DailyExpense::findOrFail($id);
+        $expense = DailyExpense::find($id);
         return view('modules.accounting.DailyExpense.form', compact('expense', 'queryString'));
     }
 
