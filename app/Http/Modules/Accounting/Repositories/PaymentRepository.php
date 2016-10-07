@@ -26,12 +26,7 @@ class PaymentRepository extends Repository
 
     public function getIsCashCounterClosed()
     {
-        return $this->select(
-            'SELECT
-                closed_cash_counter_for_the_day
-             FROM view_act_rcv_lkp_closed_cash_counter_for_the_day
-             LIMIT 1;'
-        );
+        return $this->lookup('sproc_act_rcv_lkp_closed_cash_counter_for_the_day');
     }
 
     public function getAllPayments($model)
