@@ -591,15 +591,6 @@ class Repository
         );
     }
 
-    public function getFiscalYear()
-    {
-        return $this->select(
-            'SELECT fiscal_year_entity_id, fiscal_year, start_date, end_date, current_fiscal_year
-            FROM view_org_fiscal_year
-            ORDER BY fiscal_year ASC;'
-        );
-    }
-
     public function getFiscalYearDetail()
     {
         return $this->select(
