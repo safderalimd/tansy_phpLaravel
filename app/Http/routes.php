@@ -223,9 +223,6 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('pdf---due-report', 'reports\School\Controllers\FeeDueReportController@index');
     Route::get('pdf---due-report/pdf', 'reports\School\Controllers\FeeDueReportController@report');
 
-    // Route::get('pdf---daily-balance', 'reports\School\Controllers\DailyCollectionController@index');
-    // Route::get('pdf---daily-balance/pdf', 'reports\School\Controllers\DailyCollectionController@report');
-
     Route::get('pdf---account-statement', 'reports\Accounting\Controllers\AccountStatementController@index');
     Route::get('pdf---account-statement/pdf', 'reports\Accounting\Controllers\AccountStatementController@report');
 
