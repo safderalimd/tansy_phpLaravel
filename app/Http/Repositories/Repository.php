@@ -654,15 +654,6 @@ class Repository
         );
     }
 
-    public function getMoveStudentGrid()
-    {
-        return $this->select(
-            'SELECT entity_name, student_roll_number, move_success_flag, facility_entity_id, class_entity_id, fiscal_year_entity_id
-            FROM view_sch_move_student_grid
-            ORDER BY entity_name ASC;'
-        );
-    }
-
     public function getProgressPrint()
     {
         return $this->select(
