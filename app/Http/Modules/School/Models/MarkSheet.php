@@ -26,15 +26,6 @@ class MarkSheet extends Model
         return $this->repository->getMarkSheetEditForm($this);
     }
 
-    public function markSheetGrid()
-    {
-        if (is_null($this->eid)) {
-            return [];
-        }
-
-        return $this->repository->markSheetGrid($this->eid);
-    }
-
     public function setEidAttribute($value)
     {
         $this->setAttribute('exam_entity_id', $value);

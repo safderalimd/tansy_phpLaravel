@@ -654,15 +654,6 @@ class Repository
         );
     }
 
-    public function getMarkSheetGrid()
-    {
-        return $this->select(
-            'SELECT class_name, subject, locked, progress_status, last_upload_modified_date, exam_entity_id, class_entity_id, subject_entity_id
-            FROM view_sch_mark_sheet_grid
-            ORDER BY class_name ASC;'
-        );
-    }
-
     public function getMoveStudentGrid()
     {
         return $this->select(
