@@ -6,17 +6,6 @@ use App\Http\Repositories\Repository;
 
 class CashCounterRepository extends Repository
 {
-    public function getCashCounterRows()
-    {
-        return $this->select(
-            'SELECT
-                calendar_date,
-                collection_amount,
-                date_id
-             FROM view_act_rcv_close_cash_counter;'
-        );
-    }
-
     public function closeCounter($model)
     {
         $procedure = 'sproc_act_rcv_close_cash_counter_dml';
