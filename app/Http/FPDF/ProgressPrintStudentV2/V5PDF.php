@@ -412,11 +412,11 @@ class V5PDF extends BasePDF
 
         $this->SetFont('Helvetica', 'B', 12);
         $this->setXY(10, $y+$logoHeight+1);
-        $this->Cell(97*2+30, 6, $this->contents->schoolName, 0, 1, 'C');
+        $this->Cell(97*2+20, 6, $this->contents->schoolName, 0, 1, 'C');
 
         if (isset($this->website)) {
             $this->setXY(10, $y+$logoHeight+7);
-            $this->Cell(97*2+30, 6, $this->website, 0, 1, 'C');
+            $this->Cell(97*2+20, 6, $this->website, 0, 1, 'C');
         }
 
         $this->SetAlpha(1);
