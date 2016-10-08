@@ -93,10 +93,8 @@ class HallTicketPDFV2 extends BasePDF
         $cellWidth = round(($this->GetPageWidth() - 24)/$nrColumns, 2);
 
         $widths = [];
-        $emptyRow = [];
         for ($i=0; $i < $nrColumns; $i++) {
             $widths[] = $cellWidth;
-            $emptyRow[] = '';
         }
         $this->SetWidths($widths);
 
@@ -122,9 +120,6 @@ class HallTicketPDFV2 extends BasePDF
             $this->Cell($cellWidth, 4, $cell, 'BLR', 0, 'C');
         }
         $this->Ln();
-
-        $this->setX(12);
-        $this->Row($emptyRow);
 
         $this->setX(12);
         $this->Row($this->contents->subjectsRow);
