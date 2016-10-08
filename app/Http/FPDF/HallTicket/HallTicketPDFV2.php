@@ -89,6 +89,7 @@ class HallTicketPDFV2 extends BasePDF
 
     public function drawTicketTable()
     {
+        $this->Ln(3);
         $nrColumns = count($this->contents->datesRow);
         $cellWidth = round(($this->GetPageWidth() - 24)/$nrColumns, 2);
 
