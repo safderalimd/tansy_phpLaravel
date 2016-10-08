@@ -25,7 +25,7 @@ class ReceiptV1Contents
         $this->export = $export;
 
         $this->schoolName = $export->organizationName();
-        $this->phoneNr =  phone_number_spaces($export->organizationLine2());
+        $this->phoneNr =  $export->organizationLine2();
         $this->reportName = $export->reportName;
 
         $this->studentName = isset($export->header['paid_by_name']) ? $export->header['paid_by_name'] : '-';

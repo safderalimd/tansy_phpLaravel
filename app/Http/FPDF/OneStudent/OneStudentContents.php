@@ -40,7 +40,7 @@ class OneStudentContents
         $this->export = $export;
 
         $this->schoolName = $export->organizationName();
-        $this->phoneNr =  phone_number_spaces($export->organizationLine2());
+        $this->phoneNr =  $export->organizationLine2();
         $this->reportName = $export->reportName;
 
         // set the student data

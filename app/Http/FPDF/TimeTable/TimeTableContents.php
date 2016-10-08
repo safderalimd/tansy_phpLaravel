@@ -27,7 +27,7 @@ class TimeTableContents
         $this->export = $export;
 
         $this->schoolName = $export->organizationName();
-        $this->phoneNr = phone_number_spaces($export->organizationLine2());
+        $this->phoneNr = $export->organizationLine2();
 
         $this->dropdownFilter = $export->dropdownFilter;
         $this->startDateFilter = style_date($export->startDateFilter);
