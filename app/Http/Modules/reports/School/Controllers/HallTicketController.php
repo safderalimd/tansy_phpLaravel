@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Modules\reports\School\Models\HallTicket;
 use App\Http\FPDF\HallTicket\HallTicketPDF;
+use App\Http\FPDF\HallTicket\HallTicketPDFV2;
 use Device;
 
 class HallTicketController extends Controller
@@ -45,7 +46,11 @@ class HallTicketController extends Controller
         if (Device::isAndroidMobile()) {
             return view('reports.school.HallTicket.pdf', compact('export'));
         } else {
-            HallTicketPDF::portrait()->generate($export);
+            if ($export->hallTicketVersion() == 'V-002') {
+                HallTicketPDFV2::portrait()->generate($export);
+            } else {
+                HallTicketPDF::portrait()->generate($export);
+            }
         }
     }
 }

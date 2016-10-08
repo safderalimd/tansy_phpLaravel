@@ -12,7 +12,11 @@ class TimeTableContents
 
     public $schoolName;
 
-    public $phoneNr;
+    public $website;
+
+    public $headerSecondLine = '';
+
+    public $headerThirdLine = '';
 
     public $reportName = 'Time Table';
 
@@ -27,7 +31,9 @@ class TimeTableContents
         $this->export = $export;
 
         $this->schoolName = $export->organizationName();
-        $this->phoneNr = phone_number_spaces($export->organizationPhone());
+        $this->headerSecondLine = $export->organizationLine2();
+        $this->headerThirdLine = $export->organizationLine3();
+        $this->website = $export->organizationWebsite();
 
         $this->dropdownFilter = $export->dropdownFilter;
         $this->startDateFilter = style_date($export->startDateFilter);

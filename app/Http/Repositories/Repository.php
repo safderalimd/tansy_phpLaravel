@@ -367,8 +367,8 @@ class Repository
 
     public function getOwnerOrganization()
     {
-        // organization_name, organization_entity_id, mobile_phone
-        return $this->lookup('sproc_org_lkp_organization_owner');
+        // organization_name, website, report_header_line2, report_header_line3
+        return $this->lookup('sproc_org_lkp_report_header');
     }
 
     public function getIssueStatus()

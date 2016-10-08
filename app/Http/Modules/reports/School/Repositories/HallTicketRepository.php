@@ -6,6 +6,11 @@ use App\Http\Repositories\Repository;
 
 class HallTicketRepository extends Repository
 {
+    public function hallTicketVersion()
+    {
+        return $this->lookup('sproc_sch_lkp_hall_ticket_version');
+    }
+
     public function tickets($model)
     {
         $procedure = 'sproc_sch_exam_hall_ticket';

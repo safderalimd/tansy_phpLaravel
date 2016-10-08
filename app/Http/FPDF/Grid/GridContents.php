@@ -8,16 +8,22 @@ class GridContents
 
     public $schoolName;
 
-    public $phoneNr;
+    public $headerSecondLine = '';
+
+    public $headerThirdLine = '';
 
     public $reportName;
+
+    public $website;
 
     public function __construct($grid)
     {
         $this->grid = $grid;
 
         $this->schoolName = $grid->organizationName();
-        $this->phoneNr = phone_number_spaces($grid->organizationPhone());
+        $this->headerSecondLine = $grid->organizationLine2();
+        $this->headerThirdLine = $grid->organizationLine3();
+        $this->website = $grid->organizationWebsite();
         $this->reportName = $grid->screenName;
     }
 

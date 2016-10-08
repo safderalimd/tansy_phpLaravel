@@ -9,6 +9,7 @@ class OneStudentPDF extends BasePDF
 {
     protected $_cellWidth;
     protected $_leftMargin = 35;
+    protected $drawLogoWatermark = true;
 
     public function generate($export)
     {
@@ -16,7 +17,7 @@ class OneStudentPDF extends BasePDF
         $this->SetTitle($this->contents->reportName);
 
         $this->AddPage();
-        $this->drawSchoolHeader();
+        $this->drawHeaderV1();
         $this->drawStudentDetails();
         $this->drawCenterWatermark();
         $this->show();

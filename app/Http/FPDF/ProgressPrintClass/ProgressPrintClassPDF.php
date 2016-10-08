@@ -7,6 +7,8 @@ require app_path('Http/FPDF/fpdf181/base-fpdf.php');
 
 class ProgressPrintClassPDF extends BasePDF
 {
+    protected $drawLogoWatermark = true;
+
     public function generate($export, $progress)
     {
         $this->setContents(new ProgressPrintClassContents($export, $progress));
@@ -14,7 +16,7 @@ class ProgressPrintClassPDF extends BasePDF
         $this->showPagination();
 
         $this->AddPage();
-        $this->drawSchoolHeader();
+        $this->drawHeaderV1();
         $this->drawTableInfo();
         $this->drawPrintDateTime();
         $this->drawClassTable();

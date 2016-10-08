@@ -7,6 +7,8 @@ require app_path('Http/FPDF/fpdf181/base-fpdf.php');
 
 class GridPDF extends BasePDF
 {
+    protected $drawLogoWatermark = true;
+
     public function generate($grid)
     {
         $this->setContents(new GridContents($grid));
@@ -14,7 +16,7 @@ class GridPDF extends BasePDF
         $this->showPagination();
 
         $this->AddPage();
-        $this->drawSchoolHeader();
+        $this->drawHeaderV1();
         $this->drawGridFilters();
         $this->drawPrintDateTime();
         $this->drawGridTable();

@@ -13,7 +13,7 @@ class ReceiptV2PDF extends BasePDF
         $this->SetTitle($this->contents->reportName);
         $this->AddPage();
         $this->drawGrid();
-        $this->drawSchoolHeaderLargeFont();
+        $this->drawHeaderV1(false);
         $this->drawReceiptContents();
         $this->drawReceiptPrintDate();
 
@@ -28,14 +28,14 @@ class ReceiptV2PDF extends BasePDF
     {
         $this->SetDrawColor(221, 221, 221);
         $this->SetFillColor(245, 245, 245);
-        $this->Rect(10, 10, $this->GetPageWidth()-20, 36, 'F');
+        $this->Rect(10, 10, $this->GetPageWidth()-20, 30, 'F');
         // $this->Rect(10, 10, $this->GetPageWidth()-20, $this->GetPageHeight()-50, 'D');
-        $this->Line(10, 46, $this->GetPageWidth()-10, 46);
+        $this->Line(10, 40, $this->GetPageWidth()-10, 40);
     }
 
     public function drawReceiptContents()
     {
-        $this->setXY(12, 48);
+        $this->setXY(12, 42);
         $this->font(30); $this->fontType('B');
         $this->Cell(62, 10, $this->contents->reportName, 0, 0, 'L');
 

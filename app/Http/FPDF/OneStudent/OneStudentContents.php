@@ -9,7 +9,9 @@ class OneStudentContents
     // general data for all pages below ..
     public $reportName = '';
     public $schoolName = '';
-    public $phoneNr = '';
+    public $headerSecondLine = '';
+    public $headerThirdLine = '';
+    public $website;
 
     // data for the student below ..
     public $firstName = '';
@@ -40,7 +42,9 @@ class OneStudentContents
         $this->export = $export;
 
         $this->schoolName = $export->organizationName();
-        $this->phoneNr =  phone_number_spaces($export->organizationPhone());
+        $this->headerSecondLine = $export->organizationLine2();
+        $this->headerThirdLine = $export->organizationLine3();
+        $this->website = $export->organizationWebsite();
         $this->reportName = $export->reportName;
 
         // set the student data

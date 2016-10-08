@@ -22,7 +22,8 @@
 
         @include('reports.common.pdf-header', [
             'school' => $export->organizationName(),
-            'phone'  => $export->organizationPhone(),
+            'line2'  => $export->organizationLine2(),
+            'line3'  => $export->organizationLine3(),
         ])
 
         <div class="row">

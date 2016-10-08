@@ -14,7 +14,7 @@ class ReceiptV1PDF extends BasePDF
         $this->showPagination();
 
         $this->AddPage();
-        $this->drawSchoolHeader();
+        $this->drawHeaderV1();
         $this->Ln(3);
         $this->drawPrintDateTime();
         $this->drawFirstReceiptTable();
