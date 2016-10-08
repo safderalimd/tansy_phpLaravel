@@ -6,25 +6,19 @@ use App\Http\Repositories\Repository;
 
 class SchedulePaymentRepository extends Repository
 {
-    public function getModelById($id)
+    public function detail($model, $id)
     {
-        return $this->select(
-            'SELECT
-                schedule_entity_id,
-                subject_entity_id,
-                product_entity_id,
-                frequency_id,
-                due_date_days_value,
-                schedule_name,
-                start_date,
-                end_date,
-                amount,
-                active,
-                product_name
-             FROM view_act_rcv_schedule_detail
-             WHERE schedule_entity_id = :id
-             LIMIT 1;', ['id' => $id]
-        );
+        $model->setAttribute('visit_id', $id);
+
+        $procedure = 'sproc_crm_client_visit_detail';
+
+        $iparams = [
+            ':iparam_visit_id',
+        ];
+
+        $oparams = [];
+
+        return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 
     public function insert($model)
