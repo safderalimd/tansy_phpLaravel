@@ -63,7 +63,7 @@ class ClientVisitController extends Controller
 
     public function detail(Request $request)
     {
-        $client = ClientVisitDetail::findOrFail($request->input('id'));
+        $client = ClientVisitDetail::find($request->input('id'));
         return view('modules.crm.ClientVisit.detail', compact('client'));
     }
 }

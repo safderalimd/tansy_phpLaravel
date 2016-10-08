@@ -6,54 +6,24 @@ use App\Http\Repositories\Repository;
 
 class ClientVisitRepository extends Repository
 {
-    public function getModelById($id)
+    public function detail($model, $id)
     {
-        return $this->select(
-            'SELECT
-                campaign_name,
-                organization_name,
-                facility_name,
-                facility_city_name,
-                contact_first_name,
-                contact_mobile_phone,
-                agent_name,
-                agent_mobile_phone,
-                product_name,
-                unit_type,
-                expected_units,
-                commited_price,
-                visit_date,
-                visit_type,
-                next_visit_date,
-                next_visit_type,
-                client_status,
-                notes,
-                visit_id,
-                client_status_id,
-                organization_entity_id,
-                facility_entity_id,
-                contact_entity_id,
-                campaign_entity_id,
-                agent_entity_id
-             FROM view_crm_client_visit_detail
-             WHERE visit_id = :id
-             LIMIT 1;', ['id' => $id]
-        );
+        $model->setAttribute('visit_id', $id);
+
+        $procedure = 'sproc_crm_client_visit_detail';
+
+        $iparams = [
+            ':iparam_visit_id',
+        ];
+
+        $oparams = [];
+
+        return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 
     public function getContacts()
     {
         return $this->lookup('sproc_org_lkp_organization_contact');
-
-        // return $this->select(
-        //     'SELECT
-        //         contact_name,
-        //         facility_entity_id,
-        //         organization_entity_id,
-        //         contact_entity_id
-        //      FROM view_org_lkp_organization_contact
-        //      ORDER BY contact_name ASC;'
-        // );
     }
 
     public function insert($model)
