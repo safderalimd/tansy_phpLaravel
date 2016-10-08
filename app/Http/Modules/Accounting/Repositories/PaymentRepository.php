@@ -14,14 +14,6 @@ class PaymentRepository extends Repository
     public function getSmsReceiptSettings()
     {
         return $this->lookup('sproc_sys_lkp_variables');
-
-        // return $this->select(
-        //     'SELECT
-        //         send_payment_sms,
-        //         payment_receipt_sms_type_id
-        //      FROM view_sys_lkp_variables
-        //      LIMIT 1;'
-        // );
     }
 
     public function getIsCashCounterClosed()
@@ -81,18 +73,6 @@ class PaymentRepository extends Repository
         ];
 
         return $this->procedure($model, $procedure, $iparams, $oparams);
-    }
-
-    public function getReceiptDetail($id)
-    {
-        return $this->select(
-            'SELECT
-                receipt_id,
-                credit_amount,
-                description
-            FROM view_act_rcv_receipt_detail
-            WHERE receipt_id = :id;', ['id' => $id]
-        );
     }
 
     public function getReceiptHeader($id)

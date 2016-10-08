@@ -3,6 +3,7 @@
 namespace App\Http\Modules\reports\Accounting\Repositories;
 
 use App\Http\Repositories\Repository;
+use App\Http\Models\Model;
 
 class ReceiptPrintRepository extends Repository
 {
@@ -70,13 +71,18 @@ class ReceiptPrintRepository extends Repository
 
     public function getReceiptDetail($id)
     {
-        return $this->select(
-            'SELECT
-                receipt_id,
-                credit_amount,
-                description
-            FROM view_act_rcv_receipt_detail
-            WHERE receipt_id = :id;', ['id' => $id]
-        );
+        $model = new Model;
+        $model->setAttribute('receipt_id', $id);
+
+        $procedure = 'sproc_act_rcv_receipt_detail';
+
+        $iparams = [
+            ':iparam_receipt_id',
+        ];
+
+        $oparams = [];
+
+        $data = $this->procedure($model, $procedure, $iparams, $oparams);
+        return first_resultset($data);
     }
 }
