@@ -540,11 +540,7 @@ class Repository
 
     public function getScheduleGrid()
     {
-        return $this->select(
-            'SELECT schedule_name, subject_name, product_name, frequency, start_date, end_date, amount, schedule_entity_id, active
-            FROM view_act_rcv_schedule_grid
-            ORDER BY end_date DESC, product_name ASC;'
-        );
+        return $this->lookup('sproc_act_rcv_schedule_grid');
     }
 
     public function getSchedulePaymentDetail()
