@@ -10,7 +10,9 @@ class ProgressPrintClassContents
 
     // general data for all pages below ..
     public $schoolName = '';
-    public $phoneNr = '';
+    public $headerSecondLine = '';
+    public $headerThirdLine = '';
+    public $website;
     public $reportName = '';
 
     public $className = '';
@@ -32,7 +34,9 @@ class ProgressPrintClassContents
         $this->progress = $progress;
 
         $this->schoolName = $export->organizationName();
-        $this->phoneNr =  $export->organizationLine2();
+        $this->headerSecondLine = $export->organizationLine2();
+        $this->headerThirdLine = $export->organizationLine3();
+        $this->website = $export->organizationWebsite();
         $this->reportName = $progress->examName . ' - Progress Report';
 
         $this->allSubjects = $progress->getAllSubjects();

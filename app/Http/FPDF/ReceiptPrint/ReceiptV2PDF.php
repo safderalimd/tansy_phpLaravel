@@ -13,7 +13,7 @@ class ReceiptV2PDF extends BasePDF
         $this->SetTitle($this->contents->reportName);
         $this->AddPage();
         $this->drawGrid();
-        $this->drawSchoolHeaderLargeFont();
+        $this->drawHeaderV1();
         $this->drawReceiptContents();
         $this->drawReceiptPrintDate();
 

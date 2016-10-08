@@ -8,8 +8,10 @@ class FeeDueReportContents
 
     // general data for all pages below ..
     public $schoolName = '';
-    public $phoneNr = '';
+    public $headerSecondLine = '';
+    public $headerThirdLine = '';
     public $reportName = '';
+    public $website;
 
     public $filterCriteria = '';
 
@@ -18,7 +20,9 @@ class FeeDueReportContents
         $this->export = $export;
 
         $this->schoolName = $export->organizationName();
-        $this->phoneNr =  $export->organizationLine2();
+        $this->headerSecondLine = $export->organizationLine2();
+        $this->headerThirdLine = $export->organizationLine3();
+        $this->website = $export->organizationWebsite();
         $this->reportName = $export->reportName;
         $this->filterCriteria = $export->filterCriteria;
     }

@@ -213,10 +213,6 @@ class BasePDF extends MulticellTablePDF
 	        $this->Cell(0, 4, $this->contents->headerThirdLine, 0, 1, 'C');
 	    }
 
-	    // $this->Ln(2);
-	    $this->SetFont('Helvetica', 'B', 12);
-	    $this->Cell(0, 5, $this->contents->phoneNr, 0, 1, 'C');
-
 	    if ($showReportTitle) {
 	    	$this->Ln(2);
 		    $this->SetFont('Helvetica', 'B', 15);
@@ -226,6 +222,9 @@ class BasePDF extends MulticellTablePDF
 
 	public function drawCenterLogoWatermark($xOffset = 0, $yOffset = 0)
 	{
+		$initialX = $this->getX();
+		$initialY = $this->getY();
+
 		$logoWidth = 40;
 		$logo = logo_path();
 
@@ -241,7 +240,18 @@ class BasePDF extends MulticellTablePDF
 
 		$this->SetAlpha(0.2);
 		$this->Image($logo, $x+$xOffset, $y+$yOffset, $logoWidth);
+
+		$this->setXY(10, $y+$yOffset+$logoHeight+1);
+		$this->Cell(0, 6, $this->contents->schoolName, 0, 1, 'C');
+
+		if ($this->contents->website) {
+			$this->setXY(10, $y+$yOffset+$logoHeight+7);
+			$this->Cell(0, 6, $this->contents->website, 0, 1, 'C');
+		}
+
 		$this->SetAlpha(1);
+
+		$this->setXY($initialX, $initialY);
 	}
 
 	public function drawCenterWatermark()

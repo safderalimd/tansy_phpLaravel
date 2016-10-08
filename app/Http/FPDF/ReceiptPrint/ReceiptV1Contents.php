@@ -8,8 +8,10 @@ class ReceiptV1Contents
 
     // general data for all pages below ..
     public $schoolName = '';
-    public $phoneNr = '';
+    public $headerSecondLine = '';
+    public $headerThirdLine = '';
     public $reportName = '';
+    public $website;
 
     public $studentName = '';
     public $mobileNo = '';
@@ -25,7 +27,9 @@ class ReceiptV1Contents
         $this->export = $export;
 
         $this->schoolName = $export->organizationName();
-        $this->phoneNr =  $export->organizationLine2();
+        $this->headerSecondLine = $export->organizationLine2();
+        $this->headerThirdLine = $export->organizationLine3();
+        $this->website = $export->organizationWebsite();
         $this->reportName = $export->reportName;
 
         $this->studentName = isset($export->header['paid_by_name']) ? $export->header['paid_by_name'] : '-';

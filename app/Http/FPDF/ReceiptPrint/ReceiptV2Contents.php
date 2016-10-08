@@ -10,7 +10,7 @@ class ReceiptV2Contents
 
     // general data for all pages below ..
     public $schoolName = '';
-    public $phoneNr = '';
+    // public $phoneNr = '';
     public $reportName = '';
 
     public $details = [];
@@ -42,8 +42,8 @@ class ReceiptV2Contents
         $org = isset($org[0]) ? $org[0] : [];
 
         $this->schoolName = isset($org['organization_name']) ? $org['organization_name'] : '';
-        $this->phoneNr = isset($org['mobile_phone']) ? phone_number_spaces($org['mobile_phone']) : '-';
-        $this->phoneNr = 'Phone: ' . $this->phoneNr;
+        // $this->phoneNr = isset($org['mobile_phone']) ? phone_number_spaces($org['mobile_phone']) : '-';
+        // $this->phoneNr = 'Phone: ' . $this->phoneNr;
         $this->reportName = 'RECEIPT';
 
         $this->headerSecondLine = isset($org['report_header_second_line']) ? $org['report_header_second_line'] : '-';
