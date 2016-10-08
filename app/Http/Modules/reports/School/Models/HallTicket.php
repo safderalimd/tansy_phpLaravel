@@ -3,12 +3,15 @@
 namespace App\Http\Modules\reports\School\Models;
 
 use App\Http\Models\Model;
+use App\Http\Models\Traits\OwnerOrganization;
 
 class HallTicket extends Model
 {
     protected $screenId = '/cabinet/pdf---hall-ticket';
 
     protected $repositoryNamespace = 'App\Http\Modules\reports\School\Repositories\HallTicketRepository';
+
+    use OwnerOrganization;
 
     public $tickets = [];
 
@@ -43,6 +46,7 @@ class HallTicket extends Model
         $this->tickets = $tickets->groupBy('student_entity_id');
 
         $this->setSchoolInfo();
+        $this->setOwnerOrganizationInfo();
     }
 
     public function setSchoolInfo()
@@ -60,5 +64,14 @@ class HallTicket extends Model
         }
 
         return false;
+    }
+
+    public function hallTicketVersion()
+    {
+        $version = $this->repository->hallTicketVersion();
+        if (isset($version[0]['hall_ticket_version'])) {
+            return $version[0]['hall_ticket_version'];
+        }
+        return null;
     }
 }

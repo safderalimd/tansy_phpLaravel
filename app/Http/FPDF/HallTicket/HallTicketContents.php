@@ -5,6 +5,11 @@ namespace App\Http\FPDF\HallTicket;
 // Contents for each student row
 class HallTicketContents
 {
+    public $headerSecondLine = '';
+    public $headerThirdLine = '';
+    public $reportName = 'HALL TICKET';
+    public $website;
+
     public $schoolName;
     public $schoolCity;
     public $schoolWorkPhone;
@@ -23,7 +28,11 @@ class HallTicketContents
 
     public $weekdaysRow = [];
 
+    public $hoursRows = [];
+
     public $subjectsRow = [];
+
+    public $hallTicketNr;
 
     protected $export;
 
@@ -32,7 +41,12 @@ class HallTicketContents
         $this->export = $export;
         $this->tickets = $export->tickets;
 
-        $this->schoolName = $export->schoolName;
+        $this->schoolName = $export->organizationName();
+        $this->headerSecondLine = $export->organizationLine2();
+        $this->headerThirdLine = $export->organizationLine3();
+        $this->website = $export->organizationWebsite();
+
+        // $this->schoolName = $export->schoolName;
         $this->schoolCity = $export->schoolCity;
         $this->schoolWorkPhone = phone_number_spaces($export->schoolWorkPhone);
         $this->fiscalYear = $export->fiscalYear;
@@ -46,14 +60,22 @@ class HallTicketContents
         $this->rollNumber = isset($ticket[0]['student_roll_number']) ? $ticket[0]['student_roll_number'] : '';
         $this->studentId = isset($ticket[0]['student_entity_id']) ? $ticket[0]['student_entity_id'] : '-';
 
+        $this->hallTicketNr = isset($ticket[0]['hall_ticket_number']) ? $ticket[0]['hall_ticket_number'] : '-';
+
         $this->datesRow = [];
         $this->subjectsRow = [];
         $this->weekdaysRow = [];
+        $this->hoursRows = [];
 
         foreach($ticket as $subjects) {
             $this->datesRow[] = $this->date($subjects['exam_date']);
             $this->weekdaysRow[] = $this->weekday($subjects['exam_date']);
             $this->subjectsRow[] = $subjects['subject_short_code'];
+            $hour = isset($subjects['exam_start_time']) ? $subjects['exam_start_time'] : '';
+            if ($hour !== '') {
+                $hour = date('g:iA', strtotime($hour));
+            }
+            $this->hoursRows[] = $hour;
         }
     }
 
