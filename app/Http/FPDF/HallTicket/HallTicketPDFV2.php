@@ -155,7 +155,7 @@ class HallTicketPDFV2 extends BasePDF
         $ratio = $width / $height;
         $logoHeight = $logoWidth / $ratio;
 
-        $y = $this->getY() - $logoHeight - 20;
+        $y = $this->getY() - $logoHeight - 17;
 
         $this->SetAlpha(0.2);
         $this->Image($logo, $x, $y, $logoWidth);
