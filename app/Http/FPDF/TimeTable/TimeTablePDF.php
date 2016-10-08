@@ -7,6 +7,8 @@ require app_path('Http/FPDF/fpdf181/base-fpdf.php');
 
 class TimeTablePDF extends BasePDF
 {
+    protected $drawLogoWatermark = true;
+
     public function generate($export)
     {
         $this->setContents(new TimeTableContents($export));

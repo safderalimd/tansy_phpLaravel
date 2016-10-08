@@ -21,9 +21,9 @@ class GridContents
         $this->grid = $grid;
 
         $this->schoolName = $grid->organizationName();
-        $this->headerSecondLine = $export->organizationLine2();
-        $this->headerThirdLine = $export->organizationLine3();
-        $this->website = $export->organizationWebsite();
+        $this->headerSecondLine = $grid->organizationLine2();
+        $this->headerThirdLine = $grid->organizationLine3();
+        $this->website = $grid->organizationWebsite();
         $this->reportName = $grid->screenName;
     }
 

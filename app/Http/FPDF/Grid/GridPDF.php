@@ -7,6 +7,8 @@ require app_path('Http/FPDF/fpdf181/base-fpdf.php');
 
 class GridPDF extends BasePDF
 {
+    protected $drawLogoWatermark = true;
+
     public function generate($grid)
     {
         $this->setContents(new GridContents($grid));

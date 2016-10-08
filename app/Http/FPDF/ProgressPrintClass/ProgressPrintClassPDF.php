@@ -7,6 +7,8 @@ require app_path('Http/FPDF/fpdf181/base-fpdf.php');
 
 class ProgressPrintClassPDF extends BasePDF
 {
+    protected $drawLogoWatermark = true;
+
     public function generate($export, $progress)
     {
         $this->setContents(new ProgressPrintClassContents($export, $progress));

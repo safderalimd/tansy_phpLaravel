@@ -9,6 +9,7 @@ class OneStudentPDF extends BasePDF
 {
     protected $_cellWidth;
     protected $_leftMargin = 35;
+    protected $drawLogoWatermark = true;
 
     public function generate($export)
     {
