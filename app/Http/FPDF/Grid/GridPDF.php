@@ -14,7 +14,7 @@ class GridPDF extends BasePDF
         $this->showPagination();
 
         $this->AddPage();
-        $this->drawSchoolHeader();
+        $this->drawHeaderV1();
         $this->drawGridFilters();
         $this->drawPrintDateTime();
         $this->drawGridTable();

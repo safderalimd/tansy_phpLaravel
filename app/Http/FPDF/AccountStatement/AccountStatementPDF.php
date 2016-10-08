@@ -9,6 +9,7 @@ class AccountStatementPDF extends BasePDF
 {
     protected $_cellWidth;
     protected $_leftMargin = 35;
+    protected $drawLogoWatermark = true;
 
     public function generate($export)
     {
@@ -17,7 +18,7 @@ class AccountStatementPDF extends BasePDF
         $this->showPagination();
 
         $this->AddPage();
-        $this->drawSchoolHeader();
+        $this->drawHeaderV1();
         $this->drawAccountDetails();
         $this->drawPrintDateTime();
         $this->drawAccountStatementTable();

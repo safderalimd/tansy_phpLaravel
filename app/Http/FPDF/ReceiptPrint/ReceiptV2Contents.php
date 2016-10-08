@@ -17,6 +17,7 @@ class ReceiptV2Contents
 
     public $headerSecondLine = '';
     public $headerThirdLine = '';
+    public $website;
 
     public $receiptNumber = '';
     public $receiptDate = '';
@@ -41,13 +42,17 @@ class ReceiptV2Contents
         $org = third_resultset($data);
         $org = isset($org[0]) ? $org[0] : [];
 
-        $this->schoolName = isset($org['organization_name']) ? $org['organization_name'] : '';
-        // $this->phoneNr = isset($org['mobile_phone']) ? phone_number_spaces($org['mobile_phone']) : '-';
-        // $this->phoneNr = 'Phone: ' . $this->phoneNr;
+        $this->schoolName = $export->organizationName();
+        $this->headerSecondLine = $export->organizationLine2();
+        $this->headerThirdLine = $export->organizationLine3();
+        $this->website = $export->organizationWebsite();
         $this->reportName = 'RECEIPT';
 
-        $this->headerSecondLine = isset($org['report_header_second_line']) ? $org['report_header_second_line'] : '-';
-        $this->headerThirdLine = isset($org['report_header_third_line']) ? $org['report_header_third_line'] : '-';
+        // $this->schoolName = isset($org['organization_name']) ? $org['organization_name'] : '';
+        // $this->phoneNr = isset($org['mobile_phone']) ? phone_number_spaces($org['mobile_phone']) : '-';
+        // $this->phoneNr = 'Phone: ' . $this->phoneNr;
+        // $this->headerSecondLine = isset($org['report_header_second_line']) ? $org['report_header_second_line'] : '-';
+        // $this->headerThirdLine = isset($org['report_header_third_line']) ? $org['report_header_third_line'] : '-';
 
         $this->receiptNumber = isset($details['receipt_number']) ? $details['receipt_number'] : '-';
         $this->receiptDate = isset($details['receipt_date']) ? style_date($details['receipt_date']) : '-';

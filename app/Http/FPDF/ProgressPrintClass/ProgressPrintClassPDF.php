@@ -14,7 +14,7 @@ class ProgressPrintClassPDF extends BasePDF
         $this->showPagination();
 
         $this->AddPage();
-        $this->drawSchoolHeader();
+        $this->drawHeaderV1();
         $this->drawTableInfo();
         $this->drawPrintDateTime();
         $this->drawClassTable();

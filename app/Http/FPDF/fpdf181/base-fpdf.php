@@ -175,9 +175,9 @@ class BasePDF extends MulticellTablePDF
 		$this->MultiCell($width, $height, ' '.$text, $border, $align);
 	}
 
-	public function drawHeaderV1()
+	public function drawHeaderV1($showReportTitle = true)
 	{
-		$this->drawSchoolHeaderLargeFont(23, true);
+		$this->drawSchoolHeaderLargeFont(23, $showReportTitle);
 	}
 
 	public function drawSchoolHeaderLargeFont($titleFont = 45, $showReportTitle = false)
@@ -244,7 +244,7 @@ class BasePDF extends MulticellTablePDF
 		$this->setXY(10, $y+$yOffset+$logoHeight+1);
 		$this->Cell(0, 6, $this->contents->schoolName, 0, 1, 'C');
 
-		if ($this->contents->website) {
+		if (isset($this->contents->website)) {
 			$this->setXY(10, $y+$yOffset+$logoHeight+7);
 			$this->Cell(0, 6, $this->contents->website, 0, 1, 'C');
 		}

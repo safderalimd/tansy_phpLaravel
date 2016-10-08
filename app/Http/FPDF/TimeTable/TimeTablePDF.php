@@ -13,7 +13,7 @@ class TimeTablePDF extends BasePDF
         $this->SetTitle('Time Table');
 
         $this->AddPage();
-        $this->drawSchoolHeader();
+        $this->drawHeaderV1();
         $this->drawGridInfo();
         $this->drawPrintDateTime();
         $this->drawTimeTable();
