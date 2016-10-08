@@ -3,6 +3,7 @@
 namespace App\Http\Modules\reports\Accounting\Repositories;
 
 use App\Http\Repositories\Repository;
+use App\Http\Models\Model;
 
 class AccountStatementRepository extends Repository
 {
@@ -60,20 +61,19 @@ class AccountStatementRepository extends Repository
 
     public function getReceiptHeaderByStudent($id)
     {
-        return $this->select(
-            'SELECT
-                receipt_id,
-                receipt_number,
-                receipt_date,
-                receipt_amount,
-                new_balance,
-                paid_by_name,
-                paid_by_account_id,
-                financial_year_balance,
-                mobile_phone
-            FROM view_act_rcv_receipt_header
-            WHERE paid_by_account_id = :id
-            ORDER BY receipt_date ASC;', ['id' => $id]
-        );
+        $model = new Model;
+        $model->setAttribute('paid_by_account_id', $id);
+
+        $procedure = 'sproc_act_rcv_receipt_header';
+
+        $iparams = [
+            ':iparam_receipt_id',
+            ':iparam_paid_by_account_id',
+        ];
+
+        $oparams = [];
+
+        $data = $this->procedure($model, $procedure, $iparams, $oparams);
+        return first_resultset($data);
     }
 }

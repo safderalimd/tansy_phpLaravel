@@ -54,19 +54,20 @@ class ReceiptPrintRepository extends Repository
 
     public function getReceiptHeader($id)
     {
-        return $this->select(
-            'SELECT
-                receipt_id,
-                receipt_number,
-                receipt_date,
-                receipt_amount,
-                new_balance,
-                paid_by_name,
-                financial_year_balance,
-                mobile_phone
-            FROM view_act_rcv_receipt_header
-            WHERE receipt_id = :id;', ['id' => $id]
-        );
+        $model = new Model;
+        $model->setAttribute('receipt_id', $id);
+
+        $procedure = 'sproc_act_rcv_receipt_header';
+
+        $iparams = [
+            ':iparam_receipt_id',
+            ':iparam_paid_by_account_id',
+        ];
+
+        $oparams = [];
+
+        $data = $this->procedure($model, $procedure, $iparams, $oparams);
+        return first_resultset($data);
     }
 
     public function getReceiptDetail($id)
