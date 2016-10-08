@@ -7,6 +7,8 @@ require app_path('Http/FPDF/fpdf181/base-fpdf.php');
 
 class V5PDF extends BasePDF
 {
+    protected $website;
+
     public function hexColor($name)
     {
         $colors = $this->contents->progress->colors;
@@ -63,6 +65,8 @@ class V5PDF extends BasePDF
 
     public function generate($export, $progress)
     {
+        $export->setOwnerOrganizationInfo();
+        $this->website = $export->organizationWebsite();
         $this->setContents(new V3Contents($export, $progress));
         $this->SetTitle($this->contents->title);
         $this->SetAuthor('Tansycloud');
@@ -77,7 +81,6 @@ class V5PDF extends BasePDF
             $this->drawStudentInfo();
             $this->drawAttendanceTable();
             $this->drawSignatures();
-            $this->drawLogo();
             $this->drawWatermark();
             $this->drawGraph();
         }
@@ -388,25 +391,37 @@ class V5PDF extends BasePDF
         $this->Cell($width, 4, 'Parent Signature', 0, 0, 'C');
     }
 
-    public function drawLogo()
-    {
-        $this->SetAlpha(0.2);
-
-        $logo = storage_path('uploads/'.domain().'/school-logo/logo.png');
-        if (!file_exists($logo)) {
-            $logo = public_path('images/school-logo.png');
-        }
-
-        $this->Image($logo, 97, 76, 40);
-        $this->SetAlpha(1);
-    }
-
     public function drawWatermark()
     {
-        $this->SetFont('Helvetica', 'B', 12);
+        $initialX = $this->getX();
+        $initialY = $this->getY();
+
+        $x = 97;
+        $y = 76;
+        $logoWidth = 40;
+        $logo = logo_path();
+
+        $size = GetImageSize($logo);
+        $width = isset($size[0]) ? $size[0] : 0;
+        $height = isset($size[1]) ? $size[1] : 0;
+        $ratio = $width / $height;
+        $logoHeight = $logoWidth / $ratio;
+
         $this->SetAlpha(0.2);
-        $this->RotatedText(110, 135, $this->contents->schoolName, 45);
+        $this->Image($logo, $x, $y, $logoWidth);
+
+        $this->SetFont('Helvetica', 'B', 12);
+        $this->setXY(10, $y+$logoHeight+1);
+        $this->Cell(97*2+30, 6, $this->contents->schoolName, 0, 1, 'C');
+
+        if (isset($this->website)) {
+            $this->setXY(10, $y+$logoHeight+7);
+            $this->Cell(97*2+30, 6, $this->website, 0, 1, 'C');
+        }
+
         $this->SetAlpha(1);
+
+        $this->setXY($initialX, $initialY);
     }
 
     public function drawGraph()

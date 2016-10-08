@@ -167,6 +167,7 @@ class HallTicketPDFV2 extends BasePDF
 
         $this->setXY($initialX, $initialY);
     }
+
     public function drawSchoolHeaderLargeFontHallTicket()
     {
         $this->AddFont('Review', 'B', 'Review.php');
