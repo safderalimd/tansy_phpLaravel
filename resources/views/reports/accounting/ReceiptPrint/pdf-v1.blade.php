@@ -19,7 +19,7 @@
 
         @include('reports.common.pdf-header', [
             'school' => $export->organizationName(),
-            'phone'  => $export->organizationPhone(),
+            'phone'  => $export->organizationLine2(),
         ])
 
         @include('reports.common.report-name', ['report' => $export->reportName])

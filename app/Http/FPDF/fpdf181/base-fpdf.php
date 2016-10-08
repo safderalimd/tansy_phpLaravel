@@ -16,6 +16,8 @@ class BasePDF extends MulticellTablePDF
 
 	protected $_showPagination = false;
 
+	protected $drawLogoWatermark = false;
+
 	/**
 	 * The margin on the left and the right.
 	 *
@@ -173,9 +175,13 @@ class BasePDF extends MulticellTablePDF
 		$this->MultiCell($width, $height, ' '.$text, $border, $align);
 	}
 
-	public function drawSchoolHeaderLargeFont()
+	public function drawHeaderV1()
 	{
-	    $titleFont = 45;
+		$this->drawSchoolHeaderLargeFont(23, true);
+	}
+
+	public function drawSchoolHeaderLargeFont($titleFont = 45, $showReportTitle = false)
+	{
 	    $this->AddFont('Review', 'B', 'Review.php');
 	    $this->SetFont('Review', 'B', $titleFont);
 
@@ -206,10 +212,16 @@ class BasePDF extends MulticellTablePDF
 	    } else {
 	        $this->Cell(0, 4, $this->contents->headerThirdLine, 0, 1, 'C');
 	    }
-	    $this->Ln(2);
 
+	    // $this->Ln(2);
 	    $this->SetFont('Helvetica', 'B', 12);
 	    $this->Cell(0, 5, $this->contents->phoneNr, 0, 1, 'C');
+
+	    if ($showReportTitle) {
+	    	$this->Ln(2);
+		    $this->SetFont('Helvetica', 'B', 15);
+		    $this->Cell(0, 6, $this->contents->reportName, 0, 1, 'C');
+	    }
 	}
 
 	public function drawCenterLogoWatermark($xOffset = 0, $yOffset = 0)
@@ -234,6 +246,10 @@ class BasePDF extends MulticellTablePDF
 
 	public function drawCenterWatermark()
 	{
+		if ($this->drawLogoWatermark) {
+			$this->drawCenterLogoWatermark();
+			return;
+		}
 		$fontName = $this->currentFontName;
 		$fontType = $this->currentFontType;
 		$fontSize = $this->currentFontSize;

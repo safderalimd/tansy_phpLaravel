@@ -18,7 +18,7 @@ class FeeDueReportContents
         $this->export = $export;
 
         $this->schoolName = $export->organizationName();
-        $this->phoneNr =  phone_number_spaces($export->organizationPhone());
+        $this->phoneNr =  phone_number_spaces($export->organizationLine2());
         $this->reportName = $export->reportName;
         $this->filterCriteria = $export->filterCriteria;
     }

@@ -17,7 +17,7 @@ class GridContents
         $this->grid = $grid;
 
         $this->schoolName = $grid->organizationName();
-        $this->phoneNr = phone_number_spaces($grid->organizationPhone());
+        $this->phoneNr = phone_number_spaces($grid->organizationLine2());
         $this->reportName = $grid->screenName;
     }
 

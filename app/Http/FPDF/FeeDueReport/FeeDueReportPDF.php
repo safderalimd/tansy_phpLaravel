@@ -7,6 +7,8 @@ require app_path('Http/FPDF/fpdf181/base-fpdf.php');
 
 class FeeDueReportPDF extends BasePDF
 {
+    protected $drawLogoWatermark = true;
+
     public function generate($export)
     {
         $this->setContents(new FeeDueReportContents($export));
@@ -14,7 +16,7 @@ class FeeDueReportPDF extends BasePDF
         $this->showPagination();
 
         $this->AddPage();
-        $this->drawSchoolHeader();
+        $this->drawHeaderV1();
         $this->drawTableInfo();
         $this->drawPrintDateTime();
         $this->drawFeeDueTable();

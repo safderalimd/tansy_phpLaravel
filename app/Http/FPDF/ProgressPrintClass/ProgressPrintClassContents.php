@@ -32,7 +32,7 @@ class ProgressPrintClassContents
         $this->progress = $progress;
 
         $this->schoolName = $export->organizationName();
-        $this->phoneNr =  phone_number_spaces($export->organizationPhone());
+        $this->phoneNr =  phone_number_spaces($export->organizationLine2());
         $this->reportName = $progress->examName . ' - Progress Report';
 
         $this->allSubjects = $progress->getAllSubjects();

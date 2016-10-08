@@ -46,7 +46,7 @@
 
         @include('reports.common.pdf-header', [
             'school' => $grid->organizationName(),
-            'phone'  => $grid->organizationPhone(),
+            'phone'  => $grid->organizationLine2(),
         ])
 
         @include('reports.common.report-name', ['report' => $grid->screenName])
