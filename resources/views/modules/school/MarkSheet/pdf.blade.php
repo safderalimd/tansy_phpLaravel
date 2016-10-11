@@ -36,7 +36,7 @@
         <strong>
 
             <div class="row">
-                <div class="col-md-12 school-container">
+                <div class="col-md-12">
                     <h3 class="school-name text-center">{{$markSheet->organizationName()}}</h3>
                     <h4 class="school-phone text-center">{{$markSheet->organizationLine2()}}</h4>
                     <h4 class="school-phone text-center">{{$markSheet->organizationLine3()}}</h4>
