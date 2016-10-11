@@ -23,15 +23,7 @@ class SubjectRepository extends Repository
 
     public function getSubjects()
     {
-        return $this->select(
-            'SELECT
-                subject,
-                subject_type,
-                reporting_order,
-                subject_entity_id
-             FROM view_sch_subject_grid
-             ORDER BY reporting_order ASC;'
-        );
+        return $this->lookup('sproc_sch_subject_grid');
     }
 
     public function insert($model)
