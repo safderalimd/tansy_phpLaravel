@@ -6,21 +6,6 @@ use App\Http\Repositories\Repository;
 
 class ClassSubjectMapRepository extends Repository
 {
-    public function getModelById($id)
-    {
-        return $this->select(
-            'SELECT
-                class_name,
-                subject,
-                mapped,
-                class_entity_id,
-                subject_entity_id
-             FROM view_sch_class2subject_grid
-             WHERE subject_entity_id = :id
-             LIMIT 1;', ['id' => $id]
-        );
-    }
-
     public function mapOrDelete($model)
     {
         $procedure = 'sproc_sch_class2subject_dml';

@@ -57,7 +57,6 @@ class ClassSubjectMapController extends Controller
      */
     public function destroy(Request $request, $classId, $subjectId)
     {
-        // $subject = ClassSubjectMap::findOrFail($id);
         $subject = new ClassSubjectMap;
         $subject->setAttribute('class_entity_id', $classId);
         $subject->setAttribute('subject_entity_id', $subjectId);

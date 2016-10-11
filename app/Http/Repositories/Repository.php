@@ -531,11 +531,7 @@ class Repository
 
     public function getClassSubjectsGrid()
     {
-        return $this->select(
-            'SELECT class_name, subject, mapped, class_entity_id, subject_entity_id, class_reporting_order, subject_reporting_order
-            FROM view_sch_class2subject_grid
-            ORDER BY class_reporting_order, subject_reporting_order ASC;'
-        );
+        return $this->lookup('sproc_sch_class2subject_grid');
     }
 
     public function getScheduleGrid()
