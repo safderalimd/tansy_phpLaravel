@@ -8,64 +8,36 @@ class AccountEmployeeRepository extends Repository
 {
     public function getEmployeesGrid()
     {
-        return $this->select(
-            'SELECT
-                account_name,
-                department_name,
-                city_name,
-                mobile_phone,
-                account_entity_id
-             FROM view_org_account_employee_grid
-             ORDER BY account_name ASC;'
-        );
+        return $this->lookup('sproc_org_account_employee_grid');
     }
 
-    public function getModelById($id)
+    public function detail($model, $id)
     {
-        return $this->select(
-            'SELECT
-                active,
-                first_name,
-                middle_name,
-                last_name,
-                date_of_birth,
-                gender,
-                email,
-                home_phone,
-                mobile_phone,
-                address1,
-                address2,
-                city_id,
-                city_area,
-                postal_code,
-                department_id,
-                joining_date,
-                manager_entity_id,
-                login_name,
-                password,
-                login_active,
-                default_facility_id AS view_default_facility_id,
-                group_entity_id AS security_group_entity_id,
-                document_type_id,
-                document_number,
-                account_entity_id
-            FROM view_org_account_employee_detail
-            WHERE account_entity_id = :id
-            LIMIT 1;', ['id' => $id]
-        );
+        $model->setAttribute('account_entity_id', $id);
+
+        $procedure = 'sproc_org_account_employee_detail';
+
+        $iparams = [
+            ':iparam_account_entity_id',
+        ];
+
+        $oparams = [];
+
+        $data = $this->procedure($model, $procedure, $iparams, $oparams);
+
+        if (!isset($data[0][0])) {
+            $data = [[]];
+        }
+
+        $data[0][0]['view_default_facility_id'] = $data[0][0]['default_facility_id'] ?? '';
+        $data[0][0]['security_group_entity_id'] = $data[0][0]['group_entity_id'] ?? '';
+        unset($data[0][0]['default_facility_id']);
+        return $data;
     }
 
     public function getDepartments()
     {
         return $this->lookup('sproc_org_lkp_department');
-
-        // return $this->select(
-        //     'SELECT
-        //         department_name,
-        //         department_id
-        //      FROM view_org_lkp_department
-        //      ORDER BY department_name ASC;'
-        // );
     }
 
     public function insert($model)

@@ -67,7 +67,7 @@ class AccountEmployeeController extends Controller
      */
     public function edit($id)
     {
-        $account = AccountEmployee::findOrFail($id);
+        $account = AccountEmployee::find($id);
         $account->loadData();
         return view('modules.organization.AccountEmployee.form', compact('account'));
     }
@@ -101,7 +101,7 @@ class AccountEmployeeController extends Controller
      */
     public function destroy($id)
     {
-        $account = AccountEmployee::findOrFail($id);
+        $account = AccountEmployee::find($id);
         $account->delete();
         flash('Employee Deleted!');
         return redirect('/cabinet/account-employee');
