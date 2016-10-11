@@ -69,7 +69,7 @@ class CustomFieldsController extends Controller
      */
     public function edit($id)
     {
-        $fields = CustomFields::findOrFail($id);
+        $fields = CustomFields::find($id);
         return view('modules.system.CustomFields.form', compact('fields'));
     }
 
@@ -81,7 +81,7 @@ class CustomFieldsController extends Controller
      */
     public function update(CustomFieldsUpdateFormRequest $request, $id)
     {
-        $fields = CustomFields::findOrFail($id);
+        $fields = CustomFields::find($id);
         $fields->setAttribute('active', 0);
         $fields->setAttribute('mandatory_input', 0);
         $fields->setAttribute('existing', 0);
