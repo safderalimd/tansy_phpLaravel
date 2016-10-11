@@ -35,11 +35,13 @@
 
         <strong>
 
-            @include('reports.common.pdf-header', [
-                'school' => $grid->organizationName(),
-                'line2'  => $grid->organizationLine2(),
-                'line3'  => $grid->organizationLine3(),
-            ])
+            <div class="row">
+                <div class="col-md-12 school-container">
+                    <h3 class="school-name text-center">{{$markSheet->organizationName()}}</h3>
+                    <h4 class="school-phone text-center">{{$markSheet->organizationLine2()}}</h4>
+                    <h4 class="school-phone text-center">{{$markSheet->organizationLine3()}}</h4>
+                </div>
+            </div>
 
             @include('reports.common.report-name', ['report' => $markSheet->reportName])
 
