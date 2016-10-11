@@ -46,18 +46,6 @@ class ProductRepository extends Repository
         }
 
         return [$return];
-        // return $this->select(
-        //     'SELECT
-        //         product AS product_name,
-        //         product_type,
-        //         unit_rate,
-        //         product_type_entity_id,
-        //         product_entity_id,
-        //         active
-        //      FROM view_prd_lkp_product
-        //      WHERE product_entity_id = :id
-        //      LIMIT 1;', ['id' => $id]
-        // );
     }
 
     public function getSelectedFacilities($id)

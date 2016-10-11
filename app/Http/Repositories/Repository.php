@@ -575,14 +575,6 @@ class Repository
         );
     }
 
-    public function getEntityScope()
-    {
-        return $this->select(
-            'SELECT entity_id, facility_entity_id
-            FROM view_org_entity_scope;'
-        );
-    }
-
     public function getGenerateProgressGrid()
     {
         return $this->select(
@@ -621,15 +613,19 @@ class Repository
 
     public function getSelectedFacilities($id)
     {
-        return $this->select(
-            'SELECT
-                entity_id,
-                facility_entity_id
-             FROM view_org_entity_scope
-             WHERE entity_id = :id
-             ORDER BY entity_id, facility_entity_id;',
-             ['id' => $id]
-        );
+        $model = new Model;
+        $model->setAttribute('entity_id', $id);
+
+        $procedure = 'sproc_org_entity_scope';
+
+        $iparams = [
+            ':iparam_entity_id',
+        ];
+
+        $oparams = [];
+
+        $data = $this->procedure($model, $procedure, $iparams, $oparams);
+        return first_resultset($data);
     }
 
     public function getSchoolName()
