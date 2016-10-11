@@ -48,19 +48,6 @@ class ProductRepository extends Repository
         return [$return];
     }
 
-    public function getSelectedFacilities($id)
-    {
-        return $this->select(
-            'SELECT
-                entity_id AS product_entity_id,
-                facility_entity_id
-             FROM view_org_entity_scope
-             WHERE entity_id = :id
-             ORDER BY product_entity_id, facility_entity_id;',
-            ['id' => $id]
-        );
-    }
-
     public function insert($model)
     {
         $procedure = 'sproc_prd_product_dml_ins';

@@ -11,19 +11,6 @@ class FiscalYearRepository extends Repository
         return $this->lookup('sproc_org_fiscal_year_grid');
     }
 
-    public function getSelectedFacilities($id)
-    {
-        return $this->select(
-            'SELECT
-                entity_id AS fiscal_year_entity_id,
-                facility_entity_id
-             FROM view_org_entity_scope
-             WHERE entity_id = :id
-             ORDER BY fiscal_year_entity_id, facility_entity_id;',
-            ['id' => $id]
-        );
-    }
-
     public function detail($model, $id)
     {
         $model->setAttribute('fiscal_year_entity_id', $id);
