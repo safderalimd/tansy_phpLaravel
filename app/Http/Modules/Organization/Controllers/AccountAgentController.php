@@ -75,7 +75,7 @@ class AccountAgentController extends Controller
      */
     public function edit($id)
     {
-        $account = AccountAgent::findOrFail($id);
+        $account = AccountAgent::find($id);
         $account->loadData();
         return view('modules.organization.AccountAgent.form', compact('account'));
     }
@@ -117,7 +117,7 @@ class AccountAgentController extends Controller
      */
     public function destroy($id)
     {
-        $account = AccountAgent::findOrFail($id);
+        $account = AccountAgent::find($id);
         $account->delete();
         flash('Agent Deleted!');
         return redirect('/cabinet/account-agent');

@@ -20,36 +20,26 @@ class AccountAgentRepository extends Repository
         );
     }
 
-    public function getModelById($id)
+    public function detail($model, $id)
     {
-        return $this->select(
-            'SELECT
-                active,
-                first_name,
-                middle_name,
-                last_name,
-                date_of_birth,
-                gender,
-                email,
-                work_phone,
-                mobile_phone,
-                address1,
-                address2,
-                city_id,
-                city_area,
-                postal_code,
-                login_name,
-                password,
-                login_active,
-                default_facility_id AS view_default_facility_id,
-                group_entity_id AS security_group_entity_id,
-                document_type_id,
-                document_number,
-                account_entity_id
-            FROM view_org_account_agent_detail
-            WHERE account_entity_id = :id
-            LIMIT 1;', ['id' => $id]
-        );
+        $model->setAttribute('account_entity_id', $id);
+
+        $procedure = 'call sproc_org_account_agent_detail';
+
+        $iparams = [
+            ':iparam_account_entity_id',
+        ];
+
+        $oparams = [];
+
+        $data = $this->procedure($model, $procedure, $iparams, $oparams);
+
+        if (!isset($data[0])) {
+            $data[0] = [];
+        }
+        $data[0]['view_default_facility_id'] = $data[0]['default_facility_id'] ?? '';
+        $data[0]['security_group_entity_id'] = $data[0]['group_entity_id'] ?? '';
+        return $data;
     }
 
     public function insert($model)
