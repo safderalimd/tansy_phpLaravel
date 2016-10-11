@@ -67,7 +67,7 @@ class OrganizationController extends Controller
      */
     public function edit($id)
     {
-        $organization = Organization::findOrFail($id);
+        $organization = Organization::find($id);
         return view('modules.organization.Organization.edit-form', compact('organization'));
     }
 
@@ -98,7 +98,7 @@ class OrganizationController extends Controller
      */
     public function destroy($id)
     {
-        $organization = Organization::findOrFail($id);
+        $organization = Organization::find($id);
         $organization->delete();
         flash('Organization Deleted!');
         return redirect('/cabinet/organizations');

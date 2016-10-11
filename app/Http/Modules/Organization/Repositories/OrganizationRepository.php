@@ -6,53 +6,29 @@ use App\Http\Repositories\Repository;
 
 class OrganizationRepository extends Repository
 {
-    public function getModelById($id)
+    public function detail($model, $id)
     {
-        return $this->select(
-            'SELECT
-                organization_name,
-                active,
-                work_phone,
-                mobile_phone,
-                email,
-                address1,
-                address2,
-                city_area,
-                postal_code,
-                city_id,
-                organization_type_id,
-                organization_entity_id
-            FROM view_org_organization_detail
-            WHERE organization_entity_id = :id
-            LIMIT 1;', ['id' => $id]
-        );
+        $model->setAttribute('organization_entity_id', $id);
+
+        $procedure = 'sproc_org_organization_detail';
+
+        $iparams = [
+            ':iparam_organization_entity_id',
+        ];
+
+        $oparams = [];
+
+        return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 
     public function getOrganizations()
     {
-        return $this->select(
-            'SELECT
-                organization_name,
-                organization_type,
-                mobile_phone,
-                active,
-                organization_entity_id
-             FROM view_org_organization_grid
-             ORDER BY organization_name ASC;'
-        );
+        return $this->lookup('sproc_org_organization_grid');
     }
 
     public function getOrganizationTypes()
     {
         return $this->lookup('sproc_org_lkp_organization_type_for_org_screen');
-
-        // return $this->select(
-        //     'SELECT
-        //         organization_type,
-        //         organization_type_id
-        //      FROM view_org_lkp_organization_type_for_org_screen
-        //      ORDER BY organization_type ASC;'
-        // );
     }
 
     public function insert($model)
