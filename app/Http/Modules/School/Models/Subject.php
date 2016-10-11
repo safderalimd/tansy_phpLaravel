@@ -27,6 +27,18 @@ class Subject extends Model
         return 0;
     }
 
+    public function setSubjectAttribute($value)
+    {
+        $this->setAttribute('subject_name', $value);
+        return $value;
+    }
+
+    public function setShortCodeAttribute($value)
+    {
+        $this->setAttribute('subject_short_code', $value);
+        return $value;
+    }
+
     public function loadData()
     {
         $facilities = $this->repository->getSelectedFacilities($this->subject_entity_id);

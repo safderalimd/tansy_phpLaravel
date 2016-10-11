@@ -6,20 +6,19 @@ use App\Http\Repositories\Repository;
 
 class SubjectRepository extends Repository
 {
-    public function getModelById($id)
+    public function detail($model, $id)
     {
-        return $this->select(
-            'SELECT
-                subject AS subject_name,
-                subject_type_id,
-                reporting_order,
-                short_code AS subject_short_code,
-                active,
-                subject_entity_id
-             FROM view_sch_subject_detail
-             WHERE subject_entity_id = :id
-             LIMIT 1;', ['id' => $id]
-        );
+        $model->setAttribute('subject_entity_id', $id);
+
+        $procedure = 'sproc_sch_subject_detail';
+
+        $iparams = [
+            ':iparam_subject_entity_id',
+        ];
+
+        $oparams = [];
+
+        return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 
     public function getSubjects()

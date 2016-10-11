@@ -63,7 +63,7 @@ class SubjectController extends Controller
      */
     public function edit($id)
     {
-        $subject = Subject::findOrFail($id);
+        $subject = Subject::find($id);
         $subject->loadData();
         return view('modules.school.Subject.form', compact('subject'));
     }
@@ -93,7 +93,7 @@ class SubjectController extends Controller
      */
     public function destroy($id)
     {
-        $subject = Subject::findOrFail($id);
+        $subject = Subject::find($id);
         $subject->delete();
         flash('Subject Deleted!');
         return redirect('/cabinet/subject');
