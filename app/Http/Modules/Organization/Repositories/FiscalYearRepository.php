@@ -39,21 +39,6 @@ class FiscalYearRepository extends Repository
         return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 
-    // public function getModelById($id)
-    // {
-    //     return $this->select(
-    //         'SELECT
-    //             fiscal_year_entity_id,
-    //             fiscal_year,
-    //             start_date,
-    //             end_date,
-    //             current_fiscal_year
-    //          FROM view_org_fiscal_year_detail
-    //          WHERE fiscal_year_entity_id = :id
-    //          LIMIT 1;', ['id' => $id]
-    //     );
-    // }
-
     public function insert($model)
     {
         $procedure = 'sproc_org_fiscal_year_dml_ins';

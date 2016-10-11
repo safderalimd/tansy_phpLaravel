@@ -6,19 +6,18 @@ use App\Http\Repositories\Repository;
 
 class HolidaysRepository extends Repository
 {
-    public function getHolidays($id)
+    public function getHolidays($model)
     {
-        return $this->select(
-            'SELECT
-                calendar_date_name,
-                holiday,
-                description,
-                date_id,
-                month_id
-             FROM view_org_holidays_grid
-             WHERE month_id = :id
-             ORDER BY calendar_date_name ASC;', ['id' => $id]
-        );
+        $procedure = 'sproc_org_holidays_grid';
+
+        $iparams = [
+            ':iparam_month_id',
+        ];
+
+        $oparams = [];
+
+        $data = $this->procedure($model, $procedure, $iparams, $oparams);
+        return first_resultset($data);
     }
 
     public function update($model)
