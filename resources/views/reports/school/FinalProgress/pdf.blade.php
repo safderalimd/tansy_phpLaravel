@@ -27,8 +27,6 @@
     </head>
     <body>
 
-    <div id="watermark"><div id="watermark-text">{{$export->schoolName}}</div></div>
-
 @foreach($export->students as $student)
 
     <?php $export->setStudentData($student); ?>
@@ -36,8 +34,9 @@
     <div class="container">
 
         @include('reports.common.pdf-header', [
-            'school' => $export->schoolName,
-            'phone'  => $export->schoolWorkPhone,
+            'school' => $export->organizationName(),
+            'line2'  => $export->organizationLine2(),
+            'line3'  => $export->organizationLine3(),
         ])
 
         @include('reports.common.report-name', ['report' => $export->reportName])

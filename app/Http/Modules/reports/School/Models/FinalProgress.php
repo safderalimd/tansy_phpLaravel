@@ -3,12 +3,15 @@
 namespace App\Http\Modules\reports\School\Models;
 
 use App\Http\Models\Model;
+use App\Http\Models\Traits\OwnerOrganization;
 
 class FinalProgress extends Model
 {
     protected $screenId = '/cabinet/pdf---final-progress';
 
     protected $repositoryNamespace = 'App\Http\Modules\reports\School\Repositories\FinalProgressRepository';
+
+    use OwnerOrganization;
 
     public $reportName = 'Final Progress Card';
 
@@ -126,7 +129,7 @@ class FinalProgress extends Model
         $attendance = collect(second_resultset($data));
         $this->attendance = $attendance->groupBy('class_student_id');
 
-        $this->setSchoolNameAndPhone();
+        $this->setOwnerOrganizationInfo();
     }
 
     public function setStudentInfo($student)
@@ -162,16 +165,5 @@ class FinalProgress extends Model
                     ];
                     return in_array($key, $remove);
                 })->keys()->all();
-    }
-
-    public function setSchoolNameAndPhone()
-    {
-        $name = $this->repository->getSchoolName();
-        if (isset($name[0]) && isset($name[0]['organization_name'])) {
-            $this->schoolName = $name[0]['organization_name'];
-        }
-        if (isset($name[0]) && isset($name[0]['work_phone'])) {
-            $this->schoolWorkPhone = $name[0]['work_phone'];
-        }
     }
 }
