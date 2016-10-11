@@ -29,7 +29,7 @@ class OwnerOrganizationController extends Controller
      */
     public function edit()
     {
-        $organization = OwnerOrganization::findOrFail(0);
+        $organization = OwnerOrganization::find(0);
         return view('modules.system.OwnerOrganization.form', compact('organization'));
     }
 
@@ -66,7 +66,7 @@ class OwnerOrganizationController extends Controller
         $input = $request->input();
         $input['city_area'] = $request->input('city_area_new');
 
-        $organization = OwnerOrganization::findOrFail(0);
+        $organization = OwnerOrganization::find(0);
         $organization->fill($input);
 
         $organization->update();

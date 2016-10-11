@@ -6,27 +6,10 @@ use App\Http\Repositories\Repository;
 
 class OwnerOrganizationRepository extends Repository
 {
-    public function getModelById($id)
+    public function detail($model, $id)
     {
-        return $this->select(
-           'SELECT
-                organization_name,
-                address1,
-                address2,
-                city_name,
-                city_area,
-                work_phone,
-                mobile_phone,
-                contact_first_name,
-                contact_last_name,
-                contact_email,
-                contact_work_phone,
-                contact_mobile_phone,
-                organization_entity_id,
-                city_id
-            FROM view_org_my_org_detail_02_org_detail
-            LIMIT 1;'
-        );
+        $data = $this->lookup('sproc_org_my_org_detail_02_org_detail');
+        return [$data];
     }
 
     public function update($model)
