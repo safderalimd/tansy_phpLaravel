@@ -3,19 +3,25 @@
 namespace App\Http\Modules\loaddata\School\Repositories;
 
 use App\Http\Repositories\Repository;
+use App\Http\Models\Model;
 
 class StudentDataRepository extends Repository
 {
     public function getColumnMapping()
     {
-        return $this->select(
-            'SELECT
-                table_name,
-                table_column_name,
-                file_column_name
-            FROM view_sys_external_load_column_mapping
-            WHERE table_name = "sch_admission";'
-        );
+        $model = new Model;
+        $model->setAttribute('table_name', 'sch_admission');
+
+        $procedure = 'sproc_sys_external_load_column_mapping';
+
+        $iparams = [
+            '-iparam_table_name',
+        ];
+
+        $oparams = [];
+
+        $data = $this->procedure($model, $procedure, $iparams, $oparams);
+        return first_resultset($data);
     }
 
     public function uploadComplete($model)
