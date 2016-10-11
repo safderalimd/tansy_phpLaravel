@@ -18,15 +18,6 @@ class ExamSchedule extends Model
         'subject_entity_id',
     ];
 
-    public function getExamGrid()
-    {
-        if (is_null($this->eid)) {
-            return [];
-        }
-
-        return $this->repository->getExamGrid($this->eid);
-    }
-
     public function examDropdown()
     {
         return $this->repository->examDropdown($this);

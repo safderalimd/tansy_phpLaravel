@@ -6,46 +6,6 @@ use App\Http\Repositories\Repository;
 
 class ExamScheduleRepository extends Repository
 {
-    public function getExamGrid($id)
-    {
-        return $this->select(
-            'SELECT
-                class_name,
-                class_entity_id,
-                subject_entity_id,
-                subject,
-                exam_date,
-                exam_time,
-                max_marks,
-                class_subject_id,
-                exam_entity_id,
-                class_reporting_order,
-                subject_reporting_order
-             FROM view_sch_schedule_exam_grid
-             WHERE exam_entity_id = :id
-             ORDER BY class_reporting_order, subject_reporting_order;',
-             ['id' => $id]
-        );
-    }
-
-    public function getScheduleExamGrid()
-    {
-        return $this->select(
-            'SELECT
-                class_name,
-                class_entity_id,
-                subject_entity_id,
-                subject,
-                exam_date,
-                exam_time,
-                max_marks,
-                class_subject_id,
-                exam_entity_id
-             FROM view_sch_schedule_exam_grid
-             ORDER BY class_name DESC;'
-        );
-    }
-
     public function examDropdown($model)
     {
         $procedure = 'sproc_sch_lkp_main_exam';
