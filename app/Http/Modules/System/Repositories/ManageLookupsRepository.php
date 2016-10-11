@@ -9,14 +9,6 @@ class ManageLookupsRepository extends Repository
     public function getLookups()
     {
         return $this->lookup('sproc_sys_lkp_lookups');
-
-        // return $this->select(
-        //     'SELECT
-        //         lookup_name,
-        //         lookup_id
-        //      FROM view_sys_lkp_lookups
-        //      ORDER BY lookup_name ASC;'
-        // );
     }
 
     public function lookupGrid($model)

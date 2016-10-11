@@ -18,18 +18,6 @@ class SecurityRepository extends Repository
 
         $data = $this->procedure($model, $procedure, $iparams, []);
         return first_resultset($data);
-
-        // return $this->select(
-        //    'SELECT
-        //        count(*)
-        //     FROM view_sch_lkp_student
-        //     WHERE class_student_id = :csi
-        //     AND student_entity_id = :sei
-        //     LIMIT 1;', [
-        //         'csi' => $model->class_student_id,
-        //         'sei' => $model->student_entity_id
-        //     ]
-        // );
     }
 
     public function checkPermission($model)

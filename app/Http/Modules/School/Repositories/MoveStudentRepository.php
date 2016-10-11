@@ -18,29 +18,6 @@ class MoveStudentRepository extends Repository
 
         $data = $this->procedure($model, $procedure, $iparams, []);
         return first_resultset($data);
-
-        // return $this->select(
-        //     'SELECT
-        //         student_full_name,
-        //         first_name,
-        //         middle_name,
-        //         last_name,
-        //         class_name,
-        //         student_roll_number,
-        //         fiscal_year,
-        //         mobile_phone,
-        //         active,
-        //         class_student_id,
-        //         student_entity_id,
-        //         class_entity_id,
-        //         class_category_entity_id,
-        //         class_group_entity_id,
-        //         fiscal_year_entity_id,
-        //         class_reporting_order
-        //     FROM view_sch_lkp_student
-        //     WHERE class_entity_id = :id
-        //     ORDER BY student_roll_number ASC;', ['id' => $id]
-        // );
     }
 
     public function move($model)
