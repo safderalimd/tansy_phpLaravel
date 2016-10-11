@@ -8,16 +8,7 @@ class AccountAgentRepository extends Repository
 {
     public function getAgents()
     {
-        return $this->select(
-            'SELECT
-                account_name,
-                company_name,
-                city_name,
-                mobile_phone,
-                account_entity_id
-             FROM view_org_account_agent_grid
-             ORDER BY account_name ASC;'
-        );
+        return $this->lookup('sproc_org_account_agent_grid');
     }
 
     public function detail($model, $id)
