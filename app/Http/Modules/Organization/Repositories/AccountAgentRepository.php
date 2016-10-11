@@ -15,7 +15,7 @@ class AccountAgentRepository extends Repository
     {
         $model->setAttribute('account_entity_id', $id);
 
-        $procedure = 'call sproc_org_account_agent_detail';
+        $procedure = 'sproc_org_account_agent_detail';
 
         $iparams = [
             ':iparam_account_entity_id',
@@ -25,11 +25,12 @@ class AccountAgentRepository extends Repository
 
         $data = $this->procedure($model, $procedure, $iparams, $oparams);
 
-        if (!isset($data[0])) {
-            $data[0] = [];
+        if (!isset($data[0][0])) {
+            $data = [[]];
         }
-        $data[0]['view_default_facility_id'] = $data[0]['default_facility_id'] ?? '';
-        $data[0]['security_group_entity_id'] = $data[0]['group_entity_id'] ?? '';
+        $data[0][0]['view_default_facility_id'] = $data[0][0]['default_facility_id'] ?? '';
+        $data[0][0]['security_group_entity_id'] = $data[0][0]['group_entity_id'] ?? '';
+        unset($data[0][0]['default_facility_id']);
         return $data;
     }
 

@@ -66,7 +66,7 @@ class AccountClientController extends Controller
      */
     public function edit($id)
     {
-        $account = AccountClient::findOrFail($id);
+        $account = AccountClient::find($id);
         $account->loadData();
         return view('modules.organization.AccountClient.form', compact('account'));
     }
@@ -99,7 +99,7 @@ class AccountClientController extends Controller
      */
     public function destroy($id)
     {
-        $account = AccountClient::findOrFail($id);
+        $account = AccountClient::find($id);
         $account->delete();
         flash('Client Deleted!');
         return redirect('/cabinet/account-client');

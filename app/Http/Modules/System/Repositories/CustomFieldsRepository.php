@@ -58,13 +58,13 @@ class CustomFieldsRepository extends Repository
 
         $data = $this->procedure($model, $procedure, $iparams, $oparams);
 
-        if (!isset($data[0])) {
-            $data[0] = [];
+        if (!isset($data[0][0])) {
+            $data = [[]];
         }
-        $data[0]['order_sequence'] = $data[0]['column_sequence'] ?? '';
-        $data[0]['custom_field_list'] = $data[0]['drop_down_list'] ?? '';
-        $data[0]['existing'] = $data[0]['existing_drop_down_selected'] ?? '';
-        $data[0]['primary_key_id'] = $data[0]['drop_down_primary_key_id'] ?? '';
+        $data[0][0]['order_sequence'] = $data[0][0]['column_sequence'] ?? '';
+        $data[0][0]['custom_field_list'] = $data[0][0]['drop_down_list'] ?? '';
+        $data[0][0]['existing'] = $data[0][0]['existing_drop_down_selected'] ?? '';
+        $data[0][0]['primary_key_id'] = $data[0][0]['drop_down_primary_key_id'] ?? '';
         return $data;
     }
 

@@ -8,45 +8,22 @@ class AccountClientRepository extends Repository
 {
     public function getClientsGrid()
     {
-        return $this->select(
-            'SELECT
-                account_name,
-                city_name,
-                mobile_phone,
-                account_entity_id,
-                client_type,
-                client_satatus
-             FROM view_org_account_client_grid
-             ORDER BY account_name ASC;'
-        );
+        return $this->lookup('sproc_org_account_client_grid');
     }
 
-    public function getModelById($id)
+    public function detail($model, $id)
     {
-        return $this->select(
-            'SELECT
-                active,
-                first_name,
-                middle_name,
-                last_name,
-                date_of_birth,
-                gender,
-                unique_key_id,
-                email,
-                work_phone,
-                mobile_phone,
-                address1,
-                address2,
-                city_id,
-                city_area,
-                postal_code,
-                account_entity_id,
-                document_type_id,
-                document_number
-            FROM view_org_account_client_detail
-            WHERE account_entity_id = :id
-            LIMIT 1;', ['id' => $id]
-        );
+        $model->setAttribute('account_entity_id', $id);
+
+        $procedure = 'sproc_org_account_client_detail';
+
+        $iparams = [
+            ':iparam_account_entity_id',
+        ];
+
+        $oparams = [];
+
+        return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 
     public function insert($model)
