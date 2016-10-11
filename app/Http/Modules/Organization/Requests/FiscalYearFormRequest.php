@@ -27,7 +27,7 @@ class FiscalYearFormRequest extends Request
         return [
             'start_date'          => 'required|date',
             'end_date'            => 'required|date|after:start_date',
-            'name'                => 'required|string',
+            'fiscal_year'         => 'required|string',
             'facility_ids'        => 'required|array',
             'current_fiscal_year' => 'boolean'
         ];

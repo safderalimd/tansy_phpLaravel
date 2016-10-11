@@ -8,16 +8,7 @@ class FiscalYearRepository extends Repository
 {
     public function getAllFiscalYears()
     {
-        return $this->select(
-            'SELECT
-                fiscal_year_entity_id,
-                fiscal_year AS name,
-                start_date,
-                end_date,
-                current_fiscal_year
-             FROM view_org_fiscal_year_detail
-             ORDER BY start_date DESC;'
-        );
+        return $this->lookup('sproc_org_fiscal_year_grid');
     }
 
     public function getSelectedFacilities($id)
@@ -33,20 +24,35 @@ class FiscalYearRepository extends Repository
         );
     }
 
-    public function getModelById($id)
+    public function detail($model, $id)
     {
-        return $this->select(
-            'SELECT
-                fiscal_year_entity_id,
-                fiscal_year AS name,
-                start_date,
-                end_date,
-                current_fiscal_year
-             FROM view_org_fiscal_year_detail
-             WHERE fiscal_year_entity_id = :id
-             LIMIT 1;', ['id' => $id]
-        );
+        $model->setAttribute('fiscal_year_entity_id', $id);
+
+        $procedure = 'sproc_org_fiscal_year_detail';
+
+        $iparams = [
+            ':iparam_fiscal_year_entity_id',
+        ];
+
+        $oparams = [];
+
+        return $this->procedure($model, $procedure, $iparams, $oparams);
     }
+
+    // public function getModelById($id)
+    // {
+    //     return $this->select(
+    //         'SELECT
+    //             fiscal_year_entity_id,
+    //             fiscal_year,
+    //             start_date,
+    //             end_date,
+    //             current_fiscal_year
+    //          FROM view_org_fiscal_year_detail
+    //          WHERE fiscal_year_entity_id = :id
+    //          LIMIT 1;', ['id' => $id]
+    //     );
+    // }
 
     public function insert($model)
     {
@@ -55,7 +61,7 @@ class FiscalYearRepository extends Repository
         $iparams = [
             '-iparam_start_date',
             '-iparam_end_date',
-            '-iparam_name',
+            '-iparam_fiscal_year',
             '-iparam_current_fiscal_year',
             ':iparam_facility_ids',
             ':iparam_session_id',
@@ -82,7 +88,7 @@ class FiscalYearRepository extends Repository
         $iparams = [
             '-iparam_start_date',
             '-iparam_end_date',
-            '-iparam_name',
+            '-iparam_fiscal_year',
             '-iparam_current_fiscal_year',
             '-iparam_facility_ids',
             ':iparam_fiscal_year_entity_id',

@@ -65,7 +65,7 @@ class FiscalYearController extends Controller
      */
     public function edit($id)
     {
-        $fiscalYear = FiscalYear::findOrFail($id);
+        $fiscalYear = FiscalYear::find($id);
         $fiscalYear->loadData();
         return view('modules.organization.FiscalYear.form', compact('fiscalYear'));
     }
@@ -96,7 +96,7 @@ class FiscalYearController extends Controller
      */
     public function destroy($id)
     {
-        $fiscalYear = FiscalYear::findOrFail($id);
+        $fiscalYear = FiscalYear::find($id);
         $fiscalYear->delete();
         flash('Fiscal Year Deleted!');
         return redirect('/cabinet/fiscal-year');

@@ -28,7 +28,7 @@
             <tbody>
             @foreach($fiscalYear->allFiscalYears() as $row)
             <tr>
-                <td>{{$row['name']}}</td>
+                <td>{{$row['fiscal_year']}}</td>
                 <td>{{style_date($row['start_date'])}}</td>
                 <td>{{style_date($row['end_date'])}}</td>
                 <td>

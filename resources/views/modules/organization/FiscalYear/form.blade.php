@@ -21,9 +21,9 @@
                     {{ csrf_field() }}
 
                     <div class="form-group">
-                        <label class="col-md-3 control-label required" for="name">Fiscal Year</label>
+                        <label class="col-md-3 control-label required" for="fiscal_year">Fiscal Year</label>
                         <div class="col-md-6">
-                            <input id="name" class="form-control" type="text" name="name" value="{{ v('name') }}" placeholder="Name">
+                            <input id="fiscal_year" class="form-control" type="text" name="fiscal_year" value="{{ v('fiscal_year') }}" placeholder="Name">
                         </div>
                     </div>
 
