@@ -21,16 +21,9 @@ class SchoolClassRepository extends Repository
         return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 
-    public function getAllSchoolClasses() {
-        return $this->select(
-            'SELECT
-                class_entity_id,
-                class_name,
-                class_group,
-                class_category
-             FROM view_sch_class_grid
-             ORDER BY class_name ASC;'
-        );
+    public function getAllSchoolClasses()
+    {
+        return $this->lookup('sproc_sch_class_grid');
     }
 
     public function insert($model)

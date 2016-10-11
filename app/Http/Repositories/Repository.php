@@ -583,15 +583,6 @@ class Repository
         );
     }
 
-    public function getClassGrid()
-    {
-        return $this->select(
-            'SELECT class_entity_id, class_name, class_group, class_category, class_group_entity_id, class_category_entity_id
-            FROM view_sch_class_grid
-            ORDER BY class_name ASC;'
-        );
-    }
-
     public function getGenerateProgressGrid()
     {
         return $this->select(
