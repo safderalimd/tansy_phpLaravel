@@ -29,7 +29,8 @@ class AccountStatement extends Model
 
     public function loadPdfData()
     {
-        $this->studentData = $this->repository->getStudentById($this->student_entity_id);
+        $this->setAttribute('student_entity_id', $this->student_entity_id);
+        $this->studentData = $this->repository->getStudentById($this);
         if (isset($this->studentData[0])) {
             $this->studentData = $this->studentData[0];
         }

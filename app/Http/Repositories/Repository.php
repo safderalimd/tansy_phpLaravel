@@ -619,15 +619,6 @@ class Repository
         );
     }
 
-    public function getStudentDetail()
-    {
-        return $this->select(
-            'SELECT first_name, middle_name, last_name, gender, date_of_birth, class_name, student_roll_number, fiscal_year, admission_number, admission_date, identification1, identification2, parent_first_name, parent_middle_name, parent_last_name, parent_relationship, caste_name, religion_name, mother_tounge, mobile_phone, home_phone, email, address1, address2, city_name, postal_code, class_student_id, student_entity_id, class_entity_id, fiscal_year_entity_id
-            FROM view_sch_student_detail
-            ORDER BY last_name ASC;'
-        );
-    }
-
     public function getSelectedFacilities($id)
     {
         return $this->select(
