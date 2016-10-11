@@ -45,7 +45,7 @@ class MarkSheetController extends Controller
         $markSheet = new MarkSheet($request->input());
 
         if ($request->input('pdf') == 1) {
-            $markSheet->setSchoolNameAndPhone();
+            $markSheet->setOwnerOrganizationInfo();
             $view = view('modules.school.MarkSheet.pdf', compact('markSheet'));
             return Pdf::render($view);
 

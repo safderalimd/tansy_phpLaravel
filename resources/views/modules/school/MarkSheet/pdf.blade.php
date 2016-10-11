@@ -31,15 +31,14 @@
         }
     ?>
 
-    <div id="watermark"><div id="watermark-text">{{$markSheet->schoolName}}</div></div>
-
     <div class="container">
 
         <strong>
 
             @include('reports.common.pdf-header', [
-                'school' => $markSheet->schoolName,
-                'phone'  => $markSheet->schoolWorkPhone,
+                'school' => $grid->organizationName(),
+                'line2'  => $grid->organizationLine2(),
+                'line3'  => $grid->organizationLine3(),
             ])
 
             @include('reports.common.report-name', ['report' => $markSheet->reportName])
