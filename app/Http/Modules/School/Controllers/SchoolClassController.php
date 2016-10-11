@@ -64,7 +64,7 @@ class SchoolClassController extends Controller
      */
     public function edit($id)
     {
-        $class = SchoolClass::findOrFail($id);
+        $class = SchoolClass::find($id);
         return view('modules.school.SchoolClass.form', compact('class'));
     }
 
@@ -93,7 +93,7 @@ class SchoolClassController extends Controller
      */
     public function destroy($id)
     {
-        $class = SchoolClass::findOrFail($id);
+        $class = SchoolClass::find($id);
         $class->delete();
         flash('Class Deleted!');
         return redirect('/cabinet/class');

@@ -6,23 +6,19 @@ use App\Http\Repositories\Repository;
 
 class SchoolClassRepository extends Repository
 {
-    public function getModelById($id)
+    public function detail($model, $id)
     {
-        return $this->select(
-            'SELECT
-                class_entity_id,
-                class_name,
-                description,
-                reporting_order,
-                class_category_entity_id,
-                class_group_entity_id,
-                facility_entity_id AS facility_ids,
-                active,
-                class_teacher_entity_id
-             FROM view_sch_class_detail
-             WHERE class_entity_id = :id
-             LIMIT 1;', ['id' => $id]
-        );
+        $model->setAttribute('class_entity_id', $id);
+
+        $procedure = 'sproc_sch_class_detail';
+
+        $iparams = [
+            ':iparam_class_entity_id',
+        ];
+
+        $oparams = [];
+
+        return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 
     public function getAllSchoolClasses() {

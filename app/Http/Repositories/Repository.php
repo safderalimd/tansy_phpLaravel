@@ -583,15 +583,6 @@ class Repository
         );
     }
 
-    public function getClassDetail()
-    {
-        return $this->select(
-            'SELECT class_entity_id, class_name, description, reporting_order, class_category_entity_id, class_group_entity_id, facility_entity_id, active
-            FROM view_sch_class_detail
-            ORDER BY class_name ASC;'
-        );
-    }
-
     public function getClassGrid()
     {
         return $this->select(

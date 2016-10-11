@@ -26,4 +26,10 @@ class SchoolClass extends Model
 
         return 0;
     }
+
+    public function setFacilityEntityIdAttribute($value)
+    {
+        $this->setAttribute('facility_ids', $value);
+        return $value;
+    }
 }
