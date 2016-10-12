@@ -34,27 +34,30 @@ class TeacherQuickUpdateRepository extends Repository
         return $this->procedure($model, $procedure, $iparams, $oparams);
     }
 
-    // public function update($model)
-    // {
-    //     $procedure = 'sproc_org_account_multiple_update_dml';
+    public function update($model)
+    {
+        $procedure = 'sproc_sch_teacher_multiple_update_dml';
 
-    //     $iparams = [
-    //         ':iparam_field_id',
-    //         '-iparam_accountEntityID_value',
-    //         ':iparam_session_id',
-    //         ':iparam_user_id',
-    //         ':iparam_screen_id',
-    //         ':iparam_debug_sproc',
-    //         ':iparam_audit_screen_visit',
-    //     ];
+        $iparams = [
+            ':iparam_account_entity_id',
+            '-iparam_short_name',
+            ':iparam_department_id',
+            ':iparam_class_teacher_class_entity_id',
+            ':iparam_teacher_periods_quota_per_day',
+            ':iparam_session_id',
+            ':iparam_user_id',
+            ':iparam_screen_id',
+            ':iparam_debug_sproc',
+            ':iparam_audit_screen_visit',
+        ];
 
-    //     $oparams = [
-    //         '@oparam_err_flag',
-    //         '@oparam_err_step',
-    //         '@oparam_err_msg',
-    //     ];
+        $oparams = [
+            '@oparam_err_flag',
+            '@oparam_err_step',
+            '@oparam_err_msg',
+        ];
 
-    //     return $this->procedure($model, $procedure, $iparams, $oparams);
-    // }
+        return $this->procedure($model, $procedure, $iparams, $oparams);
+    }
 }
 

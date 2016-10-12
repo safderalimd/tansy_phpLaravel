@@ -38,9 +38,9 @@ class TeacherQuickUpdateController extends Controller
     public function update(Request $request)
     {
         $update = new TeacherQuickUpdate($request->input());
-        $update->setFilters();
+        dd($update);
         $update->update();
         flash('Rows Updated!');
-        return redirect('/cabinet/account---quick-update'.query_string());
+        return redirect('/cabinet/teacher---quick-update'.query_string());
     }
 }

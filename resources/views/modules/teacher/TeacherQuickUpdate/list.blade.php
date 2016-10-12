@@ -77,17 +77,6 @@
 
             @include('commons.modal')
 
-            <nav class="nav-footer navbar navbar-default">
-                <div class="container-fluid">
-                    <form class="navbar-form navbar-right" id="update-form" action="{{form_action_full()}}" method="POST">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="accountEntityID_value" id="collection_ids" value="">
-                        <a href="{{ url("/cabinet/account---quick-update")}}" class="btn btn-default cancle_btn">Cancel</a>
-                        <button @if (0 == count($update->rows)) disabled="disabled" @endif id="update-button" type="submit" class="btn btn-primary">Save</button>
-                    </form>
-                </div>
-            </nav>
-
 
 {{--             public function getDepartments()
             {
