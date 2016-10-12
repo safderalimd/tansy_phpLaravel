@@ -297,6 +297,8 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('pdf---student', 'reports\School\Controllers\OneStudentController@index');
     Route::get('pdf---student/pdf', 'reports\School\Controllers\OneStudentController@report');
 
+    Route::get('pdf---dice', 'reports\School\Controllers\DICEController@report');
+
 
     // Teacher Links Group
     Route::get('daily-attendance', 'School\Controllers\AttendanceController@index');
