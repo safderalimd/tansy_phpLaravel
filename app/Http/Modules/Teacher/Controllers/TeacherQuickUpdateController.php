@@ -26,7 +26,6 @@ class TeacherQuickUpdateController extends Controller
     public function index(Request $request)
     {
         $update = new TeacherQuickUpdate($request->input());
-        // $update->loadData();
         return view('modules.teacher.TeacherQuickUpdate.list', compact('update'));
     }
 

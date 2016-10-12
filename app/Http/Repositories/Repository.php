@@ -377,6 +377,12 @@ class Repository
         return $this->lookup('sproc_crm_lkp_issue_status');
     }
 
+    public function getDepartments()
+    {
+        // department_name, department_id, active
+        return $this->lookup('sproc_org_lkp_department');
+    }
+
     public function getOrganizations()
     {
         // organization_name, organization_entity_id

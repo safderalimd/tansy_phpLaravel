@@ -35,11 +35,6 @@ class AccountEmployeeRepository extends Repository
         return $data;
     }
 
-    public function getDepartments()
-    {
-        return $this->lookup('sproc_org_lkp_department');
-    }
-
     public function insert($model)
     {
         $procedure = 'sproc_org_account_employee_dml_ins';

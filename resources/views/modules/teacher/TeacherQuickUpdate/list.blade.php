@@ -28,6 +28,11 @@
                 </div>
             </form>
 
+            <div class="lookup-error-message alert alert-danger" style="display:none;">
+                <ul>
+                    <li></li>
+                </ul>
+            </div>
 {{--
             Employee Name" => "CHOTU HAMEED"
             "Short Name" => "Chotu"
@@ -39,66 +44,30 @@
             "account_entity_id" => 176
  --}}
             <form id="table-validation">
-            <table class="table table-striped table-bordered table-hover">
+            <table class="quick-update-table table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th class="text-center"><input type="checkbox" id="toggle-subjects" name="toggle-checkbox" value=""></th>
                         <th>Employee Name</th>
                         <th>Short Name</th>
                         <th>Department Name</th>
                         <th>Class Teacher</th>
                         <th>Clasess Per Day</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i = 0; ?>
                     @foreach($update->rows() as $row)
-                    <tr>
-                        <td class="text-center">
-                            <input type="checkbox" class="checkbox-row-id" name="" value="{{$row['account_entity_id']}}">
-                        </td>
+                    <tr class="quick-update-row">
                         <td>{{$row['Employee Name']}}</td>
                         <td>{{$row['Short Name']}}</td>
                         <td>{{$row['Department Name']}}</td>
                         <td>{{$row['Class Teacher']}}</td>
                         <td>{{$row['Clasess Per Day']}}</td>
                         <td>
-                        <?php $update->dataType=''; ?>
-                            @if ($update->dataType == 'DROP DOWN')
-                                <?php
-                                    $matchBy = 'id';
-                                    foreach ($update->getDropdownOptions() as $option) {
-                                        if ($option['name'] == $row['Field Value']) {
-                                            $matchBy = 'name';
-                                            break;
-                                        }
-                                    }
-                                ?>
-                                <select disabled="disabled" data-type="dropdown" name="account_row_id{{$i}}" class="form-control account-row-id">
-                                    <option value="none">Select..</option>
-                                    @foreach ($update->getDropdownOptions() as $option)
-                                        <option @if ($option[$matchBy] == $row['Field Value']) selected="selected" @endif value="{{$option['id']}}">{{$option['name']}}</option>
-                                    @endforeach
-                                </select>
-
-                            @elseif ($update->dataType == 'FLAG')
-                                <input  disabled="disabled" data-type="flag" type="checkbox" name="account_row_id{{$i}}" class="form-control account-row-id" value="" @if($row['Field Value'] == 1) checked="checked" @endif>
-
-                            @elseif ($update->dataType == 'NUMBER')
-                                <input data-rule-number="true" data-rule-min="0" disabled="disabled" data-type="number" type="text" name="account_row_id{{$i}}" class="form-control account-row-id" value="{{$row['Field Value']}}">
-
-                            @elseif ($update->dataType == 'DATE')
-                                <div class="input-group date">
-                                    <input disabled="disabled" class="form-control account-row-id" type="text" name="account_row_id{{$i}}" data-type="date" value="{{$row['Field Value']}}">
-                                    <span class="input-group-btn">
-                                        <button disabled="disabled" class="calendar-button btn btn-default" type="button"><span
-                                                    class="glyphicon glyphicon-calendar"></span></button>
-                                    </span>
-                                </div>
-
-                            @elseif ($update->dataType == 'TEXT')
-                                <input disabled="disabled" data-type="text" type="text" name="account_row_id{{$i}}" class="form-control account-row-id" value="{{$row['Field Value']}}">
-                            @endif
+                            <button type="button" class="edit-button btn btn-default">Edit</button>
+                            <button type="button" style="display:none;" class="cancel-button btn btn-default">Cancel</button>
+                            <button data-loading-text="Saving..." data-keyid="{{$row['account_entity_id']}}" type="button" style="display:none;" class="save-button btn btn-default">Save</button>
                         </td>
                     </tr>
                     @endforeach
@@ -118,6 +87,12 @@
                     </form>
                 </div>
             </nav>
+
+
+{{--             public function getDepartments()
+            {
+                // department_name, department_id, active
+ --}}
 
 
         </div>
@@ -154,29 +129,6 @@
         }
         return '';
     }
-
-    // check/uncheck all checkboxes
-    $('#toggle-subjects').change(function() {
-        if($(this).is(":checked")) {
-            $('.checkbox-row-id').prop('checked', true);
-            $('.account-row-id').prop('disabled', false);
-            $('.calendar-button').prop('disabled', false);
-        } else {
-            $('.checkbox-row-id').prop('checked', false);
-            $('.account-row-id').prop('disabled', true);
-            $('.calendar-button').prop('disabled', true);
-        }
-    });
-
-    $('.checkbox-row-id').change(function() {
-        if($(this).is(":checked")) {
-            $(this).closest('tr').find('.account-row-id').prop('disabled', false);
-            $(this).closest('tr').find('.calendar-button').prop('disabled', false);
-        } else {
-            $(this).closest('tr').find('.account-row-id').prop('disabled', true);
-            $(this).closest('tr').find('.calendar-button').prop('disabled', true);
-        }
-    });
 
     $('#table-validation').validate();
 
@@ -217,6 +169,123 @@
         $('#collection_ids').val(rowIds.join('|'));
 
         return true;
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+    $('.lookup-table').on('click', '.edit-button', function() {
+        var row = $(this).closest('.quick-update-row');
+        $('.save-button', row).show();
+        $('.cancel-button', row).show();
+        $(this).hide();
+
+        var description = $('.td-description', row).text();
+        var active = $('.td-active', row).text();
+        var reporting_order = $('.td-reporting_order', row).text();
+
+        $('.td-description', row).html($('<input class="form-control" type="text" value="">').val(description));
+
+        if (active == 'Yes') {
+            $('.td-active', row).html($('<input class="checkbox" checked="checked" type="checkbox">'));
+        } else {
+            $('.td-active', row).html($('<input class="checkbox" type="checkbox">'));
+        }
+
+        $('.td-reporting_order', row).html($('<input class="form-control" type="text" value="">').val(reporting_order));
+
+        // store original values
+        $('.td-description', row).attr('data-original', description);
+        $('.td-active', row).attr('data-original', active);
+        $('.td-reporting_order', row).attr('data-original',reporting_order);
+    });
+
+    $('.lookup-table').on('click', '.cancel-button', function() {
+        var row = $(this).closest('.quick-update-row');
+        originalRowUneditable(row);
+    });
+
+    function originalRowUneditable(row) {
+        $('.save-button', row).hide();
+        $('.edit-button', row).show();
+        $('.cancel-button', row).hide();
+        $('.td-description', row).html($('.td-description', row).attr('data-original'));
+        $('.td-active', row).html($('.td-active', row).attr('data-original'));
+        $('.td-reporting_order', row).html($('.td-reporting_order', row).attr('data-original'));
+    }
+
+    function makeRowUneditable(row) {
+        $('.save-button', row).hide();
+        $('.edit-button', row).show();
+        $('.cancel-button', row).hide();
+
+        var description = $('.td-description input', row).val();
+        var active = $('.td-active input', row).is(':checked');
+        var reporting_order = $('.td-reporting_order input', row).val();
+
+        $('.td-description', row).html(description);
+        if (active == true) {
+            active = 'Yes';
+        } else {
+            active = 'No';
+        }
+        $('.td-active', row).html(active);
+        $('.td-reporting_order', row).html(reporting_order);
+    }
+
+    $('.lookup-table').on('click', '.save-button', function() {
+        var row = $(this).closest('.quick-update-row');
+        var primaryKeyId = $(this).attr('data-keyid');
+        var isNewRecord = $(this).attr('data-newrecord');
+        var saveButton = this;
+
+        var postUrl = '/cabinet/manage-lookups/update';
+        if (isNewRecord) {
+            postUrl = '/cabinet/manage-lookups/store';
+        }
+        postUrl = postUrl + '?' + window.location.href.split('?')[1];
+
+        var description = $('.td-description input', row).val();
+        var active = $('.td-active input', row).is(':checked');
+        var reportingOrder = $('.td-reporting_order input', row).val();
+
+        $(saveButton).button('loading');
+
+        $.ajax({
+            type: "POST",
+            url: postUrl,
+            data: {
+                primary_key_id: primaryKeyId,
+                description : description,
+                active : active,
+                reporting_order : reportingOrder
+            },
+            dataType: "json",
+            success: function(data) {
+                $(saveButton).button('reset');
+                if (data.error) {
+                    $('.lookup-error-message').show();
+                    $('.lookup-error-message li').text(data.error);
+                } else if (data.success) {
+                    makeRowUneditable(row);
+                    $('.lookup-error-message').hide();
+                }
+            },
+            error: function(errMsg) {
+                $(saveButton).button('reset');
+                $('.lookup-error-message').show();
+                $('.lookup-error-message li').text("An unexpected error occured.");
+            }
+        });
+
     });
 
 </script>
