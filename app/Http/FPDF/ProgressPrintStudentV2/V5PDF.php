@@ -387,7 +387,7 @@ class V5PDF extends BasePDF
         $this->setXY(10, $y);
         $width = floor(($this->GetPageWidth() - 20) / 3.0);
         $this->Cell($width, 4, 'Principal Signature', 0, 0, 'C');
-        $this->Cell($width, 4, 'Teacher Signature', 0, 0, 'C');
+        $this->Cell($width, 4, 'Class Teacher Signature', 0, 0, 'C');
         $this->Cell($width, 4, 'Parent Signature', 0, 0, 'C');
     }
 
