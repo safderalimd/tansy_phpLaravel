@@ -10,6 +10,11 @@ class TeacherQuickUpdate extends Model
 
     protected $repositoryNamespace = 'App\Http\Modules\Teacher\Repositories\TeacherQuickUpdateRepository';
 
+    protected $selects = [
+        'row_department_id',
+        'class_teacher_class_entity_id',
+    ];
+
     public function setDiAttribute($value)
     {
         $this->setAttribute('department_id', $value);

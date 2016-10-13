@@ -317,7 +317,7 @@ Route::group(['middleware' => ['cabinet', 'menu', 'no-cache'], 'prefix' => 'cabi
     Route::get('exam-syllabus/delete/{id}', 'Teacher\Controllers\ExamSyllabusController@destroy');
 
     Route::get('teacher---quick-update', 'Teacher\Controllers\TeacherQuickUpdateController@index');
-    Route::post('teacher---quick-update', 'Teacher\Controllers\TeacherQuickUpdateController@store');
+    Route::post('teacher---quick-update', 'Teacher\Controllers\TeacherQuickUpdateController@update');
 
 
     // Exam Links Group

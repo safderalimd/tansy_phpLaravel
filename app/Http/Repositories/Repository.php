@@ -45,6 +45,12 @@ class Repository
         return $this->lookup('sproc_sch_lkp_class');
     }
 
+    public function getClass2()
+    {
+        // class_entity_id, class_name
+        return $this->lookup('sproc_sch_lkp_class2');
+    }
+
     public function getTeachers()
     {
         // teacher_name, teacher_short_name, teacher_entity_id

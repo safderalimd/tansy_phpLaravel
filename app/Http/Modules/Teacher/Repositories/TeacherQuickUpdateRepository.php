@@ -41,7 +41,7 @@ class TeacherQuickUpdateRepository extends Repository
         $iparams = [
             ':iparam_account_entity_id',
             '-iparam_short_name',
-            ':iparam_department_id',
+            ':iparam_row_department_id',
             ':iparam_class_teacher_class_entity_id',
             ':iparam_teacher_periods_quota_per_day',
             ':iparam_session_id',

@@ -33,16 +33,25 @@
                     <li></li>
                 </ul>
             </div>
-{{--
-            Employee Name" => "CHOTU HAMEED"
-            "Short Name" => "Chotu"
-            "Department Name" => "HR"
-            "Class Teacher" => "X-A"
-            "Clasess Per Day" => 6
-            "department_id" => 1
-            "class_teacher_class_entity_id" => 30
-            "account_entity_id" => 176
- --}}
+
+            <div id="departments-dropdown" style="display:none;">
+                <select class="form-control">
+                    <option value="none">Select a department..</option>
+                    @foreach($update->departments() as $option)
+                        <option value="{{ $option['department_id'] }}">{{ $option['department_name'] }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div id="teachers-dropdown" style="display:none;">
+                <select class="form-control">
+                    <option value="none">Select a class..</option>
+                    @foreach($update->class2() as $option)
+                        <option value="{{ $option['class_entity_id'] }}">{{ $option['class_name'] }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <form id="table-validation">
             <table class="quick-update-table table table-striped table-bordered table-hover">
                 <thead>
@@ -59,11 +68,11 @@
                     <?php $i = 0; ?>
                     @foreach($update->rows() as $row)
                     <tr class="quick-update-row">
-                        <td>{{$row['Employee Name']}}</td>
-                        <td>{{$row['Short Name']}}</td>
-                        <td>{{$row['Department Name']}}</td>
-                        <td>{{$row['Class Teacher']}}</td>
-                        <td>{{$row['Clasess Per Day']}}</td>
+                        <td class="td-employee_name">{{$row['Employee Name']}}</td>
+                        <td class="td-short_name">{{$row['Short Name']}}</td>
+                        <td data-departmentid="{{$row['department_id']}}" class="td-department_name">{{$row['Department Name']}}</td>
+                        <td data-classid="{{$row['class_teacher_class_entity_id']}}" class="td-class_teacher">{{$row['Class Teacher']}}</td>
+                        <td class="td-clasess_per_day">{{$row['Clasess Per Day']}}</td>
                         <td>
                             <button type="button" class="edit-button btn btn-default">Edit</button>
                             <button type="button" style="display:none;" class="cancel-button btn btn-default">Cancel</button>
@@ -76,12 +85,6 @@
             </form>
 
             @include('commons.modal')
-
-
-{{--             public function getDepartments()
-            {
-                // department_name, department_id, active
- --}}
 
 
         </div>
@@ -119,96 +122,58 @@
         return '';
     }
 
-    $('#table-validation').validate();
-
-    $('#update-form').submit(function() {
-        if (! $('#table-validation').valid()) {
-            return false;
-        }
-
-        var rowIds = $('.checkbox-row-id:checked').map(function() {
-            var id = this.value;
-            var input = $(this).closest('tr').find('.account-row-id');
-            var type = $(input).attr('data-type');
-            var v;
-
-            if (type == 'dropdown') {
-                v = $('option:selected', input).val();
-                if (v == 'none') {
-                    v = 'null';
-                }
-            } else if (type == 'number') {
-                v = $(input).val();
-            } else if (type == 'date') {
-                v = $(input).val();
-            } else if (type == 'text') {
-                v = $(input).val();
-            } else if ($type == 'flag') {
-                v = $(input).is(':checked') ? 1 : 0;
-            }
-
-            // remove pipe
-            if (typeof v == 'string') {
-                v = v.replace('|','');
-            }
-
-            return id + '<$$>' + v;
-        }).get();
-
-        $('#collection_ids').val(rowIds.join('|'));
-
-        return true;
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-    $('.lookup-table').on('click', '.edit-button', function() {
+    var nameIndex = 0;
+    $('.quick-update-table').on('click', '.edit-button', function() {
         var row = $(this).closest('.quick-update-row');
         $('.save-button', row).show();
         $('.cancel-button', row).show();
         $(this).hide();
 
-        var description = $('.td-description', row).text();
-        var active = $('.td-active', row).text();
-        var reporting_order = $('.td-reporting_order', row).text();
+        var short_name = $('.td-short_name', row).text();
+        var clasess_per_day = $('.td-clasess_per_day', row).text();
+        var department_name_id = $('.td-department_name', row).attr('data-departmentid');
+        var class_teacher_id = $('.td-class_teacher', row).attr('data-classid');
 
-        $('.td-description', row).html($('<input class="form-control" type="text" value="">').val(description));
+        if (department_name_id == '') department_name_id = 'none';
+        if (class_teacher_id == '') class_teacher_id = 'none';
 
-        if (active == 'Yes') {
-            $('.td-active', row).html($('<input class="checkbox" checked="checked" type="checkbox">'));
-        } else {
-            $('.td-active', row).html($('<input class="checkbox" type="checkbox">'));
-        }
+        $('.td-short_name', row).html($('<input class="form-control" type="text" value="">').val(short_name));
+        $('.td-clasess_per_day', row).html($('<input class="form-control" name="class_per_day_'+nameIndex+'" type="text" value="">').val(clasess_per_day));
+        nameIndex++;
+        $('.td-clasess_per_day input', row).rules('add', {
+            required: true,
+            number: true,
+            min:0
+        });
 
-        $('.td-reporting_order', row).html($('<input class="form-control" type="text" value="">').val(reporting_order));
+        $('.td-department_name', row).html($($('#departments-dropdown').html()).val(department_name_id));
+        $('.td-class_teacher', row).html(
+            $($('#teachers-dropdown').html()).val(class_teacher_id));
 
-        // store original values
-        $('.td-description', row).attr('data-original', description);
-        $('.td-active', row).attr('data-original', active);
-        $('.td-reporting_order', row).attr('data-original',reporting_order);
+        $('.td-short_name', row).attr('data-original', short_name);
+        $('.td-clasess_per_day', row).attr('data-original', clasess_per_day);
+        $('.td-department_name', row).attr('data-original', department_name_id);
+        $('.td-class_teacher', row).attr('data-original', class_teacher_id);
     });
 
-    $('.lookup-table').on('click', '.cancel-button', function() {
+    $('.quick-update-table').on('click', '.cancel-button', function() {
         var row = $(this).closest('.quick-update-row');
-        originalRowUneditable(row);
+        originalMakeRowUneditable(row);
     });
 
-    function originalRowUneditable(row) {
+    function originalMakeRowUneditable(row) {
         $('.save-button', row).hide();
         $('.edit-button', row).show();
         $('.cancel-button', row).hide();
-        $('.td-description', row).html($('.td-description', row).attr('data-original'));
-        $('.td-active', row).html($('.td-active', row).attr('data-original'));
-        $('.td-reporting_order', row).html($('.td-reporting_order', row).attr('data-original'));
+
+        $('.td-short_name', row).html($('.td-short_name', row).attr('data-original'));
+        $('.td-clasess_per_day', row).html($('.td-clasess_per_day', row).attr('data-original'));
+
+        var departmentId = $('.td-department_name', row).attr('data-original');
+        $('.td-department_name', row).html($('.td-department_name select option[value="'+departmentId+'"]').text());
+
+        var classId = $('.td-class_teacher', row).attr('data-original');
+        $('.td-class_teacher', row).html($('.td-class_teacher select option[value="'+classId+'"]').text());
     }
 
     function makeRowUneditable(row) {
@@ -216,35 +181,39 @@
         $('.edit-button', row).show();
         $('.cancel-button', row).hide();
 
-        var description = $('.td-description input', row).val();
-        var active = $('.td-active input', row).is(':checked');
-        var reporting_order = $('.td-reporting_order input', row).val();
+        var shortName = $('.td-short_name input', row).val();
+        var department = $('.td-department_name select option:selected', row).text();
+        var classTeacherClassEntity = $('.td-class_teacher select option:selected', row).text();
+        var teacherPeriodsQuotaPerDay = $('.td-clasess_per_day input', row).val();
 
-        $('.td-description', row).html(description);
-        if (active == true) {
-            active = 'Yes';
-        } else {
-            active = 'No';
-        }
-        $('.td-active', row).html(active);
-        $('.td-reporting_order', row).html(reporting_order);
+        $('.td-short_name', row).html(shortName);
+        $('.td-department_name', row).html(department);
+        $('.td-class_teacher', row).html(classTeacherClassEntity);
+        $('.td-clasess_per_day', row).html(teacherPeriodsQuotaPerDay);
     }
 
-    $('.lookup-table').on('click', '.save-button', function() {
+    $('#table-validation').validate();
+
+    $('.quick-update-table').on('click', '.save-button', function() {
         var row = $(this).closest('.quick-update-row');
-        var primaryKeyId = $(this).attr('data-keyid');
-        var isNewRecord = $(this).attr('data-newrecord');
+
+        if (! $('.td-clasess_per_day input', row).valid()) {
+            return false;
+        }
+
+        var accountEntityId = $(this).attr('data-keyid');
         var saveButton = this;
 
-        var postUrl = '/cabinet/manage-lookups/update';
-        if (isNewRecord) {
-            postUrl = '/cabinet/manage-lookups/store';
-        }
+        var postUrl = '/cabinet/teacher---quick-update';
         postUrl = postUrl + '?' + window.location.href.split('?')[1];
 
-        var description = $('.td-description input', row).val();
-        var active = $('.td-active input', row).is(':checked');
-        var reportingOrder = $('.td-reporting_order input', row).val();
+        var shortName = $('.td-short_name input', row).val();
+        var departmentId = $('.td-department_name select option:selected', row).val();
+        var classTeacherClassEntityId = $('.td-class_teacher select option:selected', row).val();
+        var teacherPeriodsQuotaPerDay = $('.td-clasess_per_day input', row).val();
+
+        $('.td-department_name', row).attr('data-departmentid', departmentId);
+        $('.td-class_teacher', row).attr('data-classid', classTeacherClassEntityId);
 
         $(saveButton).button('loading');
 
@@ -252,10 +221,11 @@
             type: "POST",
             url: postUrl,
             data: {
-                primary_key_id: primaryKeyId,
-                description : description,
-                active : active,
-                reporting_order : reportingOrder
+                account_entity_id: accountEntityId,
+                short_name: shortName,
+                row_department_id: departmentId,
+                class_teacher_class_entity_id: classTeacherClassEntityId,
+                teacher_periods_quota_per_day: teacherPeriodsQuotaPerDay
             },
             dataType: "json",
             success: function(data) {
