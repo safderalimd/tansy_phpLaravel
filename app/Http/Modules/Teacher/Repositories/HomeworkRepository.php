@@ -27,7 +27,12 @@ class HomeworkRepository extends Repository
             '@oparam_err_msg',
         ];
 
-        return $this->procedure($model, $procedure, $iparams, $oparams);
+        $data = $this->procedure($model, $procedure, $iparams, $oparams);
+        if (isset($data[0][0]['due_date'])) {
+            $data[0][0]['home_work_due_date'] = date('Y-m-d', strtotime($data[0][0]['due_date']));
+        }
+
+        return $data;
     }
 
     public function getGrid($model)
