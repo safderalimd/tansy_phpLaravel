@@ -221,6 +221,9 @@
 <hr/>
 <div class="row"><div class="col-md-3 pull-left"><h3>Login</h3></div></div>
 
+                        <input type="text" name="tmp-name" style="display:none">
+                        <input type="password" name="tmp-pass" style="display:none">
+
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="login_name">Login Name</label>
                             <div class="col-md-8">
