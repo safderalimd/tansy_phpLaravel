@@ -16,7 +16,7 @@
 
                     @include('commons.errors')
 
-                    <form id="account-employee-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
+                    <form autocomplete="off" id="account-employee-form" class="form-horizontal" action="{{ form_action() }}" method="POST">
                         {{ csrf_field() }}
 
 <hr/>
