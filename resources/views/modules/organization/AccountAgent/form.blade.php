@@ -174,7 +174,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="city_area">City Area</label>
                             <div class="col-md-8">
-                                <select autocomplete="off" id="city_area" class="form-control" name="city_area">
+                                <select autocomplete="new-password" id="city_area" class="form-control" name="city_area">
                                     <option></option>
                                     <?php
                                         $cityAreaValue = '';

@@ -414,7 +414,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="password">Password</label>
                             <div class="col-md-8">
-                                <input autocomplete="off" id="password" class="form-control" type="password" name="password" value="{{ v('password') }}" placeholder="Password">
+                                <input autocomplete="new-password" id="password" class="form-control" type="password" name="password" value="{{ v('password') }}" placeholder="Password">
                             </div>
                         </div>
 
