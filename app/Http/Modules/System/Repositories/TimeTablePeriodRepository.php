@@ -20,7 +20,7 @@ class TimeTablePeriodRepository extends Repository
 
     public function insert($model)
     {
-        $procedure = 'sproc_sproc_sch_time_table_period_dml_ins';
+        $procedure = 'sproc_sch_time_table_period_dml_ins';
 
         $iparams = [
             ':iparam_period_type_id',
