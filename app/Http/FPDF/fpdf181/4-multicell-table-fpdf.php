@@ -91,7 +91,7 @@ class MulticellTablePDF extends AlphaPDF
         $this->aligns=$a;
     }
 
-    public function Row($data)
+    public function Row($data, $drawBorder = true)
     {
         if (empty($this->widths)) {
             $this->setDefaultWidths($data);
@@ -131,8 +131,10 @@ class MulticellTablePDF extends AlphaPDF
             } else {
                 $this->MultiCell($w,$this->rowMultiCellHeight,$data[$i],0,$a);
             }
-            //Draw the border
-            $this->Rect($x,$y,$w,$h);
+            if ($drawBorder) {
+                //Draw the border
+                $this->Rect($x,$y,$w,$h);
+            }
             //Put the position to the right of the cell
             $this->SetXY($x+$w,$y);
         }

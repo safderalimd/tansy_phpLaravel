@@ -8,7 +8,8 @@ use App\Http\Modules\School\Models\MarkSheet;
 use App\Http\Modules\School\Requests\MarkSheetFormRequest;
 use App\Http\Modules\School\Requests\MarkSheetDeleteFormRequest;
 use App\Http\PdfGenerator\Pdf;
-// use App\Http\FPDF\MarkSheet\MarkSheetPDF;
+use App\Http\FPDF\MarkSheet\MarkSheetPDF;
+use Device;
 
 class MarkSheetController extends Controller
 {
@@ -46,11 +47,12 @@ class MarkSheetController extends Controller
 
         if ($request->input('pdf') == 1) {
             $markSheet->setOwnerOrganizationInfo();
-            $view = view('modules.school.MarkSheet.pdf', compact('markSheet'));
-            return Pdf::render($view);
-
-            // $pdf = MarkSheetPDF::portrait();
-            // $pdf->generate($markSheet);
+            
+            if (Device::isAndroidMobile()) {
+                return view('modules.school.MarkSheet.pdf', compact('markSheet'));
+            } else {
+                MarkSheetPDF::portrait()->generate($markSheet);
+            }
 
         } else {
             return view('modules.school.MarkSheet.form', compact('markSheet'));
