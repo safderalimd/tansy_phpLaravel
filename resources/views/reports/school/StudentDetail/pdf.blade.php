@@ -45,8 +45,6 @@
         $student = $export->pdfData;
     ?>
 
-    <div id="watermark"><div id="watermark-text">{{$export->schoolName}}</div></div>
-
     <div class="container">
 
         <strong>

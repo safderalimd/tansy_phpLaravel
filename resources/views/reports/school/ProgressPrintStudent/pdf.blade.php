@@ -15,8 +15,6 @@
     </head>
     <body>
 
-    <div id="watermark"><div id="watermark-text">{{$progress->organizationName}}</div></div>
-
 <?php
     $nrOfStudents = count($progress->students);
     $currentStudent = 0;

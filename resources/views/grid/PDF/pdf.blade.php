@@ -40,7 +40,6 @@
     </style>
 </head>
 <body>
-    {{-- <div id="watermark"><div id="watermark-text">$grid->organizationName()</div></div> --}}
 
     <div class="container">
 

@@ -28,8 +28,6 @@
     </head>
     <body>
 
-    {{-- <div id="watermark"><div id="watermark-text">{{$export->schoolName}}</div></div> --}}
-
     <div class="container">
 
     @foreach($export->tickets as $ticket)

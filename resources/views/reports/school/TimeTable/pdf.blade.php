@@ -9,8 +9,6 @@
     </head>
     <body>
 
-    <div id="watermark"><div id="watermark-text">{{$export->organizationName()}}</div></div>
-
     <div class="container">
 
         <strong>
