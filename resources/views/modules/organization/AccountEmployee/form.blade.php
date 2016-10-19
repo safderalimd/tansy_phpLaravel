@@ -238,8 +238,8 @@
 <hr/>
 <div class="row"><div class="col-md-3 pull-left"><h3>Login</h3></div></div>
                         
-                        <input type="text" name="tmp-name" placeholder="do not fill" style="position:absolute; left:-1000px; top:-1000px;">
-                        <input type="password" name="tmp-pass" placeholder="do not fill" style="position:absolute; left:-1000px; top:-1000px;">
+                        <input type="text" name="tmp-name" placeholder="do not fill" style="position:absolute; left:-1200px; top:-1200px;">
+                        <input type="password" name="tmp-pass" placeholder="do not fill" style="position:absolute; left:-1200px; top:-1200px;">
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="login_name">Login Name</label>
