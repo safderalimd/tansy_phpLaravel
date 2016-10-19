@@ -1,4 +1,10 @@
 <style type="text/css">
+    @font-face {
+        font-family: review;
+        font-style: normal;
+        font-weight: bold;
+        src: url("/fonts/Review.ttf");
+    }
     #watermark {
         position: fixed;
         bottom: 0px;
@@ -23,10 +29,14 @@
         text-align: right;
     }
     .logo-container, .school-container {
-        width: 33%;
         display: inline-block;
         padding: 0px;
         box-sizing: content-box;
+    }
+    .school-container .school-name {
+        font-family: review;
+        font-weight: bold;
+        color: #333333;
     }
     .school-logo {
         width: 150px;
