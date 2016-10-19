@@ -164,7 +164,7 @@ class ProviderTextlocal
     public function paymentReceipt($phone, $message, $accoutId, $typeId, $screenId)
     {
         $messages = [[
-            'sms_text'          => $this->trim($this->prefixToLoginUsers . $message),
+            'sms_text'          => $this->trim($this->prefixToParents . $message),
             'mobile_phone'      => $phone,
             'account_entity_id' => $accoutId,
         ]];
