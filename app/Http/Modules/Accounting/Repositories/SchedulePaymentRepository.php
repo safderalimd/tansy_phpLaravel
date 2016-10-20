@@ -10,7 +10,8 @@ class SchedulePaymentRepository extends Repository
     {
         $model->setAttribute('visit_id', $id);
 
-        $procedure = 'sproc_crm_client_visit_detail';
+        // $procedure = 'sproc_crm_client_visit_detail';
+        $procedure = 'sproc_act_rcv_schedule_detail_detail';
 
         $iparams = [
             ':iparam_visit_id',
