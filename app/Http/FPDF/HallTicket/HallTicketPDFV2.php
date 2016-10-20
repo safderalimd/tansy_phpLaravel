@@ -86,7 +86,6 @@ class HallTicketPDFV2 extends BasePDF
     {
         $imgPath = \App\Http\Photos\Photo::studentProfileImage($this->contents->studentId);
         list($width, $height) = getimagesize($imgPath);
-        // dd($height);
 
         if ($height > 160) {
             $yPoz = $this->getY() + 10;
