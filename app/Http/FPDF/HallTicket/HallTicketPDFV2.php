@@ -84,7 +84,17 @@ class HallTicketPDFV2 extends BasePDF
 
     public function drawStudentImage()
     {
-        $this->showStudentProfilePicture($this->contents->studentId, 160, $this->getY() + 15);
+        $imgPath = \App\Http\Photos\Photo::studentProfileImage($this->contents->studentId);
+        list($width, $height) = getimagesize($imgPath);
+        // dd($height);
+
+        if ($height > 160) {
+            $yPoz = $this->getY() + 10;
+        } else {
+            $yPoz = $this->getY() + 15;
+        }
+
+        $this->showStudentProfilePicture($this->contents->studentId, 160, $yPoz);
     }
 
     public function drawTicketTable()
