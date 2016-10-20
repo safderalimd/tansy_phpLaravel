@@ -78,9 +78,6 @@
                 <div class="row third-line">
                     <div class="col-md-12">{{$export->headerThirdLine}}</div>
                 </div>
-                <div class="row phone-line">
-                    <div class="col-md-12">{{$export->phoneNr}}</div>
-                </div>
             </div>
         </div>
 
