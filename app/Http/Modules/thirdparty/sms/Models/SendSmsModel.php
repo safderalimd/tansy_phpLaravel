@@ -11,6 +11,8 @@ class SendSmsModel extends Model
 
     public $prefixType = '';
 
+    public $trimLength = 301;
+
     public function __construct($arguments = [])
     {
         parent::__construct($arguments);

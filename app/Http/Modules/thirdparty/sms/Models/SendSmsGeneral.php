@@ -12,7 +12,7 @@ class SendSmsGeneral extends SendSmsModel
 
     public $smsAccountTypes;
 
-    public $trimLength = 290;
+    public $trimLength = 301;
 
     public function setStiAttribute($value)
     {
@@ -52,7 +52,7 @@ class SendSmsGeneral extends SendSmsModel
 
     public function setPrefixType($type)
     {
-        $this->trimLength = 290;
+        $this->trimLength = 301;
         if ($type == 'All Leads') {
             $this->prefixType = 'All Leads';
         }

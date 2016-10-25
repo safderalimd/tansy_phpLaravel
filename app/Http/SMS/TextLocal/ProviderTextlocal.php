@@ -100,19 +100,19 @@ class ProviderTextlocal
         }
     }
 
-    public function trim($message, $maxLength = 145)
+    public function trim($prefix, $message, $maxLength = 301)
     {
         if (strlen($message) > $maxLength) {
-            return substr($message, 0, $maxLength);
+            $message = substr($message, 0, $maxLength);
         }
 
-        return $message;
+        return $prefix . $message;
     }
 
     public function forgotPasswordOTP($phone, $message)
     {
         $messages = [[
-            'sms_text'          => $this->trim($this->prefixToLoginUsers . $message),
+            'sms_text'          => $this->trim($this->prefixToLoginUsers, $message),
             'mobile_phone'      => $phone,
             'account_entity_id' => Session::get('forgot_passwd.user_id'),
         ]];
@@ -125,7 +125,7 @@ class ProviderTextlocal
     public function changePassword($phone, $message)
     {
         $messages = [[
-            'sms_text'          => $this->trim($this->prefixToLoginUsers . $message),
+            'sms_text'          => $this->trim($this->prefixToLoginUsers, $message),
             'mobile_phone'      => $phone,
             'account_entity_id' => Session::get('user.userID'),
         ]];
@@ -138,7 +138,7 @@ class ProviderTextlocal
     public function loginOTP($phone, $message)
     {
         $messages = [[
-            'sms_text'          => $this->trim($this->prefixToLoginUsers . $message),
+            'sms_text'          => $this->trim($this->prefixToLoginUsers, $message),
             'mobile_phone'      => $phone,
             'account_entity_id' => Session::get('user.userID'),
         ]];
@@ -151,7 +151,7 @@ class ProviderTextlocal
     public function loginSMS($phone, $message)
     {
         $messages = [[
-            'sms_text'          => $this->trim($this->prefixToLoginUsers . $message),
+            'sms_text'          => $this->trim($this->prefixToLoginUsers, $message),
             'mobile_phone'      => $phone,
             'account_entity_id' => Session::get('user.userID'),
         ]];
@@ -164,7 +164,7 @@ class ProviderTextlocal
     public function paymentReceipt($phone, $message, $accoutId, $typeId, $screenId)
     {
         $messages = [[
-            'sms_text'          => $this->trim($this->prefixToParents . $message),
+            'sms_text'          => $this->trim($this->prefixToParents, $message),
             'mobile_phone'      => $phone,
             'account_entity_id' => $accoutId,
         ]];
@@ -193,7 +193,7 @@ class ProviderTextlocal
         }
 
         foreach ($messages as &$message) {
-            $message['sms_text'] = $this->trim($prefixType . $message['sms_text'], $trimLength);
+            $message['sms_text'] = $this->trim($prefixType, $message['sms_text'], $trimLength);
         }
         unset($message);
         $model->setAttribute('provider_entity_id', $this->providerId);
