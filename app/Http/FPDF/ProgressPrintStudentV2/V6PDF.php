@@ -297,7 +297,7 @@ class V6PDF extends BasePDF
         if ($nr != 0) {
             $this->setX($xPos);
             $averageGPA = round($sum / $nr, 2);
-            $this->setBackgroundColor('Helath - Overall GPA');
+            $this->setBackgroundColor('Health - Overall GPA');
             $w1 = $this->subjectsColumnWidth + $w * count($this->contents->coCuricullarTypes());
             $this->Cell($w1, $height, 'Overall GPA', 1, 0, 'C', true);
 
