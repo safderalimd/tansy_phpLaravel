@@ -225,7 +225,7 @@ class V6PDF extends BasePDF
     {
         $totalWidth = $this->totalLeftTabelWdith;
         $subjects = $this->contents->coCurricularSubjects;
-        $height = round((120 - $this->gradesHeaderRowHeight) / (7+ count($subjects)), 2);
+        $height = round((120 - $this->gradesHeaderRowHeight) / (8+ count($subjects)), 2);
 
         $xPos = 12+$totalWidth+$this->subjectsColumnWidth;
 
@@ -273,6 +273,8 @@ class V6PDF extends BasePDF
         }
 
         // draw subjects and marks
+        $sum = 0;
+        $nr = count($subjects);
         foreach ($subjects as $subject) {
             $this->setX($xPos);
 
@@ -284,12 +286,25 @@ class V6PDF extends BasePDF
 
             $this->SetFont('Helvetica', '', 9);
             foreach ($this->contents->coCuricullarTypes() as $type) {
-                $this->Cell($w, $height, $type, 1, 0, 'C', true);
+                $mark = isset($subject[$type]) ? $subject[$type] : '';
+                $this->Cell($w, $height, $mark, 1, 0, 'C', true);
             }
+            $sum += $subGpa;
             $this->Cell($w, $height, $subGpa, 1, 1, 'C', true);
         }
 
         $this->SetFont('Helvetica', 'B', 9);
+        if ($nr != 0) {
+            $this->setX($xPos);
+            $averageGPA = round($sum / $nr, 2);
+            $this->setBackgroundColor('Helath - Overall GPA');
+            $w1 = $this->subjectsColumnWidth + $w * count($this->contents->coCuricullarTypes());
+            $this->Cell($w1, $height, 'Overall GPA', 1, 0, 'C', true);
+
+            $this->resetBackgroundColor();                
+            $this->Cell($w, $height, $averageGPA, 1, 1, 'C', true);
+        }
+
         // health checkup
         $this->setX($xPos);
         $this->setBackgroundColor('Health Checkup');
