@@ -5,9 +5,35 @@ use BasePDF;
 
 require app_path('Http/FPDF/fpdf181/base-fpdf.php');
 
-class V5PDF extends BasePDF
+class V6PDF extends BasePDF
 {
     protected $website;
+
+    public function generate($export, $progress)
+    {
+        $export->setOwnerOrganizationInfo();
+        $this->website = $export->organizationWebsite();
+        $this->setContents(new V3Contents($export, $progress));
+        $this->SetTitle($this->contents->title);
+        $this->SetAuthor('Tansycloud');
+
+        foreach ($this->contents->students as $student) {
+            $this->contents->setStudent($student);
+
+            $this->AddPage();
+            $this->drawGrid();
+            $this->drawHeader();
+            $this->drawGradesTable();
+            $this->drawCocuricularTable();
+            $this->drawStudentInfo();
+            $this->drawAttendanceTable();
+            $this->drawSignatures();
+            $this->drawWatermark();
+            $this->drawGraph();
+        }
+
+        $this->Output();
+    }
 
     public function hexColor($name)
     {
@@ -38,7 +64,7 @@ class V5PDF extends BasePDF
             return [$r, $g, $b];
         }
 
-        return [0, 0, 0];
+        return [245, 245, 245];
     }
 
     public function setBackgroundColor($name)
@@ -61,31 +87,6 @@ class V5PDF extends BasePDF
     public function resetHexFontColor()
     {
         $this->SetTextColor(51, 51, 51);
-    }
-
-    public function generate($export, $progress)
-    {
-        $export->setOwnerOrganizationInfo();
-        $this->website = $export->organizationWebsite();
-        $this->setContents(new V3Contents($export, $progress));
-        $this->SetTitle($this->contents->title);
-        $this->SetAuthor('Tansycloud');
-
-        foreach ($this->contents->students as $student) {
-            $this->contents->setStudent($student);
-
-            $this->AddPage();
-            $this->drawGrid();
-            $this->drawHeader();
-            $this->drawGradesTable();
-            $this->drawStudentInfo();
-            $this->drawAttendanceTable();
-            $this->drawSignatures();
-            $this->drawWatermark();
-            $this->drawGraph();
-        }
-
-        $this->Output();
     }
 
     public function drawGrid()
@@ -150,12 +151,16 @@ class V5PDF extends BasePDF
         foreach ($header as $text) {
             $x = $this->getX();
             $y = $this->getY();
-            $this->MultiCell($width, $height, $text, 'T', 'C');
+            if ($i == 1) {
+                $this->MultiCell($this->subjectsColumnWidth, $height, $text, 'T', 'C');
+            } else {
+                $this->MultiCell($width, $height, $text, 'T', 'C');
+            }
             if ($maxY < $this->getY()) {
                 $maxY = $this->getY();
             }
             $this->setY($initialY);
-            $this->setX($initialX + ($width*$i));
+            $this->setX($initialX + $this->subjectsColumnWidth + ($width*($i-1)) );                
             $i++;
         }
 
@@ -177,12 +182,17 @@ class V5PDF extends BasePDF
             $c = $headerColors[$colorIndex];
             $this->SetFillColor($c[0], $c[1], $c[2]);
 
-            $this->Rect($x, $y, $width, $h, 'F');
+            if ($i == 1) {
+                $W = $this->subjectsColumnWidth;
+            } else {
+                $W = $width;
+            }
 
-            $this->MultiCell($width, $height, $text, 'T', 'C');
+            $this->Rect($x, $y, $W, $h, 'F');
+            $this->MultiCell($W, $height, $text, 'T', 'C');
 
             $this->setY($initialY);
-            $this->setX($initialX + ($width*$i));
+            $this->setX($initialX + $this->subjectsColumnWidth + ($width*($i-1)) );                
             $i++;
             $colorIndex++;
         }
@@ -191,22 +201,143 @@ class V5PDF extends BasePDF
         // draw header grid lines
         $this->setXY($initialX, $initialY);
         for ($i=0; $i<=count($header); $i++) {
-            $xPos = $initialX + ($width*$i);
+            if ($i == 0) {
+                $xPos = $initialX + $this->subjectsColumnWidth;
+            } else {
+                $xPos = $initialX + $this->subjectsColumnWidth + ($width*($i-1));
+            }
             $this->Line($xPos, $initialY, $xPos, $maxY);
         }
 
         // draw bottom line of row
-        $x = $initialX + ($width * count($header));
+        $x = $initialX + ($width * (count($header)-1));
         $this->Line($initialX, $maxY, $x, $maxY);
         $this->setY($maxY);
+    }
+
+    protected $subjectsColumnWidth = 30;
+    protected $curicularColumnWidth = 70;
+    protected $totalLeftTabelWdith = 100;
+    protected $gradesRowHeight = 10;
+    protected $gradesHeaderRowHeight = 10;
+
+    public function drawCocuricularTable()
+    {
+        $totalWidth = $this->totalLeftTabelWdith;
+        $subjects = $this->contents->coCurricularSubjects;
+        $height = round((120 - $this->gradesHeaderRowHeight) / (7+ count($subjects)), 2);
+
+        $xPos = 12+$totalWidth+$this->subjectsColumnWidth;
+
+        // draw co-curicular activities header
+        $this->SetFont('Helvetica', 'B', 9);
+        $this->setBackgroundColor('Co-Curricular');
+        $this->setXY($xPos, 48);
+        $text = 'Co-Curricular Activities';
+        $this->Cell($this->curicularColumnWidth, $this->gradesHeaderRowHeight, $text, 1, 1, 'C', true);
+        $this->resetBackgroundColor();
+
+        $subjectsWidth = 30;
+        $w = round(($this->curicularColumnWidth - $subjectsWidth) / (1+count($this->contents->coCuricullarTypes())), 2);
+        $this->setX($xPos);
+
+        // curricular subject cell
+        $this->setBackgroundColor('Subject');
+        $this->Cell($subjectsWidth, $height, 'SUBJECTS', 1, 0, 'C', true);
+        $this->resetBackgroundColor();
+
+        // coCuricullarTypes
+        foreach ($this->contents->coCuricullarTypes() as $type) {
+            $this->Cell($w, $height, $type, 1, 0, 'C', true);
+        }
+
+        // curricular subject cell
+        $this->setBackgroundColor('Grade');
+        $this->Cell($w, $height, 'Grade', 1, 1, 'C', true);
+        $this->resetBackgroundColor();
+
+        // find out the max length of a subject, then reduce the fonts to fit the columns
+        $maxString = '';
+        foreach ($subjects as $subject) {
+            $subjectName = isset($subject['exam']) ? $subject['exam'] : '';
+            if (strlen($subjectName) > strlen($maxString)) {
+                $maxString = $subjectName;
+            }
+        }
+        $subjectFontSize = 9;
+        $subjetWidth = $this->GetStringWidth($maxString);
+        while ($subjetWidth > $subjectsWidth) {
+            $subjectFontSize -= 1;
+            $this->SetFontSize($subjectFontSize);
+            $subjetWidth = $this->GetStringWidth($maxString);
+        }
+
+        // draw subjects and marks
+        foreach ($subjects as $subject) {
+            $this->setX($xPos);
+
+            $subjectName = isset($subject['exam']) ? $subject['exam'] : '';
+            $subGpa = isset($subject['sub_gpa']) ? $subject['sub_gpa'] : '';
+
+            $this->SetFont('Helvetica', '', $subjectFontSize);
+            $this->Cell($subjectsWidth, $height, $subjectName, 1, 0, 'C', true);
+
+            $this->SetFont('Helvetica', '', 9);
+            foreach ($this->contents->coCuricullarTypes() as $type) {
+                $this->Cell($w, $height, $type, 1, 0, 'C', true);
+            }
+            $this->Cell($w, $height, $subGpa, 1, 1, 'C', true);
+        }
+
+        $this->SetFont('Helvetica', 'B', 9);
+        // health checkup
+        $this->setX($xPos);
+        $this->setBackgroundColor('Health Checkup');
+        $this->Cell($this->curicularColumnWidth, $height, 'Health Status and Checkup Details', 1, 1, 'C', true);
+        $this->resetBackgroundColor();
+
+        $halfWidth = round($this->curicularColumnWidth/2, 2);
+
+        // date of checkup
+        $this->setX($xPos);
+        $this->setBackgroundColor('Date of Checkup');
+        $this->Cell($halfWidth, $height, 'Date of Checkup', 1, 0, 'C', true);
+        $this->resetBackgroundColor();
+        $this->Cell($halfWidth, $height, '', 1, 1, 'C', true);
+
+        $this->setX($xPos);
+        $this->setBackgroundColor('Health - Height');
+        $this->Cell($halfWidth, $height, 'HEIGHT', 1, 0, 'C', true);
+        $this->resetBackgroundColor();
+        $this->Cell($halfWidth, $height, '', 1, 1, 'C', true);
+
+        $this->setX($xPos);
+        $this->setBackgroundColor('Health - Weight');
+        $this->Cell($halfWidth, $height, 'WEIGHT', 1, 0, 'C', true);
+        $this->resetBackgroundColor();
+        $this->Cell($halfWidth, $height, '', 1, 1, 'C', true);
+
+        $this->setX($xPos);
+        $this->setBackgroundColor('Health Issues');
+        $this->Cell($halfWidth, $height, 'Health Issues', 1, 0, 'C', true);
+        $this->resetBackgroundColor();
+        $this->Cell($halfWidth, $height, '', 1, 1, 'C', true);
+
+        $this->setX($xPos);
+        $this->setBackgroundColor('Health - Suggestions');
+        $this->Cell($halfWidth, $height, 'SUGGESTIONS', 1, 0, 'C', true);
+        $this->resetBackgroundColor();
+        $this->Cell($halfWidth, $height, '', 1, 1, 'C', true);
+
+
     }
 
     public function drawGradesTable()
     {
         $fontSize = 9;
         $nrTestColumns = count($this->contents->examTypes());
-        $nrColumns = 3 + $nrTestColumns;
-        $totalWidth = 200;
+        $nrColumns = 2 + $nrTestColumns;
+        $totalWidth = $this->totalLeftTabelWdith;
         $width = round($totalWidth / $nrColumns, 2);
 
         $this->setXY(12, 48);
@@ -229,9 +360,11 @@ class V5PDF extends BasePDF
         $startY = 36;
         $this->TableHeader($header, $width, 6, $headerColors);
         $headerHeight = $this->getY() - $startY;
+        $this->gradesHeaderRowHeight = $this->getY() - 48;
 
         $nrRows = count($this->contents->getStudent());
         $height = round((102 - $headerHeight) / $nrRows, 2);
+        $this->gradesRowHeight = $height;
 
         // find out the max length of a subject, then reduce the fonts to fit the columns
         $maxString = '';
@@ -243,7 +376,7 @@ class V5PDF extends BasePDF
         }
         $subjectFontSize = $fontSize;
         $subjetWidth = $this->GetStringWidth($maxString);
-        while ($subjetWidth > $width) {
+        while ($subjetWidth > $this->subjectsColumnWidth) {
             $subjectFontSize -= 1;
             $this->SetFontSize($subjectFontSize);
             $subjetWidth = $this->GetStringWidth($maxString);
@@ -259,7 +392,7 @@ class V5PDF extends BasePDF
             $this->SetFont('Helvetica', 'B');
             $this->SetFontSize($subjectFontSize);
             $subjectName = isset($subject['subject_name']) ? $subject['subject_name'] : '';
-            $this->Cell($width, $height, $subjectName, 1, 0, 'C', $fill);
+            $this->Cell($this->subjectsColumnWidth, $height, $subjectName, 1, 0, 'C', $fill);
             $this->SetFontSize($fontSize);
 
             $this->SetFont('Helvetica', '');
@@ -282,16 +415,17 @@ class V5PDF extends BasePDF
         $this->SetFont('Helvetica', 'BU', 11);
 
         $this->setBackgroundColor('Remarks');
-        $this->Rect(12, $y, $width*$nrTestColumns, 30, 'F');
-        $this->Cell($width * $nrTestColumns, 9, 'Remarks', 0, 0, 'C', false);
+        $W = $this->subjectsColumnWidth + $width * ($nrTestColumns-2);
+        $this->Rect(12, $y, $W, 30, 'F');
+        $this->Cell($W, 9, 'Remarks', 0, 0, 'C', false);
         $this->setY($y);
         $this->setX(12);
-        $this->Cell($width * $nrTestColumns, 30, '', 1, 0, 'C');
+        $this->Cell($W, 30, '', 1, 0, 'C');
 
         // grand total text cell
         $this->SetFont('Helvetica', 'B', $fontSize);
         $this->setBackgroundColor('GRAND TOTAL');
-        $this->Cell($width, 10, 'GRAND TOTAL', 1, 0, 'C', true);
+        $this->Cell($width*2, 10, 'GRAND TOTAL', 1, 0, 'C', true);
 
         // grand total value
         $this->SetFont('Helvetica', '');
@@ -306,9 +440,9 @@ class V5PDF extends BasePDF
 
         // percentage text cell
         $y = $this->getY();
-        $this->setX(12 + $width * $nrTestColumns);
+        $this->setX(12 + $W);
         $this->setBackgroundColor('PERCENTAGE');
-        $this->Cell($width, 10, 'PERCENTAGE', 1, 0, 'C', true);
+        $this->Cell($width*2, 10, 'PERCENTAGE', 1, 0, 'C', true);
 
         // percentage value
         $this->SetFont('Helvetica', '');
@@ -316,10 +450,10 @@ class V5PDF extends BasePDF
         $this->resetBackgroundColor();
 
         // grade text cell
-        $this->setX(12 + $width * $nrTestColumns);
+        $this->setX(12 + $W);
         $this->SetFont('Helvetica', 'B');
         $this->setBackgroundColor('GRADE');
-        $this->Cell($width, 10, 'GRADE', 1, 0, 'C', true);
+        $this->Cell($width*2, 10, 'GRADE', 1, 0, 'C', true);
 
         // grade value
         $this->SetFont('Helvetica', '');
@@ -329,7 +463,7 @@ class V5PDF extends BasePDF
         // gpa value
         $this->setY($y);
         $this->setBackgroundColor('GPA');
-        $this->setX(12 + $width * ($nrTestColumns+2));
+        $this->setX(12 + $width*3 + $W); //* ($nrTestColumns+2));
         $this->Cell($width, 20, $this->contents->gpa, 1, 1, 'C', true);
         $this->resetBackgroundColor();
     }

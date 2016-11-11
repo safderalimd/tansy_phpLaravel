@@ -9,6 +9,7 @@ use App\Http\FPDF\ProgressPrintStudentV2\V2PDF;
 use App\Http\FPDF\ProgressPrintStudentV2\V3PDF;
 use App\Http\FPDF\ProgressPrintStudentV2\V4PDF;
 use App\Http\FPDF\ProgressPrintStudentV2\V5PDF;
+use App\Http\FPDF\ProgressPrintStudentV2\V6PDF;
 use Device;
 
 class ProgressPrintStudentV2Controller extends Controller
@@ -40,10 +41,19 @@ class ProgressPrintStudentV2Controller extends Controller
         $reportVersion3 = $request->input('v') == 3 ? true : false;
         $reportVersion4 = $request->input('v') == 4 ? true : false;
         $reportVersion5 = $request->input('v') == 5 ? true : false;
+        $reportVersion6 = $request->input('v') == 6 ? true : false;
+
+        if ($reportVersion6 && empty($progress->coCuricullar)) {
+            $reportVersion6 = false;
+            $reportVersion5 = true;
+        }
 
         // show html for android
         if (Device::isAndroidMobile()) {
-            if ($reportVersion5) {
+            if ($reportVersion6) {
+                return view('reports.school.ProgressPrintStudentV2.pdf-v3', compact('export', 'progress'));
+
+            } elseif ($reportVersion5) {
                 return view('reports.school.ProgressPrintStudentV2.pdf-v3', compact('export', 'progress'));
 
             } elseif ($reportVersion4) {
@@ -58,7 +68,9 @@ class ProgressPrintStudentV2Controller extends Controller
         }
 
         // show pdf
-        if ($reportVersion5) {
+        if ($reportVersion6) {
+            $pdf = V6PDF::landscape();
+        } elseif ($reportVersion5) {
             $pdf = V5PDF::landscape();
         } elseif ($reportVersion4) {
             $pdf = V4PDF::landscape();

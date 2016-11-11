@@ -38,6 +38,8 @@ class V3Contents
     public $percentagesLine = [];
     public $subjects = [];
 
+    public $coCurricularSubjects = [];
+
     public function __construct($export, $progress)
     {
         $this->export = $export;
@@ -73,6 +75,8 @@ class V3Contents
 
         $this->months = $this->progress->attendance->where('class_student_id', $classStudentId);
 
+        $this->coCurricularSubjects = $this->progress->coCuricullar->where('class_student_id', $classStudentId);
+
         $this->grandTotal = isset($studentTotals['student_total_marks']) ? $studentTotals['student_total_marks'] : '';
         $this->percentage = isset($studentTotals['score_percent']) ? $studentTotals['score_percent'] : '';
         $this->grade = isset($studentTotals['grade']) ? $studentTotals['grade'] : '';
@@ -93,5 +97,10 @@ class V3Contents
     public function examTypes()
     {
         return $this->progress->examTypes;
+    }
+
+    public function coCuricullarTypes()
+    {
+        return $this->progress->coCuricullarTypes;
     }
 }

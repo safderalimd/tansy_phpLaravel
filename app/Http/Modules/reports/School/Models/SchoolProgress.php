@@ -14,6 +14,8 @@ class SchoolProgress
 
     public $examTypes = [];
 
+    public $coCuricullarTypes = [];
+
     public $students;
 
     public $totals;
@@ -25,6 +27,8 @@ class SchoolProgress
     public $headerThirdLine;
 
     public $colors;
+
+    public $coCuricullar;
 
     public function __construct($data)
     {
@@ -40,6 +44,10 @@ class SchoolProgress
 
         $colors = isset($data[4]) ? $data[4] : [];
         $this->colors = collect($colors);
+
+        $coCuricullar = isset($data[5]) ? $data[5] : [];
+        $this->setCocuricullarTypes($coCuricullar);
+        $this->coCuricullar = collect($coCuricullar); 
     }
 
     public function getTotal($student)
@@ -54,6 +62,17 @@ class SchoolProgress
         }
 
         return [];
+    }
+
+    public function setCocuricullarTypes($types)
+    {
+        $types = isset($types[0]) ? $types[0] : [];        
+        $skip = ['class_student_id', 'exam', 'sub_gpa'];
+        foreach ($types as $type => $value) {
+            if (!is_numeric($type) && !in_array($type, $skip)) {
+                $this->coCuricullarTypes[] = $type;
+            }
+        }
     }
 
     public function setExamTypes($types)
