@@ -233,7 +233,7 @@ class V6PDF extends BasePDF
         $this->SetFont('Helvetica', 'B', 9);
         $this->setBackgroundColor('Co-Curricular');
         $this->setXY($xPos, 48);
-        $text = 'Co-Curricular Activities';
+        $text = 'Life Skills Portfolio';
         $this->Cell($this->curicularColumnWidth, $this->gradesHeaderRowHeight, $text, 1, 1, 'C', true);
         $this->resetBackgroundColor();
 
@@ -243,7 +243,7 @@ class V6PDF extends BasePDF
 
         // curricular subject cell
         $this->setBackgroundColor('Subject');
-        $this->Cell($subjectsWidth, $height, 'SUBJECTS', 1, 0, 'C', true);
+        $this->Cell($subjectsWidth, $height, 'Skills', 1, 0, 'C', true);
         $this->resetBackgroundColor();
 
         // coCuricullarTypes
@@ -253,7 +253,7 @@ class V6PDF extends BasePDF
 
         // curricular subject cell
         $this->setBackgroundColor('Grade');
-        $this->Cell($w, $height, 'Grade', 1, 1, 'C', true);
+        $this->Cell($w, $height, 'G.P.', 1, 1, 'C', true);
         $this->resetBackgroundColor();
 
         // find out the max length of a subject, then reduce the fonts to fit the columns
