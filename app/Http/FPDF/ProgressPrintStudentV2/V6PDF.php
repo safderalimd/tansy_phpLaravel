@@ -274,9 +274,11 @@ class V6PDF extends BasePDF
 
         // draw subjects and marks
         $sum = 0;
+        $subjectsSum = [];
         $nr = count($subjects);
         foreach ($subjects as $subject) {
             $this->setX($xPos);
+            $i = 0;
 
             $subjectName = isset($subject['exam']) ? $subject['exam'] : '';
             $subGpa = isset($subject['sub_gpa']) ? $subject['sub_gpa'] : '';
@@ -288,22 +290,42 @@ class V6PDF extends BasePDF
             foreach ($this->contents->coCuricullarTypes() as $type) {
                 $mark = isset($subject[$type]) ? $subject[$type] : '';
                 $this->Cell($w, $height, $mark, 1, 0, 'C', true);
+                if (! isset($subjectsSum[$i])) {
+                    $subjectsSum[$i] = 0;
+                }
+                $subjectsSum[$i] += $mark;
+                $i++;
             }
             $sum += $subGpa;
             $this->Cell($w, $height, $subGpa, 1, 1, 'C', true);
         }
 
+        $this->setX($xPos);
         $this->SetFont('Helvetica', 'B', 9);
-        if ($nr != 0) {
-            $this->setX($xPos);
-            $averageGPA = round($sum / $nr, 2);
-            $this->setBackgroundColor('Health - Overall GPA');
-            $w1 = $this->subjectsColumnWidth + $w * count($this->contents->coCuricullarTypes());
-            $this->Cell($w1, $height, 'Overall GPA', 1, 0, 'C', true);
-
-            $this->resetBackgroundColor();                
-            $this->Cell($w, $height, $averageGPA, 1, 1, 'C', true);
+        $this->setBackgroundColor('Health - Overall GPA');
+        $this->Cell($subjectsWidth, $height, 'Total', 1, 0, 'C', true);
+        $this->resetBackgroundColor();                
+        
+        $i = 0;
+        foreach ($this->contents->coCuricullarTypes() as $type) {
+            $sumForMarks = $subjectsSum[$i] ?? '';
+            $this->Cell($w, $height, $sumForMarks, 1, 0, 'C', true);
+            $i++;
         }
+
+        $averageGPA = round($sum / $nr, 2);
+        $this->Cell($w, $height, $averageGPA, 1, 1, 'C', true);
+
+        // if ($nr != 0) {
+        //     $this->setX($xPos);
+        //     $averageGPA = round($sum / $nr, 2);
+        //     $this->setBackgroundColor('Health - Overall GPA');
+        //     $w1 = $this->subjectsColumnWidth + $w * count($this->contents->coCuricullarTypes());
+        //     $this->Cell($w1, $height, 'Overall GPA', 1, 0, 'C', true);
+
+        //     $this->resetBackgroundColor();                
+        //     $this->Cell($w, $height, $averageGPA, 1, 1, 'C', true);
+        // }
 
         // health checkup
         $this->setX($xPos);
