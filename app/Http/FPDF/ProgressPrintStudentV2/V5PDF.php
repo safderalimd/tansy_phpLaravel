@@ -223,7 +223,7 @@ class V5PDF extends BasePDF
         }
         $header[] = 'Total';
         $headerColors[] = $this->hexColor('Total');
-        $header[] = 'GPA';
+        $header[] = 'GP';
         $headerColors[] = $this->hexColor('Subject Grade Point');
 
         $startY = 36;
