@@ -56,7 +56,7 @@ class ProgressPrintClassPDF extends BasePDF
 
             foreach ($this->contents->allSubjects as $oneSubject) {
                 $subject = $student->where('subject_name', $oneSubject)->first();
-                $items[] = isset($subject['student_subject_max_total']) ? marks($subject['student_subject_max_total']) : '-';
+                $items[] = isset($subject['student_subject_max_total']) ? number_format($subject['student_subject_max_total'], 2) : '-';
             }
 
             $items[] = marks($this->contents->grandTotal);
