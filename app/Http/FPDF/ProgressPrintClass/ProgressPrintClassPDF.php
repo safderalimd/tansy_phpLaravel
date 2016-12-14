@@ -59,7 +59,7 @@ class ProgressPrintClassPDF extends BasePDF
                 $items[] = isset($subject['student_subject_max_total']) ? number_format($subject['student_subject_max_total'], 2) : '-';
             }
 
-            $items[] = marks($this->contents->grandTotal);
+            $items[] = number_format($this->contents->grandTotal, 2);
             $items[] = $this->contents->grade;
             $items[] = $this->contents->percentage;
             $items[] = $this->contents->gpa;
